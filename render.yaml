@@ -1,7 +1,10 @@
 # Render blueprint for AD Smart Business Cards (Django).
 # Secrets marked sync: false are entered in the Render dashboard, never here.
+# Everything runs in Frankfurt, Render's closest region to Ghana, and the
+# database sits in the same region as the web service and the daily job.
 databases:
   - name: adsmart-db
+    region: frankfurt
     plan: basic-256mb
     databaseName: adsmart
     user: adsmart
@@ -9,6 +12,7 @@ databases:
 services:
   - type: web
     name: adsmart-web
+    region: frankfurt
     runtime: python
     plan: starter
     buildCommand: bash build.sh
@@ -50,6 +54,7 @@ services:
   # payment housekeeping, retention and the exchange rate (06:00 Ghana time).
   - type: cron
     name: adsmart-daily
+    region: frankfurt
     runtime: python
     plan: starter
     schedule: "0 6 * * *"

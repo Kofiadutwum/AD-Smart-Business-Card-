@@ -65,7 +65,8 @@ same hostname.
    Resend account with the business domain verified (SPF/DKIM/DMARC), and keep
    the existing Paystack and Google OAuth apps.
 2. **Staging.** Deploy this repo on Render with `render.yaml` (new Postgres
-   `adsmart-db`, web service, daily cron). Set the secrets in the dashboard.
+   `adsmart-db`, web service, daily cron — all in **Frankfurt**, Render's
+   closest region to Ghana). Set the secrets in the dashboard.
    Set `SITE_URL` to the **final public address** (not the staging one).
 3. **Rehearse the import** from the staging service's Shell, reading the Flask
    database (its *external* connection string) and the live Flask site for
@@ -88,7 +89,10 @@ same hostname.
      `bash build.sh`, the start command to
      `gunicorn config.wsgi:application --workers 3 --timeout 60`, and copy the
      environment variables from `adsmart-web` (including `DATABASE_URL` of
-     `adsmart-db`). The address stays the same.
+     `adsmart-db`). The address stays the same. Render cannot move an
+     existing service to another region, so if the Flask service is not in
+     Frankfurt, create `adsmart-db` in the Flask service's region instead —
+     the database should sit next to the web service.
 6. **Check** a few cards by scanning real QR codes and tapping real NFC cards
    (old tags use `?s=nfc`, which is still counted as an NFC visit), log in as
    a customer, and make one small live payment. Paystack's webhook
