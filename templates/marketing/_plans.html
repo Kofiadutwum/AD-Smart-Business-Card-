@@ -1,0 +1,41 @@
+{# Plan cards. USD is shown larger and GHS smaller, with the CUR-01 notice. #}
+<div class="plans">
+  {% for plan in plans %}
+  <article class="plan{% if plan.is_featured %} plan--featured{% endif %}" aria-labelledby="plan-{{ plan.code }}">
+    <div class="plan__head">
+      <h3 id="plan-{{ plan.code }}">{{ plan.name }}</h3>
+      {% if plan.is_featured %}<span class="badge badge--accent badge--plain">Most popular</span>{% endif %}
+    </div>
+    <p class="plan__blurb">{{ plan.blurb }}</p>
+    <div class="plan__price">
+      {% if rate %}
+        <div class="plan__amount"><span class="plan__usd">{{ plan.price_minor|usd:rate.ghs_per_usd }}</span><span class="plan__per">/ year</span></div>
+        <p class="plan__ghs">{{ plan.price_minor|ghs }} per year</p>
+        <p class="plan__note">Approximate. You will be charged {{ plan.price_minor|ghs }}. Your bank may apply its own exchange rate.</p>
+      {% else %}
+        <div class="plan__amount"><span class="plan__usd">{{ plan.price_minor|ghs }}</span></div>
+        <p class="plan__ghs">per year</p>
+      {% endif %}
+    </div>
+    <ul class="plan__features">
+      {% for on, text in plan.feature_rows %}
+        <li{% if not on %} class="is-off"{% endif %}>{% if on %}{% icon "check" 18 %}{% else %}{% icon "minus" 18 %}<span class="visually-hidden">Not included:</span>{% endif %}<span>{{ text }}</span></li>
+      {% endfor %}
+    </ul>
+    {% if user.is_authenticated and not user.is_staff %}
+      {% url 'billing:checkout' as plan_url %}
+      {% with plan_url|add:"?plan="|add:plan.code as href %}
+        {% if plan.is_featured %}{% hover_button "Choose "|add:plan.name href=href variant="primary" %}{% else %}{% hover_button "Choose "|add:plan.name href=href %}{% endif %}
+      {% endwith %}
+    {% else %}
+      {% url 'accounts:register' as plan_url %}
+      {% with plan_url|add:"?plan="|add:plan.code as href %}
+        {% if plan.is_featured %}{% hover_button "Start with "|add:plan.name href=href variant="primary" %}{% else %}{% hover_button "Start with "|add:plan.name href=href %}{% endif %}
+      {% endwith %}
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% if rate %}
+<p class="fx-note">US dollar prices use today’s rate of 1 USD = GHS {{ rate.ghs_per_usd|floatformat:2 }} (updated {{ rate.fetched_at|date:"j M, H:i" }}). You are always charged in Ghana cedis.</p>
+{% endif %}

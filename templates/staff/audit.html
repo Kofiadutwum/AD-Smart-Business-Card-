@@ -1,0 +1,27 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Audit log</h1><p>Every important action: who, when, what and why.</p></div></div>
+<form class="filters" method="get">
+  <div class="field"><label for="action">Action</label><select id="action" name="action"><option value="">All</option>{% for a in actions %}<option value="{{ a }}" {% if a == action %}selected{% endif %}>{{ a }}</option>{% endfor %}</select></div>
+  <div class="field"><label for="who">Staff email</label><input id="who" name="who" value="{{ who }}"></div>
+  <button class="btn" type="submit">{% icon "search" 16 %}Filter</button>
+</form>
+<div class="table-wrap">
+  <table class="table">
+    <caption class="visually-hidden">Audit log</caption>
+    <thead><tr><th>When</th><th>Who</th><th>Action</th><th>On</th><th>Reason and details</th></tr></thead>
+    <tbody>
+      {% for e in page %}
+        <tr>
+          <td class="nowrap">{{ e.created_at|date:"j M Y, H:i" }}</td>
+          <td>{{ e.actor.email|default:"System" }}</td>
+          <td class="mono text-sm">{{ e.action }}</td>
+          <td class="text-sm">{{ e.target_type }} {{ e.target_label }}</td>
+          <td class="text-sm">{{ e.reason }}{% if e.details %}<br><span class="muted mono text-xs">{{ e.details }}</span>{% endif %}</td>
+        </tr>
+      {% empty %}<tr><td colspan="5" class="muted">Nothing recorded yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "staff/_pagination.html" %}
+{% endblock %}

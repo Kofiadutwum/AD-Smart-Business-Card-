@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ card.full_name }}{% if card.job_title %} · {{ card.job_title }}{% endif %}{% if card.business_name %} · {{ card.business_name }}{% endif %}{% endblock %}
+{% block description %}{{ card.full_name }}{% if card.job_title %}, {{ card.job_title }}{% endif %}{% if card.business_name %} at {{ card.business_name }}{% endif %}. Save my contact in one tap.{% endblock %}
+{% block robots %}{% if not card.allow_indexing %}<meta name="robots" content="noindex, nofollow">{% endif %}{% endblock %}
+{% block meta %}
+  {# SHR-11: a proper preview on WhatsApp, Facebook, LinkedIn and X. #}
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="{{ SITE_NAME }}">
+  <meta property="og:title" content="{{ card.full_name }}">
+  <meta property="og:description" content="{% if card.job_title %}{{ card.job_title }}{% endif %}{% if card.job_title and card.business_name %} · {% endif %}{{ card.business_name }}">
+  <meta property="og:url" content="{{ card_url }}">
+  {% if card.avatar %}<meta property="og:image" content="{{ card.avatar.url }}">{% else %}<meta property="og:image" content="{{ SITE_URL }}{% static 'brand/og-image.jpg' %}">{% endif %}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ card.full_name }}">
+  <link rel="canonical" href="{{ card_url }}">
+{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block body_class %}card-page{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block floating %}{% endblock %}
+{% block content %}
+  {% include "cards/_card.html" %}
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/card.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}

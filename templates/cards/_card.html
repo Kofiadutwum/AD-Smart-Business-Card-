@@ -1,0 +1,140 @@
+{% load static %}
+{% with first=card.full_name.split.0 %}
+<article class="pcard pcard--{{ eff.template }} pcard--btn-{{ eff.button_style }}"
+  style="--pc-accent:{{ pal.accent }};--pc-on-accent:{{ pal.on_accent }};--pc-accent-text:{{ pal.accent_text_light }};--pc-accent-text-dark:{{ pal.accent_text_dark }};--pc-band:{{ pal.band }};--pc-on-band:{{ pal.on_band }};"
+  {% if not demo %}data-card="{{ card.slug }}" data-events-url="{% url 'cards:event' card.slug %}"{% endif %}>
+
+  <div class="pcard__band"{% if eff.background %} style="background-image:url('{{ eff.background.url }}')"{% endif %}>
+    {% if eff.logo %}<img class="pcard__logo" src="{{ eff.logo.url }}" alt="{{ card.business_name|default:'Business' }} logo" width="96" height="96" loading="lazy">{% endif %}
+  </div>
+
+  <header class="pcard__head">
+    <div class="pcard__avatar{% if card.avatar_is_logo %} pcard__avatar--logo{% endif %}">
+      {% if card.avatar %}<img src="{{ card.avatar.url }}" alt="{% if card.avatar_alt %}{{ card.avatar_alt }}{% else %}Photo of {{ card.full_name }}{% endif %}" width="120" height="120">{% else %}<span aria-hidden="true">{{ card.initials }}</span>{% endif %}
+    </div>
+    {% if demo %}<p class="pcard__name">{{ card.full_name }}</p>{% else %}<h1 class="pcard__name">{{ card.full_name }}</h1>{% endif %}
+    {% if card.job_title or card.business_name %}
+      <p class="pcard__role">{{ card.job_title }}{% if card.job_title and card.business_name %}<span aria-hidden="true"> · </span>{% endif %}{% if card.business_name %}<span class="pcard__org">{{ card.business_name }}</span>{% endif %}</p>
+    {% endif %}
+  </header>
+
+  <div class="pcard__primary">
+    <a class="pcard__save" href="{{ vcf_url }}" data-track="save_contact" data-server-tracked>
+      {% icon "user-plus" 20 %}<span>Save contact</span>
+    </a>
+    <button type="button" class="pcard__share" data-share="{{ card_url }}" data-share-title="{{ card.full_name }}" aria-label="Share this card">
+      {% icon "share-2" 20 %}
+    </button>
+  </div>
+
+  {% with phones=eff.phones %}
+  <nav class="pcard__quick" aria-label="Contact {{ first }}">
+    {% if phones and card|card_shows:"phones" %}
+      <a href="tel:{{ phones.0.number }}" data-track="call">{% icon "phone" 20 %}<span>Call</span></a>
+    {% endif %}
+    {% if card.whatsapp and card|card_shows:"whatsapp" %}
+      <a href="https://wa.me/{{ card.whatsapp|wa_digits }}" target="_blank" rel="noopener" data-track="whatsapp">{% brand_icon "whatsapp" 20 %}<span>WhatsApp</span></a>
+    {% endif %}
+    {% if card.email and card|card_shows:"email" %}
+      <a href="mailto:{{ card.email }}" data-track="email">{% icon "mail" 20 %}<span>Email</span></a>
+    {% endif %}
+    {% if card.website and card|card_shows:"website" %}
+      <a href="{{ card.website }}" target="_blank" rel="noopener" data-track="website">{% icon "globe" 20 %}<span>Website</span></a>
+    {% endif %}
+    {% if card.latitude and card.longitude and card|card_shows:"map" %}
+      <a href="https://www.google.com/maps/search/?api=1&amp;query={{ card.latitude }},{{ card.longitude }}" target="_blank" rel="noopener" data-track="location">{% icon "map-pin" 20 %}<span>Map</span></a>
+    {% elif card.address and card|card_shows:"address" %}
+      <a href="https://www.google.com/maps/search/?api=1&amp;query={{ card.address|urlencode }}" target="_blank" rel="noopener" data-track="location">{% icon "map-pin" 20 %}<span>Map</span></a>
+    {% endif %}
+  </nav>
+
+  <section class="pcard__details" aria-label="Contact details">
+    <ul>
+      {% if card|card_shows:"phones" %}
+        {% for phone in phones %}
+        <li><a href="tel:{{ phone.number }}" data-track="call">
+          <span class="pcard__ico">{% icon "phone" 18 %}</span>
+          <span><span class="pcard__val">{{ phone.number|phone }}</span><span class="pcard__lbl">{{ phone.label|default:"Mobile" }}</span></span>
+        </a></li>
+        {% endfor %}
+      {% endif %}
+      {% if card.whatsapp and card|card_shows:"whatsapp" %}
+        <li><a href="https://wa.me/{{ card.whatsapp|wa_digits }}" target="_blank" rel="noopener" data-track="whatsapp">
+          <span class="pcard__ico">{% brand_icon "whatsapp" 18 %}</span>
+          <span><span class="pcard__val">{{ card.whatsapp|phone }}</span><span class="pcard__lbl">WhatsApp</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.email and card|card_shows:"email" %}
+        <li><a href="mailto:{{ card.email }}" data-track="email">
+          <span class="pcard__ico">{% icon "mail" 18 %}</span>
+          <span><span class="pcard__val">{{ card.email }}</span><span class="pcard__lbl">Email</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.website and card|card_shows:"website" %}
+        <li><a href="{{ card.website }}" target="_blank" rel="noopener" data-track="website">
+          <span class="pcard__ico">{% icon "globe" 18 %}</span>
+          <span><span class="pcard__val">{{ card.website|cut:"https://"|cut:"http://"|truncatechars:40 }}</span><span class="pcard__lbl">Website</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.address and card|card_shows:"address" %}
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query={{ card.address|urlencode }}" target="_blank" rel="noopener" data-track="location">
+          <span class="pcard__ico">{% icon "map-pin" 18 %}</span>
+          <span><span class="pcard__val">{{ card.address }}</span><span class="pcard__lbl">Address</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.ghana_post_gps and card|card_shows:"ghana_post_gps" %}
+        <li><div class="pcard__static">
+          <span class="pcard__ico">{% icon "navigation" 18 %}</span>
+          <span><span class="pcard__val mono">{{ card.ghana_post_gps }}</span><span class="pcard__lbl">Ghana Post GPS</span></span>
+        </div></li>
+      {% endif %}
+    </ul>
+  </section>
+  {% endwith %}
+
+  {% if card.bio and card|card_shows:"bio" %}
+    <section class="pcard__bio" aria-label="About {{ first }}"><p>{{ card.bio|linebreaksbr }}</p></section>
+  {% endif %}
+
+  {% if eff.social_links %}
+    <section class="pcard__social pcard__social--{{ eff.icon_layout }}" aria-label="Social media">
+      <ul>
+        {% for link in eff.social_links %}
+          <li><a href="{{ link.url }}" target="_blank" rel="noopener" data-track="social" data-detail="{{ link.platform }}"{% if eff.icon_layout == "row" %} aria-label="{{ link.label }}"{% endif %}>
+            <span class="pcard__ico">{% if link.brand_icon %}{% brand_icon link.brand_icon 18 %}{% else %}{% icon "globe" 18 %}{% endif %}</span>
+            {% if eff.icon_layout != "row" %}<span class="pcard__val">{{ link.label }}</span>{% icon "arrow-up-right" 16 "pcard__go" %}{% endif %}
+          </a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if lead_form %}
+    <details class="pcard__panel"{% if open_lead_form %} open{% endif %}>
+      <summary>{% icon "send" 18 %}<span>Share your details with {{ first }}</span>{% icon "chevron-down" 18 "pcard__chev" %}</summary>
+      <form method="post" action="{% url 'cards:connect' card.slug %}{% if request.GET.src %}?src={{ request.GET.src|urlencode }}{% endif %}" class="form pcard__form" novalidate>
+        {% csrf_token %}
+        <div class="visually-hidden" aria-hidden="true"><label>Leave empty <input name="website_url" tabindex="-1" autocomplete="off"></label></div>
+        {% include "components/form_fields.html" with form=lead_form %}
+        <button class="pcard__submit" type="submit">Send my details</button>
+      </form>
+    </details>
+  {% endif %}
+
+  {% if qr_svg %}
+    <details class="pcard__panel">
+      <summary>{% icon "qr-code" 18 %}<span>Show QR code</span>{% icon "chevron-down" 18 "pcard__chev" %}</summary>
+      <div class="pcard__qr">{{ qr_svg|safe }}<p class="text-sm muted">Let someone scan this to open the card.</p></div>
+    </details>
+  {% endif %}
+
+  <footer class="pcard__foot">
+    {% if eff.branding != "hidden" %}
+      <a class="pcard__brand{% if eff.branding == 'small' %} pcard__brand--small{% endif %}" href="{{ SITE_URL }}/?src=card" rel="noopener">
+        <img src="{% static 'brand/logo-96.webp' %}" alt="" width="24" height="18">Powered by AD Smart
+      </a>
+    {% endif %}
+    {% if not demo %}<a class="pcard__report" href="{% url 'cards:report' card.slug %}">{% icon "flag" 14 %} Report this card</a>{% endif %}
+  </footer>
+</article>
+{% endwith %}

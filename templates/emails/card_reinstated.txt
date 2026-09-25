@@ -1,0 +1,6 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your card /c/{{ card.slug }} is live again.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

@@ -1,0 +1,12 @@
+{% autoescape off %}Welcome to AD Smart Business Cards, {{ user.first_name|default:"there" }}!
+
+Here is how it works:
+1. Confirm your email (check the other message we sent).
+2. Build your card and preview it. It stays private until you choose a plan.
+3. Choose a yearly plan and pay with Mobile Money or a card.
+4. Share your permanent link, QR code or NFC card.
+
+Questions? Reply to this email or message us on WhatsApp.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

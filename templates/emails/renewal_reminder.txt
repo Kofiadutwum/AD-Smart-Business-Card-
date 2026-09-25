@@ -1,0 +1,12 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+{% if days == 0 %}Your {{ subscription.plan.name }} plan ends today.{% else %}Your {{ subscription.plan.name }} plan ends in {{ days }} day{{ days|pluralize }}, on {{ subscription.expires_at|date:"j F Y" }}.{% endif %}
+
+Renew now to keep your card, QR code and NFC cards working without a break. Renewing early adds a full year to your current end date, so you lose nothing.
+
+Renew: {{ site_url }}/billing/
+
+If you do nothing, your card keeps working for a {{ site.grace_period_days }}-day grace period and then shows a "card inactive" page until you renew.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

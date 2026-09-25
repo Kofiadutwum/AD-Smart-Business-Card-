@@ -1,0 +1,28 @@
+{% extends "marketing/_legal.html" %}
+{% block title %}Terms of Service · {{ SITE_NAME }}{% endblock %}
+{% block heading %}Terms of Service{% endblock %}
+{% block intro %}The rules for using AD Smart Business Cards, a service of AD Graphics.{% endblock %}
+{% block body %}
+<h2>1. The service</h2>
+<p>AD Smart Business Cards lets you create a digital contact card, share it by a permanent link, QR code or NFC card, and order customised NFC cards that we design, print, encode and deliver.</p>
+<h2>2. Your account</h2>
+<p>You must give accurate details, confirm your email address, and keep your password private. You are responsible for what happens on your account.</p>
+<h2>3. Plans and payment</h2>
+<ul>
+  <li>Plans are paid yearly in Ghana cedis through Paystack. US dollar prices are approximate and for guidance only.</li>
+  <li>Your card becomes public only after Paystack confirms your payment.</li>
+  <li>Renewal is manual. Renewing early adds a year to your current end date.</li>
+  <li>If you do not renew, your card keeps working for a {{ site.grace_period_days }}-day grace period, then shows a “card inactive” page. Renew at any time to restore the same link, QR code and NFC cards.</li>
+  <li>Price changes apply to new purchases and renewals only, never to time you have already paid for.</li>
+</ul>
+<h2>4. Your card link</h2>
+<p>Your card link is permanent. You can change it only until an NFC card has been ordered for it. Links are never given to another person, even after an account is deleted.</p>
+<h2>5. Acceptable use</h2>
+<p>You must not impersonate another person or business, use your card for fraud, or publish offensive or unlawful content. We may suspend a card that breaks these rules and will tell you why by email.</p>
+<h2>6. NFC orders</h2>
+<p>NFC orders follow the timelines, revision rounds and cancellation rules on the order page and in our <a href="{% url 'marketing:refunds' %}">Refund Policy</a>.</p>
+<h2>7. Availability</h2>
+<p>We aim to keep public cards available at least 99.5% of the time each month, excluding announced maintenance.</p>
+<h2>8. Contact</h2>
+<p>AD Graphics · {{ site.support_email }} · {{ site.support_phone|phone }}</p>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your AD Smart account is active again and your cards are back online.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

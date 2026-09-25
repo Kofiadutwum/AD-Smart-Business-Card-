@@ -1,0 +1,75 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Dashboard · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>Hello, {{ user.first_name|default:"there" }}</h1>
+    <p>{% if subscription %}{{ subscription.plan.name }} plan · {{ subscription.state_label }}{% if subscription.is_live %} until {{ subscription.expires_at|date:"j M Y" }}{% endif %}{% else %}Your card is a draft until you choose a plan.{% endif %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "eye" 16 %}View card</a>
+    {% url 'dashboard:editor' as edit_url %}{% hover_button "Edit card" href=edit_url variant="ink" css="ihb--sm" %}
+  </div>
+</div>
+
+<div class="stats">
+  <div class="panel stat"><span class="stat__label">Card views · 30 days</span><span class="stat__value">{{ views_30 }}</span></div>
+  <div class="panel stat"><span class="stat__label">Contacts saved</span><span class="stat__value">{{ saves_30 }}</span></div>
+  <div class="panel stat"><span class="stat__label">Button clicks</span><span class="stat__value">{{ clicks_30 }}</span></div>
+  <div class="panel stat"><span class="stat__label">New contacts for you</span><span class="stat__value">{{ unread_leads }}</span>{% if unread_leads %}<a class="stat__hint" href="{% url 'dashboard:leads' %}">See who</a>{% endif %}</div>
+</div>
+
+<div class="split mt-6">
+  <section class="panel" aria-labelledby="views-title">
+    <div class="panel__head"><h2 id="views-title">Views, last 30 days</h2><a class="text-sm" href="{% url 'dashboard:analytics' %}">Full analytics</a></div>
+    <div class="bars" role="img" aria-label="{{ views_30 }} views in the last 30 days">
+      {% for day, n in series.items %}<span style="height: {% if series_max %}{% widthratio n series_max 100 %}{% else %}0{% endif %}%" title="{{ day|date:'j M' }}: {{ n }}"></span>{% endfor %}
+    </div>
+    <div class="bars-axis"><span>30 days ago</span><span>Today</span></div>
+  </section>
+
+  <section class="panel" aria-labelledby="share-title">
+    <div class="panel__head"><h2 id="share-title">Your card link</h2></div>
+    <div class="card-row">
+      <div>{{ qr_svg|safe }}</div>
+      <div class="stack" style="--stack: var(--space-3); min-width:0; flex:1">
+        <p class="mono text-sm" style="overflow-wrap:anywhere">{{ card.public_url }}</p>
+        <div class="cluster" style="--cluster: var(--space-2)">
+          <button type="button" class="btn btn--sm" data-copy="{{ card.public_url }}?src=link">{% icon "copy" 16 %}<span data-copy-label>Copy link</span></button>
+          <a class="btn btn--sm" href="{% url 'dashboard:share' %}">{% icon "qr-code" 16 %}QR &amp; sharing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="split split--even mt-6">
+  <section class="panel">
+    <div class="panel__head"><h2>NFC cards</h2><a class="text-sm" href="{% url 'dashboard:nfc' %}">All orders</a></div>
+    {% if open_orders %}
+      <ul class="stack" style="list-style:none;margin:0;padding:0">
+        {% for order in open_orders %}
+          <li class="cluster" style="justify-content:space-between"><a href="{% url 'nfc:detail' order.order_number %}">{{ order.order_number }}</a><span class="badge badge--info">{{ order.get_status_display }}</span></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted text-sm">Printed cards that open your digital card with a tap. We design, print, encode and deliver them.</p>
+      <div class="mt-4">{% url 'nfc:order' as nfc_url %}{% hover_button "Order NFC cards" href=nfc_url css="ihb--sm" %}</div>
+    {% endif %}
+  </section>
+  <section class="panel">
+    <div class="panel__head"><h2>Plan</h2><a class="text-sm" href="{% url 'billing:receipts' %}">Receipts</a></div>
+    {% if subscription %}
+      <dl class="dl">
+        <dt>Plan</dt><dd>{{ subscription.plan.name }}</dd>
+        <dt>Status</dt><dd>{{ subscription.state_label }}</dd>
+        <dt>Paid until</dt><dd>{{ subscription.expires_at|date:"j F Y" }}</dd>
+      </dl>
+      <div class="mt-4"><a class="btn btn--sm" href="{% url 'billing:checkout' %}">{% icon "refresh-cw" 16 %}Renew or upgrade</a></div>
+    {% else %}
+      <p class="muted text-sm">Choose a yearly plan to switch your card on. Pay with Mobile Money or a card.</p>
+      <div class="mt-4">{% url 'billing:checkout' as checkout_url %}{% hover_button "See plans" href=checkout_url variant="primary" css="ihb--sm" %}</div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

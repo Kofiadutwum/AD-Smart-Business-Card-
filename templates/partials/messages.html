@@ -1,0 +1,13 @@
+{% if messages %}
+<div class="toasts" role="status" aria-live="polite">
+  {% for message in messages %}
+    {% with tag=message.tags|default:"info" %}
+    <div class="toast toast--{% if 'error' in tag %}error{% elif 'success' in tag %}success{% elif 'warning' in tag %}warning{% else %}info{% endif %}"{% if 'error' in tag %} data-sticky="true"{% endif %}>
+      {% if 'error' in tag %}{% icon "circle-x" 18 %}{% elif 'success' in tag %}{% icon "circle-check" 18 %}{% elif 'warning' in tag %}{% icon "triangle-alert" 18 %}{% else %}{% icon "info" 18 %}{% endif %}
+      <p>{{ message }}</p>
+      <button type="button" class="toast__close" aria-label="Dismiss">{% icon "x" 16 %}</button>
+    </div>
+    {% endwith %}
+  {% endfor %}
+</div>
+{% endif %}

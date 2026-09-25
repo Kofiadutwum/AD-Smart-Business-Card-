@@ -1,0 +1,14 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+{{ lead.name }} shared their details from your card /c/{{ card.slug }}:
+{% if lead.phone %}
+Phone: {{ lead.phone }}{% endif %}{% if lead.email %}
+Email: {{ lead.email }}{% endif %}{% if lead.organisation %}
+Company: {{ lead.organisation }}{% endif %}{% if lead.note %}
+
+Message: {{ lead.note }}{% endif %}
+
+See all your contacts: {{ site_url }}/dashboard/contacts/
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

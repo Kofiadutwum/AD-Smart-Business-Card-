@@ -1,0 +1,19 @@
+{% extends "marketing/_legal.html" %}
+{% block title %}Refund Policy · {{ SITE_NAME }}{% endblock %}
+{% block heading %}Refund Policy{% endblock %}
+{% block intro %}When you can cancel, and what you get back.{% endblock %}
+{% block body %}
+<h2>Subscription plans</h2>
+<p>Plan payments are not refundable once your card is active, except for duplicate charges or a proven failure of the service.</p>
+<h2>NFC card orders</h2>
+<ul>
+  <li><strong>Before design work starts:</strong> full refund of the cards and delivery.</li>
+  <li><strong>After design starts, before printing:</strong> 50% of the card price is refunded.</li>
+  <li><strong>After printing starts:</strong> the order cannot be cancelled or refunded.</li>
+  <li><strong>Faulty chip:</strong> a card whose NFC chip does not work, reported within 30 days of delivery, is replaced free.</li>
+  <li><strong>Lost or damaged cards:</strong> reorder at the standard price. The new card opens the same permanent link.</li>
+</ul>
+<p>Refunds go back to the original payment method through Paystack. Your bank or network may take a few working days to show them.</p>
+<h2>How to ask</h2>
+<p>Cancel from your order page, or <a href="{% url 'support:contact' %}?topic=payment">contact support</a> with your order number or payment reference.</p>
+{% endblock %}

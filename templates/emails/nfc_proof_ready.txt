@@ -1,0 +1,10 @@
+{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+
+Design proof {{ proof.version }} for your order {{ order.order_number }} is ready.
+{% if proof.staff_note %}
+From the designer: {{ proof.staff_note }}
+{% endif %}
+Please approve it or tell us what to change: {{ order_url }}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

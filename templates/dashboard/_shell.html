@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/app.css' %}{{ ASSET_Q }}"><link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block floating %}{% include "partials/whatsapp_float.html" %}{% endblock %}
+
+{% block content %}
+<div class="app">
+  <div class="app-top">
+    <button type="button" class="menu-toggle" style="display:grid" data-drawer-open aria-controls="app-side" aria-expanded="false" aria-label="Open menu">{% icon "menu" 22 %}</button>
+    <a class="brand" href="{% url 'dashboard:home' %}">
+      <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
+      <span class="brand__text"><strong>AD Smart</strong></span>
+    </a>
+    <button type="button" class="theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme">
+      <span data-theme-icon="system">{% icon "monitor" 20 %}</span><span data-theme-icon="light">{% icon "sun" 20 %}</span><span data-theme-icon="dark">{% icon "moon" 20 %}</span>
+    </button>
+  </div>
+  <div class="app-scrim"></div>
+
+  <aside class="app-side" id="app-side" aria-label="Dashboard">
+    <a class="brand" href="{% url 'marketing:home' %}">
+      <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
+      <span class="brand__text"><strong>AD Smart</strong><span>Business Cards</span></span>
+    </a>
+    <nav class="app-nav" aria-label="Dashboard">
+      <div class="app-nav__group">
+        <p>Your card</p>
+        <ul>
+          <li><a href="{% url 'dashboard:home' %}" {% if active == 'home' %}aria-current="page"{% endif %}>{% icon "layout-dashboard" 18 %}Overview</a></li>
+          <li><a href="{% url 'dashboard:editor' %}" {% if active == 'editor' %}aria-current="page"{% endif %}>{% icon "square-pen" 18 %}Edit card</a></li>
+          <li><a href="{% url 'dashboard:links' %}" {% if active == 'links' %}aria-current="page"{% endif %}>{% icon "link" 18 %}Social links</a></li>
+          <li><a href="{% url 'dashboard:share' %}" {% if active == 'share' %}aria-current="page"{% endif %}>{% icon "share-2" 18 %}Share &amp; QR</a></li>
+          <li><a href="{% url 'dashboard:analytics' %}" {% if active == 'analytics' %}aria-current="page"{% endif %}>{% icon "chart-column" 18 %}Analytics</a></li>
+          <li><a href="{% url 'dashboard:leads' %}" {% if active == 'leads' %}aria-current="page"{% endif %}>{% icon "inbox" 18 %}Contacts</a></li>
+          {% if shell_plan.max_cards > 1 or shell_cards|length > 1 %}<li><a href="{% url 'dashboard:cards' %}" {% if active == 'cards' %}aria-current="page"{% endif %}>{% icon "layers" 18 %}Team cards</a></li>{% endif %}
+        </ul>
+      </div>
+      <div class="app-nav__group">
+        <p>Orders &amp; billing</p>
+        <ul>
+          <li><a href="{% url 'dashboard:nfc' %}" {% if active == 'nfc' %}aria-current="page"{% endif %}>{% icon "nfc" 18 %}NFC cards</a></li>
+          <li><a href="{% url 'billing:checkout' %}" {% if active == 'billing' %}aria-current="page"{% endif %}>{% icon "credit-card" 18 %}Plan &amp; renewal</a></li>
+          <li><a href="{% url 'billing:receipts' %}" {% if active == 'receipts' %}aria-current="page"{% endif %}>{% icon "receipt" 18 %}Receipts</a></li>
+        </ul>
+      </div>
+      <div class="app-nav__group">
+        <p>Account</p>
+        <ul>
+          <li><a href="{% url 'dashboard:settings' %}" {% if active == 'settings' %}aria-current="page"{% endif %}>{% icon "settings" 18 %}Settings</a></li>
+          <li><a href="{% url 'support:mine' %}" {% if active == 'support' %}aria-current="page"{% endif %}>{% icon "life-buoy" 18 %}Help &amp; support</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="app-side__foot">
+      <div class="app-user">
+        <span class="avatar-sm">{% with c=shell_cards.0 %}{% if c and c.avatar %}<img src="{{ c.avatar.url }}" alt="">{% elif c %}{{ c.initials }}{% else %}?{% endif %}{% endwith %}</span>
+        <div><strong>{{ user.display_name }}</strong><span>{{ user.email }}</span></div>
+      </div>
+      <div class="app-side__actions">
+        <button type="button" class="btn btn--sm btn--icon theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme">
+          <span data-theme-icon="system">{% icon "monitor" 18 %}</span><span data-theme-icon="light">{% icon "sun" 18 %}</span><span data-theme-icon="dark">{% icon "moon" 18 %}</span>
+        </button>
+        <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="btn btn--sm" type="submit">{% icon "log-out" 16 %}Log out</button></form>
+      </div>
+    </div>
+  </aside>
+
+  <div class="app-main">
+    <div class="app-main__inner">
+      {% include "dashboard/_status_banner.html" %}
+      {% block main %}{% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}<script src="{% static 'js/app.js' %}{{ ASSET_Q }}" defer></script>{% block page_scripts %}{% endblock %}{% endblock %}

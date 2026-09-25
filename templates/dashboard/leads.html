@@ -1,0 +1,34 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Contacts · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>Contacts</h1>
+    <p>People who sent you their details from your card.</p>
+  </div>
+  {% if leads %}<a class="btn" href="{% url 'dashboard:leads_csv' %}">{% icon "download" 16 %}Export CSV</a>{% endif %}
+</div>
+{% if leads %}
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Contacts received</caption>
+      <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Company</th><th>Came via</th><th>When</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+      <tbody>
+        {% for lead in leads %}
+          <tr>
+            <td><strong>{{ lead.name }}</strong>{% if lead.pk in unread %} <span class="badge badge--accent">New</span>{% endif %}{% if lead.note %}<br><span class="muted text-sm">{{ lead.note|truncatechars:80 }}</span>{% endif %}</td>
+            <td>{% if lead.phone %}<a href="tel:{{ lead.phone }}">{{ lead.phone }}</a>{% endif %}</td>
+            <td>{% if lead.email %}<a href="mailto:{{ lead.email }}">{{ lead.email }}</a>{% endif %}</td>
+            <td>{{ lead.organisation }}</td>
+            <td><span class="badge badge--plain">{{ lead.source|upper }}</span></td>
+            <td class="nowrap">{{ lead.created_at|date:"j M Y, H:i" }}</td>
+            <td><form method="post" action="{% url 'dashboard:lead_delete' lead.pk %}" data-confirm="Remove {{ lead.name }}?">{% csrf_token %}<button class="btn btn--ghost btn--icon" aria-label="Remove {{ lead.name }}">{% icon "trash-2" 18 %}</button></form></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="panel empty">{% icon "inbox" 40 %}<h3>No contacts yet</h3><p>When someone taps “Share your details” on your card, they appear here and you get an email.</p></div>
+{% endif %}
+{% endblock %}

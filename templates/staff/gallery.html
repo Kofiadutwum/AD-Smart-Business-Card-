@@ -1,0 +1,36 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div><h1>Homepage gallery</h1><p>These slides appear in the “Our work” carousel on the homepage, in this order. Landscape pictures fill the slides best.</p></div>
+  <a class="btn" href="{% url 'marketing:home' %}#work" target="_blank" rel="noopener">{% icon "external-link" 16 %}View on homepage</a>
+</div>
+<div class="split">
+  <div class="gallery-admin">
+    {% for image in images %}
+      <figure>
+        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:image.title }}" loading="lazy" style="object-position: center {{ image.focus }}">
+        <figcaption>
+          <div><strong>{{ image.title }}</strong>{% if not image.is_published %} <span class="badge">Hidden</span>{% endif %}<br><span class="muted">{{ image.description|truncatechars:90 }}</span></div>
+          <div class="cluster">
+            <a class="btn btn--sm" href="{% url 'staff:gallery_edit' image.pk %}">Edit</a>
+            <form method="post" action="{% url 'staff:gallery_action' image.pk %}" class="inline-form">{% csrf_token %}<input type="hidden" name="action" value="toggle"><button class="btn btn--sm btn--ghost" type="submit">{% if image.is_published %}Hide{% else %}Publish{% endif %}</button></form>
+            {% if not forloop.first %}<form method="post" action="{% url 'staff:gallery_action' image.pk %}" class="inline-form">{% csrf_token %}<input type="hidden" name="action" value="up"><button class="btn btn--sm btn--ghost btn--icon" type="submit" aria-label="Move earlier">{% icon "arrow-up" 16 %}</button></form>{% endif %}
+            {% if not forloop.last %}<form method="post" action="{% url 'staff:gallery_action' image.pk %}" class="inline-form">{% csrf_token %}<input type="hidden" name="action" value="down"><button class="btn btn--sm btn--ghost btn--icon" type="submit" aria-label="Move later">{% icon "arrow-down" 16 %}</button></form>{% endif %}
+            <form method="post" action="{% url 'staff:gallery_action' image.pk %}" class="inline-form" data-confirm="Delete this slide?">{% csrf_token %}<input type="hidden" name="action" value="delete"><button class="btn btn--sm btn--danger btn--icon" type="submit" aria-label="Delete">{% icon "trash-2" 16 %}</button></form>
+          </div>
+        </figcaption>
+      </figure>
+    {% empty %}
+      <div class="panel empty">{% icon "image" 40 %}<h3>No slides yet</h3><p>Upload the studio’s best work. The gallery section appears on the homepage once there is a slide.</p></div>
+    {% endfor %}
+  </div>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Add a slide</h2>
+    <form method="post" enctype="multipart/form-data" class="form mt-4" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      <button class="btn btn--primary" type="submit">{% icon "upload" 16 %}Upload slide</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

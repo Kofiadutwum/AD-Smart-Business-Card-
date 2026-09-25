@@ -1,0 +1,11 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Settings</h1><p>Business rules the system follows. Changes apply immediately and are recorded in the audit log.</p></div></div>
+<section class="panel" style="max-width: 52rem">
+  <form method="post" class="form" novalidate>
+    {% csrf_token %}
+    {% include "components/form_fields.html" %}
+    <button class="btn btn--primary" type="submit">{% icon "check" 16 %}Save settings</button>
+  </form>
+</section>
+{% endblock %}

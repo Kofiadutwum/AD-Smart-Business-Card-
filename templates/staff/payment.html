@@ -1,0 +1,51 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'staff:payments' %}">Payments</a><span>/</span><span>{{ payment.reference }}</span></div>
+    <h1>{{ payment.amount_minor|ghs }} · {{ payment.get_status_display }}</h1>
+    <p>{{ payment.description }} · <a href="{% url 'staff:subscriber' payment.user_id %}">{{ payment.user.email }}</a></p>
+  </div>
+  {% if payment.receipt_number %}<a class="btn" href="{% url 'billing:receipt_pdf' payment.reference %}">{% icon "file-down" 16 %}Receipt {{ payment.receipt_number }}</a>{% endif %}
+</div>
+{% if payment.flag %}<div class="banner banner--danger">{% icon "triangle-alert" 22 %}<p><strong>Verification problem: {{ payment.flag }}.</strong> Paystack reported different details from our record. Check the Paystack dashboard before activating anything manually.</p></div>{% endif %}
+<div class="split">
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Details</h2>
+    <dl class="dl mt-4">
+      <dt>Reference</dt><dd class="mono">{{ payment.reference }}</dd>
+      <dt>Gateway</dt><dd>{{ payment.gateway }}{% if payment.channel %} · {{ payment.channel }}{% endif %}</dd>
+      <dt>Created</dt><dd>{{ payment.created_at|date:"j M Y, H:i" }}</dd>
+      <dt>Paid</dt><dd>{{ payment.paid_at|date:"j M Y, H:i"|default:"—" }}</dd>
+      <dt>Subtotal</dt><dd>{{ payment.subtotal_minor|ghs }}</dd>
+      {% if payment.discount_minor %}<dt>Discount</dt><dd>−{{ payment.discount_minor|ghs }}{% if payment.promo_code %} ({{ payment.promo_code.code }}){% endif %}</dd>{% endif %}
+      {% if payment.tax_minor %}<dt>Tax</dt><dd>{{ payment.tax_minor|ghs }}</dd>{% endif %}
+      <dt>Charged</dt><dd><strong>{{ payment.amount_minor|ghs }}</strong></dd>
+      <dt>Paystack fee</dt><dd>{{ payment.gateway_fee_minor|ghs }}</dd>
+      <dt>Refunded</dt><dd>{{ payment.refunded_minor|ghs }}</dd>
+      {% if payment.fx_rate %}<dt>USD rate shown</dt><dd>1 USD = GHS {{ payment.fx_rate|floatformat:4 }} ({{ payment.fx_rate_at|date:"j M Y" }})</dd>{% endif %}
+      {% if payment.nfc_order %}<dt>NFC order</dt><dd><a href="{% url 'staff:nfc_detail' payment.nfc_order.pk %}">{{ payment.nfc_order.order_number }}</a></dd>{% endif %}
+      {% if payment.manual_reason %}<dt>Manual reason</dt><dd>{{ payment.manual_reason }}</dd>{% endif %}
+    </dl>
+  </section>
+  <div class="stack" style="--stack: var(--space-6)">
+    {% if refunds %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Refunds</h2>
+      <ul class="mt-4 text-sm" style="padding-left: var(--space-5)">{% for r in refunds %}<li>{{ r.amount_minor|ghs }} · {{ r.get_status_display }} · {{ r.created_at|date:"j M Y" }} by {{ r.created_by.email|default:"system" }}<br><span class="muted">{{ r.reason }}</span></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+    {% if staff_perms.refunds and payment.status == "success" or staff_perms.refunds and payment.status == "partially_refunded" %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Issue a refund</h2>
+      <p class="muted text-sm mt-2">{% if payment.nfc_order %}Suggested from the refund rules for this order’s stage: {{ payment.nfc_order.refundable_minor|ghs }}.{% else %}Subscriptions are refundable only for duplicate charges or a proven service failure (RFD-06).{% endif %}</p>
+      <form method="post" action="{% url 'staff:refund' payment.pk %}" class="form mt-4" data-confirm="Send this refund through Paystack?" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" with form=refund_form %}
+        <button class="btn btn--danger" type="submit">{% icon "undo-2" 16 %}Refund</button>
+      </form>
+    </section>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

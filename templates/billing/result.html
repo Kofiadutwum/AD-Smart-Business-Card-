@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Payment {{ payment.get_status_display|lower }} · {{ SITE_NAME }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block head %}{% if payment.status == "pending" %}<meta http-equiv="refresh" content="6;url=?check=1">{% endif %}{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card center" aria-live="polite">
+    {% if payment.status == "success" %}
+      <span class="step__icon" style="margin: 0 auto var(--space-6); width:3.5rem; height:3.5rem; background: var(--success-soft); color: var(--success)">{% icon "circle-check" 28 %}</span>
+      <h1>Payment received</h1>
+      <p class="lead">{{ payment.description }} · {{ payment.amount_minor|ghs }}.{% if payment.receipt_number %} Receipt {{ payment.receipt_number }} is on its way to your inbox.{% endif %}</p>
+      {% if owner %}
+        <div class="stack mt-8" style="--stack: var(--space-3)">
+          {% if payment.purpose == "nfc_order" and payment.nfc_order %}
+            {% url 'nfc:detail' payment.nfc_order.order_number as next_url %}{% hover_button "Track your order" href=next_url variant="ink" css="ihb--block" %}
+          {% else %}
+            {% url 'dashboard:share' as next_url %}{% hover_button "Share your card" href=next_url variant="ink" css="ihb--block" %}
+          {% endif %}
+          <a class="btn" href="{% url 'billing:receipt_pdf' payment.reference %}">{% icon "file-down" 16 %}Download receipt</a>
+        </div>
+      {% endif %}
+    {% elif payment.status == "pending" %}
+      <span class="step__icon" style="margin: 0 auto var(--space-6); width:3.5rem; height:3.5rem">{% icon "clock" 28 %}</span>
+      <h1>Confirming your payment…</h1>
+      <p class="lead">Approve the prompt on your phone if you paid with Mobile Money. This page checks again every few seconds.</p>
+      <p class="text-sm muted mt-6">Reference <span class="mono">{{ payment.reference }}</span></p>
+      <a class="btn mt-6" href="?check=1">{% icon "refresh-cw" 16 %}Check now</a>
+    {% else %}
+      <span class="step__icon" style="margin: 0 auto var(--space-6); width:3.5rem; height:3.5rem; background: var(--danger-soft); color: var(--danger)">{% icon "circle-x" 28 %}</span>
+      <h1>That payment did not go through</h1>
+      <p class="lead">You have not been charged. You can try again, or use a different payment method.</p>
+      {% if owner %}<div class="mt-8">{% if payment.purpose == "nfc_order" and payment.nfc_order %}{% url 'nfc:detail' payment.nfc_order.order_number as retry_url %}{% else %}{% url 'billing:checkout' as retry_url %}{% endif %}{% hover_button "Try again" href=retry_url variant="ink" css="ihb--block" %}</div>{% endif %}
+    {% endif %}
+    {% if not owner %}<p class="auth-alt"><a href="{% url 'accounts:login' %}">Log in to see your account</a></p>{% endif %}
+  </div>
+</div>
+{% endblock %}

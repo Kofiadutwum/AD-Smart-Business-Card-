@@ -1,0 +1,35 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>NFC orders</h1><p>Design → approval → printing → encoding and QC → dispatch.</p></div></div>
+<nav class="tabs" aria-label="Queues">
+  <a href="?queue=open" {% if queue == "open" %}aria-current="page"{% endif %}>All open <span class="count">{{ counts.open }}</span></a>
+  <a href="?queue=new" {% if queue == "new" %}aria-current="page"{% endif %}>New <span class="count">{{ counts.new }}</span></a>
+  <a href="?queue=design" {% if queue == "design" %}aria-current="page"{% endif %}>In design <span class="count">{{ counts.design }}</span></a>
+  <a href="?queue=waiting" {% if queue == "waiting" %}aria-current="page"{% endif %}>Waiting on customer <span class="count">{{ counts.waiting }}</span></a>
+  <a href="?queue=production" {% if queue == "production" %}aria-current="page"{% endif %}>Production <span class="count">{{ counts.production }}</span></a>
+  <a href="?queue=dispatch" {% if queue == "dispatch" %}aria-current="page"{% endif %}>Dispatch <span class="count">{{ counts.dispatch }}</span></a>
+  <a href="?queue=done" {% if queue == "done" %}aria-current="page"{% endif %}>Delivered</a>
+  <a href="?queue=closed" {% if queue == "closed" %}aria-current="page"{% endif %}>Cancelled</a>
+  <a href="?queue=unpaid" {% if queue == "unpaid" %}aria-current="page"{% endif %}>Unpaid <span class="count">{{ counts.unpaid }}</span></a>
+</nav>
+<form class="filters" method="get"><input type="hidden" name="queue" value="{{ queue }}"><div class="field" style="flex:1;min-width:12rem"><label for="q">Order number, name, email or phone</label><input id="q" name="q" value="{{ q }}"></div><button class="btn" type="submit">{% icon "search" 16 %}Search</button></form>
+<div class="table-wrap">
+  <table class="table">
+    <caption class="visually-hidden">NFC orders</caption>
+    <thead><tr><th>Order</th><th>Customer</th><th class="num">Cards</th><th>Status</th><th>Delivery</th><th>Paid</th></tr></thead>
+    <tbody>
+      {% for o in page %}
+        <tr>
+          <td><a class="mono" href="{% url 'staff:nfc_detail' o.pk %}">{{ o.order_number }}</a>{% if o.legacy_order_type %}<br><span class="muted text-xs">Flask: {{ o.legacy_order_type }}</span>{% endif %}</td>
+          <td>{{ o.full_name }}<br><span class="muted text-xs">{{ o.user.email }}</span></td>
+          <td class="num">{{ o.quantity }}</td>
+          <td><span class="badge {% if o.status == 'awaiting_approval' %}badge--accent{% elif o.status == 'on_hold' or o.status == 'revision_requested' %}badge--warning{% elif o.status == 'delivered' %}badge--success{% elif o.status == 'payment_confirmed' or o.status == 'design_pending' %}badge--info{% endif %}">{{ o.get_status_display }}</span></td>
+          <td>{{ o.delivery_zone.name|default:"—" }}</td>
+          <td class="nowrap">{{ o.paid_at|date:"j M Y"|default:"—" }}</td>
+        </tr>
+      {% empty %}<tr><td colspan="6" class="muted">No orders in this queue.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "staff/_pagination.html" %}
+{% endblock %}

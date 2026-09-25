@@ -1,0 +1,30 @@
+{% extends "marketing/_legal.html" %}
+{% block title %}Privacy Policy · {{ SITE_NAME }}{% endblock %}
+{% block heading %}Privacy Policy{% endblock %}
+{% block intro %}What we collect, why, and your choices, in line with Ghana’s Data Protection Act, 2012 (Act 843).{% endblock %}
+{% block body %}
+<h2>What we collect</h2>
+<ul>
+  <li><strong>Account details:</strong> your name, email, mobile number and password (stored only as a secure hash).</li>
+  <li><strong>Card details:</strong> whatever you choose to put on your card. You decide what is shown publicly.</li>
+  <li><strong>Payments:</strong> amounts, references and receipts. Card and Mobile Money details are handled by Paystack; we never see them.</li>
+  <li><strong>Card visits:</strong> counts of views and clicks, where they came from (link, QR or NFC) and a one-way code to tell repeat visits apart. We do not store visitors’ IP addresses.</li>
+  <li><strong>NFC orders:</strong> the design details, files and delivery address you give us.</li>
+</ul>
+<h2>Why we use it</h2>
+<p>To run your card, process orders and payments, send receipts and reminders, answer support requests and keep the service secure.</p>
+<h2>Who we share it with</h2>
+<p>Paystack (payments), our email provider (transactional email), Cloudinary (image storage) and our hosting provider. We do not sell your data or use advertising trackers.</p>
+<h2 id="cookies">Cookies</h2>
+<p>We use only essential cookies: one to keep you signed in and one to protect forms. Your light or dark theme choice is saved in your browser. No marketing or tracking cookies are used.</p>
+<h2>How long we keep it</h2>
+<ul>
+  <li>Card data is kept for {{ site.data_retention_months }} months after a card becomes inactive, so a renewal restores it. We email you 30 days before deleting it.</li>
+  <li>Visit analytics are kept for 24 months.</li>
+  <li>Financial records are kept as the law requires.</li>
+</ul>
+<h2>Your choices</h2>
+<p>You can edit or hide any detail on your card, download your contacts, and ask us to delete your account from Settings. We remove personal data within 30 days, except records we must keep for accounting.</p>
+<h2>Contact</h2>
+<p>{{ site.support_email }}</p>
+{% endblock %}

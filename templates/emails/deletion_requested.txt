@@ -1,0 +1,8 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+We received your request to delete your AD Smart account. Your cards are now offline, and your personal data will be removed within 30 days. Payment records are kept for accounting, as the law requires.
+
+Changed your mind? Reply to this email within 30 days.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

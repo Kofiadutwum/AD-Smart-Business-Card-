@@ -1,0 +1,29 @@
+{# Subscription state at the top of every dashboard page (Section 6.1). #}
+{% if not shell_subscription %}
+  <div class="banner banner--info">
+    {% icon "sparkles" 22 %}
+    <p><strong>Your card is a draft.</strong> Only you can see it. Choose a plan to give it its permanent link and switch it on.</p>
+    {% url 'billing:checkout' as checkout_url %}{% hover_button "Choose a plan" href=checkout_url variant="primary" css="ihb--sm" %}
+  </div>
+{% elif shell_subscription.state == "grace" %}
+  <div class="banner banner--danger" role="alert">
+    {% icon "triangle-alert" 22 %}
+    <p><strong>Your plan ended on {{ shell_subscription.expires_at|date:"j F Y" }}.</strong> Your card still works until {{ shell_subscription.grace_ends_at|date:"j F Y" }}. Renew before then to keep it live.</p>
+    {% url 'billing:checkout' as checkout_url %}{% hover_button "Renew now" href=checkout_url variant="primary" css="ihb--sm" %}
+  </div>
+{% elif shell_subscription.state == "inactive" %}
+  <div class="banner banner--danger" role="alert">
+    {% icon "circle-x" 22 %}
+    <p><strong>Your card is inactive.</strong> Visitors see a “card inactive” page. Renew to bring back the same link, QR code and NFC cards.</p>
+    {% url 'billing:checkout' as checkout_url %}{% hover_button "Renew now" href=checkout_url variant="primary" css="ihb--sm" %}
+  </div>
+{% elif shell_subscription.state == "expiring_soon" %}
+  <div class="banner banner--warning">
+    {% icon "clock" 22 %}
+    <p><strong>Your plan ends in {{ shell_subscription.days_left }} day{{ shell_subscription.days_left|pluralize }}</strong> ({{ shell_subscription.expires_at|date:"j F Y" }}). Renew early — the new year is added to the end, so you lose nothing.</p>
+    {% url 'billing:checkout' as checkout_url %}{% hover_button "Renew" href=checkout_url css="ihb--sm" %}
+  </div>
+{% endif %}
+{% if shell_subscription.pending_plan %}
+  <div class="banner banner--info">{% icon "info" 22 %}<p>Your plan changes to <strong style="display:inline">{{ shell_subscription.pending_plan.name }}</strong> on {{ shell_subscription.pending_plan_from|date:"j F Y" }}.</p></div>
+{% endif %}

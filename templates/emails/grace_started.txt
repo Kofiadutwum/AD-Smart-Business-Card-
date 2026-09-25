@@ -1,0 +1,8 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your plan ended on {{ subscription.expires_at|date:"j F Y" }}. Your card is still working during a grace period until {{ subscription.grace_ends_at|date:"j F Y" }}.
+
+Renew before then to keep it live: {{ site_url }}/billing/
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

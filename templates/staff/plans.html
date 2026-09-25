@@ -1,0 +1,24 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Plans</h1><p>Prices and allowances. A price change applies to new purchases and renewals only, never to time already paid for.</p></div></div>
+<div class="table-wrap">
+  <table class="table">
+    <caption class="visually-hidden">Plans</caption>
+    <thead><tr><th>Plan</th><th class="num">Price / year</th><th class="num">Cards</th><th class="num">Phones</th><th>Social links</th><th>Logo</th><th>Analytics</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for p in plans %}
+        <tr>
+          <td><a href="{% url 'staff:plan_edit' p.pk %}">{{ p.name }}</a>{% if p.is_featured %} <span class="badge badge--accent badge--plain">Featured</span>{% endif %}<br><span class="muted text-xs mono">{{ p.code }}</span></td>
+          <td class="num">{{ p.price_minor|ghs }}</td>
+          <td class="num">{{ p.max_cards }}</td>
+          <td class="num">{{ p.max_phones }}</td>
+          <td>{{ p.social_limit_label }}</td>
+          <td>{% if p.allow_logo %}Yes{% else %}No{% endif %}</td>
+          <td>{% if p.full_analytics %}Full{% else %}Views only{% endif %}</td>
+          <td>{% if p.is_active %}<span class="badge badge--success">On sale</span>{% else %}<span class="badge">Hidden</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

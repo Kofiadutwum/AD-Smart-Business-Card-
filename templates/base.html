@@ -1,0 +1,52 @@
+{% load static %}<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}Digital business cards you share by link, QR code or NFC tap. Recipients save you to their phone in one tap, and you can update your details any time.{% endblock %}">
+  {% block robots %}{% endblock %}
+  <script>
+    /* Apply the stored theme before first paint (Section 18). */
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preload" href="{% static 'fonts/geist-latin-wght-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}{{ ASSET_Q }}">
+  {% block css %}{% endblock %}
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'brand/favicon-32.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'brand/apple-touch-icon.png' %}">
+  <meta name="theme-color" content="#1f1f1f">
+  {% block meta %}
+  <meta property="og:site_name" content="{{ SITE_NAME }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ SITE_NAME }}">
+  <meta property="og:description" content="Share your contact details by link, QR code or NFC tap.">
+  <meta property="og:image" content="{{ SITE_URL }}{% static 'brand/og-image.jpg' %}">
+  <meta name="twitter:card" content="summary_large_image">
+  {% endblock %}
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  {% block header %}{% include "partials/site_header.html" %}{% endblock %}
+  {% include "partials/messages.html" %}
+  <main id="main" tabindex="-1">
+    {% block content %}{% endblock %}
+  </main>
+  {% block footer %}{% include "partials/site_footer.html" %}{% endblock %}
+  {% block floating %}
+    {% include "partials/whatsapp_float.html" %}
+    {% include "partials/cookie_notice.html" %}
+  {% endblock %}
+  <script src="{% static 'js/site.js' %}{{ ASSET_Q }}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+
+A quick reminder: your design proof for order {{ order.order_number }} has been waiting for {{ days }} days.
+
+Approve it or ask for changes here: {{ order_url }}
+
+If we do not hear back within {{ site.on_hold_after_days }} days of sending it, the order goes on hold.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

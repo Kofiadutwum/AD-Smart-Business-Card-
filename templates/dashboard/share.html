@@ -1,0 +1,41 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Share your card · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>Share your card</h1>
+    <p>One permanent link. The QR code and NFC cards open the same page, and we count where each visit came from.</p>
+  </div>
+</div>
+{% if state != "live" %}
+  <div class="alert alert--warning mb-6" style="margin-bottom: var(--space-6)">{% icon "triangle-alert" 18 %}<span><strong>Your card is not live yet.</strong> People who open the link will see a “not yet active” page until your plan is active.</span></div>
+{% endif %}
+<div class="split">
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Your link</h2>
+    <div class="kbd-copy mt-4">
+      <input id="share-link" value="{{ link_url }}" readonly aria-label="Your card link">
+      <button type="button" data-copy="#share-link">{% icon "copy" 16 %}<span data-copy-label>Copy</span></button>
+    </div>
+    <div class="cluster mt-6">
+      <a class="btn" href="https://wa.me/?text={{ link_url|urlencode }}" target="_blank" rel="noopener">{% brand_icon "whatsapp" 18 %}WhatsApp</a>
+      <a class="btn" href="sms:?&body={{ link_url|urlencode }}">{% icon "message-circle" 18 %}SMS</a>
+      <a class="btn" href="mailto:?subject={{ card.full_name|urlencode }}&amp;body={{ link_url|urlencode }}">{% icon "mail" 18 %}Email</a>
+      <button type="button" class="btn" data-share="{{ link_url }}" data-share-title="{{ card.full_name }}">{% icon "share-2" 18 %}More…</button>
+    </div>
+    <hr>
+    <h2 style="font-size: var(--text-lg)">Save-contact file</h2>
+    <p class="muted text-sm mt-2">A .vcf file with your photo and numbers. Recipients can also get it from the “Save contact” button on your card.</p>
+    <a class="btn mt-4" href="{% url 'cards:vcf' card.slug %}">{% icon "download" 18 %}Download .vcf</a>
+  </section>
+  <section class="panel center">
+    <h2 style="font-size: var(--text-lg)">QR code</h2>
+    <p class="muted text-sm mt-2">For flyers, banners and name tags. Scans are counted as QR visits.</p>
+    <div class="qr-box mt-6">{{ qr_svg|safe }}</div>
+    <div class="cluster mt-6" style="justify-content:center">
+      <a class="btn" href="{% url 'cards:qr' card.slug 'png' %}?download=1&amp;scale=20">{% icon "download" 18 %}PNG</a>
+      <a class="btn" href="{% url 'cards:qr' card.slug 'svg' %}?download=1">{% icon "download" 18 %}SVG for print</a>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your grace period has ended, so your card now shows a "card inactive" page. Your details are safe.
+
+Renew at any time and the same link, QR code and NFC cards work again straight away: {{ site_url }}/billing/
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Page not found · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card center">
+    <p class="eyebrow">404</p>
+    <h1 class="mt-2">We could not find that page</h1>
+    <p class="lead">The link may be old or mistyped. If you scanned a card, try scanning it again.</p>
+    <div class="mt-8">{% url 'marketing:home' as home_url %}{% hover_button "Go to the homepage" href=home_url variant="ink" css="ihb--block" %}</div>
+  </div>
+</div>
+{% endblock %}

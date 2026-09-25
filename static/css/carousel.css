@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Squeeze carousel — port of the supplied "carousel-squeeze.tsx".
+
+   One panel gets the room; three columns share what is left (SHARES in the
+   script); the rest of the row is a tail of slats. The row is a strip that
+   slides, not a ring. All widths are worked out in CSS from the container's
+   own width (cqi), so nothing is measured in script.
+   ========================================================================== */
+
+.sq {
+  container-type: inline-size;
+  width: 100%;
+}
+.sq__inner {
+  --sq-h: clamp(180px, 32cqi, 340px);
+  --sq-gap: 16px;
+  --sq-slat: 8px;
+  --sq-slat-gap: 8px;
+  --sq-radius: 14px;
+  --sq-ms: 1000ms;
+  --sq-ease: cubic-bezier(0.16, 1, 0.3, 1); /* easeOutExpo, as in the original */
+  --sq-fill: var(--primary);
+  --sq-on-fill: var(--on-primary);
+  /* A 16:9 block sets both the open card and the size every picture is drawn
+     at, so a picture keeps one scale however narrow its card gets. */
+  --sq-hero: calc(var(--sq-h) * 16 / 9);
+  --sq-room: calc(
+    100cqi - var(--sq-hero) - var(--sq-slats, 3) * var(--sq-slat-gap) - 3 * var(--sq-gap) - var(--sq-slats, 3) *
+      var(--sq-slat)
+  );
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+/* Phones: a 16:9 block would be wider than the screen, so the open panel
+   becomes 4:3 and the gaps tighten. */
+@container (max-width: 40rem) {
+  .sq__inner {
+    --sq-h: 54cqi;
+    --sq-hero: calc(var(--sq-h) * 4 / 3);
+    --sq-gap: 8px;
+    --sq-slat: 6px;
+    --sq-slat-gap: 6px;
+    --sq-radius: 12px;
+  }
+}
+
+.sq__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.sq__arrow {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--sq-fill);
+  color: var(--sq-on-fill);
+  transition: opacity var(--dur-fast);
+}
+.sq__arrow:hover {
+  opacity: 0.85;
+}
+.sq__arrow:focus-visible {
+  outline: 2px solid var(--sq-fill);
+  outline-offset: 2px;
+}
+
+.sq__viewport {
+  width: 100%;
+  height: var(--sq-h);
+  overflow: hidden;
+}
+.sq__strip {
+  display: flex;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+
+.sq__card {
+  position: relative;
+  isolation: isolate;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg-alt);
+  transition-property: width, margin-left;
+  transition-timing-function: var(--sq-ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.sq__card:focus-visible {
+  outline: 2px solid var(--sq-fill);
+  outline-offset: 2px;
+}
+
+/* Drawn at a fixed 16:9 (4:3 on phones) block and centred, never at the
+   width of its card, so it is never rescaled mid-slide. */
+.sq__img,
+.sq__bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: var(--sq-hero);
+  min-width: 100%;
+  max-width: none;
+  transform: translateX(-50%);
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.sq__overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 4rem 1rem 1rem;
+  background-image: linear-gradient(to top, rgb(0 0 0 / 0.55), transparent);
+  transition: opacity var(--sq-ms) var(--sq-ease);
+}
+.sq__mark {
+  color: #ffffff;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+@container (min-width: 32rem) {
+  .sq__overlay {
+    padding: 5rem 1.5rem 1.5rem;
+  }
+}
+
+.sq__panel {
+  display: grid;
+  margin-top: 1.5rem;
+}
+@container (min-width: 36rem) {
+  .sq__panel {
+    margin-top: 1.75rem;
+  }
+}
+.sq__copy {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--sq-ms) var(--sq-ease), visibility var(--sq-ms);
+}
+.sq__copy.is-shown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+@container (min-width: 36rem) {
+  .sq__copy {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
+}
+.sq__text {
+  max-width: 46rem;
+  font-size: 15px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+@container (min-width: 32rem) {
+  .sq__text {
+    font-size: 17px;
+  }
+}
+.sq__title {
+  color: var(--ink);
+  font-weight: 500;
+}
+.sq__desc {
+  color: var(--muted);
+}
+
+.sq__action {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--sq-fill);
+  color: var(--sq-on-fill);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity var(--dur-fast);
+  align-self: flex-start;
+}
+.sq__action:hover {
+  opacity: 0.85;
+  text-decoration: none;
+}
+.sq__action svg {
+  transition: transform 200ms;
+}
+.sq__action:hover svg {
+  transform: translateX(2px);
+}
+.sq__action:focus-visible {
+  outline: 2px solid var(--sq-fill);
+  outline-offset: 2px;
+}
+
+/* Without script: a plain row of pictures that scrolls sideways. */
+.sq__fallback {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(80%, 26rem);
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0 0 var(--space-3);
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+.sq__fallback li {
+  scroll-snap-align: start;
+}
+.sq__fallback img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.sq__fallback p {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+}
+.sq.is-ready .sq__fallback {
+  display: none;
+}
+.sq:not(.is-ready) .sq__inner {
+  display: none;
+}

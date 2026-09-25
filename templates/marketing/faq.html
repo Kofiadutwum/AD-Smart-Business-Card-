@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Frequently asked questions · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container container--mid">
+    <p class="eyebrow">FAQ</p>
+    <h1>Questions and answers</h1>
+    <p class="lead">How NFC works, iPhone and Android, renewals, delivery and refunds. Can’t find it? <a href="{% url 'support:contact' %}">Ask us</a>.</p>
+  </div>
+</section>
+<section class="section" style="padding-top: 0">
+  <div class="container container--mid">{% include "marketing/_faq.html" with open_first=True %}</div>
+</section>
+{% endblock %}

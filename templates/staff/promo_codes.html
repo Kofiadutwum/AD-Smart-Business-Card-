@@ -1,0 +1,32 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Promo codes</h1><p>Percentage or fixed-amount discounts for plans, NFC orders or both.</p></div></div>
+<div class="split">
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Promo codes</caption>
+      <thead><tr><th>Code</th><th>Offer</th><th>For</th><th class="num">Used</th><th>Expires</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for p in codes %}
+          <tr>
+            <td><a class="mono" href="{% url 'staff:promo_edit' p.pk %}">{{ p.code }}</a><br><span class="muted text-xs">{{ p.description }}</span></td>
+            <td>{{ p.label }}</td>
+            <td>{{ p.get_applies_to_display }}</td>
+            <td class="num">{{ p.used_count }}{% if p.max_uses %} / {{ p.max_uses }}{% endif %}</td>
+            <td class="nowrap">{{ p.expires_at|date:"j M Y"|default:"Never" }}</td>
+            <td>{% if p.is_live %}<span class="badge badge--success">Live</span>{% else %}<span class="badge">Not usable</span>{% endif %}</td>
+          </tr>
+        {% empty %}<tr><td colspan="6" class="muted">No promo codes yet.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">New promo code</h2>
+    <form method="post" class="form mt-4" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      <button class="btn btn--primary" type="submit">{% icon "plus" 16 %}Create code</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+
+Your NFC order {{ order.order_number }} is now: {{ order.get_status_display }}.
+{% if note %}
+{{ note }}
+{% endif %}{% if order.status == "dispatched" and order.courier_name %}
+Courier: {{ order.courier_name }}{% if order.tracking_number %} · Tracking: {{ order.tracking_number }}{% endif %}{% if order.is_international %}
+Shipping to {{ order.delivery_country.name }}. Customs in your country may add a day or two, and any import duties are paid by the recipient.{% endif %}
+{% endif %}
+See the full timeline: {{ order_url }}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

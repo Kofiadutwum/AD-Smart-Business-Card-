@@ -1,0 +1,7 @@
+{% autoescape off %}Card reported: /c/{{ card.slug }} ({{ card.full_name }})
+
+Reason: {{ report.get_reason_display }}
+Details: {{ report.details|default:"(none)" }}
+Reporter: {{ report.reporter_email|default:"anonymous" }}
+
+Review: {{ staff_url }}{% endautoescape %}

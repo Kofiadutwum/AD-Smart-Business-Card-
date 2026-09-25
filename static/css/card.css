@@ -1,0 +1,500 @@
+/* card.css — the public digital card (Section 4, 12).
+   Mobile first: most people open a card from a QR scan or an NFC tap.
+   Colours come from the owner's choices via --pc-* custom properties, which
+   the server has already adjusted for contrast (apps/cards/colors.py). */
+
+.pcard {
+  container-type: inline-size;
+  --pc-radius: var(--radius-pill);
+  --pc-link: var(--pc-accent-text);
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+  background: var(--surface);
+  color: var(--ink);
+  overflow: hidden;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pcard {
+    --pc-link: var(--pc-accent-text-dark);
+  }
+}
+:root[data-theme="dark"] .pcard {
+  --pc-link: var(--pc-accent-text-dark);
+}
+.pcard--btn-rounded {
+  --pc-radius: 0.75rem;
+}
+.pcard--btn-square {
+  --pc-radius: 0.25rem;
+}
+
+/* --- band and head --------------------------------------------------- */
+
+.pcard__band {
+  position: relative;
+  height: 8.5rem;
+  background: var(--pc-band);
+  background-image: radial-gradient(28rem 10rem at 85% 0%, rgb(255 255 255 / 0.18), transparent 70%),
+    linear-gradient(135deg, color-mix(in srgb, var(--pc-band) 100%, #000 0%), color-mix(in srgb, var(--pc-band) 70%, #000));
+  background-size: cover;
+  background-position: center;
+}
+.pcard__logo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  object-fit: contain;
+  padding: 0.35rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.18);
+}
+.pcard__head {
+  padding: 0 1.5rem;
+  text-align: center;
+}
+.pcard__avatar {
+  width: 7.5rem;
+  height: 7.5rem;
+  margin: -3.75rem auto 0;
+  border-radius: 50%;
+  border: 4px solid var(--surface);
+  background: var(--pc-accent);
+  color: var(--pc-on-accent);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -8px rgb(0 0 0 / 0.35);
+  position: relative;
+}
+.pcard__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* A logo in the profile circle: whole, on white, never cropped. */
+.pcard__avatar--logo {
+  background: #ffffff;
+}
+.pcard__avatar--logo img {
+  object-fit: contain;
+  padding: 20%;
+}
+.pcard__avatar span {
+  font-size: 2.25rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.pcard__name {
+  margin-top: 1rem;
+  font-size: 1.625rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+.pcard__role {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.975rem;
+}
+.pcard__org {
+  color: var(--ink-soft);
+  font-weight: 550;
+}
+
+/* Banner: left-aligned, taller band, avatar sits on the band's edge. */
+.pcard--banner .pcard__band {
+  height: 10.5rem;
+}
+.pcard--banner .pcard__head {
+  text-align: left;
+}
+.pcard--banner .pcard__avatar {
+  margin-left: 0;
+}
+/* Minimal: no band. */
+.pcard--minimal .pcard__band {
+  height: 0;
+}
+.pcard--minimal .pcard__logo {
+  display: none;
+}
+.pcard--minimal .pcard__avatar {
+  margin-top: 2rem;
+  border-color: color-mix(in srgb, var(--pc-accent) 25%, var(--surface));
+}
+
+/* --- actions --------------------------------------------------------------- */
+
+.pcard__primary {
+  display: flex;
+  gap: 0.625rem;
+  padding: 1.5rem 1.5rem 0;
+}
+.pcard__save {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  border-radius: var(--pc-radius);
+  background: var(--pc-accent);
+  color: var(--pc-on-accent);
+  font-weight: 650;
+  font-size: 1.0625rem;
+  text-decoration: none;
+  box-shadow: 0 10px 20px -10px color-mix(in srgb, var(--pc-accent) 80%, transparent);
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast), filter var(--dur-fast);
+}
+.pcard__save:hover {
+  text-decoration: none;
+  filter: brightness(1.06);
+}
+.pcard__save:active {
+  transform: scale(0.98);
+}
+.pcard__share {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  min-height: 3.25rem;
+  border-radius: var(--pc-radius);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+}
+.pcard__share:hover {
+  background: var(--bg-alt);
+}
+
+.pcard__quick {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 0;
+}
+.pcard__quick a {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.25rem;
+  border-radius: 0.875rem;
+  background: var(--bg-alt);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 550;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: background var(--dur-fast), transform var(--dur-fast);
+}
+.pcard__quick a .icon {
+  color: var(--pc-link);
+}
+.pcard__quick a:hover {
+  background: color-mix(in srgb, var(--pc-accent) 12%, var(--bg-alt));
+}
+.pcard__quick a:active {
+  transform: scale(0.97);
+}
+
+/* --- details --------------------------------------------------------------- */
+
+.pcard__details ul,
+.pcard__social ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pcard__details {
+  padding: 1.25rem 1.5rem 0;
+}
+.pcard__details li + li {
+  border-top: 1px solid var(--border);
+}
+.pcard__details a,
+.pcard__static {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 3.5rem;
+  padding: 0.5rem 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+.pcard__details a:hover .pcard__val {
+  color: var(--pc-link);
+  text-decoration: underline;
+}
+.pcard__ico {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--pc-accent) 12%, var(--surface));
+  color: var(--pc-link);
+}
+.pcard__val {
+  display: block;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.pcard__lbl {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.pcard__bio {
+  margin: 1.25rem 1.5rem 0;
+  padding: 1rem 1.125rem;
+  border-radius: 1rem;
+  background: var(--bg-alt);
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* --- social ----------------------------------------------------------------------- */
+
+.pcard__social {
+  padding: 1.25rem 1.5rem 0;
+}
+.pcard__social--list ul {
+  display: grid;
+  gap: 0.5rem;
+}
+.pcard__social--list a {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 3.25rem;
+  padding: 0.375rem 1rem 0.375rem 0.375rem;
+  border: 1px solid var(--border);
+  border-radius: var(--pc-radius);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+.pcard__social--list a:hover {
+  border-color: var(--pc-accent);
+}
+.pcard__social--list .pcard__ico,
+.pcard__social--grid .pcard__ico {
+  border-radius: calc(var(--pc-radius) - 0.25rem);
+}
+.pcard__social--list .pcard__val {
+  flex: 1;
+}
+.pcard__go {
+  color: var(--muted);
+}
+.pcard__social--grid ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.pcard__social--grid a {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  padding: 0.375rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.pcard__social--grid .pcard__go {
+  display: none;
+}
+.pcard__social--row ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem;
+}
+.pcard__social--row a {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--pc-radius);
+  background: var(--bg-alt);
+  color: var(--pc-link);
+}
+.pcard__social--row .pcard__ico {
+  background: transparent;
+}
+
+/* --- panels (lead capture, QR) ------------------------------------------------ */
+
+.pcard__panel {
+  margin: 1.25rem 1.5rem 0;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+.pcard__panel + .pcard__panel {
+  margin-top: 0.625rem;
+}
+.pcard__panel summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0 1rem;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.pcard__panel summary::-webkit-details-marker {
+  display: none;
+}
+.pcard__panel summary > .icon:first-child {
+  color: var(--pc-link);
+}
+.pcard__panel summary span {
+  flex: 1;
+}
+.pcard__chev {
+  transition: transform var(--dur);
+  color: var(--muted);
+}
+.pcard__panel[open] .pcard__chev {
+  transform: rotate(180deg);
+}
+.pcard__form {
+  padding: 0 1rem 1rem;
+  gap: 1rem;
+}
+.pcard__submit {
+  min-height: 3rem;
+  border: 0;
+  border-radius: var(--pc-radius);
+  background: var(--pc-accent);
+  color: var(--pc-on-accent);
+  font-weight: 650;
+}
+.pcard__qr {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem 1.25rem;
+  text-align: center;
+}
+.pcard__qr svg {
+  width: 13rem;
+  height: auto;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+}
+
+/* --- foot --------------------------------------------------------------------------- */
+
+.pcard__foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 1.75rem 1.5rem 2rem;
+}
+.pcard__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.25rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 550;
+  text-decoration: none;
+}
+.pcard__brand img {
+  width: 1.5rem;
+  height: auto;
+}
+.pcard__brand--small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+.pcard__report {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+/* --- the page around the card ------------------------------------------------------- */
+
+.card-page {
+  background: var(--bg);
+}
+@media (min-width: 36rem) {
+  .card-page main {
+    padding: 2.5rem 1rem 4rem;
+  }
+  .card-page .pcard {
+    border-radius: 1.75rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+  }
+}
+.card-page .toasts {
+  top: 1rem;
+}
+
+/* State pages: not yet active, inactive, unavailable, gone (Figure 5A). */
+.state-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  background: var(--night);
+  color: #ffffff;
+  text-align: center;
+}
+.state-card {
+  max-width: 26rem;
+}
+.state-card .brand__mark {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0 auto 1.5rem;
+}
+.state-card .brand__mark img {
+  width: 3rem;
+}
+.state-card h1 {
+  font-size: var(--text-3xl);
+}
+.state-card p {
+  margin-top: 0.75rem;
+  color: rgb(255 255 255 / 0.74);
+}
+.state-card .ihb {
+  margin-top: 2rem;
+}
+
+/* Narrow cards (small phones, the editor preview): quick actions become
+   icon-only; the labels stay for screen readers. */
+@container (max-width: 22rem) {
+  .pcard__quick a span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .pcard__quick a {
+    padding: 0.85rem 0.25rem;
+  }
+}

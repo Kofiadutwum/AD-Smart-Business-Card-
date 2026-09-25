@@ -1,0 +1,8 @@
+{% autoescape off %}Hello {{ ticket.name }},
+
+{{ reply }}
+
+Reference: {{ ticket.reference }}. Reply from your dashboard, or to this email.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

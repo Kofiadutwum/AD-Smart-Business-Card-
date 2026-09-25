@@ -1,0 +1,43 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div><h1>Finance report</h1><p>Received revenue by month, split by source. Compare with Paystack settlement reports.</p></div>
+  <a class="btn" href="{% url 'staff:payments_export' 'xlsx' %}">{% icon "download" 16 %}Export all payments</a>
+</div>
+<div class="stats">
+  <div class="panel stat"><span class="stat__label">Subscriptions</span><span class="stat__value">{{ totals.subscription|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">NFC cards</span><span class="stat__value">{{ totals.nfc|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Delivery fees</span><span class="stat__value">{{ totals.delivery|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Refunded</span><span class="stat__value">{{ refunded|ghs }}</span></div>
+</div>
+<div class="stats mt-4">
+  <div class="panel stat"><span class="stat__label">Discounts given</span><span class="stat__value">{{ totals.discount|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Tax collected</span><span class="stat__value">{{ totals.tax|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Paystack fees</span><span class="stat__value">{{ totals.fees|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Payments</span><span class="stat__value">{{ counts.success|default:0 }}</span><span class="stat__hint">{{ counts.failed|default:0 }} failed · {{ counts.pending|default:0 }} pending · {{ counts.abandoned|default:0 }} abandoned</span></div>
+</div>
+<section class="panel mt-6">
+  <div class="panel__head"><h2>By month</h2></div>
+  <div class="table-wrap" style="border:0">
+    <table class="table">
+      <thead><tr><th>Month</th><th class="num">Subscriptions</th><th class="num">NFC cards</th><th class="num">Delivery</th><th class="num">Discounts</th><th class="num">Tax</th><th class="num">Fees</th><th style="width:30%"><span class="visually-hidden">Chart</span></th></tr></thead>
+      <tbody>
+        {% for month, b in rows %}
+          <tr>
+            <td>{{ month }}</td><td class="num">{{ b.subscription|ghs }}</td><td class="num">{{ b.nfc|ghs }}</td><td class="num">{{ b.delivery|ghs }}</td><td class="num">{{ b.discount|ghs }}</td><td class="num">{{ b.tax|ghs }}</td><td class="num">{{ b.fees|ghs }}</td>
+            <td><div class="progress" title="Share of the best month"><span style="width: {% if peak %}{% widthratio b.subscription|add:b.nfc|add:b.delivery peak 100 %}{% else %}0{% endif %}%"></span></div></td>
+          </tr>
+        {% empty %}<tr><td colspan="8" class="muted">No revenue yet.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="panel mt-6">
+  <div class="panel__head"><h2>Promo codes</h2><a class="text-sm" href="{% url 'staff:promo_codes' %}">Manage</a></div>
+  <div class="table-wrap" style="border:0">
+    <table class="table"><thead><tr><th>Code</th><th>Offer</th><th class="num">Used</th><th class="num">Discount given</th></tr></thead>
+      <tbody>{% for p in promos %}<tr><td class="mono">{{ p.code }}</td><td>{{ p.label }}</td><td class="num">{{ p.used_count }}</td><td class="num">{{ p.discount|default:0|ghs }}</td></tr>{% empty %}<tr><td colspan="4" class="muted">No promo codes yet.</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

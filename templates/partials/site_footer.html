@@ -1,0 +1,46 @@
+{% load static %}
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__about">
+        <a class="brand" href="{% url 'marketing:home' %}">
+          <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
+          <span class="brand__text"><strong>AD Smart</strong><span>Business Cards</span></span>
+        </a>
+        <p>Digital and NFC business cards by AD Graphics. Designed, printed, encoded and tested in Ghana.</p>
+      </div>
+      <div>
+        <h2>Product</h2>
+        <ul>
+          <li><a href="{% url 'marketing:pricing' %}">Pricing</a></li>
+          <li><a href="{% url 'marketing:nfc' %}">NFC cards</a></li>
+          <li><a href="{% url 'marketing:nfc' %}#delivery">Delivery</a></li>
+          <li><a href="{% url 'marketing:faq' %}">FAQ</a></li>
+          <li><a href="{% url 'accounts:register' %}">Create a card</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="{{ site.whatsapp_link }}" rel="noopener" target="_blank">{% brand_icon "whatsapp" 16 %} {{ site.support_whatsapp|phone }}</a></li>
+          <li><a href="tel:{{ site.support_phone }}">{% icon "phone" 16 %} {{ site.support_phone|phone }}</a></li>
+          <li><a href="mailto:{{ site.support_email }}">{% icon "mail" 16 %} {{ site.support_email }}</a></li>
+          <li><a href="{{ site.instagram_link }}" rel="noopener" target="_blank">{% brand_icon "instagram" 16 %} @{{ site.instagram_handle }}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Policies</h2>
+        <ul>
+          <li><a href="{% url 'marketing:terms' %}">Terms of Service</a></li>
+          <li><a href="{% url 'marketing:privacy' %}">Privacy Policy</a></li>
+          <li><a href="{% url 'marketing:refunds' %}">Refund Policy</a></li>
+          <li><a href="{% url 'support:contact' %}">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__base">
+      <span>© {{ current_year }} AD Graphics. All rights reserved.</span>
+      <span>Prices in Ghana cedis. Payments by Paystack.</span>
+    </div>
+  </div>
+</footer>

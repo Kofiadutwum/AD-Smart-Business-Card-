@@ -1,0 +1,10 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your AD Smart account has been suspended, so your cards are not showing.
+
+Reason: {{ reason }}
+
+If you think this is a mistake, reply to this email and our team will look into it.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

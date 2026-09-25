@@ -1,0 +1,28 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Card reports</h1><p>Reports from the “Report this card” link. Suspend a card from its owner’s page if action is needed.</p></div></div>
+<div class="table-wrap">
+  <table class="table">
+    <caption class="visually-hidden">Card reports</caption>
+    <thead><tr><th>Card</th><th>Reason</th><th>Details</th><th>Reported</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      {% for r in page %}
+        <tr>
+          <td><a class="mono text-sm" href="{% url 'staff:card_preview' r.card.pk %}">/c/{{ r.card.slug }}</a><br><a class="text-xs" href="{% url 'staff:subscriber' r.card.owner_id %}">{{ r.card.owner.email }}</a></td>
+          <td>{{ r.get_reason_display }}</td>
+          <td class="text-sm">{{ r.details|truncatechars:140 }}{% if r.reporter_email %}<br><span class="muted">{{ r.reporter_email }}</span>{% endif %}</td>
+          <td class="nowrap">{{ r.created_at|date:"j M Y" }}</td>
+          <td><span class="badge {% if r.status == 'open' %}badge--warning{% endif %}">{{ r.get_status_display }}</span></td>
+          <td class="nowrap">
+            {% if r.status == "open" %}
+              <form method="post" action="{% url 'staff:report_action' r.pk %}" class="inline-form">{% csrf_token %}<input type="hidden" name="action" value="dismissed"><button class="btn btn--sm btn--ghost" type="submit">Dismiss</button></form>
+              <form method="post" action="{% url 'staff:report_action' r.pk %}" class="inline-form">{% csrf_token %}<input type="hidden" name="action" value="actioned"><button class="btn btn--sm" type="submit">Mark actioned</button></form>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}<tr><td colspan="6" class="muted">No reports.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "staff/_pagination.html" %}
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Analytics · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>Analytics</h1>
+    <p>Visits are counted without storing anyone’s IP address. Link-preview robots and your own views are not counted.</p>
+  </div>
+  {% if full %}
+  <nav class="tabs" aria-label="Period" style="margin:0; border:0">
+    <a href="?days=7" {% if period == "7" %}aria-current="page"{% endif %}>7 days</a>
+    <a href="?days=30" {% if period == "30" %}aria-current="page"{% endif %}>30 days</a>
+    <a href="?days=90" {% if period == "90" %}aria-current="page"{% endif %}>90 days</a>
+    <a href="?days=365" {% if period == "365" %}aria-current="page"{% endif %}>12 months</a>
+  </nav>
+  {% endif %}
+</div>
+
+{% if not full %}
+  <div class="stats">
+    <div class="panel stat"><span class="stat__label">Total card views</span><span class="stat__value">{{ total_views }}</span></div>
+  </div>
+  <div class="banner banner--info mt-6">
+    {% icon "chart-column" 22 %}
+    <p><strong>See where your visitors come from.</strong> Professional and Business show QR scans, NFC taps, saved contacts and every button click, by day, week, month or year.</p>
+    {% url 'billing:checkout' as checkout_url %}{% hover_button "Upgrade" href=checkout_url css="ihb--sm" %}
+  </div>
+{% else %}
+  <div class="stats">
+    <div class="panel stat"><span class="stat__label">Views</span><span class="stat__value">{{ views }}</span><span class="stat__hint">{{ total_views }} all time</span></div>
+    <div class="panel stat"><span class="stat__label">Unique visitors</span><span class="stat__value">{{ unique }}</span></div>
+    <div class="panel stat"><span class="stat__label">Contacts saved</span><span class="stat__value">{{ saves }}</span></div>
+  </div>
+
+  <section class="panel mt-6">
+    <div class="panel__head"><h2>Views over time</h2></div>
+    <div class="bars" role="img" aria-label="{{ views }} views in the selected period">
+      {% for label, n in series %}<span style="height: {% if series_max %}{% widthratio n series_max 100 %}{% else %}0{% endif %}%" title="{{ label }}: {{ n }}"></span>{% endfor %}
+    </div>
+    <div class="bars-axis"><span>{{ series.0.0 }}</span><span>{% with last=series|last %}{{ last.0 }}{% endwith %}</span></div>
+  </section>
+
+  <div class="split split--even mt-6">
+    <section class="panel">
+      <div class="panel__head"><h2>Where visits came from</h2></div>
+      <div class="meter">
+        {% for label, n, ico in sources %}
+          <div class="meter__row"><span class="cluster" style="--cluster: var(--space-2)">{% icon ico 16 %}{{ label }}</span><div class="progress"><span style="width: {% if views %}{% widthratio n views 100 %}{% else %}0{% endif %}%"></span></div><span class="num">{{ n }}</span></div>
+        {% endfor %}
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel__head"><h2>What people tapped</h2></div>
+      <div class="table-wrap" style="border:0">
+        <table class="table">
+          <caption class="visually-hidden">Clicks by button</caption>
+          <tbody>
+            {% for label, n in clicks %}<tr><td>{{ label }}</td><td class="num">{{ n }}</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if socials %}
+        <p class="label mt-6">Social links</p>
+        <ul class="mt-2 text-sm" style="padding-left: var(--space-5)">{% for platform, n in socials.items %}<li>{{ platform|title }}: {{ n }}</li>{% endfor %}</ul>
+      {% endif %}
+    </section>
+  </div>
+{% endif %}
+{% endblock %}

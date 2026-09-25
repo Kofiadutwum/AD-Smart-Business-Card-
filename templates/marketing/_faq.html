@@ -1,0 +1,8 @@
+<div class="accordion">
+  {% for item in faq %}
+  <details{% if forloop.first and open_first %} open{% endif %}>
+    <summary>{{ item.q }}{% icon "plus" 20 %}</summary>
+    <div class="answer"><p>{{ item.a }}</p></div>
+  </details>
+  {% endfor %}
+</div>

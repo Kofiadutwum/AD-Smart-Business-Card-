@@ -1,0 +1,42 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Subscribers</h1><p>Search by name, email, phone, card link or payment reference.</p></div></div>
+<form class="filters" method="get" role="search">
+  <div class="field" style="flex:1; min-width: 14rem"><label for="q">Search</label><input id="q" name="q" value="{{ q }}" placeholder="kwame, 024…, kwame-mensah, ADS-…"></div>
+  <div class="field"><label for="state">Status</label>
+    <select id="state" name="state">
+      <option value="">All</option>
+      <option value="active" {% if state == "active" %}selected{% endif %}>Active</option>
+      <option value="expiring" {% if state == "expiring" %}selected{% endif %}>Expiring in 30 days</option>
+      <option value="grace" {% if state == "grace" %}selected{% endif %}>Grace period</option>
+      <option value="inactive" {% if state == "inactive" %}selected{% endif %}>Inactive</option>
+      <option value="draft" {% if state == "draft" %}selected{% endif %}>Draft (never paid)</option>
+      <option value="suspended" {% if state == "suspended" %}selected{% endif %}>Suspended</option>
+    </select>
+  </div>
+  <button class="btn" type="submit">{% icon "search" 16 %}Search</button>
+</form>
+<div class="table-wrap">
+  <table class="table">
+    <caption class="visually-hidden">Subscribers</caption>
+    <thead><tr><th>Customer</th><th>Phone</th><th>Plan</th><th>Status</th><th>Paid until</th><th>Joined</th></tr></thead>
+    <tbody>
+      {% for u in page %}
+        {% with s=u.subscription %}
+        <tr>
+          <td><a href="{% url 'staff:subscriber' u.pk %}">{{ u.display_name }}</a><br><span class="muted text-xs">{{ u.email }}</span>{% if u.is_suspended %} <span class="badge badge--danger">Suspended</span>{% endif %}</td>
+          <td class="nowrap">{{ u.phone|phone }}</td>
+          <td>{{ s.plan.name|default:"—" }}</td>
+          <td>{% if not s %}<span class="badge">Draft</span>{% elif s.state == "active" %}<span class="badge badge--success">Active</span>{% elif s.state == "expiring_soon" %}<span class="badge badge--warning">Expiring</span>{% elif s.state == "grace" %}<span class="badge badge--danger">Grace</span>{% else %}<span class="badge">Inactive</span>{% endif %}</td>
+          <td class="nowrap">{% if s %}{{ s.expires_at|date:"j M Y" }}{% else %}—{% endif %}</td>
+          <td class="nowrap">{{ u.date_joined|date:"j M Y" }}</td>
+        </tr>
+        {% endwith %}
+      {% empty %}
+        <tr><td colspan="6" class="muted">No subscribers match.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "staff/_pagination.html" %}
+{% endblock %}

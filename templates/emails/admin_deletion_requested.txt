@@ -1,0 +1,1 @@
+{% autoescape off %}Account deletion requested by {{ user_obj.email }}. The daily job removes personal data 30 days after the request.{% endautoescape %}

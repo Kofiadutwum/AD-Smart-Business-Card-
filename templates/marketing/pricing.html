@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Pricing · {{ SITE_NAME }}{% endblock %}
+{% block description %}Yearly digital business card plans from {{ plans.0.price_minor|ghs }}. NFC cards from GHS 135 each.{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container center">
+    <p class="eyebrow">Pricing</p>
+    <h1>One simple yearly price.</h1>
+    <p class="lead" style="margin-inline:auto">Build and preview your card for free. Choose a plan when you are ready to share it.</p>
+  </div>
+</section>
+<section class="section" style="padding-top: 0">
+  <div class="container">{% include "marketing/_plans.html" %}</div>
+</section>
+<section class="section section--alt">
+  <div class="container">{% include "marketing/_nfc_section.html" with heading_id="nfc-pricing" %}</div>
+</section>
+{% endblock %}

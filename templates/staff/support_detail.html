@@ -1,0 +1,26 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'staff:support' %}">Support</a><span>/</span><span>{{ ticket.reference }}</span></div>
+    <h1>{{ ticket.subject }}</h1>
+    <p>{{ ticket.get_category_display }} · {{ ticket.name }} · <a href="mailto:{{ ticket.email }}">{{ ticket.email }}</a>{% if ticket.phone %} · {{ ticket.phone }}{% endif %}{% if ticket.user %} · <a href="{% url 'staff:subscriber' ticket.user_id %}">account</a>{% endif %}{% if ticket.priority %} · <span class="badge badge--accent">Priority</span>{% endif %}</p>
+  </div>
+</div>
+<div class="thread">
+  {% for m in thread %}
+    <article class="msg{% if m.from_staff %} msg--staff{% endif %}">
+      <header><strong>{% if m.from_staff %}{{ m.author.email|default:"Staff" }}{% else %}{{ ticket.name }}{% endif %}</strong><time>{{ m.created_at|date:"j M Y, H:i" }}</time></header>
+      <p>{{ m.body|linebreaksbr }}</p>
+    </article>
+  {% endfor %}
+</div>
+<form method="post" class="panel form mt-6">
+  {% csrf_token %}
+  <div class="field"><label for="id_body">Reply (emailed to the customer)</label><textarea id="id_body" name="body" rows="5"></textarea></div>
+  <div class="cluster" style="align-items:flex-end">
+    <div class="field"><label for="status">Status</label><select id="status" name="status">{% for key, label in statuses %}<option value="{{ key }}" {% if ticket.status == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+    <button class="btn btn--primary" type="submit">{% icon "send" 16 %}Save</button>
+  </div>
+</form>
+{% endblock %}

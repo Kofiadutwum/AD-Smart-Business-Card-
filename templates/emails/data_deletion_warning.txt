@@ -1,0 +1,8 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your card has been inactive for a while. We will delete its details on {{ delete_on|date:"j F Y" }}, in line with our privacy policy.
+
+To keep your card, renew before then: {{ site_url }}/billing/
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

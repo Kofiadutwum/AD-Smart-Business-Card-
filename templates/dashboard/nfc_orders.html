@@ -1,0 +1,38 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}NFC cards · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>NFC cards</h1>
+    <p>Track your orders, approve designs and see when your cards are on their way.</p>
+  </div>
+  {% url 'nfc:order' as nfc_url %}{% hover_button "New order" href=nfc_url variant="ink" css="ihb--sm" icon_name="plus" %}
+</div>
+{% if orders %}
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Your NFC orders</caption>
+      <thead><tr><th>Order</th><th>Cards</th><th>Status</th><th class="num">Total</th><th>Placed</th></tr></thead>
+      <tbody>
+        {% for order in orders %}
+          <tr>
+            <td><a href="{% url 'nfc:detail' order.order_number %}">{{ order.order_number }}</a></td>
+            <td>{{ order.quantity }}{% for item in order.items.all %}<br><span class="muted text-sm">{{ item.quantity }} → /c/{{ item.card.slug }}</span>{% endfor %}</td>
+            <td>
+              {% if order.status == "awaiting_approval" %}<span class="badge badge--accent">Your approval needed</span>
+              {% elif order.status == "delivered" %}<span class="badge badge--success">Delivered</span>
+              {% elif order.status == "cancelled" or order.status == "refunded" %}<span class="badge">{{ order.get_status_display }}</span>
+              {% elif order.status == "pending_payment" %}<span class="badge badge--warning">Awaiting payment</span>
+              {% else %}<span class="badge badge--info">{{ order.get_status_display }}</span>{% endif %}
+            </td>
+            <td class="num">{{ order.total_minor|ghs }}</td>
+            <td class="nowrap">{{ order.created_at|date:"j M Y" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="panel empty">{% icon "nfc" 40 %}<h3>No NFC orders yet</h3><p>Order printed cards that open your digital card with a tap.</p><div class="mt-6">{% url 'nfc:order' as nfc_url %}{% hover_button "Order NFC cards" href=nfc_url %}</div></div>
+{% endif %}
+{% endblock %}

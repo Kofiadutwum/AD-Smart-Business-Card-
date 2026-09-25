@@ -1,0 +1,4 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="panel empty">{% icon "lock" 40 %}<h3>Not part of your role</h3><p>Your role ({{ user.role_label }}) cannot open this page. Ask the Main Admin if you need it.</p></div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% autoescape off %}Hello {{ ticket.name }},
+
+Thanks for getting in touch. Your reference is {{ ticket.reference }}.
+
+We reply within 1 working day{% if ticket.priority %} (4 working hours for Business plan customers){% endif %}.
+
+Subject: {{ ticket.subject }}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

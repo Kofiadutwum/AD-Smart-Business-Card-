@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Create your account · {{ SITE_NAME }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card">
+    <p class="eyebrow">Step 1 of 3</p>
+    <h1 class="mt-2">Create your account</h1>
+    <p class="lead">Then build and preview your card for free. You only pay when you choose a plan.</p>
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      <p class="text-xs muted">By creating an account you agree to our <a href="{% url 'marketing:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'marketing:privacy' %}" target="_blank">Privacy Policy</a>.</p>
+      {% hover_button "Create account" variant="ink" css="ihb--block" %}
+    </form>
+    <p class="auth-alt">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
+  </div>
+</div>
+{% endblock %}

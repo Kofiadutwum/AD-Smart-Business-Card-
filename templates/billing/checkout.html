@@ -1,0 +1,70 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Choose your plan · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>{% if subscription %}Renew or change your plan{% else %}Choose your plan{% endif %}</h1>
+    <p>{% if subscription %}Your {{ subscription.plan.name }} plan runs until {{ subscription.expires_at|date:"j F Y" }}. Renewing adds 12 months to that date.{% else %}Your card goes live as soon as Paystack confirms your payment.{% endif %}</p>
+  </div>
+</div>
+
+<form method="post" class="split" novalidate>
+  {% csrf_token %}
+  <div class="stack" style="--stack: var(--space-4)">
+    <fieldset class="fieldset">
+      <legend>Plan</legend>
+      <div class="form">
+        {% for p in plans %}
+          <label class="check" style="padding: var(--space-4); border:1px solid {% if p == plan %}var(--primary){% else %}var(--border){% endif %}; border-radius: var(--radius); align-items:center">
+            <input type="radio" name="plan" value="{{ p.code }}" {% if p == plan %}checked{% endif %} data-plan-radio>
+            <span style="flex:1"><strong style="font-size: var(--text-base)">{{ p.name }}</strong>{% if p.is_featured %} <span class="badge badge--accent badge--plain">Most popular</span>{% endif %}<br><span class="muted">{{ p.blurb }}</span></span>
+            <span class="center" style="text-align:right">{% if rate %}<strong style="font-size: var(--text-xl)">{{ p.price_minor|usd:rate.ghs_per_usd }}</strong><br>{% endif %}<span class="text-sm {% if rate %}muted{% endif %}">{{ p.price_minor|ghs }}/yr</span></span>
+          </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Promo code</legend>
+      <div class="cluster" style="align-items:flex-end">
+        <div class="field" style="flex:1; min-width: 12rem"><label for="promo">Code (optional)</label><input id="promo" name="promo" value="{{ promo_code }}" autocapitalize="characters" autocomplete="off"></div>
+        <button class="btn" type="submit" name="action" value="refresh" id="refresh-btn" formnovalidate>Apply</button>
+      </div>
+    </fieldset>
+
+    {% if pending_downgrade %}
+      <div class="alert alert--info">{% icon "info" 18 %}<span><strong>{{ plan.name }} costs less than your current plan.</strong> It starts when your current year ends on {{ subscription.expires_at|date:"j F Y" }}. Until then you keep everything in {{ subscription.plan.name }}.</span></div>
+    {% endif %}
+  </div>
+
+  <aside class="panel" style="position: sticky; top: var(--space-6)">
+    <h2 style="font-size: var(--text-lg)">Summary</h2>
+    <div class="summary mt-4">
+      {% for line in quote.lines %}<div class="summary__row"><span>{{ line.label }}</span><span>{{ line.amount_minor|ghs }}</span></div>{% endfor %}
+      {% if quote.discount_minor %}<div class="summary__row" style="color: var(--success)"><span>Discount ({{ quote.promo.code }})</span><span>−{{ quote.discount_minor|ghs }}</span></div>{% endif %}
+      {% if quote.tax_minor %}<div class="summary__row"><span>{{ quote.tax_label }}</span><span>{{ quote.tax_minor|ghs }}</span></div>{% endif %}
+      <div class="summary__row summary__total"><span>You pay</span><span>{{ quote.total_minor|ghs }}</span></div>
+      {% if rate %}<p class="text-xs muted">About {{ quote.total_minor|usd:rate.ghs_per_usd }}. Approximate. You will be charged {{ quote.total_minor|ghs }}. Your bank may apply its own exchange rate.</p>{% endif %}
+    </div>
+    <label class="check mt-6"><input type="checkbox" name="accept_policy" value="1" required><span>I accept the <a href="{% url 'marketing:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'marketing:refunds' %}" target="_blank">Refund Policy</a>. Subscriptions are not refundable once active.</span></label>
+    <div class="stack mt-6" style="--stack: var(--space-3)">
+      {% hover_button pay_label variant="primary" css="ihb--block" name="action" value="pay" icon_name="lock" %}
+      {% if upgrade %}
+        <button class="btn" style="width:100%" type="submit" name="action" value="upgrade">Or upgrade now for {{ upgrade.amount_minor|ghs }} ({{ upgrade.months }} month{{ upgrade.months|pluralize }} left)</button>
+      {% endif %}
+    </div>
+    <p class="text-xs muted mt-4 cluster" style="--cluster: var(--space-2)">{% icon "shield-check" 16 %}Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard.{% if payment_sandbox %} <strong>Test mode — no real money moves.</strong>{% endif %}</p>
+  </aside>
+</form>
+{% endblock %}
+{% block page_scripts %}
+<script>
+  /* Changing plan refreshes the summary (server-side prices, promo and tax). */
+  document.querySelectorAll("[data-plan-radio]").forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      var form = radio.form, btn = document.getElementById("refresh-btn");
+      if (form.requestSubmit) form.requestSubmit(btn); else btn.click();
+    });
+  });
+</script>
+{% endblock %}

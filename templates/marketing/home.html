@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ SITE_NAME }} — your business card, one tap away{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}{{ ASSET_Q }}">
+  <link rel="preload" as="image" href="{% static 'brand/hero-1920.webp' %}" media="(min-width: 60rem)" imagesrcset="{% static 'brand/hero-1280.webp' %} 1280w, {% static 'brand/hero-1920.webp' %} 1920w" imagesizes="100vw">
+{% endblock %}
+{% block body_class %}page-home{% endblock %}
+
+{% block content %}
+
+{# ============================== HERO ============================== #}
+<section class="hero" aria-labelledby="hero-title">
+  <picture class="hero__media">
+    <source media="(max-width: 59.99rem)" srcset="{% static 'brand/hero-mobile.webp' %}" type="image/webp">
+    <source srcset="{% static 'brand/hero-1280.webp' %} 1280w, {% static 'brand/hero-1920.webp' %} 1920w" sizes="100vw" type="image/webp">
+    <img src="{% static 'brand/hero-1920.jpg' %}" width="1920" height="1080" fetchpriority="high"
+      alt="A hand holding an AD Graphics business card showing the AD logo, Kofi Adutwum’s name, WhatsApp, Instagram, phone and email">
+  </picture>
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="hero__eyebrow"><span class="pulse" aria-hidden="true"></span>Digital + NFC business cards, made in Ghana</p>
+      <h1 id="hero-title">Your business card, <span class="glow">one tap away.</span></h1>
+      <p class="hero__lead">Share your details by link, QR code or a tap of an NFC card. People save you to their phone in one tap — and you can change your details any time without reprinting.</p>
+      <div class="cluster hero__ctas">
+        {% url 'accounts:register' as register_url %}{% hover_button "Create my card" href=register_url variant="light" %}
+        <a class="btn btn--on-dark" href="#pricing">See plans and prices</a>
+      </div>
+      <ul class="hero__proof">
+        {% with first_plan=plans.0 %}{% if first_plan %}<li>{% icon "badge-check" 18 %}From {{ first_plan.price_minor|ghs }} a year</li>{% endif %}{% endwith %}
+        <li>{% icon "wallet" 18 %}MoMo and cards via Paystack</li>
+        <li>{% icon "smartphone" 18 %}Works on iPhone and Android</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{# ============================== ABOUT ============================== #}
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container about">
+    <div>
+      <p class="eyebrow">About AD</p>
+      <h2 id="about-title" class="mt-4">Made by a design studio that lives in print.</h2>
+      <p class="lead mt-6">AD Smart Business Cards is a service of AD Graphics, a Ghanaian design studio behind more than 2,500 designs — logos, flyers, brand kits and print for businesses, churches, schools and events.</p>
+      <p class="muted mt-4">We built AD Smart so your contact details work as hard as your brand does: always up to date, easy to share, and saved in one tap. Every NFC card is designed by our team, printed, encoded with your permanent link and tap-tested on both Android and iPhone before it leaves the studio.</p>
+      <div class="about__sign">
+        <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
+        <div><strong>Kofi Adutwum</strong><span class="muted text-sm">CEO, AD Graphics</span></div>
+      </div>
+    </div>
+    <div class="about__stats">
+      <div class="about-stat about-stat--brand">
+        {% icon "sparkles" 24 %}
+        <div class="about-stat__value">2.5k+</div>
+        <div class="about-stat__label">designs delivered by the AD Graphics studio</div>
+      </div>
+      <div class="about-stat">
+        {% icon "printer" 24 %}
+        <div class="about-stat__value">In-house</div>
+        <div class="about-stat__label">design, printing and NFC encoding</div>
+      </div>
+      <div class="about-stat">
+        {% icon "clock" 24 %}
+        <div class="about-stat__value">3 days</div>
+        <div class="about-stat__label">to your first NFC design proof</div>
+      </div>
+      <div class="about-stat">
+        {% icon "truck" 24 %}
+        <div class="about-stat__value">Worldwide</div>
+        <div class="about-stat__label">delivery across Ghana, shipping abroad, or free pickup</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ========================== HOW IT WORKS ========================== #}
+<section class="section section--alt" id="how-it-works" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-title">From sign-up to shared in four steps.</h2>
+      <p class="lead">Build your card for free and preview it first. You only pay when you are happy with how it looks.</p>
+    </div>
+    <ol class="steps">
+      {% for s in how_it_works %}
+      <li class="step">
+        <div class="step__num"><span class="step__icon">{% icon s.icon 22 %}</span><span>0{{ forloop.counter }}</span></div>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+
+    <div class="share-showcase">
+      <div>
+        <p class="eyebrow">One card, three ways to share</p>
+        <h2 class="mt-4">Whatever they have in their hand, they can reach you.</h2>
+        <ul class="share-list">
+          {% for s in sharing %}
+          <li>
+            <span class="icon-tile">{% icon s.icon 20 %}</span>
+            <h3>{{ s.title }}</h3>
+            <p>{{ s.text }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="share-visual">
+        <div class="phone phone--swing" role="group" aria-label="Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work.">
+          <div class="phone__screen">
+            {% include "cards/_card.html" with card=demo.card eff=demo.eff pal=demo.pal card_url=demo.card_url vcf_url=demo.vcf_url demo=True lead_form=None qr_svg=None %}
+          </div>
+        </div>
+        <p class="phone-hint">{% icon "hand" 16 %}Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the contact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ============================== GALLERY ============================ #}
+{% if gallery %}
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Our work</p>
+      <h2 id="work-title">Recent designs from the AD Graphics studio.</h2>
+      <p class="lead">The same designers who make your NFC card. Open a slide to see the full design.</p>
+    </div>
+    {% include "marketing/_gallery.html" %}
+  </div>
+</section>
+{% endif %}
+
+{# ============================== PRICING ============================ #}
+<section class="section section--alt" id="pricing" aria-labelledby="pricing-title">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">Pricing</p>
+      <h2 id="pricing-title">One simple yearly price.</h2>
+      <p class="lead">Every plan includes your permanent link, QR code and save-contact file. Build and preview for free.</p>
+    </div>
+    {% include "marketing/_plans.html" %}
+  </div>
+</section>
+
+{# ================================ NFC =============================== #}
+<section class="section" id="nfc" aria-labelledby="nfc-title">
+  <div class="container">
+    {% include "marketing/_nfc_section.html" with heading_id="nfc-title" %}
+  </div>
+</section>
+
+{# ================================ FAQ =============================== #}
+<section class="section section--alt" id="faq" aria-labelledby="faq-title">
+  <div class="container container--mid">
+    <div class="section-head">
+      <p class="eyebrow">Questions</p>
+      <h2 id="faq-title">Good to know.</h2>
+    </div>
+    {% include "marketing/_faq.html" %}
+    <p class="mt-8"><a href="{% url 'marketing:faq' %}">Read all questions</a> or <a href="{% url 'support:contact' %}">ask us directly</a>.</p>
+  </div>
+</section>
+
+{# ============================ FINAL CTA ============================= #}
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Your next introduction deserves better than paper.</h2>
+      <p>Create your card in minutes. Preview it free, then choose a plan when you are ready.</p>
+      <div class="cluster">
+        {% url 'accounts:register' as register_url %}{% hover_button "Create my card" href=register_url variant="light" %}
+        <a class="btn btn--on-dark" href="{{ site.whatsapp_link }}" target="_blank" rel="noopener">{% brand_icon "whatsapp" 18 %} Talk to us on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include "marketing/_lightbox.html" %}
+{% endblock %}
+
+{% block footer %}{% with over_hero=False %}{% include "partials/site_footer.html" %}{% endwith %}{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'js/carousel-squeeze.js' %}{{ ASSET_Q }}" defer></script>
+{% endblock %}

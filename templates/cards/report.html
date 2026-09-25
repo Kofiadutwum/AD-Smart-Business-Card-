@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Report a card · {{ SITE_NAME }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card">
+    <h1>Report this card</h1>
+    <p class="lead">Tell us what is wrong with the card at <strong>/c/{{ card.slug }}</strong>. Reports are reviewed by our support team.</p>
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      <fieldset class="field">
+        <legend class="label">{{ form.reason.label }}</legend>
+        {% for radio in form.reason %}
+          <label class="check">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>
+        {% endfor %}
+        {% for error in form.reason.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      </fieldset>
+      {% include "components/field.html" with field=form.details %}
+      {% include "components/field.html" with field=form.reporter_email %}
+      {% hover_button "Send report" variant="ink" css="ihb--block" %}
+      <a class="btn btn--ghost" href="{% url 'cards:public' card.slug %}">Back to the card</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

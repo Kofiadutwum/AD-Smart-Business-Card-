@@ -1,0 +1,11 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><div class="crumbs"><a href="{% url back %}">Back</a></div><h1>{{ title }}</h1></div></div>
+<section class="panel" style="max-width: 44rem">
+  <form method="post" class="form" novalidate>
+    {% csrf_token %}
+    {% include "components/form_fields.html" %}
+    <div class="cluster"><button class="btn btn--primary" type="submit">{% icon "check" 16 %}Save</button><a class="btn btn--ghost" href="{% url back %}">Cancel</a></div>
+  </form>
+</section>
+{% endblock %}

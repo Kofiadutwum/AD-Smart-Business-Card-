@@ -1,0 +1,54 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>NFC prices and delivery</h1><p>The system refuses any price table where a larger order would cost less than a smaller one (NFP-02).</p></div></div>
+<div class="split">
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">NFC price tiers</h2>
+    <p class="muted text-sm mt-2">“Every card at this price” charges the whole order at the tier price. “Extra cards above the previous tier” adds the price for each card beyond the tier below (the “more than 20” row).</p>
+    <form method="post" class="form mt-4" novalidate>
+      {% csrf_token %}
+      {{ tiers.management_form }}
+      {% for f in tiers %}
+        <div class="fieldset" style="padding: var(--space-4)">
+          {{ f.id }}
+          <div class="form-row form-row--3">
+            {% include "components/field.html" with field=f.min_quantity %}
+            {% include "components/field.html" with field=f.max_quantity %}
+            {% include "components/field.html" with field=f.unit_price %}
+          </div>
+          <div class="form-row form-row--2 mt-4">
+            {% include "components/field.html" with field=f.mode %}
+            {% if f.instance.pk %}{% include "components/field.html" with field=f.DELETE %}{% endif %}
+          </div>
+          {% for e in f.non_field_errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+        </div>
+      {% endfor %}
+      <button class="btn btn--primary" type="submit" name="save" value="tiers">{% icon "check" 16 %}Save prices</button>
+    </form>
+    {% if examples %}
+      <h3 class="mt-8" style="font-size: var(--text-base)">What customers pay now</h3>
+      <div class="table-wrap mt-2" style="border:0"><table class="table"><tbody>{% for q, price in examples %}<tr><td>{{ q }} card{{ q|pluralize }}</td><td class="num">{% if price is None %}<span style="color: var(--danger)">No price</span>{% else %}{{ price|ghs }}{% endif %}</td></tr>{% endfor %}</tbody></table></div>
+    {% endif %}
+  </section>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Delivery and shipping zones</h2>
+    <p class="muted text-sm mt-2">Tick “outside Ghana” for international zones. Their fee is what the customer pays for shipping and delivery; import duties are the recipient’s.</p>
+    <form method="post" class="form mt-4" novalidate>
+      {% csrf_token %}
+      {{ zones.management_form }}
+      {% for f in zones %}
+        <div class="fieldset" style="padding: var(--space-4)">
+          {{ f.id }}
+          {% include "components/field.html" with field=f.name %}
+          <div class="form-row form-row--2 mt-4">{% include "components/field.html" with field=f.fee %}{% include "components/field.html" with field=f.eta %}</div>
+          <div class="mt-4">{% include "components/field.html" with field=f.description %}</div>
+          <div class="form-row form-row--2 mt-4">{% include "components/field.html" with field=f.is_pickup %}{% include "components/field.html" with field=f.is_international %}</div>
+          <div class="form-row form-row--2 mt-4">{% include "components/field.html" with field=f.is_active %}{% include "components/field.html" with field=f.sort_order %}</div>
+          {% if f.instance.pk %}<div class="mt-2">{% include "components/field.html" with field=f.DELETE %}</div>{% endif %}
+        </div>
+      {% endfor %}
+      <button class="btn btn--primary" type="submit" name="save" value="zones">{% icon "check" 16 %}Save delivery zones</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

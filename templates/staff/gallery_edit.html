@@ -1,0 +1,14 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><div class="crumbs"><a href="{% url 'staff:gallery' %}">Homepage gallery</a><span>/</span><span>{{ image.title }}</span></div><h1>Edit slide</h1></div></div>
+<div class="split">
+  <section class="panel">
+    <form method="post" enctype="multipart/form-data" class="form" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      <div class="cluster"><button class="btn btn--primary" type="submit">{% icon "check" 16 %}Save</button><a class="btn btn--ghost" href="{% url 'staff:gallery' %}">Cancel</a></div>
+    </form>
+  </section>
+  <figure class="panel" style="margin:0"><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:image.title }}" style="border-radius: var(--radius); aspect-ratio: 16/9; object-fit: cover; width:100%; object-position: center {{ image.focus }}"><figcaption class="text-sm muted mt-2">How the open slide is cropped (16:9) with the current focus.</figcaption></figure>
+</div>
+{% endblock %}

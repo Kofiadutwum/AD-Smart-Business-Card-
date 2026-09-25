@@ -1,0 +1,5 @@
+{% autoescape off %}Order {{ order.order_number }}: the customer {% if approved %}APPROVED proof {{ proof.version }}. Move it to printing.{% else %}asked for changes to proof {{ proof.version }}:
+
+{{ proof.customer_comment }}
+{% if beyond_free %}
+This is beyond the {{ free_rounds }} free revision rounds.{% endif %}{% endif %}{% endautoescape %}

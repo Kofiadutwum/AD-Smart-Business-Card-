@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% if state == "draft" %}This card is not yet active{% elif state == "inactive" %}This card is currently inactive{% elif state == "suspended" %}This card is unavailable{% elif state == "deleted" %}This card no longer exists{% else %}Card not found{% endif %} · {{ SITE_NAME }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block floating %}{% endblock %}
+{% block content %}
+{# None of these pages show the subscriber's personal details (EXP-05). #}
+<div class="state-page">
+  <div class="state-card">
+    <span class="brand__mark"><img src="{% static 'brand/logo-192.webp' %}" alt="AD Smart Business Cards" width="252" height="192"></span>
+    {% if state == "draft" %}
+      <h1>This card is not yet active</h1>
+      <p>The owner is still setting it up. Check back soon.</p>
+    {% elif state == "inactive" %}
+      <h1>This card is currently inactive</h1>
+      <p>The owner’s plan has ended. Once it is renewed, this link works again.</p>
+    {% elif state == "suspended" %}
+      <h1>This card is unavailable</h1>
+      <p>This card has been switched off. If you think this is a mistake, contact support.</p>
+    {% elif state == "deleted" %}
+      <h1>This card no longer exists</h1>
+      <p>The owner has closed this card.</p>
+    {% else %}
+      <h1>We could not find that card</h1>
+      <p>Check the link, or scan the QR code again.</p>
+    {% endif %}
+    {% url 'marketing:home' as home_url %}
+    {% hover_button "Get your own smart card" href=home_url variant="light" %}
+  </div>
+</div>
+{% endblock %}

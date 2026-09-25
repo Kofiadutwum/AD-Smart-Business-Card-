@@ -1,0 +1,3 @@
+{% autoescape off %}A request to /billing/webhook was rejected because its Paystack signature did not match ({{ size }} bytes).
+
+If you recently changed the Paystack secret key, update PAYSTACK_SECRET_KEY on the server. Otherwise someone may be probing the webhook.{% endautoescape %}

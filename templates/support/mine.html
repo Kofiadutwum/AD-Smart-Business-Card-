@@ -1,0 +1,29 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Help and support · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div><h1>Help and support</h1><p>Your messages to our team and their status.</p></div>
+  {% url 'support:contact' as contact_url %}{% hover_button "New request" href=contact_url variant="ink" css="ihb--sm" icon_name="plus" %}
+</div>
+{% if tickets %}
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Your support requests</caption>
+      <thead><tr><th>Reference</th><th>Subject</th><th>Topic</th><th>Status</th><th>Updated</th></tr></thead>
+      <tbody>
+        {% for t in tickets %}
+          <tr>
+            <td><a class="mono" href="{% url 'support:ticket' t.reference %}">{{ t.reference }}</a></td>
+            <td>{{ t.subject }}</td>
+            <td>{{ t.get_category_display }}</td>
+            <td>{% if t.status == "resolved" or t.status == "closed" %}<span class="badge badge--success">{{ t.get_status_display }}</span>{% else %}<span class="badge badge--info">{{ t.get_status_display }}</span>{% endif %}</td>
+            <td class="nowrap">{{ t.updated_at|date:"j M Y" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="panel empty">{% icon "life-buoy" 40 %}<h3>No requests yet</h3><p>Questions about your card, a payment or an NFC order? We are here to help.</p></div>
+{% endif %}
+{% endblock %}

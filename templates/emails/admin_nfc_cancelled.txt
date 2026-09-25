@@ -1,0 +1,6 @@
+{% autoescape off %}Order {{ order.order_number }} was cancelled by the customer.
+
+Refund due under the policy: {{ refundable_minor|ghs }}
+Reason: {{ order.cancel_reason|default:"(none given)" }}
+
+Process the refund from the payment page in the staff area.{% endautoescape %}

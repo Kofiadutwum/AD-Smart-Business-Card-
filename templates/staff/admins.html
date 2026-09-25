@@ -1,0 +1,42 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Administrators</h1><p>Each role opens only the functions in the SRS permission table. Everyone signs in with an authenticator app.</p></div></div>
+<div class="split">
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Staff accounts</caption>
+      <thead><tr><th>Person</th><th>Role</th><th>2FA</th><th>Status</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+      <tbody>
+        {% for m in staff %}
+          <tr>
+            <td><strong>{{ m.full_name|default:m.email }}</strong><br><span class="muted text-xs">{{ m.email }}</span></td>
+            <td>{{ m.role_label }}{% if m.is_superuser %} <span class="badge badge--plain">Superuser</span>{% endif %}</td>
+            <td>{% if m.has_totp %}<span class="badge badge--success">On</span>{% else %}<span class="badge badge--warning">Not set up</span>{% endif %}</td>
+            <td>{% if m.is_active %}Active{% else %}<span class="badge">Deactivated</span>{% endif %}</td>
+            <td>
+              {% if m != user %}
+              <details><summary class="btn btn--sm">Manage</summary>
+                <div class="stack mt-2" style="--stack: var(--space-2)">
+                  <form method="post" action="{% url 'staff:admin_update' m.pk %}" class="cluster" style="--cluster: var(--space-2)">{% csrf_token %}<input type="hidden" name="action" value="role"><select name="role" aria-label="Role for {{ m.email }}">{% for key, label in role_form.fields.role.choices %}<option value="{{ key }}" {% if m.staff_role == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select><button class="btn btn--sm" type="submit">Change role</button></form>
+                  <form method="post" action="{% url 'staff:reset_2fa' m.pk %}" data-confirm="Reset two-factor for {{ m.email }}?">{% csrf_token %}<button class="btn btn--sm btn--ghost" type="submit">Reset 2FA</button></form>
+                  <form method="post" action="{% url 'staff:admin_update' m.pk %}" data-confirm="{% if m.is_active %}Deactivate{% else %}Reactivate{% endif %} {{ m.email }}?">{% csrf_token %}<input type="hidden" name="action" value="deactivate"><button class="btn btn--sm {% if m.is_active %}btn--danger{% endif %}" type="submit">{% if m.is_active %}Deactivate{% else %}Reactivate{% endif %}</button></form>
+                </div>
+              </details>
+              {% else %}<span class="muted text-sm">You</span>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Add an administrator</h2>
+    <p class="muted text-sm mt-2">They receive an email with a link to set their password, then set up two-factor at first sign-in.</p>
+    <form method="post" class="form mt-4" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      <button class="btn btn--primary" type="submit">{% icon "user-plus" 16 %}Invite</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

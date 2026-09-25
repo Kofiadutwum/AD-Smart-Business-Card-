@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Staff · {{ SITE_NAME }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/app.css' %}{{ ASSET_Q }}">{% block staff_css %}{% endblock %}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block floating %}{% endblock %}
+
+{% block content %}
+<div class="app">
+  <div class="app-top">
+    <button type="button" class="menu-toggle" style="display:grid" data-drawer-open aria-controls="app-side" aria-expanded="false" aria-label="Open menu">{% icon "menu" 22 %}</button>
+    <a class="brand" href="{% url 'staff:home' %}"><span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span><span class="brand__text"><strong>Staff</strong></span></a>
+  </div>
+  <div class="app-scrim"></div>
+  <aside class="app-side" id="app-side" aria-label="Staff">
+    <a class="brand" href="{% url 'staff:home' %}">
+      <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
+      <span class="brand__text"><strong>AD Smart</strong><span class="staff-mark">STAFF</span></span>
+    </a>
+    <nav class="app-nav" aria-label="Staff">
+      <div class="app-nav__group">
+        <ul>
+          <li><a href="{% url 'staff:home' %}" {% nav_current 'staff:home' %}>{% icon "layout-dashboard" 18 %}Overview</a></li>
+          {% if staff_perms.view_subscribers %}<li><a href="{% url 'staff:subscribers' %}" {% nav_current 'staff:subscribers' True %}>{% icon "users" 18 %}Subscribers</a></li>{% endif %}
+          {% if staff_perms.nfc_view %}<li><a href="{% url 'staff:nfc_orders' %}" {% nav_current 'staff:nfc_orders' True %}>{% icon "nfc" 18 %}NFC orders</a></li>{% endif %}
+        </ul>
+      </div>
+      {% if staff_perms.view_payments or staff_perms.promo_codes %}
+      <div class="app-nav__group">
+        <p>Money</p>
+        <ul>
+          {% if staff_perms.view_payments %}<li><a href="{% url 'staff:payments' %}" {% nav_current 'staff:payments' True %}>{% icon "wallet" 18 %}Payments</a></li>{% endif %}
+          {% if staff_perms.finance %}<li><a href="{% url 'staff:finance_report' %}" {% nav_current 'staff:finance_report' %}>{% icon "chart-column" 18 %}Finance report</a></li>{% endif %}
+          {% if staff_perms.promo_codes %}<li><a href="{% url 'staff:promo_codes' %}" {% nav_current 'staff:promo_codes' True %}>{% icon "tag" 18 %}Promo codes</a></li>{% endif %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if staff_perms.support or staff_perms.gallery or staff_perms.email_subscribers %}
+      <div class="app-nav__group">
+        <p>Customers and content</p>
+        <ul>
+          {% if staff_perms.support %}<li><a href="{% url 'staff:support' %}" {% nav_current 'staff:support' True %}>{% icon "life-buoy" 18 %}Support</a></li>{% endif %}
+          {% if staff_perms.reports %}<li><a href="{% url 'staff:reports' %}" {% nav_current 'staff:reports' True %}>{% icon "flag" 18 %}Card reports</a></li>{% endif %}
+          {% if staff_perms.email_subscribers %}<li><a href="{% url 'staff:email' %}" {% nav_current 'staff:email' %}>{% icon "send" 18 %}Email subscribers</a></li>{% endif %}
+          {% if staff_perms.gallery %}<li><a href="{% url 'staff:gallery' %}" {% nav_current 'staff:gallery' True %}>{% icon "image" 18 %}Homepage gallery</a></li>{% endif %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if staff_perms.settings %}
+      <div class="app-nav__group">
+        <p>Main admin</p>
+        <ul>
+          <li><a href="{% url 'staff:settings' %}" {% nav_current 'staff:settings' %}>{% icon "settings" 18 %}Settings</a></li>
+          <li><a href="{% url 'staff:plans' %}" {% nav_current 'staff:plans' True %}>{% icon "crown" 18 %}Plans</a></li>
+          <li><a href="{% url 'staff:pricing' %}" {% nav_current 'staff:pricing' %}>{% icon "percent" 18 %}NFC prices &amp; delivery</a></li>
+          <li><a href="{% url 'staff:admins' %}" {% nav_current 'staff:admins' True %}>{% icon "shield-check" 18 %}Administrators</a></li>
+          <li><a href="{% url 'staff:audit' %}" {% nav_current 'staff:audit' %}>{% icon "history" 18 %}Audit log</a></li>
+          {% if user.is_superuser %}<li><a href="/staff/db/">{% icon "layers" 18 %}Database admin</a></li>{% endif %}
+        </ul>
+      </div>
+      {% endif %}
+    </nav>
+    <div class="app-side__foot">
+      <div class="app-user">
+        <span class="avatar-sm">{{ user.email|make_list|first|upper }}</span>
+        <div><strong>{{ user.full_name|default:user.email }}</strong><span>{{ user.role_label }}</span></div>
+      </div>
+      <div class="app-side__actions">
+        <button type="button" class="btn btn--sm btn--icon theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme"><span data-theme-icon="system">{% icon "monitor" 18 %}</span><span data-theme-icon="light">{% icon "sun" 18 %}</span><span data-theme-icon="dark">{% icon "moon" 18 %}</span></button>
+        <form method="post" action="{% url 'staff:logout' %}">{% csrf_token %}<button class="btn btn--sm" type="submit">{% icon "log-out" 16 %}Sign out</button></form>
+      </div>
+    </div>
+  </aside>
+  <div class="app-main"><div class="app-main__inner">{% block main %}{% endblock %}</div></div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/app.js' %}{{ ASSET_Q }}" defer></script>{% block page_scripts %}{% endblock %}{% endblock %}

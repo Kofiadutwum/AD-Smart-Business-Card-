@@ -1,0 +1,127 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'staff:nfc_orders' %}">NFC orders</a><span>/</span><span>{{ order.order_number }}</span></div>
+    <h1>{{ order.order_number }} · {{ order.get_status_display }}</h1>
+    <p>{{ order.quantity }} card{{ order.quantity|pluralize }} for <a href="{% url 'staff:subscriber' order.user_id %}">{{ order.full_name }}</a> · {{ order.total_minor|ghs }}{% if order.paid_at %} paid {{ order.paid_at|date:"j M Y" }}{% else %} · not paid{% endif %}</p>
+  </div>
+</div>
+{% if order.revision_rounds > free_rounds %}<div class="banner banner--warning">{% icon "info" 22 %}<p><strong>{{ order.revision_rounds }} revision rounds used</strong> — beyond the {{ free_rounds }} free rounds. Agree any extra fee with the customer or proceed at your discretion (NFC-02).</p></div>{% endif %}
+
+<div class="split">
+  <div class="stack" style="--stack: var(--space-6)">
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Write these links to the tags, then lock them</h2>
+      <p class="muted text-sm mt-2">Every tag gets the permanent URL with <span class="mono">?src=nfc</span> so taps are counted (NFC-05).</p>
+      <div class="table-wrap mt-4" style="border:0">
+        <table class="table"><thead><tr><th class="num">Qty</th><th>URL to encode</th><th></th></tr></thead>
+          <tbody>{% for item in items %}<tr><td class="num">{{ item.quantity }}</td><td class="mono text-sm" style="overflow-wrap:anywhere"><span id="enc-{{ item.pk }}">{{ item.encode_url }}</span></td><td><button type="button" class="btn btn--sm" data-copy="{{ item.encode_url }}">{% icon "copy" 14 %}<span data-copy-label>Copy</span></button></td></tr>{% endfor %}</tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Design brief</h2>
+      <dl class="dl mt-4">
+        <dt>Name</dt><dd>{{ order.full_name }}</dd>
+        <dt>Position</dt><dd>{{ order.position|default:"—" }}</dd>
+        <dt>Business</dt><dd>{{ order.business_name|default:"—" }}</dd>
+        <dt>Email</dt><dd>{{ order.email }}</dd>
+        <dt>Phone</dt><dd>{{ order.phone|phone }}</dd>
+        <dt>Website</dt><dd>{{ order.website|default:"—" }}</dd>
+        <dt>Logo</dt><dd>{% if order.logo %}<a href="{% url 'staff:nfc_file' order.pk 'logo' %}">{% icon "download" 14 %} Download</a>{% else %}None uploaded{% endif %}</dd>
+        <dt>Reference</dt><dd>{% if order.reference_design %}<a href="{% url 'staff:nfc_file' order.pk 'reference' %}">{% icon "download" 14 %} Download</a>{% else %}None{% endif %}</dd>
+        <dt>Description</dt><dd>{{ order.design_description|linebreaksbr|default:"—" }}</dd>
+        {% if order.notes %}<dt>Notes</dt><dd>{{ order.notes|linebreaksbr }}</dd>{% endif %}
+        {% if order.legacy_replacement_reason %}<dt>Replacement</dt><dd>{{ order.legacy_replacement_reason }}</dd>{% endif %}
+      </dl>
+    </section>
+
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Design proofs</h2>
+      {% for proof in proofs %}
+        <div class="cluster mt-4" style="justify-content:space-between; border-bottom: 1px solid var(--border); padding-bottom: var(--space-3)">
+          <span><strong>Proof {{ proof.version }}</strong> · {{ proof.created_at|date:"j M, H:i" }} · <a href="{% url 'nfc:proof_file' order.order_number proof.version %}" target="_blank">open</a>{% if proof.customer_comment %}<br><span class="muted text-sm">Customer: {{ proof.customer_comment }}</span>{% endif %}</span>
+          <span class="badge {% if proof.decision == 'approved' %}badge--success{% elif proof.decision == 'changes_requested' %}badge--warning{% else %}badge--accent{% endif %}">{{ proof.get_decision_display }}</span>
+        </div>
+      {% empty %}<p class="muted text-sm mt-2">No proofs yet. The first is due within 3 working days of payment (NFC-01).</p>{% endfor %}
+      {% if can_design and order.is_paid and order.status != "cancelled" and order.status != "refunded" %}
+        <form method="post" action="{% url 'staff:nfc_proof' order.pk %}" enctype="multipart/form-data" class="form mt-6" novalidate>
+          {% csrf_token %}
+          {% include "components/form_fields.html" with form=proof_form %}
+          <button class="btn btn--primary" type="submit">{% icon "upload" 16 %}Send proof to customer</button>
+        </form>
+      {% endif %}
+    </section>
+
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg); margin-bottom: var(--space-5)">Timeline</h2>
+      <ol class="timeline">
+        {% for e in events %}
+          <li><time>{{ e.created_at|date:"j M Y, H:i" }}{% if e.actor %} · {{ e.actor.email }}{% endif %}</time>{% if e.status %}<strong>{{ e.status_label }}</strong>{% if e.message %} — {% endif %}{% endif %}<span class="{% if not e.visible_to_customer %}internal{% endif %}">{{ e.message }}{% if not e.visible_to_customer %} (internal){% endif %}</span></li>
+        {% endfor %}
+      </ol>
+      <form method="post" action="{% url 'staff:nfc_note' order.pk %}" class="form mt-6">
+        {% csrf_token %}
+        {% include "components/form_fields.html" with form=note_form %}
+        <button class="btn" type="submit">Add note</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="stack" style="--stack: var(--space-6)">
+    {% if can_produce %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Move the order</h2>
+      {% with nexts=order.allowed_next %}
+        {% if nexts %}
+          <form method="post" action="{% url 'staff:nfc_status' order.pk %}" class="form mt-4">
+            {% csrf_token %}
+            <div class="field"><label for="st">Next step</label><select id="st" name="status">{% for key, label in nexts %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></div>
+            <div class="field"><label for="st-note">Message to the customer (optional)</label><textarea id="st-note" name="note" rows="2"></textarea></div>
+            <button class="btn btn--primary" type="submit">Update status and email customer</button>
+          </form>
+        {% else %}<p class="muted text-sm mt-2">No further steps.</p>{% endif %}
+      {% endwith %}
+      <p class="text-xs muted mt-4">To send a design for approval, upload a proof. Customers approve or request changes themselves.</p>
+    </section>
+
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Encoding, quality check and dispatch</h2>
+      <form method="post" action="{% url 'staff:nfc_quality' order.pk %}" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" with form=quality_form %}
+        {% if order.qc_at %}<p class="text-xs muted">Tap-tested by {{ order.qc_by.email }} on {{ order.qc_at|date:"j M Y, H:i" }}.</p>{% endif %}
+        <button class="btn" type="submit">{% icon "badge-check" 16 %}Save production details</button>
+      </form>
+    </section>
+    {% endif %}
+
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">{% if order.is_pickup %}Pickup{% elif order.is_international %}International shipping · {{ order.delivery_country.name }}{% else %}Delivery{% endif %}</h2>
+      <dl class="dl mt-4">
+        <dt>Option</dt><dd>{{ order.delivery_zone.name|default:"—" }}{% if order.delivery_fee_minor %} ({{ order.delivery_fee_minor|ghs }}){% endif %}</dd>
+        {% if not order.is_pickup %}
+          <dt>Recipient</dt><dd>{{ order.recipient_name }} · {{ order.recipient_phone|phone }}</dd>
+          <dt>Label</dt><dd>{% for line in order.shipping_address_lines %}{{ line }}<br>{% endfor %}</dd>
+        {% endif %}
+      </dl>
+    </section>
+
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Money</h2>
+      <div class="summary mt-4">
+        <div class="summary__row"><span>Cards</span><span>{{ order.cards_minor|ghs }}</span></div>
+        <div class="summary__row"><span>{% if order.is_international %}Shipping and delivery{% else %}Delivery{% endif %}</span><span>{{ order.delivery_fee_minor|ghs }}</span></div>
+        {% if order.plan_minor %}<div class="summary__row"><span>{{ order.bundled_plan.name }} plan</span><span>{{ order.plan_minor|ghs }}</span></div>{% endif %}
+        {% if order.discount_minor %}<div class="summary__row"><span>Discount</span><span>−{{ order.discount_minor|ghs }}</span></div>{% endif %}
+        {% if order.tax_minor %}<div class="summary__row"><span>Tax</span><span>{{ order.tax_minor|ghs }}</span></div>{% endif %}
+        <div class="summary__row summary__total"><span>Total</span><span>{{ order.total_minor|ghs }}</span></div>
+        <p class="text-xs muted">Refundable if cancelled now: {{ order.refundable_minor|ghs }}</p>
+      </div>
+      {% if payments %}<ul class="mt-4 text-sm" style="padding-left: var(--space-5)">{% for p in payments %}<li><a href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a> · {{ p.get_status_display }}</li>{% endfor %}</ul>{% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}

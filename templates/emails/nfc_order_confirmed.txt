@@ -1,0 +1,16 @@
+{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+
+Your NFC order {{ order.order_number }} is confirmed and paid.
+
+{{ order.quantity }} card{{ order.quantity|pluralize }} · {{ order.total_minor|ghs }}
+
+What happens next:
+- Our designers send your first proof within 3 working days.
+- You approve it, or ask for changes ({{ site.free_revision_rounds }} rounds are free).
+- We print, encode, lock and tap-test every card, then deliver it or prepare it for pickup.{% if order.is_international %}
+- Your cards ship to {{ order.delivery_country.name }} ({{ order.delivery_zone.eta }}). Any import duties or taxes in your country are paid by the recipient.{% endif %}
+
+Track your order: {{ order_url }}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

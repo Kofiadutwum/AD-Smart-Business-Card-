@@ -1,0 +1,14 @@
+{% extends "staff/_shell.html" %}
+{% load static %}
+{% block staff_css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'staff:subscriber' card.owner_id %}">{{ card.owner.display_name }}</a><span>/</span><span>/c/{{ card.slug }}</span></div>
+    <h1>Card preview</h1>
+    <p>Read-only. Public status: <strong>{{ state|title }}</strong>. This is what visitors see when the card is live.</p>
+  </div>
+  <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "external-link" 16 %}Open public URL</a>
+</div>
+<div class="phone"><div class="phone__screen" inert>{% include "cards/_card.html" %}</div></div>
+{% endblock %}

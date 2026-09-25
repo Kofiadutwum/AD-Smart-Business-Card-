@@ -1,0 +1,10 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your card /c/{{ card.slug }} has been suspended, so visitors see "This card is unavailable".
+
+Reason: {{ reason }}
+
+If you think this is a mistake, reply to this email.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

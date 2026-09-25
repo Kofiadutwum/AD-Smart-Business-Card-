@@ -1,0 +1,7 @@
+{% autoescape off %}A payment needs checking.
+
+Reference: {{ payment.reference }}
+Customer: {{ payment.user.email }}
+Problem: {{ flag }}
+
+Paystack reported different details from our record, so nothing was activated. Check the Paystack dashboard, then decide whether to activate manually.{% endautoescape %}

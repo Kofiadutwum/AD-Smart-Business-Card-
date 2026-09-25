@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Contact and support · {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container container--mid">
+    <p class="eyebrow">Contact</p>
+    <h1>How can we help?</h1>
+    <p class="lead">Send us a message and we reply within 1 working day — Business plan customers within 4 working hours. For something quick, WhatsApp is fastest.</p>
+  </div>
+</section>
+<section class="section" style="padding-top: 0">
+  <div class="container container--mid split">
+    <div class="panel panel--pad-lg">
+      <form method="post" class="form" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" %}
+        {% hover_button "Send message" variant="ink" icon_name="send" %}
+      </form>
+    </div>
+    <aside class="stack" style="--stack: var(--space-4)">
+      <a class="panel cluster" href="{{ site.whatsapp_link }}" target="_blank" rel="noopener" style="text-decoration:none; color: inherit">{% brand_icon "whatsapp" 24 %}<span><strong>WhatsApp</strong><br><span class="muted text-sm">{{ site.support_whatsapp|phone }}</span></span></a>
+      <a class="panel cluster" href="tel:{{ site.support_phone }}" style="text-decoration:none; color: inherit">{% icon "phone" 24 %}<span><strong>Call</strong><br><span class="muted text-sm">{{ site.support_phone|phone }}</span></span></a>
+      <a class="panel cluster" href="mailto:{{ site.support_email }}" style="text-decoration:none; color: inherit">{% icon "mail" 24 %}<span><strong>Email</strong><br><span class="muted text-sm">{{ site.support_email }}</span></span></a>
+      <a class="panel cluster" href="{{ site.instagram_link }}" target="_blank" rel="noopener" style="text-decoration:none; color: inherit">{% brand_icon "instagram" 24 %}<span><strong>Instagram</strong><br><span class="muted text-sm">@{{ site.instagram_handle }}</span></span></a>
+      <p class="text-sm muted">Looking for answers? Try the <a href="{% url 'marketing:faq' %}">FAQ</a>.</p>
+    </aside>
+  </div>
+</section>
+{% endblock %}

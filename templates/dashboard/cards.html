@@ -1,0 +1,48 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Team cards · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>Team cards</h1>
+    <p>{{ cards|length }} of {{ plan.max_cards }} card{{ plan.max_cards|pluralize }} on the {{ plan.name }} plan. {{ enabled_count }} live.</p>
+  </div>
+</div>
+{% if over_limit %}
+  <div class="banner banner--warning">{% icon "triangle-alert" 22 %}<p><strong>You have more cards switched on than your plan includes.</strong> Choose which ones stay live by switching others off.</p></div>
+{% endif %}
+<div class="split">
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Your cards</caption>
+      <thead><tr><th>Card</th><th>Link</th><th>Status</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+      <tbody>
+        {% for c in cards %}
+          <tr>
+            <td><strong>{{ c.full_name }}</strong><br><span class="muted text-sm">{{ c.job_title }}</span></td>
+            <td><a class="mono text-sm" href="{% url 'cards:public' c.slug %}" target="_blank" rel="noopener">/c/{{ c.slug }}</a></td>
+            <td>{% if c.is_enabled %}<span class="badge badge--success">On</span>{% else %}<span class="badge">Off</span>{% endif %}</td>
+            <td class="nowrap">
+              <a class="btn btn--sm" href="{% url 'dashboard:editor_card' c.pk %}">Edit</a>
+              <form method="post" action="{% url 'dashboard:card_toggle' c.pk %}" class="inline-form">{% csrf_token %}<button class="btn btn--sm btn--ghost" type="submit">{% if c.is_enabled %}Switch off{% else %}Switch on{% endif %}</button></form>
+              {% if cards|length > 1 %}<form method="post" action="{% url 'dashboard:card_delete' c.pk %}" class="inline-form" data-confirm="Delete {{ c.full_name }}'s card? Its link will say the card no longer exists, and it can never be reused.">{% csrf_token %}<button class="btn btn--sm btn--danger" type="submit">Delete</button></form>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Add a card</h2>
+    {% if cards|length < plan.max_cards %}
+      <form method="post" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" %}
+        {% hover_button "Create card" variant="ink" icon_name="plus" %}
+      </form>
+    {% else %}
+      <p class="muted text-sm mt-4">You have used every card on your plan.{% if plan.max_cards == 1 %} The Business plan includes up to 5 team cards under one brand.{% endif %}</p>
+      {% if plan.max_cards == 1 %}<div class="mt-4">{% url 'billing:checkout' as checkout_url %}{% hover_button "See Business" href=checkout_url|add:"?plan=business" css="ihb--sm" %}</div>{% endif %}
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

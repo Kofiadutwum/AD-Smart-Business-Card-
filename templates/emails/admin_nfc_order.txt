@@ -1,0 +1,14 @@
+{% autoescape off %}NEW NFC ORDER, PAID
+
+Order: {{ order.order_number }}
+Customer: {{ order.full_name }} · {{ order.email }} · {{ order.phone }}
+Cards: {{ order.quantity }}
+Total paid: {{ order.total_minor|ghs }}
+Delivery: {{ order.delivery_zone.name }}{% if order.is_international %} (INTERNATIONAL, {{ order.delivery_country.name }}){% endif %}{% if not order.is_pickup %}
+Ship to:
+{% for line in order.shipping_address_lines %}  {{ line }}
+{% endfor %}  {{ order.recipient_phone }}{% endif %}
+
+First proof due within 3 working days.
+
+Open the order: {{ staff_url }}{% endautoescape %}

@@ -1,0 +1,40 @@
+{# The squeeze carousel. Slides come from staff uploads (GalleryImage). #}
+<div class="sq" data-squeeze-root>
+  {{ gallery_json|json_script:"gallery-slides" }}
+
+  <div class="sq__inner" data-duration="1000" data-hover-grow="true" data-autoplay="false" data-interval="6000" data-label="Recent designs">
+    <div class="sq__controls">
+      <button type="button" class="sq__arrow" data-sq-prev aria-label="Previous design">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.6 2.6 5.1 7.1h9.1v1.8H5.1l4.5 4.5-1.2 1.2-6-6L1.8 8l.6-.6 6-6 1.2 1.2Z"/></svg>
+      </button>
+      <button type="button" class="sq__arrow" data-sq-next aria-label="Next design">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M6.4 2.6l4.5 4.5H1.8v1.8h9.1l-4.5 4.5 1.2 1.2 6-6 .6-.6-.6-.6-6-6-1.2 1.2Z"/></svg>
+      </button>
+    </div>
+    <div class="sq__viewport">
+      <div class="sq__strip" role="tablist" aria-orientation="horizontal"></div>
+    </div>
+    <div class="sq__panel" role="tabpanel" aria-live="polite">
+      {% for image in gallery %}
+      <div class="sq__copy" aria-hidden="true">
+        <p class="sq__text"><span class="sq__title">{{ image.title }}</span>{% if image.description %} <span class="sq__desc">{{ image.description }}</span>{% endif %}</p>
+        {% if image.action_label %}
+          {% if image.action_url %}
+            <a class="sq__action" href="{{ image.action_url }}" target="_blank" rel="noreferrer" tabindex="-1">{{ image.action_label }}
+              <svg width="6" height="9" viewBox="0 0 6 9" fill="none" aria-hidden="true"><path d="M1.2 1 4.7 4.5 1.2 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          {% else %}
+            <button type="button" class="sq__action" tabindex="-1" data-lightbox="{{ image.image.url }}" data-lightbox-alt="{{ image.alt_text|default:image.title }}" data-lightbox-title="{{ image.title }}">{{ image.action_label }}
+              <svg width="6" height="9" viewBox="0 0 6 9" fill="none" aria-hidden="true"><path d="M1.2 1 4.7 4.5 1.2 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          {% endif %}
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <ul class="sq__fallback">
+    {% for image in gallery %}
+      <li><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:image.title }}" loading="lazy"><p><strong>{{ image.title }}</strong> <span class="muted">{{ image.description }}</span></p></li>
+    {% endfor %}
+  </ul>
+</div>

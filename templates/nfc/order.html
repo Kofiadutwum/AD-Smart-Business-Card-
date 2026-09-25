@@ -1,0 +1,175 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Order NFC cards · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'dashboard:nfc' %}">NFC cards</a><span>/</span><span>New order</span></div>
+    <h1>Order NFC cards</h1>
+    <p>Every card opens your digital card with a tap. We send a design proof within 3 working days.</p>
+  </div>
+</div>
+
+{% if form.errors %}
+  <div class="form-errors" role="alert" tabindex="-1" data-error-summary>
+    <strong>Please check:</strong>
+    <ul>
+      {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+      {% for field in form %}{% for error in field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a></li>{% endfor %}{% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" class="split mt-6" data-nfc-order novalidate>
+  {% csrf_token %}
+  <div class="stack" style="--stack: var(--space-6)">
+    <fieldset class="fieldset">
+      <legend>1. Cards and quantity</legend>
+      <p class="field-help">{% if form.quantity_fields|length > 1 %}Split the order across your team’s cards. Each printed card opens the digital card you choose.{% else %}Each printed card opens your digital card at /c/{{ form.cards.0.slug }}.{% endif %}</p>
+      <div class="form mt-4">
+        {% for card, name in form.quantity_fields %}
+          {% for field in form %}{% if field.name == name %}{% include "components/field.html" %}{% endif %}{% endfor %}
+        {% endfor %}
+      </div>
+      <p class="alert alert--success mt-4" data-free-hint hidden>{% icon "sparkles" 18 %}<span><strong>Add 1 more card for no extra cost.</strong></span></p>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>2. What goes on the card</legend>
+      <p class="field-help">Filled in from your digital card. Change anything for the printed design.</p>
+      <div class="form mt-4">
+        {% include "components/field.html" with field=form.full_name %}
+        <div class="form-row form-row--2">
+          {% include "components/field.html" with field=form.position %}
+          {% include "components/field.html" with field=form.business_name %}
+        </div>
+        <div class="form-row form-row--2">
+          {% include "components/field.html" with field=form.email %}
+          {% include "components/field.html" with field=form.phone %}
+        </div>
+        {% include "components/field.html" with field=form.website %}
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>3. Design</legend>
+      <div class="form">
+        {% include "components/field.html" with field=form.logo %}
+        {% include "components/field.html" with field=form.reference_design %}
+        {% include "components/field.html" with field=form.design_description %}
+        {% include "components/field.html" with field=form.notes %}
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset" id="delivery">
+      <legend>4. Delivery or pickup</legend>
+      <div class="form">
+        <div class="field">
+          <span class="label">{{ form.delivery_zone.label }}</span>
+          <p class="label muted" style="margin-top: var(--space-2)">In Ghana</p>
+          <div class="stack" style="--stack: var(--space-3)">
+            {% for radio in form.delivery_zone %}{% if not radio.data.value.instance.is_international %}
+              <label class="check zone-option">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>
+            {% endif %}{% endfor %}
+          </div>
+          <p class="label muted" style="margin-top: var(--space-4)">Outside Ghana</p>
+          <div class="stack" style="--stack: var(--space-3)">
+            {% for radio in form.delivery_zone %}{% if radio.data.value.instance.is_international %}
+              <label class="check zone-option">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>
+            {% endif %}{% endfor %}
+          </div>
+          {% for error in form.delivery_zone.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+        </div>
+        <div class="alert alert--info" data-intl-note hidden>{% icon "globe" 18 %}<span><strong>Shipping outside Ghana.</strong> The fee covers international shipping and delivery to the address below. Import duties or taxes charged by your country, if any, are paid by the recipient.</span></div>
+        <div class="form" data-delivery-fields>
+          <div class="form-row form-row--2">
+            {% include "components/field.html" with field=form.recipient_name %}
+            {% include "components/field.html" with field=form.recipient_phone %}
+          </div>
+          <div data-intl-fields hidden>{% include "components/field.html" with field=form.delivery_country %}</div>
+          {% include "components/field.html" with field=form.delivery_address %}
+          <div class="form-row form-row--2">
+            {% include "components/field.html" with field=form.delivery_city %}
+            <div data-intl-fields hidden>{% include "components/field.html" with field=form.delivery_postcode %}</div>
+            <div data-gh-fields>{% include "components/field.html" with field=form.delivery_gps %}</div>
+          </div>
+          {% include "components/field.html" with field=form.landmark %}
+        </div>
+      </div>
+    </fieldset>
+
+    {% if needs_plan %}
+    <fieldset class="fieldset">
+      <legend>5. Your digital card plan</legend>
+      <p class="field-help">{{ form.plan.help_text }}</p>
+      <div class="choice-grid mt-4">{% for radio in form.plan %}<label>{{ radio.tag }}{{ radio.choice_label }}</label>{% endfor %}</div>
+      {% for error in form.plan.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+    </fieldset>
+    {% endif %}
+  </div>
+
+  <aside class="panel" style="position: sticky; top: var(--space-6)">
+    <h2 style="font-size: var(--text-lg)">Your order</h2>
+    <div class="summary mt-4" aria-live="polite">
+      <div class="summary__row"><span data-sum-cards-label>NFC cards</span><span data-sum-cards>—</span></div>
+      <div class="summary__row"><span data-sum-delivery-label>Delivery</span><span data-sum-delivery>—</span></div>
+      {% if needs_plan %}<div class="summary__row"><span>Digital card plan</span><span data-sum-plan>—</span></div>{% endif %}
+      {% if tax_rate != "0" and tax_rate != "0.00" %}<div class="summary__row"><span>Tax</span><span data-sum-tax>—</span></div>{% endif %}
+      <div class="summary__row summary__total"><span>Total</span><span data-sum-total>—</span></div>
+      <p class="text-xs muted">Promo codes are applied at the next step and shown on the Paystack page.</p>
+    </div>
+    <div class="form mt-6">
+      {% include "components/field.html" with field=form.promo %}
+      {% include "components/field.html" with field=form.accept_policy %}
+      {% hover_button "Continue to payment" variant="primary" css="ihb--block" icon_name="lock" %}
+    </div>
+    <p class="text-xs muted mt-4">We ship to Ghana and abroad; international shipping is added to the total. Read the <a href="{% url 'marketing:refunds' %}" target="_blank">Refund Policy</a>: a full refund before design starts, 50% of the card price before printing, none after printing.</p>
+  </aside>
+  {{ tiers_json|json_script:"nfc-order-tiers" }}
+  {{ zones_json|json_script:"nfc-order-zones" }}
+  {{ plans_json|json_script:"nfc-order-plans" }}
+</form>
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.querySelector("[data-nfc-order]");
+  if (!form) return;
+  var tiers = JSON.parse(document.getElementById("nfc-order-tiers").textContent);
+  var zones = JSON.parse(document.getElementById("nfc-order-zones").textContent);
+  var plans = JSON.parse(document.getElementById("nfc-order-plans").textContent);
+  var taxRate = parseFloat("{{ tax_rate }}") || 0;
+  var price = window.ADSmart.cardsPrice, ghs = window.ADSmart.ghs;
+  function checked(name) { var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : null; }
+  function update() {
+    var qty = 0;
+    form.querySelectorAll(".qty-input").forEach(function (i) { qty += Math.max(0, parseInt(i.value || "0", 10) || 0); });
+    var cards = qty ? price(qty, tiers) : 0;
+    var zone = zones[checked("delivery_zone")];
+    var delivery = zone ? zone.fee : 0;
+    var planId = checked("plan");
+    var plan = planId && plans[planId] ? plans[planId] : 0;
+    var subtotal = (cards || 0) + delivery + plan;
+    var tax = Math.round(subtotal * taxRate / 100);
+    form.querySelector("[data-sum-cards-label]").textContent = qty + " NFC card" + (qty === 1 ? "" : "s");
+    form.querySelector("[data-sum-cards]").textContent = cards === null ? "—" : ghs(cards);
+    form.querySelector("[data-sum-delivery]").textContent = zone ? (delivery ? ghs(delivery) : "Free") : "—";
+    var p = form.querySelector("[data-sum-plan]"); if (p) p.textContent = plan ? ghs(plan) : "—";
+    var t = form.querySelector("[data-sum-tax]"); if (t) t.textContent = ghs(tax);
+    form.querySelector("[data-sum-total]").textContent = ghs(subtotal + tax);
+    var next = price(qty + 1, tiers);
+    form.querySelector("[data-free-hint]").hidden = !(qty && next !== null && next <= cards);
+    var delFields = form.querySelector("[data-delivery-fields]");
+    delFields.hidden = !!(zone && zone.pickup);
+    var intl = !!(zone && zone.intl);
+    form.querySelectorAll("[data-intl-fields]").forEach(function (el) { el.hidden = !intl; });
+    form.querySelectorAll("[data-gh-fields]").forEach(function (el) { el.hidden = intl; });
+    form.querySelector("[data-intl-note]").hidden = !intl;
+    form.querySelector("[data-sum-delivery-label]").textContent = intl ? "Shipping and delivery" : "Delivery";
+  }
+  form.addEventListener("input", update);
+  form.addEventListener("change", update);
+  update();
+});
+</script>
+{% endblock %}

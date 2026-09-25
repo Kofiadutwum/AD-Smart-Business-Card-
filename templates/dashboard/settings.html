@@ -1,0 +1,43 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Settings · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head"><div><h1>Settings</h1><p>{{ user.email }}</p></div></div>
+<div class="split">
+  <div class="stack" style="--stack: var(--space-6)">
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Account details</h2>
+      <form method="post" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" %}
+        {% hover_button "Save details" variant="ink" icon_name="check" %}
+      </form>
+    </section>
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Password</h2>
+      <p class="muted text-sm mt-2">{% if user.google_sub %}You can sign in with Google. {% endif %}Change the password you use to sign in with your email.</p>
+      <a class="btn mt-4" href="{% url 'accounts:change_password' %}">{% icon "key-round" 16 %}Change password</a>
+    </section>
+  </div>
+  <div class="stack" style="--stack: var(--space-6)">
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Appearance</h2>
+      <p class="muted text-sm mt-2">Light, dark or match your device. Your choice is remembered on this device.</p>
+      <button type="button" class="btn mt-4" data-theme-toggle data-mode="system">
+        <span data-theme-icon="system">{% icon "monitor" 16 %}</span><span data-theme-icon="light">{% icon "sun" 16 %}</span><span data-theme-icon="dark">{% icon "moon" 16 %}</span> Change theme
+      </button>
+    </section>
+    <section class="panel" style="border-color: color-mix(in srgb, var(--danger) 35%, transparent)">
+      <h2 style="font-size: var(--text-lg)">Delete account</h2>
+      <p class="muted text-sm mt-2">Your cards go offline straight away and your personal data is removed within 30 days. Payment records are kept for accounting. Your card links are retired and never given to anyone else.</p>
+      <form method="post" action="{% url 'dashboard:request_deletion' %}" class="form mt-4" data-confirm="Delete your account? This cannot be undone.">
+        {% csrf_token %}
+        <div class="field">
+          <label for="confirm_email">Type your email to confirm</label>
+          <input id="confirm_email" name="confirm_email" type="email" autocomplete="off" required>
+        </div>
+        <button class="btn btn--danger" type="submit">{% icon "user-x" 16 %}Delete my account</button>
+      </form>
+    </section>
+  </div>
+</div>
+{% endblock %}

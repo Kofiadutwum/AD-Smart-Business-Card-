@@ -1,0 +1,122 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'staff:subscribers' %}">Subscribers</a><span>/</span><span>{{ customer.display_name }}</span></div>
+    <h1>{{ customer.display_name }}</h1>
+    <p>{{ customer.email }} · {% if customer.phone %}{{ customer.phone|phone }}{% else %}no phone{% endif %} · joined {{ customer.date_joined|date:"j M Y" }}{% if customer.legacy_id %} · imported from the Flask site (#{{ customer.legacy_id }}){% endif %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn" href="mailto:{{ customer.email }}">{% icon "mail" 16 %}Email</a>
+    {% if staff_perms.email_subscribers %}<a class="btn" href="{% url 'staff:email' %}?email={{ customer.email|urlencode }}">{% icon "send" 16 %}Message via platform</a>{% endif %}
+  </div>
+</div>
+{% if customer.is_suspended %}<div class="banner banner--danger">{% icon "ban" 22 %}<p><strong>Account suspended.</strong> {{ customer.suspension_reason }}</p></div>{% endif %}
+{% if customer.deletion_requested_at %}<div class="banner banner--warning">{% icon "user-x" 22 %}<p><strong>Deletion requested</strong> on {{ customer.deletion_requested_at|date:"j M Y" }}. Personal data is removed 30 days later by the daily job.</p></div>{% endif %}
+
+<div class="split">
+  <div class="stack" style="--stack: var(--space-6)">
+    <section class="panel">
+      <div class="panel__head"><h2>Cards</h2></div>
+      <div class="table-wrap" style="border:0">
+        <table class="table">
+          <thead><tr><th>Card</th><th>Link</th><th>Public status</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+          <tbody>
+            {% for c in cards %}
+              <tr>
+                <td><strong>{{ c.full_name }}</strong><br><span class="muted text-xs">{{ c.job_title }} {{ c.business_name }}</span></td>
+                <td class="mono text-sm">/c/{{ c.slug }}</td>
+                <td>{% with st=c.public_state %}<span class="badge {% if st == 'live' %}badge--success{% elif st == 'suspended' %}badge--danger{% endif %}">{{ st|title }}</span>{% endwith %}</td>
+                <td class="nowrap">
+                  <a class="btn btn--sm" href="{% url 'staff:card_preview' c.pk %}">View</a>
+                  {% if staff_perms.suspend %}
+                  <details class="inline-form"><summary class="btn btn--sm btn--ghost">{% if c.is_suspended %}Reinstate{% else %}Suspend{% endif %}</summary>
+                    <form method="post" action="{% url 'staff:suspend_card' c.pk %}" class="form mt-2">{% csrf_token %}<div class="field"><label for="card-reason-{{ c.pk }}">Reason (recorded in the audit log)</label><textarea id="card-reason-{{ c.pk }}" name="reason" rows="3" required></textarea></div><button class="btn btn--sm{% if not c.is_suspended %} btn--danger{% endif %}" type="submit">{% if c.is_suspended %}Reinstate card{% else %}Suspend card{% endif %}</button></form>
+                  </details>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {% if payments is not None %}
+    <section class="panel">
+      <div class="panel__head"><h2>Payments</h2></div>
+      <div class="table-wrap" style="border:0">
+        <table class="table">
+          <thead><tr><th>Date</th><th>Reference</th><th>What</th><th>Status</th><th class="num">Amount</th></tr></thead>
+          <tbody>
+            {% for p in payments %}
+              <tr><td class="nowrap">{{ p.created_at|date:"j M Y" }}</td><td><a class="mono text-sm" href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a></td><td>{{ p.description }}</td><td>{{ p.get_status_display }}</td><td class="num">{{ p.amount_minor|ghs }}</td></tr>
+            {% empty %}<tr><td colspan="5" class="muted">No payments.</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="panel">
+      <div class="panel__head"><h2>NFC orders</h2></div>
+      <ul class="stack" style="list-style:none;margin:0;padding:0;--stack: var(--space-2)">
+        {% for o in orders %}<li class="cluster" style="justify-content:space-between"><a href="{% url 'staff:nfc_detail' o.pk %}">{{ o.order_number }}</a><span class="muted text-sm">{{ o.quantity }} cards · {{ o.get_status_display }}</span></li>{% empty %}<li class="muted">No orders.</li>{% endfor %}
+      </ul>
+    </section>
+
+    <section class="panel">
+      <div class="panel__head"><h2>Emails sent</h2></div>
+      <ul class="stack text-sm" style="list-style:none;margin:0;padding:0;--stack: var(--space-2)">
+        {% for e in emails %}<li class="cluster" style="justify-content:space-between"><span>{{ e.subject }}</span><span class="muted">{{ e.created_at|date:"j M, H:i" }}{% if e.status == "failed" %} · <span style="color: var(--danger)">failed</span>{% endif %}</span></li>{% empty %}<li class="muted">No emails.</li>{% endfor %}
+      </ul>
+    </section>
+  </div>
+
+  <div class="stack" style="--stack: var(--space-6)">
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Subscription</h2>
+      {% if subscription %}
+        <dl class="dl mt-4">
+          <dt>Plan</dt><dd>{{ subscription.plan.name }}</dd>
+          <dt>Status</dt><dd>{{ subscription.state_label }}</dd>
+          <dt>Paid until</dt><dd>{{ subscription.expires_at|date:"j F Y" }}</dd>
+          <dt>Grace ends</dt><dd>{{ subscription.grace_ends_at|date:"j F Y" }}</dd>
+          {% if subscription.pending_plan %}<dt>Changes to</dt><dd>{{ subscription.pending_plan.name }} on {{ subscription.pending_plan_from|date:"j M Y" }}</dd>{% endif %}
+        </dl>
+      {% else %}<p class="muted mt-2">No plan yet (draft).</p>{% endif %}
+    </section>
+
+    {% if staff_perms.manual_activation %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Activate or extend manually</h2>
+      <p class="muted text-sm mt-2">For cash payments, complimentary cards or a failed webhook. Recorded in the audit log and emailed as a receipt.</p>
+      <form method="post" action="{% url 'staff:activate' customer.pk %}" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" with form=activation_form %}
+        <button class="btn btn--primary" type="submit">{% icon "badge-check" 16 %}Activate / extend</button>
+      </form>
+    </section>
+    {% endif %}
+
+    {% if staff_perms.suspend %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">{% if customer.is_suspended %}Reinstate account{% else %}Suspend account{% endif %}</h2>
+      <p class="muted text-sm mt-2">Suspending switches off every card on the account and blocks sign-in. The customer is emailed the reason.</p>
+      <form method="post" action="{% url 'staff:suspend' customer.pk %}" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" with form=reason_form %}
+        <button class="btn{% if not customer.is_suspended %} btn--danger{% endif %}" type="submit">{% if customer.is_suspended %}Reinstate{% else %}Suspend{% endif %}</button>
+      </form>
+    </section>
+    {% endif %}
+
+    {% if tickets %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Support</h2>
+      <ul class="mt-4 text-sm" style="padding-left: var(--space-5)">{% for t in tickets %}<li>{% if staff_perms.support %}<a href="{% url 'staff:support_detail' t.pk %}">{{ t.reference }}</a>{% else %}{{ t.reference }}{% endif %} {{ t.subject }} ({{ t.get_status_display }})</li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

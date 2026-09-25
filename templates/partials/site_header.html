@@ -1,0 +1,58 @@
+{% load static %}
+<header class="site-header{% if over_hero %} site-header--hero{% endif %}" data-header>
+  <div class="container site-header__bar">
+    <a class="brand" href="{% url 'marketing:home' %}" aria-label="{{ SITE_NAME }}, home">
+      <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
+      <span class="brand__text"><strong>AD Smart</strong><span>Business Cards</span></span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="{% url 'marketing:home' %}#how-it-works">How it works</a></li>
+        <li><a href="{% url 'marketing:pricing' %}" {% nav_current 'marketing:pricing' %}>Pricing</a></li>
+        <li><a href="{% url 'marketing:nfc' %}" {% nav_current 'marketing:nfc' %}>NFC cards</a></li>
+        <li><a href="{% url 'marketing:faq' %}" {% nav_current 'marketing:faq' %}>FAQ</a></li>
+        <li><a href="{% url 'support:contact' %}" {% nav_current 'support:contact' %}>Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme">
+        <span data-theme-icon="system">{% icon "monitor" 20 %}</span>
+        <span data-theme-icon="light">{% icon "sun" 20 %}</span>
+        <span data-theme-icon="dark">{% icon "moon" 20 %}</span>
+      </button>
+      {% if over_hero %}{% firstof "light" as cta_variant %}{% else %}{% firstof "ink" as cta_variant %}{% endif %}
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}{% url 'staff:home' as account_url %}{% firstof "Staff area" as account_label %}{% else %}{% url 'dashboard:home' as account_url %}{% firstof "Dashboard" as account_label %}{% endif %}
+        <span class="hide-mobile">{% hover_button account_label href=account_url variant=cta_variant css="ihb--sm" %}</span>
+      {% else %}
+        <a class="btn btn--ghost hide-mobile" href="{% url 'accounts:login' %}">Log in</a>
+        <span class="hide-mobile">{% url 'accounts:register' as register_url %}{% hover_button "Get started" href=register_url variant=cta_variant css="ihb--sm" %}</span>
+      {% endif %}
+      <button type="button" class="menu-toggle" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Menu">
+        {% icon "menu" 22 %}
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="{% url 'marketing:home' %}#how-it-works">How it works</a></li>
+        <li><a href="{% url 'marketing:pricing' %}">Pricing</a></li>
+        <li><a href="{% url 'marketing:nfc' %}">NFC cards</a></li>
+        <li><a href="{% url 'marketing:faq' %}">FAQ</a></li>
+        <li><a href="{% url 'support:contact' %}">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-menu__actions">
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}{% url 'staff:home' as staff_url %}{% hover_button "Staff area" href=staff_url variant="ink" css="ihb--block" %}{% else %}{% url 'dashboard:home' as dash_url %}{% hover_button "Go to dashboard" href=dash_url variant="ink" css="ihb--block" %}{% endif %}
+      {% else %}
+        {% url 'accounts:register' as register_url %}{% hover_button "Create my card" href=register_url variant="ink" css="ihb--block" %}
+        <a class="btn" href="{% url 'accounts:login' %}">Log in</a>
+      {% endif %}
+    </div>
+  </div>
+</header>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Two-factor check · {{ SITE_NAME }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block header %}{% endblock %}{% block footer %}{% endblock %}{% block floating %}{% endblock %}
+{% block content %}
+<div class="state-page" style="color: var(--ink); background: var(--night)">
+  <div class="auth-card" style="text-align:left">
+    <span class="staff-mark">STAFF</span>
+    {% if enrolling %}
+      <h1 class="mt-4">Set up two-factor sign-in</h1>
+      <p class="lead">Scan this with Google Authenticator, Microsoft Authenticator or any TOTP app, then enter the 6-digit code it shows.</p>
+      <div class="qr-box mt-6 center">{{ qr|safe }}</div>
+      <p class="text-sm muted mt-4">Can’t scan? Enter this key: <span class="mono" style="overflow-wrap:anywhere">{{ secret }}</span></p>
+    {% else %}
+      <h1 class="mt-4">Enter your code</h1>
+      <p class="lead">Open your authenticator app and enter the 6-digit code for AD Smart Staff.</p>
+    {% endif %}
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      {% hover_button "Verify" variant="ink" css="ihb--block" icon_name="shield-check" %}
+    </form>
+    <form method="post" action="{% url 'staff:logout' %}" class="mt-4">{% csrf_token %}<button type="submit" class="link-btn text-sm">Cancel and sign out</button></form>
+    <p class="text-xs muted mt-6">Lost your phone? Ask the Main Admin to reset your two-factor setup.</p>
+  </div>
+</div>
+{% endblock %}

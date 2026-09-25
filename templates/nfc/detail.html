@@ -1,0 +1,122 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Order {{ order.order_number }} · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'dashboard:nfc' %}">NFC cards</a><span>/</span><span>{{ order.order_number }}</span></div>
+    <h1>Order {{ order.order_number }}</h1>
+    <p>{{ order.quantity }} card{{ order.quantity|pluralize }} · placed {{ order.created_at|date:"j F Y" }} · <strong>{{ order.get_status_display }}</strong></p>
+  </div>
+  <a class="btn" href="{% url 'support:contact' %}?topic=nfc">{% icon "life-buoy" 16 %}Ask about this order</a>
+</div>
+
+{% if order.status == "pending_payment" %}
+  <div class="banner banner--warning">
+    {% icon "clock" 22 %}
+    <p><strong>This order is waiting for payment.</strong> If you already paid, it can take a moment to confirm.</p>
+    <a class="btn btn--sm" href="?check=1">{% icon "refresh-cw" 16 %}Check again</a>
+    <form method="post" action="{% url 'nfc:pay' order.order_number %}">{% csrf_token %}{% hover_button "Pay now" variant="primary" css="ihb--sm" icon_name="lock" %}</form>
+  </div>
+{% elif order.status not in "cancelled refunded" %}
+  <ol class="progress-steps mb-6" aria-label="Order progress" style="margin-bottom: var(--space-8)">
+    {% for label, done in progress %}<li class="{% if done %}is-done{% endif %}">{{ label }}{% if done %}<span class="visually-hidden"> (done)</span>{% endif %}</li>{% endfor %}
+  </ol>
+{% endif %}
+
+<div class="split">
+  <div class="stack" style="--stack: var(--space-6)">
+    {% if proofs %}
+      <section aria-labelledby="proofs-title">
+        <h2 id="proofs-title" style="font-size: var(--text-xl); margin-bottom: var(--space-4)">Design proofs</h2>
+        <div class="stack" style="--stack: var(--space-4)">
+          {% for proof in proofs %}
+            <article class="proof">
+              <div class="cluster" style="justify-content:space-between">
+                <strong>Proof {{ proof.version }}</strong>
+                {% if proof.decision == "approved" %}<span class="badge badge--success">Approved</span>{% elif proof.decision == "changes_requested" %}<span class="badge badge--warning">Changes requested</span>{% else %}<span class="badge badge--accent">Waiting for you</span>{% endif %}
+              </div>
+              {% if proof.is_pdf %}
+                <a class="btn" href="{% url 'nfc:proof_file' order.order_number proof.version %}" target="_blank">{% icon "file-text" 16 %}Open the PDF proof</a>
+              {% else %}
+                <a href="{% url 'nfc:proof_file' order.order_number proof.version %}" target="_blank"><img src="{% url 'nfc:proof_file' order.order_number proof.version %}" alt="Design proof {{ proof.version }} for order {{ order.order_number }}" loading="lazy"></a>
+              {% endif %}
+              {% if proof.staff_note %}<p class="text-sm"><strong>From the designer:</strong> {{ proof.staff_note }}</p>{% endif %}
+              {% if proof.customer_comment %}<p class="text-sm muted"><strong>Your comment:</strong> {{ proof.customer_comment }}</p>{% endif %}
+              {% if proof.decision == "pending" and order.status == "awaiting_approval" %}
+                <div class="split split--even" style="gap: var(--space-4)">
+                  <form method="post" action="{% url 'nfc:approve' order.order_number proof.version %}" data-confirm="Approve this design for printing? It cannot be changed after printing starts.">
+                    {% csrf_token %}{% hover_button "Approve design" variant="primary" css="ihb--block" icon_name="check" %}
+                  </form>
+                  <details>
+                    <summary class="btn" style="width:100%">{% icon "square-pen" 16 %}Request changes</summary>
+                    <form method="post" action="{% url 'nfc:changes' order.order_number proof.version %}" class="form mt-4">
+                      {% csrf_token %}
+                      {% include "components/form_fields.html" with form=changes_form %}
+                      <p class="field-help">{% if revisions_left %}{{ revisions_left }} free round{{ revisions_left|pluralize }} of changes left.{% else %}You have used the free rounds; further changes may carry a small fee.{% endif %}</p>
+                      <button class="btn" type="submit">Send my changes</button>
+                    </form>
+                  </details>
+                </div>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+        {% if order.approved_proof %}<a class="btn mt-4" href="{% url 'nfc:approved_pdf' order.order_number %}">{% icon "file-down" 16 %}Download approved design (PDF)</a>{% endif %}
+      </section>
+    {% endif %}
+
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg); margin-bottom: var(--space-5)">Timeline</h2>
+      <ol class="timeline">
+        {% for event in events %}
+          <li><time datetime="{{ event.created_at|date:'c' }}">{{ event.created_at|date:"j M Y, H:i" }}</time>{% if event.status %}<strong>{{ event.status_label }}</strong>{% if event.message %} — {% endif %}{% endif %}{{ event.message }}</li>
+        {% endfor %}
+      </ol>
+    </section>
+  </div>
+
+  <div class="stack" style="--stack: var(--space-6)">
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Summary</h2>
+      <div class="summary mt-4">
+        <div class="summary__row"><span>{{ order.quantity }} NFC card{{ order.quantity|pluralize }}</span><span>{{ order.cards_minor|ghs }}</span></div>
+        <div class="summary__row"><span>{% if order.is_international %}Shipping and delivery{% else %}Delivery{% endif %}</span><span>{% if order.delivery_fee_minor %}{{ order.delivery_fee_minor|ghs }}{% else %}Free{% endif %}</span></div>
+        {% if order.plan_minor %}<div class="summary__row"><span>{{ order.bundled_plan.name }} plan</span><span>{{ order.plan_minor|ghs }}</span></div>{% endif %}
+        {% if order.discount_minor %}<div class="summary__row"><span>Discount</span><span>−{{ order.discount_minor|ghs }}</span></div>{% endif %}
+        {% if order.tax_minor %}<div class="summary__row"><span>Tax</span><span>{{ order.tax_minor|ghs }}</span></div>{% endif %}
+        <div class="summary__row summary__total"><span>Total</span><span>{{ order.total_minor|ghs }}</span></div>
+      </div>
+      {% if payment %}<a class="btn btn--sm mt-4" href="{% url 'billing:receipt_pdf' payment.reference %}">{% icon "file-down" 16 %}Receipt {{ payment.receipt_number }}</a>{% endif %}
+    </section>
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Cards open</h2>
+      <ul class="mt-4 text-sm" style="padding-left: var(--space-5)">
+        {% for item in items %}<li>{{ item.quantity }} × <a href="{% url 'cards:public' item.card.slug %}" target="_blank">/c/{{ item.card.slug }}</a></li>{% endfor %}
+      </ul>
+    </section>
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">{% if order.is_pickup %}Pickup{% elif order.is_international %}International shipping{% else %}Delivery{% endif %}</h2>
+      <dl class="dl mt-4">
+        <dt>Option</dt><dd>{{ order.delivery_zone.name }}</dd>
+        {% if not order.is_pickup %}<dt>To</dt><dd>{% for line in order.shipping_address_lines %}{{ line }}<br>{% endfor %}{{ order.recipient_phone|phone }}</dd>{% endif %}
+        {% if order.is_international %}<dt>Customs</dt><dd class="muted">Any import duties or taxes in {{ order.delivery_country.name }} are paid by the recipient.</dd>{% endif %}
+        {% if order.courier_name %}<dt>Courier</dt><dd>{{ order.courier_name }}{% if order.tracking_number %} · {{ order.tracking_number }}{% endif %}</dd>{% endif %}
+      </dl>
+    </section>
+    {% if order.customer_can_cancel %}
+      <section class="panel">
+        <h2 style="font-size: var(--text-lg)">Cancel this order</h2>
+        <p class="text-sm muted mt-2">Refund if you cancel now: <strong>{{ order.refundable_minor|ghs }}</strong>. Subscription plans bought with the order are not refunded.</p>
+        <details class="mt-4">
+          <summary class="btn btn--danger">Cancel order</summary>
+          <form method="post" action="{% url 'nfc:cancel' order.order_number %}" class="form mt-4" data-confirm="Cancel order {{ order.order_number }}?">
+            {% csrf_token %}
+            {% include "components/form_fields.html" with form=cancel_form %}
+            <button class="btn btn--danger" type="submit">Yes, cancel it</button>
+          </form>
+        </details>
+      </section>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

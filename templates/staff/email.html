@@ -1,0 +1,27 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Email subscribers</h1><p>Sent from the business address. Every message is logged against the customer.</p></div></div>
+<div class="split">
+  <section class="panel">
+    <form method="post" class="form" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      {% if recipients is not None %}
+        <div class="alert alert--info">{% icon "info" 18 %}<span><strong>{{ recipients|length }} recipient{{ recipients|length|pluralize }}.</strong> {% for r in recipients|slice:":6" %}{{ r.email }}{% if not forloop.last %}, {% endif %}{% endfor %}{% if recipients|length > 6 %} and {{ recipients|length|add:"-6" }} more{% endif %}</span></div>
+        <input type="hidden" name="confirm" value="yes">
+        <button class="btn btn--primary" type="submit"{% if not recipients %} disabled{% endif %}>{% icon "send" 16 %}Send to {{ recipients|length }}</button>
+      {% else %}
+        <button class="btn" type="submit">Preview recipients</button>
+      {% endif %}
+    </form>
+  </section>
+  <aside class="panel">
+    <h2 style="font-size: var(--text-lg)">Good to know</h2>
+    <ul class="mt-4 text-sm" style="padding-left: var(--space-5)">
+      <li>Messages start with “Hello {name}” and end with the support signature.</li>
+      <li>Plain text works best in every inbox.</li>
+      <li>Use this for service notices, not marketing, unless customers have agreed to it.</li>
+    </ul>
+  </aside>
+</div>
+{% endblock %}

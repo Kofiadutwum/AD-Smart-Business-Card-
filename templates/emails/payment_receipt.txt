@@ -1,0 +1,17 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Thank you, we have received your payment.
+
+Receipt: {{ payment.receipt_number }}
+Reference: {{ payment.reference }}
+For: {{ payment.description }}
+Amount: {{ payment.amount_minor|ghs }}
+Date: {{ payment.paid_at|date:"j F Y, H:i" }}
+{% if subscription and payment.purpose != "nfc_order" %}
+Your {{ subscription.plan.name }} plan is active until {{ subscription.expires_at|date:"j F Y" }}.{% endif %}{% if payment.nfc_order %}
+Track your NFC order: {{ site_url }}/nfc/orders/{{ payment.nfc_order.order_number }}{% endif %}
+
+The PDF receipt is attached. You can also download it any time from your dashboard.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

@@ -1,0 +1,41 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Overview</h1><p>{% now "l j F Y" %} · signed in as {{ user.role_label }}</p></div></div>
+<div class="stats">
+  <a class="panel stat" href="{% url 'staff:subscribers' %}" style="text-decoration:none;color:inherit"><span class="stat__label">Subscribers</span><span class="stat__value">{{ subscribers }}</span></a>
+  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=active" style="text-decoration:none;color:inherit"><span class="stat__label">Active</span><span class="stat__value">{{ active }}</span></a>
+  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=grace" style="text-decoration:none;color:inherit"><span class="stat__label">In grace period</span><span class="stat__value">{{ in_grace }}</span></a>
+  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=inactive" style="text-decoration:none;color:inherit"><span class="stat__label">Inactive or draft</span><span class="stat__value">{{ inactive }}</span></a>
+</div>
+{% if show_money %}
+<div class="stats mt-4">
+  <div class="panel stat"><span class="stat__label">Revenue this month</span><span class="stat__value">{{ month_revenue|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Subscription revenue</span><span class="stat__value">{{ subscription_revenue|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">NFC revenue</span><span class="stat__value">{{ nfc_revenue|ghs }}</span></div>
+  <a class="panel stat" href="{% url 'staff:payments' %}?status=pending" style="text-decoration:none;color:inherit"><span class="stat__label">Pending payments</span><span class="stat__value">{{ pending_payments }}</span><span class="stat__hint">{{ successful_payments }} successful all time</span></a>
+</div>
+{% endif %}
+<div class="stats mt-4">
+  <a class="panel stat" href="{% url 'staff:nfc_orders' %}?queue=new" style="text-decoration:none;color:inherit"><span class="stat__label">New NFC orders</span><span class="stat__value">{{ pending_orders }}</span></a>
+  <a class="panel stat" href="{% url 'staff:nfc_orders' %}?queue=waiting" style="text-decoration:none;color:inherit"><span class="stat__label">Awaiting customer / on hold</span><span class="stat__value">{{ waiting_orders }}</span></a>
+  <div class="panel stat"><span class="stat__label">Open support requests</span><span class="stat__value">{{ open_support }}</span></div>
+  <div class="panel stat"><span class="stat__label">Open card reports</span><span class="stat__value">{{ open_reports }}</span></div>
+</div>
+{% if flagged %}
+  <div class="alert alert--danger mt-6">{% icon "triangle-alert" 18 %}<span><strong>Payments need checking.</strong> {% for p in flagged %}<a href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a> ({{ p.flag }}){% if not forloop.last %}, {% endif %}{% endfor %}</span></div>
+{% endif %}
+<div class="split split--even mt-6">
+  <section class="panel">
+    <div class="panel__head"><h2>Recent registrations</h2></div>
+    <ul class="stack" style="list-style:none;margin:0;padding:0;--stack: var(--space-3)">
+      {% for u in recent_users %}<li class="cluster" style="justify-content:space-between"><a href="{% url 'staff:subscriber' u.pk %}">{{ u.display_name }}</a><span class="muted text-sm">{{ u.date_joined|date:"j M, H:i" }}</span></li>{% empty %}<li class="muted">No customers yet.</li>{% endfor %}
+    </ul>
+  </section>
+  <section class="panel">
+    <div class="panel__head"><h2>Expiring in the next 30 days</h2></div>
+    <ul class="stack" style="list-style:none;margin:0;padding:0;--stack: var(--space-3)">
+      {% for s in expiring %}<li class="cluster" style="justify-content:space-between"><a href="{% url 'staff:subscriber' s.user.pk %}">{{ s.user.display_name }}</a><span class="muted text-sm">{{ s.plan.name }} · {{ s.expires_at|date:"j M Y" }}</span></li>{% empty %}<li class="muted">Nothing expiring soon.</li>{% endfor %}
+    </ul>
+  </section>
+</div>
+{% endblock %}

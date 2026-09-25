@@ -1,0 +1,7 @@
+{% autoescape off %}{{ ticket.reference }} · {{ ticket.get_category_display }}{% if ticket.priority %} · PRIORITY{% endif %}
+From: {{ ticket.name }} <{{ ticket.email }}> {{ ticket.phone }}
+Subject: {{ ticket.subject }}
+
+{{ message }}
+
+Reply: {{ staff_url }}{% endautoescape %}

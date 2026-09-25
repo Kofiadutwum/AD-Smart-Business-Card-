@@ -1,0 +1,72 @@
+{% load static %}
+<div class="nfc">
+  <div>
+    <p class="eyebrow">NFC cards</p>
+    <h2 id="{{ heading_id|default:'nfc-heading' }}" class="mt-4">A printed card that opens your digital one.</h2>
+    <p class="lead mt-4">We design it with you, print it, write your permanent link to the chip, lock it and test every card on Android and iPhone. Order as many as you need — the more you order, the less each costs.</p>
+
+    <div class="table-wrap tier-table">
+      <table class="table">
+        <caption class="visually-hidden">NFC card prices by quantity</caption>
+        <thead><tr><th scope="col">Quantity</th><th scope="col" class="num">Price per card</th></tr></thead>
+        <tbody>
+          {% for tier in tiers %}
+          <tr>
+            <td>{{ tier.range_label }}</td>
+            <td class="num" style="white-space:normal">{{ tier.unit_price_minor|ghs }}{% if tier.mode == "incremental" %}<br><span class="muted text-xs">for each card above {{ tier.min_quantity|add:"-1" }}</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="calc" data-nfc-calc data-rate="{% if rate %}{{ rate.ghs_per_usd }}{% endif %}">
+      {{ tiers_json|json_script:"nfc-tiers" }}
+      <div class="calc__row">
+        <div class="field">
+          <label for="calc-qty">How many cards?</label>
+          <div class="stepper">
+            <button type="button" data-step="-1" aria-label="One fewer card">{% icon "minus" 18 %}</button>
+            <input id="calc-qty" type="number" min="1" max="500" value="1" inputmode="numeric">
+            <button type="button" data-step="1" aria-label="One more card">{% icon "plus" 18 %}</button>
+          </div>
+        </div>
+        <div class="calc__total" aria-live="polite">
+          <strong data-total>{{ nfc_examples.0.1|ghs }}</strong>
+          <span data-each></span> <span data-usd></span>
+        </div>
+      </div>
+      <p class="alert alert--success calc__hint" data-hint hidden>{% icon "sparkles" 18 %}<span><strong>Add 1 more card for no extra cost.</strong> The next card is free at this quantity.</span></p>
+      <p class="text-sm muted mt-4">Delivery in Ghana, or shipping abroad, is added at checkout. Pickup from our office is free.</p>
+    </div>
+
+    <div class="cluster mt-8">
+      {% if user.is_authenticated and not user.is_staff %}{% url 'nfc:order' as nfc_url %}{% else %}{% url 'accounts:register' as nfc_url %}{% endif %}
+      {% hover_button "Order NFC cards" href=nfc_url variant="ink" %}
+      <a class="btn btn--ghost" href="{% url 'marketing:nfc' %}#delivery">Delivery and timelines</a>
+    </div>
+  </div>
+
+  <div>
+    <div class="nfc-card-stage" aria-hidden="true">
+      <div class="nfc-card nfc-card--back"></div>
+      <div class="nfc-card">
+        <div class="nfc-card__top">
+          <span class="nfc-card__logo"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
+          <span class="nfc-card__tap">{% icon "nfc" 30 %}</span>
+        </div>
+        <div>
+          <div class="nfc-card__name">Your name here</div>
+          <div class="nfc-card__role">Your title · Your business</div>
+        </div>
+      </div>
+    </div>
+    <ul class="nfc-points">
+      <li>{% icon "circle-check" 18 %}<span><strong>First design proof in 3 working days,</strong> with {{ site.free_revision_rounds }} free rounds of changes.</span></li>
+      <li>{% icon "circle-check" 18 %}<span><strong>Printed and encoded within 5 working days</strong> of your approval.</span></li>
+      <li>{% icon "circle-check" 18 %}<span><strong>Locked chips</strong> so nobody can overwrite your link.</span></li>
+      <li>{% icon "circle-check" 18 %}<span><strong>Faulty chip?</strong> Report it within 30 days of delivery for a free replacement.</span></li>
+      <li>{% icon "circle-check" 18 %}<span><strong>Delivered in Ghana or shipped abroad.</strong> Outside Ghana you pay the shipping and delivery fee for your region.</span></li>
+    </ul>
+  </div>
+</div>

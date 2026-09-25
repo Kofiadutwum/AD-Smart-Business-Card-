@@ -1,0 +1,45 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}Social links · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>Social links</h1>
+    <p>{% if limit %}{{ used }} of {{ limit }} links used on the {{ plan.name }} plan.{% else %}Add as many as you like.{% endif %}</p>
+  </div>
+</div>
+<div class="split">
+  <section class="panel">
+    {% if links %}
+      <ul class="stack" style="list-style:none;margin:0;padding:0;--stack: var(--space-3)">
+        {% for link in links %}
+          <li class="cluster" style="justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom: var(--space-3)">
+            <span class="cluster" style="--cluster: var(--space-3); min-width:0">
+              <span class="pcard__ico" style="--pc-accent: var(--primary); --pc-link: var(--link)">{% if link.brand_icon %}{% brand_icon link.brand_icon 18 %}{% else %}{% icon "globe" 18 %}{% endif %}</span>
+              <span style="min-width:0"><strong>{{ link.label }}</strong><br><a class="text-sm" href="{{ link.url }}" target="_blank" rel="noopener" style="overflow-wrap:anywhere">{{ link.url|truncatechars:48 }}</a></span>
+            </span>
+            <span class="cluster" style="--cluster: var(--space-1)">
+              {% if not forloop.first %}<form method="post" action="{% url 'dashboard:link_action' link.pk 'up' %}" class="inline-form" data-no-lock>{% csrf_token %}<button class="btn btn--ghost btn--icon" aria-label="Move {{ link.label }} up">{% icon "arrow-up" 18 %}</button></form>{% endif %}
+              <form method="post" action="{% url 'dashboard:link_action' link.pk 'delete' %}" class="inline-form" data-confirm="Remove this link?">{% csrf_token %}<button class="btn btn--ghost btn--icon" aria-label="Remove {{ link.label }}">{% icon "trash-2" 18 %}</button></form>
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty">{% icon "link" 40 %}<h3>No links yet</h3><p>Add Instagram, LinkedIn, TikTok and more. They appear as buttons on your card.</p></div>
+    {% endif %}
+  </section>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Add a link</h2>
+    {% if limit and used >= limit %}
+      <p class="muted text-sm mt-4">You have used all {{ limit }} links on the {{ plan.name }} plan.</p>
+      <div class="mt-4">{% url 'billing:checkout' as checkout_url %}{% hover_button "Upgrade for unlimited" href=checkout_url css="ihb--sm" %}</div>
+    {% else %}
+      <form method="post" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" %}
+        {% hover_button "Add link" variant="ink" icon_name="plus" %}
+      </form>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

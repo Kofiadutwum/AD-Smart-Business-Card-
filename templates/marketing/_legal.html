@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-hero">
+  <div class="container container--mid">
+    <p class="eyebrow">Policies</p>
+    <h1>{% block heading %}{% endblock %}</h1>
+    <p class="lead">Last updated 25 September 2026. {% block intro %}{% endblock %}</p>
+    <div class="alert alert--warning mt-6">{% icon "triangle-alert" 18 %}<span><strong>Draft for review.</strong> This text follows the business rules in the AD Smart requirements. Have it reviewed by a lawyer before launch, and confirm your Data Protection Commission obligations (SRS PRV-03).</span></div>
+  </div>
+</section>
+<section class="section" style="padding-top: 0">
+  <div class="container container--mid prose">{% block body %}{% endblock %}</div>
+</section>
+{% endblock %}
