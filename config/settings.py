@@ -16,8 +16,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 
+# Hosting dashboards sometimes insist on a value; these all mean "not set".
+UNSET = {"", "none", "null", "-", "n/a", "skip"}
+
+
 def env(name, default=""):
-    return os.environ.get(name, default)
+    value = os.environ.get(name)
+    if value is None or value.strip().lower() in UNSET:
+        return default
+    return value.strip()
 
 
 def env_bool(name, default=False):
