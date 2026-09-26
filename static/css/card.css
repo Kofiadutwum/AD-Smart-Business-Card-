@@ -189,8 +189,13 @@
   font-size: 0.75rem;
   font-weight: 550;
   text-decoration: none;
-  overflow-wrap: anywhere;
   transition: background var(--dur-fast), transform var(--dur-fast);
+}
+.pcard__quick a span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .pcard__quick a .icon {
   color: var(--pc-link);
@@ -472,6 +477,22 @@
 }
 .state-card .ihb {
   margin-top: 2rem;
+}
+
+/* Five or more actions (Call, WhatsApp, Email, Website, Map) need more room:
+   on common 360-414px phones their labels would not fit, so go icon-only. */
+@container (max-width: 26rem) {
+  .pcard__quick:has(> a:nth-child(5)) a span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .pcard__quick:has(> a:nth-child(5)) a {
+    padding: 0.85rem 0.25rem;
+  }
 }
 
 /* Narrow cards (small phones, the editor preview): quick actions become
