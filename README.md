@@ -73,8 +73,13 @@ until the plans are upgraded:
   Card states (active, grace, inactive) do not depend on it; reminders,
   notices, the USD rate and housekeeping do.
 
-The free database is **deleted 30 days after it was created**. Upgrade it
-(Render › adsmart-db › Upgrade) before then, or everything in it is lost.
+**Database on Neon.** Render's free Postgres is deleted after 30 days, so the
+database is on Neon's free plan instead (Frankfurt, 0.5 GB, does not expire).
+`DATABASE_URL` is Neon's *direct* (not pooled) connection string. Connections
+close after each request (`DATABASE_CONN_MAX_AGE=0`) so Neon can pause when
+the site is idle and stay inside its monthly compute allowance; for the same
+reason the uptime monitor should check `/healthz`, which never touches the
+database.
 
 ## Going live — replacing the Flask site without breaking a single card
 
@@ -85,9 +90,10 @@ same hostname.
 1. **Accounts.** Create (in the business's name): a Cloudinary account, a
    Resend account with the business domain verified (SPF/DKIM/DMARC), and keep
    the existing Paystack and Google OAuth apps.
-2. **Staging.** Deploy this repo on Render with `render.yaml` (new Postgres
-   `adsmart-db`, web service, daily cron — all in **Frankfurt**, Render's
-   closest region to Ghana). Set the secrets in the dashboard.
+2. **Staging.** Deploy this repo on Render with `render.yaml` (web service
+   in **Frankfurt**, Render's closest region to Ghana; Postgres on Neon, also
+   Frankfurt). Set the secrets, including Neon's `DATABASE_URL`, in the
+   dashboard.
    Set `SITE_URL` to the **final public address** (not the staging one).
 3. **Rehearse the import** from the staging service's Shell, reading the Flask
    database (its *external* connection string) and the live Flask site for
@@ -109,10 +115,10 @@ same hostname.
      Flask service**, point it at this repo, set the build command to
      `bash build.sh`, the start command to
      `gunicorn config.wsgi:application --workers 3 --timeout 60`, and copy the
-     environment variables from `adsmart-web` (including `DATABASE_URL` of
-     `adsmart-db`). The address stays the same. Render cannot move an
+     environment variables from `adsmart-web` (including the Neon
+     `DATABASE_URL`). The address stays the same. Render cannot move an
      existing service to another region, so if the Flask service is not in
-     Frankfurt, create `adsmart-db` in the Flask service's region instead —
+     Frankfurt, create the Neon project in the nearest region instead —
      the database should sit next to the web service.
 6. **Check** a few cards by scanning real QR codes and tapping real NFC cards
    (old tags use `?s=nfc`, which is still counted as an NFC visit), log in as

@@ -1,22 +1,14 @@
 # Render blueprint for AD Smart Business Cards (Django).
 # Secrets marked sync: false are entered in the Render dashboard, never here.
-# Everything runs in Frankfurt, Render's closest region to Ghana, and the
-# database sits in the same region as the web service.
+# The web service runs in Frankfurt, Render's closest region to Ghana. The
+# database is Postgres on Neon (free, does not expire), also in Frankfurt;
+# its connection string goes in DATABASE_URL.
 #
-# THIS IS THE FREE TEST SETUP. Before real customers use it:
+# THIS IS THE FREE SETUP. Before relying on it for real customers:
 #   1. web service   plan: free  ->  plan: starter   (free sleeps after 15 min idle;
 #                                                     the next visitor waits ~1 minute)
-#   2. database      plan: free  ->  plan: basic-256mb (free databases are deleted
-#                                                     30 days after creation)
-#   3. uncomment the adsmart-daily cron job at the bottom (cron needs a paid plan)
+#   2. uncomment the adsmart-daily cron job at the bottom (cron needs a paid plan)
 #      and delete .github/workflows/daily-jobs.yml, which stands in for it on free
-databases:
-  - name: adsmart-db
-    region: frankfurt
-    plan: free
-    databaseName: adsmart
-    user: adsmart
-
 services:
   - type: web
     name: adsmart-web
@@ -33,10 +25,9 @@ services:
         value: "0"
       - key: SECRET_KEY
         generateValue: true
+      # Neon connection string (direct, not pooled), with ?sslmode=require
       - key: DATABASE_URL
-        fromDatabase:
-          name: adsmart-db
-          property: connectionString
+        sync: false
       - key: SITE_URL
         sync: false
       - key: ALLOWED_HOSTS
@@ -97,9 +88,7 @@ services:
   #         name: adsmart-web
   #         envVarKey: SECRET_KEY
   #     - key: DATABASE_URL
-  #       fromDatabase:
-  #         name: adsmart-db
-  #         property: connectionString
+  #       sync: false
   #     - key: SITE_URL
   #       sync: false
   #     - key: RESEND_API_KEY

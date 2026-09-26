@@ -124,10 +124,17 @@ TEMPLATES = [
 # Database and cache
 # --------------------------------------------------------------------------
 
+# Production uses Postgres on Neon (DATABASE_URL). Without it the site would
+# quietly fall back to a SQLite file that Render wipes on every deploy.
+if not DEBUG and not env("DATABASE_URL"):
+    raise RuntimeError("DATABASE_URL must be set when DEBUG is off.")
+
 DATABASES = {
     "default": dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
+        # 0 closes the connection after each request, so Neon's free compute
+        # can pause when nobody is using the site.
+        conn_max_age=int(env("DATABASE_CONN_MAX_AGE", "0")),
         conn_health_checks=True,
     )
 }
