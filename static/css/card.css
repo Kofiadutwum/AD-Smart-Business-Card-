@@ -452,15 +452,6 @@
 }
 
 /* State pages: not yet active, inactive, unavailable, gone (Figure 5A). */
-.state-page {
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  padding: 2rem 1rem;
-  background: var(--night);
-  color: #ffffff;
-  text-align: center;
-}
 .state-card {
   max-width: 26rem;
 }

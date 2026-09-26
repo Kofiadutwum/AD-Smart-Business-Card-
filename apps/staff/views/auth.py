@@ -75,7 +75,7 @@ def two_factor(request):
     context = {"form": form, "enrolling": enrolling}
     if enrolling:
         uri = pyotp.TOTP(secret).provisioning_uri(name=user.email, issuer_name="AD Smart Staff")
-        context.update({"qr": qr_svg(uri, scale=5), "secret": secret})
+        context.update({"qr": qr_svg(uri, scale=5, light="#ffffff"), "secret": secret})
     return render(request, "staff/two_factor.html", context)
 
 

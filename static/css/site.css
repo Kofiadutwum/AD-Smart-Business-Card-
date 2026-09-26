@@ -1140,6 +1140,28 @@
 .auth-card .form {
   margin-top: var(--space-8);
 }
+/* Full-screen centred message pages: card states, staff sign-in and 2FA. */
+.state-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  background: var(--night);
+  color: #ffffff;
+  text-align: center;
+}
+
+/* QR codes are dark on transparent; always back them with white so they scan
+   (and show) in dark mode too. Used by staff 2FA and the customer Share page. */
+.qr-box svg {
+  width: min(100%, 16rem);
+  height: auto;
+  margin-inline: auto;
+  background: #ffffff;
+  border-radius: var(--radius);
+  padding: var(--space-2);
+}
+
 .auth-alt {
   margin-top: var(--space-6);
   text-align: center;

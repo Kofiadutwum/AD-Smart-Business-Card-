@@ -369,14 +369,6 @@
   border-radius: var(--radius-sm);
   padding: 2px;
 }
-.qr-box svg {
-  width: min(100%, 16rem);
-  height: auto;
-  margin-inline: auto;
-  background: #ffffff;
-  border-radius: var(--radius);
-  padding: var(--space-2);
-}
 
 /* --- card editor --------------------------------------------------------------------------- */
 
