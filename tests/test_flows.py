@@ -410,6 +410,61 @@ class DailyJobTests(BaseTest):
         self.assertIn(b"reminders: 1 reminder(s)", response.content)
 
 
+class EmailRetryTests(BaseTest):
+    """Emails refused by the provider (e.g. Resend's 100-a-day free limit)."""
+
+    def failed(self, kind, subject="Hello", **extra):
+        return EmailLog.objects.create(kind=kind, to="ama@example.com", subject=subject, body="Body\n",
+                                       status=EmailLog.STATUS_FAILED, error="daily_quota_exceeded", **extra)
+
+    def test_failed_receipt_is_resent_next_day_with_its_pdf(self):
+        user = self.make_user()
+        self.make_card(user)
+        self.client.force_login(user)
+        with mock.patch("apps.core.emails.EmailMultiAlternatives.send", side_effect=Exception("daily_quota_exceeded")), \
+                self.assertLogs("apps.core.emails", level="ERROR"):
+            self.client.post("/billing/", {"plan": "basic", "action": "pay", "accept_policy": "1"})
+            payment = Payment.objects.get()
+            with self.captureOnCommitCallbacks(execute=True):
+                self.client.get(f"/billing/callback?reference={payment.reference}")
+        log = EmailLog.objects.get(kind="payment_receipt")
+        self.assertEqual(log.status, EmailLog.STATUS_FAILED)
+        self.assertEqual(log.failed_key, f"receipt:{payment.reference}")
+        mail.outbox.clear()
+
+        call_command("run_daily_jobs", "--only", "email_retries", verbosity=0)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].attachments[0][2], "application/pdf")
+        log.refresh_from_db()
+        payment.refresh_from_db()
+        self.assertEqual(log.status, EmailLog.STATUS_SENT)
+        self.assertEqual(log.dedupe_key, f"receipt:{payment.reference}")
+        self.assertIsNotNone(payment.receipt_emailed_at)
+        call_command("run_daily_jobs", "--only", "email_retries", verbosity=0)
+        self.assertEqual(len(mail.outbox), 1)  # never twice
+
+    def test_codes_and_self_retrying_emails_are_left_alone(self):
+        self.failed("password_reset_code", "Your password reset code: 123456")
+        self.failed("verify_email")
+        self.failed("renewal_7")
+        self.failed("admin:admin_nfc_order")
+        self.failed("support_reply", "Re: your question")
+        call_command("run_daily_jobs", "--only", "email_retries", verbosity=0)
+        self.assertEqual([m.subject for m in mail.outbox], ["Re: your question"])
+
+    def test_gives_up_after_three_tries_or_three_days(self):
+        stuck = self.failed("new_lead")
+        old = self.failed("new_lead")
+        EmailLog.objects.filter(pk=old.pk).update(created_at=timezone.now() - timedelta(days=4))
+        with mock.patch("apps.core.emails.EmailMultiAlternatives.send", side_effect=Exception("still over")) as send:
+            for _ in range(5):
+                call_command("run_daily_jobs", "--only", "email_retries", verbosity=0)
+        self.assertEqual(send.call_count, 3)
+        stuck.refresh_from_db()
+        self.assertEqual(stuck.retries, 3)
+        self.assertEqual(stuck.status, EmailLog.STATUS_FAILED)
+
+
 class GmailBackendTests(BaseTest):
     @override_settings(
         EMAIL_BACKEND="apps.core.gmail.GmailAPIBackend", GMAIL_REFRESH_TOKEN="refresh",

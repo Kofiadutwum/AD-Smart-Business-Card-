@@ -15,7 +15,7 @@ from apps.billing import fx
 from apps.billing.models import Subscription
 from apps.billing.services import activate_cards, expire_stale_pending
 from apps.cards.models import CardEvent
-from apps.core.emails import send_email
+from apps.core.emails import retry_failed_emails, send_email
 from apps.core.models import SiteSettings
 from apps.nfc import services as nfc
 from apps.nfc.models import NFCOrder
@@ -39,6 +39,7 @@ class Command(BaseCommand):
             ("deletions", self.deletions),
             ("nfc_followups", self.nfc_followups),
             ("payments", self.payments),
+            ("email_retries", self.email_retries),
             ("analytics_retention", self.analytics_retention),
         ]
         for name, step in steps:
@@ -169,6 +170,12 @@ class Command(BaseCommand):
 
     def payments(self):
         return f"{expire_stale_pending()} stale payment(s) settled"
+
+    def email_retries(self):
+        """Re-send emails that failed in the last 3 days (e.g. the provider's daily
+        limit was reached): receipts, order updates, lead and support emails."""
+        sent, failing = retry_failed_emails()
+        return f"{sent} failed email(s) re-sent, {failing} still failing"
 
     def analytics_retention(self):
         """ANL-04: keep analytics for 24 months."""

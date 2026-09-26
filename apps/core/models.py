@@ -153,6 +153,12 @@ class EmailLog(models.Model):
     status = models.CharField(max_length=16, default=STATUS_SENT)
     error = models.TextField(blank=True)
     dedupe_key = models.CharField(max_length=160, unique=True, null=True, blank=True)
+    # A failed send gives up its dedupe_key (so the key's own job can try
+    # again) and keeps it here, so a retry can tell whether it was delivered
+    # some other way and can restore the key once it succeeds.
+    failed_key = models.CharField(max_length=160, blank=True)
+    reply_to = models.CharField(max_length=255, blank=True)
+    retries = models.PositiveSmallIntegerField(default=0)
     sent_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
