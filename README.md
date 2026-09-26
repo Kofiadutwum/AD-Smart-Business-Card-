@@ -20,7 +20,7 @@ python manage.py runserver
 
 - Site: http://127.0.0.1:8000
 - Staff area: http://127.0.0.1:8000/staff/login (you set up an authenticator app at first sign-in)
-- Emails print to the console until `RESEND_API_KEY` is set.
+- Emails print to the console until `RESEND_API_KEY` or `GMAIL_REFRESH_TOKEN` is set.
 - Payments run in **sandbox** (no money moves) until a Paystack secret key is set and `PAYMENT_SANDBOX=0`.
 
 Tests (41, covering the SRS acceptance criteria):
@@ -54,6 +54,27 @@ Staff › Settings, Plans, and NFC prices & delivery cover the values the SRS
 says the business must be able to change (ADM-04): grace period, reminder
 schedule, revision rounds, tax, prices, NFC tiers and delivery fees. The
 homepage gallery is managed in Staff › Homepage gallery.
+
+## Running on Render's free plan
+
+The free plan has no cron and blocks outgoing SMTP, so two stand-ins run
+until the plans are upgraded:
+
+- **Email from Gmail.** Add `http://localhost:8765/` as a redirect URI on the
+  Google OAuth client, enable the Gmail API in the same Google Cloud project,
+  then run `python manage.py connect_gmail` on your PC. Put the token it
+  prints in Render as `GMAIL_REFRESH_TOKEN` and set `DEFAULT_FROM_EMAIL` to
+  `AD Smart Business Cards <the-gmail-address>`. Gmail allows about 500
+  emails a day. Once a domain is verified in Resend, set `RESEND_API_KEY`
+  (it takes priority) and remove the Gmail token.
+- **Daily job from GitHub.** `.github/workflows/daily-jobs.yml` calls
+  `POST /internal/daily-jobs` at 06:00 with `CRON_SECRET`. Copy the value
+  Render generated for `CRON_SECRET` into the repository's Actions secrets.
+  Card states (active, grace, inactive) do not depend on it; reminders,
+  notices, the USD rate and housekeeping do.
+
+The free database is **deleted 30 days after it was created**. Upgrade it
+(Render › adsmart-db › Upgrade) before then, or everything in it is lost.
 
 ## Going live — replacing the Flask site without breaking a single card
 

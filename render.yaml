@@ -9,6 +9,7 @@
 #   2. database      plan: free  ->  plan: basic-256mb (free databases are deleted
 #                                                     30 days after creation)
 #   3. uncomment the adsmart-daily cron job at the bottom (cron needs a paid plan)
+#      and delete .github/workflows/daily-jobs.yml, which stands in for it on free
 databases:
   - name: adsmart-db
     region: frankfurt
@@ -40,8 +41,10 @@ services:
         sync: false
       - key: ALLOWED_HOSTS
         sync: false
+      # "1" simulates payments; set "0" in the dashboard to take real payments
+      # (only with live Paystack keys). Sandbox is forced while no key is set.
       - key: PAYMENT_SANDBOX
-        value: "1"
+        sync: false
       - key: PAYSTACK_SECRET_KEY
         sync: false
       - key: PAYSTACK_PUBLIC_KEY
@@ -56,6 +59,14 @@ services:
         sync: false
       - key: GOOGLE_CLIENT_SECRET
         sync: false
+      # Sends email from the business Gmail until a domain is set up in Resend
+      # (python manage.py connect_gmail prints it).
+      - key: GMAIL_REFRESH_TOKEN
+        sync: false
+      # Lets the GitHub "Daily jobs" workflow run the daily job; copy it to
+      # the repository's Actions secrets as CRON_SECRET.
+      - key: CRON_SECRET
+        generateValue: true
       # The first Main Admin is created from these on deploy (no shell on the
       # free plan). Delete DJANGO_SUPERUSER_PASSWORD once you have signed in.
       - key: DJANGO_SUPERUSER_EMAIL

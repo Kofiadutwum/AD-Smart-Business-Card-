@@ -3,6 +3,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from apps.core.views import daily_jobs
+
 admin.site.site_header = "AD Smart — database admin"
 admin.site.site_title = "AD Smart admin"
 admin.site.index_title = "Superuser tools"
@@ -17,6 +19,7 @@ urlpatterns = [
     path("nfc/", include("apps.nfc.urls")),
     path("staff/db/", admin.site.urls),
     path("staff/", include("apps.staff.urls")),
+    path("internal/daily-jobs", daily_jobs, name="daily_jobs"),
 ]
 
 handler404 = "apps.core.views.not_found"

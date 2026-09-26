@@ -225,10 +225,16 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 # Email (NOT-01)
 # --------------------------------------------------------------------------
 
+# Resend once the business domain is verified; until then the Gmail API
+# (Render's free plan blocks SMTP). Without either, emails print to the console.
 RESEND_API_KEY = env("RESEND_API_KEY")
+GMAIL_REFRESH_TOKEN = env("GMAIL_REFRESH_TOKEN")
+EMAIL_TIMEOUT = 15
 if RESEND_API_KEY:
     EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
     ANYMAIL = {"RESEND_API_KEY": RESEND_API_KEY}
+elif GMAIL_REFRESH_TOKEN and GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET:
+    EMAIL_BACKEND = "apps.core.gmail.GmailAPIBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -247,6 +253,10 @@ PAYSTACK_BASE_URL = "https://api.paystack.co"
 # secret key is configured, so a fresh clone can never reach a live gateway.
 PAYMENT_SANDBOX = env_bool("PAYMENT_SANDBOX", True) or not PAYSTACK_SECRET_KEY
 PAYMENT_SANDBOX_OUTCOME = env("PAYMENT_SANDBOX_OUTCOME", "success")
+
+# Lets a scheduler run the daily job over HTTPS (POST /internal/daily-jobs)
+# where Render cron is not available. Unset = the URL does not exist.
+CRON_SECRET = env("CRON_SECRET")
 
 # Exchange-rate provider for the USD display (CUR-02).
 FX_PROVIDER_URL = env("FX_PROVIDER_URL", "https://open.er-api.com/v6/latest/USD")

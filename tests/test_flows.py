@@ -393,3 +393,63 @@ class DailyJobTests(BaseTest):
         self.assertIsNotNone(user.anonymised_at)
         self.assertTrue(user.email.endswith("@deleted.invalid"))
         self.assertEqual(self.client.get(f"/c/{card.slug}").status_code, 410)
+
+    def test_daily_jobs_url_for_free_plan_scheduler(self):
+        url = "/internal/daily-jobs"
+        with override_settings(CRON_SECRET=""):
+            self.assertEqual(self.client.post(url).status_code, 404)
+        with override_settings(CRON_SECRET="s3cret-value"):
+            self.assertEqual(self.client.get(url, HTTP_AUTHORIZATION="Bearer s3cret-value").status_code, 405)
+            self.assertEqual(self.client.post(url, HTTP_AUTHORIZATION="Bearer wrong").status_code, 403)
+            user = self.make_user()
+            self.make_card(user)
+            self.subscribe(user, days=6)
+            with mock.patch("apps.billing.fx.refresh_rate", return_value=None):
+                response = self.client.post(url, HTTP_AUTHORIZATION="Bearer s3cret-value")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"reminders: 1 reminder(s)", response.content)
+
+
+class GmailBackendTests(BaseTest):
+    @override_settings(
+        EMAIL_BACKEND="apps.core.gmail.GmailAPIBackend", GMAIL_REFRESH_TOKEN="refresh",
+        GOOGLE_CLIENT_ID="client", GOOGLE_CLIENT_SECRET="secret",
+    )
+    def test_sends_through_gmail_api(self):
+        import base64
+
+        from django.core.cache import cache
+
+        from apps.core.emails import send_email
+
+        cache.delete("gmail:access-token")
+        token = mock.Mock(status_code=200, json=lambda: {"access_token": "access", "expires_in": 3599})
+        sent = mock.Mock(status_code=200, text="{}")
+        with mock.patch("apps.core.gmail.requests.post", side_effect=[token, sent]) as post:
+            self.assertTrue(send_email(to="ama@example.com", subject="Hello", template="welcome",
+                                       context={"user": self.make_user()}))
+        self.assertEqual(post.call_args_list[0].kwargs["data"]["grant_type"], "refresh_token")
+        send_call = post.call_args_list[1]
+        self.assertEqual(send_call.kwargs["headers"]["Authorization"], "Bearer access")
+        raw = base64.urlsafe_b64decode(send_call.kwargs["json"]["raw"]).decode()
+        self.assertIn("To: ama@example.com", raw)
+        self.assertIn("Subject: Hello", raw)
+
+    @override_settings(
+        EMAIL_BACKEND="apps.core.gmail.GmailAPIBackend", GMAIL_REFRESH_TOKEN="revoked",
+        GOOGLE_CLIENT_ID="client", GOOGLE_CLIENT_SECRET="secret",
+    )
+    def test_gmail_failure_is_logged_not_raised(self):
+        from django.core.cache import cache
+
+        from apps.core.emails import send_email
+
+        cache.delete("gmail:access-token")
+        refused = mock.Mock(status_code=400, text='{"error": "invalid_grant"}')
+        with mock.patch("apps.core.gmail.requests.post", return_value=refused), \
+                self.assertLogs("apps.core.emails", level="ERROR"):
+            self.assertFalse(send_email(to="ama@example.com", subject="Hello", template="welcome",
+                                        context={"user": self.make_user()}))
+        log = EmailLog.objects.get(to="ama@example.com")
+        self.assertEqual(log.status, EmailLog.STATUS_FAILED)
+        self.assertIn("invalid_grant", log.error)

@@ -1,0 +1,36 @@
+# Runs the site's daily job (renewal reminders, grace and inactive notices,
+# NFC follow-ups, payment housekeeping, exchange rate) while the site is on
+# Render's free plan, which has no cron. When you upgrade and turn on the
+# adsmart-daily cron in render.yaml, delete this file.
+#
+# Setup: copy CRON_SECRET from Render (adsmart-web > Environment) into
+# GitHub > Settings > Secrets and variables > Actions > New repository secret.
+#
+# GitHub pauses scheduled workflows after 60 days without commits; re-enable
+# it under Actions if that happens.
+name: Daily jobs
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # 06:00 UTC = 06:00 in Ghana
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Run the daily job on the site
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          SITE_URL: https://adsmart-web.onrender.com
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET is not set in the repository secrets; nothing to do."
+            exit 0
+          fi
+          # A sleeping free service takes about a minute to wake up.
+          curl --fail-with-body --silent --show-error --max-time 240 \
+            --retry 3 --retry-delay 30 --retry-all-errors \
+            -X POST -H "Authorization: Bearer $CRON_SECRET" \
+            "$SITE_URL/internal/daily-jobs"
