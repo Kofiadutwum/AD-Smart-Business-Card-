@@ -228,7 +228,9 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 # Resend once the business domain is verified; until then the Gmail API
 # (Render's free plan blocks SMTP). Without either, emails print to the console.
 RESEND_API_KEY = env("RESEND_API_KEY")
-GMAIL_REFRESH_TOKEN = env("GMAIL_REFRESH_TOKEN")
+# Tokens never contain spaces; drop any line breaks picked up when copying
+# the token out of a narrow terminal.
+GMAIL_REFRESH_TOKEN = "".join(env("GMAIL_REFRESH_TOKEN").split())
 EMAIL_TIMEOUT = 15
 if RESEND_API_KEY:
     EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
