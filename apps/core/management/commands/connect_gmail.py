@@ -15,6 +15,7 @@ here only; it is not saved anywhere.
 
 import getpass
 import secrets
+import time
 import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlencode, urlparse
@@ -28,6 +29,11 @@ from apps.core.gmail import SCOPE, TOKEN_URL
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 
 
+def clean(value):
+    """Drop spaces and control characters some terminals add on paste (e.g. ^V)."""
+    return "".join(ch for ch in value if ch.isprintable() and not ch.isspace())
+
+
 class Command(BaseCommand):
     help = "Connect the Gmail account the site sends email from and print its refresh token."
 
@@ -35,8 +41,10 @@ class Command(BaseCommand):
         parser.add_argument("--port", type=int, default=8765)
 
     def handle(self, *args, **options):
-        client_id = settings.GOOGLE_CLIENT_ID or input("Google Client ID: ").strip()
-        client_secret = settings.GOOGLE_CLIENT_SECRET or getpass.getpass("Google Client secret (hidden as you type): ").strip()
+        client_id = settings.GOOGLE_CLIENT_ID or clean(input("Google Client ID: "))
+        client_secret = settings.GOOGLE_CLIENT_SECRET or clean(
+            getpass.getpass("Google Client secret (hidden: paste it, then press Enter): ")
+        )
         if not client_id or not client_secret:
             raise CommandError("The Client ID and Client secret are both needed.")
 
@@ -74,14 +82,22 @@ class Command(BaseCommand):
                 pass
 
         server = HTTPServer(("localhost", options["port"]), Handler)
+        # Wake up every second so Ctrl+C works on Windows while waiting.
+        server.timeout = 1
         self.stdout.write("\nOpening Google in your browser. If it does not open, visit:\n\n" + url + "\n")
         self.stdout.write("\nSign in as the Gmail account the site should send from, then allow access.")
-        self.stdout.write("If Google says the app is not verified: Advanced > Go to ... (unsafe). It is your own app.\n")
+        self.stdout.write("If Google says the app is not verified: Advanced > Go to ... (unsafe). It is your own app.")
+        self.stdout.write("Waiting for Google (up to 10 minutes; Ctrl+C to cancel)...\n")
         webbrowser.open(url)
-        while not result:
-            server.handle_request()
-        server.server_close()
+        deadline = time.monotonic() + 600
+        try:
+            while not result and time.monotonic() < deadline:
+                server.handle_request()
+        finally:
+            server.server_close()
 
+        if not result:
+            raise CommandError("No reply from Google within 10 minutes. Run the command again.")
         if result.get("error"):
             raise CommandError(f"Google said: {result['error']}")
         if result.get("state") != state:
