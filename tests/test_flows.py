@@ -42,6 +42,39 @@ class AccountFlowTests(BaseTest):
         self.assertTrue(user.is_email_verified)
         self.assertEqual(self.client.get("/dashboard/card/").status_code, 200)
 
+    @override_settings(GOOGLE_CLIENT_ID="test-client", GOOGLE_CLIENT_SECRET="test-secret")
+    def test_register_page_offers_google(self):
+        response = self.client.get("/auth/register")
+        self.assertContains(response, "Sign up with Google")
+        self.assertContains(response, 'href="/auth/google"')
+
+    def test_register_page_hides_google_without_keys(self):
+        self.assertNotContains(self.client.get("/auth/register"), "Sign up with Google")
+
+    @override_settings(GOOGLE_CLIENT_ID="test-client", GOOGLE_CLIENT_SECRET="test-secret")
+    def test_sign_up_with_google(self):
+        """A new Google user gets an account, a card and a welcome email, then adds a phone."""
+        start = self.client.get("/auth/google")
+        self.assertIn("accounts.google.com", start["Location"])
+        state = self.client.session["google_state"]
+        profile = {"sub": "google-123", "email": "abena@example.com", "name": "Abena Mensah"}
+        with mock.patch("apps.accounts.services.google_user_from_code", return_value=(profile, None)):
+            response = self.client.get(f"/auth/google/callback?state={state}&code=abc")
+        self.assertRedirects(response, "/dashboard/settings/", fetch_redirect_response=False)
+        user = User.objects.get(email="abena@example.com")
+        self.assertEqual(user.google_sub, "google-123")
+        self.assertTrue(user.is_email_verified)
+        self.assertIsNotNone(user.accepted_terms_at)
+        self.assertEqual(user.cards.get().slug, "abena-mensah")
+        self.assertTrue(any("Welcome" in m.subject for m in mail.outbox))
+        # Signing in with Google again finds the same account.
+        self.client.logout()
+        self.client.get("/auth/google")
+        state = self.client.session["google_state"]
+        with mock.patch("apps.accounts.services.google_user_from_code", return_value=(profile, None)):
+            self.client.get(f"/auth/google/callback?state={state}&code=def")
+        self.assertEqual(User.objects.filter(email="abena@example.com").count(), 1)
+
     def test_login_rate_limit(self):
         """SEC-04."""
         self.make_user()

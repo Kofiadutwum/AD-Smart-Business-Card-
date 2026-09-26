@@ -61,7 +61,7 @@ def register(request):
                 context={"user": user}, user=user, kind="welcome", dedupe_key=f"welcome:{user.pk}",
             )
             return redirect("accounts:verify_pending")
-    return render(request, "accounts/register.html", {"form": form})
+    return render(request, "accounts/register.html", {"form": form, "google_enabled": services.google_configured()})
 
 
 @login_required
@@ -263,6 +263,10 @@ def google_callback(request):
                 accepted_terms_at=timezone.now(),
             )
             create_card(user, profile["name"], email=profile["email"])
+        send_email(
+            to=user.email, subject="Welcome to AD Smart Business Cards", template="welcome",
+            context={"user": user}, user=user, kind="welcome", dedupe_key=f"welcome:{user.pk}",
+        )
     if user.is_suspended or not user.is_active:
         messages.error(request, "This account is suspended. Contact support.")
         return redirect("accounts:login")

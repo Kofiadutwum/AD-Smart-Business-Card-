@@ -7,10 +7,14 @@
     <p class="eyebrow">Step 1 of 3</p>
     <h1 class="mt-2">Create your account</h1>
     <p class="lead">Then build and preview your card for free. You only pay when you choose a plan.</p>
-    <form method="post" class="form" novalidate>
+    {% if google_enabled %}
+      {% include "components/google_button.html" with label="Sign up with Google" divider="or sign up with your email" %}
+      <p class="text-xs muted" style="margin-top: calc(-1 * var(--space-2))">Signing up with Google confirms your email straight away. We will ask for your mobile number next.</p>
+    {% endif %}
+    <form method="post" class="form" novalidate{% if google_enabled %} style="margin-top: var(--space-6)"{% endif %}>
       {% csrf_token %}
       {% include "components/form_fields.html" %}
-      <p class="text-xs muted">By creating an account you agree to our <a href="{% url 'marketing:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'marketing:privacy' %}" target="_blank">Privacy Policy</a>.</p>
+      <p class="text-xs muted">By creating an account{% if google_enabled %} (with Google or email){% endif %} you agree to our <a href="{% url 'marketing:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'marketing:privacy' %}" target="_blank">Privacy Policy</a>.</p>
       {% hover_button "Create account" variant="ink" css="ihb--block" %}
     </form>
     <p class="auth-alt">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
