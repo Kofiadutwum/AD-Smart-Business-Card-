@@ -877,25 +877,34 @@
   font-weight: 650;
 }
 .calc {
+  container-type: inline-size;
   margin-top: var(--space-8);
   padding: var(--space-6);
   border-radius: var(--radius-lg);
   background: var(--surface);
   border: 1px solid var(--border);
 }
+/* The stepper and the total stay side by side at every width. */
 .calc__row {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: var(--space-4);
 }
+.calc__row > .field {
+  flex-shrink: 0;
+}
 .calc__total {
+  min-width: 0;
   text-align: right;
 }
 .calc__total strong {
   display: block;
-  font-size: var(--text-3xl);
+  white-space: nowrap;
+  /* Full size where there is room; on a narrow card a long total (500 cards
+     runs to "GHS 67,650.00") shrinks to fit beside the stepper. --chars is
+     the total's length, kept up to date by the calculator script. */
+  font-size: min(var(--text-3xl), calc((100cqi - 9.25rem) / (var(--chars, 10) * 0.55)));
   font-weight: 650;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
@@ -907,6 +916,19 @@
 }
 .calc__hint {
   margin-top: var(--space-4);
+}
+/* Phones: a little less padding and a narrower number box, to leave the
+   total as much room as possible. */
+@media (max-width: 39.99rem) {
+  .calc {
+    padding: var(--space-5) var(--space-4);
+  }
+  .calc__row {
+    gap: var(--space-3);
+  }
+  .calc .field .stepper input {
+    width: 2.75rem !important;
+  }
 }
 .calc__hint[hidden] {
   display: none;

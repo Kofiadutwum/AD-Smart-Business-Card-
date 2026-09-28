@@ -230,8 +230,10 @@
       var price = cardsPrice(q, tiers);
       if (price === null) return;
       total.textContent = ghs(price);
+      // The CSS shrinks a long total by its length so it stays beside the stepper.
+      total.style.setProperty("--chars", String(total.textContent.length));
       each.textContent = ghs(Math.round(price / q)) + " per card";
-      if (usd) usd.textContent = rate ? "≈ $" + (price / 100 / rate).toFixed(2) : "";
+      if (usd) usd.textContent = rate ? "≈ $" + (price / 100 / rate).toFixed(2) : "";
       var next = cardsPrice(q + 1, tiers);
       if (hint) hint.hidden = !(next !== null && next <= price);
       calc.dispatchEvent(new CustomEvent("nfc:price", { detail: { quantity: q, price: price } }));
