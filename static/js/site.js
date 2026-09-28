@@ -137,15 +137,25 @@
     var lbImg = lightbox.querySelector("img");
     var lbTitle = lightbox.querySelector("[data-lightbox-title]");
     var opener = null;
+    var openLightbox = function (src, alt, title, from) {
+      opener = from;
+      lbImg.src = src;
+      lbImg.alt = alt || "";
+      lbTitle.textContent = title || "";
+      lightbox.showModal();
+    };
+    // The gallery carousel opens its front picture through this as well.
+    window.openLightbox = openLightbox;
     document.addEventListener("click", function (event) {
       var trigger = event.target.closest("[data-lightbox]");
       if (!trigger) return;
       event.preventDefault();
-      opener = trigger;
-      lbImg.src = trigger.getAttribute("data-lightbox");
-      lbImg.alt = trigger.getAttribute("data-lightbox-alt") || "";
-      lbTitle.textContent = trigger.getAttribute("data-lightbox-title") || "";
-      lightbox.showModal();
+      openLightbox(
+        trigger.getAttribute("data-lightbox"),
+        trigger.getAttribute("data-lightbox-alt"),
+        trigger.getAttribute("data-lightbox-title"),
+        trigger
+      );
     });
     lightbox.addEventListener("click", function (event) {
       if (event.target === lightbox || event.target.closest("[data-lightbox-close]")) lightbox.close();

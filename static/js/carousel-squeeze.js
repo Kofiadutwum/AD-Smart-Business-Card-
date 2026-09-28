@@ -18,6 +18,9 @@
        a slat while the strip eases home) instead of racing a timer against
        an animation frame
      - after a keyboard step, focus follows the newly opened tab
+     - a sideways swipe on a touch screen steps by one, and clicking the open
+       card shows the full picture; on phones the arrows and the picture's
+       own "View design" button are hidden (carousel.css)
    ========================================================================== */
 
 (function () {
@@ -165,6 +168,9 @@
       el.addEventListener("click", function () {
         var col = colOf(card.key);
         if (col > 0) step(col);
+        else if (col === 0 && slide.image && window.openLightbox) {
+          window.openLightbox(slide.image, slide.imageAlt, slide.title, el);
+        }
       });
       return el;
     }
@@ -339,6 +345,39 @@
       if (prev) prev.addEventListener("click", function () { step(-1); });
       if (next) next.addEventListener("click", function () { step(1); });
     }
+
+    // Touch screens: a sideways swipe steps one design either way. Upward and
+    // downward drags are left to the page (touch-action: pan-y in the CSS).
+    var viewport = inner.querySelector(".sq__viewport");
+    var touch = null;
+    var swiped = false;
+    viewport.addEventListener("pointerdown", function (event) {
+      swiped = false;
+      touch = event.pointerType === "mouse" ? null : { x: event.clientX, y: event.clientY };
+    });
+    viewport.addEventListener("pointerup", function (event) {
+      if (!touch) return;
+      var dx = event.clientX - touch.x;
+      var dy = event.clientY - touch.y;
+      touch = null;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      swiped = true;
+      step(dx < 0 ? 1 : -1);
+    });
+    viewport.addEventListener("pointercancel", function () {
+      touch = null;
+    });
+    // A swipe that ends on a card must not also open it or step to it.
+    viewport.addEventListener(
+      "click",
+      function (event) {
+        if (!swiped) return;
+        swiped = false;
+        event.preventDefault();
+        event.stopPropagation();
+      },
+      true
+    );
 
     inner.addEventListener("mouseenter", function () {
       paused = true;

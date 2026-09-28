@@ -76,6 +76,7 @@
   width: 100%;
   height: var(--sq-h);
   overflow: hidden;
+  touch-action: pan-y; /* sideways swipes are the carousel's, see the script */
 }
 .sq__strip {
   display: flex;
@@ -101,6 +102,18 @@
 .sq__card:focus-visible {
   outline: 2px solid var(--sq-fill);
   outline-offset: 2px;
+}
+.sq__card[aria-selected="true"] {
+  cursor: zoom-in;
+}
+
+/* Phones: swipe to move and tap the picture to open it, so the arrows and
+   the "View design" button go. A button that links elsewhere stays. */
+@container (max-width: 40rem) {
+  .sq__controls,
+  .sq__action[data-lightbox] {
+    display: none;
+  }
 }
 
 /* Drawn at a fixed 16:9 (4:3 on phones) block and centred, never at the
