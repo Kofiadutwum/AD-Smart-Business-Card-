@@ -522,6 +522,72 @@
   color: var(--muted);
   font-size: var(--text-sm);
 }
+.slider-dots {
+  display: none;
+}
+
+/* Phones: the four steps become a swipe row, one card in view at a time with
+   the next one peeking in, and each icon sits beside its text, not above it. */
+@media (max-width: 47.99rem) {
+  .steps {
+    grid-auto-flow: column;
+    grid-auto-columns: min(85%, 20rem);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) var(--space-1);
+    scrollbar-width: none;
+  }
+  .steps::-webkit-scrollbar {
+    display: none;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-4);
+    align-content: start;
+    scroll-snap-align: start;
+  }
+  .step__num {
+    display: contents;
+  }
+  .step__icon {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+  }
+  .step__num > span:last-child {
+    grid-column: 2;
+    grid-row: 1;
+    margin-bottom: var(--space-1);
+  }
+  .step h3 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .step p {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+  .slider-dots span {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--border-strong);
+    transition: width var(--dur-fast), background var(--dur-fast);
+  }
+  .slider-dots span.is-active {
+    width: 1.5rem;
+    background: var(--link);
+  }
+}
 
 .share-showcase {
   display: grid;
@@ -568,6 +634,23 @@
 .share-list p {
   color: var(--muted);
   font-size: var(--text-sm);
+}
+/* Phones: icon beside the text rather than above it. */
+@media (max-width: 39.99rem) {
+  .share-list li {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-4);
+    row-gap: var(--space-1);
+    align-items: start;
+  }
+  .share-list .icon-tile {
+    grid-row: 1 / span 2;
+    margin-bottom: 0;
+  }
+  .share-list h3,
+  .share-list p {
+    grid-column: 2;
+  }
 }
 
 /* A phone frame around the live demo card. */

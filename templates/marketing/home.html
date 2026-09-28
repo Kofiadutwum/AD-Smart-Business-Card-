@@ -82,7 +82,7 @@
       <h2 id="how-title">From sign-up to shared in four steps.</h2>
       <p class="lead">Build your card for free and preview it first. You only pay when you are happy with how it looks.</p>
     </div>
-    <ol class="steps">
+    <ol class="steps" data-slider>
       {% for s in how_it_works %}
       <li class="step">
         <div class="step__num"><span class="step__icon">{% icon s.icon 22 %}</span><span>0{{ forloop.counter }}</span></div>
@@ -91,6 +91,7 @@
       </li>
       {% endfor %}
     </ol>
+    <div class="slider-dots" data-slider-dots aria-hidden="true"></div>
 
     <div class="share-showcase">
       <div>

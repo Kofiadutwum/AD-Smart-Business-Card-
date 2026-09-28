@@ -236,6 +236,26 @@
     update();
   });
 
+  /* --- swipe rows on phones: one dot per card, the one in view highlighted ---------------- */
+  document.querySelectorAll("[data-slider]").forEach(function (list) {
+    var dots = list.nextElementSibling;
+    if (!dots || !dots.hasAttribute("data-slider-dots")) return;
+    var items = Array.prototype.slice.call(list.children);
+    items.forEach(function () {
+      dots.appendChild(document.createElement("span"));
+    });
+    var update = function () {
+      var stride = items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : 1;
+      var index = stride > 0 ? Math.round(list.scrollLeft / stride) : 0;
+      Array.prototype.forEach.call(dots.children, function (dot, i) {
+        dot.classList.toggle("is-active", i === index);
+      });
+    };
+    list.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  });
+
   /* --- cookie notice (PRV-05) ----------------------------------------------------------- */
   var notice = document.getElementById("cookie-notice");
   if (notice && !store("cookie-ok")) {
