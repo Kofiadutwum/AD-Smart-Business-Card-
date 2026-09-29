@@ -59,7 +59,7 @@
     <div class="stack mt-6" style="--stack: var(--space-3)">
       {% hover_button pay_label variant="primary" css="ihb--block" name="action" value="pay" icon_name="lock" %}
       {% if upgrade %}
-        <button class="btn" style="width:100%; height:auto; white-space:normal; line-height:1.35; padding-block: var(--space-3)" type="submit" name="action" value="upgrade">{% if upgrade.added %}Or add {{ upgrade.added }} {% if upgrade.added == 1 %}person{% else %}people{% endif %} now{% else %}Or upgrade now{% endif %} for {% money upgrade.amount_minor inline=True %}, for the {{ upgrade.months }} month{{ upgrade.months|pluralize }} left</button>
+        <button class="btn" style="width:100%; height:auto; white-space:normal; line-height:1.35; padding-block: var(--space-3)" type="submit" name="action" value="upgrade"><span>{% if upgrade.added %}Or add {{ upgrade.added }} {% if upgrade.added == 1 %}person{% else %}people{% endif %} now{% else %}Or upgrade now{% endif %} for {% money upgrade.amount_minor inline=True %}, for the {{ upgrade.months }} month{{ upgrade.months|pluralize }} left</span></button>
       {% endif %}
     </div>
     <p class="text-xs muted mt-4 cluster" style="--cluster: var(--space-2)">{% icon "shield-check" 16 %}Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard.{% if payment_sandbox %} <strong>Test mode — no real money moves.</strong>{% endif %}</p>
