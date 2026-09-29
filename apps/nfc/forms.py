@@ -3,14 +3,15 @@ from django.core.exceptions import ValidationError
 from django_countries import countries
 
 from apps.billing.models import Plan
-from apps.core.utils import format_ghs, normalise_phone, validate_design_file
+from apps.billing.fx import latest_rate
+from apps.core.utils import format_money, normalise_phone, validate_design_file
 
 from .models import DeliveryZone
 
 
 class ZoneChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, zone):
-        fee = format_ghs(zone.fee_minor) if zone.fee_minor else "Free"
+        fee = format_money(zone.fee_minor, latest_rate()) if zone.fee_minor else "Free"
         label = "shipping and delivery" if zone.is_international else ""
         return f"{zone.name} — {fee}{' ' + label if label else ''} · {zone.eta}"
 

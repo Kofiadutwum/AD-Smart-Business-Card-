@@ -28,7 +28,7 @@
         <a class="btn btn--on-dark" href="#pricing">See plans and prices</a>
       </div>
       <ul class="hero__proof">
-        {% with first_plan=plans.0 %}{% if first_plan %}<li>{% icon "badge-check" 18 %}From {{ first_plan.price_minor|ghs }} a year</li>{% endif %}{% endwith %}
+        {% with first_plan=plans.0 %}{% if first_plan %}<li>{% icon "badge-check" 18 %}From {% money first_plan.price_minor inline=True %} a year</li>{% endif %}{% endwith %}
         <li>{% icon "wallet" 18 %}MoMo and cards via Paystack</li>
         <li>{% icon "smartphone" 18 %}Works on iPhone and Android</li>
       </ul>

@@ -229,9 +229,10 @@ class PromoCode(models.Model):
     def label(self):
         if self.kind == self.KIND_PERCENT:
             return f"{self.value}% off"
-        from apps.core.utils import format_ghs
+        from apps.billing.fx import latest_rate
+        from apps.core.utils import format_money
 
-        return f"{format_ghs(self.value)} off"
+        return f"{format_money(self.value, latest_rate())} off"
 
     def problem_for(self, scope):
         """Why this code cannot be used now, or None when it can."""

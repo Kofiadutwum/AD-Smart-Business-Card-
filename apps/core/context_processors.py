@@ -18,6 +18,12 @@ def _shell(user):
     }
 
 
+def _latest_rate():
+    from apps.billing.fx import latest_rate
+
+    return latest_rate()
+
+
 def site(request):
     user = getattr(request, "user", None)
     extra = {}
@@ -35,6 +41,8 @@ def site(request):
         "site": SiteSettings.load(),
         "current_year": date.today().year,
         "payment_sandbox": settings.PAYMENT_SANDBOX,
+        # Today's USD rate for the {% money %} tag; looked up once, on first use.
+        "fx_rate": SimpleLazyObject(_latest_rate),
         # Development only: defeat the browser cache for CSS/JS. Production
         # uses hashed filenames from ManifestStaticFilesStorage instead.
         "ASSET_Q": f"?v={int(time.time())}" if settings.DEBUG else "",

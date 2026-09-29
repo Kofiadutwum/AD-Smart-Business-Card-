@@ -6,6 +6,7 @@ same code runs in development, staging and production (SRS PRJ-01, SEC-11).
 """
 
 import os
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -267,8 +268,10 @@ PAYMENT_SANDBOX_OUTCOME = env("PAYMENT_SANDBOX_OUTCOME", "success")
 # where Render cron is not available. Unset = the URL does not exist.
 CRON_SECRET = env("CRON_SECRET")
 
-# Exchange-rate provider for the USD display (CUR-02).
+# Exchange-rate provider for the USD display (CUR-02). A rate over a day old is
+# refreshed in the background as pages are viewed; off while the tests run.
 FX_PROVIDER_URL = env("FX_PROVIDER_URL", "https://open.er-api.com/v6/latest/USD")
+FX_AUTO_REFRESH = env_bool("FX_AUTO_REFRESH", sys.argv[1:2] != ["test"])
 
 # The Flask site signed its visitor hashes with its own secret; new hashes use
 # this salt so repeat-visitor counting survives a SECRET_KEY rotation.

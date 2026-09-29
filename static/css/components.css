@@ -772,6 +772,41 @@
   }
 }
 
+/* --- money: US dollars large, the cedi amount smaller beneath ({% money %}) -------- */
+
+.money {
+  display: inline-block;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.money__usd {
+  display: block;
+  font-weight: 650;
+}
+.money__ghs {
+  display: block;
+  margin-top: 0.1em;
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--muted);
+}
+.money__ghs[hidden] {
+  display: none;
+}
+.money-inline .money__usd {
+  display: inline;
+  font-weight: 650;
+}
+.money-inline .money__ghs {
+  display: inline;
+  margin: 0;
+  font-size: 0.88em;
+  font-weight: 500;
+  color: inherit;
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
 /* --- misc ------------------------------------------------------------------------ */
 
 .kbd-copy {

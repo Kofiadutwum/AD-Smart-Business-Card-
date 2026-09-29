@@ -40,17 +40,17 @@
   <aside class="panel" style="position: sticky; top: var(--space-6)">
     <h2 style="font-size: var(--text-lg)">Summary</h2>
     <div class="summary mt-4">
-      {% for line in quote.lines %}<div class="summary__row"><span>{{ line.label }}</span><span>{{ line.amount_minor|ghs }}</span></div>{% endfor %}
-      {% if quote.discount_minor %}<div class="summary__row" style="color: var(--success)"><span>Discount ({{ quote.promo.code }})</span><span>−{{ quote.discount_minor|ghs }}</span></div>{% endif %}
-      {% if quote.tax_minor %}<div class="summary__row"><span>{{ quote.tax_label }}</span><span>{{ quote.tax_minor|ghs }}</span></div>{% endif %}
-      <div class="summary__row summary__total"><span>You pay</span><span>{{ quote.total_minor|ghs }}</span></div>
-      {% if rate %}<p class="text-xs muted">About {{ quote.total_minor|usd:rate.ghs_per_usd }}. Approximate. You will be charged {{ quote.total_minor|ghs }}. Your bank may apply its own exchange rate.</p>{% endif %}
+      {% for line in quote.lines %}<div class="summary__row"><span>{{ line.label }}</span><span>{% money line.amount_minor %}</span></div>{% endfor %}
+      {% if quote.discount_minor %}<div class="summary__row" style="color: var(--success)"><span>Discount ({{ quote.promo.code }})</span><span>{% money quote.discount_minor sign="−" %}</span></div>{% endif %}
+      {% if quote.tax_minor %}<div class="summary__row"><span>{{ quote.tax_label }}</span><span>{% money quote.tax_minor %}</span></div>{% endif %}
+      <div class="summary__row summary__total"><span>You pay</span><span>{% money quote.total_minor %}</span></div>
+      {% if fx_rate %}<p class="text-xs muted">The dollar amount is approximate. You will be charged {{ quote.total_minor|ghs }}. Your bank may apply its own exchange rate.</p>{% endif %}
     </div>
     <label class="check mt-6"><input type="checkbox" name="accept_policy" value="1" required><span>I accept the <a href="{% url 'marketing:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'marketing:refunds' %}" target="_blank">Refund Policy</a>. Subscriptions are not refundable once active.</span></label>
     <div class="stack mt-6" style="--stack: var(--space-3)">
       {% hover_button pay_label variant="primary" css="ihb--block" name="action" value="pay" icon_name="lock" %}
       {% if upgrade %}
-        <button class="btn" style="width:100%" type="submit" name="action" value="upgrade">Or upgrade now for {{ upgrade.amount_minor|ghs }} ({{ upgrade.months }} month{{ upgrade.months|pluralize }} left)</button>
+        <button class="btn" style="width:100%" type="submit" name="action" value="upgrade">Or upgrade now for {% money upgrade.amount_minor inline=True %}, for the {{ upgrade.months }} month{{ upgrade.months|pluralize }} left</button>
       {% endif %}
     </div>
     <p class="text-xs muted mt-4 cluster" style="--cluster: var(--space-2)">{% icon "shield-check" 16 %}Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard.{% if payment_sandbox %} <strong>Test mode — no real money moves.</strong>{% endif %}</p>

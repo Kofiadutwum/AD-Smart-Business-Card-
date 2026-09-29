@@ -12,7 +12,7 @@ from django.views.decorators.http import require_POST
 
 from apps.accounts.decorators import customer_required
 from apps.core.emails import notify_admins
-from apps.core.utils import format_ghs
+from apps.core.utils import format_money
 
 from . import fx, paystack, services
 from .models import Payment, Plan
@@ -92,7 +92,7 @@ def checkout(request):
             "plan": plan,
             "subscription": subscription,
             "quote": quote,
-            "pay_label": f"Pay {format_ghs(quote['total_minor'])}",
+            "pay_label": f"Pay {format_money(quote['total_minor'], fx.latest_rate())}",
             "upgrade": upgrade,
             "promo_code": promo.code if promo else promo_code,
             "rate": fx.latest_rate(),

@@ -23,6 +23,24 @@ def format_ghs(minor):
     return f"GHS {amount:,.2f}"
 
 
+def format_usd(minor, ghs_per_usd):
+    """Approximate dollars for a cedi amount: '$9' for whole dollars, else '$8.64'.
+    Empty when there is no rate (CUR-01)."""
+    if not ghs_per_usd:
+        return ""
+    value = (Decimal(int(minor or 0)) / 100 / Decimal(str(ghs_per_usd))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    if value == value.to_integral():
+        return f"${value:,.0f}"
+    return f"${value:,.2f}"
+
+
+def format_money(minor, rate):
+    """'$12.96 (GHS 150.00)' for plain text such as button labels and messages;
+    the cedi amount alone without a rate."""
+    dollars = format_usd(minor, rate.ghs_per_usd) if rate else ""
+    return f"{dollars} ({format_ghs(minor)})" if dollars else format_ghs(minor)
+
+
 def ghs_to_minor(value):
     return int((Decimal(str(value)) * 100).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 

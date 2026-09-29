@@ -1,13 +1,11 @@
 """Template helpers available in every template (registered as builtins)."""
 
-from decimal import ROUND_HALF_UP, Decimal
-
 from django import template
 from django.templatetags.static import static
 from django.urls import NoReverseMatch, reverse
 from django.utils.html import format_html
 
-from apps.core.utils import display_phone, format_ghs, whatsapp_digits
+from apps.core.utils import display_phone, format_ghs, format_usd, whatsapp_digits
 
 register = template.Library()
 
@@ -43,14 +41,30 @@ def ghs(minor):
 @register.filter
 def usd(minor, rate):
     """Approximate USD for a GHS minor amount; '' when no usable rate (CUR-04)."""
-    if not rate:
-        return ""
-    value = (Decimal(int(minor or 0)) / 100 / Decimal(str(rate))).quantize(
-        Decimal("0.01"), rounding=ROUND_HALF_UP
+    return format_usd(minor, rate)
+
+
+@register.simple_tag(takes_context=True)
+def money(context, minor, inline=False, sign=""):
+    """An amount as customers see it: US dollars large, the cedi amount smaller
+    beneath (or in brackets after it when ``inline``). Customers are always
+    charged the cedi amount; without a usable rate only the cedis show."""
+    rate = context.get("fx_rate")
+    ghs_text = format_ghs(minor)
+    usd_text = usd(minor, rate.ghs_per_usd) if rate else ""
+    if inline:
+        if not usd_text:
+            return f"{sign}{ghs_text}"
+        return format_html(
+            '<span class="money-inline"><span class="money__usd">{}{}</span> <span class="money__ghs">({}{})</span></span>',
+            sign, usd_text, sign, ghs_text,
+        )
+    if not usd_text:
+        return format_html('<span class="money"><span class="money__usd">{}{}</span></span>', sign, ghs_text)
+    return format_html(
+        '<span class="money"><span class="money__usd">{}{}</span><span class="money__ghs">{}{}</span></span>',
+        sign, usd_text, sign, ghs_text,
     )
-    if value == value.to_integral():
-        return f"${value:,.0f}"
-    return f"${value:,.2f}"
 
 
 @register.filter

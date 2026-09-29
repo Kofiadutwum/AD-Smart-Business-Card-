@@ -36,7 +36,7 @@
           {% regroup zones by region_label as regions %}
           {% for region in regions %}
             <tr><th colspan="3" scope="rowgroup" style="text-transform:none; letter-spacing:0; font-size: var(--text-sm); color: var(--ink)">{{ region.grouper }}</th></tr>
-            {% for zone in region.list %}<tr><td><strong>{{ zone.name }}</strong>{% if zone.description %}<br><span class="muted text-sm">{{ zone.description }}</span>{% endif %}</td><td>{{ zone.eta }}</td><td class="num">{% if zone.fee_minor %}{{ zone.fee_minor|ghs }}{% else %}Free{% endif %}</td></tr>{% endfor %}
+            {% for zone in region.list %}<tr><td><strong>{{ zone.name }}</strong>{% if zone.description %}<br><span class="muted text-sm">{{ zone.description }}</span>{% endif %}</td><td>{{ zone.eta }}</td><td class="num">{% if zone.fee_minor %}{% money zone.fee_minor %}{% else %}Free{% endif %}</td></tr>{% endfor %}
           {% endfor %}
         </tbody>
       </table>

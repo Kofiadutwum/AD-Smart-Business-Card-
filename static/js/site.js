@@ -216,24 +216,54 @@
   }
   window.ADSmart.ghs = ghs;
 
+  /* The same as the {% money %} tag: whole dollars without cents, otherwise two places. */
+  function usd(minor, rate) {
+    if (!rate) return "";
+    var value = Math.round(minor / rate) / 100;
+    var whole = value === Math.round(value);
+    return "$" + value.toLocaleString("en-US", { minimumFractionDigits: whole ? 0 : 2, maximumFractionDigits: whole ? 0 : 2 });
+  }
+  window.ADSmart.usd = usd;
+
+  /* Fill a .money element: dollars large, cedis beneath; cedis alone without a rate. */
+  function setMoney(el, minor, rate) {
+    if (!el) return;
+    var big = el.querySelector(".money__usd");
+    var small = el.querySelector(".money__ghs");
+    if (minor === null || minor === undefined) {
+      big.textContent = "—";
+      if (small) small.textContent = "";
+      return;
+    }
+    big.textContent = rate ? usd(minor, rate) : ghs(minor);
+    if (small) {
+      small.textContent = rate ? ghs(minor) : "";
+      small.hidden = !rate;
+    }
+  }
+  window.ADSmart.setMoney = setMoney;
+
   document.querySelectorAll("[data-nfc-calc]").forEach(function (calc) {
     var tiers = JSON.parse(calc.querySelector('script[type="application/json"]').textContent);
     var rate = parseFloat(calc.getAttribute("data-rate") || "0");
     var input = calc.querySelector("input[type=number]");
     var total = calc.querySelector("[data-total]");
+    var totalGhs = calc.querySelector("[data-total-ghs]");
     var each = calc.querySelector("[data-each]");
-    var usd = calc.querySelector("[data-usd]");
     var hint = calc.querySelector("[data-hint]");
     var update = function () {
       var q = Math.max(1, Math.min(500, parseInt(input.value || "1", 10) || 1));
       if (String(q) !== input.value) input.value = q;
       var price = cardsPrice(q, tiers);
       if (price === null) return;
-      total.textContent = ghs(price);
+      var per = Math.round(price / q);
+      // Dollars large with the cedi total beneath; cedis alone when there is no rate.
+      total.textContent = rate ? usd(price, rate) : ghs(price);
+      if (totalGhs) totalGhs.textContent = rate ? ghs(price) : "";
       // The CSS shrinks a long total by its length so it stays beside the stepper.
       total.style.setProperty("--chars", String(total.textContent.length));
-      each.textContent = ghs(Math.round(price / q)) + " per card";
-      if (usd) usd.textContent = rate ? "≈ $" + (price / 100 / rate).toFixed(2) : "";
+      // Only worth saying once there is more than one card.
+      each.textContent = q > 1 ? (rate ? usd(per, rate) + " each (" + ghs(per) + ")" : ghs(per) + " each") : "";
       var next = cardsPrice(q + 1, tiers);
       if (hint) hint.hidden = !(next !== null && next <= price);
       calc.dispatchEvent(new CustomEvent("nfc:price", { detail: { quantity: q, price: price } }));

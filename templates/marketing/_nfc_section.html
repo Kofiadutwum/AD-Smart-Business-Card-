@@ -13,14 +13,14 @@
           {% for tier in tiers %}
           <tr>
             <td>{{ tier.range_label }}</td>
-            <td class="num" style="white-space:normal">{{ tier.unit_price_minor|ghs }}{% if tier.mode == "incremental" %}<br><span class="muted text-xs">for each card above {{ tier.min_quantity|add:"-1" }}</span>{% endif %}</td>
+            <td class="num" style="white-space:normal">{% money tier.unit_price_minor %}{% if tier.mode == "incremental" %}<br><span class="muted text-xs">for each card above {{ tier.min_quantity|add:"-1" }}</span>{% endif %}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
 
-    <div class="calc" data-nfc-calc data-rate="{% if rate %}{{ rate.ghs_per_usd }}{% endif %}">
+    <div class="calc" data-nfc-calc data-rate="{% if fx_rate %}{{ fx_rate.ghs_per_usd }}{% endif %}">
       {{ tiers_json|json_script:"nfc-tiers" }}
       <div class="calc__row">
         <div class="field">
@@ -32,8 +32,9 @@
           </div>
         </div>
         <div class="calc__total" aria-live="polite">
-          <strong data-total>{{ nfc_examples.0.1|ghs }}</strong>
-          <span data-each></span> <span data-usd></span>
+          <strong data-total>{% if fx_rate %}{{ nfc_examples.0.1|usd:fx_rate.ghs_per_usd }}{% else %}{{ nfc_examples.0.1|ghs }}{% endif %}</strong>
+          <span class="calc__ghs" data-total-ghs>{% if fx_rate %}{{ nfc_examples.0.1|ghs }}{% endif %}</span>
+          <span data-each></span>
         </div>
       </div>
       <p class="alert alert--success calc__hint" data-hint hidden>{% icon "sparkles" 18 %}<span><strong>Add 1 more card for no extra cost.</strong> The next card is free at this quantity.</span></p>

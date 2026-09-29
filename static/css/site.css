@@ -914,6 +914,16 @@
   font-size: var(--text-sm);
   color: var(--muted);
 }
+/* The cedi total, beneath the dollar total. */
+.calc__total .calc__ghs {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.calc__total .calc__ghs:empty {
+  display: none;
+}
 .calc__hint {
   margin-top: var(--space-4);
 }

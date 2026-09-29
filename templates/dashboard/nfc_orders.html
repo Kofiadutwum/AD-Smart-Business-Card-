@@ -25,7 +25,7 @@
               {% elif order.status == "pending_payment" %}<span class="badge badge--warning">Awaiting payment</span>
               {% else %}<span class="badge badge--info">{{ order.get_status_display }}</span>{% endif %}
             </td>
-            <td class="num">{{ order.total_minor|ghs }}</td>
+            <td class="num">{% money order.total_minor %}</td>
             <td class="nowrap">{{ order.created_at|date:"j M Y" }}</td>
           </tr>
         {% endfor %}

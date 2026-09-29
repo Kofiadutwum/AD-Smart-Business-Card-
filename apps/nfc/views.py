@@ -15,6 +15,7 @@ from apps.billing import services as billing
 from apps.billing.models import Payment, PromoCode
 from apps.billing.paystack import PaymentError
 from apps.core.models import SiteSettings
+from apps.core.utils import format_money
 
 from . import services
 from .forms import CancelForm, ChangesForm, NFCOrderForm
@@ -293,7 +294,7 @@ def cancel(request, number):
         _, refundable = services.cancel_by_customer(nfc_order, request.user, form.cleaned_data.get("reason", ""))
         messages.success(
             request,
-            f"Order cancelled. A refund of GHS {refundable / 100:,.2f} will be processed to your original payment method."
+            f"Order cancelled. A refund of {format_money(refundable, fx.latest_rate())} will be processed to your original payment method."
             if refundable else "Order cancelled.",
         )
     except services.TransitionError as exc:

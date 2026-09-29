@@ -19,7 +19,7 @@
   </div>
 {% endif %}
 
-<form method="post" enctype="multipart/form-data" class="split mt-6" data-nfc-order novalidate>
+<form method="post" enctype="multipart/form-data" class="split mt-6" data-nfc-order data-rate="{% if fx_rate %}{{ fx_rate.ghs_per_usd }}{% endif %}" novalidate>
   {% csrf_token %}
   <div class="stack" style="--stack: var(--space-6)">
     <fieldset class="fieldset">
@@ -110,11 +110,11 @@
   <aside class="panel" style="position: sticky; top: var(--space-6)">
     <h2 style="font-size: var(--text-lg)">Your order</h2>
     <div class="summary mt-4" aria-live="polite">
-      <div class="summary__row"><span data-sum-cards-label>NFC cards</span><span data-sum-cards>—</span></div>
-      <div class="summary__row"><span data-sum-delivery-label>Delivery</span><span data-sum-delivery>—</span></div>
-      {% if needs_plan %}<div class="summary__row"><span>Digital card plan</span><span data-sum-plan>—</span></div>{% endif %}
-      {% if tax_rate != "0" and tax_rate != "0.00" %}<div class="summary__row"><span>Tax</span><span data-sum-tax>—</span></div>{% endif %}
-      <div class="summary__row summary__total"><span>Total</span><span data-sum-total>—</span></div>
+      <div class="summary__row"><span data-sum-cards-label>NFC cards</span><span data-sum-cards><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>
+      <div class="summary__row"><span data-sum-delivery-label>Delivery</span><span data-sum-delivery><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>
+      {% if needs_plan %}<div class="summary__row"><span>Digital card plan</span><span data-sum-plan><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>{% endif %}
+      {% if tax_rate != "0" and tax_rate != "0.00" %}<div class="summary__row"><span>Tax</span><span data-sum-tax><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>{% endif %}
+      <div class="summary__row summary__total"><span>Total</span><span data-sum-total><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>
       <p class="text-xs muted">Promo codes are applied at the next step and shown on the Paystack page.</p>
     </div>
     <div class="form mt-6">
@@ -139,7 +139,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var zones = JSON.parse(document.getElementById("nfc-order-zones").textContent);
   var plans = JSON.parse(document.getElementById("nfc-order-plans").textContent);
   var taxRate = parseFloat("{{ tax_rate }}") || 0;
-  var price = window.ADSmart.cardsPrice, ghs = window.ADSmart.ghs;
+  var price = window.ADSmart.cardsPrice, setMoney = window.ADSmart.setMoney;
+  var rate = parseFloat(form.getAttribute("data-rate") || "0");
+  function show(selector, minor, empty) {
+    var el = form.querySelector(selector + " .money");
+    if (!el) return;
+    if (empty) { el.querySelector(".money__usd").textContent = empty; el.querySelector(".money__ghs").hidden = true; return; }
+    setMoney(el, minor, rate);
+  }
   function checked(name) { var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : null; }
   function update() {
     var qty = 0;
@@ -152,11 +159,11 @@ document.addEventListener("DOMContentLoaded", function () {
     var subtotal = (cards || 0) + delivery + plan;
     var tax = Math.round(subtotal * taxRate / 100);
     form.querySelector("[data-sum-cards-label]").textContent = qty + " NFC card" + (qty === 1 ? "" : "s");
-    form.querySelector("[data-sum-cards]").textContent = cards === null ? "—" : ghs(cards);
-    form.querySelector("[data-sum-delivery]").textContent = zone ? (delivery ? ghs(delivery) : "Free") : "—";
-    var p = form.querySelector("[data-sum-plan]"); if (p) p.textContent = plan ? ghs(plan) : "—";
-    var t = form.querySelector("[data-sum-tax]"); if (t) t.textContent = ghs(tax);
-    form.querySelector("[data-sum-total]").textContent = ghs(subtotal + tax);
+    show("[data-sum-cards]", cards, cards === null ? "—" : "");
+    show("[data-sum-delivery]", delivery, zone ? (delivery ? "" : "Free") : "—");
+    show("[data-sum-plan]", plan, plan ? "" : "—");
+    show("[data-sum-tax]", tax, "");
+    show("[data-sum-total]", subtotal + tax, "");
     var next = price(qty + 1, tiers);
     form.querySelector("[data-free-hint]").hidden = !(qty && next !== null && next <= cards);
     var delFields = form.querySelector("[data-delivery-fields]");

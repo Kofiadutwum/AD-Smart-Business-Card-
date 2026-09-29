@@ -2,6 +2,7 @@
 
 from datetime import timedelta
 from decimal import Decimal
+from unittest import mock
 
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -192,18 +193,33 @@ class SubscriptionTests(BaseTest):
 
 
 class ExchangeRateTests(BaseTest):
-    def test_usd_hidden_after_72_hours(self):
-        """CUR-04, AC-09."""
-        ExchangeRate.objects.create(ghs_per_usd=Decimal("11.5"), provider="test", fetched_at=timezone.now() - timedelta(hours=80))
+    def setUp(self):
+        super().setUp()
         from django.core.cache import cache
 
-        cache.delete("fx:latest")
-        self.assertIsNone(fx.latest_rate())
+        cache.delete_many(["fx:latest", "fx:refreshing"])
+
+    def test_no_rate_yet_shows_cedis_only(self):
         response = self.client.get("/pricing")
         self.assertNotContains(response, "Approximate. You will be charged")
+        self.assertNotContains(response, 'class="money__ghs"')
+        self.assertContains(response, '<span class="money__usd">GHS 200.00</span>')
+
+    def test_old_rate_stays_in_use_and_is_refreshed_in_the_background(self):
+        """The last known rate is kept until a newer one arrives; a stale one triggers one refresh an hour."""
+        ExchangeRate.objects.create(ghs_per_usd=Decimal("11.5"), provider="test", fetched_at=timezone.now() - timedelta(days=10))
+        with self.settings(FX_AUTO_REFRESH=True), mock.patch("apps.billing.fx.threading.Thread") as thread:
+            self.assertEqual(fx.latest_rate().ghs_per_usd, Decimal("11.5"))
+            fx.latest_rate()
+        thread.assert_called_once()
+        response = self.client.get("/pricing")
+        self.assertContains(response, "Approximate. You will be charged GHS 100.00")
+
+    def test_amounts_show_dollars_large_and_cedis_beneath(self):
         ExchangeRate.objects.create(ghs_per_usd=Decimal("11.5"), provider="test")
-        cache.delete("fx:latest")
-        self.assertContains(self.client.get("/pricing"), "Approximate. You will be charged GHS 100.00")
+        response = self.client.get("/pricing")
+        # NFC tier table: GHS 200.00 is about $17.39.
+        self.assertContains(response, '<span class="money"><span class="money__usd">$17.39</span><span class="money__ghs">GHS 200.00</span></span>', html=True)
 
 
 class VCardTests(BaseTest):
