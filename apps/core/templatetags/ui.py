@@ -45,6 +45,12 @@ def usd(minor, rate):
 
 
 @register.filter
+def team_price(plan, seats):
+    """A team plan's yearly price for ``seats`` people, in pesewas."""
+    return plan.price_for(seats)
+
+
+@register.filter
 def money_text(minor, rate):
     """Plain text for emails: '$12.96 (GHS 150.00)', at the rate given (a payment's own)."""
     return format_money(minor, rate)

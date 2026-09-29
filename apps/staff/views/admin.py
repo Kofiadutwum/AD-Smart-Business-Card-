@@ -4,18 +4,18 @@ import secrets
 
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.forms import modelformset_factory
+from django.forms import inlineformset_factory, modelformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from apps.accounts.models import User
-from apps.billing.models import Plan
+from apps.billing.models import Plan, SeatBand
 from apps.core.emails import send_email
 from apps.core.models import AuditLog, SiteSettings
 from apps.nfc import services as nfc_services
 from apps.nfc.models import DeliveryZone, PriceTier
 
-from ..forms import AdminCreateForm, PlanForm, RoleForm, SiteSettingsForm, TierForm, ZoneForm
+from ..forms import AdminCreateForm, PlanForm, RoleForm, SeatBandForm, SiteSettingsForm, TierForm, ZoneForm, seat_band_problems
 from ..permissions import staff_required
 
 
@@ -34,7 +34,7 @@ def settings_view(request):
 
 @staff_required("settings")
 def plans(request):
-    return render(request, "staff/plans.html", {"plans": Plan.objects.all()})
+    return render(request, "staff/plans.html", {"plans": Plan.objects.prefetch_related("seat_bands")})
 
 
 @staff_required("settings")
@@ -42,12 +42,25 @@ def plan_edit(request, pk):
     plan = get_object_or_404(Plan, pk=pk)
     before = plan.price_minor
     form = PlanForm(request.POST or None, instance=plan)
-    if request.method == "POST" and form.is_valid():
-        form.save()
-        AuditLog.record(request.user, "plan_changed", plan, old_price=before, new_price=plan.price_minor, fields=form.changed_data)
-        messages.success(request, f"{plan.name} saved. New prices apply to new purchases and renewals only (CUR-06).")
-        return redirect("staff:plans")
-    return render(request, "staff/form_page.html", {"form": form, "title": f"Edit the {plan.name} plan", "back": "staff:plans"})
+    BandSet = inlineformset_factory(Plan, SeatBand, form=SeatBandForm, extra=1, can_delete=True)
+    bands = BandSet(request.POST or None, instance=plan, prefix="bands")
+    if request.method == "POST" and form.is_valid() and bands.is_valid():
+        kept = [
+            (f.cleaned_data["min_seats"], f.cleaned_data.get("max_seats"))
+            for f in bands.forms
+            if f.cleaned_data and not f.cleaned_data.get("DELETE") and f.cleaned_data.get("min_seats")
+        ]
+        problem = seat_band_problems(form.cleaned_data["max_cards"], kept)
+        if problem:
+            messages.error(request, f"Not saved: {problem}.")
+        else:
+            form.save()
+            bands.save()
+            AuditLog.record(request.user, "plan_changed", plan, old_price=before, new_price=plan.price_minor,
+                            fields=form.changed_data, team_bands=len(kept))
+            messages.success(request, f"{plan.name} saved. New prices apply to new purchases and renewals only (CUR-06).")
+            return redirect("staff:plans")
+    return render(request, "staff/plan_edit.html", {"form": form, "bands": bands, "plan": plan})
 
 
 @staff_required("settings")

@@ -58,9 +58,55 @@ class Plan(models.Model):
     def social_limit_label(self):
         return "Unlimited" if self.max_social_links is None else f"Up to {self.max_social_links}"
 
+    # --- team pricing ---------------------------------------------------------
+    # A team plan's base price covers ``max_cards`` people. Each larger team pays
+    # for its extra people band by band, and the bands stack: people 6-10 at one
+    # price, 11-20 at the next, and so on, so a bigger team never pays less.
+
+    @cached_property
+    def seat_band_list(self):
+        return list(self.seat_bands.all()) if self.pk else []
+
+    @property
+    def is_team(self):
+        return bool(self.seat_band_list)
+
+    def team_size(self, seats=None):
+        """The team size a purchase covers: never fewer than the people in the base price."""
+        if not self.is_team:
+            return self.max_cards
+        try:
+            seats = int(seats or 0)
+        except (TypeError, ValueError):
+            seats = 0
+        return max(seats, self.max_cards)
+
+    def price_for(self, seats=None):
+        """Yearly price in pesewas for a team of ``seats`` (just the plan price for other plans)."""
+        total = self.price_minor
+        if not self.is_team:
+            return total
+        seats = self.team_size(seats)
+        for band in self.seat_band_list:
+            top = seats if band.max_seats is None else min(seats, band.max_seats)
+            if top >= band.min_seats:
+                total += (top - band.min_seats + 1) * band.unit_price_minor
+        return total
+
+    def team_json(self):
+        """What the pricing page and checkout need to work out a team price in the browser."""
+        return {
+            "base": self.price_minor,
+            "included": self.max_cards,
+            "bands": [[b.min_seats, b.max_seats, b.unit_price_minor] for b in self.seat_band_list],
+        }
+
     def feature_rows(self):
         """Human-readable feature list for pricing pages, in matrix order."""
-        cards = "1 digital card" if self.max_cards == 1 else f"Up to {self.max_cards} digital cards"
+        if self.is_team:
+            cards = f"Cards for your whole team: {self.max_cards} people included, then priced per person"
+        else:
+            cards = "1 digital card" if self.max_cards == 1 else f"Up to {self.max_cards} digital cards"
         rows = [
             (True, cards),
             (True, "Permanent link, QR code and .vcf contact"),
@@ -80,6 +126,23 @@ class Plan(models.Model):
             (self.priority_support, "Priority support (4 working hours)"),
         ]
         return rows
+
+
+class SeatBand(models.Model):
+    """One band of a team plan's per-person price, for people ``min_seats`` to
+    ``max_seats`` of a team (no upper limit when empty)."""
+
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name="seat_bands")
+    min_seats = models.PositiveIntegerField(help_text="First person in this band, e.g. 6.")
+    max_seats = models.PositiveIntegerField(null=True, blank=True, help_text="Last person in this band; empty for no limit.")
+    unit_price_minor = models.PositiveIntegerField(help_text="Yearly price of each person in this band, in pesewas.")
+
+    class Meta:
+        ordering = ["min_seats"]
+
+    def __str__(self):
+        top = self.max_seats or "+"
+        return f"{self.plan.name}: people {self.min_seats}-{top}"
 
 
 class Subscription(models.Model):
@@ -112,6 +175,9 @@ class Subscription(models.Model):
         Plan, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
     )
     pending_plan_from = models.DateTimeField(null=True, blank=True)
+    # Team plans: the number of people paid for, and a smaller size booked for the next renewal.
+    seats = models.PositiveIntegerField(null=True, blank=True)
+    pending_seats = models.PositiveIntegerField(null=True, blank=True)
     cancelled_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -155,6 +221,20 @@ class Subscription(models.Model):
         return (self.expires_at - timezone.now()).days
 
     @property
+    def team_size(self):
+        """People paid for on a team plan (at least the base number)."""
+        return self.plan.team_size(self.seats)
+
+    @property
+    def card_limit(self):
+        """How many cards may be live: the team size on team plans, else the plan's allowance."""
+        return self.team_size if self.plan.is_team else self.plan.max_cards
+
+    @property
+    def yearly_price(self):
+        return self.plan.price_for(self.seats)
+
+    @property
     def full_months_left(self):
         now = timezone.now()
         if now >= self.expires_at:
@@ -176,8 +256,10 @@ class Subscription(models.Model):
     def apply_pending_plan(self):
         if self.pending_plan_id and self.pending_plan_from and timezone.now() >= self.pending_plan_from:
             self.plan_id = self.pending_plan_id
+            self.seats = self.pending_seats
             self.pending_plan = None
             self.pending_plan_from = None
+            self.pending_seats = None
             return True
         return False
 
@@ -296,6 +378,7 @@ class Payment(models.Model):
     purpose = models.CharField(max_length=16, choices=PURPOSES)
     plan = models.ForeignKey(Plan, null=True, blank=True, on_delete=models.PROTECT, related_name="payments")
     months = models.PositiveSmallIntegerField(default=0)
+    seats = models.PositiveIntegerField(null=True, blank=True, help_text="Team size bought, on team plans.")
     nfc_order = models.ForeignKey(
         "nfc.NFCOrder", null=True, blank=True, on_delete=models.PROTECT, related_name="payments"
     )
@@ -359,8 +442,13 @@ class Payment(models.Model):
                 parts.append(f"{self.plan.name} plan")
             return " + ".join(parts)
         if self.purpose == self.PURPOSE_UPGRADE:
-            return f"Upgrade to {self.plan.name}" if self.plan else "Plan upgrade"
-        return f"{self.plan.name} plan, {self.months} months" if self.plan else "Subscription"
+            if not self.plan:
+                return "Plan upgrade"
+            return f"Upgrade to {self.plan.name}" + (f" for {self.seats} people" if self.seats else "")
+        if not self.plan:
+            return "Subscription"
+        people = f" for {self.seats} people" if self.seats else ""
+        return f"{self.plan.name} plan{people}, {self.months} months"
 
     @property
     def is_manual(self):

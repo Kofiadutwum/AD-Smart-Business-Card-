@@ -57,8 +57,8 @@ def order(request):
         return redirect("dashboard:editor")
     subscription = user.subscription
     needs_plan = not (subscription and subscription.is_live)
-    plan_limit = subscription.plan.max_cards if subscription else 1
-    order_cards = cards if (subscription and subscription.plan.max_cards > 1) else cards[:1]
+    plan_limit = subscription.card_limit if subscription else 1
+    order_cards = cards if plan_limit > 1 else cards[:1]
     plans = billing.active_plans()
     first = cards[0]
     initial = {

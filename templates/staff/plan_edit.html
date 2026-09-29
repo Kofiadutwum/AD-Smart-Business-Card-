@@ -1,0 +1,29 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><div class="crumbs"><a href="{% url 'staff:plans' %}">Plans</a><span>/</span><span>{{ plan.name }}</span></div><h1>Edit the {{ plan.name }} plan</h1></div></div>
+<form method="post" class="split" novalidate>
+  {% csrf_token %}
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Price and allowances</h2>
+    <div class="form mt-4">{% include "components/form_fields.html" with form=form %}</div>
+  </section>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Team pricing</h2>
+    <p class="muted text-sm mt-2">Optional. With bands here, this becomes a team plan: the annual price covers the number of cards set on the left, and each extra person is charged the price of their band. The bands stack, so people 6–10 pay one price, 11–20 the next, and so on. Start the first band at the next person after the included ones, leave no gaps, and leave “To person” empty on the last band.</p>
+    {{ bands.management_form }}
+    {% for f in bands %}
+      <div class="fieldset mt-4" style="padding: var(--space-4)">
+        {{ f.id }}
+        <div class="form-row form-row--3">
+          {% include "components/field.html" with field=f.min_seats %}
+          {% include "components/field.html" with field=f.max_seats %}
+          {% include "components/field.html" with field=f.unit_price %}
+        </div>
+        {% if f.instance.pk %}<div class="mt-2">{% include "components/field.html" with field=f.DELETE %}</div>{% endif %}
+        {% for e in f.non_field_errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+      </div>
+    {% endfor %}
+    <div class="cluster mt-6"><button class="btn btn--primary" type="submit">{% icon "check" 16 %}Save plan</button><a class="btn btn--ghost" href="{% url 'staff:plans' %}">Cancel</a></div>
+  </section>
+</form>
+{% endblock %}

@@ -36,8 +36,27 @@ logger = logging.getLogger(__name__)
 # --------------------------------------------------------------------------
 
 
+# The largest team the website sells to online; bigger companies contact the team.
+TEAM_MAX_SEATS = 1000
+
+
 def active_plans():
-    return Plan.objects.filter(is_active=True).order_by("sort_order", "price_minor")
+    return Plan.objects.filter(is_active=True).prefetch_related("seat_bands").order_by("sort_order", "price_minor")
+
+
+def card_limit(user):
+    """How many of this user's cards may be live: their team size or plan allowance."""
+    subscription = getattr(user, "subscription", None)
+    if subscription is not None:
+        return subscription.card_limit
+    return plan_for_limits(user).max_cards
+
+
+def clamp_seats(plan, seats):
+    """A team size the website will sell for ``plan`` (None for plans without teams)."""
+    if plan is None or not plan.is_team:
+        return None
+    return min(plan.team_size(seats), TEAM_MAX_SEATS)
 
 
 def plan_for_limits(user):
@@ -98,20 +117,28 @@ def build_quote(lines, promo=None):
     }
 
 
-def upgrade_price(subscription, new_plan):
-    """PLN-01: the price difference, pro-rated by full months remaining."""
+def upgrade_price(subscription, new_plan, seats=None):
+    """PLN-01: the difference in yearly price, pro-rated by full months remaining.
+
+    This also covers adding people to a team plan mid-year: the new team
+    size's price less the current one, for the months left."""
     months = subscription.full_months_left
-    difference = max(0, new_plan.price_minor - subscription.plan.price_minor)
+    difference = max(0, new_plan.price_for(seats) - subscription.yearly_price)
     return (difference * months) // subscription.plan.duration_months, months
 
 
-def subscription_quote(user, plan, promo=None):
-    """New subscription, renewal, or a renewal onto a different plan."""
+def plan_label(plan, seats=None):
+    """'Business plan for 12 people' on team plans, 'Basic plan' otherwise."""
+    if plan.is_team:
+        return f"{plan.name} plan for {plan.team_size(seats)} people"
+    return f"{plan.name} plan"
+
+
+def subscription_quote(user, plan, promo=None, seats=None):
+    """New subscription, renewal, or a renewal onto a different plan or team size."""
     subscription = user.subscription
-    label = f"{plan.name} plan, 12 months"
-    if subscription and subscription.expires_at > timezone.now():
-        label = f"{plan.name} plan, 12 more months"
-    return build_quote([(label, plan.price_minor)], promo)
+    months = "12 more months" if subscription and subscription.expires_at > timezone.now() else "12 months"
+    return build_quote([(f"{plan_label(plan, seats)}, {months}", plan.price_for(seats))], promo)
 
 
 # --------------------------------------------------------------------------
@@ -119,7 +146,7 @@ def subscription_quote(user, plan, promo=None):
 # --------------------------------------------------------------------------
 
 
-def create_payment(*, user, purpose, quote, plan=None, months=0, nfc_order=None):
+def create_payment(*, user, purpose, quote, plan=None, months=0, nfc_order=None, seats=None):
     rate = fx.latest_rate()
     return Payment.objects.create(
         user=user,
@@ -127,6 +154,7 @@ def create_payment(*, user, purpose, quote, plan=None, months=0, nfc_order=None)
         purpose=purpose,
         plan=plan,
         months=months,
+        seats=clamp_seats(plan, seats),
         nfc_order=nfc_order,
         subtotal_minor=quote["subtotal_minor"],
         discount_minor=quote["discount_minor"],
@@ -269,34 +297,42 @@ def apply_subscription_payment(payment):
     user, plan = payment.user, payment.plan
     subscription = getattr(user, "subscription", None)
     if payment.purpose == Payment.PURPOSE_UPGRADE and subscription:
+        # A dearer plan, or more people on a team plan, from now to the current expiry.
         subscription.plan = plan
+        subscription.seats = clamp_seats(plan, payment.seats)
         subscription.pending_plan = None
         subscription.pending_plan_from = None
+        subscription.pending_seats = None
         subscription.save()
+        activate_cards(user, subscription)
         return subscription
-    return activate(user, plan, payment.months or plan.duration_months)
+    return activate(user, plan, payment.months or plan.duration_months, seats=payment.seats)
 
 
-def activate(user, plan, months):
+def activate(user, plan, months, seats=None):
     """Start or extend the account's subscription and bring its cards live.
 
-    Renewing onto a cheaper plan while time remains is a downgrade: it waits
-    for the current period to end (PLN-02). Renewing onto a dearer plan
-    upgrades at once.
+    Renewing onto something cheaper while time remains (a cheaper plan, or a
+    smaller team) is a downgrade: it waits for the current period to end
+    (PLN-02). Renewing onto something dearer takes effect at once.
     """
     now = timezone.now()
+    seats = clamp_seats(plan, seats)
     subscription = Subscription.objects.select_for_update().filter(user=user).first()
     if subscription is None:
-        subscription = Subscription(user=user, plan=plan, started_at=now, expires_at=now)
+        subscription = Subscription(user=user, plan=plan, seats=seats, started_at=now, expires_at=now)
         subscription.extend(months)
     else:
         still_running = subscription.expires_at > now and not subscription.cancelled_at
-        if still_running and plan.price_minor < subscription.plan.price_minor:
+        if still_running and plan.price_for(seats) < subscription.yearly_price:
             subscription.pending_plan = plan
+            subscription.pending_seats = seats
             subscription.pending_plan_from = subscription.expires_at
         else:
             subscription.plan = plan
+            subscription.seats = seats
             subscription.pending_plan = None
+            subscription.pending_seats = None
             subscription.pending_plan_from = None
         subscription.extend(months)
     subscription.save()
@@ -309,13 +345,13 @@ def activate_cards(user, subscription=None):
     subscription = subscription or user.subscription
     if subscription is None:
         return
-    limit = subscription.plan.max_cards
+    limit = subscription.card_limit
     cards = list(user.cards.filter(deleted_at__isnull=True).order_by("created_at"))
-    # Keep the owner's own choice while it fits the plan; otherwise the oldest
-    # cards stay enabled and the owner can swap them in the dashboard.
-    keep = {c.pk for c in cards if c.is_enabled}
-    if len(keep) > limit or not keep:
-        keep = {c.pk for c in cards[:limit]}
+    # Keep the owner's own choice while it fits the plan. If it no longer fits,
+    # the oldest of the cards they had switched on stay live; a card they
+    # switched off (say, for someone who left) is never switched back on.
+    enabled = [c.pk for c in cards if c.is_enabled]
+    keep = set(enabled[:limit]) if enabled else {c.pk for c in cards[:limit]}
     for card in cards:
         changed = []
         if card.activated_at is None:
@@ -329,8 +365,9 @@ def activate_cards(user, subscription=None):
             card.save(update_fields=changed)
 
 
-def manual_activation(*, staff, user, plan, months, reason, amount_minor=0):
+def manual_activation(*, staff, user, plan, months, reason, amount_minor=0, seats=None):
     """ADM-01: cash payments, complimentary cards, failed webhooks."""
+    seats = clamp_seats(plan, seats)
     with transaction.atomic():
         payment = Payment.objects.create(
             user=user,
@@ -338,15 +375,16 @@ def manual_activation(*, staff, user, plan, months, reason, amount_minor=0):
             purpose=Payment.PURPOSE_SUBSCRIPTION,
             plan=plan,
             months=months,
+            seats=seats,
             subtotal_minor=amount_minor,
             amount_minor=amount_minor,
             gateway="manual",
             channel="cash" if amount_minor else "complimentary",
             manual_reason=reason,
-            line_items=[{"label": f"{plan.name} plan, {months} months (manual)", "amount_minor": amount_minor}],
+            line_items=[{"label": f"{plan_label(plan, seats)}, {months} months (manual)", "amount_minor": amount_minor}],
         )
         fulfil(payment, {"status": "success", "channel": payment.channel, "fees": 0}, source="manual", actor=staff)
-        AuditLog.record(staff, "manual_activation", user, reason=reason, plan=plan.code, months=months)
+        AuditLog.record(staff, "manual_activation", user, reason=reason, plan=plan.code, months=months, seats=seats)
     return payment
 
 

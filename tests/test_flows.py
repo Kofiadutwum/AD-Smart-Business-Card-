@@ -161,7 +161,7 @@ class PaymentFlowTests(BaseTest):
         PromoCode.objects.create(code="LAUNCH50", kind="percent", value=50, applies_to="subscription")
         self.client.post("/billing/", {"plan": "basic", "promo": "launch50", "action": "pay", "accept_policy": "1"})
         payment = Payment.objects.get()
-        self.assertEqual(payment.amount_minor, 5000)
+        self.assertEqual(payment.amount_minor, 10000)  # half of Basic's GHS 200
         self.client.get(f"/billing/callback?reference={payment.reference}")
         self.assertEqual(PromoCode.objects.get().used_count, 1)
 

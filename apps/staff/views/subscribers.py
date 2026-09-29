@@ -94,7 +94,7 @@ def activate(request, pk):
         data = form.cleaned_data
         payment = manual_activation(
             staff=request.user, user=customer, plan=data["plan"], months=data["months"],
-            reason=data["reason"], amount_minor=ghs_to_minor(data["amount"]),
+            reason=data["reason"], amount_minor=ghs_to_minor(data["amount"]), seats=data.get("seats"),
         )
         messages.success(request, f"Subscription extended ({payment.reference}). A receipt was emailed to the customer.")
     else:

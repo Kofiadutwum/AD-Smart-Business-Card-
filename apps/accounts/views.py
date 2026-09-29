@@ -39,6 +39,8 @@ def register(request):
         return redirect("dashboard:home")
     if request.GET.get("plan"):
         request.session["intended_plan"] = request.GET["plan"][:32]
+        if request.GET.get("seats", "").isdigit():
+            request.session["intended_seats"] = int(request.GET["seats"][:6])
     form = RegisterForm(request.POST or None)
     if request.method == "POST":
         if rate_limited(f"register:{client_ip(request)}", 10, 3600):

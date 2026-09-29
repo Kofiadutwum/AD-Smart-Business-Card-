@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>Team cards</h1>
-    <p>{{ cards|length }} of {{ plan.max_cards }} card{{ plan.max_cards|pluralize }} on the {{ plan.name }} plan. {{ enabled_count }} live.</p>
+    <p>{{ enabled_count }} of {{ limit }} card{{ limit|pluralize }} live on the {{ plan.name }} plan{% if cards|length > enabled_count %}, and {{ cards|length|add:0 }} in total{% endif %}. Switched-off cards don't use a place.</p>
   </div>
 </div>
 {% if over_limit %}
@@ -33,15 +33,16 @@
   </div>
   <section class="panel">
     <h2 style="font-size: var(--text-lg)">Add a card</h2>
-    {% if cards|length < plan.max_cards %}
+    {% if enabled_count < limit %}
       <form method="post" class="form mt-4" novalidate>
         {% csrf_token %}
         {% include "components/form_fields.html" %}
         {% hover_button "Create card" variant="ink" icon_name="plus" %}
       </form>
     {% else %}
-      <p class="muted text-sm mt-4">You have used every card on your plan.{% if plan.max_cards == 1 %} The Business plan includes up to 5 team cards under one brand.{% endif %}</p>
-      {% if plan.max_cards == 1 %}<div class="mt-4">{% url 'billing:checkout' as checkout_url %}{% hover_button "See Business" href=checkout_url|add:"?plan=business" css="ihb--sm" %}</div>{% endif %}
+      <p class="muted text-sm mt-4">{% if plan.is_team %}Every place on your plan is in use. When someone leaves, switch their card off or delete it, then add a card for the new person.{% else %}Your plan includes {{ limit }} live card{{ limit|pluralize }}. The Business plan gives a card to everyone in your team.{% endif %}</p>
+      {% url 'billing:checkout' as checkout_url %}
+      <div class="mt-4">{% if plan.is_team %}{% hover_button "Add people to your plan" href=checkout_url|add:"?plan="|add:plan.code css="ihb--sm" %}{% else %}{% hover_button "See Business" href=checkout_url|add:"?plan=business" css="ihb--sm" %}{% endif %}</div>
     {% endif %}
   </section>
 </div>

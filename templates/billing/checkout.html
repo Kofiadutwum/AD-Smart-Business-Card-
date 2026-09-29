@@ -18,11 +18,20 @@
           <label class="check" style="padding: var(--space-4); border:1px solid {% if p == plan %}var(--primary){% else %}var(--border){% endif %}; border-radius: var(--radius); align-items:center">
             <input type="radio" name="plan" value="{{ p.code }}" {% if p == plan %}checked{% endif %} data-plan-radio>
             <span style="flex:1"><strong style="font-size: var(--text-base)">{{ p.name }}</strong>{% if p.is_featured %} <span class="badge badge--accent badge--plain">Most popular</span>{% endif %}<br><span class="muted">{{ p.blurb }}</span></span>
-            <span class="center" style="text-align:right">{% if rate %}<strong style="font-size: var(--text-xl)">{{ p.price_minor|usd:rate.ghs_per_usd }}</strong><br>{% endif %}<span class="text-sm {% if rate %}muted{% endif %}">{{ p.price_minor|ghs }}/yr</span></span>
+            <span class="center" style="text-align:right">{% if p.is_team %}<span class="text-xs muted">from</span><br>{% endif %}{% if rate %}<strong style="font-size: var(--text-xl)">{{ p.price_minor|usd:rate.ghs_per_usd }}</strong><br>{% endif %}<span class="text-sm {% if rate %}muted{% endif %}">{{ p.price_minor|ghs }}/yr{% if p.is_team %} for {{ p.max_cards }} people{% endif %}</span></span>
           </label>
         {% endfor %}
       </div>
     </fieldset>
+
+    {% if plan.is_team %}
+    <fieldset class="fieldset">
+      <legend>Team size</legend>
+      <p class="field-help">The {{ plan.name }} price includes {{ plan.max_cards }} people. Everyone after that is priced per person, and the bigger the team, the less each person costs. Each person gets their own card.</p>
+      {% include "billing/_team_calc.html" with plan=plan seats=seats team_max=team_max autorefresh=True %}
+      {% if subscription and subscription.plan == plan %}<p class="field-help mt-4">You pay for {{ subscription.team_size }} people now. To add people before your renewal, choose the new team size and pay the difference for the months left.</p>{% endif %}
+    </fieldset>
+    {% endif %}
 
     <fieldset class="fieldset">
       <legend>Promo code</legend>
@@ -50,7 +59,7 @@
     <div class="stack mt-6" style="--stack: var(--space-3)">
       {% hover_button pay_label variant="primary" css="ihb--block" name="action" value="pay" icon_name="lock" %}
       {% if upgrade %}
-        <button class="btn" style="width:100%" type="submit" name="action" value="upgrade">Or upgrade now for {% money upgrade.amount_minor inline=True %}, for the {{ upgrade.months }} month{{ upgrade.months|pluralize }} left</button>
+        <button class="btn" style="width:100%; height:auto; white-space:normal; line-height:1.35; padding-block: var(--space-3)" type="submit" name="action" value="upgrade">{% if upgrade.added %}Or add {{ upgrade.added }} {% if upgrade.added == 1 %}person{% else %}people{% endif %} now{% else %}Or upgrade now{% endif %} for {% money upgrade.amount_minor inline=True %}, for the {{ upgrade.months }} month{{ upgrade.months|pluralize }} left</button>
       {% endif %}
     </div>
     <p class="text-xs muted mt-4 cluster" style="--cluster: var(--space-2)">{% icon "shield-check" 16 %}Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard.{% if payment_sandbox %} <strong>Test mode — no real money moves.</strong>{% endif %}</p>
@@ -59,11 +68,24 @@
 {% endblock %}
 {% block page_scripts %}
 <script>
-  /* Changing plan refreshes the summary (server-side prices, promo and tax). */
+  /* Changing plan or team size refreshes the summary (server-side prices, promo and tax). */
+  function refresh(form) {
+    var btn = document.getElementById("refresh-btn");
+    if (form.requestSubmit) form.requestSubmit(btn); else btn.click();
+  }
   document.querySelectorAll("[data-plan-radio]").forEach(function (radio) {
     radio.addEventListener("change", function () {
-      var form = radio.form, btn = document.getElementById("refresh-btn");
-      if (form.requestSubmit) form.requestSubmit(btn); else btn.click();
+      var seats = radio.form.querySelector("[name=seats]");
+      if (seats) seats.disabled = true;  // a different plan starts from its own default size
+      refresh(radio.form);
+    });
+  });
+  var timer = null;
+  document.querySelectorAll("[data-team-calc][data-autorefresh]").forEach(function (box) {
+    box.addEventListener("team:price", function (event) {
+      if (!event.detail.byUser) return;
+      clearTimeout(timer);
+      timer = setTimeout(function () { refresh(box.closest("form")); }, 900);
     });
   });
 </script>

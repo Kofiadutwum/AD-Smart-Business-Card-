@@ -16,7 +16,7 @@ from django.views.decorators.http import require_POST
 
 from apps.accounts.decorators import customer_required
 from apps.accounts.forms import AccountForm
-from apps.billing.services import activate_cards, plan_for_limits
+from apps.billing.services import activate_cards, card_limit, plan_for_limits
 from apps.cards import services as card_services
 from apps.cards.colors import palette
 from apps.cards.models import ACCENT_PRESETS, Card, CardEvent, CardPhone, Lead, SocialLink
@@ -346,21 +346,28 @@ def lead_delete(request, pk):
 
 @customer_required
 def cards_list(request):
+    """Team cards. Only live cards count against the people paid for, so when
+    someone leaves, switching their card off (or deleting it) makes room for a
+    card for the person who replaces them."""
     user = request.user
-    plan = plan_for_limits(user)
+    limit = card_limit(user)
     form = NewCardForm(request.POST or None)
     cards = list(_cards(user))
     enabled = [c for c in cards if c.is_enabled]
     if request.method == "POST" and form.is_valid():
-        if len(cards) >= plan.max_cards:
-            messages.warning(request, f"The {plan.name} plan includes {plan.max_cards} card{'s' if plan.max_cards != 1 else ''}.")
+        if len(enabled) >= limit:
+            messages.warning(
+                request,
+                f"All {limit} place{'s' if limit != 1 else ''} on your plan are in use. Switch off or delete a card "
+                "you no longer need, or add people to your plan.",
+            )
         else:
             card = card_services.create_card(user, form.cleaned_data["full_name"], job_title=form.cleaned_data["job_title"])
             messages.success(request, "New card created. Fill in the details.")
             return redirect("dashboard:editor_card", pk=card.pk)
     return render(
         request, "dashboard/cards.html",
-        _base(request, "cards", form=form, enabled_count=len(enabled), over_limit=len(enabled) > plan.max_cards),
+        _base(request, "cards", form=form, limit=limit, enabled_count=len(enabled), over_limit=len(enabled) > limit),
     )
 
 
@@ -368,10 +375,9 @@ def cards_list(request):
 @require_POST
 def card_toggle(request, pk):
     card = _card(request, pk)
-    plan = plan_for_limits(request.user)
     enabled = _cards(request.user).filter(is_enabled=True).count()
-    if not card.is_enabled and enabled >= plan.max_cards:
-        messages.warning(request, "Switch another card off first, or upgrade for more cards.")
+    if not card.is_enabled and enabled >= card_limit(request.user):
+        messages.warning(request, "Switch another card off first, or add people to your plan.")
     else:
         card.is_enabled = not card.is_enabled
         card.save(update_fields=["is_enabled"])

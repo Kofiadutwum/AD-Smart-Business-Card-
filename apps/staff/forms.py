@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from apps.accounts.models import User
-from apps.billing.models import Plan, PromoCode
+from apps.billing.models import Plan, PromoCode, SeatBand
 from apps.core.models import SiteSettings
 from apps.core.utils import ghs_to_minor, process_image, validate_design_file
 from apps.marketing.models import GalleryImage
@@ -39,6 +39,10 @@ class ReasonForm(forms.Form):
 class ManualActivationForm(ReasonForm):
     plan = forms.ModelChoiceField(queryset=Plan.objects.all(), empty_label=None)
     months = forms.IntegerField(min_value=1, max_value=36, initial=12)
+    seats = forms.IntegerField(
+        label="Team size", required=False, min_value=1, max_value=1000,
+        help_text="Business plan only: how many people. Leave empty for the people included in the price.",
+    )
     amount = CedisField(label="Amount received (GHS)", initial=0, help_text="0 for complimentary cards.")
 
 
@@ -156,6 +160,45 @@ class PlanForm(forms.ModelForm):
     def save(self, commit=True):
         self.instance.price_minor = ghs_to_minor(self.cleaned_data["price"])
         return super().save(commit)
+
+
+class SeatBandForm(forms.ModelForm):
+    unit_price = CedisField(label="Price per person (GHS a year)")
+
+    class Meta:
+        model = SeatBand
+        fields = ["min_seats", "max_seats"]
+        labels = {"min_seats": "From person", "max_seats": "To person"}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["max_seats"].help_text = "Leave empty on the last band for no limit."
+        if self.instance.pk:
+            self.fields["unit_price"].initial = self.instance.unit_price_minor / 100
+
+    def save(self, commit=True):
+        self.instance.unit_price_minor = ghs_to_minor(self.cleaned_data["unit_price"])
+        return super().save(commit)
+
+
+def seat_band_problems(included, bands):
+    """Bands must run on from the people in the base price with no gaps or overlaps,
+    and only the last may be open-ended. ``bands`` are (min, max) pairs."""
+    bands = sorted(bands)
+    if not bands:
+        return None
+    expected = included + 1
+    for i, (low, high) in enumerate(bands):
+        if low != expected:
+            return f"the band starting at person {low} should start at person {expected}"
+        if high is None:
+            if i != len(bands) - 1:
+                return "only the last band can be left without an upper limit"
+            return None
+        if high < low:
+            return f"the band starting at person {low} ends before it starts"
+        expected = high + 1
+    return None
 
 
 class TierForm(forms.ModelForm):

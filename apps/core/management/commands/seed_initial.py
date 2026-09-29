@@ -9,26 +9,36 @@ from pathlib import Path
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 
-from apps.billing.models import ExchangeRate, Plan
+from apps.billing.models import ExchangeRate, Plan, SeatBand
 from apps.core.models import SiteSettings
 from apps.core.utils import process_image
 from apps.marketing.models import GalleryImage
 from apps.nfc.models import DeliveryZone, PriceTier
 
 PLANS = [
-    # Section 5.1 prices and the 5.2 feature matrix (Proposed).
-    dict(code="basic", name="Basic", price_minor=10000, sort_order=1, max_cards=1, max_phones=2,
-         max_social_links=3, all_templates=False, custom_colours=False, allow_logo=False,
+    # Prices from October 2026 and the 5.2 feature matrix.
+    dict(code="basic", name="Basic", price_minor=20000, sort_order=1, max_cards=1, max_phones=2,
+         max_social_links=5, all_templates=False, custom_colours=False, allow_logo=False,
          allow_advanced_style=False, branding_footer="shown", full_analytics=False, priority_support=False,
          blurb="Everything you need to share one card."),
-    dict(code="professional", name="Professional", price_minor=15000, sort_order=2, max_cards=1, max_phones=3,
+    dict(code="professional", name="Professional", price_minor=35000, sort_order=2, max_cards=1, max_phones=3,
          max_social_links=None, all_templates=True, custom_colours=True, allow_logo=True,
          allow_advanced_style=True, branding_footer="small", full_analytics=True, priority_support=False,
          is_featured=True, blurb="Your brand, your colours, and full analytics."),
-    dict(code="business", name="Business", price_minor=50000, sort_order=3, max_cards=5, max_phones=3,
+    # The Business price covers 5 people; bigger teams add BUSINESS_BANDS.
+    dict(code="business", name="Business", price_minor=70000, sort_order=3, max_cards=5, max_phones=3,
          max_social_links=None, all_templates=True, custom_colours=True, shared_brand_theme=True, allow_logo=True,
          allow_advanced_style=True, branding_footer="removable", full_analytics=True, priority_support=True,
-         blurb="Up to five team cards under one brand."),
+         blurb="Your whole team under one brand. The bigger the team, the less each person costs."),
+]
+
+# Business: yearly price per extra person, by band; the bands stack.
+BUSINESS_BANDS = [
+    dict(min_seats=6, max_seats=10, unit_price_minor=14000),
+    dict(min_seats=11, max_seats=20, unit_price_minor=13000),
+    dict(min_seats=21, max_seats=50, unit_price_minor=12000),
+    dict(min_seats=51, max_seats=100, unit_price_minor=10500),
+    dict(min_seats=101, max_seats=None, unit_price_minor=10000),
 ]
 
 TIERS = [
@@ -93,8 +103,12 @@ class Command(BaseCommand):
         for data in PLANS:
             code = data["code"]
             fields = {k: v for k, v in data.items() if k != "code"}
-            _, created = Plan.objects.get_or_create(code=code, defaults=fields)
+            plan, created = Plan.objects.get_or_create(code=code, defaults=fields)
             self.stdout.write(f"{'Created' if created else 'Kept'} plan {code}")
+            if code == "business" and not plan.seat_bands.exists():
+                for band in BUSINESS_BANDS:
+                    SeatBand.objects.create(plan=plan, **band)
+                self.stdout.write("Created Business team price bands")
         if not PriceTier.objects.exists():
             for data in TIERS:
                 PriceTier.objects.create(**data)

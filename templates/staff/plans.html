@@ -9,8 +9,8 @@
       {% for p in plans %}
         <tr>
           <td><a href="{% url 'staff:plan_edit' p.pk %}">{{ p.name }}</a>{% if p.is_featured %} <span class="badge badge--accent badge--plain">Featured</span>{% endif %}<br><span class="muted text-xs mono">{{ p.code }}</span></td>
-          <td class="num">{% money p.price_minor %}</td>
-          <td class="num">{{ p.max_cards }}</td>
+          <td class="num">{% if p.is_team %}<span class="muted text-xs">from</span> {% endif %}{% money p.price_minor %}</td>
+          <td class="num">{% if p.is_team %}{{ p.max_cards }} + per person{% else %}{{ p.max_cards }}{% endif %}</td>
           <td class="num">{{ p.max_phones }}</td>
           <td>{{ p.social_limit_label }}</td>
           <td>{% if p.allow_logo %}Yes{% else %}No{% endif %}</td>

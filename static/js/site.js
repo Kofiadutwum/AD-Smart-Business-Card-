@@ -278,6 +278,59 @@
     update();
   });
 
+  /* --- team plan price (mirrors Plan.price_for) --------------------------------------- */
+  // The base price covers the first ``included`` people; each band adds its price for the
+  // people inside it, and the bands stack, so a bigger team never pays less.
+  function teamPrice(seats, team) {
+    var n = Math.max(seats, team.included);
+    var total = team.base;
+    team.bands.forEach(function (band) {
+      var top = band[1] === null ? n : Math.min(n, band[1]);
+      if (top >= band[0]) total += (top - band[0] + 1) * band[2];
+    });
+    return total;
+  }
+  window.ADSmart.teamPrice = teamPrice;
+
+  document.querySelectorAll("[data-team-calc]").forEach(function (box) {
+    var team = JSON.parse(box.querySelector('script[type="application/json"]').textContent);
+    var rate = parseFloat(box.getAttribute("data-rate") || "0");
+    var input = box.querySelector("input[type=number]");
+    var total = box.querySelector(".team-calc__total .money");
+    var each = box.querySelector("[data-team-each]");
+    var max = parseInt(input.getAttribute("max") || "1000", 10);
+    // On a plan card, the "Choose" button carries the team size to checkout.
+    var card = box.closest(".plan");
+    var link = card ? card.querySelector("a[href*='plan=']") : null;
+    var update = function (byUser) {
+      var n = Math.max(team.included, Math.min(max, parseInt(input.value || "0", 10) || team.included));
+      if (String(n) !== input.value && document.activeElement !== input) input.value = n;
+      var price = teamPrice(n, team);
+      setMoney(total, price, rate);
+      var per = Math.round(price / n);
+      each.textContent = (rate ? usd(per, rate) + " (" + ghs(per) + ")" : ghs(per)) + " per person a year";
+      if (link) {
+        var url = new URL(link.href, window.location.href);
+        url.searchParams.set("seats", String(n));
+        link.href = url.pathname + url.search;
+      }
+      box.dispatchEvent(new CustomEvent("team:price", { detail: { seats: n, price: price, byUser: !!byUser } }));
+    };
+    box.querySelectorAll("[data-step]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        input.value = (parseInt(input.value || "0", 10) || team.included) + parseInt(btn.getAttribute("data-step"), 10);
+        update(true);
+      });
+    });
+    input.addEventListener("input", function () { update(true); });
+    // When the box loses focus, snap what was typed to the allowed range.
+    input.addEventListener("change", function () {
+      input.value = String(Math.max(team.included, Math.min(max, parseInt(input.value || "0", 10) || team.included)));
+      update(true);
+    });
+    update(false);
+  });
+
   /* --- swipe rows on phones: one dot per card, the one in view highlighted ---------------- */
   document.querySelectorAll("[data-slider]").forEach(function (list) {
     var dots = list.nextElementSibling;

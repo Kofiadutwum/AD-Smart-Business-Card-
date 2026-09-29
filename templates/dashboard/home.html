@@ -61,7 +61,7 @@
     <div class="panel__head"><h2>Plan</h2><a class="text-sm" href="{% url 'billing:receipts' %}">Receipts</a></div>
     {% if subscription %}
       <dl class="dl">
-        <dt>Plan</dt><dd>{{ subscription.plan.name }}</dd>
+        <dt>Plan</dt><dd>{{ subscription.plan.name }}{% if subscription.plan.is_team %} · {{ subscription.team_size }} people{% endif %}</dd>
         <dt>Status</dt><dd>{{ subscription.state_label }}</dd>
         <dt>Paid until</dt><dd>{{ subscription.expires_at|date:"j F Y" }}</dd>
       </dl>

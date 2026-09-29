@@ -41,15 +41,25 @@ def checkout(request):
         else request.session.get("intended_plan") or next((p.code for p in plans if p.is_featured), plans[0].code)
     )
     plan = _plan_from(request, default_code) or plans[0]
+    # Team plans: the team size chosen here, else the current one, else what was picked before signing up.
+    seats = request.POST.get("seats") or request.GET.get("seats")
+    if not seats and subscription and subscription.plan_id == plan.pk:
+        seats = subscription.seats
+    if not seats and not subscription and request.session.get("intended_plan") == plan.code:
+        seats = request.session.get("intended_seats")
+    seats = services.clamp_seats(plan, seats)
 
     promo_code = (request.POST.get("promo") or request.GET.get("promo") or "").strip()
     promo, promo_error = services.resolve_promo(promo_code, "subscription")
-    quote = services.subscription_quote(user, plan, promo)
+    quote = services.subscription_quote(user, plan, promo, seats)
     upgrade = None
-    if subscription and subscription.is_live and plan.price_minor > subscription.plan.price_minor:
-        amount, months = services.upgrade_price(subscription, plan)
+    if subscription and subscription.is_live and plan.price_for(seats) > subscription.yearly_price:
+        # A dearer plan, or more people on the same team plan: pay the difference for the months left.
+        amount, months = services.upgrade_price(subscription, plan, seats)
         if months > 0:
-            upgrade = {"amount_minor": amount, "months": months}
+            same_plan = plan.pk == subscription.plan_id
+            added = (seats or 0) - subscription.team_size if same_plan and plan.is_team else 0
+            upgrade = {"amount_minor": amount, "months": months, "added": added}
 
     if request.method == "POST" and request.POST.get("action") in ("pay", "upgrade"):
         if promo_error:
@@ -61,17 +71,19 @@ def checkout(request):
             return redirect("dashboard:editor")
         else:
             if request.POST["action"] == "upgrade" and upgrade:
-                upgrade_quote = services.build_quote(
-                    [(f"Upgrade to {plan.name} for {upgrade['months']} remaining months", upgrade["amount_minor"])],
-                    promo,
-                )
+                months_left = f"{upgrade['months']} remaining month{'s' if upgrade['months'] != 1 else ''}"
+                if upgrade["added"]:
+                    label = f"{upgrade['added']} more {'person' if upgrade['added'] == 1 else 'people'} on {plan.name} for {months_left}"
+                else:
+                    label = f"Upgrade to {services.plan_label(plan, seats)} for {months_left}"
+                upgrade_quote = services.build_quote([(label, upgrade["amount_minor"])], promo)
                 payment = services.create_payment(
-                    user=user, purpose=Payment.PURPOSE_UPGRADE, quote=upgrade_quote, plan=plan,
+                    user=user, purpose=Payment.PURPOSE_UPGRADE, quote=upgrade_quote, plan=plan, seats=seats,
                 )
             else:
                 payment = services.create_payment(
                     user=user, purpose=Payment.PURPOSE_SUBSCRIPTION, quote=quote, plan=plan,
-                    months=plan.duration_months,
+                    months=plan.duration_months, seats=seats,
                 )
             try:
                 return redirect(services.checkout_url(payment, request))
@@ -90,6 +102,8 @@ def checkout(request):
             "active": "billing",
             "plans": plans,
             "plan": plan,
+            "seats": seats,
+            "team_max": services.TEAM_MAX_SEATS,
             "subscription": subscription,
             "quote": quote,
             "pay_label": f"Pay {format_money(quote['total_minor'], fx.latest_rate())}",
@@ -98,7 +112,7 @@ def checkout(request):
             "rate": fx.latest_rate(),
             "pending_downgrade": bool(
                 subscription and subscription.expires_at > timezone.now()
-                and plan.price_minor < subscription.plan.price_minor
+                and plan.price_for(seats) < subscription.yearly_price
             ),
         },
     )

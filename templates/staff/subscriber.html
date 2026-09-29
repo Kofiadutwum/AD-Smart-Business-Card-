@@ -79,10 +79,11 @@
       {% if subscription %}
         <dl class="dl mt-4">
           <dt>Plan</dt><dd>{{ subscription.plan.name }}</dd>
+          {% if subscription.plan.is_team %}<dt>Team size</dt><dd>{{ subscription.team_size }} people · {% money subscription.yearly_price inline=True %} a year</dd>{% endif %}
           <dt>Status</dt><dd>{{ subscription.state_label }}</dd>
           <dt>Paid until</dt><dd>{{ subscription.expires_at|date:"j F Y" }}</dd>
           <dt>Grace ends</dt><dd>{{ subscription.grace_ends_at|date:"j F Y" }}</dd>
-          {% if subscription.pending_plan %}<dt>Changes to</dt><dd>{{ subscription.pending_plan.name }} on {{ subscription.pending_plan_from|date:"j M Y" }}</dd>{% endif %}
+          {% if subscription.pending_plan %}<dt>Changes to</dt><dd>{{ subscription.pending_plan.name }}{% if subscription.pending_seats %} for {{ subscription.pending_seats }} people{% endif %} on {{ subscription.pending_plan_from|date:"j M Y" }}</dd>{% endif %}
         </dl>
       {% else %}<p class="muted mt-2">No plan yet (draft).</p>{% endif %}
     </section>

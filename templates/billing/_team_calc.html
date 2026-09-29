@@ -1,0 +1,28 @@
+{# Team size picker with a live total. Used on the pricing page and at checkout. #}
+<div class="team-calc" data-team-calc data-rate="{% if fx_rate %}{{ fx_rate.ghs_per_usd }}{% endif %}"{% if autorefresh %} data-autorefresh{% endif %}>
+  {{ plan.team_json|json_script }}
+  <div class="team-calc__row">
+    <div class="field">
+      <label for="seats-{{ plan.code }}">How many people?</label>
+      <div class="stepper">
+        <button type="button" data-step="-1" aria-label="One person fewer">{% icon "minus" 18 %}</button>
+        <input id="seats-{{ plan.code }}" name="seats" type="number" min="{{ plan.max_cards }}" max="{{ team_max }}" value="{{ seats|default:plan.max_cards }}" inputmode="numeric">
+        <button type="button" data-step="1" aria-label="One more person">{% icon "plus" 18 %}</button>
+      </div>
+    </div>
+    <div class="team-calc__total" aria-live="polite">
+      {% money plan|team_price:seats %}
+      <span class="team-calc__each" data-team-each></span>
+    </div>
+  </div>
+  <table class="team-calc__bands">
+    <caption class="visually-hidden">{{ plan.name }} price per person</caption>
+    <tbody>
+      <tr><td>First {{ plan.max_cards }} people</td><td class="num">{% money plan.price_minor inline=True %} in total</td></tr>
+      {% for band in plan.seat_band_list %}
+        <tr><td>{% if band.max_seats %}People {{ band.min_seats }}–{{ band.max_seats }}{% else %}Person {{ band.min_seats }} and above{% endif %}</td><td class="num">{% money band.unit_price_minor inline=True %} each</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if team_max %}<p class="text-xs muted">For more than {{ team_max }} people, <a href="{% url 'support:contact' %}">contact us</a> for a quote.</p>{% endif %}
+</div>

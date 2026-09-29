@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from apps.billing.fx import latest_rate
-from apps.billing.services import active_plans
+from apps.billing.services import TEAM_MAX_SEATS, active_plans
 from apps.core.models import SiteSettings
 from apps.nfc import services as nfc
 from apps.nfc.models import DeliveryZone
@@ -26,6 +26,7 @@ def _pricing_context():
             pass
     return {
         "plans": list(active_plans()),
+        "team_max": TEAM_MAX_SEATS,
         "rate": latest_rate(),
         "tiers": tier_list,
         "tiers_json": nfc.tiers_json(tier_list),

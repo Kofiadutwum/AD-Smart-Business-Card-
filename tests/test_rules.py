@@ -176,7 +176,7 @@ class SubscriptionTests(BaseTest):
         sub = self.subscribe(user, plan=self.basic, days=190)
         amount, months = upgrade_price(sub, self.pro)
         self.assertEqual(months, 6)
-        self.assertEqual(amount, (15000 - 10000) * 6 // 12)
+        self.assertEqual(amount, (35000 - 20000) * 6 // 12)
 
     def test_plan_features_enforced_on_render(self):
         """AC-10: a Basic card cannot show a logo or a custom colour."""
@@ -213,7 +213,7 @@ class ExchangeRateTests(BaseTest):
             fx.latest_rate()
         thread.assert_called_once()
         response = self.client.get("/pricing")
-        self.assertContains(response, "Approximate. You will be charged GHS 100.00")
+        self.assertContains(response, "Approximate. You will be charged GHS 200.00")
 
     def test_amounts_show_dollars_large_and_cedis_beneath(self):
         ExchangeRate.objects.create(ghs_per_usd=Decimal("11.5"), provider="test")
@@ -282,6 +282,93 @@ class PaymentRateTests(BaseTest):
         session.save()
         page = self.client.get("/staff/")
         self.assertContains(page, '<span class="money__usd">$25</span><span class="money__ghs">GHS 300.00</span>', html=True)
+
+
+class TeamPricingTests(BaseTest):
+    """Business: GHS 700 for 5 people, then stacked per-person bands."""
+
+    def test_new_plan_prices(self):
+        self.assertEqual(self.basic.price_minor, 20000)
+        self.assertEqual(self.basic.max_social_links, 5)
+        self.assertEqual(self.pro.price_minor, 35000)
+        self.assertEqual(self.business.price_minor, 70000)
+        self.assertTrue(self.business.is_team)
+        self.assertFalse(self.pro.is_team)
+
+    def test_team_price_bands_stack(self):
+        expected = {1: 700, 5: 700, 6: 840, 8: 1120, 10: 1400, 12: 1660, 20: 2700, 30: 3900,
+                    50: 6300, 60: 7350, 100: 11550, 120: 13550}
+        for seats, ghs in expected.items():
+            self.assertEqual(self.business.price_for(seats), ghs * 100, seats)
+        prices = [self.business.price_for(n) for n in range(5, 300)]
+        self.assertEqual(prices, sorted(prices))  # a bigger team never pays less
+
+    def test_checkout_charges_for_the_team_size_and_opens_that_many_cards(self):
+        from apps.billing.models import Payment
+
+        user = self.make_user()
+        self.make_card(user)
+        self.client.force_login(user)
+        page = self.client.get("/billing/?plan=business&seats=12")
+        self.assertContains(page, "Business plan for 12 people, 12 months")
+        self.client.post("/billing/", {"plan": "business", "seats": "12", "action": "pay", "accept_policy": "1"})
+        payment = Payment.objects.get()
+        self.assertEqual((payment.amount_minor, payment.seats), (166000, 12))
+        self.client.get(f"/billing/callback?reference={payment.reference}")
+        user.refresh_from_db()
+        self.assertEqual(user.subscription.card_limit, 12)
+        self.assertEqual(user.subscription.yearly_price, 166000)
+
+    def test_adding_people_mid_year_costs_the_difference_for_the_months_left(self):
+        user = self.make_user()
+        self.make_card(user)
+        sub = self.subscribe(user, plan=self.business, days=190)
+        sub.seats = 8
+        sub.save()
+        amount, months = upgrade_price(sub, self.business, 12)
+        self.assertEqual(months, 6)
+        self.assertEqual(amount, (166000 - 112000) * 6 // 12)
+        self.client.force_login(user)
+        self.client.post("/billing/", {"plan": "business", "seats": "12", "action": "upgrade", "accept_policy": "1"})
+        from apps.billing.models import Payment
+
+        payment = Payment.objects.get()
+        self.assertIn("4 more people on Business", payment.line_items[0]["label"])
+        self.client.get(f"/billing/callback?reference={payment.reference}")
+        sub.refresh_from_db()
+        self.assertEqual(sub.seats, 12)
+        self.assertEqual(sub.expires_at.date(), (timezone.now() + timedelta(days=190)).date())
+
+    def test_a_smaller_team_waits_for_the_renewal(self):
+        user = self.make_user()
+        sub = self.subscribe(user, plan=self.business, days=100)
+        sub.seats = 20
+        sub.save()
+        activate(user, self.business, 12, seats=10)
+        sub.refresh_from_db()
+        self.assertEqual((sub.seats, sub.pending_seats), (20, 10))
+
+    def test_switched_off_cards_free_a_place_for_a_new_employee(self):
+        user = self.make_user()
+        first = self.make_card(user, name="Ama Owusu")
+        sub = self.subscribe(user, plan=self.business)
+        for name in ("B One", "C Two", "D Three", "E Four"):
+            self.make_card(user, name=name)
+        self.client.force_login(user)
+        self.client.post("/dashboard/cards/", {"full_name": "F Five", "job_title": ""})
+        self.assertEqual(user.cards.count(), 5)  # all 5 places are in use
+        self.client.post(f"/dashboard/cards/{first.pk}/toggle/")  # Ama leaves: switch her card off
+        self.client.post("/dashboard/cards/", {"full_name": "F Five", "job_title": ""})
+        self.assertEqual(user.cards.filter(is_enabled=True).count(), 5)
+        self.assertTrue(user.cards.get(full_name="F Five").is_enabled)
+        first.refresh_from_db()
+        self.assertFalse(first.is_enabled)
+        self.assertEqual(sub.card_limit, 5)
+
+    def test_pricing_page_offers_the_team_calculator(self):
+        page = self.client.get("/pricing")
+        self.assertContains(page, "data-team-calc")
+        self.assertContains(page, "for up to 5 people")
 
 
 class VCardTests(BaseTest):

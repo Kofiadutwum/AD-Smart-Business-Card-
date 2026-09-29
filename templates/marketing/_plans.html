@@ -9,13 +9,14 @@
     <p class="plan__blurb">{{ plan.blurb }}</p>
     <div class="plan__price">
       {% if rate %}
-        <div class="plan__amount"><span class="plan__usd">{{ plan.price_minor|usd:rate.ghs_per_usd }}</span><span class="plan__per">/ year</span></div>
-        <p class="plan__ghs">{{ plan.price_minor|ghs }} per year</p>
+        <div class="plan__amount">{% if plan.is_team %}<span class="plan__per">from</span>{% endif %}<span class="plan__usd">{{ plan.price_minor|usd:rate.ghs_per_usd }}</span><span class="plan__per">/ year</span></div>
+        <p class="plan__ghs">{{ plan.price_minor|ghs }} per year{% if plan.is_team %} for up to {{ plan.max_cards }} people{% endif %}</p>
         <p class="plan__note">Approximate. You will be charged {{ plan.price_minor|ghs }}. Your bank may apply its own exchange rate.</p>
       {% else %}
         <div class="plan__amount"><span class="plan__usd">{{ plan.price_minor|ghs }}</span></div>
-        <p class="plan__ghs">per year</p>
+        <p class="plan__ghs">per year{% if plan.is_team %} for up to {{ plan.max_cards }} people{% endif %}</p>
       {% endif %}
+      {% if plan.is_team %}{% include "billing/_team_calc.html" with plan=plan seats=plan.max_cards team_max=team_max %}{% endif %}
     </div>
     <ul class="plan__features">
       {% for on, text in plan.feature_rows %}
