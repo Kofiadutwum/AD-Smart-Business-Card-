@@ -4,6 +4,7 @@ import csv
 import io
 from collections import OrderedDict
 from datetime import datetime
+from decimal import Decimal
 
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -17,7 +18,7 @@ from django.views.decorators.http import require_POST
 from apps.billing import paystack
 from apps.billing.models import Payment, PromoCode, Refund
 from apps.core.models import AuditLog
-from apps.core.utils import format_ghs, ghs_to_minor
+from apps.core.utils import format_money, ghs_to_minor, to_usd, usd_total
 from apps.nfc.models import NFCOrder
 from apps.nfc.services import change_status
 
@@ -55,6 +56,9 @@ def payments(request):
         fees=Sum("gateway_fee_minor", filter=Q(status=Payment.SUCCESS)),
         count=Count("id"),
     )
+    succeeded = list(qs.filter(status=Payment.SUCCESS).select_related(None).only("amount_minor", "gateway_fee_minor", "fx_rate", "paid_at", "created_at"))
+    totals["amount_usd"] = usd_total((p.amount_minor, p.usd_rate) for p in succeeded)
+    totals["fees_usd"] = usd_total((p.gateway_fee_minor, p.usd_rate) for p in succeeded)
     page = Paginator(qs, 40).get_page(request.GET.get("page"))
     return render(
         request, "staff/payments.html",
@@ -64,7 +68,8 @@ def payments(request):
 
 EXPORT_HEADERS = [
     "Date", "Paid at", "Reference", "Receipt", "Customer", "Purpose", "Plan", "NFC order", "Subtotal GHS",
-    "Discount GHS", "Promo", "Tax GHS", "Amount GHS", "Paystack fee GHS", "Refunded GHS", "Status", "Method", "USD rate",
+    "Discount GHS", "Promo", "Tax GHS", "Amount GHS", "Amount USD", "Paystack fee GHS", "Refunded GHS", "Status", "Method",
+    "USD rate (GHS per USD, at payment)",
 ]
 
 
@@ -76,9 +81,14 @@ def _row(p):
         p.reference, p.receipt_number or "", p.user.email, p.get_purpose_display(), p.plan.name if p.plan else "",
         p.nfc_order.order_number if p.nfc_order else "", p.subtotal_minor / 100, p.discount_minor / 100,
         p.promo_code.code if p.promo_code else "", p.tax_minor / 100, p.amount_minor / 100,
-        p.gateway_fee_minor / 100, p.refunded_minor / 100, p.get_status_display(), p.channel,
-        str(p.fx_rate or ""),
+        _usd_cell(p.amount_minor, p.usd_rate), p.gateway_fee_minor / 100, p.refunded_minor / 100,
+        p.get_status_display(), p.channel, str(p.usd_rate or ""),
     ]
+
+
+def _usd_cell(minor, rate):
+    value = to_usd(minor, rate)
+    return float(round(value, 2)) if value is not None else ""
 
 
 @staff_required("finance")
@@ -139,7 +149,7 @@ def refund(request, pk):
     amount = ghs_to_minor(form.cleaned_data["amount"])
     available = payment.amount_minor - payment.refunded_minor
     if not 0 < amount <= available:
-        messages.error(request, f"You can refund up to {format_ghs(available)}.")
+        messages.error(request, f"You can refund up to {format_money(available, payment.usd_rate)}.")
         return redirect("staff:payment", pk=pk)
     record = Refund.objects.create(payment=payment, amount_minor=amount, reason=form.cleaned_data["reason"], created_by=request.user)
     try:
@@ -160,40 +170,60 @@ def refund(request, pk):
         AuditLog.record(request.user, "refund_issued", payment, reason=record.reason, amount_minor=amount)
         order = payment.nfc_order
         if order and order.status == NFCOrder.CANCELLED:
-            change_status(order, NFCOrder.REFUNDED, request.user, note=f"Refund of {format_ghs(amount)} issued.")
-    messages.success(request, f"Refund of {format_ghs(amount)} recorded.")
+            change_status(order, NFCOrder.REFUNDED, request.user, note=f"Refund of {format_money(amount, payment.usd_rate)} issued.")
+    messages.success(request, f"Refund of {format_money(amount, payment.usd_rate)} recorded.")
     return redirect("staff:payment", pk=pk)
 
 
 @staff_required("finance")
 def report(request):
     paid = Payment.objects.filter(status__in=[Payment.SUCCESS, Payment.PARTIALLY_REFUNDED, Payment.REFUNDED], paid_at__isnull=False)
+    keys = ("subscription", "nfc", "delivery", "tax", "discount", "fees")
     months = OrderedDict()
+
+    def add(bucket, key, minor, rate):
+        # Cedis add up directly; dollars add up at each payment's own rate.
+        bucket[key] += minor
+        if minor and bucket[key + "_usd"] is not None:
+            value = to_usd(minor, rate)
+            bucket[key + "_usd"] = None if value is None else bucket[key + "_usd"] + value
+
     for p in paid.select_related("nfc_order").order_by("paid_at"):
         key = timezone.localtime(p.paid_at).strftime("%Y-%m")
-        bucket = months.setdefault(key, {"subscription": 0, "nfc": 0, "delivery": 0, "tax": 0, "discount": 0, "fees": 0})
+        bucket = months.setdefault(key, {**{k: 0 for k in keys}, **{k + "_usd": Decimal(0) for k in keys}})
+        rate = p.usd_rate
         if p.purpose == Payment.PURPOSE_NFC and p.nfc_order:
-            bucket["nfc"] += p.nfc_order.cards_minor
-            bucket["delivery"] += p.nfc_order.delivery_fee_minor
-            bucket["subscription"] += p.nfc_order.plan_minor
+            add(bucket, "nfc", p.nfc_order.cards_minor, rate)
+            add(bucket, "delivery", p.nfc_order.delivery_fee_minor, rate)
+            add(bucket, "subscription", p.nfc_order.plan_minor, rate)
         elif p.purpose == Payment.PURPOSE_NFC:
-            bucket["nfc"] += p.amount_minor - p.tax_minor
+            add(bucket, "nfc", p.amount_minor - p.tax_minor, rate)
         else:
-            bucket["subscription"] += p.subtotal_minor
-        bucket["tax"] += p.tax_minor
-        bucket["discount"] += p.discount_minor
-        bucket["fees"] += p.gateway_fee_minor
+            add(bucket, "subscription", p.subtotal_minor, rate)
+        add(bucket, "tax", p.tax_minor, rate)
+        add(bucket, "discount", p.discount_minor, rate)
+        add(bucket, "fees", p.gateway_fee_minor, rate)
     rows = list(months.items())[-24:]
     peak = max((b["subscription"] + b["nfc"] + b["delivery"] for _, b in rows), default=0)
-    totals = {k: sum(b[k] for _, b in rows) for k in ("subscription", "nfc", "delivery", "tax", "discount", "fees")}
+    totals = {k: sum(b[k] for _, b in rows) for k in keys}
+    for k in keys:
+        dollars = [b[k + "_usd"] for _, b in rows]
+        totals[k + "_usd"] = None if any(d is None for d in dollars) else sum(dollars, Decimal(0))
     counts = dict(Payment.objects.values_list("status").annotate(n=Count("id")))
     promos = PromoCode.objects.annotate(
         discount=Sum("payment__discount_minor", filter=Q(payment__status=Payment.SUCCESS))
     ).order_by("-used_count")[:10]
-    refunded = Refund.objects.filter(status=Refund.DONE).aggregate(s=Sum("amount_minor"))["s"] or 0
+    refunds = list(Refund.objects.filter(status=Refund.DONE).select_related("payment"))
+    refunded = sum(r.amount_minor for r in refunds)
+    refunded_usd = usd_total((r.amount_minor, r.usd_rate) for r in refunds)
+    promos = list(promos)
+    for promo in promos:
+        used = Payment.objects.filter(promo_code=promo, status=Payment.SUCCESS).only("discount_minor", "fx_rate", "paid_at", "created_at")
+        promo.discount_usd = usd_total((p.discount_minor, p.usd_rate) for p in used)
     return render(
         request, "staff/report.html",
-        {"rows": rows, "peak": peak, "totals": totals, "counts": counts, "promos": promos, "refunded": refunded},
+        {"rows": rows, "peak": peak, "totals": totals, "counts": counts, "promos": promos,
+         "refunded": refunded, "refunded_usd": refunded_usd},
     )
 
 

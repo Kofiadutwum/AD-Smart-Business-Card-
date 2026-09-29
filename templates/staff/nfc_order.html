@@ -4,7 +4,7 @@
   <div>
     <div class="crumbs"><a href="{% url 'staff:nfc_orders' %}">NFC orders</a><span>/</span><span>{{ order.order_number }}</span></div>
     <h1>{{ order.order_number }} · {{ order.get_status_display }}</h1>
-    <p>{{ order.quantity }} card{{ order.quantity|pluralize }} for <a href="{% url 'staff:subscriber' order.user_id %}">{{ order.full_name }}</a> · {{ order.total_minor|ghs }}{% if order.paid_at %} paid {{ order.paid_at|date:"j M Y" }}{% else %} · not paid{% endif %}</p>
+    <p>{{ order.quantity }} card{{ order.quantity|pluralize }} for <a href="{% url 'staff:subscriber' order.user_id %}">{{ order.full_name }}</a> · {% money order.total_minor inline=True rate=order.usd_rate %}{% if order.paid_at %} paid {{ order.paid_at|date:"j M Y" }}{% else %} · not paid{% endif %}</p>
   </div>
 </div>
 {% if order.revision_rounds > free_rounds %}<div class="banner banner--warning">{% icon "info" 22 %}<p><strong>{{ order.revision_rounds }} revision rounds used</strong> — beyond the {{ free_rounds }} free rounds. Agree any extra fee with the customer or proceed at your discretion (NFC-02).</p></div>{% endif %}
@@ -101,7 +101,7 @@
     <section class="panel">
       <h2 style="font-size: var(--text-lg)">{% if order.is_pickup %}Pickup{% elif order.is_international %}International shipping · {{ order.delivery_country.name }}{% else %}Delivery{% endif %}</h2>
       <dl class="dl mt-4">
-        <dt>Option</dt><dd>{{ order.delivery_zone.name|default:"—" }}{% if order.delivery_fee_minor %} ({{ order.delivery_fee_minor|ghs }}){% endif %}</dd>
+        <dt>Option</dt><dd>{{ order.delivery_zone.name|default:"—" }}{% if order.delivery_fee_minor %} ({% money order.delivery_fee_minor inline=True rate=order.usd_rate %}){% endif %}</dd>
         {% if not order.is_pickup %}
           <dt>Recipient</dt><dd>{{ order.recipient_name }} · {{ order.recipient_phone|phone }}</dd>
           <dt>Label</dt><dd>{% for line in order.shipping_address_lines %}{{ line }}<br>{% endfor %}</dd>
@@ -112,13 +112,13 @@
     <section class="panel">
       <h2 style="font-size: var(--text-lg)">Money</h2>
       <div class="summary mt-4">
-        <div class="summary__row"><span>Cards</span><span>{{ order.cards_minor|ghs }}</span></div>
-        <div class="summary__row"><span>{% if order.is_international %}Shipping and delivery{% else %}Delivery{% endif %}</span><span>{{ order.delivery_fee_minor|ghs }}</span></div>
-        {% if order.plan_minor %}<div class="summary__row"><span>{{ order.bundled_plan.name }} plan</span><span>{{ order.plan_minor|ghs }}</span></div>{% endif %}
-        {% if order.discount_minor %}<div class="summary__row"><span>Discount</span><span>−{{ order.discount_minor|ghs }}</span></div>{% endif %}
-        {% if order.tax_minor %}<div class="summary__row"><span>Tax</span><span>{{ order.tax_minor|ghs }}</span></div>{% endif %}
-        <div class="summary__row summary__total"><span>Total</span><span>{{ order.total_minor|ghs }}</span></div>
-        <p class="text-xs muted">Refundable if cancelled now: {{ order.refundable_minor|ghs }}</p>
+        <div class="summary__row"><span>Cards</span><span>{% money order.cards_minor rate=order.usd_rate %}</span></div>
+        <div class="summary__row"><span>{% if order.is_international %}Shipping and delivery{% else %}Delivery{% endif %}</span><span>{% money order.delivery_fee_minor rate=order.usd_rate %}</span></div>
+        {% if order.plan_minor %}<div class="summary__row"><span>{{ order.bundled_plan.name }} plan</span><span>{% money order.plan_minor rate=order.usd_rate %}</span></div>{% endif %}
+        {% if order.discount_minor %}<div class="summary__row"><span>Discount</span><span>{% money order.discount_minor sign="−" rate=order.usd_rate %}</span></div>{% endif %}
+        {% if order.tax_minor %}<div class="summary__row"><span>Tax</span><span>{% money order.tax_minor rate=order.usd_rate %}</span></div>{% endif %}
+        <div class="summary__row summary__total"><span>Total</span><span>{% money order.total_minor rate=order.usd_rate %}</span></div>
+        <p class="text-xs muted">Refundable if cancelled now: {% money order.refundable_minor inline=True rate=order.usd_rate %}</p>
       </div>
       {% if payments %}<ul class="mt-4 text-sm" style="padding-left: var(--space-5)">{% for p in payments %}<li><a href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a> · {{ p.get_status_display }}</li>{% endfor %}</ul>{% endif %}
     </section>

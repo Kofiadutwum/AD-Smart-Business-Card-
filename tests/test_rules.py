@@ -222,6 +222,68 @@ class ExchangeRateTests(BaseTest):
         self.assertContains(response, '<span class="money"><span class="money__usd">$17.39</span><span class="money__ghs">GHS 200.00</span></span>', html=True)
 
 
+class PaymentRateTests(BaseTest):
+    """Paid amounts keep the dollar rate of their payment, everywhere."""
+
+    def setUp(self):
+        from django.core.cache import cache
+
+        cache.delete_many(["fx:latest", "fx:refreshing"])
+        self.user = self.make_user()
+        self.make_card(self.user)
+        ExchangeRate.objects.create(ghs_per_usd=Decimal("10"), provider="test", fetched_at=timezone.now() - timedelta(days=5))
+
+    def pay(self, **fields):
+        from apps.billing.models import Payment
+
+        defaults = dict(user=self.user, reference=f"ADS-T-{Payment.objects.count()}", purpose=Payment.PURPOSE_SUBSCRIPTION,
+                        plan=self.pro, months=12, subtotal_minor=15000, amount_minor=15000, status=Payment.SUCCESS,
+                        paid_at=timezone.now() - timedelta(days=2),
+                        line_items=[{"label": "Professional plan, 12 months", "amount_minor": 15000}])
+        defaults.update(fields)
+        defaults.setdefault("receipt_number", "ADR-" + defaults["reference"])
+        return Payment.objects.create(**defaults)
+
+    def test_quoted_rate_is_kept_after_the_rate_changes(self):
+        payment = self.pay(fx_rate=Decimal("12"))
+        ExchangeRate.objects.create(ghs_per_usd=Decimal("15"), provider="test")  # today's rate moves on
+        self.client.force_login(self.user)
+        page = self.client.get("/billing/receipts")
+        self.assertContains(page, "$12.50")  # GHS 150 at 12, not $10 at today's 15
+        self.assertNotContains(page, "$10<")
+        self.assertEqual(payment.usd_rate, Decimal("12"))
+
+    def test_older_payment_uses_the_rate_in_use_on_its_date(self):
+        payment = self.pay(fx_rate=None)
+        ExchangeRate.objects.create(ghs_per_usd=Decimal("15"), provider="test")  # added after the payment
+        self.assertEqual(payment.usd_rate, Decimal("10"))
+
+    def test_receipt_email_and_pdf_use_the_payment_rate(self):
+        from django.core import mail
+
+        from apps.billing.receipts import render_receipt_pdf
+        from apps.billing.services import send_receipt
+
+        payment = self.pay(fx_rate=Decimal("12"))
+        ExchangeRate.objects.create(ghs_per_usd=Decimal("15"), provider="test")
+        send_receipt(payment)
+        self.assertIn("Amount: $12.50 (GHS 150.00)", mail.outbox[-1].body)
+        self.assertTrue(render_receipt_pdf(payment).startswith(b"%PDF"))
+
+    def test_staff_totals_add_each_payment_at_its_own_rate(self):
+        from django.utils import timezone as tz
+
+        self.pay(fx_rate=Decimal("10"), reference="ADS-A", paid_at=tz.now())  # $15
+        self.pay(fx_rate=Decimal("15"), reference="ADS-B", paid_at=tz.now())  # $10
+        staff = self.make_user(email="boss@example.com", is_staff=True, staff_role="super")
+        self.client.force_login(staff)
+        session = self.client.session
+        session["staff_2fa"] = staff.pk
+        session.save()
+        page = self.client.get("/staff/")
+        self.assertContains(page, '<span class="money__usd">$25</span><span class="money__ghs">GHS 300.00</span>', html=True)
+
+
 class VCardTests(BaseTest):
     def test_vcard(self):
         """SHR-06: labelled numbers, CRLF line endings, card URL."""

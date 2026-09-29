@@ -10,6 +10,7 @@ from apps.accounts.models import User
 from apps.billing.models import Payment, Subscription
 from apps.cards.models import CardReport
 from apps.core.models import SiteSettings
+from apps.core.utils import usd_total
 from apps.nfc.models import NFCOrder
 from apps.support.models import SupportRequest
 
@@ -40,6 +41,16 @@ def home(request):
     if can(request.user, "finance") or can(request.user, "view_payments"):
         paid = Payment.objects.filter(status=Payment.SUCCESS)
         month_start = timezone.localtime(now).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        # Dollars at each payment's own rate, added up (never today's rate on old money).
+        paid_list = list(paid.only("amount_minor", "purpose", "fx_rate", "paid_at", "created_at"))
+        subscription_kinds = {Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE}
+        context.update(
+            {
+                "subscription_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose in subscription_kinds),
+                "nfc_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose == Payment.PURPOSE_NFC),
+                "month_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.paid_at and p.paid_at >= month_start),
+            }
+        )
         context.update(
             {
                 "show_money": True,

@@ -10,6 +10,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 
 from apps.core.models import SiteSettings
 
@@ -340,6 +341,16 @@ class Payment(models.Model):
     def net_minor(self):
         return self.amount_minor - self.gateway_fee_minor - self.refunded_minor
 
+    @cached_property
+    def usd_rate(self):
+        """GHS per USD for this payment's dollar figures: the rate quoted when it was
+        made (CUR-05), or for older payments the rate in use at the time. Never today's."""
+        if self.fx_rate:
+            return self.fx_rate
+        from .fx import rate_at
+
+        return rate_at(self.paid_at or self.created_at)
+
     @property
     def description(self):
         if self.purpose == self.PURPOSE_NFC:
@@ -375,6 +386,11 @@ class Refund(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(null=True, blank=True)
+
+    @property
+    def usd_rate(self):
+        """A refund is in the dollars of the payment it returns."""
+        return self.payment.usd_rate
 
     class Meta:
         ordering = ["-created_at"]

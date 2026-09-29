@@ -23,21 +23,53 @@ def format_ghs(minor):
     return f"GHS {amount:,.2f}"
 
 
-def format_usd(minor, ghs_per_usd):
-    """Approximate dollars for a cedi amount: '$9' for whole dollars, else '$8.64'.
-    Empty when there is no rate (CUR-01)."""
+def rate_value(rate):
+    """GHS per USD from an ExchangeRate or a plain number; None when there is none."""
+    if not rate:
+        return None
+    return Decimal(str(getattr(rate, "ghs_per_usd", rate)))
+
+
+def to_usd(minor, rate):
+    """Unrounded dollars for a cedi amount (pesewas) at ``rate``; None without a rate."""
+    ghs_per_usd = rate_value(rate)
     if not ghs_per_usd:
-        return ""
-    value = (Decimal(int(minor or 0)) / 100 / Decimal(str(ghs_per_usd))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        return None
+    return Decimal(int(minor or 0)) / 100 / ghs_per_usd
+
+
+def format_dollars(value):
+    """'$9' for whole dollars, else '$8.64'."""
+    value = Decimal(value).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
     if value == value.to_integral():
         return f"${value:,.0f}"
     return f"${value:,.2f}"
 
 
+def format_usd(minor, rate):
+    """Approximate dollars for a cedi amount; empty when there is no rate (CUR-01)."""
+    value = to_usd(minor, rate)
+    return format_dollars(value) if value is not None else ""
+
+
+def usd_total(amounts):
+    """Dollars for (minor, rate) pairs, each at its own rate, added up. None if any
+    amount has no rate, so a total is never partly converted."""
+    total = Decimal(0)
+    for minor, rate in amounts:
+        if not minor:
+            continue
+        value = to_usd(minor, rate)
+        if value is None:
+            return None
+        total += value
+    return total
+
+
 def format_money(minor, rate):
-    """'$12.96 (GHS 150.00)' for plain text such as button labels and messages;
-    the cedi amount alone without a rate."""
-    dollars = format_usd(minor, rate.ghs_per_usd) if rate else ""
+    """'$12.96 (GHS 150.00)' for plain text such as emails, button labels and
+    messages; the cedi amount alone without a rate."""
+    dollars = format_usd(minor, rate)
     return f"{dollars} ({format_ghs(minor)})" if dollars else format_ghs(minor)
 
 

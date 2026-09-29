@@ -15,7 +15,7 @@
             <td class="nowrap">{{ p.created_at|date:"j M Y" }}</td>
             <td>{{ p.description }}<br><span class="muted text-xs mono">{{ p.reference }}</span></td>
             <td>{% if p.status == "success" %}<span class="badge badge--success">Paid</span>{% elif p.status == "pending" %}<span class="badge badge--warning">Pending</span>{% elif p.status == "refunded" or p.status == "partially_refunded" %}<span class="badge badge--info">{{ p.get_status_display }}</span>{% else %}<span class="badge">{{ p.get_status_display }}</span>{% endif %}</td>
-            <td class="num">{% money p.amount_minor %}</td>
+            <td class="num">{% money p.amount_minor rate=p.usd_rate %}</td>
             <td>{% if p.receipt_number %}<a href="{% url 'billing:receipt_pdf' p.reference %}">{% icon "file-down" 16 %} {{ p.receipt_number }}</a>{% else %}<span class="muted">—</span>{% endif %}</td>
           </tr>
         {% endfor %}

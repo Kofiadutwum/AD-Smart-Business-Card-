@@ -5,7 +5,7 @@ from django.templatetags.static import static
 from django.urls import NoReverseMatch, reverse
 from django.utils.html import format_html
 
-from apps.core.utils import display_phone, format_ghs, format_usd, whatsapp_digits
+from apps.core.utils import display_phone, format_dollars, format_ghs, format_money, format_usd, whatsapp_digits
 
 register = template.Library()
 
@@ -44,14 +44,32 @@ def usd(minor, rate):
     return format_usd(minor, rate)
 
 
+@register.filter
+def money_text(minor, rate):
+    """Plain text for emails: '$12.96 (GHS 150.00)', at the rate given (a payment's own)."""
+    return format_money(minor, rate)
+
+
+CURRENT = object()
+
+
 @register.simple_tag(takes_context=True)
-def money(context, minor, inline=False, sign=""):
+def money(context, minor, inline=False, sign="", rate=CURRENT, usd=None):
     """An amount as customers see it: US dollars large, the cedi amount smaller
     beneath (or in brackets after it when ``inline``). Customers are always
-    charged the cedi amount; without a usable rate only the cedis show."""
-    rate = context.get("fx_rate")
+    charged the cedi amount.
+
+    ``rate`` is today's rate unless a payment's own rate is passed, so paid amounts
+    keep the dollar figure they were quoted. ``usd`` passes dollars already worked
+    out, for totals of payments made at different rates. With no rate at all only
+    the cedis show."""
     ghs_text = format_ghs(minor)
-    usd_text = usd(minor, rate.ghs_per_usd) if rate else ""
+    if usd is not None:
+        usd_text = format_dollars(usd)
+    else:
+        if rate is CURRENT:
+            rate = context.get("fx_rate")
+        usd_text = format_usd(minor, rate)
     if inline:
         if not usd_text:
             return f"{sign}{ghs_text}"

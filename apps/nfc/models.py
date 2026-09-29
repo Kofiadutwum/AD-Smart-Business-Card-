@@ -3,6 +3,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django_countries.fields import CountryField
 
 from apps.core.utils import keep_name
@@ -237,6 +238,22 @@ class NFCOrder(models.Model):
     def customer_can_cancel(self):
         """RFD-01..03: cancellable until printing starts."""
         return self.is_paid and self.status not in self.PRINTING_STARTED | {self.CANCELLED, self.REFUNDED}
+
+    @cached_property
+    def usd_rate(self):
+        """GHS per USD for this order's dollar figures: its payment's rate once paid,
+        today's rate while it is still waiting for payment."""
+        from apps.billing.models import Payment
+
+        paid = self.payments.filter(
+            status__in=[Payment.SUCCESS, Payment.PARTIALLY_REFUNDED, Payment.REFUNDED]
+        ).order_by("paid_at").first()
+        if paid:
+            return paid.usd_rate
+        from apps.billing.fx import latest_rate
+
+        rate = latest_rate()
+        return rate.ghs_per_usd if rate else None
 
     @property
     def refundable_minor(self):

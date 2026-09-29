@@ -8,7 +8,7 @@
     {% if payment.status == "success" %}
       <span class="step__icon" style="margin: 0 auto var(--space-6); width:3.5rem; height:3.5rem; background: var(--success-soft); color: var(--success)">{% icon "circle-check" 28 %}</span>
       <h1>Payment received</h1>
-      <p class="lead">{{ payment.description }} · {% money payment.amount_minor inline=True %}.{% if payment.receipt_number %} Receipt {{ payment.receipt_number }} is on its way to your inbox.{% endif %}</p>
+      <p class="lead">{{ payment.description }} · {% money payment.amount_minor inline=True rate=payment.usd_rate %}.{% if payment.receipt_number %} Receipt {{ payment.receipt_number }} is on its way to your inbox.{% endif %}</p>
       {% if owner %}
         <div class="stack mt-8" style="--stack: var(--space-3)">
           {% if payment.purpose == "nfc_order" and payment.nfc_order %}

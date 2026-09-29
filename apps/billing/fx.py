@@ -37,6 +37,18 @@ def latest_rate():
     return rate or None
 
 
+def rate_at(moment):
+    """GHS per USD in use at ``moment``: the newest rate fetched by then, or failing
+    that the first one after. For payments made before rates were stored with them."""
+    if moment is None:
+        return None
+    rates = ExchangeRate.objects.values_list("ghs_per_usd", flat=True)
+    value = rates.filter(fetched_at__lte=moment).order_by("-fetched_at").first()
+    if value is None:
+        value = rates.filter(fetched_at__gt=moment).order_by("fetched_at").first()
+    return value
+
+
 def _refresh_in_background():
     """Fetch a new rate without holding up the page that noticed the old one."""
     if not settings.FX_AUTO_REFRESH or not cache.add("fx:refreshing", 1, RETRY_EVERY_SECONDS):

@@ -294,7 +294,7 @@ def cancel(request, number):
         _, refundable = services.cancel_by_customer(nfc_order, request.user, form.cleaned_data.get("reason", ""))
         messages.success(
             request,
-            f"Order cancelled. A refund of {format_money(refundable, fx.latest_rate())} will be processed to your original payment method."
+            f"Order cancelled. A refund of {format_money(refundable, nfc_order.usd_rate)} will be processed to your original payment method."
             if refundable else "Order cancelled.",
         )
     except services.TransitionError as exc:

@@ -1,7 +1,7 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="page-head">
-  <div><h1>Payments</h1><p>{{ totals.count }} payment{{ totals.count|pluralize }} · {{ totals.amount|default:0|ghs }} received · {{ totals.fees|default:0|ghs }} Paystack fees</p></div>
+  <div><h1>Payments</h1><p>{{ totals.count }} payment{{ totals.count|pluralize }} · {% money totals.amount|default:0 inline=True usd=totals.amount_usd rate=None %} received · {% money totals.fees|default:0 inline=True usd=totals.fees_usd rate=None %} Paystack fees</p></div>
   {% if staff_perms.finance %}
   <div class="cluster">
     <a class="btn" href="{% url 'staff:payments_export' 'csv' %}?{{ request.GET.urlencode }}">{% icon "download" 16 %}CSV</a>
@@ -30,7 +30,7 @@
           <td>{{ p.description }}{% if p.promo_code %}<br><span class="muted text-xs">Promo {{ p.promo_code.code }}</span>{% endif %}</td>
           <td>{{ p.channel|default:"—" }}</td>
           <td>{% if p.status == "success" %}<span class="badge badge--success">Paid</span>{% elif p.status == "pending" %}<span class="badge badge--warning">Pending</span>{% elif "refund" in p.status %}<span class="badge badge--info">{{ p.get_status_display }}</span>{% else %}<span class="badge">{{ p.get_status_display }}</span>{% endif %}</td>
-          <td class="num">{{ p.amount_minor|ghs }}</td>
+          <td class="num">{% money p.amount_minor rate=p.usd_rate %}</td>
         </tr>
       {% empty %}<tr><td colspan="7" class="muted">No payments match.</td></tr>{% endfor %}
     </tbody>

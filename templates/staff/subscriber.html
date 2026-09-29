@@ -50,7 +50,7 @@
           <thead><tr><th>Date</th><th>Reference</th><th>What</th><th>Status</th><th class="num">Amount</th></tr></thead>
           <tbody>
             {% for p in payments %}
-              <tr><td class="nowrap">{{ p.created_at|date:"j M Y" }}</td><td><a class="mono text-sm" href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a></td><td>{{ p.description }}</td><td>{{ p.get_status_display }}</td><td class="num">{{ p.amount_minor|ghs }}</td></tr>
+              <tr><td class="nowrap">{{ p.created_at|date:"j M Y" }}</td><td><a class="mono text-sm" href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a></td><td>{{ p.description }}</td><td>{{ p.get_status_display }}</td><td class="num">{% money p.amount_minor rate=p.usd_rate %}</td></tr>
             {% empty %}<tr><td colspan="5" class="muted">No payments.</td></tr>{% endfor %}
           </tbody>
         </table>

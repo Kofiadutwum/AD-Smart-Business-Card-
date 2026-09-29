@@ -2,7 +2,7 @@
 
 Your NFC order {{ order.order_number }} is confirmed and paid.
 
-{{ order.quantity }} card{{ order.quantity|pluralize }} · {{ order.total_minor|ghs }}
+{{ order.quantity }} card{{ order.quantity|pluralize }} · {{ order.total_minor|money_text:order.usd_rate }}
 
 What happens next:
 - Our designers send your first proof within 3 working days.

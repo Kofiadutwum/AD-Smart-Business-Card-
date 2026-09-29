@@ -11,7 +11,7 @@ from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 
 from apps.core.models import SiteSettings
-from apps.core.utils import format_ghs
+from apps.core.utils import format_ghs, format_usd
 
 NAVY = colors.HexColor("#0A0E9C")
 BLUE = colors.HexColor("#0048A9")
@@ -78,37 +78,60 @@ def render_receipt_pdf(payment):
     pdf.drawRightString(right - 3 * mm, y + 0.5 * mm, "Amount")
     y -= 9 * mm
 
-    pdf.setFont("Helvetica", 10)
+    # Dollars large with the cedis charged beneath, at the rate used for this payment.
+    rate = payment.usd_rate
+
+    def amount(x, y, minor, sign="", bold=False):
+        """Draw an amount right-aligned at x; returns the extra height the cedi line takes."""
+        dollars = format_usd(minor, rate)
+        pdf.setFillColor(INK)
+        if dollars:
+            pdf.setFont("Helvetica-Bold", 11 if bold else 10)
+            pdf.drawRightString(x, y, sign + dollars)
+            pdf.setFont("Helvetica", 7.5)
+            pdf.setFillColor(MUTED)
+            pdf.drawRightString(x, y - 3.8 * mm, sign + format_ghs(minor))
+            return 3.8 * mm
+        pdf.setFont("Helvetica-Bold" if bold else "Helvetica", 11 if bold else 10)
+        pdf.drawRightString(x, y, sign + format_ghs(minor))
+        return 0
+
     for item in payment.line_items or [{"label": payment.description, "amount_minor": payment.subtotal_minor}]:
+        pdf.setFont("Helvetica", 10)
         pdf.setFillColor(INK)
         pdf.drawString(left + 3 * mm, y, str(item.get("label", ""))[:80])
-        pdf.drawRightString(right - 3 * mm, y, format_ghs(item.get("amount_minor", 0)))
-        y -= 5 * mm
+        extra = amount(right - 3 * mm, y, item.get("amount_minor", 0))
+        y -= 5 * mm + extra
         pdf.setStrokeColor(LINE)
         pdf.line(left, y + 1.5 * mm, right, y + 1.5 * mm)
         y -= 2 * mm
 
-    def total_row(label, minor, bold=False):
+    def total_row(label, minor, sign="", bold=False):
         nonlocal y
         pdf.setFont("Helvetica-Bold" if bold else "Helvetica", 11 if bold else 10)
         pdf.setFillColor(INK if bold else MUTED)
         pdf.drawRightString(right - 40 * mm, y, label)
-        pdf.setFillColor(INK)
-        pdf.drawRightString(right - 3 * mm, y, minor)
-        y -= 6 * mm
+        extra = amount(right - 3 * mm, y, minor, sign=sign, bold=bold)
+        y -= 6 * mm + extra
 
     y -= 2 * mm
     if payment.discount_minor:
         promo = f" ({payment.promo_code.code})" if payment.promo_code else ""
-        total_row(f"Discount{promo}", "−" + format_ghs(payment.discount_minor))
+        total_row(f"Discount{promo}", payment.discount_minor, sign="−")
     if payment.tax_minor:
-        total_row(site.tax_label or "Tax", format_ghs(payment.tax_minor))
-    total_row("Total paid", format_ghs(payment.amount_minor), bold=True)
+        total_row(site.tax_label or "Tax", payment.tax_minor)
+    total_row("Total paid", payment.amount_minor, bold=True)
 
     y -= 8 * mm
     pdf.setFont("Helvetica", 8.5)
     pdf.setFillColor(MUTED)
-    pdf.drawString(left, y, "All amounts are in Ghana cedis (GHS). Thank you for choosing AD Smart Business Cards.")
+    if rate:
+        when = timezone.localtime(payment.fx_rate_at).strftime("%d %B %Y") if payment.fx_rate and payment.fx_rate_at else "the payment date"
+        pdf.drawString(left, y, f"Dollar amounts use the rate at the time of payment: 1 USD = GHS {rate:.4f} ({when}).")
+        y -= 4.5 * mm
+        pdf.drawString(left, y, "You were charged in Ghana cedis (GHS). Thank you for choosing AD Smart Business Cards.")
+    else:
+        pdf.drawString(left, y, "All amounts are in Ghana cedis (GHS). Thank you for choosing AD Smart Business Cards.")
     pdf.drawString(left, y - 4.5 * mm, settings.SITE_URL)
 
     pdf.showPage()

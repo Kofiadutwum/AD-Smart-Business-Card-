@@ -9,9 +9,9 @@
 </div>
 {% if show_money %}
 <div class="stats mt-4">
-  <div class="panel stat"><span class="stat__label">Revenue this month</span><span class="stat__value">{{ month_revenue|ghs }}</span></div>
-  <div class="panel stat"><span class="stat__label">Subscription revenue</span><span class="stat__value">{{ subscription_revenue|ghs }}</span></div>
-  <div class="panel stat"><span class="stat__label">NFC revenue</span><span class="stat__value">{{ nfc_revenue|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Revenue this month</span><span class="stat__value">{% money month_revenue usd=month_revenue_usd rate=None %}</span></div>
+  <div class="panel stat"><span class="stat__label">Subscription revenue</span><span class="stat__value">{% money subscription_revenue usd=subscription_revenue_usd rate=None %}</span></div>
+  <div class="panel stat"><span class="stat__label">NFC revenue</span><span class="stat__value">{% money nfc_revenue usd=nfc_revenue_usd rate=None %}</span></div>
   <a class="panel stat" href="{% url 'staff:payments' %}?status=pending" style="text-decoration:none;color:inherit"><span class="stat__label">Pending payments</span><span class="stat__value">{{ pending_payments }}</span><span class="stat__hint">{{ successful_payments }} successful all time</span></a>
 </div>
 {% endif %}

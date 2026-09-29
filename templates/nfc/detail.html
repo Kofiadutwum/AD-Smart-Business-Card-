@@ -79,12 +79,12 @@
     <section class="panel">
       <h2 style="font-size: var(--text-lg)">Summary</h2>
       <div class="summary mt-4">
-        <div class="summary__row"><span>{{ order.quantity }} NFC card{{ order.quantity|pluralize }}</span><span>{% money order.cards_minor %}</span></div>
-        <div class="summary__row"><span>{% if order.is_international %}Shipping and delivery{% else %}Delivery{% endif %}</span><span>{% if order.delivery_fee_minor %}{% money order.delivery_fee_minor %}{% else %}Free{% endif %}</span></div>
-        {% if order.plan_minor %}<div class="summary__row"><span>{{ order.bundled_plan.name }} plan</span><span>{% money order.plan_minor %}</span></div>{% endif %}
-        {% if order.discount_minor %}<div class="summary__row"><span>Discount</span><span>{% money order.discount_minor sign="−" %}</span></div>{% endif %}
-        {% if order.tax_minor %}<div class="summary__row"><span>Tax</span><span>{% money order.tax_minor %}</span></div>{% endif %}
-        <div class="summary__row summary__total"><span>Total</span><span>{% money order.total_minor %}</span></div>
+        <div class="summary__row"><span>{{ order.quantity }} NFC card{{ order.quantity|pluralize }}</span><span>{% money order.cards_minor rate=order.usd_rate %}</span></div>
+        <div class="summary__row"><span>{% if order.is_international %}Shipping and delivery{% else %}Delivery{% endif %}</span><span>{% if order.delivery_fee_minor %}{% money order.delivery_fee_minor rate=order.usd_rate %}{% else %}Free{% endif %}</span></div>
+        {% if order.plan_minor %}<div class="summary__row"><span>{{ order.bundled_plan.name }} plan</span><span>{% money order.plan_minor rate=order.usd_rate %}</span></div>{% endif %}
+        {% if order.discount_minor %}<div class="summary__row"><span>Discount</span><span>{% money order.discount_minor sign="−" rate=order.usd_rate %}</span></div>{% endif %}
+        {% if order.tax_minor %}<div class="summary__row"><span>Tax</span><span>{% money order.tax_minor rate=order.usd_rate %}</span></div>{% endif %}
+        <div class="summary__row summary__total"><span>Total</span><span>{% money order.total_minor rate=order.usd_rate %}</span></div>
       </div>
       {% if payment %}<a class="btn btn--sm mt-4" href="{% url 'billing:receipt_pdf' payment.reference %}">{% icon "file-down" 16 %}Receipt {{ payment.receipt_number }}</a>{% endif %}
     </section>
@@ -106,7 +106,7 @@
     {% if order.customer_can_cancel %}
       <section class="panel">
         <h2 style="font-size: var(--text-lg)">Cancel this order</h2>
-        <p class="text-sm muted mt-2">Refund if you cancel now: <strong>{% money order.refundable_minor inline=True %}</strong>. Subscription plans bought with the order are not refunded.</p>
+        <p class="text-sm muted mt-2">Refund if you cancel now: <strong>{% money order.refundable_minor inline=True rate=order.usd_rate %}</strong>. Subscription plans bought with the order are not refunded.</p>
         <details class="mt-4">
           <summary class="btn btn--danger">Cancel order</summary>
           <form method="post" action="{% url 'nfc:cancel' order.order_number %}" class="form mt-4" data-confirm="Cancel order {{ order.order_number }}?">

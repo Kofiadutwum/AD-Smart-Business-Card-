@@ -9,6 +9,7 @@ from django.utils import timezone
 
 from apps.core.emails import notify_admins, send_email
 from apps.core.models import AuditLog, SiteSettings
+from apps.core.utils import format_money
 
 from .models import DesignProof, NFCOrder, OrderEvent, PriceTier
 
@@ -290,7 +291,7 @@ def cancel_by_customer(order, user, reason):
     order.status = NFCOrder.CANCELLED
     order.cancel_reason = reason
     order.save()
-    log(order, f"Cancelled by the customer. Refund due: GHS {refundable / 100:,.2f}. {reason}", NFCOrder.CANCELLED, user)
+    log(order, f"Cancelled by the customer. Refund due: {format_money(refundable, order.usd_rate)}. {reason}", NFCOrder.CANCELLED, user)
     AuditLog.record(user, "nfc_cancelled_by_customer", order, reason=reason, refundable_minor=refundable)
     transaction.on_commit(
         lambda: notify_admins(
