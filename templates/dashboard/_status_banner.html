@@ -1,4 +1,11 @@
 {# Subscription state at the top of every dashboard page (Section 6.1). #}
+{% if not user.is_email_verified %}
+  <div class="banner banner--warning">
+    {% icon "mail" 22 %}
+    <p>{% blocktrans trimmed %}<strong>Confirm your email address.</strong> You will need it to recover your account and to receive your receipts.{% endblocktrans %}</p>
+    <form method="post" action="{% url 'accounts:verify_pending' %}">{% csrf_token %}<button class="btn btn--sm" type="submit">{% trans "Send me the link" %}</button></form>
+  </div>
+{% endif %}
 {% if not shell_subscription %}
   <div class="banner banner--info">
     {% icon "sparkles" 22 %}

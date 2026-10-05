@@ -97,8 +97,12 @@ def claim_setup(request, slug):
                     to=user.email, subject=subject_text("Welcome to AD Smart Business Cards"), template="welcome",
                     context={"user": user}, user=user, kind="welcome", dedupe_key=f"welcome:{user.pk}",
                 )
-                messages.success(request, _("Your card is live and your first year is active. Confirm your email to edit it."))
-                return redirect("accounts:verify_pending")
+                messages.success(
+                    request,
+                    _("Your card is live and your first year is active. We sent a link to %(email)s so you can confirm your address when you are ready.")
+                    % {"email": user.email},
+                )
+                return redirect("dashboard:home")
     return render(
         request, "cards/claim_setup.html",
         {"form": form, "card": premade.card, "batch": premade.batch,

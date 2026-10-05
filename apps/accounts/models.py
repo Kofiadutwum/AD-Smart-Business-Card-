@@ -57,6 +57,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     google_sub = models.CharField(max_length=255, unique=True, null=True, blank=True)
 
     email_verified_at = models.DateTimeField(null=True, blank=True)
+    # A shop-card buyer is let straight in: setting up with the PIN from the card is the proof of purchase,
+    # so confirming the email address can wait. The dashboard keeps asking until it is confirmed.
+    verification_waived_at = models.DateTimeField(null=True, blank=True)
     email_changed_at = models.DateTimeField(null=True, blank=True)
     accepted_terms_at = models.DateTimeField(null=True, blank=True)
 
@@ -113,6 +116,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_email_verified(self):
         return self.email_verified_at is not None
+
+    @property
+    def can_use_account(self):
+        """Confirmed their email, or was let in without it (see ``verification_waived_at``)."""
+        return self.email_verified_at is not None or self.verification_waived_at is not None
 
     @property
     def can_change_email(self):

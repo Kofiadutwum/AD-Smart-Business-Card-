@@ -334,7 +334,7 @@ def claim_with_new_account(premade_pk, data):
     premade = _lock_claimable(premade_pk)
     user = User.objects.create_user(
         email=data["email"], password=data["password"], full_name=data["full_name"].strip(),
-        phone=data["phone"], accepted_terms_at=timezone.now(),
+        phone=data["phone"], accepted_terms_at=timezone.now(), verification_waived_at=timezone.now(),
     )
     card = premade.card
     card.owner = user

@@ -98,7 +98,7 @@ msgstr "您的密码重置验证码：%(code)s"
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr "此网络的注册次数过多，请一小时后再试。"
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:273 apps/cards/claim.py:97
+#: apps/accounts/views.py:63 apps/accounts/views.py:276 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "欢迎使用 AD Smart Business Cards"
 
@@ -111,81 +111,81 @@ msgstr "您已多次请求发送邮件。请查看垃圾邮件文件夹，或稍
 msgid "We sent a new link to %(email)s."
 msgstr "我们已向 %(email)s 发送了新的链接。"
 
-#: apps/accounts/views.py:88
+#: apps/accounts/views.py:91
 msgid "That link has expired or was already used. Sign in and ask for a new one."
 msgstr "该链接已过期或已被使用。请登录后重新申请。"
 
-#: apps/accounts/views.py:95
+#: apps/accounts/views.py:98
 msgid "Email confirmed. Build your card, preview it, then choose a plan."
 msgstr "邮箱已确认。请制作并预览您的名片，然后选择套餐。"
 
-#: apps/accounts/views.py:113
+#: apps/accounts/views.py:116
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "尝试次数过多。请等待 15 分钟，或重置密码。"
 
-#: apps/accounts/views.py:118
+#: apps/accounts/views.py:121
 msgid "That email and password do not match."
 msgstr "邮箱与密码不匹配。"
 
-#: apps/accounts/views.py:121 apps/accounts/views.py:277
+#: apps/accounts/views.py:124 apps/accounts/views.py:280
 msgid "This account is suspended. Contact support."
 msgstr "此账户已被暂停。请联系客服。"
 
-#: apps/accounts/views.py:140
+#: apps/accounts/views.py:143
 msgid "You are signed out."
 msgstr "您已退出登录。"
 
-#: apps/accounts/views.py:156
+#: apps/accounts/views.py:159
 msgid "Too many requests. Try again in an hour."
 msgstr "请求过多，请一小时后再试。"
 
-#: apps/accounts/views.py:160
+#: apps/accounts/views.py:163
 msgid "A code was sent less than a minute ago. Check your inbox before asking again."
 msgstr "不到一分钟前已发送过验证码。请先查看收件箱，再重新申请。"
 
-#: apps/accounts/views.py:174
+#: apps/accounts/views.py:177
 msgid "Too many attempts from this connection. Try again later."
 msgstr "此网络的尝试次数过多，请稍后再试。"
 
-#: apps/accounts/views.py:181
+#: apps/accounts/views.py:184
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "该验证码已过期或使用次数过多。请重新申请。"
 
-#: apps/accounts/views.py:189 apps/accounts/views.py:216
+#: apps/accounts/views.py:192 apps/accounts/views.py:219
 msgid "Your password was changed"
 msgstr "您的密码已修改"
 
-#: apps/accounts/views.py:193
+#: apps/accounts/views.py:196
 msgid "Your password has been reset."
 msgstr "您的密码已重置。"
 
-#: apps/accounts/views.py:199
+#: apps/accounts/views.py:202
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "验证码不正确，还可尝试 %(left)d 次。"
 
-#: apps/accounts/views.py:204
+#: apps/accounts/views.py:207
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "错误次数过多。请重新申请验证码。"
 
-#: apps/accounts/views.py:219
+#: apps/accounts/views.py:222
 msgid "Password updated."
 msgstr "密码已更新。"
 
-#: apps/accounts/views.py:231
+#: apps/accounts/views.py:234
 msgid "Google sign-in is not available yet."
 msgstr "暂不支持使用 Google 登录。"
 
-#: apps/accounts/views.py:243
+#: apps/accounts/views.py:246
 msgid "Google sign-in was cancelled."
 msgstr "已取消 Google 登录。"
 
-#: apps/accounts/views.py:247
+#: apps/accounts/views.py:250
 msgid "Your Google sign-in session expired. Try again."
 msgstr "您的 Google 登录会话已过期，请重试。"
 
-#: apps/accounts/views.py:283
+#: apps/accounts/views.py:286
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr "请添加您的手机号码，以便我们就订单和配送与您联系。"
 
@@ -434,11 +434,7 @@ msgstr "此网络的尝试次数过多，请一小时后再试。"
 msgid "That email or number was just used for another account. Please check and try again."
 msgstr "该邮箱或号码刚刚已被用于另一个账户。请检查后重试。"
 
-#: apps/cards/claim.py:100
-msgid "Your card is live and your first year is active. Confirm your email to edit it."
-msgstr "您的名片已上线，首年服务已生效。请确认邮箱后即可编辑。"
-
-#: apps/cards/claim.py:126
+#: apps/cards/claim.py:130
 msgid "The card is now on your account and a year has been added to your plan."
 msgstr "名片已添加到您的账户，并已为您的套餐增加一年。"
 
@@ -2234,28 +2230,28 @@ msgstr "帮助与支持"
 msgid "Log out"
 msgstr "退出登录"
 
-#: templates/dashboard/_status_banner.html:5
+#: templates/dashboard/_status_banner.html:12
 msgid "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to give it its permanent link and switch it on."
 msgstr "<strong>您的名片目前是草稿。</strong>只有您自己能看到。选择套餐后即可获得永久链接并上线。"
 
-#: templates/dashboard/_status_banner.html:6 templates/dashboard/editor.html:162
+#: templates/dashboard/_status_banner.html:13 templates/dashboard/editor.html:162
 msgid "Choose a plan"
 msgstr "选择套餐"
 
-#: templates/dashboard/_status_banner.html:11
+#: templates/dashboard/_status_banner.html:18
 #, python-format
 msgid "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> Your card still works until %(shell_subscription_grace_ends_at_date)s. Renew before then to keep it live."
 msgstr "<strong>您的套餐已于 %(shell_subscription_expires_at_date)s 到期。</strong>名片在 %(shell_subscription_grace_ends_at_date)s 前仍可使用。请在此之前续订以保持上线。"
 
-#: templates/dashboard/_status_banner.html:12 templates/dashboard/_status_banner.html:18
+#: templates/dashboard/_status_banner.html:19 templates/dashboard/_status_banner.html:25
 msgid "Renew now"
 msgstr "立即续订"
 
-#: templates/dashboard/_status_banner.html:17
+#: templates/dashboard/_status_banner.html:24
 msgid "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page. Renew to bring back the same link, QR code and NFC cards."
 msgstr "<strong>您的名片已停用。</strong>访客会看到“名片已停用”页面。续订后即可恢复原有的链接、二维码和 NFC 卡片。"
 
-#: templates/dashboard/_status_banner.html:24
+#: templates/dashboard/_status_banner.html:31
 msgid "Renew"
 msgstr "续订"
 
@@ -4305,7 +4301,7 @@ msgstr "使用 Google 继续"
 msgid "or"
 msgstr "或"
 
-#: templates/dashboard/_status_banner.html:23
+#: templates/dashboard/_status_banner.html:30
 #, python-format
 msgid "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
 msgid_plural "<strong>Your plan ends in %(days_left)s days</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
@@ -4834,12 +4830,12 @@ msgstr "%(price)s/年"
 msgid "Photo of %(name)s"
 msgstr "%(name)s 的照片"
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:35
 #, python-format
 msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s people</strong> on %(date)s."
 msgstr "您的套餐将于 %(date)s 变更为 <strong style=\"display:inline\">%(plan)s（%(seats)s 人）</strong>。"
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:35
 #, python-format
 msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on %(date)s."
 msgstr "您的套餐将于 %(date)s 变更为 <strong style=\"display:inline\">%(plan)s</strong>。"
@@ -4976,3 +4972,16 @@ msgstr "套餐付款（包括每年的自动续订）在名片生效后不予退
 #: templates/marketing/legal_terms.html:14
 msgid "A plan paid by Mobile Money is renewed by you. A plan paid by card renews automatically each year: on the day it ends we charge the same card the plan price shown at checkout, we email you about 7 days before and send a receipt after, and you can turn automatic renewal off at any time in your dashboard. Turning it off keeps your plan until the end of the year already paid for. Renewing early adds a year to your current end date."
 msgstr "通过 Mobile Money 付款的套餐需由您自行续订。通过银行卡付款的套餐每年自动续订：套餐到期当天，我们会按结账时显示的套餐价格从同一张银行卡扣款，并在约 7 天前发邮件提醒、扣款后发送收据，您可以随时在控制面板中关闭自动续订。关闭后，套餐会持续到已付费年度结束。提前续订会在当前到期日基础上增加一年。"
+
+#: apps/cards/claim.py:102
+#, python-format
+msgid "Your card is live and your first year is active. We sent a link to %(email)s so you can confirm your address when you are ready."
+msgstr "您的名片已上线，第一年已生效。我们已向 %(email)s 发送了一个链接，您可以在方便时确认邮箱地址。"
+
+#: templates/dashboard/_status_banner.html:5
+msgid "<strong>Confirm your email address.</strong> You will need it to recover your account and to receive your receipts."
+msgstr "<strong>请确认您的邮箱地址。</strong>找回账户和接收收据都需要用到它。"
+
+#: templates/dashboard/_status_banner.html:6
+msgid "Send me the link"
+msgstr "给我发送链接"

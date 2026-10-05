@@ -77,7 +77,10 @@ def verify_pending(request):
         else:
             services.send_verification_email(request.user)
             messages.success(request, _("We sent a new link to %(email)s.") % {"email": request.user.email})
-        return redirect("accounts:verify_pending")
+        # Someone who was let straight in goes back to their dashboard; the rest wait on this page.
+        return redirect("dashboard:home" if request.user.can_use_account else "accounts:verify_pending")
+    if request.user.can_use_account:
+        return redirect("dashboard:home")
     return render(request, "accounts/verify_pending.html")
 
 

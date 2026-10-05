@@ -133,9 +133,12 @@ class ClaimTests(PremadeBase):
         self.verify_pin(rows[0])
         with self.captureOnCommitCallbacks(execute=True):
             response = self.client.post(f"/c/{code}/claim/setup", BUYER)
-        self.assertRedirects(response, "/auth/verify", fetch_redirect_response=False)
+        # Straight into the account: no "check your email" page in the way.
+        self.assertRedirects(response, "/dashboard/", fetch_redirect_response=False)
 
         user = User.objects.get(email="ama@example.com")
+        self.assertFalse(user.is_email_verified)
+        self.assertTrue(user.can_use_account)
         card = Card.objects.get(slug=code)
         self.assertEqual(card.owner_id, user.pk)
         self.assertEqual(card.full_name, "Ama Boateng")
@@ -210,6 +213,53 @@ class ClaimTests(PremadeBase):
         self.assertEqual(home.context["month_revenue"], 35000)
         payments = self.client.get("/staff/payments/?purpose=premade_card")
         self.assertContains(payments, "ama@example.com")
+
+
+class StraightInTests(PremadeBase):
+    """A shop-card buyer goes straight into the dashboard; confirming the email can wait."""
+
+    def claim(self):
+        batch, rows = self.make_batch(quantity=2)
+        self.verify_pin(rows[0])
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post(f"/c/{rows[0]['code']}/claim/setup", BUYER)
+        return User.objects.get(email="ama@example.com")
+
+    def test_dashboard_opens_at_once_and_asks_for_the_email_to_be_confirmed(self):
+        self.claim()
+        response = self.client.get("/dashboard/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Confirm your email address")
+        self.assertEqual(self.client.get("/dashboard/card/").status_code, 200)
+        self.assertEqual(self.client.get("/billing/").status_code, 200)
+
+    def test_the_confirmation_link_is_still_sent_and_works_later(self):
+        import re
+
+        user = self.claim()
+        link = re.search(r"http://[^\s]+/auth/verify/[^\s]+", next(m for m in mail.outbox if "Confirm your email" in m.subject).body).group(0)
+        self.client.get(link.replace("http://127.0.0.1:8000", ""))
+        user.refresh_from_db()
+        self.assertTrue(user.is_email_verified)
+        self.assertNotContains(self.client.get("/dashboard/"), "Confirm your email address")
+
+    def test_the_banner_can_send_the_link_again_without_leaving_the_dashboard(self):
+        self.claim()
+        before = len(mail.outbox)
+        response = self.client.post("/auth/verify")
+        self.assertRedirects(response, "/dashboard/", fetch_redirect_response=False)
+        self.assertEqual(len(mail.outbox), before + 1)
+        self.assertRedirects(self.client.get("/auth/verify"), "/dashboard/", fetch_redirect_response=False)
+
+    def test_a_normal_sign_up_still_has_to_confirm_first(self):
+        self.client.post("/auth/register", {
+            "full_name": "Efua Owusu", "email": "efua@example.com", "phone": "024 412 3456",
+            "password": "Card-maker-2026", "accept_terms": "on",
+        })
+        user = User.objects.get(email="efua@example.com")
+        self.assertIsNone(user.verification_waived_at)
+        self.assertFalse(user.can_use_account)
+        self.assertRedirects(self.client.get("/dashboard/"), "/auth/verify", fetch_redirect_response=False)
 
 
 class ExistingAccountTests(PremadeBase):

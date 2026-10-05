@@ -98,7 +98,7 @@ msgstr "Je code om je wachtwoord te herstellen: %(code)s"
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr "Te veel registraties vanaf deze verbinding. Probeer het over een uur opnieuw."
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:273 apps/cards/claim.py:97
+#: apps/accounts/views.py:63 apps/accounts/views.py:276 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Welkom bij AD Smart Business Cards"
 
@@ -111,82 +111,82 @@ msgstr "Je hebt al meerdere e-mails aangevraagd. Controleer je spammap of probee
 msgid "We sent a new link to %(email)s."
 msgstr "We hebben een nieuwe link naar %(email)s gestuurd."
 
-#: apps/accounts/views.py:88
+#: apps/accounts/views.py:91
 msgid "That link has expired or was already used. Sign in and ask for a new one."
 msgstr "Die link is verlopen of al gebruikt. Log in en vraag een nieuwe aan."
 
-#: apps/accounts/views.py:95
+#: apps/accounts/views.py:98
 msgid "Email confirmed. Build your card, preview it, then choose a plan."
 msgstr "E-mail bevestigd. Maak je kaart, bekijk een voorbeeld en kies een abonnement."
 
-#: apps/accounts/views.py:113
+#: apps/accounts/views.py:116
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "Te veel pogingen. Wacht 15 minuten of herstel je wachtwoord."
 
-#: apps/accounts/views.py:118
+#: apps/accounts/views.py:121
 msgid "That email and password do not match."
 msgstr "Dat e-mailadres en wachtwoord komen niet overeen."
 
-#: apps/accounts/views.py:121 apps/accounts/views.py:277
+#: apps/accounts/views.py:124 apps/accounts/views.py:280
 msgid "This account is suspended. Contact support."
 msgstr "Dit account is geschorst. Neem contact op met de support."
 
-#: apps/accounts/views.py:140
+#: apps/accounts/views.py:143
 msgid "You are signed out."
 msgstr "Je bent uitgelogd."
 
-#: apps/accounts/views.py:156
+#: apps/accounts/views.py:159
 msgid "Too many requests. Try again in an hour."
 msgstr "Te veel verzoeken. Probeer het over een uur opnieuw."
 
-#: apps/accounts/views.py:160
+#: apps/accounts/views.py:163
 msgid "A code was sent less than a minute ago. Check your inbox before asking again."
 msgstr "Er is minder dan een minuut geleden een code verstuurd. Controleer je inbox voordat je een nieuwe aanvraagt."
 
-#: apps/accounts/views.py:174
+#: apps/accounts/views.py:177
 msgid "Too many attempts from this connection. Try again later."
 msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
 
-#: apps/accounts/views.py:181
+#: apps/accounts/views.py:184
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "Die code is verlopen of te vaak gebruikt. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:189 apps/accounts/views.py:216
+#: apps/accounts/views.py:192 apps/accounts/views.py:219
 msgid "Your password was changed"
 msgstr "Je wachtwoord is gewijzigd"
 
-#: apps/accounts/views.py:193
+#: apps/accounts/views.py:196
 msgid "Your password has been reset."
 msgstr "Je wachtwoord is hersteld."
 
-#: apps/accounts/views.py:199
+#: apps/accounts/views.py:202
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Die code klopt niet. Nog %(left)d poging over."
 msgstr[1] "Die code klopt niet. Nog %(left)d pogingen over."
 
-#: apps/accounts/views.py:204
+#: apps/accounts/views.py:207
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Te veel foute codes. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:219
+#: apps/accounts/views.py:222
 msgid "Password updated."
 msgstr "Wachtwoord bijgewerkt."
 
-#: apps/accounts/views.py:231
+#: apps/accounts/views.py:234
 msgid "Google sign-in is not available yet."
 msgstr "Inloggen met Google is nog niet beschikbaar."
 
-#: apps/accounts/views.py:243
+#: apps/accounts/views.py:246
 msgid "Google sign-in was cancelled."
 msgstr "Inloggen met Google is geannuleerd."
 
-#: apps/accounts/views.py:247
+#: apps/accounts/views.py:250
 msgid "Your Google sign-in session expired. Try again."
 msgstr "Je Google-inlogsessie is verlopen. Probeer het opnieuw."
 
-#: apps/accounts/views.py:283
+#: apps/accounts/views.py:286
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr "Voeg je mobiele nummer toe zodat we contact met je kunnen opnemen over bestellingen en bezorging."
 
@@ -437,11 +437,7 @@ msgstr "Te veel pogingen vanaf deze verbinding. Probeer het over een uur opnieuw
 msgid "That email or number was just used for another account. Please check and try again."
 msgstr "Dat e-mailadres of nummer is net voor een ander account gebruikt. Controleer het en probeer opnieuw."
 
-#: apps/cards/claim.py:100
-msgid "Your card is live and your first year is active. Confirm your email to edit it."
-msgstr "Je kaart is live en je eerste jaar is actief. Bevestig je e-mailadres om hem te bewerken."
-
-#: apps/cards/claim.py:126
+#: apps/cards/claim.py:130
 msgid "The card is now on your account and a year has been added to your plan."
 msgstr "De kaart staat nu op je account en er is een jaar aan je abonnement toegevoegd."
 
@@ -2243,28 +2239,28 @@ msgstr "Hulp en support"
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: templates/dashboard/_status_banner.html:5
+#: templates/dashboard/_status_banner.html:12
 msgid "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to give it its permanent link and switch it on."
 msgstr "<strong>Je kaart is een concept.</strong> Alleen jij kunt hem zien. Kies een abonnement om hem zijn permanente link te geven en hem aan te zetten."
 
-#: templates/dashboard/_status_banner.html:6 templates/dashboard/editor.html:162
+#: templates/dashboard/_status_banner.html:13 templates/dashboard/editor.html:162
 msgid "Choose a plan"
 msgstr "Kies een abonnement"
 
-#: templates/dashboard/_status_banner.html:11
+#: templates/dashboard/_status_banner.html:18
 #, python-format
 msgid "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> Your card still works until %(shell_subscription_grace_ends_at_date)s. Renew before then to keep it live."
 msgstr "<strong>Je abonnement is afgelopen op %(shell_subscription_expires_at_date)s.</strong> Je kaart werkt nog tot %(shell_subscription_grace_ends_at_date)s. Verleng vóór die datum om hem live te houden."
 
-#: templates/dashboard/_status_banner.html:12 templates/dashboard/_status_banner.html:18
+#: templates/dashboard/_status_banner.html:19 templates/dashboard/_status_banner.html:25
 msgid "Renew now"
 msgstr "Nu verlengen"
 
-#: templates/dashboard/_status_banner.html:17
+#: templates/dashboard/_status_banner.html:24
 msgid "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page. Renew to bring back the same link, QR code and NFC cards."
 msgstr "<strong>Je kaart is inactief.</strong> Bezoekers zien een pagina ‘kaart inactief’. Verleng om dezelfde link, QR-code en NFC-kaarten terug te krijgen."
 
-#: templates/dashboard/_status_banner.html:24
+#: templates/dashboard/_status_banner.html:31
 msgid "Renew"
 msgstr "Verlengen"
 
@@ -4321,7 +4317,7 @@ msgstr "Doorgaan met Google"
 msgid "or"
 msgstr "of"
 
-#: templates/dashboard/_status_banner.html:23
+#: templates/dashboard/_status_banner.html:30
 #, python-format
 msgid "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
 msgid_plural "<strong>Your plan ends in %(days_left)s days</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
@@ -4859,12 +4855,12 @@ msgstr "%(price)s/jr"
 msgid "Photo of %(name)s"
 msgstr "Foto van %(name)s"
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:35
 #, python-format
 msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s people</strong> on %(date)s."
 msgstr "Je abonnement verandert op %(date)s naar <strong style=\"display:inline\">%(plan)s voor %(seats)s personen</strong>."
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:35
 #, python-format
 msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on %(date)s."
 msgstr "Je abonnement verandert op %(date)s naar <strong style=\"display:inline\">%(plan)s</strong>."
@@ -5001,3 +4997,16 @@ msgstr "Betalingen voor abonnementen, inclusief automatische jaarlijkse verlengi
 #: templates/marketing/legal_terms.html:14
 msgid "A plan paid by Mobile Money is renewed by you. A plan paid by card renews automatically each year: on the day it ends we charge the same card the plan price shown at checkout, we email you about 7 days before and send a receipt after, and you can turn automatic renewal off at any time in your dashboard. Turning it off keeps your plan until the end of the year already paid for. Renewing early adds a year to your current end date."
 msgstr "Een abonnement dat met Mobile Money is betaald, verleng je zelf. Een abonnement dat met een kaart is betaald, wordt elk jaar automatisch verlengd: op de dag dat het afloopt belasten we dezelfde kaart met de abonnementsprijs die bij het afrekenen werd getoond, we mailen je ongeveer 7 dagen van tevoren en sturen daarna een kwitantie, en je kunt automatisch verlengen op elk moment uitschakelen in je dashboard. Uitschakelen houdt je abonnement actief tot het einde van het al betaalde jaar. Eerder verlengen voegt een jaar toe aan je huidige einddatum."
+
+#: apps/cards/claim.py:102
+#, python-format
+msgid "Your card is live and your first year is active. We sent a link to %(email)s so you can confirm your address when you are ready."
+msgstr "Je kaart staat online en je eerste jaar is actief. We hebben een link gestuurd naar %(email)s, zodat je je adres kunt bevestigen wanneer het jou uitkomt."
+
+#: templates/dashboard/_status_banner.html:5
+msgid "<strong>Confirm your email address.</strong> You will need it to recover your account and to receive your receipts."
+msgstr "<strong>Bevestig je e-mailadres.</strong> Je hebt het nodig om je account te herstellen en je kwitanties te ontvangen."
+
+#: templates/dashboard/_status_banner.html:6
+msgid "Send me the link"
+msgstr "Stuur me de link"

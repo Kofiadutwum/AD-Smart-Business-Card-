@@ -98,7 +98,7 @@ msgstr "Votre code de réinitialisation du mot de passe : %(code)s"
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr "Trop d’inscriptions depuis cette connexion. Réessayez dans une heure."
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:273 apps/cards/claim.py:97
+#: apps/accounts/views.py:63 apps/accounts/views.py:276 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Bienvenue sur AD Smart Business Cards"
 
@@ -111,82 +111,82 @@ msgstr "Vous avez déjà demandé plusieurs e-mails. Vérifiez vos courriers ind
 msgid "We sent a new link to %(email)s."
 msgstr "Nous avons envoyé un nouveau lien à %(email)s."
 
-#: apps/accounts/views.py:88
+#: apps/accounts/views.py:91
 msgid "That link has expired or was already used. Sign in and ask for a new one."
 msgstr "Ce lien a expiré ou a déjà été utilisé. Connectez-vous et demandez-en un nouveau."
 
-#: apps/accounts/views.py:95
+#: apps/accounts/views.py:98
 msgid "Email confirmed. Build your card, preview it, then choose a plan."
 msgstr "E-mail confirmé. Créez votre carte, prévisualisez-la, puis choisissez une formule."
 
-#: apps/accounts/views.py:113
+#: apps/accounts/views.py:116
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "Trop de tentatives. Patientez 15 minutes ou réinitialisez votre mot de passe."
 
-#: apps/accounts/views.py:118
+#: apps/accounts/views.py:121
 msgid "That email and password do not match."
 msgstr "Cet e-mail et ce mot de passe ne correspondent pas."
 
-#: apps/accounts/views.py:121 apps/accounts/views.py:277
+#: apps/accounts/views.py:124 apps/accounts/views.py:280
 msgid "This account is suspended. Contact support."
 msgstr "Ce compte est suspendu. Contactez l’assistance."
 
-#: apps/accounts/views.py:140
+#: apps/accounts/views.py:143
 msgid "You are signed out."
 msgstr "Vous êtes déconnecté."
 
-#: apps/accounts/views.py:156
+#: apps/accounts/views.py:159
 msgid "Too many requests. Try again in an hour."
 msgstr "Trop de demandes. Réessayez dans une heure."
 
-#: apps/accounts/views.py:160
+#: apps/accounts/views.py:163
 msgid "A code was sent less than a minute ago. Check your inbox before asking again."
 msgstr "Un code a été envoyé il y a moins d’une minute. Consultez votre boîte de réception avant d’en redemander un."
 
-#: apps/accounts/views.py:174
+#: apps/accounts/views.py:177
 msgid "Too many attempts from this connection. Try again later."
 msgstr "Trop de tentatives depuis cette connexion. Réessayez plus tard."
 
-#: apps/accounts/views.py:181
+#: apps/accounts/views.py:184
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "Ce code a expiré ou a été utilisé trop de fois. Demandez-en un nouveau."
 
-#: apps/accounts/views.py:189 apps/accounts/views.py:216
+#: apps/accounts/views.py:192 apps/accounts/views.py:219
 msgid "Your password was changed"
 msgstr "Votre mot de passe a été modifié"
 
-#: apps/accounts/views.py:193
+#: apps/accounts/views.py:196
 msgid "Your password has been reset."
 msgstr "Votre mot de passe a été réinitialisé."
 
-#: apps/accounts/views.py:199
+#: apps/accounts/views.py:202
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Ce code n’est pas le bon. %(left)d tentative restante."
 msgstr[1] "Ce code n’est pas le bon. %(left)d tentatives restantes."
 
-#: apps/accounts/views.py:204
+#: apps/accounts/views.py:207
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Trop de codes erronés. Demandez-en un nouveau."
 
-#: apps/accounts/views.py:219
+#: apps/accounts/views.py:222
 msgid "Password updated."
 msgstr "Mot de passe mis à jour."
 
-#: apps/accounts/views.py:231
+#: apps/accounts/views.py:234
 msgid "Google sign-in is not available yet."
 msgstr "La connexion avec Google n’est pas encore disponible."
 
-#: apps/accounts/views.py:243
+#: apps/accounts/views.py:246
 msgid "Google sign-in was cancelled."
 msgstr "La connexion avec Google a été annulée."
 
-#: apps/accounts/views.py:247
+#: apps/accounts/views.py:250
 msgid "Your Google sign-in session expired. Try again."
 msgstr "Votre session de connexion Google a expiré. Réessayez."
 
-#: apps/accounts/views.py:283
+#: apps/accounts/views.py:286
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr "Ajoutez votre numéro de mobile pour que nous puissions vous joindre au sujet des commandes et de la livraison."
 
@@ -437,11 +437,7 @@ msgstr "Trop de tentatives depuis cette connexion. Réessayez dans une heure."
 msgid "That email or number was just used for another account. Please check and try again."
 msgstr "Cet e-mail ou ce numéro vient d’être utilisé pour un autre compte. Vérifiez et réessayez."
 
-#: apps/cards/claim.py:100
-msgid "Your card is live and your first year is active. Confirm your email to edit it."
-msgstr "Votre carte est en ligne et votre première année est active. Confirmez votre e-mail pour la modifier."
-
-#: apps/cards/claim.py:126
+#: apps/cards/claim.py:130
 msgid "The card is now on your account and a year has been added to your plan."
 msgstr "La carte est maintenant sur votre compte et une année a été ajoutée à votre formule."
 
@@ -2243,28 +2239,28 @@ msgstr "Aide et assistance"
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: templates/dashboard/_status_banner.html:5
+#: templates/dashboard/_status_banner.html:12
 msgid "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to give it its permanent link and switch it on."
 msgstr "<strong>Votre carte est un brouillon.</strong> Vous seul pouvez la voir. Choisissez une formule pour lui donner son lien permanent et la mettre en ligne."
 
-#: templates/dashboard/_status_banner.html:6 templates/dashboard/editor.html:162
+#: templates/dashboard/_status_banner.html:13 templates/dashboard/editor.html:162
 msgid "Choose a plan"
 msgstr "Choisir une formule"
 
-#: templates/dashboard/_status_banner.html:11
+#: templates/dashboard/_status_banner.html:18
 #, python-format
 msgid "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> Your card still works until %(shell_subscription_grace_ends_at_date)s. Renew before then to keep it live."
 msgstr "<strong>Votre formule a pris fin le %(shell_subscription_expires_at_date)s.</strong> Votre carte fonctionne encore jusqu’au %(shell_subscription_grace_ends_at_date)s. Renouvelez avant cette date pour la garder en ligne."
 
-#: templates/dashboard/_status_banner.html:12 templates/dashboard/_status_banner.html:18
+#: templates/dashboard/_status_banner.html:19 templates/dashboard/_status_banner.html:25
 msgid "Renew now"
 msgstr "Renouveler maintenant"
 
-#: templates/dashboard/_status_banner.html:17
+#: templates/dashboard/_status_banner.html:24
 msgid "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page. Renew to bring back the same link, QR code and NFC cards."
 msgstr "<strong>Votre carte est inactive.</strong> Les visiteurs voient une page « carte inactive ». Renouvelez pour retrouver le même lien, le même code QR et les mêmes cartes NFC."
 
-#: templates/dashboard/_status_banner.html:24
+#: templates/dashboard/_status_banner.html:31
 msgid "Renew"
 msgstr "Renouveler"
 
@@ -4321,7 +4317,7 @@ msgstr "Continuer avec Google"
 msgid "or"
 msgstr "ou"
 
-#: templates/dashboard/_status_banner.html:23
+#: templates/dashboard/_status_banner.html:30
 #, python-format
 msgid "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
 msgid_plural "<strong>Your plan ends in %(days_left)s days</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
@@ -4859,12 +4855,12 @@ msgstr "%(price)s/an"
 msgid "Photo of %(name)s"
 msgstr "Photo de %(name)s"
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:35
 #, python-format
 msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s people</strong> on %(date)s."
 msgstr "Votre formule passe à <strong style=\"display:inline\">%(plan)s pour %(seats)s personnes</strong> le %(date)s."
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:35
 #, python-format
 msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on %(date)s."
 msgstr "Votre formule passe à <strong style=\"display:inline\">%(plan)s</strong> le %(date)s."
@@ -5001,3 +4997,16 @@ msgstr "Les paiements de formule, y compris les renouvellements annuels automati
 #: templates/marketing/legal_terms.html:14
 msgid "A plan paid by Mobile Money is renewed by you. A plan paid by card renews automatically each year: on the day it ends we charge the same card the plan price shown at checkout, we email you about 7 days before and send a receipt after, and you can turn automatic renewal off at any time in your dashboard. Turning it off keeps your plan until the end of the year already paid for. Renewing early adds a year to your current end date."
 msgstr "Une formule payée par Mobile Money est renouvelée par vous. Une formule payée par carte se renouvelle automatiquement chaque année : le jour où elle se termine, nous débitons sur la même carte le prix de la formule affiché à la commande, nous vous écrivons environ 7 jours avant et envoyons un reçu après, et vous pouvez désactiver le renouvellement automatique à tout moment dans votre tableau de bord. Le désactiver maintient votre formule jusqu’à la fin de l’année déjà payée. Renouveler à l’avance ajoute une année à votre date de fin actuelle."
+
+#: apps/cards/claim.py:102
+#, python-format
+msgid "Your card is live and your first year is active. We sent a link to %(email)s so you can confirm your address when you are ready."
+msgstr "Votre carte est en ligne et votre première année est active. Nous avons envoyé un lien à %(email)s pour que vous puissiez confirmer votre adresse quand vous le souhaitez."
+
+#: templates/dashboard/_status_banner.html:5
+msgid "<strong>Confirm your email address.</strong> You will need it to recover your account and to receive your receipts."
+msgstr "<strong>Confirmez votre adresse e-mail.</strong> Elle vous servira à récupérer votre compte et à recevoir vos reçus."
+
+#: templates/dashboard/_status_banner.html:6
+msgid "Send me the link"
+msgstr "Envoyez-moi le lien"

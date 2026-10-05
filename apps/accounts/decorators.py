@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 
 
 def customer_required(view):
-    """Signed in, email verified (REG-02), and not a staff-only account."""
+    """Signed in, email verified (REG-02) or waived for a shop-card buyer, and not a staff-only account."""
 
     @login_required
     @wraps(view)
@@ -13,7 +13,7 @@ def customer_required(view):
         user = request.user
         if user.is_staff:
             return redirect("staff:home")
-        if not user.is_email_verified:
+        if not user.can_use_account:
             return redirect("accounts:verify_pending")
         return view(request, *args, **kwargs)
 
