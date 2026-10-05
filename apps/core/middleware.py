@@ -27,3 +27,20 @@ class SecurityHeadersMiddleware:
         )
         response.headers.setdefault("Cross-Origin-Opener-Policy", "same-origin-allow-popups")
         return response
+
+
+class PreferencesMiddleware:
+    """Work out the visitor's display currency once per request (cookie, then account, then dollars)."""
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        from . import currency
+
+        request.currency = currency.choice_for(request)
+        currency.activate(request.currency)
+        try:
+            return self.get_response(request)
+        finally:
+            currency.activate(currency.DEFAULT)  # never leak one visitor's choice into other code

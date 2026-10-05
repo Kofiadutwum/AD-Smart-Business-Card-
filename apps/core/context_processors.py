@@ -1,9 +1,11 @@
+import json
 import time
 from datetime import date
 
 from django.conf import settings
-from django.utils.functional import SimpleLazyObject
+from django.utils.functional import SimpleLazyObject, lazy
 
+from . import currency
 from .models import SiteSettings
 
 
@@ -24,8 +26,14 @@ def _latest_rate():
     return latest_rate()
 
 
+def _currency_json(chosen):
+    today = _latest_rate()
+    return json.dumps(currency.config_for(currency.effective(chosen, today), today))
+
+
 def site(request):
     user = getattr(request, "user", None)
+    chosen = getattr(request, "currency", currency.DEFAULT)
     extra = {}
     if user is not None and user.is_authenticated:
         if user.is_staff:
@@ -41,6 +49,10 @@ def site(request):
         "site": SiteSettings.load(),
         "current_year": date.today().year,
         "payment_sandbox": settings.PAYMENT_SANDBOX,
+        # The currency the visitor picked, the choices for the picker, and the price-calculator settings.
+        "currency": chosen,
+        "currency_choices": [(code, info["symbol"].strip() or code, info["name"]) for code, info in currency.CURRENCIES.items()],
+        "currency_json": lazy(_currency_json, str)(chosen),
         # Today's USD rate for the {% money %} tag; looked up once, on first use.
         "fx_rate": SimpleLazyObject(_latest_rate),
         # Development only: defeat the browser cache for CSS/JS. Production

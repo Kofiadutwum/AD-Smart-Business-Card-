@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from apps.core.views import daily_jobs
+from apps.core.views import daily_jobs, preferences
 
 admin.site.site_header = "AD Smart — database admin"
 admin.site.site_title = "AD Smart admin"
@@ -20,6 +20,7 @@ urlpatterns = [
     path("staff/db/", admin.site.urls),
     path("staff/", include("apps.staff.urls")),
     path("internal/daily-jobs", daily_jobs, name="daily_jobs"),
+    path("prefs/", preferences, name="prefs"),
 ]
 
 handler404 = "apps.core.views.not_found"

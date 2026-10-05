@@ -59,6 +59,7 @@
         <span class="avatar-sm">{% with c=shell_cards.0 %}{% if c and c.avatar %}<img src="{{ c.avatar.url }}" alt="">{% elif c %}{{ c.initials }}{% else %}?{% endif %}{% endwith %}</span>
         <div><strong>{{ user.display_name }}</strong><span>{{ user.email }}</span></div>
       </div>
+      <div class="app-side__prefs">{% include "partials/prefs.html" with idp="d" %}</div>
       <div class="app-side__actions">
         <button type="button" class="btn btn--sm btn--icon theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme">
           <span data-theme-icon="system">{% icon "monitor" 18 %}</span><span data-theme-icon="light">{% icon "sun" 18 %}</span><span data-theme-icon="dark">{% icon "moon" 18 %}</span>

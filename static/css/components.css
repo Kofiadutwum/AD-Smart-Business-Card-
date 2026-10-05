@@ -863,3 +863,21 @@
   margin-top: var(--space-6);
   font-size: var(--text-sm);
 }
+
+
+/* Language and currency pickers */
+.prefs { display: flex; align-items: center; gap: var(--space-2); }
+.prefs select {
+  min-height: 2.25rem;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.prefs select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.app-side__prefs { margin-bottom: var(--space-3); }
+.mobile-menu__actions .prefs { margin-bottom: var(--space-3); }

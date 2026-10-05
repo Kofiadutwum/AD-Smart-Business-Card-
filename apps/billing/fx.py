@@ -32,7 +32,8 @@ def latest_rate():
     if rate is None:
         rate = ExchangeRate.objects.order_by("-fetched_at").first() or False
         cache.set("fx:latest", rate, 600)
-    if not rate or timezone.now() - rate.fetched_at > STALE_AFTER:
+    # A rate stored before the other currencies were added has none of their rates yet: refresh it too.
+    if not rate or timezone.now() - rate.fetched_at > STALE_AFTER or not rate.other_rates:
         _refresh_in_background()
     return rate or None
 
@@ -70,14 +71,30 @@ def refresh_rate():
         response.raise_for_status()
         data = response.json()
         value = Decimal(str(data["rates"]["GHS"]))
+        other = _other_rates(data["rates"])
     except (requests.RequestException, KeyError, ValueError, InvalidOperation) as exc:
         logger.warning("Exchange rate refresh failed: %s", exc)
         return None
     if value <= 0:
         return None
-    rate = ExchangeRate.objects.create(ghs_per_usd=value, provider="open.er-api.com")
+    rate = ExchangeRate.objects.create(ghs_per_usd=value, other_rates=other, provider="open.er-api.com")
     cache.delete("fx:latest")
     return rate
+
+
+def _other_rates(rates):
+    """Units per US dollar for the display currencies the provider quotes (pounds, euros, yuan, naira, CFA francs)."""
+    from apps.core.currency import CONVERTED
+
+    found = {}
+    for code in CONVERTED:
+        try:
+            value = Decimal(str(rates[code]))
+        except (KeyError, InvalidOperation):
+            continue
+        if value > 0:
+            found[code] = str(value)
+    return found
 
 
 def usd_value(minor, rate):

@@ -20,7 +20,7 @@
       </table>
     </div>
 
-    <div class="calc" data-nfc-calc data-rate="{% if fx_rate %}{{ fx_rate.ghs_per_usd }}{% endif %}">
+    <div class="calc" data-nfc-calc>
       {{ tiers_json|json_script:"nfc-tiers" }}
       <div class="calc__row">
         <div class="field">
@@ -32,8 +32,8 @@
           </div>
         </div>
         <div class="calc__total" aria-live="polite">
-          <strong data-total>{% if fx_rate %}{{ nfc_examples.0.1|usd:fx_rate.ghs_per_usd }}{% else %}{{ nfc_examples.0.1|ghs }}{% endif %}</strong>
-          <span class="calc__ghs" data-total-ghs>{% if fx_rate %}{{ nfc_examples.0.1|ghs }}{% endif %}</span>
+          <strong data-total>{% local_amount nfc_examples.0.1 %}</strong>
+          <span class="calc__ghs" data-total-ghs>{% if fx_rate and currency != "GHS" %}{{ nfc_examples.0.1|ghs }}{% endif %}</span>
           <span data-each></span>
         </div>
       </div>

@@ -17,6 +17,7 @@
     </nav>
 
     <div class="site-header__actions">
+      <span class="hide-mobile">{% include "partials/prefs.html" with idp="h" %}</span>
       <button type="button" class="theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme">
         <span data-theme-icon="system">{% icon "monitor" 20 %}</span>
         <span data-theme-icon="light">{% icon "sun" 20 %}</span>
@@ -47,6 +48,7 @@
       </ul>
     </nav>
     <div class="mobile-menu__actions">
+      {% include "partials/prefs.html" with idp="m" %}
       {% if user.is_authenticated %}
         {% if user.is_staff %}{% url 'staff:home' as staff_url %}{% hover_button "Staff area" href=staff_url variant="ink" css="ihb--block" %}{% else %}{% url 'dashboard:home' as dash_url %}{% hover_button "Go to dashboard" href=dash_url variant="ink" css="ihb--block" %}{% endif %}
       {% else %}

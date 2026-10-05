@@ -18,7 +18,7 @@
           <label class="check" style="padding: var(--space-4); border:1px solid {% if p == plan %}var(--primary){% else %}var(--border){% endif %}; border-radius: var(--radius); align-items:center">
             <input type="radio" name="plan" value="{{ p.code }}" {% if p == plan %}checked{% endif %} data-plan-radio>
             <span style="flex:1"><strong style="font-size: var(--text-base)">{{ p.name }}</strong>{% if p.is_featured %} <span class="badge badge--accent badge--plain">Most popular</span>{% endif %}<br><span class="muted">{{ p.blurb }}</span></span>
-            <span class="center" style="text-align:right">{% if p.is_team %}<span class="text-xs muted">from</span><br>{% endif %}{% if rate %}<strong style="font-size: var(--text-xl)">{{ p.price_minor|usd:rate.ghs_per_usd }}</strong><br>{% endif %}<span class="text-sm {% if rate %}muted{% endif %}">{{ p.price_minor|ghs }}/yr{% if p.is_team %} for {{ p.max_cards }} people{% endif %}</span></span>
+            <span class="center" style="text-align:right">{% if p.is_team %}<span class="text-xs muted">from</span><br>{% endif %}{% if rate and currency != "GHS" %}<strong style="font-size: var(--text-xl)">{% local_amount p.price_minor %}</strong><br>{% endif %}<span class="text-sm {% if rate and currency != "GHS" %}muted{% endif %}">{{ p.price_minor|ghs }}/yr{% if p.is_team %} for {{ p.max_cards }} people{% endif %}</span></span>
           </label>
         {% endfor %}
       </div>
@@ -53,7 +53,7 @@
       {% if quote.discount_minor %}<div class="summary__row" style="color: var(--success)"><span>Discount ({{ quote.promo.code }})</span><span>{% money quote.discount_minor sign="−" %}</span></div>{% endif %}
       {% if quote.tax_minor %}<div class="summary__row"><span>{{ quote.tax_label }}</span><span>{% money quote.tax_minor %}</span></div>{% endif %}
       <div class="summary__row summary__total"><span>You pay</span><span>{% money quote.total_minor %}</span></div>
-      {% if fx_rate %}<p class="text-xs muted">The dollar amount is approximate. You will be charged {{ quote.total_minor|ghs }}. Your bank may apply its own exchange rate.</p>{% endif %}
+      {% if fx_rate and currency != "GHS" %}<p class="text-xs muted">The amount shown in {{ currency }} is approximate. You will be charged {{ quote.total_minor|ghs }}. Your bank may apply its own exchange rate.</p>{% endif %}
     </div>
     <label class="check mt-6"><input type="checkbox" name="accept_policy" value="1" required><span>I accept the <a href="{% url 'marketing:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'marketing:refunds' %}" target="_blank">Refund Policy</a>. Subscriptions are not refundable once active.</span></label>
     <div class="stack mt-6" style="--stack: var(--space-3)">

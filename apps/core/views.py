@@ -2,9 +2,10 @@ import hmac
 import io
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.http import Http404, HttpResponse, HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -31,3 +32,22 @@ def daily_jobs(request):
     call_command("run_daily_jobs", stdout=out, stderr=err)
     failed = bool(err.getvalue())
     return HttpResponse(out.getvalue() + err.getvalue(), content_type="text/plain", status=500 if failed else 200)
+
+
+@require_POST
+def preferences(request):
+    """Remember the visitor's display currency (a cookie, and their account when signed in)."""
+    from . import currency
+    from .utils import safe_next
+
+    response = redirect(safe_next(request.POST.get("next")) or "/")
+    code = currency.valid(request.POST.get("currency"))
+    if code:
+        response.set_cookie(
+            currency.COOKIE_NAME, code, max_age=currency.COOKIE_MAX_AGE, samesite="Lax",
+            secure=request.is_secure(), httponly=True,
+        )
+        user = request.user
+        if user.is_authenticated and not user.is_staff:
+            get_user_model().objects.filter(pk=user.pk).update(currency=code)
+    return response

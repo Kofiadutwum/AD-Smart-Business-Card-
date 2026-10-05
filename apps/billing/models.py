@@ -313,9 +313,9 @@ class PromoCode(models.Model):
         if self.kind == self.KIND_PERCENT:
             return f"{self.value}% off"
         from apps.billing.fx import latest_rate
-        from apps.core.utils import format_money
+        from apps.core.currency import format_money_local
 
-        return f"{format_money(self.value, latest_rate())} off"
+        return f"{format_money_local(self.value, latest_rate())} off"
 
     def problem_for(self, scope):
         """Why this code cannot be used now, or None when it can."""
@@ -493,6 +493,8 @@ class ExchangeRate(models.Model):
     """GHS per 1 USD, as fetched from the provider (CUR-02, CUR-03)."""
 
     ghs_per_usd = models.DecimalField(max_digits=12, decimal_places=6)
+    # Units of each other display currency per 1 USD from the same fetch, e.g. {"GBP": "0.74"}.
+    other_rates = models.JSONField(default=dict, blank=True)
     provider = models.CharField(max_length=64)
     fetched_at = models.DateTimeField(default=timezone.now, db_index=True)
 

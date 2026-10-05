@@ -5,6 +5,7 @@ from django.templatetags.static import static
 from django.urls import NoReverseMatch, reverse
 from django.utils.html import format_html
 
+from apps.core import currency
 from apps.core.utils import display_phone, format_dollars, format_ghs, format_money, format_usd, whatsapp_digits
 
 register = template.Library()
@@ -70,12 +71,12 @@ def money(context, minor, inline=False, sign="", rate=CURRENT, usd=None):
     out, for totals of payments made at different rates. With no rate at all only
     the cedis show."""
     ghs_text = format_ghs(minor)
+    today = context.get("fx_rate")
     if usd is not None:
-        usd_text = format_dollars(usd)
+        usd_text = format_dollars(usd)  # staff totals, always dollars
     else:
-        if rate is CURRENT:
-            rate = context.get("fx_rate")
-        usd_text = format_usd(minor, rate)
+        # The visitor's own currency (dollars unless they chose another); a payment keeps its own dollar value.
+        usd_text = currency.local_text(minor, today if rate is CURRENT else rate, today)
     if inline:
         if not usd_text:
             return f"{sign}{ghs_text}"
@@ -89,6 +90,19 @@ def money(context, minor, inline=False, sign="", rate=CURRENT, usd=None):
         '<span class="money"><span class="money__usd">{}{}</span><span class="money__ghs">{}{}</span></span>',
         sign, usd_text, sign, ghs_text,
     )
+
+
+@register.simple_tag(takes_context=True)
+def local_amount(context, minor, rate=CURRENT):
+    """Just the amount in the visitor's currency, for places that show the cedis separately."""
+    today = context.get("fx_rate")
+    return currency.local_text(minor, today if rate is CURRENT else rate, today) or format_ghs(minor)
+
+
+@register.filter
+def plain(value):
+    """A number as plain text, never localised, for data attributes and scripts."""
+    return "" if value is None else str(value)
 
 
 @register.filter

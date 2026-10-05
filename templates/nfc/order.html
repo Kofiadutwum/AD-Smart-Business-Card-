@@ -19,7 +19,7 @@
   </div>
 {% endif %}
 
-<form method="post" enctype="multipart/form-data" class="split mt-6" data-nfc-order data-rate="{% if fx_rate %}{{ fx_rate.ghs_per_usd }}{% endif %}" novalidate>
+<form method="post" enctype="multipart/form-data" class="split mt-6" data-nfc-order novalidate>
   {% csrf_token %}
   <div class="stack" style="--stack: var(--space-6)">
     <fieldset class="fieldset">
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var plans = JSON.parse(document.getElementById("nfc-order-plans").textContent);
   var taxRate = parseFloat("{{ tax_rate }}") || 0;
   var price = window.ADSmart.cardsPrice, setMoney = window.ADSmart.setMoney;
-  var rate = parseFloat(form.getAttribute("data-rate") || "0");
+  var rate = window.ADSmart.currencyRate();
   function show(selector, minor, empty) {
     var el = form.querySelector(selector + " .money");
     if (!el) return;

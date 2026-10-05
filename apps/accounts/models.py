@@ -60,6 +60,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email_changed_at = models.DateTimeField(null=True, blank=True)
     accepted_terms_at = models.DateTimeField(null=True, blank=True)
 
+    # Display preferences, remembered across devices (empty = follow the browser / dollars).
+    currency = models.CharField(max_length=3, blank=True)
+    language = models.CharField(max_length=8, blank=True)
+
     # Receipt/invoice details for business customers (PAY-09).
     company_name = models.CharField(max_length=160, blank=True)
     company_address = models.CharField(max_length=255, blank=True)

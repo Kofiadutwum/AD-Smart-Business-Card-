@@ -46,6 +46,7 @@
     {% include "partials/whatsapp_float.html" %}
     {% include "partials/cookie_notice.html" %}
   {% endblock %}
+  <script id="currency-config" type="application/json">{{ currency_json|safe }}</script>
   <script src="{% static 'js/site.js' %}{{ ASSET_Q }}" defer></script>
   {% block scripts %}{% endblock %}
 </body>

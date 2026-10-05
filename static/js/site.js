@@ -216,12 +216,20 @@
   }
   window.ADSmart.ghs = ghs;
 
-  /* The same as the {% money %} tag: whole dollars without cents, otherwise two places. */
+  /* The visitor's currency, as set by the server (dollars unless they chose another). */
+  var currency = { code: "USD", symbol: "$", decimals: 2, rate: null };
+  try { currency = JSON.parse(document.getElementById("currency-config").textContent); } catch (e) {}
+  function currencyRate() { return currency.rate ? parseFloat(currency.rate) : 0; }
+  window.ADSmart.currencyRate = currencyRate;
+  window.ADSmart.currency = currency;
+
+  /* The same as the {% money %} tag: whole amounts without decimals, otherwise the currency's own places. */
   function usd(minor, rate) {
     if (!rate) return "";
-    var value = Math.round(minor / rate) / 100;
-    var whole = value === Math.round(value);
-    return "$" + value.toLocaleString("en-US", { minimumFractionDigits: whole ? 0 : 2, maximumFractionDigits: whole ? 0 : 2 });
+    var places = currency.decimals;
+    var value = places === 0 ? Math.round(minor / rate / 100) : Math.round(minor / rate) / 100;
+    var whole = places === 0 || value === Math.round(value);
+    return currency.symbol + value.toLocaleString("en-US", { minimumFractionDigits: whole ? 0 : 2, maximumFractionDigits: whole ? 0 : 2 });
   }
   window.ADSmart.usd = usd;
 
@@ -245,7 +253,7 @@
 
   document.querySelectorAll("[data-nfc-calc]").forEach(function (calc) {
     var tiers = JSON.parse(calc.querySelector('script[type="application/json"]').textContent);
-    var rate = parseFloat(calc.getAttribute("data-rate") || "0");
+    var rate = currencyRate();
     var input = calc.querySelector("input[type=number]");
     var total = calc.querySelector("[data-total]");
     var totalGhs = calc.querySelector("[data-total-ghs]");
@@ -294,7 +302,7 @@
 
   document.querySelectorAll("[data-team-calc]").forEach(function (box) {
     var team = JSON.parse(box.querySelector('script[type="application/json"]').textContent);
-    var rate = parseFloat(box.getAttribute("data-rate") || "0");
+    var rate = currencyRate();
     var input = box.querySelector("input[type=number]");
     var total = box.querySelector(".team-calc__total .money");
     var each = box.querySelector("[data-team-each]");
@@ -361,3 +369,9 @@
     });
   }
 })();
+
+
+/* Changing the language or currency sends the little form straight away. */
+document.querySelectorAll("[data-prefs-select]").forEach(function (select) {
+  select.addEventListener("change", function () { select.form.submit(); });
+});

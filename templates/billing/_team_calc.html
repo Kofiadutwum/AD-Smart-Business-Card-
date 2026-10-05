@@ -1,5 +1,5 @@
 {# Team size picker with a live total. Used on the pricing page and at checkout. #}
-<div class="team-calc" data-team-calc data-rate="{% if fx_rate %}{{ fx_rate.ghs_per_usd }}{% endif %}"{% if autorefresh %} data-autorefresh{% endif %}>
+<div class="team-calc" data-team-calc{% if autorefresh %} data-autorefresh{% endif %}>
   {{ plan.team_json|json_script }}
   <div class="team-calc__row">
     <div class="field">

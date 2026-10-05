@@ -12,7 +12,7 @@ from django.views.decorators.http import require_POST
 
 from apps.accounts.decorators import customer_required
 from apps.core.emails import notify_admins
-from apps.core.utils import format_money
+from apps.core.currency import format_money_local
 
 from . import fx, paystack, services
 from .models import Payment, Plan
@@ -106,7 +106,7 @@ def checkout(request):
             "team_max": services.TEAM_MAX_SEATS,
             "subscription": subscription,
             "quote": quote,
-            "pay_label": f"Pay {format_money(quote['total_minor'], fx.latest_rate())}",
+            "pay_label": f"Pay {format_money_local(quote['total_minor'], fx.latest_rate())}",
             "upgrade": upgrade,
             "promo_code": promo.code if promo else promo_code,
             "rate": fx.latest_rate(),
