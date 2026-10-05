@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Set up your card · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Set up your card · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card">
-    <p class="eyebrow">Step 2 of 2</p>
-    <h1 class="mt-2">Your details</h1>
-    <p class="lead">This card comes with one year of the {{ batch.plan.name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.</p>
+    <p class="eyebrow">{% trans "Step 2 of 2" %}</p>
+    <h1 class="mt-2">{% trans "Your details" %}</h1>
+    <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card comes with one year of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
     <form method="post" class="form" novalidate>
       {% csrf_token %}
       {% include "components/form_fields.html" %}
-      <p class="text-xs muted">By creating an account you agree to our <a href="{% url 'marketing:terms' %}" target="_blank">Terms of Service</a> and <a href="{% url 'marketing:privacy' %}" target="_blank">Privacy Policy</a>.</p>
-      {% hover_button "Activate my card" variant="ink" css="ihb--block" %}
+      <p class="text-xs muted">{% url 'marketing:terms' as url_1 %}{% url 'marketing:privacy' as url_2 %}{% blocktrans trimmed %}By creating an account you agree to our <a href="{{ url_1 }}" target="_blank">Terms of Service</a> and <a href="{{ url_2 }}" target="_blank">Privacy Policy</a>.{% endblocktrans %}</p>
+      {% hover_button _("Activate my card") variant="ink" css="ihb--block" %}
     </form>
-    <p class="auth-alt">Already have an account? <a href="{{ login_url }}">Log in to add this card to it</a></p>
+    <p class="auth-alt">{% blocktrans trimmed %}Already have an account? <a href="{{ login_url }}">Log in to add this card to it</a>{% endblocktrans %}</p>
   </div>
 </div>
 {% endblock %}

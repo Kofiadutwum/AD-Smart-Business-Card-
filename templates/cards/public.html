@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}{{ card.full_name }}{% if card.job_title %} · {{ card.job_title }}{% endif %}{% if card.business_name %} · {{ card.business_name }}{% endif %}{% endblock %}
-{% block description %}{{ card.full_name }}{% if card.job_title %}, {{ card.job_title }}{% endif %}{% if card.business_name %} at {{ card.business_name }}{% endif %}. Save my contact in one tap.{% endblock %}
+{% block description %}{{ card.full_name }}{% if card.job_title %}, {{ card.job_title }}{% endif %}{% if card.business_name %} {% blocktrans trimmed with card_business_name=card.business_name %}at {{ card_business_name }}{% endblocktrans %}{% endif %}{% trans ". Save my contact in one tap." %}{% endblock %}
 {% block robots %}{% if not card.allow_indexing %}<meta name="robots" content="noindex, nofollow">{% endif %}{% endblock %}
 {% block meta %}
   {# SHR-11: a proper preview on WhatsApp, Facebook, LinkedIn and X. #}
@@ -16,7 +16,7 @@
   <link rel="canonical" href="{{ card_url }}">
 {% endblock %}
 {% block css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
-{% block body_class %}card-page{% endblock %}
+{% block body_class %}{% trans "card-page" %}{% endblock %}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block floating %}{% endblock %}

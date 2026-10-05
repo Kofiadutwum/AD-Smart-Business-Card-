@@ -1,18 +1,18 @@
 {% extends "dashboard/_shell.html" %}
-{% block title %}Edit card · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Edit card · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block main %}
 <div class="page-head">
   <div>
-    {% if cards|length > 1 %}<div class="crumbs"><a href="{% url 'dashboard:cards' %}">Team cards</a><span>/</span><span>{{ card.full_name }}</span></div>{% endif %}
-    <h1>Edit your card</h1>
-    <p>Changes appear in the preview as you type. Your link <span class="mono">/c/{{ card.slug }}</span> never changes when you edit.</p>
+    {% if cards|length > 1 %}<div class="crumbs">{% url 'dashboard:cards' as url_1 %}{% blocktrans trimmed with card_full_name=card.full_name %}<a href="{{ url_1 }}">Team cards</a><span>/</span><span>{{ card_full_name }}</span>{% endblocktrans %}</div>{% endif %}
+    <h1>{% trans "Edit your card" %}</h1>
+    <p>{% blocktrans trimmed with card_slug=card.slug %}Changes appear in the preview as you type. Your link <span class="mono">/c/{{ card_slug }}</span> never changes when you edit.{% endblocktrans %}</p>
   </div>
-  <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "external-link" 16 %}Open public card</a>
+  <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "external-link" 16 %}{% trans "Open public card" %}</a>
 </div>
 
 {% if form.errors or phones.non_form_errors %}
   <div class="form-errors" role="alert" tabindex="-1" data-error-summary>
-    <strong>Some details need fixing:</strong>
+    <strong>{% trans "Some details need fixing:" %}</strong>
     <ul>
       {% for field in form %}{% for error in field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a></li>{% endfor %}{% endfor %}
       {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
@@ -26,10 +26,10 @@
     {% csrf_token %}
 
     <fieldset class="fieldset">
-      <legend>About you</legend>
+      <legend>{% trans "About you" %}</legend>
       <div class="form">
         <div class="upload-row">
-          {% if card.avatar %}<img class="avatar-lg" src="{{ card.avatar.url }}" alt="Your current photo">{% else %}<span class="avatar-lg avatar-sm" style="width:4.5rem;height:4.5rem;font-size:1.25rem">{{ card.initials }}</span>{% endif %}
+          {% if card.avatar %}{% trans "Your current photo" as t_2 %}<img class="avatar-lg" src="{{ card.avatar.url }}" alt="{{ t_2 }}">{% else %}<span class="avatar-lg avatar-sm" style="width:4.5rem;height:4.5rem;font-size:1.25rem">{{ card.initials }}</span>{% endif %}
           <div class="stack" style="--stack: var(--space-2); flex:1">
             {% include "components/field.html" with field=form.avatar_upload %}
             {% if card.avatar %}{% include "components/field.html" with field=form.remove_avatar %}{% endif %}
@@ -45,8 +45,8 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend>Phone numbers</legend>
-      <p class="field-help">Up to {{ plan.max_phones }} numbers on your plan, each with a label such as MTN, Telecel or Office.</p>
+      <legend>{% trans "Phone numbers" %}</legend>
+      <p class="field-help">{% blocktrans trimmed with plan_max_phones=plan.max_phones %}Up to {{ plan_max_phones }} numbers on your plan, each with a label such as MTN, Telecel or Office.{% endblocktrans %}</p>
       {{ phones.management_form }}
       <div class="form mt-4">
         {% for pform in phones %}
@@ -62,7 +62,7 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend>Contact details</legend>
+      <legend>{% trans "Contact details" %}</legend>
       <div class="form">
         <div class="form-row form-row--2">
           {% include "components/field.html" with field=form.whatsapp %}
@@ -73,12 +73,12 @@
         <div class="form-row form-row--2">
           {% include "components/field.html" with field=form.ghana_post_gps %}
           <div class="field">
-            <span class="label">Map pin</span>
+            <span class="label">{% trans "Map pin" %}</span>
             <div class="cluster" style="--cluster: var(--space-2)">
-              <button type="button" class="btn btn--sm" data-locate>{% icon "map-pin" 16 %}Use my current location</button>
-              {% if card.latitude %}<button type="button" class="btn btn--sm btn--ghost" data-locate-clear>Remove pin</button>{% endif %}
+              <button type="button" class="btn btn--sm" data-locate>{% icon "map-pin" 16 %}{% trans "Use my current location" %}</button>
+              {% if card.latitude %}<button type="button" class="btn btn--sm btn--ghost" data-locate-clear>{% trans "Remove pin" %}</button>{% endif %}
             </div>
-            <p class="field-help" data-locate-status aria-live="polite">{% if card.latitude %}Pin set at {{ card.latitude }}, {{ card.longitude }}.{% else %}Opens in Google Maps or Apple Maps.{% endif %}</p>
+            <p class="field-help" data-locate-status aria-live="polite">{% if card.latitude %}{% blocktrans trimmed with card_latitude=card.latitude card_longitude=card.longitude %}Pin set at {{ card_latitude }}, {{ card_longitude }}.{% endblocktrans %}{% else %}{% trans "Opens in Google Maps or Apple Maps." %}{% endif %}</p>
           </div>
         </div>
         {{ form.latitude }}{{ form.longitude }}
@@ -86,47 +86,47 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend>Look and feel</legend>
+      <legend>{% trans "Look and feel" %}</legend>
       <div class="form">
         <div class="field">
           <span class="label">{{ form.accent_preset.label }}</span>
-          <div class="swatches" role="radiogroup" aria-label="Card colour">
+          {% trans "Card colour" as t_3 %}<div class="swatches" role="radiogroup" aria-label="{{ t_3 }}">
             {% for radio in form.accent_preset %}
               {% if radio.data.value != "custom" %}
                 <label style="background: {{ radio.data.value }}" title="{{ radio.choice_label }}">{{ radio.tag }}<span class="visually-hidden">{{ radio.choice_label }}</span></label>
               {% else %}
-                <label style="background: conic-gradient(#0a0e9c, #8805a9, #f1ac17, #0270b4, #0a0e9c)" title="Custom colour">{{ radio.tag }}<span class="visually-hidden">Custom colour</span></label>
+                {% trans "Custom colour" as t_4 %}<label style="background: conic-gradient(#0a0e9c, #8805a9, #f1ac17, #0270b4, #0a0e9c)" title="{{ t_4 }}">{% blocktrans trimmed with radio_tag=radio.tag %}{{ radio_tag }}<span class="visually-hidden">Custom colour</span>{% endblocktrans %}</label>
               {% endif %}
             {% endfor %}
           </div>
         </div>
         <div class="form-row form-row--2">
           <div class="field{% if form.locked.accent_custom %} is-locked{% endif %}">
-            <label for="{{ form.accent_custom.id_for_label }}">{{ form.accent_custom.label }}{% if form.locked.accent_custom %}<span class="gate">{% icon "crown" 12 %}Professional</span>{% endif %}</label>
+            <label for="{{ form.accent_custom.id_for_label }}">{{ form.accent_custom.label }}{% if form.locked.accent_custom %}<span class="gate">{% icon "crown" 12 %}{% trans "Professional" %}</span>{% endif %}</label>
             {{ form.accent_custom }}
           </div>
           <div class="field">
-            <label for="{{ form.card_colour.id_for_label }}">{{ form.card_colour.label }}{% if form.locked.card_colour %}<span class="gate">{% icon "crown" 12 %}Professional</span>{% endif %}</label>
+            <label for="{{ form.card_colour.id_for_label }}">{{ form.card_colour.label }}{% if form.locked.card_colour %}<span class="gate">{% icon "crown" 12 %}{% trans "Professional" %}</span>{% endif %}</label>
             {{ form.card_colour }}
           </div>
         </div>
         <div class="field">
-          <span class="label">{{ form.template.label }}{% if form.locked.template %}<span class="gate">{% icon "crown" 12 %}Professional</span>{% endif %}</span>
+          <span class="label">{{ form.template.label }}{% if form.locked.template %}<span class="gate">{% icon "crown" 12 %}{% trans "Professional" %}</span>{% endif %}</span>
           <div class="choice-grid">{% for radio in form.template %}<label>{{ radio.tag }}{{ radio.choice_label }}</label>{% endfor %}</div>
         </div>
         <div class="field">
-          <span class="label">{{ form.button_style.label }}{% if form.locked.button_style %}<span class="gate">{% icon "crown" 12 %}Professional</span>{% endif %}</span>
+          <span class="label">{{ form.button_style.label }}{% if form.locked.button_style %}<span class="gate">{% icon "crown" 12 %}{% trans "Professional" %}</span>{% endif %}</span>
           <div class="choice-grid">{% for radio in form.button_style %}<label>{{ radio.tag }}{{ radio.choice_label }}</label>{% endfor %}</div>
         </div>
         <div class="field">
-          <span class="label">{{ form.icon_layout.label }}{% if form.locked.icon_layout %}<span class="gate">{% icon "crown" 12 %}Professional</span>{% endif %}</span>
+          <span class="label">{{ form.icon_layout.label }}{% if form.locked.icon_layout %}<span class="gate">{% icon "crown" 12 %}{% trans "Professional" %}</span>{% endif %}</span>
           <div class="choice-grid">{% for radio in form.icon_layout %}<label>{{ radio.tag }}{{ radio.choice_label }}</label>{% endfor %}</div>
         </div>
         <div class="upload-row">
-          {% if card.logo %}<img class="logo-lg" src="{{ card.logo.url }}" alt="Your current logo">{% endif %}
+          {% if card.logo %}{% trans "Your current logo" as t_5 %}<img class="logo-lg" src="{{ card.logo.url }}" alt="{{ t_5 }}">{% endif %}
           <div class="stack" style="--stack: var(--space-2); flex:1">
             <div class="field">
-              <label for="{{ form.logo_upload.id_for_label }}">{{ form.logo_upload.label }}{% if form.locked.logo_upload %}<span class="gate">{% icon "crown" 12 %}Professional</span>{% endif %}</label>
+              <label for="{{ form.logo_upload.id_for_label }}">{{ form.logo_upload.label }}{% if form.locked.logo_upload %}<span class="gate">{% icon "crown" 12 %}{% trans "Professional" %}</span>{% endif %}</label>
               {{ form.logo_upload }}
               {% for error in form.logo_upload.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
               <p class="field-help">{{ form.logo_upload.help_text }}</p>
@@ -135,7 +135,7 @@
           </div>
         </div>
         <div class="field">
-          <label for="{{ form.background_upload.id_for_label }}">{{ form.background_upload.label }}{% if form.locked.background_upload %}<span class="gate">{% icon "crown" 12 %}Professional</span>{% endif %}</label>
+          <label for="{{ form.background_upload.id_for_label }}">{{ form.background_upload.label }}{% if form.locked.background_upload %}<span class="gate">{% icon "crown" 12 %}{% trans "Professional" %}</span>{% endif %}</label>
           {{ form.background_upload }}
           {% for error in form.background_upload.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
           {% if card.background and not form.locked.remove_background %}{% include "components/field.html" with field=form.remove_background %}{% endif %}
@@ -144,12 +144,12 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend>Privacy</legend>
+      <legend>{% trans "Privacy" %}</legend>
       <div class="form">
         <div class="field">
           <span class="label">{{ form.visible.label }}</span>
           <div class="choice-grid">{% for box in form.visible %}<label>{{ box.tag }}{{ box.choice_label }}</label>{% endfor %}</div>
-          <p class="field-help">Untick anything you would rather not show. It stays saved, just hidden.</p>
+          <p class="field-help">{% trans "Untick anything you would rather not show. It stays saved, just hidden." %}</p>
         </div>
         {% include "components/field.html" with field=form.is_published %}
         {% include "components/field.html" with field=form.collect_leads %}
@@ -159,34 +159,34 @@
     </fieldset>
 
     <div class="sticky-save">
-      {% if is_draft %}<a class="btn" href="{% url 'billing:checkout' %}">Choose a plan</a>{% endif %}
-      {% hover_button "Save card" variant="ink" icon_name="check" %}
+      {% if is_draft %}<a class="btn" href="{% url 'billing:checkout' %}">{% trans "Choose a plan" %}</a>{% endif %}
+      {% hover_button _("Save card") variant="ink" icon_name="check" %}
     </div>
   </form>
 
-  <aside class="editor__preview" aria-label="Live preview">
-    <p class="label" style="margin-bottom: var(--space-3)">Live preview{% if is_draft %} · <span class="muted">draft</span>{% endif %}</p>
+  {% trans "Live preview" as t_6 %}<aside class="editor__preview" aria-label="{{ t_6 }}">
+    <p class="label" style="margin-bottom: var(--space-3)">{% trans "Live preview" %}{% if is_draft %} {% blocktrans trimmed %}· <span class="muted">draft</span>{% endblocktrans %}{% endif %}</p>
     <div class="phone" data-preview>
       <div class="phone__screen">
         {% include "cards/_card.html" with card=preview.card eff=preview.eff pal=preview.pal card_url=preview.card_url vcf_url=preview.vcf_url demo=True lead_form=None qr_svg=None %}
       </div>
     </div>
-    {% if is_draft %}<p class="text-sm muted mt-4">Features marked {% icon "crown" 12 %} are included with Professional and Business. You can try them now; they show on your public card once your plan includes them.</p>{% endif %}
+    {% if is_draft %}<p class="text-sm muted mt-4">{% trans "Features marked" %} {% icon "crown" 12 %} {% trans "are included with Professional and Business. You can try them now; they show on your public card once your plan includes them." %}</p>{% endif %}
 
     <section class="panel mt-6">
-      <h2 class="text-sm" style="font-size: var(--text-base)">Card link</h2>
+      <h2 class="text-sm" style="font-size: var(--text-base)">{% trans "Card link" %}</h2>
       {% if card.has_nfc_orders %}
-        <p class="text-sm muted mt-2">Your link is printed on NFC cards, so it can no longer change.</p>
+        <p class="text-sm muted mt-2">{% trans "Your link is printed on NFC cards, so it can no longer change." %}</p>
         <p class="mono text-sm mt-2">/c/{{ card.slug }}</p>
       {% else %}
-        <form method="post" action="{% url 'dashboard:change_slug' card.pk %}" class="form mt-4" data-confirm="Changing your link breaks any QR codes you have already printed. The old link will redirect for anyone who has it. Continue?">
+        {% trans "Changing your link breaks any QR codes you have already printed. The old link will redirect for anyone who has it. Continue?" as t_7 %}<form method="post" action="{% url 'dashboard:change_slug' card.pk %}" class="form mt-4" data-confirm="{{ t_7 }}">
           {% csrf_token %}
           <div class="field">
-            <label for="id_slug">Your card link</label>
+            <label for="id_slug">{% trans "Your card link" %}</label>
             <div class="input-affix"><span>/c/</span><input id="id_slug" name="slug" value="{{ card.slug }}" maxlength="40" autocapitalize="none" spellcheck="false"></div>
-            <p class="field-help">Changing it breaks printed QR codes. Old links redirect to the new one.</p>
+            <p class="field-help">{% trans "Changing it breaks printed QR codes. Old links redirect to the new one." %}</p>
           </div>
-          <button class="btn btn--sm" type="submit">Change link</button>
+          <button class="btn btn--sm" type="submit">{% trans "Change link" %}</button>
         </form>
       {% endif %}
     </section>

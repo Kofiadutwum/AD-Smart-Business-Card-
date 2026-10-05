@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Report a card · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Report a card · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card">
-    <h1>Report this card</h1>
-    <p class="lead">Tell us what is wrong with the card at <strong>/c/{{ card.slug }}</strong>. Reports are reviewed by our support team.</p>
+    <h1>{% trans "Report this card" %}</h1>
+    <p class="lead">{% blocktrans trimmed with card_slug=card.slug %}Tell us what is wrong with the card at <strong>/c/{{ card_slug }}</strong>. Reports are reviewed by our support team.{% endblocktrans %}</p>
     <form method="post" class="form" novalidate>
       {% csrf_token %}
       <fieldset class="field">
@@ -17,8 +17,8 @@
       </fieldset>
       {% include "components/field.html" with field=form.details %}
       {% include "components/field.html" with field=form.reporter_email %}
-      {% hover_button "Send report" variant="ink" css="ihb--block" %}
-      <a class="btn btn--ghost" href="{% url 'cards:public' card.slug %}">Back to the card</a>
+      {% hover_button _("Send report") variant="ink" css="ihb--block" %}
+      <a class="btn btn--ghost" href="{% url 'cards:public' card.slug %}">{% trans "Back to the card" %}</a>
     </form>
   </div>
 </div>

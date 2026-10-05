@@ -1,17 +1,17 @@
 {% extends "dashboard/_shell.html" %}
-{% block title %}Order NFC cards · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Order NFC cards · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block main %}
 <div class="page-head">
   <div>
-    <div class="crumbs"><a href="{% url 'dashboard:nfc' %}">NFC cards</a><span>/</span><span>New order</span></div>
-    <h1>Order NFC cards</h1>
-    <p>Every card opens your digital card with a tap. We send a design proof within 3 working days.</p>
+    <div class="crumbs">{% url 'dashboard:nfc' as url_1 %}{% blocktrans trimmed %}<a href="{{ url_1 }}">NFC cards</a><span>/</span><span>New order</span>{% endblocktrans %}</div>
+    <h1>{% trans "Order NFC cards" %}</h1>
+    <p>{% trans "Every card opens your digital card with a tap. We send a design proof within 3 working days." %}</p>
   </div>
 </div>
 
 {% if form.errors %}
   <div class="form-errors" role="alert" tabindex="-1" data-error-summary>
-    <strong>Please check:</strong>
+    <strong>{% trans "Please check:" %}</strong>
     <ul>
       {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
       {% for field in form %}{% for error in field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a></li>{% endfor %}{% endfor %}
@@ -23,19 +23,19 @@
   {% csrf_token %}
   <div class="stack" style="--stack: var(--space-6)">
     <fieldset class="fieldset">
-      <legend>1. Cards and quantity</legend>
-      <p class="field-help">{% if form.quantity_fields|length > 1 %}Split the order across your team’s cards. Each printed card opens the digital card you choose.{% else %}Each printed card opens your digital card at /c/{{ form.cards.0.slug }}.{% endif %}</p>
+      <legend>{% trans "1. Cards and quantity" %}</legend>
+      <p class="field-help">{% if form.quantity_fields|length > 1 %}{% trans "Split the order across your team’s cards. Each printed card opens the digital card you choose." %}{% else %}{% blocktrans trimmed with form_cards_0_slug=form.cards.0.slug %}Each printed card opens your digital card at /c/{{ form_cards_0_slug }}.{% endblocktrans %}{% endif %}</p>
       <div class="form mt-4">
         {% for card, name in form.quantity_fields %}
           {% for field in form %}{% if field.name == name %}{% include "components/field.html" %}{% endif %}{% endfor %}
         {% endfor %}
       </div>
-      <p class="alert alert--success mt-4" data-free-hint hidden>{% icon "sparkles" 18 %}<span><strong>Add 1 more card for no extra cost.</strong></span></p>
+      <p class="alert alert--success mt-4" data-free-hint hidden>{% icon "sparkles" 18 %}<span><strong>{% trans "Add 1 more card for no extra cost." %}</strong></span></p>
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend>2. What goes on the card</legend>
-      <p class="field-help">Filled in from your digital card. Change anything for the printed design.</p>
+      <legend>{% trans "2. What goes on the card" %}</legend>
+      <p class="field-help">{% trans "Filled in from your digital card. Change anything for the printed design." %}</p>
       <div class="form mt-4">
         {% include "components/field.html" with field=form.full_name %}
         <div class="form-row form-row--2">
@@ -51,7 +51,7 @@
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend>3. Design</legend>
+      <legend>{% trans "3. Design" %}</legend>
       <div class="form">
         {% include "components/field.html" with field=form.logo %}
         {% include "components/field.html" with field=form.reference_design %}
@@ -61,17 +61,17 @@
     </fieldset>
 
     <fieldset class="fieldset" id="delivery">
-      <legend>4. Delivery or pickup</legend>
+      <legend>{% trans "4. Delivery or pickup" %}</legend>
       <div class="form">
         <div class="field">
           <span class="label">{{ form.delivery_zone.label }}</span>
-          <p class="label muted" style="margin-top: var(--space-2)">In Ghana</p>
+          <p class="label muted" style="margin-top: var(--space-2)">{% trans "In Ghana" %}</p>
           <div class="stack" style="--stack: var(--space-3)">
             {% for radio in form.delivery_zone %}{% if not radio.data.value.instance.is_international %}
               <label class="check zone-option">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>
             {% endif %}{% endfor %}
           </div>
-          <p class="label muted" style="margin-top: var(--space-4)">Outside Ghana</p>
+          <p class="label muted" style="margin-top: var(--space-4)">{% trans "Outside Ghana" %}</p>
           <div class="stack" style="--stack: var(--space-3)">
             {% for radio in form.delivery_zone %}{% if radio.data.value.instance.is_international %}
               <label class="check zone-option">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>
@@ -79,7 +79,7 @@
           </div>
           {% for error in form.delivery_zone.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
         </div>
-        <div class="alert alert--info" data-intl-note hidden>{% icon "globe" 18 %}<span><strong>Shipping outside Ghana.</strong> The fee covers international shipping and delivery to the address below. Import duties or taxes charged by your country, if any, are paid by the recipient.</span></div>
+        <div class="alert alert--info" data-intl-note hidden>{% icon "globe" 18 %}<span>{% blocktrans trimmed %}<strong>Shipping outside Ghana.</strong> The fee covers international shipping and delivery to the address below. Import duties or taxes charged by your country, if any, are paid by the recipient.{% endblocktrans %}</span></div>
         <div class="form" data-delivery-fields>
           <div class="form-row form-row--2">
             {% include "components/field.html" with field=form.recipient_name %}
@@ -99,7 +99,7 @@
 
     {% if needs_plan %}
     <fieldset class="fieldset">
-      <legend>5. Your digital card plan</legend>
+      <legend>{% trans "5. Your digital card plan" %}</legend>
       <p class="field-help">{{ form.plan.help_text }}</p>
       <div class="choice-grid mt-4">{% for radio in form.plan %}<label>{{ radio.tag }}{{ radio.choice_label }}</label>{% endfor %}</div>
       {% for error in form.plan.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
@@ -108,21 +108,21 @@
   </div>
 
   <aside class="panel" style="position: sticky; top: var(--space-6)">
-    <h2 style="font-size: var(--text-lg)">Your order</h2>
+    <h2 style="font-size: var(--text-lg)">{% trans "Your order" %}</h2>
     <div class="summary mt-4" aria-live="polite">
-      <div class="summary__row"><span data-sum-cards-label>NFC cards</span><span data-sum-cards><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>
-      <div class="summary__row"><span data-sum-delivery-label>Delivery</span><span data-sum-delivery><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>
-      {% if needs_plan %}<div class="summary__row"><span>Digital card plan</span><span data-sum-plan><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>{% endif %}
-      {% if tax_rate != "0" and tax_rate != "0.00" %}<div class="summary__row"><span>Tax</span><span data-sum-tax><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>{% endif %}
-      <div class="summary__row summary__total"><span>Total</span><span data-sum-total><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span></div>
-      <p class="text-xs muted">Promo codes are applied at the next step and shown on the Paystack page.</p>
+      <div class="summary__row">{% blocktrans trimmed %}<span data-sum-cards-label>NFC cards</span><span data-sum-cards><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span>{% endblocktrans %}</div>
+      <div class="summary__row">{% blocktrans trimmed %}<span data-sum-delivery-label>Delivery</span><span data-sum-delivery><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span>{% endblocktrans %}</div>
+      {% if needs_plan %}<div class="summary__row">{% blocktrans trimmed %}<span>Digital card plan</span><span data-sum-plan><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span>{% endblocktrans %}</div>{% endif %}
+      {% if tax_rate != "0" and tax_rate != "0.00" %}<div class="summary__row">{% blocktrans trimmed %}<span>Tax</span><span data-sum-tax><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span>{% endblocktrans %}</div>{% endif %}
+      <div class="summary__row summary__total">{% blocktrans trimmed %}<span>Total</span><span data-sum-total><span class="money"><span class="money__usd">—</span><span class="money__ghs" hidden></span></span></span>{% endblocktrans %}</div>
+      <p class="text-xs muted">{% trans "Promo codes are applied at the next step and shown on the Paystack page." %}</p>
     </div>
     <div class="form mt-6">
       {% include "components/field.html" with field=form.promo %}
       {% include "components/field.html" with field=form.accept_policy %}
-      {% hover_button "Continue to payment" variant="primary" css="ihb--block" icon_name="lock" %}
+      {% hover_button _("Continue to payment") variant="primary" css="ihb--block" icon_name="lock" %}
     </div>
-    <p class="text-xs muted mt-4">We ship to Ghana and abroad; international shipping is added to the total. Read the <a href="{% url 'marketing:refunds' %}" target="_blank">Refund Policy</a>: a full refund before design starts, 50% of the card price before printing, none after printing.</p>
+    <p class="text-xs muted mt-4">{% url 'marketing:refunds' as url_2 %}{% blocktrans trimmed %}We ship to Ghana and abroad; international shipping is added to the total. Read the <a href="{{ url_2 }}" target="_blank">Refund Policy</a>: a full refund before design starts, 50% of the card price before printing, none after printing.{% endblocktrans %}</p>
   </aside>
   {{ tiers_json|json_script:"nfc-order-tiers" }}
   {{ zones_json|json_script:"nfc-order-zones" }}

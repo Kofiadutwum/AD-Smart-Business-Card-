@@ -1,20 +1,20 @@
 {% extends "dashboard/_shell.html" %}
-{% block title %}Receipts · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Receipts · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block main %}
 <div class="page-head">
-  <div><h1>Payments and receipts</h1><p>Every payment, with a PDF receipt for each successful one. Add your company name for receipts in <a href="{% url 'dashboard:settings' %}">Settings</a>.</p></div>
+  <div><h1>{% trans "Payments and receipts" %}</h1><p>{% url 'dashboard:settings' as url_1 %}{% blocktrans trimmed %}Every payment, with a PDF receipt for each successful one. Add your company name for receipts in <a href="{{ url_1 }}">Settings</a>.{% endblocktrans %}</p></div>
 </div>
 {% if payments %}
   <div class="table-wrap">
     <table class="table">
-      <caption class="visually-hidden">Your payments</caption>
-      <thead><tr><th>Date</th><th>What for</th><th>Status</th><th class="num">Amount</th><th>Receipt</th></tr></thead>
+      <caption class="visually-hidden">{% trans "Your payments" %}</caption>
+      <thead><tr><th>{% trans "Date" %}</th><th>{% trans "What for" %}</th><th>{% trans "Status" %}</th><th class="num">{% trans "Amount" %}</th><th>{% trans "Receipt" %}</th></tr></thead>
       <tbody>
         {% for p in payments %}
           <tr>
             <td class="nowrap">{{ p.created_at|date:"j M Y" }}</td>
             <td>{{ p.description }}<br><span class="muted text-xs mono">{{ p.reference }}</span></td>
-            <td>{% if p.status == "success" %}<span class="badge badge--success">Paid</span>{% elif p.status == "pending" %}<span class="badge badge--warning">Pending</span>{% elif p.status == "refunded" or p.status == "partially_refunded" %}<span class="badge badge--info">{{ p.get_status_display }}</span>{% else %}<span class="badge">{{ p.get_status_display }}</span>{% endif %}</td>
+            <td>{% if p.status == "success" %}<span class="badge badge--success">{% trans "Paid" %}</span>{% elif p.status == "pending" %}<span class="badge badge--warning">{% trans "Pending" %}</span>{% elif p.status == "refunded" or p.status == "partially_refunded" %}<span class="badge badge--info">{{ p.get_status_display }}</span>{% else %}<span class="badge">{{ p.get_status_display }}</span>{% endif %}</td>
             <td class="num">{% money p.amount_minor rate=p.usd_rate %}</td>
             <td>{% if p.receipt_number %}<a href="{% url 'billing:receipt_pdf' p.reference %}">{% icon "file-down" 16 %} {{ p.receipt_number }}</a>{% else %}<span class="muted">—</span>{% endif %}</td>
           </tr>
@@ -23,6 +23,6 @@
     </table>
   </div>
 {% else %}
-  <div class="panel empty">{% icon "receipt" 40 %}<h3>No payments yet</h3><p>Your receipts will appear here.</p></div>
+  <div class="panel empty">{% icon "receipt" 40 %}<h3>{% trans "No payments yet" %}</h3><p>{% trans "Your receipts will appear here." %}</p></div>
 {% endif %}
 {% endblock %}

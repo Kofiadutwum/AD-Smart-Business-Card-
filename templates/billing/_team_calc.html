@@ -3,11 +3,11 @@
   {{ plan.team_json|json_script }}
   <div class="team-calc__row">
     <div class="field">
-      <label for="seats-{{ plan.code }}">How many people?</label>
+      <label for="seats-{{ plan.code }}">{% trans "How many people?" %}</label>
       <div class="stepper">
-        <button type="button" data-step="-1" aria-label="One person fewer">{% icon "minus" 18 %}</button>
+        {% trans "One person fewer" as t_1 %}<button type="button" data-step="-1" aria-label="{{ t_1 }}">{% icon "minus" 18 %}</button>
         <input id="seats-{{ plan.code }}" name="seats" type="number" min="{{ plan.max_cards }}" max="{{ team_max }}" value="{{ seats|default:plan.max_cards }}" inputmode="numeric">
-        <button type="button" data-step="1" aria-label="One more person">{% icon "plus" 18 %}</button>
+        {% trans "One more person" as t_2 %}<button type="button" data-step="1" aria-label="{{ t_2 }}">{% icon "plus" 18 %}</button>
       </div>
     </div>
     <div class="team-calc__total" aria-live="polite">
@@ -16,13 +16,13 @@
     </div>
   </div>
   <table class="team-calc__bands">
-    <caption class="visually-hidden">{{ plan.name }} price per person</caption>
+    <caption class="visually-hidden">{% blocktrans trimmed with plan_name=plan.name %}{{ plan_name }} price per person{% endblocktrans %}</caption>
     <tbody>
-      <tr><td>First {{ plan.max_cards }} people</td><td class="num">{% money plan.price_minor inline=True %} in total</td></tr>
+      <tr><td>{% blocktrans trimmed with plan_max_cards=plan.max_cards %}First {{ plan_max_cards }} people{% endblocktrans %}</td><td class="num">{% money plan.price_minor inline=True %} {% trans "in total" %}</td></tr>
       {% for band in plan.seat_band_list %}
-        <tr><td>{% if band.max_seats %}People {{ band.min_seats }}–{{ band.max_seats }}{% else %}Person {{ band.min_seats }} and above{% endif %}</td><td class="num">{% money band.unit_price_minor inline=True %} each</td></tr>
+        <tr><td>{% if band.max_seats %}{% blocktrans trimmed with band_min_seats=band.min_seats band_max_seats=band.max_seats %}People {{ band_min_seats }}–{{ band_max_seats }}{% endblocktrans %}{% else %}{% blocktrans trimmed with band_min_seats=band.min_seats %}Person {{ band_min_seats }} and above{% endblocktrans %}{% endif %}</td><td class="num">{% money band.unit_price_minor inline=True %} {% trans "each" %}</td></tr>
       {% endfor %}
     </tbody>
   </table>
-  {% if team_max %}<p class="text-xs muted">For more than {{ team_max }} people, <a href="{% url 'support:contact' %}">contact us</a> for a quote.</p>{% endif %}
+  {% if team_max %}<p class="text-xs muted">{% url 'support:contact' as url_3 %}{% blocktrans trimmed %}For more than {{ team_max }} people, <a href="{{ url_3 }}">contact us</a> for a quote.{% endblocktrans %}</p>{% endif %}
 </div>

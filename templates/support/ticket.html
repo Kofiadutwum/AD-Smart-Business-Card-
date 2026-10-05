@@ -3,7 +3,7 @@
 {% block main %}
 <div class="page-head">
   <div>
-    <div class="crumbs"><a href="{% url 'support:mine' %}">Help and support</a><span>/</span><span>{{ ticket.reference }}</span></div>
+    <div class="crumbs">{% url 'support:mine' as url_1 %}{% blocktrans trimmed with ticket_reference=ticket.reference %}<a href="{{ url_1 }}">Help and support</a><span>/</span><span>{{ ticket_reference }}</span>{% endblocktrans %}</div>
     <h1>{{ ticket.subject }}</h1>
     <p>{{ ticket.get_category_display }} · <strong>{{ ticket.get_status_display }}</strong></p>
   </div>
@@ -11,7 +11,7 @@
 <div class="thread">
   {% for m in ticket.messages.all %}
     <article class="msg{% if m.from_staff %} msg--staff{% endif %}">
-      <header><strong>{% if m.from_staff %}AD Smart support{% else %}You{% endif %}</strong><time>{{ m.created_at|date:"j M Y, H:i" }}</time></header>
+      <header><strong>{% if m.from_staff %}{% trans "AD Smart support" %}{% else %}{% trans "You" %}{% endif %}</strong><time>{{ m.created_at|date:"j M Y, H:i" }}</time></header>
       <p>{{ m.body|linebreaksbr }}</p>
     </article>
   {% endfor %}
@@ -19,6 +19,6 @@
 <form method="post" action="{% url 'support:reply' ticket.reference %}" class="panel form mt-6">
   {% csrf_token %}
   {% include "components/form_fields.html" %}
-  {% hover_button "Send reply" variant="ink" icon_name="send" %}
+  {% hover_button _("Send reply") variant="ink" icon_name="send" %}
 </form>
 {% endblock %}

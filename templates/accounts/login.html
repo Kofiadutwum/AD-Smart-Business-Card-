@@ -1,20 +1,20 @@
 {% extends "base.html" %}
-{% block title %}Log in · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Log in · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card">
-    <h1>Welcome back</h1>
-    <p class="lead">Log in to edit your card, see who viewed it and track NFC orders.</p>
+    <h1>{% trans "Welcome back" %}</h1>
+    <p class="lead">{% trans "Log in to edit your card, see who viewed it and track NFC orders." %}</p>
     {% if google_enabled %}{% include "components/google_button.html" %}{% endif %}
     <form method="post" class="form" novalidate style="margin-top: {% if google_enabled %}var(--space-4){% else %}var(--space-8){% endif %}">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ next }}">
       {% include "components/form_fields.html" %}
-      <p class="text-sm"><a href="{% url 'accounts:forgot_password' %}">Forgot your password?</a></p>
-      {% hover_button "Log in" variant="ink" css="ihb--block" icon_name="log-in" %}
+      <p class="text-sm"><a href="{% url 'accounts:forgot_password' %}">{% trans "Forgot your password?" %}</a></p>
+      {% hover_button _("Log in") variant="ink" css="ihb--block" icon_name="log-in" %}
     </form>
-    <p class="auth-alt">New here? <a href="{% url 'accounts:register' %}">Create a card</a></p>
+    <p class="auth-alt">{% url 'accounts:register' as url_1 %}{% blocktrans trimmed %}New here? <a href="{{ url_1 }}">Create a card</a>{% endblocktrans %}</p>
   </div>
 </div>
 {% endblock %}

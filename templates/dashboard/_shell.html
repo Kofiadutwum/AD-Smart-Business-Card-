@@ -9,48 +9,48 @@
 {% block content %}
 <div class="app">
   <div class="app-top">
-    <button type="button" class="menu-toggle" style="display:grid" data-drawer-open aria-controls="app-side" aria-expanded="false" aria-label="Open menu">{% icon "menu" 22 %}</button>
+    {% trans "Open menu" as t_1 %}<button type="button" class="menu-toggle" style="display:grid" data-drawer-open aria-controls="app-side" aria-expanded="false" aria-label="{{ t_1 }}">{% icon "menu" 22 %}</button>
     <a class="brand" href="{% url 'dashboard:home' %}">
       <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
       <span class="brand__text"><strong>AD Smart</strong></span>
     </a>
-    <button type="button" class="theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme">
+    {% trans "Change theme" as t_2 %}<button type="button" class="theme-toggle" data-theme-toggle data-mode="system" aria-label="{{ t_2 }}">
       <span data-theme-icon="system">{% icon "monitor" 20 %}</span><span data-theme-icon="light">{% icon "sun" 20 %}</span><span data-theme-icon="dark">{% icon "moon" 20 %}</span>
     </button>
   </div>
   <div class="app-scrim"></div>
 
-  <aside class="app-side" id="app-side" aria-label="Dashboard">
+  {% trans "Dashboard" as t_3 %}<aside class="app-side" id="app-side" aria-label="{{ t_3 }}">
     <a class="brand" href="{% url 'marketing:home' %}">
       <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
       <span class="brand__text"><strong>AD Smart</strong><span>Business Cards</span></span>
     </a>
-    <nav class="app-nav" aria-label="Dashboard">
+    {% trans "Dashboard" as t_4 %}<nav class="app-nav" aria-label="{{ t_4 }}">
       <div class="app-nav__group">
-        <p>Your card</p>
+        <p>{% trans "Your card" %}</p>
         <ul>
-          <li><a href="{% url 'dashboard:home' %}" {% if active == 'home' %}aria-current="page"{% endif %}>{% icon "layout-dashboard" 18 %}Overview</a></li>
-          <li><a href="{% url 'dashboard:editor' %}" {% if active == 'editor' %}aria-current="page"{% endif %}>{% icon "square-pen" 18 %}Edit card</a></li>
-          <li><a href="{% url 'dashboard:links' %}" {% if active == 'links' %}aria-current="page"{% endif %}>{% icon "link" 18 %}Social links</a></li>
-          <li><a href="{% url 'dashboard:share' %}" {% if active == 'share' %}aria-current="page"{% endif %}>{% icon "share-2" 18 %}Share &amp; QR</a></li>
-          <li><a href="{% url 'dashboard:analytics' %}" {% if active == 'analytics' %}aria-current="page"{% endif %}>{% icon "chart-column" 18 %}Analytics</a></li>
-          <li><a href="{% url 'dashboard:leads' %}" {% if active == 'leads' %}aria-current="page"{% endif %}>{% icon "inbox" 18 %}Contacts</a></li>
-          {% if shell_plan.max_cards > 1 or shell_cards|length > 1 %}<li><a href="{% url 'dashboard:cards' %}" {% if active == 'cards' %}aria-current="page"{% endif %}>{% icon "layers" 18 %}Team cards</a></li>{% endif %}
+          <li><a href="{% url 'dashboard:home' %}" {% if active == 'home' %}aria-current="page"{% endif %}>{% icon "layout-dashboard" 18 %}{% trans "Overview" %}</a></li>
+          <li><a href="{% url 'dashboard:editor' %}" {% if active == 'editor' %}aria-current="page"{% endif %}>{% icon "square-pen" 18 %}{% trans "Edit card" %}</a></li>
+          <li><a href="{% url 'dashboard:links' %}" {% if active == 'links' %}aria-current="page"{% endif %}>{% icon "link" 18 %}{% trans "Social links" %}</a></li>
+          <li><a href="{% url 'dashboard:share' %}" {% if active == 'share' %}aria-current="page"{% endif %}>{% icon "share-2" 18 %}{% trans "Share &amp; QR" %}</a></li>
+          <li><a href="{% url 'dashboard:analytics' %}" {% if active == 'analytics' %}aria-current="page"{% endif %}>{% icon "chart-column" 18 %}{% trans "Analytics" %}</a></li>
+          <li><a href="{% url 'dashboard:leads' %}" {% if active == 'leads' %}aria-current="page"{% endif %}>{% icon "inbox" 18 %}{% trans "Contacts" %}</a></li>
+          {% if shell_plan.max_cards > 1 or shell_cards|length > 1 %}<li><a href="{% url 'dashboard:cards' %}" {% if active == 'cards' %}aria-current="page"{% endif %}>{% icon "layers" 18 %}{% trans "Team cards" %}</a></li>{% endif %}
         </ul>
       </div>
       <div class="app-nav__group">
-        <p>Orders &amp; billing</p>
+        <p>{% trans "Orders &amp; billing" %}</p>
         <ul>
-          <li><a href="{% url 'dashboard:nfc' %}" {% if active == 'nfc' %}aria-current="page"{% endif %}>{% icon "nfc" 18 %}NFC cards</a></li>
-          <li><a href="{% url 'billing:checkout' %}" {% if active == 'billing' %}aria-current="page"{% endif %}>{% icon "credit-card" 18 %}Plan &amp; renewal</a></li>
-          <li><a href="{% url 'billing:receipts' %}" {% if active == 'receipts' %}aria-current="page"{% endif %}>{% icon "receipt" 18 %}Receipts</a></li>
+          <li><a href="{% url 'dashboard:nfc' %}" {% if active == 'nfc' %}aria-current="page"{% endif %}>{% icon "nfc" 18 %}{% trans "NFC cards" %}</a></li>
+          <li><a href="{% url 'billing:checkout' %}" {% if active == 'billing' %}aria-current="page"{% endif %}>{% icon "credit-card" 18 %}{% trans "Plan &amp; renewal" %}</a></li>
+          <li><a href="{% url 'billing:receipts' %}" {% if active == 'receipts' %}aria-current="page"{% endif %}>{% icon "receipt" 18 %}{% trans "Receipts" %}</a></li>
         </ul>
       </div>
       <div class="app-nav__group">
-        <p>Account</p>
+        <p>{% trans "Account" %}</p>
         <ul>
-          <li><a href="{% url 'dashboard:settings' %}" {% if active == 'settings' %}aria-current="page"{% endif %}>{% icon "settings" 18 %}Settings</a></li>
-          <li><a href="{% url 'support:mine' %}" {% if active == 'support' %}aria-current="page"{% endif %}>{% icon "life-buoy" 18 %}Help &amp; support</a></li>
+          <li><a href="{% url 'dashboard:settings' %}" {% if active == 'settings' %}aria-current="page"{% endif %}>{% icon "settings" 18 %}{% trans "Settings" %}</a></li>
+          <li><a href="{% url 'support:mine' %}" {% if active == 'support' %}aria-current="page"{% endif %}>{% icon "life-buoy" 18 %}{% trans "Help &amp; support" %}</a></li>
         </ul>
       </div>
     </nav>
@@ -61,10 +61,10 @@
       </div>
       <div class="app-side__prefs">{% include "partials/prefs.html" with idp="d" %}</div>
       <div class="app-side__actions">
-        <button type="button" class="btn btn--sm btn--icon theme-toggle" data-theme-toggle data-mode="system" aria-label="Change theme">
+        {% trans "Change theme" as t_5 %}<button type="button" class="btn btn--sm btn--icon theme-toggle" data-theme-toggle data-mode="system" aria-label="{{ t_5 }}">
           <span data-theme-icon="system">{% icon "monitor" 18 %}</span><span data-theme-icon="light">{% icon "sun" 18 %}</span><span data-theme-icon="dark">{% icon "moon" 18 %}</span>
         </button>
-        <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="btn btn--sm" type="submit">{% icon "log-out" 16 %}Log out</button></form>
+        <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="btn btn--sm" type="submit">{% icon "log-out" 16 %}{% trans "Log out" %}</button></form>
       </div>
     </div>
   </aside>

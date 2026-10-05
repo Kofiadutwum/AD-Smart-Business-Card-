@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Confirm your email · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Confirm your email · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card center">
     <span class="step__icon" style="margin: 0 auto var(--space-6); width: 3.5rem; height: 3.5rem">{% icon "mail-check" 28 %}</span>
-    <p class="eyebrow">Step 2 of 3</p>
-    <h1 class="mt-2">Check your email</h1>
-    <p class="lead">We sent a confirmation link to <strong>{{ user.email }}</strong>. Open it to start building your card.</p>
-    <p class="text-sm muted mt-6">No email after a few minutes? Check your spam or promotions folder.</p>
+    <p class="eyebrow">{% trans "Step 2 of 3" %}</p>
+    <h1 class="mt-2">{% trans "Check your email" %}</h1>
+    <p class="lead">{% blocktrans trimmed with user_email=user.email %}We sent a confirmation link to <strong>{{ user_email }}</strong>. Open it to start building your card.{% endblocktrans %}</p>
+    <p class="text-sm muted mt-6">{% trans "No email after a few minutes? Check your spam or promotions folder." %}</p>
     <form method="post" class="form" style="margin-top: var(--space-6)">
       {% csrf_token %}
-      <button class="btn" type="submit">{% icon "refresh-cw" 16 %}Send the link again</button>
+      <button class="btn" type="submit">{% icon "refresh-cw" 16 %}{% trans "Send the link again" %}</button>
     </form>
-    <form method="post" action="{% url 'accounts:logout' %}" class="mt-4">{% csrf_token %}<button class="link-btn text-sm" type="submit">Use a different account</button></form>
+    <form method="post" action="{% url 'accounts:logout' %}" class="mt-4">{% csrf_token %}<button class="link-btn text-sm" type="submit">{% trans "Use a different account" %}</button></form>
   </div>
 </div>
 {% endblock %}

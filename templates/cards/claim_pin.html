@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Set up your card · {{ SITE_NAME }}{% endblock %}
+{% block title %}{% blocktrans trimmed %}Set up your card · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card">
-    <p class="eyebrow">Step 1 of 2</p>
-    <h1 class="mt-2">Set up your card</h1>
-    <p class="lead">Your card is ready and its first year is already paid for. Enter the PIN printed on the back of the card to begin.</p>
+    <p class="eyebrow">{% trans "Step 1 of 2" %}</p>
+    <h1 class="mt-2">{% trans "Set up your card" %}</h1>
+    <p class="lead">{% trans "Your card is ready and its first year is already paid for. Enter the PIN printed on the back of the card to begin." %}</p>
     <form method="post" class="form" novalidate>
       {% csrf_token %}
       {% include "components/form_fields.html" %}
-      {% hover_button "Continue" variant="ink" css="ihb--block" %}
+      {% hover_button _("Continue") variant="ink" css="ihb--block" %}
     </form>
-    <p class="auth-alt">Cannot find the PIN? It is printed on the back of the card. Ask the shop that sold it to you.</p>
+    <p class="auth-alt">{% trans "Cannot find the PIN? It is printed on the back of the card. Ask the shop that sold it to you." %}</p>
   </div>
 </div>
 {% endblock %}

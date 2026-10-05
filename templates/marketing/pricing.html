@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Pricing · {{ SITE_NAME }}{% endblock %}
-{% block description %}Yearly digital business card plans from {{ plans.0.price_minor|ghs }}. NFC cards from GHS 135 each.{% endblock %}
+{% block title %}{% blocktrans trimmed %}Pricing · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
+{% block description %}{% blocktrans trimmed with plans_0_price_minor_ghs=plans.0.price_minor|ghs %}Yearly digital business card plans from {{ plans_0_price_minor_ghs }}. NFC cards from GHS 135 each.{% endblocktrans %}{% endblock %}
 {% block content %}
 <section class="page-hero">
   <div class="container center">
-    <p class="eyebrow">Pricing</p>
-    <h1>One simple yearly price.</h1>
-    <p class="lead" style="margin-inline:auto">Build and preview your card for free. Choose a plan when you are ready to share it.</p>
+    <p class="eyebrow">{% trans "Pricing" %}</p>
+    <h1>{% trans "One simple yearly price." %}</h1>
+    <p class="lead" style="margin-inline:auto">{% trans "Build and preview your card for free. Choose a plan when you are ready to share it." %}</p>
   </div>
 </section>
 <section class="section" style="padding-top: 0">

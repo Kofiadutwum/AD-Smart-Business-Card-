@@ -2,7 +2,7 @@
   <div class="dialog__frame">
     <div class="dialog__bar">
       <span id="lightbox-title" data-lightbox-title></span>
-      <button type="button" class="btn btn--ghost btn--icon" data-lightbox-close aria-label="Close">{% icon "x" 20 %}</button>
+      {% trans "Close" as t_1 %}<button type="button" class="btn btn--ghost btn--icon" data-lightbox-close aria-label="{{ t_1 }}">{% icon "x" 20 %}</button>
     </div>
     <img src="" alt="">
   </div>

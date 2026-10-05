@@ -92,6 +92,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -115,9 +116,10 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.i18n",
                 "apps.core.context_processors.site",
             ],
-            "builtins": ["apps.core.templatetags.ui"],
+            "builtins": ["apps.core.templatetags.ui", "django.templatetags.i18n"],
         },
     },
 ]
@@ -188,9 +190,21 @@ GOOGLE_CLIENT_SECRET = env("GOOGLE_CLIENT_SECRET")
 # Localisation (NFR-09: Ghana time, "GHS 1,500.00")
 # --------------------------------------------------------------------------
 
-LANGUAGE_CODE = "en-gb"
+LANGUAGE_CODE = "en"
 TIME_ZONE = "Africa/Accra"
-USE_I18N = False
+USE_I18N = True
+
+# English stays the default and always available; the site follows the visitor's phone or browser language
+# when it is one of these, and the visitor can switch. Every customer-facing screen is translated.
+LANGUAGES = [
+    ("en", "English"),
+    ("fr", "Français"),
+    ("zh-hans", "简体中文"),
+    ("es", "Español"),
+    ("nl", "Nederlands"),
+    ("pt", "Português"),
+]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 USE_TZ = True
 CURRENCY = "GHS"
 

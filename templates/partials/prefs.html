@@ -2,9 +2,9 @@
 <form class="prefs" method="post" action="{% url 'prefs' %}">
   {% csrf_token %}
   <input type="hidden" name="next" value="{{ request.get_full_path }}">
-  <label class="visually-hidden" for="prefs-currency-{{ idp }}">Currency</label>
+  <label class="visually-hidden" for="prefs-currency-{{ idp }}">{% trans "Currency" %}</label>
   <select id="prefs-currency-{{ idp }}" name="currency" data-prefs-select>
     {% for code, symbol, name in currency_choices %}<option value="{{ code }}" title="{{ name }}"{% if code == currency %} selected{% endif %}>{{ symbol }} {{ code }}</option>{% endfor %}
   </select>
-  <noscript><button type="submit" class="btn btn--sm">Save</button></noscript>
+  <noscript><button type="submit" class="btn btn--sm">{% trans "Save" %}</button></noscript>
 </form>
