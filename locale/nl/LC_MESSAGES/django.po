@@ -1,0 +1,5003 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: AD Smart Business Cards\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/accounts/forms.py:12 apps/dashboard/forms.py:45
+msgid "Full name"
+msgstr "Volledige naam"
+
+#: apps/accounts/forms.py:13 apps/accounts/forms.py:54 apps/accounts/forms.py:60 apps/cards/models.py:45 apps/dashboard/forms.py:50
+msgid "Email address"
+msgstr "E-mailadres"
+
+#: apps/accounts/forms.py:15 apps/accounts/forms.py:119
+msgid "Mobile number"
+msgstr "Mobiel nummer"
+
+#: apps/accounts/forms.py:16
+msgid "We use it only to reach you about orders and delivery."
+msgstr "We gebruiken het alleen om contact met je op te nemen over bestellingen en bezorging."
+
+#: apps/accounts/forms.py:20 apps/accounts/forms.py:55 templates/dashboard/settings.html:16
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: apps/accounts/forms.py:22
+msgid "At least 8 characters. Avoid common words and all-number passwords."
+msgstr "Minstens 8 tekens. Vermijd veelvoorkomende woorden en wachtwoorden met alleen cijfers."
+
+#: apps/accounts/forms.py:25
+msgid "I accept the Terms of Service and Privacy Policy"
+msgstr "Ik ga akkoord met de Servicevoorwaarden en het Privacybeleid"
+
+#: apps/accounts/forms.py:26
+msgid "You need to accept the terms to create an account."
+msgstr "Je moet de voorwaarden accepteren om een account aan te maken."
+
+#: apps/accounts/forms.py:32
+msgid "That email already has an account. Sign in instead."
+msgstr "Dit e-mailadres heeft al een account. Log in."
+
+#: apps/accounts/forms.py:38
+msgid "That number is linked to another account. Sign in or recover that account."
+msgstr "Dit nummer is gekoppeld aan een ander account. Log in of herstel dat account."
+
+#: apps/accounts/forms.py:56
+msgid "Keep me signed in"
+msgstr "Ingelogd blijven"
+
+#: apps/accounts/forms.py:65
+msgid "6-digit code"
+msgstr "Code van 6 cijfers"
+
+#: apps/accounts/forms.py:67
+msgid "Enter the 6 digits from the email."
+msgstr "Voer de 6 cijfers uit de e-mail in."
+
+#: apps/accounts/forms.py:70 apps/accounts/forms.py:91
+msgid "New password"
+msgstr "Nieuw wachtwoord"
+
+#: apps/accounts/forms.py:72 apps/accounts/forms.py:93
+msgid "Confirm new password"
+msgstr "Bevestig nieuw wachtwoord"
+
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:109
+msgid "The two passwords do not match."
+msgstr "De twee wachtwoorden komen niet overeen."
+
+#: apps/accounts/forms.py:89
+msgid "Current password"
+msgstr "Huidig wachtwoord"
+
+#: apps/accounts/forms.py:103
+msgid "That is not your current password."
+msgstr "Dat is je huidige wachtwoord niet."
+
+#: apps/accounts/forms.py:133
+msgid "That number is linked to another account."
+msgstr "Dit nummer is gekoppeld aan een ander account."
+
+#: apps/accounts/services.py:30
+msgid "Confirm your email address"
+msgstr "Bevestig je e-mailadres"
+
+#: apps/accounts/services.py:65
+#, python-format
+msgid "Your password reset code: %(code)s"
+msgstr "Je code om je wachtwoord te herstellen: %(code)s"
+
+#: apps/accounts/views.py:48
+msgid "Too many sign-ups from this connection. Try again in an hour."
+msgstr "Te veel registraties vanaf deze verbinding. Probeer het over een uur opnieuw."
+
+#: apps/accounts/views.py:63 apps/accounts/views.py:273 apps/cards/claim.py:97
+msgid "Welcome to AD Smart Business Cards"
+msgstr "Welkom bij AD Smart Business Cards"
+
+#: apps/accounts/views.py:76
+msgid "You have asked for several emails already. Check your spam folder, or try again later."
+msgstr "Je hebt al meerdere e-mails aangevraagd. Controleer je spammap of probeer het later opnieuw."
+
+#: apps/accounts/views.py:79
+#, python-format
+msgid "We sent a new link to %(email)s."
+msgstr "We hebben een nieuwe link naar %(email)s gestuurd."
+
+#: apps/accounts/views.py:88
+msgid "That link has expired or was already used. Sign in and ask for a new one."
+msgstr "Die link is verlopen of al gebruikt. Log in en vraag een nieuwe aan."
+
+#: apps/accounts/views.py:95
+msgid "Email confirmed. Build your card, preview it, then choose a plan."
+msgstr "E-mail bevestigd. Maak je kaart, bekijk een voorbeeld en kies een abonnement."
+
+#: apps/accounts/views.py:113
+msgid "Too many attempts. Wait 15 minutes, or reset your password."
+msgstr "Te veel pogingen. Wacht 15 minuten of herstel je wachtwoord."
+
+#: apps/accounts/views.py:118
+msgid "That email and password do not match."
+msgstr "Dat e-mailadres en wachtwoord komen niet overeen."
+
+#: apps/accounts/views.py:121 apps/accounts/views.py:277
+msgid "This account is suspended. Contact support."
+msgstr "Dit account is geschorst. Neem contact op met de support."
+
+#: apps/accounts/views.py:140
+msgid "You are signed out."
+msgstr "Je bent uitgelogd."
+
+#: apps/accounts/views.py:156
+msgid "Too many requests. Try again in an hour."
+msgstr "Te veel verzoeken. Probeer het over een uur opnieuw."
+
+#: apps/accounts/views.py:160
+msgid "A code was sent less than a minute ago. Check your inbox before asking again."
+msgstr "Er is minder dan een minuut geleden een code verstuurd. Controleer je inbox voordat je een nieuwe aanvraagt."
+
+#: apps/accounts/views.py:174
+msgid "Too many attempts from this connection. Try again later."
+msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
+
+#: apps/accounts/views.py:181
+msgid "That code has expired or was used too many times. Ask for a new one."
+msgstr "Die code is verlopen of te vaak gebruikt. Vraag een nieuwe aan."
+
+#: apps/accounts/views.py:189 apps/accounts/views.py:216
+msgid "Your password was changed"
+msgstr "Je wachtwoord is gewijzigd"
+
+#: apps/accounts/views.py:193
+msgid "Your password has been reset."
+msgstr "Je wachtwoord is hersteld."
+
+#: apps/accounts/views.py:199
+#, python-format
+msgid "That code is not right. %(left)d attempt left."
+msgid_plural "That code is not right. %(left)d attempts left."
+msgstr[0] "Die code klopt niet. Nog %(left)d poging over."
+msgstr[1] "Die code klopt niet. Nog %(left)d pogingen over."
+
+#: apps/accounts/views.py:204
+msgid "Too many wrong codes. Ask for a new one."
+msgstr "Te veel foute codes. Vraag een nieuwe aan."
+
+#: apps/accounts/views.py:219
+msgid "Password updated."
+msgstr "Wachtwoord bijgewerkt."
+
+#: apps/accounts/views.py:231
+msgid "Google sign-in is not available yet."
+msgstr "Inloggen met Google is nog niet beschikbaar."
+
+#: apps/accounts/views.py:243
+msgid "Google sign-in was cancelled."
+msgstr "Inloggen met Google is geannuleerd."
+
+#: apps/accounts/views.py:247
+msgid "Your Google sign-in session expired. Try again."
+msgstr "Je Google-inlogsessie is verlopen. Probeer het opnieuw."
+
+#: apps/accounts/views.py:283
+msgid "Add your mobile number so we can reach you about orders and delivery."
+msgstr "Voeg je mobiele nummer toe zodat we contact met je kunnen opnemen over bestellingen en bezorging."
+
+#: apps/billing/models.py:61
+msgid "Unlimited"
+msgstr "Onbeperkt"
+
+#: apps/billing/models.py:61
+#, python-format
+msgid "Up to %(count)d"
+msgstr "Maximaal %(count)d"
+
+#: apps/billing/models.py:109
+#, python-format
+msgid "Cards for your whole team: %(count)d people included, then priced per person"
+msgstr "Kaarten voor je hele team: %(count)d personen inbegrepen, daarna een prijs per persoon"
+
+#: apps/billing/models.py:111
+msgid "1 digital card"
+msgstr "1 digitale kaart"
+
+#: apps/billing/models.py:113
+#, python-format
+msgid "Up to %(count)d digital cards"
+msgstr "Maximaal %(count)d digitale kaarten"
+
+#: apps/billing/models.py:115
+msgid "Unlimited social media links"
+msgstr "Onbeperkt aantal links naar sociale media"
+
+#: apps/billing/models.py:117
+#, python-format
+msgid "Up to %(count)d social media links"
+msgstr "Maximaal %(count)d links naar sociale media"
+
+#: apps/billing/models.py:119
+msgid "Any colour + shared brand theme"
+msgstr "Elke kleur + gedeeld merkthema"
+
+#: apps/billing/models.py:121
+msgid "Any card colour"
+msgstr "Elke kaartkleur"
+
+#: apps/billing/models.py:123
+msgid "Preset colours"
+msgstr "Vooraf ingestelde kleuren"
+
+#: apps/billing/models.py:126
+msgid "Permanent link, QR code and .vcf contact"
+msgstr "Permanente link, QR-code en .vcf-contact"
+
+#: apps/billing/models.py:127
+#, python-format
+msgid "Up to %(count)d phone numbers per card"
+msgstr "Maximaal %(count)d telefoonnummers per kaart"
+
+#: apps/billing/models.py:129
+msgid "All templates"
+msgstr "Alle sjablonen"
+
+#: apps/billing/models.py:129
+msgid "1 standard template"
+msgstr "1 standaardsjabloon"
+
+#: apps/billing/models.py:131
+msgid "Business logo on card"
+msgstr "Bedrijfslogo op de kaart"
+
+#: apps/billing/models.py:132
+msgid "Background image, button style, icon layout"
+msgstr "Achtergrondafbeelding, knopstijl, pictogramindeling"
+
+#: apps/billing/models.py:133 apps/dashboard/forms.py:57
+msgid "Remove “Powered by AD Smart”"
+msgstr "‘Mogelijk gemaakt door AD Smart’ verwijderen"
+
+#: apps/billing/models.py:134 templates/dashboard/home.html:24
+msgid "Full analytics"
+msgstr "Volledige statistieken"
+
+#: apps/billing/models.py:134
+msgid "Total views"
+msgstr "Totaal aantal weergaven"
+
+#: apps/billing/models.py:135
+msgid "Priority support (4 working hours)"
+msgstr "Voorrangssupport (4 werkuren)"
+
+#: apps/billing/models.py:170
+msgid "Active"
+msgstr "Actief"
+
+#: apps/billing/models.py:171
+msgid "Expiring soon"
+msgstr "Verloopt binnenkort"
+
+#: apps/billing/models.py:172
+msgid "Grace period"
+msgstr "Respijtperiode"
+
+#: apps/billing/models.py:173
+msgid "Inactive"
+msgstr "Inactief"
+
+#: apps/billing/models.py:393 apps/billing/models.py:499
+msgid "Subscription"
+msgstr "Abonnement"
+
+#: apps/billing/models.py:394 apps/billing/models.py:494
+msgid "Plan upgrade"
+msgstr "Upgrade van abonnement"
+
+#: apps/billing/models.py:395 apps/billing/models.py:484
+msgid "NFC order"
+msgstr "NFC-bestelling"
+
+#: apps/billing/models.py:396 apps/billing/models.py:490
+msgid "Pre-made card (sold in a shop)"
+msgstr "Kant-en-klare kaart (verkocht in een winkel)"
+
+#: apps/billing/models.py:406 templates/billing/receipts.html:17
+msgid "Pending"
+msgstr "In behandeling"
+
+#: apps/billing/models.py:407
+msgid "Successful"
+msgstr "Geslaagd"
+
+#: apps/billing/models.py:408
+msgid "Failed"
+msgstr "Mislukt"
+
+#: apps/billing/models.py:409
+msgid "Abandoned"
+msgstr "Afgebroken"
+
+#: apps/billing/models.py:410 apps/nfc/models.py:109
+msgid "Refunded"
+msgstr "Terugbetaald"
+
+#: apps/billing/models.py:411
+msgid "Partially refunded"
+msgstr "Gedeeltelijk terugbetaald"
+
+#: apps/billing/models.py:484
+#, python-format
+msgid "NFC order %(number)s"
+msgstr "NFC-bestelling %(number)s"
+
+#: apps/billing/models.py:486 apps/billing/services.py:149
+#, python-format
+msgid "%(plan)s plan"
+msgstr "%(plan)s-abonnement"
+
+#: apps/billing/models.py:491
+#, python-format
+msgid "Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)"
+msgstr "Kant-en-klare kaart met %(plan)s-abonnement, %(count)d maanden (verkocht in een winkel)"
+
+#: apps/billing/models.py:496
+#, python-format
+msgid "Upgrade to %(plan)s for %(count)d people"
+msgstr "Upgrade naar %(plan)s voor %(count)d personen"
+
+#: apps/billing/models.py:497
+#, python-format
+msgid "Upgrade to %(plan)s"
+msgstr "Upgrade naar %(plan)s"
+
+#: apps/billing/models.py:501
+#, python-format
+msgid "%(plan)s plan for %(people)d people, %(count)d months"
+msgstr "%(plan)s-abonnement voor %(people)d personen, %(count)d maanden"
+
+#: apps/billing/models.py:502
+#, python-format
+msgid "%(plan)s plan, %(count)d months"
+msgstr "%(plan)s-abonnement, %(count)d maanden"
+
+#: apps/billing/paystack.py:46
+msgid "The payment gateway could not be reached. Try again in a moment."
+msgstr "De betaalprovider kon niet worden bereikt. Probeer het zo meteen opnieuw."
+
+#: apps/billing/paystack.py:144
+msgid "Malformed webhook payload."
+msgstr "Malformed webhook payload."
+
+#: apps/billing/services.py:434
+#, python-format
+msgid "Your receipt %(number)s"
+msgstr "Je kwitantie %(number)s"
+
+#: apps/billing/views.py:38
+msgid "Plans are not set up yet. Please contact support."
+msgstr "De abonnementen zijn nog niet ingesteld. Neem contact op met de support."
+
+#: apps/billing/views.py:75
+msgid "Please tick the box to accept the Terms and Refund Policy before paying."
+msgstr "Vink het vakje aan om de voorwaarden en het terugbetalingsbeleid te accepteren voordat je betaalt."
+
+#: apps/billing/views.py:77
+msgid "Create your card before choosing a plan."
+msgstr "Maak je kaart aan voordat je een abonnement kiest."
+
+#: apps/billing/views.py:82
+#, python-format
+msgid "%(count)d remaining month"
+msgid_plural "%(count)d remaining months"
+msgstr[0] "%(count)d resterende maand"
+msgstr[1] "%(count)d resterende maanden"
+
+#: apps/billing/views.py:86
+#, python-format
+msgid "%(added)d more person on %(plan)s for %(months_left)s"
+msgid_plural "%(added)d more people on %(plan)s for %(months_left)s"
+msgstr[0] "%(added)d extra persoon op %(plan)s voor %(months_left)s"
+msgstr[1] "%(added)d extra personen op %(plan)s voor %(months_left)s"
+
+#: apps/billing/views.py:90
+#, python-format
+msgid "Upgrade to %(plan)s for %(months_left)s"
+msgstr "Upgrade naar %(plan)s voor %(months_left)s"
+
+#: apps/billing/views.py:107 apps/nfc/views.py:256
+#, python-format
+msgid "%(reason)s You have not been charged."
+msgstr "%(reason)s Er is niets van je afgeschreven."
+
+#: apps/billing/views.py:111
+#, python-format
+msgid "Promo code %(code)s applied: %(label)s."
+msgstr "Actiecode %(code)s toegepast: %(label)s."
+
+#: apps/billing/views.py:124
+#, python-format
+msgid "Pay %(amount)s"
+msgstr "Betaal %(amount)s"
+
+#: apps/billing/views.py:141
+msgid "We could not find that payment. If money left your account, contact support with the reference."
+msgstr "We konden die betaling niet vinden. Als er geld van je rekening is afgeschreven, neem dan contact op met de support en vermeld de referentie."
+
+#: apps/cards/claim.py:83
+msgid "Too many attempts from this connection. Try again in an hour."
+msgstr "Te veel pogingen vanaf deze verbinding. Probeer het over een uur opnieuw."
+
+#: apps/cards/claim.py:91
+msgid "That email or number was just used for another account. Please check and try again."
+msgstr "Dat e-mailadres of nummer is net voor een ander account gebruikt. Controleer het en probeer opnieuw."
+
+#: apps/cards/claim.py:100
+msgid "Your card is live and your first year is active. Confirm your email to edit it."
+msgstr "Je kaart is live en je eerste jaar is actief. Bevestig je e-mailadres om hem te bewerken."
+
+#: apps/cards/claim.py:126
+msgid "The card is now on your account and a year has been added to your plan."
+msgstr "De kaart staat nu op je account en er is een jaar aan je abonnement toegevoegd."
+
+#: apps/cards/forms.py:33
+msgid "Add a phone number or an email so they can reach you."
+msgstr "Voeg een telefoonnummer of e-mailadres toe zodat ze contact met je kunnen opnemen."
+
+#: apps/cards/forms.py:53
+msgid "PIN on the back of your card"
+msgstr "Pincode op de achterkant van je kaart"
+
+#: apps/cards/forms.py:55
+msgid "Eight letters and numbers, for example K7M2-X9QA."
+msgstr "Acht letters en cijfers, bijvoorbeeld K7M2-X9QA."
+
+#: apps/cards/forms.py:68
+msgid "Job title"
+msgstr "Functie"
+
+#: apps/cards/forms.py:69
+msgid "Business or organisation"
+msgstr "Bedrijf of organisatie"
+
+#: apps/cards/models.py:35
+msgid "Classic"
+msgstr "Klassiek"
+
+#: apps/cards/models.py:36
+msgid "Banner"
+msgstr "Banner"
+
+#: apps/cards/models.py:37
+msgid "Minimal"
+msgstr "Minimalistisch"
+
+#: apps/cards/models.py:40
+msgid "Pill"
+msgstr "Pil"
+
+#: apps/cards/models.py:40
+msgid "Rounded"
+msgstr "Afgerond"
+
+#: apps/cards/models.py:40
+msgid "Square"
+msgstr "Vierkant"
+
+#: apps/cards/models.py:41
+msgid "List"
+msgstr "Lijst"
+
+#: apps/cards/models.py:41
+msgid "Grid"
+msgstr "Raster"
+
+#: apps/cards/models.py:41
+msgid "Icon row"
+msgstr "Pictogramrij"
+
+#: apps/cards/models.py:46 templates/dashboard/editor.html:48
+msgid "Phone numbers"
+msgstr "Telefoonnummers"
+
+#: apps/cards/models.py:47 apps/cards/models.py:252 templates/cards/_card.html:36 templates/cards/_card.html:64
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: apps/cards/models.py:48 apps/cards/models.py:258 apps/dashboard/forms.py:51 apps/nfc/forms.py:30 templates/cards/_card.html:42 templates/cards/_card.html:76
+msgid "Website"
+msgstr "Website"
+
+#: apps/cards/models.py:49 apps/dashboard/forms.py:52
+msgid "Physical address"
+msgstr "Fysiek adres"
+
+#: apps/cards/models.py:50 templates/cards/_card.html:88
+msgid "Ghana Post GPS"
+msgstr "Ghana Post GPS"
+
+#: apps/cards/models.py:51
+msgid "Map location"
+msgstr "Locatie op de kaart"
+
+#: apps/cards/models.py:52 apps/dashboard/forms.py:48
+msgid "Short bio"
+msgstr "Korte bio"
+
+#: apps/cards/models.py:242
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: apps/cards/models.py:243
+msgid "Instagram"
+msgstr "Instagram"
+
+#: apps/cards/models.py:244
+msgid "Facebook"
+msgstr "Facebook"
+
+#: apps/cards/models.py:245
+msgid "X"
+msgstr "X"
+
+#: apps/cards/models.py:246
+msgid "TikTok"
+msgstr "TikTok"
+
+#: apps/cards/models.py:247
+msgid "YouTube"
+msgstr "YouTube"
+
+#: apps/cards/models.py:248
+msgid "Snapchat"
+msgstr "Snapchat"
+
+#: apps/cards/models.py:249
+msgid "Threads"
+msgstr "Threads"
+
+#: apps/cards/models.py:250
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: apps/cards/models.py:251
+msgid "Telegram"
+msgstr "Telegram"
+
+#: apps/cards/models.py:253
+msgid "GitHub"
+msgstr "GitHub"
+
+#: apps/cards/models.py:254
+msgid "Behance"
+msgstr "Behance"
+
+#: apps/cards/models.py:255
+msgid "ResearchGate"
+msgstr "ResearchGate"
+
+#: apps/cards/models.py:256
+msgid "ORCID"
+msgstr "ORCID"
+
+#: apps/cards/models.py:257
+msgid "Google Scholar"
+msgstr "Google Scholar"
+
+#: apps/cards/models.py:294
+msgid "View"
+msgstr "Weergave"
+
+#: apps/cards/models.py:295
+msgid "Contact saved"
+msgstr "Contact opgeslagen"
+
+#: apps/cards/models.py:296
+msgid "Phone click"
+msgstr "Klik op telefoon"
+
+#: apps/cards/models.py:297
+msgid "WhatsApp click"
+msgstr "Klik op WhatsApp"
+
+#: apps/cards/models.py:298
+msgid "Email click"
+msgstr "Klik op e-mail"
+
+#: apps/cards/models.py:299
+msgid "Website click"
+msgstr "Klik op website"
+
+#: apps/cards/models.py:300
+msgid "Social click"
+msgstr "Klik op sociale media"
+
+#: apps/cards/models.py:301
+msgid "Location click"
+msgstr "Klik op locatie"
+
+#: apps/cards/models.py:303 apps/dashboard/views.py:288
+msgid "Direct link"
+msgstr "Directe link"
+
+#: apps/cards/models.py:303 templates/dashboard/share.html:32
+msgid "QR code"
+msgstr "QR-code"
+
+#: apps/cards/models.py:303
+msgid "NFC tap"
+msgstr "NFC-tik"
+
+#: apps/cards/models.py:341
+msgid "Impersonation"
+msgstr "Identiteitsfraude"
+
+#: apps/cards/models.py:342
+msgid "Fraud or scam"
+msgstr "Fraude of oplichting"
+
+#: apps/cards/models.py:343
+msgid "Offensive content"
+msgstr "Aanstootgevende inhoud"
+
+#: apps/cards/models.py:344 apps/support/models.py:17
+msgid "Other"
+msgstr "Overig"
+
+#: apps/cards/models.py:347 apps/support/models.py:23
+msgid "Open"
+msgstr "Open"
+
+#: apps/cards/models.py:347
+msgid "Dismissed"
+msgstr "Afgewezen"
+
+#: apps/cards/models.py:347
+msgid "Actioned"
+msgstr "Afgehandeld"
+
+#: apps/cards/premade.py:160
+msgid "This card has already been set up by its buyer."
+msgstr "Deze kaart is al ingesteld door de koper."
+
+#: apps/cards/premade.py:211 apps/cards/premade.py:324
+msgid "This card has already been set up."
+msgstr "Deze kaart is al ingesteld."
+
+#: apps/cards/premade.py:213 apps/cards/premade.py:326
+msgid "This card is no longer in use. Please contact the shop you bought it from."
+msgstr "Deze kaart is niet meer in gebruik. Neem contact op met de winkel waar je hem hebt gekocht."
+
+#: apps/cards/premade.py:215
+msgid "Too many attempts from this connection. Please try again later."
+msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
+
+#: apps/cards/premade.py:222
+#, python-format
+msgid "Too many wrong PINs. Please try again in %(minutes)d minute."
+msgid_plural "Too many wrong PINs. Please try again in %(minutes)d minutes."
+msgstr[0] "Te veel foute pincodes. Probeer het over %(minutes)d minuut opnieuw."
+msgstr[1] "Te veel foute pincodes. Probeer het over %(minutes)d minuten opnieuw."
+
+#: apps/cards/premade.py:236
+#, python-format
+msgid "That PIN is not right. This card is locked for %(minutes)d minutes."
+msgstr "Die pincode klopt niet. Deze kaart is %(minutes)d minuten geblokkeerd."
+
+#: apps/cards/premade.py:240
+#, python-format
+msgid "That PIN is not right. %(left)d try left."
+msgid_plural "That PIN is not right. %(left)d tries left."
+msgstr[0] "Die pincode klopt niet. Nog %(left)d poging."
+msgstr[1] "Die pincode klopt niet. Nog %(left)d pogingen."
+
+#: apps/cards/services.py:94
+msgid "This card's link is printed on NFC cards, so it can no longer change."
+msgstr "De link van deze kaart staat op NFC-kaarten gedrukt en kan dus niet meer wijzigen."
+
+#: apps/cards/services.py:99
+msgid "That link is already taken."
+msgstr "Die link is al in gebruik."
+
+#: apps/cards/views.py:133 apps/cards/views.py:157
+#, python-format
+msgid "Thank you. %(name)s has your details."
+msgstr "Bedankt. %(name)s heeft je gegevens ontvangen."
+
+#: apps/cards/views.py:142
+msgid "You have already sent your details. Try again in an hour."
+msgstr "Je hebt je gegevens al verstuurd. Probeer het over een uur opnieuw."
+
+#: apps/cards/views.py:151
+#, python-format
+msgid "%(name)s shared their details with you"
+msgstr "%(name)s heeft zijn of haar gegevens met je gedeeld"
+
+#: apps/cards/views.py:168
+msgid "You have sent several reports already. Try again later."
+msgstr "Je hebt al meerdere meldingen verstuurd. Probeer het later opnieuw."
+
+#: apps/cards/views.py:178
+msgid "Thank you. Our support team will review this card."
+msgstr "Bedankt. Ons supportteam bekijkt deze kaart."
+
+#: apps/core/jsstrings.py:13
+msgid "Theme: match device"
+msgstr "Thema: volg apparaat"
+
+#: apps/core/jsstrings.py:14
+msgid "Theme: light"
+msgstr "Thema: licht"
+
+#: apps/core/jsstrings.py:15
+msgid "Theme: dark"
+msgstr "Thema: donker"
+
+#: apps/core/jsstrings.py:16
+#, python-format
+msgid "%(label)s. Change theme"
+msgstr "%(label)s. Thema wijzigen"
+
+#: apps/core/jsstrings.py:17
+msgid "Copied"
+msgstr "Gekopieerd"
+
+#: apps/core/jsstrings.py:18
+#, python-format
+msgid "%(price)s each (%(cedis)s)"
+msgstr "%(price)s per stuk (%(cedis)s)"
+
+#: apps/core/jsstrings.py:19
+#, python-format
+msgid "%(price)s each"
+msgstr "%(price)s per stuk"
+
+#: apps/core/jsstrings.py:20
+#, python-format
+msgid "%(price)s per person a year"
+msgstr "%(price)s per persoon per jaar"
+
+#: apps/accounts/forms.py:125 apps/cards/forms.py:16 apps/core/jsstrings.py:21 apps/support/forms.py:14
+msgid "Your name"
+msgstr "Je naam"
+
+#: apps/core/jsstrings.py:22
+msgid "Finding you…"
+msgstr "Je locatie wordt bepaald…"
+
+#: apps/core/jsstrings.py:23
+msgid "Location added. Save to keep it."
+msgstr "Locatie toegevoegd. Sla op om te bewaren."
+
+#: apps/core/jsstrings.py:24
+msgid "We could not get your location. Check your browser’s permission."
+msgstr "We konden je locatie niet ophalen. Controleer de toestemming van je browser."
+
+#: apps/core/jsstrings.py:25
+msgid "Map pin removed. Save to keep it."
+msgstr "Kaartpin verwijderd. Sla op om dit te bewaren."
+
+#: apps/core/jsstrings.py:26
+msgid "Featured"
+msgstr "Uitgelicht"
+
+#: apps/core/jsstrings.py:27
+#, python-format
+msgid "%(count)d NFC card"
+msgstr "%(count)d NFC-kaart"
+
+#: apps/core/jsstrings.py:28
+#, python-format
+msgid "%(count)d NFC cards"
+msgstr "%(count)d NFC-kaarten"
+
+#: apps/core/jsstrings.py:29 apps/nfc/forms.py:17 templates/marketing/nfc.html:39 templates/nfc/detail.html:83
+msgid "Free"
+msgstr "Gratis"
+
+#: apps/core/jsstrings.py:30 apps/nfc/views.py:34 templates/marketing/nfc.html:27 templates/nfc/detail.html:83 templates/nfc/detail.html:98 templates/nfc/order.html:114 templates/partials/site_footer.html:17
+msgid "Delivery"
+msgstr "Bezorging"
+
+#: apps/core/jsstrings.py:31 apps/nfc/views.py:34 templates/nfc/detail.html:83
+msgid "Shipping and delivery"
+msgstr "Verzending en bezorging"
+
+#: apps/core/management/commands/run_daily_jobs.py:102
+msgid "Your card plan ends today"
+msgstr "Je kaartabonnement eindigt vandaag"
+
+#: apps/core/management/commands/run_daily_jobs.py:102
+#, python-format
+msgid "Your card plan ends in %(count)d day"
+msgid_plural "Your card plan ends in %(count)d days"
+msgstr[0] "Je kaartabonnement eindigt over %(count)d dag"
+msgstr[1] "Je kaartabonnement eindigt over %(count)d dagen"
+
+#: apps/core/management/commands/run_daily_jobs.py:124
+msgid "Your card is in its grace period"
+msgstr "Je kaart zit in de respijtperiode"
+
+#: apps/core/management/commands/run_daily_jobs.py:126
+msgid "Your card is now inactive"
+msgstr "Je kaart is nu inactief"
+
+#: apps/core/management/commands/run_daily_jobs.py:155
+msgid "Your card details will be deleted soon"
+msgstr "De gegevens van je kaart worden binnenkort verwijderd"
+
+#: apps/core/utils.py:103
+msgid "Enter a phone number."
+msgstr "Voer een telefoonnummer in."
+
+#: apps/core/utils.py:113
+msgid "A Ghanaian number has 10 digits, for example 024 412 3456."
+msgstr "Een Ghanees nummer heeft 10 cijfers, bijvoorbeeld 024 412 3456."
+
+#: apps/core/utils.py:118
+msgid "Enter a Ghanaian number such as 024 412 3456, or an international number starting with +."
+msgstr "Voer een Ghanees nummer in, zoals 024 412 3456, of een internationaal nummer dat met + begint."
+
+#: apps/core/utils.py:154
+#, python-format
+msgid "That image is larger than %(mb)d MB."
+msgstr "Die afbeelding is groter dan %(mb)d MB."
+
+#: apps/core/utils.py:160 apps/core/utils.py:162
+msgid "Upload a JPG, PNG or WebP image."
+msgstr "Upload een JPG-, PNG- of WebP-afbeelding."
+
+#: apps/core/utils.py:188
+msgid "That SVG file could not be read."
+msgstr "Dat SVG-bestand kon niet worden gelezen."
+
+#: apps/core/utils.py:194
+msgid "That file is not an SVG image."
+msgstr "Dat bestand is geen SVG-afbeelding."
+
+#: apps/core/utils.py:222
+msgid "Design files can be up to 10 MB."
+msgstr "Ontwerpbestanden mogen maximaal 10 MB zijn."
+
+#: apps/core/utils.py:234 apps/core/utils.py:236
+msgid "Upload a JPG, PNG, WebP, SVG or PDF file."
+msgstr "Upload een JPG-, PNG-, WebP-, SVG- of PDF-bestand."
+
+#: apps/dashboard/forms.py:19
+msgid "Profile photo"
+msgstr "Profielfoto"
+
+#: apps/dashboard/forms.py:19
+msgid "JPG, PNG or WebP up to 5 MB. We resize it for fast loading."
+msgstr "JPG, PNG of WebP tot 5 MB. We verkleinen hem zodat hij snel laadt."
+
+#: apps/dashboard/forms.py:21
+msgid "Remove photo"
+msgstr "Foto verwijderen"
+
+#: apps/dashboard/forms.py:22
+msgid "Business logo"
+msgstr "Bedrijfslogo"
+
+#: apps/dashboard/forms.py:22
+msgid "PNG with a transparent background works best."
+msgstr "Een PNG met transparante achtergrond werkt het best."
+
+#: apps/dashboard/forms.py:23
+msgid "Remove logo"
+msgstr "Logo verwijderen"
+
+#: apps/dashboard/forms.py:24
+msgid "Background image"
+msgstr "Achtergrondafbeelding"
+
+#: apps/dashboard/forms.py:25
+msgid "Remove background"
+msgstr "Achtergrond verwijderen"
+
+#: apps/dashboard/forms.py:27 templates/dashboard/editor.html:93
+msgid "Card colour"
+msgstr "Kaartkleur"
+
+#: apps/dashboard/forms.py:30 templates/dashboard/editor.html:98
+msgid "Custom colour"
+msgstr "Eigen kleur"
+
+#: apps/dashboard/forms.py:31
+msgid "Band colour"
+msgstr "Kleur van de band"
+
+#: apps/dashboard/forms.py:33
+msgid "Show on my public card"
+msgstr "Tonen op mijn openbare kaart"
+
+#: apps/dashboard/forms.py:120
+msgid "Use the format GA-123-4567."
+msgstr "Gebruik de notatie GA-123-4567."
+
+#: apps/dashboard/forms.py:126 apps/dashboard/forms.py:132
+msgid "Choose a colour."
+msgstr "Kies een kleur."
+
+#: apps/dashboard/forms.py:210 templates/dashboard/editor.html:185 templates/dashboard/home.html:32 templates/dashboard/share.html:17
+msgid "Your card link"
+msgstr "Je kaartlink"
+
+#: apps/dashboard/forms.py:211
+msgid "3 to 40 lowercase letters, numbers and hyphens."
+msgstr "3 tot 40 kleine letters, cijfers en koppeltekens."
+
+#: apps/dashboard/forms.py:224
+msgid "Full name on the new card"
+msgstr "Volledige naam op de nieuwe kaart"
+
+#: apps/dashboard/forms.py:225
+msgid "Position"
+msgstr "Functie"
+
+#: apps/dashboard/views.py:130
+msgid "Some details need fixing. Look for the messages in red."
+msgstr "Een paar gegevens moeten worden aangepast. Zoek de rode meldingen."
+
+#: apps/dashboard/views.py:166
+#, python-format
+msgid "Your link is now /c/%(slug)s. The old link redirects here."
+msgstr "Je link is nu /c/%(slug)s. De oude link verwijst hierheen."
+
+#: apps/dashboard/views.py:170
+msgid "Enter a link between 3 and 40 characters."
+msgstr "Voer een link in van 3 tot 40 tekens."
+
+#: apps/dashboard/views.py:188
+#, python-format
+msgid "The %(plan)s plan includes %(limit)s social links. Upgrade for unlimited links."
+msgstr "Het %(plan)s-abonnement bevat %(limit)s links naar sociale media. Upgrade voor onbeperkt veel links."
+
+#: apps/dashboard/views.py:194
+#, python-format
+msgid "%(label)s added."
+msgstr "%(label)s toegevoegd."
+
+#: apps/dashboard/views.py:210
+msgid "Link removed."
+msgstr "Link verwijderd."
+
+#: apps/dashboard/views.py:339
+msgid "Contact removed."
+msgstr "Contact verwijderd."
+
+#: apps/dashboard/views.py:362
+#, python-format
+msgid "All %(limit)d place on your plan is in use. Switch off or delete a card you no longer need, or add people to your plan."
+msgid_plural "All %(limit)d places on your plan are in use. Switch off or delete a card you no longer need, or add people to your plan."
+msgstr[0] "De %(limit)d plek in je abonnement is in gebruik. Schakel een kaart die je niet meer nodig hebt uit of verwijder die, of voeg personen aan je abonnement toe."
+msgstr[1] "Alle %(limit)d plekken in je abonnement zijn in gebruik. Schakel een kaart die je niet meer nodig hebt uit of verwijder die, of voeg personen aan je abonnement toe."
+
+#: apps/dashboard/views.py:370
+msgid "New card created. Fill in the details."
+msgstr "Nieuwe kaart aangemaakt. Vul de gegevens in."
+
+#: apps/dashboard/views.py:384
+msgid "Switch another card off first, or add people to your plan."
+msgstr "Schakel eerst een andere kaart uit of voeg personen aan je abonnement toe."
+
+#: apps/dashboard/views.py:390
+#, python-format
+msgid "%(name)s is now live."
+msgstr "De kaart van %(name)s staat nu live."
+
+#: apps/dashboard/views.py:390
+#, python-format
+msgid "%(name)s is now switched off."
+msgstr "De kaart van %(name)s is nu uitgeschakeld."
+
+#: apps/dashboard/views.py:400
+msgid "You need at least one card. Edit this one instead."
+msgstr "Je hebt minstens één kaart nodig. Bewerk deze kaart in plaats daarvan."
+
+#: apps/dashboard/views.py:404
+#, python-format
+msgid "%(name)s's card was deleted. Its link will show that the card no longer exists."
+msgstr "De kaart van %(name)s is verwijderd. De link toont dat de kaart niet meer bestaat."
+
+#: apps/dashboard/views.py:424
+msgid "Account details saved."
+msgstr "Accountgegevens opgeslagen."
+
+#: apps/dashboard/views.py:435
+msgid "Type your email address exactly to confirm."
+msgstr "Typ je e-mailadres precies zo in om te bevestigen."
+
+#: apps/dashboard/views.py:443
+msgid "We received your account deletion request"
+msgstr "We hebben je verzoek om je account te verwijderen ontvangen"
+
+#: apps/dashboard/views.py:447
+msgid "Your deletion request is recorded. Your data will be removed within 30 days."
+msgstr "Je verzoek tot verwijdering is vastgelegd. Je gegevens worden binnen 30 dagen verwijderd."
+
+#: apps/marketing/content.py:14 templates/accounts/register.html:8
+msgid "Create your account"
+msgstr "Maak je account aan"
+
+#: apps/marketing/content.py:15
+msgid "Sign up with your email and confirm it. It takes a minute."
+msgstr "Registreer met je e-mailadres en bevestig het. Het duurt een minuutje."
+
+#: apps/marketing/content.py:19
+msgid "Build and preview your card"
+msgstr "Maak je kaart en bekijk een voorbeeld"
+
+#: apps/marketing/content.py:20
+msgid "Add your photo, numbers, WhatsApp, socials and location. Watch it update as you type."
+msgstr "Voeg je foto, nummers, WhatsApp, sociale media en locatie toe. Zie hoe de kaart meteen meebeweegt."
+
+#: apps/marketing/content.py:24
+msgid "Choose a yearly plan"
+msgstr "Kies een jaarabonnement"
+
+#: apps/marketing/content.py:25
+msgid "Pay with Mobile Money or a Visa or Mastercard card through Paystack's secure checkout."
+msgstr "Betaal met Mobile Money of een Visa- of Mastercard-kaart via de beveiligde betaalpagina van Paystack."
+
+#: apps/marketing/content.py:29
+msgid "Share it everywhere"
+msgstr "Deel hem overal"
+
+#: apps/marketing/content.py:30
+msgid "Your permanent link, QR code and NFC card all open the same card, which you can update any time."
+msgstr "Je permanente link, QR-code en NFC-kaart openen dezelfde kaart, die je op elk moment kunt bijwerken."
+
+#: apps/marketing/content.py:35
+msgid "A link that never changes"
+msgstr "Een link die nooit verandert"
+
+#: apps/marketing/content.py:35
+msgid "Paste it into WhatsApp, email signatures and bios. Edit your details and the link still works."
+msgstr "Plak hem in WhatsApp, e-mailhandtekeningen en bio’s. Pas je gegevens aan en de link blijft werken."
+
+#: apps/marketing/content.py:36
+msgid "A QR code for print"
+msgstr "Een QR-code om te printen"
+
+#: apps/marketing/content.py:36
+msgid "Download it as PNG or SVG for flyers, banners, shopfronts and name tags."
+msgstr "Download hem als PNG of SVG voor flyers, banners, winkelpuien en naamkaartjes."
+
+#: apps/marketing/content.py:37
+msgid "An NFC card that taps"
+msgstr "Een NFC-kaart om aan te tikken"
+
+#: apps/marketing/content.py:37
+msgid "A printed card with a chip. Tap it on a phone and your card opens — no app needed."
+msgstr "Een gedrukte kaart met een chip. Tik hem aan op een telefoon en je kaart opent, zonder app."
+
+#: apps/marketing/content.py:38
+msgid "Save contact in one tap"
+msgstr "Contact opslaan met één tik"
+
+#: apps/marketing/content.py:38
+msgid "Recipients save your photo, numbers and email straight into their phone's contacts."
+msgstr "Ontvangers slaan je foto, nummers en e-mailadres direct op in de contacten van hun telefoon."
+
+#: apps/marketing/content.py:47
+msgid "How does an NFC card work?"
+msgstr "Hoe werkt een NFC-kaart?"
+
+#: apps/marketing/content.py:48
+msgid "Each card has a small chip programmed with the permanent link to your digital card. When someone holds their phone near it, the phone opens your card in its browser. Nothing is installed, and the chip needs no battery."
+msgstr "Elke kaart heeft een kleine chip met de permanente link naar je digitale kaart. Als iemand zijn telefoon erbij houdt, opent de telefoon je kaart in de browser. Er wordt niets geïnstalleerd en de chip heeft geen batterij nodig."
+
+#: apps/marketing/content.py:53
+msgid "Does it work on both iPhone and Android?"
+msgstr "Werkt het op zowel iPhone als Android?"
+
+#: apps/marketing/content.py:54
+msgid "Yes. iPhone XS and newer read NFC tags automatically with the screen on. Most Android phones read them when NFC is switched on in settings. If a phone cannot tap, the QR code on the card opens the same page."
+msgstr "Ja. iPhone XS en nieuwer lezen NFC-tags automatisch als het scherm aan staat. De meeste Android-telefoons lezen ze als NFC in de instellingen aan staat. Kan een telefoon de kaart niet aantikken, dan opent de QR-code op de kaart dezelfde pagina."
+
+#: apps/marketing/content.py:59
+msgid "What happens when I change my details?"
+msgstr "Wat gebeurt er als ik mijn gegevens wijzig?"
+
+#: apps/marketing/content.py:60
+msgid "Your link, QR code and NFC card never change. They always open your latest details, so there is nothing to reprint when you change job, number or photo."
+msgstr "Je link, QR-code en NFC-kaart veranderen nooit. Ze openen altijd je meest recente gegevens, dus je hoeft niets opnieuw te laten drukken als je van baan, nummer of foto verandert."
+
+#: apps/marketing/content.py:64
+msgid "How does renewal work?"
+msgstr "Hoe werkt verlengen?"
+
+#: apps/marketing/content.py:65
+#, python-format
+msgid "Plans are yearly. We email you 30 days, 7 days and 1 day before your plan ends. Renew early and the new year is added to the end of your current one, so you lose nothing. If you miss the date your card keeps working for a %(grace)d-day grace period."
+msgstr "Abonnementen lopen per jaar. We mailen je 30 dagen, 7 dagen en 1 dag voordat je abonnement afloopt. Verleng je eerder, dan komt het nieuwe jaar achter je huidige jaar, zodat je niets verliest. Mis je de datum, dan blijft je kaart nog een respijtperiode van %(grace)d dagen werken."
+
+#: apps/marketing/content.py:77
+msgid "What if my plan runs out?"
+msgstr "Wat als mijn abonnement afloopt?"
+
+#: apps/marketing/content.py:78
+msgid "After the grace period your card shows a short 'card inactive' page instead of your details. Renew at any time and the same link, QR code and NFC cards work again straight away."
+msgstr "Na de respijtperiode toont je kaart een korte pagina ‘kaart inactief’ in plaats van je gegevens. Verleng wanneer je wilt en dezelfde link, QR-code en NFC-kaarten werken meteen weer."
+
+#: apps/marketing/content.py:82
+msgid "I bought a ready-made card in a shop. How do I start?"
+msgstr "Ik heb een kant-en-klare kaart in een winkel gekocht. Hoe begin ik?"
+
+#: apps/marketing/content.py:83
+msgid "Tap the card on your phone, or scan its QR code. Enter the PIN printed on the back, add your details and create your account. Your first year is already paid for, and the link on the card stays the same for good."
+msgstr "Tik de kaart aan op je telefoon of scan de QR-code. Voer de pincode op de achterkant in, vul je gegevens in en maak je account aan. Je eerste jaar is al betaald en de link op de kaart blijft voor altijd hetzelfde."
+
+#: apps/marketing/content.py:88
+msgid "How long does an NFC order take?"
+msgstr "Hoe lang duurt een NFC-bestelling?"
+
+#: apps/marketing/content.py:89
+#, python-format
+msgid "You receive a first design proof within 3 working days of payment, and %(rounds)d rounds of changes are free. Printing and encoding take up to 5 working days after you approve, then delivery or pickup."
+msgstr "Je ontvangt binnen 3 werkdagen na betaling een eerste ontwerpvoorstel, en %(rounds)d aanpassingsrondes zijn gratis. Drukken en coderen duurt tot 5 werkdagen na je goedkeuring, daarna volgt bezorging of afhalen."
+
+#: apps/marketing/content.py:94
+msgid "Do you deliver outside Ghana?"
+msgstr "Bezorgen jullie ook buiten Ghana?"
+
+#: apps/marketing/content.py:95
+msgid "Yes. We deliver anywhere in Ghana by courier, you can pick up from our office for free, and we ship abroad. For orders outside Ghana you pay the international shipping and delivery fee for your region at checkout; any import duties or taxes in your country are paid by the recipient. You see the fee and the estimated time before you pay."
+msgstr "Ja. We bezorgen overal in Ghana per koerier, je kunt gratis afhalen op ons kantoor en we verzenden naar het buitenland. Voor bestellingen buiten Ghana betaal je bij het afrekenen de internationale verzend- en bezorgkosten voor jouw regio; eventuele invoerrechten of belastingen in jouw land betaalt de ontvanger. Je ziet de kosten en de verwachte levertijd voordat je betaalt."
+
+#: apps/marketing/content.py:101
+msgid "Can I cancel an NFC order?"
+msgstr "Kan ik een NFC-bestelling annuleren?"
+
+#: apps/marketing/content.py:102
+msgid "Before design work starts you get a full refund. After design starts and before printing, 50% of the card price is refundable. Once printing starts an order cannot be cancelled. A card with a faulty chip reported within 30 days is replaced free."
+msgstr "Voordat het ontwerpwerk begint, krijg je het volledige bedrag terug. Nadat het ontwerp is gestart en vóór het drukken, wordt 50% van de kaartprijs terugbetaald. Zodra het drukken begint, kan een bestelling niet meer worden geannuleerd. Een kaart met een defecte chip die binnen 30 dagen wordt gemeld, wordt gratis vervangen."
+
+#: apps/marketing/content.py:107
+msgid "Why are prices shown in other currencies?"
+msgstr "Waarom worden prijzen in andere valuta getoond?"
+
+#: apps/marketing/content.py:108
+msgid "Prices are shown in US dollars unless you choose another currency at the top of the page. The figure is a guide for international customers, worked out from today's exchange rate. You are always charged in Ghana cedis, and your bank may use its own rate."
+msgstr "Prijzen worden getoond in Amerikaanse dollars, tenzij je bovenaan de pagina een andere valuta kiest. Het bedrag is een richtprijs voor internationale klanten, berekend met de koers van vandaag. Je betaalt altijd in Ghanese cedi en je bank kan een eigen koers hanteren."
+
+#: apps/marketing/content.py:113
+msgid "Which payment methods can I use?"
+msgstr "Welke betaalmethoden kan ik gebruiken?"
+
+#: apps/marketing/content.py:114
+msgid "MTN MoMo, Telecel Cash and AirtelTigo Money, plus Visa and Mastercard cards. Payments go through Paystack's secure checkout; we never see your card or wallet details."
+msgstr "MTN MoMo, Telecel Cash en AirtelTigo Money, plus Visa- en Mastercard-kaarten. Betalingen lopen via de beveiligde betaalpagina van Paystack; wij zien nooit je kaart- of walletgegevens."
+
+#: apps/nfc/forms.py:25
+msgid "Name on the card"
+msgstr "Naam op de kaart"
+
+#: apps/dashboard/forms.py:47 apps/nfc/forms.py:26
+msgid "Business name"
+msgstr "Bedrijfsnaam"
+
+#: apps/dashboard/forms.py:46 apps/nfc/forms.py:27
+msgid "Position / job title"
+msgstr "Functie / functietitel"
+
+#: apps/nfc/forms.py:28
+msgid "Email on the card"
+msgstr "E-mailadres op de kaart"
+
+#: apps/nfc/forms.py:29
+msgid "Phone on the card"
+msgstr "Telefoon op de kaart"
+
+#: apps/nfc/forms.py:32
+msgid "Logo"
+msgstr "Logo"
+
+#: apps/nfc/forms.py:33
+msgid "JPG, PNG, SVG or PDF up to 10 MB. We print from this file, so send the best quality you have."
+msgstr "JPG, PNG, SVG of PDF tot 10 MB. We drukken vanaf dit bestand, dus stuur de beste kwaliteit die je hebt."
+
+#: apps/nfc/forms.py:36
+msgid "Reference design (optional)"
+msgstr "Referentieontwerp (optioneel)"
+
+#: apps/nfc/forms.py:37
+msgid "A card or style you like. JPG, PNG, SVG or PDF up to 10 MB."
+msgstr "Een kaart of stijl die je mooi vindt. JPG, PNG, SVG of PDF tot 10 MB."
+
+#: apps/nfc/forms.py:40
+msgid "Describe the design you want"
+msgstr "Beschrijf het ontwerp dat je wilt"
+
+#: apps/nfc/forms.py:42
+msgid "Colours, layout, what goes on the front and back."
+msgstr "Kleuren, indeling, wat er op de voor- en achterkant komt."
+
+#: apps/nfc/forms.py:44
+msgid "Anything else?"
+msgstr "Nog iets?"
+
+#: apps/nfc/forms.py:47
+msgid "Choose how you get your cards"
+msgstr "Kies hoe je je kaarten ontvangt"
+
+#: apps/nfc/forms.py:49
+msgid "Recipient’s name"
+msgstr "Naam van de ontvanger"
+
+#: apps/nfc/forms.py:51
+msgid "Recipient’s phone"
+msgstr "Telefoon van de ontvanger"
+
+#: apps/nfc/forms.py:52
+msgid "Outside Ghana, include the country code, for example +44 7700 900123."
+msgstr "Buiten Ghana: vermeld de landcode, bijvoorbeeld +44 7700 900123."
+
+#: apps/nfc/forms.py:54
+msgid "Country"
+msgstr "Land"
+
+#: apps/nfc/forms.py:55
+msgid "Street address"
+msgstr "Straat en huisnummer"
+
+#: apps/nfc/forms.py:56
+msgid "Town or city"
+msgstr "Plaats of stad"
+
+#: apps/nfc/forms.py:57
+msgid "Postcode / ZIP (if your country uses one)"
+msgstr "Postcode / ZIP (als je land die gebruikt)"
+
+#: apps/nfc/forms.py:59
+msgid "Ghana Post GPS (optional)"
+msgstr "Ghana Post GPS (optioneel)"
+
+#: apps/nfc/forms.py:62
+msgid "Landmark or directions"
+msgstr "Herkenningspunt of routebeschrijving"
+
+#: apps/nfc/forms.py:65 templates/nfc/order.html:115
+msgid "Digital card plan"
+msgstr "Abonnement voor digitale kaart"
+
+#: apps/nfc/forms.py:66
+msgid "NFC cards open your digital card, which needs an active plan. Buy both together here."
+msgstr "NFC-kaarten openen je digitale kaart, en die heeft een actief abonnement nodig. Koop beide hier samen."
+
+#: apps/nfc/forms.py:68 templates/billing/checkout.html:53
+msgid "Promo code"
+msgstr "Actiecode"
+
+#: apps/nfc/forms.py:70
+msgid "I have read and accept the Refund Policy and Terms of Service"
+msgstr "Ik heb het Terugbetalingsbeleid en de Servicevoorwaarden gelezen en ga ermee akkoord"
+
+#: apps/nfc/forms.py:71
+msgid "Please accept the Refund Policy before paying."
+msgstr "Accepteer het Terugbetalingsbeleid voordat je betaalt."
+
+#: apps/nfc/forms.py:89
+#, python-format
+msgid "Cards for %(name)s (/c/%(slug)s)"
+msgstr "Kaarten voor %(name)s (/c/%(slug)s)"
+
+#: apps/nfc/forms.py:115
+msgid "Choose how many NFC cards you would like."
+msgstr "Kies hoeveel NFC-kaarten je wilt."
+
+#: apps/nfc/forms.py:125
+msgid "Needed for delivery."
+msgstr "Nodig voor de bezorging."
+
+#: apps/nfc/forms.py:142
+msgid "What should we change?"
+msgstr "Wat moeten we aanpassen?"
+
+#: apps/nfc/forms.py:147
+msgid "Why are you cancelling? (optional)"
+msgstr "Waarom annuleer je? (optioneel)"
+
+#: apps/nfc/models.py:94
+msgid "Pending payment"
+msgstr "Betaling in behandeling"
+
+#: apps/nfc/models.py:95
+msgid "Payment confirmed"
+msgstr "Betaling bevestigd"
+
+#: apps/nfc/models.py:96
+msgid "Design pending"
+msgstr "Ontwerp in wachtrij"
+
+#: apps/nfc/models.py:97
+msgid "Design in progress"
+msgstr "Ontwerp in uitvoering"
+
+#: apps/nfc/models.py:98
+msgid "Awaiting your approval"
+msgstr "Wacht op je goedkeuring"
+
+#: apps/nfc/models.py:99
+msgid "Revision requested"
+msgstr "Aanpassing gevraagd"
+
+#: apps/nfc/models.py:100
+msgid "On hold"
+msgstr "In de wacht"
+
+#: apps/nfc/models.py:101
+msgid "Design approved"
+msgstr "Ontwerp goedgekeurd"
+
+#: apps/nfc/models.py:102
+msgid "Printing"
+msgstr "Drukken"
+
+#: apps/nfc/models.py:103
+msgid "Encoding and quality check"
+msgstr "Coderen en kwaliteitscontrole"
+
+#: apps/nfc/models.py:104
+msgid "Ready for delivery"
+msgstr "Klaar voor bezorging"
+
+#: apps/nfc/models.py:105
+msgid "Ready for pickup"
+msgstr "Klaar om af te halen"
+
+#: apps/nfc/models.py:106
+msgid "Dispatched"
+msgstr "Verzonden"
+
+#: apps/nfc/models.py:107 templates/dashboard/nfc_orders.html:23
+msgid "Delivered"
+msgstr "Bezorgd"
+
+#: apps/nfc/models.py:108
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+#: apps/nfc/services.py:131
+#, python-format
+msgid "Order %(number)s confirmed"
+msgstr "Bestelling %(number)s bevestigd"
+
+#: apps/nfc/services.py:156
+msgid "Our designers have started on your cards"
+msgstr "Onze ontwerpers zijn begonnen aan je kaarten"
+
+#: apps/nfc/services.py:157
+msgid "Your NFC order is on hold"
+msgstr "Je NFC-bestelling staat in de wacht"
+
+#: apps/nfc/services.py:158
+msgid "Your NFC cards are being printed"
+msgstr "Je NFC-kaarten worden gedrukt"
+
+#: apps/nfc/services.py:159
+msgid "Your NFC cards are being encoded and tested"
+msgstr "Je NFC-kaarten worden gecodeerd en getest"
+
+#: apps/nfc/services.py:160
+msgid "Your NFC cards are ready for delivery"
+msgstr "Je NFC-kaarten zijn klaar voor bezorging"
+
+#: apps/nfc/services.py:161
+msgid "Your NFC cards are ready for pickup"
+msgstr "Je NFC-kaarten liggen klaar om af te halen"
+
+#: apps/nfc/services.py:162
+msgid "Your NFC cards are on their way"
+msgstr "Je NFC-kaarten zijn onderweg"
+
+#: apps/nfc/services.py:163
+msgid "Your NFC cards have been delivered"
+msgstr "Je NFC-kaarten zijn bezorgd"
+
+#: apps/nfc/services.py:164
+msgid "Your NFC order has been cancelled"
+msgstr "Je NFC-bestelling is geannuleerd"
+
+#: apps/nfc/services.py:165
+msgid "Your NFC order has been refunded"
+msgstr "Je NFC-bestelling is terugbetaald"
+
+#: apps/nfc/services.py:166
+msgid "Your NFC order is in the design queue"
+msgstr "Je NFC-bestelling staat in de ontwerpwachtrij"
+
+#: apps/nfc/services.py:226
+#, python-format
+msgid "Please review design proof %(version)s for %(number)s"
+msgstr "Bekijk ontwerpvoorstel %(version)s voor %(number)s"
+
+#: apps/nfc/services.py:320
+#, python-format
+msgid "Reminder: your design proof for %(number)s is waiting"
+msgstr "Herinnering: je ontwerpvoorstel voor %(number)s wacht op je"
+
+#: apps/nfc/views.py:29
+#, python-format
+msgid "%(count)d customised NFC card"
+msgid_plural "%(count)d customised NFC cards"
+msgstr[0] "%(count)d NFC-kaart op maat"
+msgstr[1] "%(count)d NFC-kaarten op maat"
+
+#: apps/nfc/views.py:41
+#, python-format
+msgid "%(plan)s plan, 12 months"
+msgstr "%(plan)s-abonnement, 12 maanden"
+
+#: apps/nfc/views.py:63
+msgid "Create your digital card first. Your NFC cards will open it."
+msgstr "Maak eerst je digitale kaart aan. Je NFC-kaarten openen die."
+
+#: apps/nfc/views.py:143
+#, python-format
+msgid "%(reason)s Your order is saved; you can pay from the order page."
+msgstr "%(reason)s Je bestelling is opgeslagen; je kunt betalen vanaf de bestelpagina."
+
+#: apps/nfc/views.py:171
+msgid "We could not find that payment. If money left your account, contact support."
+msgstr "We konden die betaling niet vinden. Als er geld van je rekening is afgeschreven, neem dan contact op met de support."
+
+#: apps/nfc/views.py:175
+msgid "Payment received. Your NFC order is confirmed."
+msgstr "Betaling ontvangen. Je NFC-bestelling is bevestigd."
+
+#: apps/nfc/views.py:177
+msgid "Your payment is still being confirmed. This page updates when it is."
+msgstr "Je betaling wordt nog bevestigd. Deze pagina wordt bijgewerkt zodra het klaar is."
+
+#: apps/nfc/views.py:179
+msgid "That payment did not go through. You have not been charged."
+msgstr "Die betaling is niet gelukt. Er is niets van je afgeschreven."
+
+#: apps/nfc/views.py:267
+msgid "Design approved. We will start printing and encoding your cards."
+msgstr "Ontwerp goedgekeurd. We beginnen met het drukken en coderen van je kaarten."
+
+#: apps/nfc/views.py:280
+msgid "Tell us what to change."
+msgstr "Laat ons weten wat we moeten aanpassen."
+
+#: apps/nfc/views.py:286
+#, python-format
+msgid "Thanks. Our designers will send a new proof. You have %(left)d free round of changes left."
+msgid_plural "Thanks. Our designers will send a new proof. You have %(left)d free rounds of changes left."
+msgstr[0] "Bedankt. Onze ontwerpers sturen een nieuw voorstel. Je hebt nog %(left)d gratis aanpassingsronde."
+msgstr[1] "Bedankt. Onze ontwerpers sturen een nieuw voorstel. Je hebt nog %(left)d gratis aanpassingsrondes."
+
+#: apps/nfc/views.py:291
+msgid "Thanks. This is beyond the free revision rounds, so our team may contact you about a small fee."
+msgstr "Bedankt. Dit valt buiten de gratis aanpassingsrondes, dus ons team neemt mogelijk contact met je op over een kleine vergoeding."
+
+#: apps/nfc/views.py:307
+#, python-format
+msgid "Order cancelled. A refund of %(amount)s will be processed to your original payment method."
+msgstr "Bestelling geannuleerd. %(amount)s wordt teruggestort op je oorspronkelijke betaalmethode."
+
+#: apps/nfc/views.py:309
+msgid "Order cancelled."
+msgstr "Bestelling geannuleerd."
+
+#: apps/staff/views/nfc.py:136
+#, python-format
+msgid "An update on your order %(number)s"
+msgstr "Een update over je bestelling %(number)s"
+
+#: apps/staff/views/subscribers.py:121
+msgid "Your AD Smart account has been suspended"
+msgstr "Je AD Smart-account is geschorst"
+
+#: apps/staff/views/subscribers.py:121
+msgid "Your AD Smart account is active again"
+msgstr "Je AD Smart-account is weer actief"
+
+#: apps/staff/views/subscribers.py:145
+#, python-format
+msgid "Your card /c/%(slug)s has been suspended"
+msgstr "Je kaart /c/%(slug)s is geschorst"
+
+#: apps/staff/views/subscribers.py:146
+#, python-format
+msgid "Your card /c/%(slug)s has been reinstated"
+msgstr "Je kaart /c/%(slug)s is hersteld"
+
+#: apps/support/forms.py:8 templates/support/contact.html:7
+msgid "How can we help?"
+msgstr "Waar kunnen we mee helpen?"
+
+#: apps/support/forms.py:25
+msgid "Your reply"
+msgstr "Je antwoord"
+
+#: apps/support/models.py:23
+msgid "In progress"
+msgstr "Bezig"
+
+#: apps/support/models.py:23
+msgid "Resolved"
+msgstr "Opgelost"
+
+#: apps/support/models.py:23
+msgid "Closed"
+msgstr "Gesloten"
+
+#: apps/support/views.py:28
+msgid "You have sent several messages already. We will get back to you soon."
+msgstr "Je hebt al meerdere berichten verstuurd. We komen snel bij je terug."
+
+#: apps/support/views.py:37
+#, python-format
+msgid "We received your message (%(reference)s)"
+msgstr "We hebben je bericht ontvangen (%(reference)s)"
+
+#: apps/support/views.py:47
+#, python-format
+msgid "Thanks — your reference is %(reference)s. We reply within 1 working day."
+msgstr "Bedankt — je referentie is %(reference)s. We reageren binnen 1 werkdag."
+
+#: apps/support/views.py:77
+msgid "Reply sent."
+msgstr "Antwoord verzonden."
+
+#: templates/accounts/change_password.html:2
+#, python-format
+msgid "Change password · %(SITE_NAME)s"
+msgstr "Wachtwoord wijzigen · %(SITE_NAME)s"
+
+#: templates/accounts/change_password.html:7
+msgid "Change your password"
+msgstr "Wijzig je wachtwoord"
+
+#: templates/accounts/change_password.html:8
+msgid "We will email you to confirm the change."
+msgstr "We sturen je een e-mail om de wijziging te bevestigen."
+
+#: templates/accounts/change_password.html:12
+msgid "Update password"
+msgstr "Wachtwoord bijwerken"
+
+#: templates/accounts/change_password.html:14
+msgid "Back to settings"
+msgstr "Terug naar instellingen"
+
+#: templates/accounts/forgot_password.html:2
+#, python-format
+msgid "Reset your password · %(SITE_NAME)s"
+msgstr "Wachtwoord herstellen · %(SITE_NAME)s"
+
+#: templates/accounts/forgot_password.html:7 templates/accounts/login.html:14
+msgid "Forgot your password?"
+msgstr "Wachtwoord vergeten?"
+
+#: templates/accounts/forgot_password.html:8
+msgid "Enter your email and we will send you a 6-digit code. It works for 15 minutes."
+msgstr "Voer je e-mailadres in en we sturen je een code van 6 cijfers. De code is 15 minuten geldig."
+
+#: templates/accounts/forgot_password.html:12
+msgid "Send my code"
+msgstr "Stuur mijn code"
+
+#: templates/accounts/forgot_password.html:14
+msgid "Back to log in"
+msgstr "Terug naar inloggen"
+
+#: templates/accounts/login.html:2
+#, python-format
+msgid "Log in · %(SITE_NAME)s"
+msgstr "Inloggen · %(SITE_NAME)s"
+
+#: templates/accounts/login.html:7
+msgid "Welcome back"
+msgstr "Welkom terug"
+
+#: templates/accounts/login.html:8
+msgid "Log in to edit your card, see who viewed it and track NFC orders."
+msgstr "Log in om je kaart te bewerken, te zien wie hem heeft bekeken en je NFC-bestellingen te volgen."
+
+#: templates/accounts/login.html:15 templates/partials/site_header.html:31 templates/partials/site_header.html:56
+msgid "Log in"
+msgstr "Inloggen"
+
+#: templates/accounts/login.html:17
+#, python-format
+msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
+msgstr "Nieuw hier? <a href=\"%(url_1)s\">Maak een kaart</a>"
+
+#: templates/accounts/register.html:2
+#, python-format
+msgid "Create your account · %(SITE_NAME)s"
+msgstr "Maak je account aan · %(SITE_NAME)s"
+
+#: templates/accounts/register.html:7
+msgid "Step 1 of 3"
+msgstr "Stap 1 van 3"
+
+#: templates/accounts/register.html:9
+msgid "Then build and preview your card for free. You only pay when you choose a plan."
+msgstr "Daarna maak je je kaart gratis en bekijk je een voorbeeld. Je betaalt pas als je een abonnement kiest."
+
+#: templates/accounts/register.html:12
+msgid "Signing up with Google confirms your email straight away. We will ask for your mobile number next."
+msgstr "Registreren met Google bevestigt je e-mailadres meteen. Daarna vragen we om je mobiele nummer."
+
+#: templates/accounts/register.html:18
+msgid "Create account"
+msgstr "Account aanmaken"
+
+#: templates/accounts/register.html:20
+#, python-format
+msgid "Already have an account? <a href=\"%(url_3)s\">Log in</a>"
+msgstr "Heb je al een account? <a href=\"%(url_3)s\">Log in</a>"
+
+#: templates/accounts/reset_password.html:2
+#, python-format
+msgid "Enter your code · %(SITE_NAME)s"
+msgstr "Voer je code in · %(SITE_NAME)s"
+
+#: templates/accounts/reset_password.html:7
+msgid "Enter your code"
+msgstr "Voer je code in"
+
+#: templates/accounts/reset_password.html:8
+#, python-format
+msgid "If <strong>%(email)s</strong> has an account, we emailed it a 6-digit code. Enter it with your new password."
+msgstr "Als <strong>%(email)s</strong> een account heeft, hebben we een code van 6 cijfers gemaild. Voer die in met je nieuwe wachtwoord."
+
+#: templates/accounts/reset_password.html:12
+msgid "Reset password"
+msgstr "Wachtwoord herstellen"
+
+#: templates/accounts/reset_password.html:14
+msgid "Send a new code"
+msgstr "Nieuwe code sturen"
+
+#: templates/accounts/verify_pending.html:2
+#, python-format
+msgid "Confirm your email · %(SITE_NAME)s"
+msgstr "Bevestig je e-mailadres · %(SITE_NAME)s"
+
+#: templates/accounts/verify_pending.html:8
+msgid "Step 2 of 3"
+msgstr "Stap 2 van 3"
+
+#: templates/accounts/verify_pending.html:9
+msgid "Check your email"
+msgstr "Controleer je e-mail"
+
+#: templates/accounts/verify_pending.html:10
+#, python-format
+msgid "We sent a confirmation link to <strong>%(user_email)s</strong>. Open it to start building your card."
+msgstr "We hebben een bevestigingslink gestuurd naar <strong>%(user_email)s</strong>. Open hem om te beginnen met je kaart."
+
+#: templates/accounts/verify_pending.html:11
+msgid "No email after a few minutes? Check your spam or promotions folder."
+msgstr "Na een paar minuten nog geen e-mail? Controleer je spam- of promotiemap."
+
+#: templates/accounts/verify_pending.html:14
+msgid "Send the link again"
+msgstr "Link opnieuw sturen"
+
+#: templates/accounts/verify_pending.html:16
+msgid "Use a different account"
+msgstr "Een ander account gebruiken"
+
+#: templates/base.html:38
+msgid "Skip to main content"
+msgstr "Naar de hoofdinhoud"
+
+#: templates/billing/_team_calc.html:6
+msgid "How many people?"
+msgstr "Hoeveel personen?"
+
+#: templates/billing/_team_calc.html:8
+msgid "One person fewer"
+msgstr "Eén persoon minder"
+
+#: templates/billing/_team_calc.html:10
+msgid "One more person"
+msgstr "Eén persoon meer"
+
+#: templates/billing/_team_calc.html:19
+#, python-format
+msgid "%(plan_name)s price per person"
+msgstr "%(plan_name)s-prijs per persoon"
+
+#: templates/billing/_team_calc.html:21
+#, python-format
+msgid "First %(plan_max_cards)s people"
+msgstr "Eerste %(plan_max_cards)s personen"
+
+#: templates/billing/_team_calc.html:21
+msgid "in total"
+msgstr "in totaal"
+
+#: templates/billing/_team_calc.html:23
+#, python-format
+msgid "People %(band_min_seats)s–%(band_max_seats)s"
+msgstr "Personen %(band_min_seats)s–%(band_max_seats)s"
+
+#: templates/billing/_team_calc.html:23
+#, python-format
+msgid "Person %(band_min_seats)s and above"
+msgstr "Persoon %(band_min_seats)s en verder"
+
+#: templates/billing/_team_calc.html:23
+msgid "each"
+msgstr "per persoon"
+
+#: templates/billing/_team_calc.html:27
+#, python-format
+msgid "For more than %(team_max)s people, <a href=\"%(url_3)s\">contact us</a> for a quote."
+msgstr "Voor meer dan %(team_max)s personen kun je <a href=\"%(url_3)s\">contact met ons opnemen</a> voor een offerte."
+
+#: templates/billing/checkout.html:2
+#, python-format
+msgid "Choose your plan · %(SITE_NAME)s"
+msgstr "Kies je abonnement · %(SITE_NAME)s"
+
+#: templates/billing/checkout.html:6
+msgid "Renew or change your plan"
+msgstr "Verleng of wijzig je abonnement"
+
+#: templates/billing/checkout.html:6
+msgid "Choose your plan"
+msgstr "Kies je abonnement"
+
+#: templates/billing/checkout.html:7
+#, python-format
+msgid "Your %(subscription_plan_name)s plan runs until %(subscription_expires_at_date)s. Renewing adds 12 months to that date."
+msgstr "Je %(subscription_plan_name)s-abonnement loopt tot %(subscription_expires_at_date)s. Verlengen voegt 12 maanden aan die datum toe."
+
+#: templates/billing/checkout.html:7
+msgid "Your card goes live as soon as Paystack confirms your payment."
+msgstr "Je kaart gaat live zodra Paystack je betaling bevestigt."
+
+#: templates/billing/checkout.html:31 templates/dashboard/home.html:61 templates/dashboard/home.html:64
+msgid "Plan"
+msgstr "Abonnement"
+
+#: templates/billing/checkout.html:36 templates/marketing/_plans.html:7
+msgid "Most popular"
+msgstr "Meest gekozen"
+
+#: templates/billing/checkout.html:37 templates/marketing/_plans.html:12
+msgid "from"
+msgstr "vanaf"
+
+#: templates/billing/checkout.html:37
+#, python-format
+msgid "for %(p_max_cards)s people"
+msgstr "voor %(p_max_cards)s personen"
+
+#: templates/billing/checkout.html:45
+msgid "Team size"
+msgstr "Teamgrootte"
+
+#: templates/billing/checkout.html:46
+#, python-format
+msgid "The %(plan_name)s price includes %(plan_max_cards)s people. Everyone after that is priced per person, and the bigger the team, the less each person costs. Each person gets their own card."
+msgstr "De %(plan_name)s-prijs is inclusief %(plan_max_cards)s personen. Iedereen daarna wordt per persoon berekend, en hoe groter het team, hoe minder elke persoon kost. Elke persoon krijgt een eigen kaart."
+
+#: templates/billing/checkout.html:48
+#, python-format
+msgid "You pay for %(subscription_team_size)s people now. To add people before your renewal, choose the new team size and pay the difference for the months left."
+msgstr "Je betaalt nu voor %(subscription_team_size)s personen. Om vóór je verlenging personen toe te voegen, kies je de nieuwe teamgrootte en betaal je het verschil voor de resterende maanden."
+
+#: templates/billing/checkout.html:55
+msgid "Code (optional)"
+msgstr "Code (optioneel)"
+
+#: templates/billing/checkout.html:56
+msgid "Apply"
+msgstr "Toepassen"
+
+#: templates/billing/checkout.html:61
+#, python-format
+msgid "<strong>%(plan_name)s costs less than your current plan.</strong> It starts when your current year ends on %(subscription_expires_at_date)s. Until then you keep everything in %(subscription_plan_name)s."
+msgstr "<strong>%(plan_name)s kost minder dan je huidige abonnement.</strong> Het gaat in als je huidige jaar eindigt op %(subscription_expires_at_date)s. Tot dan houd je alles van %(subscription_plan_name)s."
+
+#: templates/billing/checkout.html:66 templates/nfc/detail.html:80
+msgid "Summary"
+msgstr "Overzicht"
+
+#: templates/billing/checkout.html:69
+#, python-format
+msgid "Discount (%(quote_promo_code)s)"
+msgstr "Korting (%(quote_promo_code)s)"
+
+#: templates/billing/checkout.html:71
+msgid "You pay"
+msgstr "Je betaalt"
+
+#: templates/billing/checkout.html:72
+#, python-format
+msgid "The amount shown in %(currency)s is approximate. You will be charged %(quote_total_minor_ghs)s. Your bank may apply its own exchange rate."
+msgstr "Het bedrag in %(currency)s is bij benadering. Er wordt %(quote_total_minor_ghs)s van je afgeschreven. Je bank kan een eigen wisselkoers hanteren."
+
+#: templates/billing/checkout.html:74
+#, python-format
+msgid "I accept the <a href=\"%(url_1)s\" target=\"_blank\">Terms of Service</a> and <a href=\"%(url_2)s\" target=\"_blank\">Refund Policy</a>. Subscriptions are not refundable once active."
+msgstr "Ik ga akkoord met de <a href=\"%(url_1)s\" target=\"_blank\">Servicevoorwaarden</a> en het <a href=\"%(url_2)s\" target=\"_blank\">Terugbetalingsbeleid</a>. Abonnementen kunnen niet worden terugbetaald zodra ze actief zijn."
+
+#: templates/billing/checkout.html:83
+msgid "Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard."
+msgstr "Veilig betalen via Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa en Mastercard."
+
+#: templates/billing/checkout.html:83
+msgid "Test mode — no real money moves."
+msgstr "Testmodus — er wordt geen echt geld verplaatst."
+
+#: templates/billing/receipts.html:2
+#, python-format
+msgid "Receipts · %(SITE_NAME)s"
+msgstr "Kwitanties · %(SITE_NAME)s"
+
+#: templates/billing/receipts.html:5
+msgid "Payments and receipts"
+msgstr "Betalingen en kwitanties"
+
+#: templates/billing/receipts.html:5
+#, python-format
+msgid "Every payment, with a PDF receipt for each successful one. Add your company name for receipts in <a href=\"%(url_1)s\">Settings</a>."
+msgstr "Al je betalingen, met een pdf-kwitantie voor elke geslaagde betaling. Voeg je bedrijfsnaam voor kwitanties toe in de <a href=\"%(url_1)s\">instellingen</a>."
+
+#: templates/billing/receipts.html:10
+msgid "Your payments"
+msgstr "Je betalingen"
+
+#: apps/dashboard/views.py:326 templates/billing/receipts.html:11
+msgid "Date"
+msgstr "Datum"
+
+#: templates/billing/receipts.html:11
+msgid "What for"
+msgstr "Waarvoor"
+
+#: templates/billing/receipts.html:11 templates/dashboard/cards.html:17 templates/dashboard/home.html:65 templates/dashboard/nfc_orders.html:15 templates/support/mine.html:12
+msgid "Status"
+msgstr "Status"
+
+#: templates/billing/receipts.html:11
+msgid "Amount"
+msgstr "Bedrag"
+
+#: templates/billing/receipts.html:11
+msgid "Receipt"
+msgstr "Kwitantie"
+
+#: templates/billing/receipts.html:17
+msgid "Paid"
+msgstr "Betaald"
+
+#: templates/billing/receipts.html:26
+msgid "No payments yet"
+msgstr "Nog geen betalingen"
+
+#: templates/billing/receipts.html:26
+msgid "Your receipts will appear here."
+msgstr "Je kwitanties verschijnen hier."
+
+#: templates/billing/result.html:2
+#, python-format
+msgid "Payment %(payment_get_status_display_lower)s · %(SITE_NAME)s"
+msgstr "Betaling %(payment_get_status_display_lower)s · %(SITE_NAME)s"
+
+#: templates/billing/result.html:10
+msgid "Payment received"
+msgstr "Betaling ontvangen"
+
+#: templates/billing/result.html:11
+#, python-format
+msgid "Receipt %(payment_receipt_number)s is on its way to your inbox."
+msgstr "Kwitantie %(payment_receipt_number)s is onderweg naar je inbox."
+
+#: templates/billing/result.html:15
+msgid "Track your order"
+msgstr "Volg je bestelling"
+
+#: templates/billing/result.html:17 templates/dashboard/share.html:6
+msgid "Share your card"
+msgstr "Deel je kaart"
+
+#: templates/billing/result.html:19
+msgid "Download receipt"
+msgstr "Kwitantie downloaden"
+
+#: templates/billing/result.html:24
+msgid "Confirming your payment…"
+msgstr "Je betaling wordt bevestigd…"
+
+#: templates/billing/result.html:25
+msgid "Approve the prompt on your phone if you paid with Mobile Money. This page checks again every few seconds."
+msgstr "Keur de melding op je telefoon goed als je met Mobile Money hebt betaald. Deze pagina controleert om de paar seconden opnieuw."
+
+#: templates/billing/result.html:26
+#, python-format
+msgid "Reference <span class=\"mono\">%(payment_reference)s</span>"
+msgstr "Referentie <span class=\"mono\">%(payment_reference)s</span>"
+
+#: templates/billing/result.html:27
+msgid "Check now"
+msgstr "Nu controleren"
+
+#: templates/billing/result.html:30
+msgid "That payment did not go through"
+msgstr "Die betaling is niet gelukt"
+
+#: templates/billing/result.html:31
+msgid "You have not been charged. You can try again, or use a different payment method."
+msgstr "Er is niets van je afgeschreven. Je kunt het opnieuw proberen of een andere betaalmethode gebruiken."
+
+#: templates/billing/result.html:32
+msgid "Try again"
+msgstr "Opnieuw proberen"
+
+#: templates/billing/result.html:34
+msgid "Log in to see your account"
+msgstr "Log in om je account te zien"
+
+#: templates/cards/_card.html:8
+#, python-format
+msgid "%(card_business_name_default)s logo"
+msgstr "Logo van %(card_business_name_default)s"
+
+#: templates/cards/_card.html:23
+msgid "Save contact"
+msgstr "Contact opslaan"
+
+#: templates/cards/_card.html:25
+msgid "Share this card"
+msgstr "Deze kaart delen"
+
+#: templates/cards/_card.html:31
+#, python-format
+msgid "Contact %(first)s"
+msgstr "Neem contact op met %(first)s"
+
+#: templates/cards/_card.html:33 templates/support/contact.html:22
+msgid "Call"
+msgstr "Bellen"
+
+#: apps/cards/forms.py:18 apps/dashboard/views.py:326 apps/support/forms.py:14 templates/cards/_card.html:39 templates/cards/_card.html:70 templates/dashboard/leads.html:15 templates/dashboard/share.html:23 templates/support/contact.html:23
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/cards/_card.html:45 templates/cards/_card.html:47
+msgid "Map"
+msgstr "Kaart"
+
+#: templates/cards/_card.html:51 templates/dashboard/editor.html:65
+msgid "Contact details"
+msgstr "Contactgegevens"
+
+#: templates/cards/_card.html:96
+#, python-format
+msgid "About %(first)s"
+msgstr "Over %(first)s"
+
+#: templates/cards/_card.html:100
+msgid "Social media"
+msgstr "Sociale media"
+
+#: templates/cards/_card.html:114
+#, python-format
+msgid "Share your details with %(first)s"
+msgstr "Deel je gegevens met %(first)s"
+
+#: templates/cards/_card.html:117
+msgid "Leave empty"
+msgstr "Leeg laten"
+
+#: templates/cards/_card.html:119
+msgid "Send my details"
+msgstr "Mijn gegevens versturen"
+
+#: templates/cards/_card.html:126
+msgid "Show QR code"
+msgstr "QR-code tonen"
+
+#: templates/cards/_card.html:127
+msgid "Let someone scan this to open the card."
+msgstr "Laat iemand dit scannen om de kaart te openen."
+
+#: templates/cards/_card.html:134
+msgid "Powered by AD Smart"
+msgstr "Mogelijk gemaakt door AD Smart"
+
+#: templates/cards/_card.html:137 templates/cards/report.html:7
+msgid "Report this card"
+msgstr "Deze kaart melden"
+
+#: templates/cards/claim_attach.html:2
+#, python-format
+msgid "Add this card to your account · %(SITE_NAME)s"
+msgstr "Voeg deze kaart toe aan je account · %(SITE_NAME)s"
+
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
+msgid "Step 2 of 2"
+msgstr "Stap 2 van 2"
+
+#: templates/cards/claim_attach.html:8
+msgid "Add this card to your account"
+msgstr "Voeg deze kaart toe aan je account"
+
+#: templates/cards/claim_attach.html:12
+msgid "Go to my cards"
+msgstr "Naar mijn kaarten"
+
+#: templates/cards/claim_attach.html:14
+#, python-format
+msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and one year of %(batch_plan_name)s will be added to your plan. Its link and QR code stay exactly as printed."
+msgstr "Je bent ingelogd als <strong>%(user_email)s</strong>. De kaart wordt aan dit account toegevoegd en er wordt een jaar %(batch_plan_name)s aan je abonnement toegevoegd. De link en QR-code blijven precies zoals gedrukt."
+
+#: templates/cards/claim_attach.html:15
+#, python-format
+msgid "Your plan is currently %(subscription_plan_name)s, active until %(subscription_expires_at_date)s."
+msgstr "Je huidige abonnement is %(subscription_plan_name)s, actief tot %(subscription_expires_at_date)s."
+
+#: templates/cards/claim_attach.html:18
+msgid "Add the card and the year"
+msgstr "Kaart en jaar toevoegen"
+
+#: templates/cards/claim_pin.html:2 templates/cards/claim_setup.html:2
+#, python-format
+msgid "Set up your card · %(SITE_NAME)s"
+msgstr "Stel je kaart in · %(SITE_NAME)s"
+
+#: templates/cards/claim_pin.html:7
+msgid "Step 1 of 2"
+msgstr "Stap 1 van 2"
+
+#: templates/cards/claim_pin.html:8
+msgid "Set up your card"
+msgstr "Stel je kaart in"
+
+#: templates/cards/claim_pin.html:9
+msgid "Your card is ready and its first year is already paid for. Enter the PIN printed on the back of the card to begin."
+msgstr "Je kaart is klaar en het eerste jaar is al betaald. Voer de pincode op de achterkant van de kaart in om te beginnen."
+
+#: templates/cards/claim_pin.html:13
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: templates/cards/claim_pin.html:15
+msgid "Cannot find the PIN? It is printed on the back of the card. Ask the shop that sold it to you."
+msgstr "Kun je de pincode niet vinden? Die staat op de achterkant van de kaart. Vraag het de winkel die hem je verkocht heeft."
+
+#: templates/cards/claim_setup.html:8
+msgid "Your details"
+msgstr "Je gegevens"
+
+#: templates/cards/claim_setup.html:9
+#, python-format
+msgid "This card comes with one year of the %(batch_plan_name)s plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
+msgstr "Deze kaart wordt geleverd met een jaar %(batch_plan_name)s-abonnement, al betaald. Vul je gegevens in en maak je account aan. De link en QR-code van je kaart blijven precies zoals gedrukt."
+
+#: templates/accounts/register.html:17 templates/cards/claim_setup.html:13
+#, python-format
+msgid "By creating an account you agree to our <a href=\"%(url_1)s\" target=\"_blank\">Terms of Service</a> and <a href=\"%(url_2)s\" target=\"_blank\">Privacy Policy</a>."
+msgstr "Door een account aan te maken ga je akkoord met onze <a href=\"%(url_1)s\" target=\"_blank\">Servicevoorwaarden</a> en ons <a href=\"%(url_2)s\" target=\"_blank\">Privacybeleid</a>."
+
+#: templates/cards/claim_setup.html:14
+msgid "Activate my card"
+msgstr "Mijn kaart activeren"
+
+#: templates/cards/claim_setup.html:16
+#, python-format
+msgid "Already have an account? <a href=\"%(login_url)s\">Log in to add this card to it</a>"
+msgstr "Heb je al een account? <a href=\"%(login_url)s\">Log in om deze kaart eraan toe te voegen</a>"
+
+#: templates/cards/report.html:2
+#, python-format
+msgid "Report a card · %(SITE_NAME)s"
+msgstr "Een kaart melden · %(SITE_NAME)s"
+
+#: templates/cards/report.html:8
+#, python-format
+msgid "Tell us what is wrong with the card at <strong>/c/%(card_slug)s</strong>. Reports are reviewed by our support team."
+msgstr "Vertel ons wat er mis is met de kaart op <strong>/c/%(card_slug)s</strong>. Meldingen worden door ons supportteam beoordeeld."
+
+#: templates/cards/report.html:20
+msgid "Send report"
+msgstr "Melding versturen"
+
+#: templates/cards/report.html:21
+msgid "Back to the card"
+msgstr "Terug naar de kaart"
+
+#: templates/cards/state.html:3 templates/cards/state.html:15
+msgid "This card is not yet active"
+msgstr "Deze kaart is nog niet actief"
+
+#: templates/cards/state.html:3 templates/cards/state.html:18
+msgid "This card is currently inactive"
+msgstr "Deze kaart is momenteel inactief"
+
+#: templates/cards/state.html:3 templates/cards/state.html:21
+msgid "This card is unavailable"
+msgstr "Deze kaart is niet beschikbaar"
+
+#: templates/cards/state.html:3 templates/cards/state.html:24
+msgid "This card no longer exists"
+msgstr "Deze kaart bestaat niet meer"
+
+#: templates/cards/state.html:3
+msgid "Card not found"
+msgstr "Kaart niet gevonden"
+
+#: templates/cards/state.html:13
+msgid "AD Smart Business Cards"
+msgstr "AD Smart Business Cards"
+
+#: templates/cards/state.html:16
+msgid "The owner is still setting it up. Check back soon."
+msgstr "De eigenaar is hem nog aan het instellen. Kom snel terug."
+
+#: templates/cards/state.html:19
+msgid "The owner’s plan has ended. Once it is renewed, this link works again."
+msgstr "Het abonnement van de eigenaar is afgelopen. Zodra het is verlengd, werkt deze link weer."
+
+#: templates/cards/state.html:22
+msgid "This card has been switched off. If you think this is a mistake, contact support."
+msgstr "Deze kaart is uitgeschakeld. Denk je dat dit een vergissing is, neem dan contact op met de support."
+
+#: templates/cards/state.html:25
+msgid "The owner has closed this card."
+msgstr "De eigenaar heeft deze kaart gesloten."
+
+#: templates/cards/state.html:27
+msgid "We could not find that card"
+msgstr "We konden die kaart niet vinden"
+
+#: templates/cards/state.html:28
+msgid "Check the link, or scan the QR code again."
+msgstr "Controleer de link of scan de QR-code opnieuw."
+
+#: templates/cards/state.html:31
+msgid "Get your own smart card"
+msgstr "Krijg je eigen slimme kaart"
+
+#: templates/dashboard/_shell.html:12
+msgid "Open menu"
+msgstr "Menu openen"
+
+#: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:64 templates/dashboard/settings.html:26 templates/partials/site_header.html:21
+msgid "Change theme"
+msgstr "Thema wijzigen"
+
+#: templates/dashboard/_shell.html:23 templates/dashboard/_shell.html:28 templates/partials/site_header.html:28
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/dashboard/_shell.html:30
+msgid "Your card"
+msgstr "Je kaart"
+
+#: templates/dashboard/_shell.html:32
+msgid "Overview"
+msgstr "Overzicht"
+
+#: templates/dashboard/_shell.html:33 templates/dashboard/home.html:11
+msgid "Edit card"
+msgstr "Kaart bewerken"
+
+#: apps/dashboard/forms.py:56 templates/dashboard/_shell.html:34 templates/dashboard/analytics.html:63 templates/dashboard/links.html:6
+msgid "Social links"
+msgstr "Sociale links"
+
+#: templates/dashboard/_shell.html:35
+msgid "Share &amp; QR"
+msgstr "Delen en QR"
+
+#: templates/dashboard/_shell.html:36 templates/dashboard/analytics.html:6
+msgid "Analytics"
+msgstr "Statistieken"
+
+#: templates/dashboard/_shell.html:37 templates/dashboard/leads.html:6
+msgid "Contacts"
+msgstr "Contacten"
+
+#: templates/dashboard/_shell.html:38 templates/dashboard/cards.html:6 templates/dashboard/editor.html:6
+msgid "Team cards"
+msgstr "Teamkaarten"
+
+#: templates/dashboard/_shell.html:42
+msgid "Orders &amp; billing"
+msgstr "Bestellingen en facturatie"
+
+#: templates/dashboard/_shell.html:44 templates/dashboard/home.html:48 templates/dashboard/nfc_orders.html:6 templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6 templates/nfc/order.html:6 templates/nfc/order.html:113 templates/partials/site_footer.html:16 templates/partials/site_header.html:13 templates/partials/site_header.html:45
+msgid "NFC cards"
+msgstr "NFC-kaarten"
+
+#: templates/dashboard/_shell.html:45
+msgid "Plan &amp; renewal"
+msgstr "Abonnement en verlenging"
+
+#: templates/dashboard/_shell.html:46 templates/dashboard/home.html:61
+msgid "Receipts"
+msgstr "Kwitanties"
+
+#: templates/dashboard/_shell.html:50
+msgid "Account"
+msgstr "Account"
+
+#: templates/dashboard/_shell.html:52 templates/dashboard/settings.html:4
+msgid "Settings"
+msgstr "Instellingen"
+
+#: templates/dashboard/_shell.html:53
+msgid "Help &amp; support"
+msgstr "Hulp en support"
+
+#: templates/dashboard/_shell.html:67
+msgid "Log out"
+msgstr "Uitloggen"
+
+#: templates/dashboard/_status_banner.html:5
+msgid "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to give it its permanent link and switch it on."
+msgstr "<strong>Je kaart is een concept.</strong> Alleen jij kunt hem zien. Kies een abonnement om hem zijn permanente link te geven en hem aan te zetten."
+
+#: templates/dashboard/_status_banner.html:6 templates/dashboard/editor.html:162
+msgid "Choose a plan"
+msgstr "Kies een abonnement"
+
+#: templates/dashboard/_status_banner.html:11
+#, python-format
+msgid "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> Your card still works until %(shell_subscription_grace_ends_at_date)s. Renew before then to keep it live."
+msgstr "<strong>Je abonnement is afgelopen op %(shell_subscription_expires_at_date)s.</strong> Je kaart werkt nog tot %(shell_subscription_grace_ends_at_date)s. Verleng vóór die datum om hem live te houden."
+
+#: templates/dashboard/_status_banner.html:12 templates/dashboard/_status_banner.html:18
+msgid "Renew now"
+msgstr "Nu verlengen"
+
+#: templates/dashboard/_status_banner.html:17
+msgid "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page. Renew to bring back the same link, QR code and NFC cards."
+msgstr "<strong>Je kaart is inactief.</strong> Bezoekers zien een pagina ‘kaart inactief’. Verleng om dezelfde link, QR-code en NFC-kaarten terug te krijgen."
+
+#: templates/dashboard/_status_banner.html:24
+msgid "Renew"
+msgstr "Verlengen"
+
+#: templates/dashboard/analytics.html:2
+#, python-format
+msgid "Analytics · %(SITE_NAME)s"
+msgstr "Statistieken · %(SITE_NAME)s"
+
+#: templates/dashboard/analytics.html:7
+msgid "Visits are counted without storing anyone’s IP address. Link-preview robots and your own views are not counted."
+msgstr "Bezoeken worden geteld zonder het IP-adres van iemand op te slaan. Linkvoorbeeld-robots en je eigen weergaven tellen niet mee."
+
+#: templates/dashboard/analytics.html:10
+msgid "Period"
+msgstr "Periode"
+
+#: templates/dashboard/analytics.html:25
+msgid "<strong>See where your visitors come from.</strong> Professional and Business show QR scans, NFC taps, saved contacts and every button click, by day, week, month or year."
+msgstr "<strong>Zie waar je bezoekers vandaan komen.</strong> Professional en Business tonen QR-scans, NFC-tikken, opgeslagen contacten en elke knopklik, per dag, week, maand of jaar."
+
+#: templates/dashboard/analytics.html:26
+msgid "Upgrade"
+msgstr "Upgraden"
+
+#: templates/dashboard/analytics.html:36
+msgid "Views over time"
+msgstr "Weergaven in de tijd"
+
+#: templates/dashboard/analytics.html:37
+#, python-format
+msgid "%(views)s views in the selected period"
+msgstr "%(views)s weergaven in de gekozen periode"
+
+#: templates/dashboard/analytics.html:45
+msgid "Where visits came from"
+msgstr "Waar bezoeken vandaan kwamen"
+
+#: templates/dashboard/analytics.html:53
+msgid "What people tapped"
+msgstr "Waarop mensen tikten"
+
+#: templates/dashboard/analytics.html:56
+msgid "Clicks by button"
+msgstr "Klikken per knop"
+
+#: templates/dashboard/cards.html:2
+#, python-format
+msgid "Team cards · %(SITE_NAME)s"
+msgstr "Teamkaarten · %(SITE_NAME)s"
+
+#: templates/dashboard/cards.html:11
+msgid "<strong>You have more cards switched on than your plan includes.</strong> Choose which ones stay live by switching others off."
+msgstr "<strong>Je hebt meer kaarten ingeschakeld dan je abonnement bevat.</strong> Kies welke live blijven door de andere uit te schakelen."
+
+#: templates/dashboard/cards.html:16
+msgid "Your cards"
+msgstr "Je kaarten"
+
+#: apps/billing/models.py:217 apps/dashboard/views.py:326 templates/dashboard/cards.html:17
+msgid "Card"
+msgstr "Kaart"
+
+#: apps/dashboard/forms.py:219 templates/dashboard/cards.html:17
+msgid "Link"
+msgstr "Link"
+
+#: templates/dashboard/cards.html:17 templates/dashboard/leads.html:15
+msgid "Actions"
+msgstr "Acties"
+
+#: templates/dashboard/cards.html:23 templates/dashboard/home.html:67
+msgid "On"
+msgstr "Aan"
+
+#: templates/dashboard/cards.html:23 templates/dashboard/home.html:67
+msgid "Off"
+msgstr "Uit"
+
+#: templates/dashboard/cards.html:25
+msgid "Edit"
+msgstr "Bewerken"
+
+#: templates/dashboard/cards.html:26
+msgid "Switch off"
+msgstr "Uitschakelen"
+
+#: templates/dashboard/cards.html:26
+msgid "Switch on"
+msgstr "Inschakelen"
+
+#: templates/dashboard/cards.html:27
+#, python-format
+msgid "Delete %(c_full_name)s's card? Its link will say the card no longer exists, and it can never be reused."
+msgstr "De kaart van %(c_full_name)s verwijderen? De link toont dat de kaart niet meer bestaat en kan nooit opnieuw worden gebruikt."
+
+#: templates/dashboard/cards.html:27
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: templates/dashboard/cards.html:35
+msgid "Add a card"
+msgstr "Een kaart toevoegen"
+
+#: templates/dashboard/cards.html:40
+msgid "Create card"
+msgstr "Kaart aanmaken"
+
+#: templates/dashboard/cards.html:43
+msgid "Every place on your plan is in use. When someone leaves, switch their card off or delete it, then add a card for the new person."
+msgstr "Alle plekken in je abonnement zijn in gebruik. Als iemand vertrekt, schakel je zijn of haar kaart uit of verwijder je die, en voeg je een kaart toe voor de nieuwe persoon."
+
+#: templates/dashboard/cards.html:45
+msgid "Add people to your plan"
+msgstr "Personen aan je abonnement toevoegen"
+
+#: templates/dashboard/cards.html:45
+msgid "See Business"
+msgstr "Bekijk Business"
+
+#: templates/dashboard/editor.html:2
+#, python-format
+msgid "Edit card · %(SITE_NAME)s"
+msgstr "Kaart bewerken · %(SITE_NAME)s"
+
+#: templates/dashboard/editor.html:7
+msgid "Edit your card"
+msgstr "Bewerk je kaart"
+
+#: templates/dashboard/editor.html:8
+#, python-format
+msgid "Changes appear in the preview as you type. Your link <span class=\"mono\">/c/%(card_slug)s</span> never changes when you edit."
+msgstr "Wijzigingen verschijnen direct in het voorbeeld. Je link <span class=\"mono\">/c/%(card_slug)s</span> verandert nooit als je bewerkt."
+
+#: templates/dashboard/editor.html:10
+msgid "Open public card"
+msgstr "Openbare kaart openen"
+
+#: templates/dashboard/editor.html:15
+msgid "Some details need fixing:"
+msgstr "Een paar gegevens moeten worden aangepast:"
+
+#: templates/dashboard/editor.html:29
+msgid "About you"
+msgstr "Over jou"
+
+#: templates/dashboard/editor.html:32
+msgid "Your current photo"
+msgstr "Je huidige foto"
+
+#: templates/dashboard/editor.html:49
+#, python-format
+msgid "Up to %(plan_max_phones)s numbers on your plan, each with a label such as MTN, Telecel or Office."
+msgstr "Maximaal %(plan_max_phones)s nummers in je abonnement, elk met een label zoals MTN, Telecel of Kantoor."
+
+#: templates/dashboard/editor.html:76
+msgid "Map pin"
+msgstr "Kaartpin"
+
+#: templates/dashboard/editor.html:78
+msgid "Use my current location"
+msgstr "Mijn huidige locatie gebruiken"
+
+#: templates/dashboard/editor.html:79
+msgid "Remove pin"
+msgstr "Pin verwijderen"
+
+#: templates/dashboard/editor.html:81
+#, python-format
+msgid "Pin set at %(card_latitude)s, %(card_longitude)s."
+msgstr "Pin geplaatst op %(card_latitude)s, %(card_longitude)s."
+
+#: templates/dashboard/editor.html:81
+msgid "Opens in Google Maps or Apple Maps."
+msgstr "Opent in Google Maps of Apple Maps."
+
+#: templates/dashboard/editor.html:89
+msgid "Look and feel"
+msgstr "Uiterlijk"
+
+#: templates/dashboard/editor.html:105 templates/dashboard/editor.html:109 templates/dashboard/editor.html:114 templates/dashboard/editor.html:118 templates/dashboard/editor.html:122 templates/dashboard/editor.html:129 templates/dashboard/editor.html:138
+msgid "Professional"
+msgstr "Professional"
+
+#: templates/dashboard/editor.html:126
+msgid "Your current logo"
+msgstr "Je huidige logo"
+
+#: templates/dashboard/editor.html:147
+msgid "Privacy"
+msgstr "Privacy"
+
+#: templates/dashboard/editor.html:152
+msgid "Untick anything you would rather not show. It stays saved, just hidden."
+msgstr "Vink uit wat je liever niet wilt tonen. Het blijft bewaard, alleen verborgen."
+
+#: templates/dashboard/editor.html:163
+msgid "Save card"
+msgstr "Kaart opslaan"
+
+#: templates/dashboard/editor.html:167 templates/dashboard/editor.html:168
+msgid "Live preview"
+msgstr "Live voorbeeld"
+
+#: templates/dashboard/editor.html:177
+msgid "Card link"
+msgstr "Kaartlink"
+
+#: templates/dashboard/editor.html:179
+msgid "Your link is printed on NFC cards, so it can no longer change."
+msgstr "Je link staat op NFC-kaarten gedrukt en kan dus niet meer wijzigen."
+
+#: templates/dashboard/editor.html:182
+msgid "Changing your link breaks any QR codes you have already printed. The old link will redirect for anyone who has it. Continue?"
+msgstr "Als je je link wijzigt, werken QR-codes die je al hebt gedrukt niet meer. De oude link verwijst door voor iedereen die hem heeft. Doorgaan?"
+
+#: templates/dashboard/editor.html:187
+msgid "Changing it breaks printed QR codes. Old links redirect to the new one."
+msgstr "Wijzigen maakt gedrukte QR-codes onbruikbaar. Oude links verwijzen door naar de nieuwe."
+
+#: templates/dashboard/editor.html:189
+msgid "Change link"
+msgstr "Link wijzigen"
+
+#: templates/dashboard/home.html:2
+#, python-format
+msgid "Dashboard · %(SITE_NAME)s"
+msgstr "Dashboard · %(SITE_NAME)s"
+
+#: templates/dashboard/home.html:7
+#, python-format
+msgid "%(subscription_plan_name)s plan · %(subscription_state_label)s"
+msgstr "%(subscription_plan_name)s-abonnement · %(subscription_state_label)s"
+
+#: templates/dashboard/home.html:7
+#, python-format
+msgid "until %(subscription_expires_at_date)s"
+msgstr "tot %(subscription_expires_at_date)s"
+
+#: templates/dashboard/home.html:7
+msgid "Your card is a draft until you choose a plan."
+msgstr "Je kaart is een concept totdat je een abonnement kiest."
+
+#: templates/dashboard/home.html:10
+msgid "View card"
+msgstr "Kaart bekijken"
+
+#: templates/dashboard/home.html:19
+msgid "See who"
+msgstr "Bekijk wie"
+
+#: templates/dashboard/home.html:24
+msgid "Views, last 30 days"
+msgstr "Weergaven, laatste 30 dagen"
+
+#: templates/dashboard/home.html:25
+#, python-format
+msgid "%(views_30)s views in the last 30 days"
+msgstr "%(views_30)s weergaven in de afgelopen 30 dagen"
+
+#: templates/dashboard/home.html:38
+msgid "Copy link"
+msgstr "Link kopiëren"
+
+#: templates/dashboard/home.html:39
+msgid "QR &amp; sharing"
+msgstr "QR en delen"
+
+#: templates/dashboard/home.html:48
+msgid "All orders"
+msgstr "Alle bestellingen"
+
+#: templates/dashboard/home.html:56
+msgid "Printed cards that open your digital card with a tap. We design, print, encode and deliver them."
+msgstr "Gedrukte kaarten die je digitale kaart openen met een tik. Wij ontwerpen, drukken, coderen en bezorgen ze."
+
+#: templates/dashboard/home.html:57 templates/dashboard/nfc_orders.html:36 templates/marketing/_nfc_section.html:46 templates/nfc/order.html:7
+msgid "Order NFC cards"
+msgstr "NFC-kaarten bestellen"
+
+#: templates/dashboard/home.html:64
+#, python-format
+msgid "· %(subscription_team_size)s people"
+msgstr "· %(subscription_team_size)s personen"
+
+#: templates/dashboard/home.html:66
+msgid "Paid until"
+msgstr "Betaald tot"
+
+#: templates/dashboard/home.html:69
+msgid "Renew or upgrade"
+msgstr "Verlengen of upgraden"
+
+#: templates/dashboard/home.html:71
+msgid "Choose a yearly plan to switch your card on. Pay with Mobile Money or a card."
+msgstr "Kies een jaarabonnement om je kaart live te zetten. Betaal met Mobile Money of kaart."
+
+#: templates/dashboard/home.html:72
+msgid "See plans"
+msgstr "Abonnementen bekijken"
+
+#: templates/dashboard/leads.html:2
+#, python-format
+msgid "Contacts · %(SITE_NAME)s"
+msgstr "Contacten · %(SITE_NAME)s"
+
+#: templates/dashboard/leads.html:7
+msgid "People who sent you their details from your card."
+msgstr "Mensen die hun gegevens via je kaart naar je hebben gestuurd."
+
+#: templates/dashboard/leads.html:9
+msgid "Export CSV"
+msgstr "CSV exporteren"
+
+#: templates/dashboard/leads.html:14
+msgid "Contacts received"
+msgstr "Ontvangen contacten"
+
+#: apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+msgid "Name"
+msgstr "Naam"
+
+#: apps/cards/forms.py:17 apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+msgid "Phone"
+msgstr "Telefoon"
+
+#: apps/cards/forms.py:19 apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+msgid "Company"
+msgstr "Bedrijf"
+
+#: apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+msgid "Came via"
+msgstr "Via"
+
+#: templates/dashboard/leads.html:15
+msgid "When"
+msgstr "Wanneer"
+
+#: templates/dashboard/leads.html:19
+msgid "New"
+msgstr "Nieuw"
+
+#: templates/dashboard/leads.html:25
+#, python-format
+msgid "Remove %(lead_name)s?"
+msgstr "%(lead_name)s verwijderen?"
+
+#: templates/dashboard/leads.html:25
+#, python-format
+msgid "Remove %(lead_name)s"
+msgstr "%(lead_name)s verwijderen"
+
+#: templates/dashboard/leads.html:32
+msgid "No contacts yet"
+msgstr "Nog geen contacten"
+
+#: templates/dashboard/leads.html:32
+msgid "When someone taps “Share your details” on your card, they appear here and you get an email."
+msgstr "Als iemand op je kaart op ‘Deel je gegevens’ tikt, verschijnt die persoon hier en krijg je een e-mail."
+
+#: templates/dashboard/links.html:2
+#, python-format
+msgid "Social links · %(SITE_NAME)s"
+msgstr "Sociale links · %(SITE_NAME)s"
+
+#: templates/dashboard/links.html:7
+#, python-format
+msgid "%(used)s of %(limit)s links used on the %(plan_name)s plan."
+msgstr "%(used)s van %(limit)s links gebruikt in het %(plan_name)s-abonnement."
+
+#: templates/dashboard/links.html:7
+msgid "Add as many as you like."
+msgstr "Voeg er zoveel toe als je wilt."
+
+#: templates/dashboard/links.html:21
+#, python-format
+msgid "Move %(link_label)s up"
+msgstr "%(link_label)s omhoog verplaatsen"
+
+#: templates/dashboard/links.html:22
+msgid "Remove this link?"
+msgstr "Deze link verwijderen?"
+
+#: templates/dashboard/links.html:22
+#, python-format
+msgid "Remove %(link_label)s"
+msgstr "%(link_label)s verwijderen"
+
+#: templates/dashboard/links.html:28
+msgid "No links yet"
+msgstr "Nog geen links"
+
+#: templates/dashboard/links.html:28
+msgid "Add Instagram, LinkedIn, TikTok and more. They appear as buttons on your card."
+msgstr "Voeg Instagram, LinkedIn, TikTok en meer toe. Ze verschijnen als knoppen op je kaart."
+
+#: templates/dashboard/links.html:32
+msgid "Add a link"
+msgstr "Een link toevoegen"
+
+#: templates/dashboard/links.html:34
+#, python-format
+msgid "You have used all %(limit)s links on the %(plan_name)s plan."
+msgstr "Je hebt alle %(limit)s links in het %(plan_name)s-abonnement gebruikt."
+
+#: templates/dashboard/links.html:35
+msgid "Upgrade for unlimited"
+msgstr "Upgrade voor onbeperkt"
+
+#: templates/dashboard/links.html:40
+msgid "Add link"
+msgstr "Link toevoegen"
+
+#: templates/dashboard/nfc_orders.html:2
+#, python-format
+msgid "NFC cards · %(SITE_NAME)s"
+msgstr "NFC-kaarten · %(SITE_NAME)s"
+
+#: templates/dashboard/nfc_orders.html:7
+msgid "Track your orders, approve designs and see when your cards are on their way."
+msgstr "Volg je bestellingen, keur ontwerpen goed en zie wanneer je kaarten onderweg zijn."
+
+#: templates/dashboard/nfc_orders.html:9 templates/nfc/order.html:6
+msgid "New order"
+msgstr "Nieuwe bestelling"
+
+#: templates/dashboard/nfc_orders.html:14
+msgid "Your NFC orders"
+msgstr "Je NFC-bestellingen"
+
+#: templates/dashboard/nfc_orders.html:15
+msgid "Order"
+msgstr "Bestelling"
+
+#: templates/dashboard/nfc_orders.html:15
+msgid "Cards"
+msgstr "Kaarten"
+
+#: templates/dashboard/nfc_orders.html:15 templates/nfc/detail.html:87 templates/nfc/order.html:117
+msgid "Total"
+msgstr "Totaal"
+
+#: templates/dashboard/nfc_orders.html:15
+msgid "Placed"
+msgstr "Geplaatst"
+
+#: templates/dashboard/nfc_orders.html:22
+msgid "Your approval needed"
+msgstr "Je goedkeuring is nodig"
+
+#: templates/dashboard/nfc_orders.html:25
+msgid "Awaiting payment"
+msgstr "Wacht op betaling"
+
+#: templates/dashboard/nfc_orders.html:36
+msgid "No NFC orders yet"
+msgstr "Nog geen NFC-bestellingen"
+
+#: templates/dashboard/nfc_orders.html:36
+msgid "Order printed cards that open your digital card with a tap."
+msgstr "Bestel gedrukte kaarten die je digitale kaart openen met een tik."
+
+#: templates/dashboard/settings.html:2
+#, python-format
+msgid "Settings · %(SITE_NAME)s"
+msgstr "Instellingen · %(SITE_NAME)s"
+
+#: templates/dashboard/settings.html:8
+msgid "Account details"
+msgstr "Accountgegevens"
+
+#: templates/dashboard/settings.html:12
+msgid "Save details"
+msgstr "Gegevens opslaan"
+
+#: templates/dashboard/settings.html:17
+msgid "You can sign in with Google."
+msgstr "Je kunt inloggen met Google."
+
+#: templates/dashboard/settings.html:17
+msgid "Change the password you use to sign in with your email."
+msgstr "Wijzig het wachtwoord waarmee je met je e-mailadres inlogt."
+
+#: templates/dashboard/settings.html:18
+msgid "Change password"
+msgstr "Wachtwoord wijzigen"
+
+#: templates/dashboard/settings.html:23
+msgid "Appearance"
+msgstr "Weergave"
+
+#: templates/dashboard/settings.html:24
+msgid "Light, dark or match your device. Your choice is remembered on this device."
+msgstr "Licht, donker of volg je apparaat. Je keuze wordt onthouden op dit apparaat."
+
+#: templates/dashboard/settings.html:30
+msgid "Delete account"
+msgstr "Account verwijderen"
+
+#: templates/dashboard/settings.html:31
+msgid "Your cards go offline straight away and your personal data is removed within 30 days. Payment records are kept for accounting. Your card links are retired and never given to anyone else."
+msgstr "Je kaarten gaan meteen offline en je persoonlijke gegevens worden binnen 30 dagen verwijderd. Betalingsgegevens worden bewaard voor de boekhouding. De links van je kaarten worden buiten gebruik gesteld en nooit aan iemand anders gegeven."
+
+#: templates/dashboard/settings.html:32
+msgid "Delete your account? This cannot be undone."
+msgstr "Je account verwijderen? Dit kan niet ongedaan worden gemaakt."
+
+#: templates/dashboard/settings.html:35
+msgid "Type your email to confirm"
+msgstr "Typ je e-mailadres om te bevestigen"
+
+#: templates/dashboard/settings.html:38
+msgid "Delete my account"
+msgstr "Mijn account verwijderen"
+
+#: templates/dashboard/share.html:2
+#, python-format
+msgid "Share your card · %(SITE_NAME)s"
+msgstr "Deel je kaart · %(SITE_NAME)s"
+
+#: templates/dashboard/share.html:7
+msgid "One permanent link. The QR code and NFC cards open the same page, and we count where each visit came from."
+msgstr "Eén permanente link. De QR-code en NFC-kaarten openen dezelfde pagina en we tellen waar elk bezoek vandaan komt."
+
+#: templates/dashboard/share.html:11
+msgid "<strong>Your card is not live yet.</strong> People who open the link will see a “not yet active” page until your plan is active."
+msgstr "<strong>Je kaart is nog niet live.</strong> Mensen die de link openen, zien een pagina ‘nog niet actief’ totdat je abonnement actief is."
+
+#: templates/dashboard/share.html:15
+msgid "Your link"
+msgstr "Je link"
+
+#: templates/dashboard/share.html:18
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: templates/dashboard/share.html:24
+msgid "More…"
+msgstr "Meer…"
+
+#: templates/dashboard/share.html:27
+msgid "Save-contact file"
+msgstr "Bestand om contact op te slaan"
+
+#: templates/dashboard/share.html:28
+msgid "A .vcf file with your photo and numbers. Recipients can also get it from the “Save contact” button on your card."
+msgstr "Een .vcf-bestand met je foto en nummers. Ontvangers kunnen het ook krijgen via de knop ‘Contact opslaan’ op je kaart."
+
+#: templates/dashboard/share.html:29
+msgid "Download .vcf"
+msgstr "Download .vcf"
+
+#: templates/dashboard/share.html:33
+msgid "For flyers, banners and name tags. Scans are counted as QR visits."
+msgstr "Voor flyers, banners en naamkaartjes. Scans tellen als QR-bezoeken."
+
+#: templates/emails/_layout.html:9
+msgid "You received this because of your account or order with us."
+msgstr "Je ontvangt dit omdat je een account of bestelling bij ons hebt."
+
+#: templates/dashboard/home.html:6 templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1 templates/emails/welcome.txt:1
+msgid "there"
+msgstr "daar"
+
+#: templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/support_received.txt:1 templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
+#, python-format
+msgid "Hello %(name)s,"
+msgstr "Hallo %(name)s,"
+
+#: templates/emails/account_reinstated.txt:3
+msgid "Your AD Smart account is active again and your cards are back online."
+msgstr "Je AD Smart-account is weer actief en je kaarten staan weer online."
+
+#: templates/emails/account_suspended.txt:3
+msgid "Your AD Smart account has been suspended, so your cards are not showing."
+msgstr "Je AD Smart-account is geschorst, dus je kaarten worden niet getoond."
+
+#: templates/emails/account_suspended.txt:5 templates/emails/card_suspended.txt:5
+#, python-format
+msgid "Reason: %(reason)s"
+msgstr "Reden: %(reason)s"
+
+#: templates/emails/account_suspended.txt:7
+msgid "If you think this is a mistake, reply to this email and our team will look into it."
+msgstr "Denk je dat dit een vergissing is, antwoord dan op deze e-mail en ons team zoekt het uit."
+
+#: templates/emails/card_inactive.txt:3
+msgid "Your grace period has ended, so your card now shows a \"card inactive\" page. Your details are safe."
+msgstr "Je respijtperiode is voorbij, dus je kaart toont nu een pagina ‘kaart inactief’. Je gegevens zijn veilig."
+
+#: templates/emails/card_inactive.txt:5
+#, python-format
+msgid "Renew at any time and the same link, QR code and NFC cards work again straight away: %(link)s"
+msgstr "Verleng wanneer je wilt en dezelfde link, QR-code en NFC-kaarten werken meteen weer: %(link)s"
+
+#: templates/emails/card_reinstated.txt:3
+#, python-format
+msgid "Your card /c/%(slug)s is live again."
+msgstr "Je kaart /c/%(slug)s staat weer live."
+
+#: templates/emails/card_suspended.txt:3
+#, python-format
+msgid "Your card /c/%(slug)s has been suspended, so visitors see \"This card is unavailable\"."
+msgstr "Je kaart /c/%(slug)s is geschorst, dus bezoekers zien ‘Deze kaart is niet beschikbaar’."
+
+#: templates/emails/card_suspended.txt:7
+msgid "If you think this is a mistake, reply to this email."
+msgstr "Denk je dat dit een vergissing is, antwoord dan op deze e-mail."
+
+#: templates/emails/data_deletion_warning.txt:3
+#, python-format
+msgid "Your card has been inactive for a while. We will delete its details on %(date)s, in line with our privacy policy."
+msgstr "Je kaart is al een tijdje inactief. We verwijderen de gegevens op %(date)s, in overeenstemming met ons privacybeleid."
+
+#: templates/emails/data_deletion_warning.txt:5
+#, python-format
+msgid "To keep your card, renew before then: %(link)s"
+msgstr "Wil je je kaart behouden, verleng dan vóór die datum: %(link)s"
+
+#: templates/emails/deletion_requested.txt:3
+msgid "We received your request to delete your AD Smart account. Your cards are now offline, and your personal data will be removed within 30 days. Payment records are kept for accounting, as the law requires."
+msgstr "We hebben je verzoek ontvangen om je AD Smart-account te verwijderen. Je kaarten zijn nu offline en je persoonlijke gegevens worden binnen 30 dagen verwijderd. Betalingsgegevens worden bewaard voor de boekhouding, zoals de wet vereist."
+
+#: templates/emails/deletion_requested.txt:5
+msgid "Changed your mind? Reply to this email within 30 days."
+msgstr "Bedacht je je? Antwoord dan binnen 30 dagen op deze e-mail."
+
+#: templates/emails/grace_started.txt:3
+#, python-format
+msgid "Your plan ended on %(ended)s. Your card is still working during a grace period until %(until)s."
+msgstr "Je abonnement is afgelopen op %(ended)s. Je kaart blijft werken tijdens een respijtperiode tot %(until)s."
+
+#: templates/emails/grace_started.txt:5
+#, python-format
+msgid "Renew before then to keep it live: %(link)s"
+msgstr "Verleng vóór die datum om hem live te houden: %(link)s"
+
+#: templates/emails/new_lead.txt:3
+#, python-format
+msgid "%(name)s shared their details from your card /c/%(slug)s:"
+msgstr "%(name)s heeft gegevens gedeeld via je kaart /c/%(slug)s:"
+
+#: templates/emails/new_lead.txt:5
+#, python-format
+msgid "Phone: %(value)s"
+msgstr "Telefoon: %(value)s"
+
+#: templates/emails/new_lead.txt:6
+#, python-format
+msgid "Email: %(value)s"
+msgstr "E-mail: %(value)s"
+
+#: templates/emails/new_lead.txt:7
+#, python-format
+msgid "Company: %(value)s"
+msgstr "Bedrijf: %(value)s"
+
+#: templates/emails/new_lead.txt:9
+#, python-format
+msgid "Message: %(value)s"
+msgstr "Bericht: %(value)s"
+
+#: templates/emails/new_lead.txt:11
+#, python-format
+msgid "See all your contacts: %(link)s"
+msgstr "Bekijk al je contacten: %(link)s"
+
+#: templates/emails/nfc_order_confirmed.txt:3
+#, python-format
+msgid "Your NFC order %(number)s is confirmed and paid."
+msgstr "Je NFC-bestelling %(number)s is bevestigd en betaald."
+
+#: templates/emails/nfc_order_confirmed.txt:5
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s kaart"
+msgstr[1] "%(counter)s kaarten"
+
+#: templates/emails/nfc_order_confirmed.txt:7
+msgid "What happens next:"
+msgstr "Wat er daarna gebeurt:"
+
+#: templates/emails/nfc_order_confirmed.txt:8
+msgid "Our designers send your first proof within 3 working days."
+msgstr "Onze ontwerpers sturen je binnen 3 werkdagen een eerste voorstel."
+
+#: templates/emails/nfc_order_confirmed.txt:9
+#, python-format
+msgid "You approve it, or ask for changes (%(rounds)s rounds are free)."
+msgstr "Je keurt het goed of vraagt aanpassingen (%(rounds)s rondes zijn gratis)."
+
+#: templates/emails/nfc_order_confirmed.txt:10
+msgid "We print, encode, lock and tap-test every card, then deliver it or prepare it for pickup."
+msgstr "We drukken, coderen, vergrendelen en testen elke kaart met een tik, en bezorgen hem daarna of leggen hem klaar om af te halen."
+
+#: templates/emails/nfc_order_confirmed.txt:11
+#, python-format
+msgid "Your cards ship to %(country)s (%(eta)s). Any import duties or taxes in your country are paid by the recipient."
+msgstr "Je kaarten worden verzonden naar %(country)s (%(eta)s). Eventuele invoerrechten of belastingen in jouw land betaalt de ontvanger."
+
+#: templates/emails/nfc_order_confirmed.txt:13
+#, python-format
+msgid "Track your order: %(link)s"
+msgstr "Volg je bestelling: %(link)s"
+
+#: templates/emails/nfc_proof_ready.txt:3
+#, python-format
+msgid "Design proof %(version)s for your order %(number)s is ready."
+msgstr "Ontwerpvoorstel %(version)s voor je bestelling %(number)s is klaar."
+
+#: templates/emails/nfc_proof_ready.txt:5
+#, python-format
+msgid "From the designer: %(note)s"
+msgstr "Van de ontwerper: %(note)s"
+
+#: templates/emails/nfc_proof_ready.txt:7
+#, python-format
+msgid "Please approve it or tell us what to change: %(link)s"
+msgstr "Keur het goed of laat ons weten wat we moeten aanpassen: %(link)s"
+
+#: templates/emails/nfc_proof_reminder.txt:3
+#, python-format
+msgid "A quick reminder: your design proof for order %(number)s has been waiting for %(days)s day."
+msgid_plural "A quick reminder: your design proof for order %(number)s has been waiting for %(days)s days."
+msgstr[0] "Een korte herinnering: je ontwerpvoorstel voor bestelling %(number)s wacht al %(days)s dag."
+msgstr[1] "Een korte herinnering: je ontwerpvoorstel voor bestelling %(number)s wacht al %(days)s dagen."
+
+#: templates/emails/nfc_proof_reminder.txt:5
+#, python-format
+msgid "Approve it or ask for changes here: %(link)s"
+msgstr "Keur het hier goed of vraag aanpassingen aan: %(link)s"
+
+#: templates/emails/nfc_proof_reminder.txt:7
+#, python-format
+msgid "If we do not hear back within %(days)s day of sending it, the order goes on hold."
+msgid_plural "If we do not hear back within %(days)s days of sending it, the order goes on hold."
+msgstr[0] "Als we binnen %(days)s dag na verzending niets horen, gaat de bestelling in de wacht."
+msgstr[1] "Als we binnen %(days)s dagen na verzending niets horen, gaat de bestelling in de wacht."
+
+#: templates/emails/nfc_status_update.txt:3
+#, python-format
+msgid "Your NFC order %(number)s is now: %(status)s."
+msgstr "Je NFC-bestelling %(number)s heeft nu de status: %(status)s."
+
+#: templates/emails/nfc_status_update.txt:7
+#, python-format
+msgid "Courier: %(name)s"
+msgstr "Koerier: %(name)s"
+
+#: templates/emails/nfc_status_update.txt:7
+#, python-format
+msgid "Tracking: %(number)s"
+msgstr "Tracking: %(number)s"
+
+#: templates/emails/nfc_status_update.txt:8
+#, python-format
+msgid "Shipping to %(country)s. Customs in your country may add a day or two, and any import duties are paid by the recipient."
+msgstr "Verzending naar %(country)s. De douane in jouw land kan een dag of twee extra vragen, en eventuele invoerrechten betaalt de ontvanger."
+
+#: templates/emails/nfc_status_update.txt:10
+#, python-format
+msgid "See the full timeline: %(link)s"
+msgstr "Bekijk het volledige verloop: %(link)s"
+
+#: templates/emails/password_changed.txt:3
+msgid "The password for your AD Smart account was just changed."
+msgstr "Het wachtwoord van je AD Smart-account is zojuist gewijzigd."
+
+#: templates/emails/password_changed.txt:5
+#, python-format
+msgid "If this was not you, reset your password now at %(link)s and contact us straight away."
+msgstr "Was jij dit niet, herstel dan nu je wachtwoord via %(link)s en neem direct contact met ons op."
+
+#: templates/emails/password_reset_code.txt:3
+msgid "Your password reset code is:"
+msgstr "Je code om je wachtwoord te herstellen is:"
+
+#: templates/emails/password_reset_code.txt:7
+#, python-format
+msgid "It expires in %(minutes)s minutes and can be used once. If you did not ask for it, ignore this email and your password stays the same."
+msgstr "De code verloopt over %(minutes)s minuten en kan één keer worden gebruikt. Heb je hem niet aangevraagd, negeer dan deze e-mail; je wachtwoord blijft hetzelfde."
+
+#: templates/emails/payment_receipt.txt:3
+msgid "Thank you, we have received your payment."
+msgstr "Bedankt, we hebben je betaling ontvangen."
+
+#: templates/emails/payment_receipt.txt:5
+#, python-format
+msgid "Receipt: %(value)s"
+msgstr "Kwitantie: %(value)s"
+
+#: templates/emails/payment_receipt.txt:6
+#, python-format
+msgid "Reference: %(value)s"
+msgstr "Referentie: %(value)s"
+
+#: templates/emails/payment_receipt.txt:7
+#, python-format
+msgid "For: %(value)s"
+msgstr "Waarvoor: %(value)s"
+
+#: templates/emails/payment_receipt.txt:8
+#, python-format
+msgid "Amount: %(value)s"
+msgstr "Bedrag: %(value)s"
+
+#: templates/emails/payment_receipt.txt:9
+#, python-format
+msgid "Date: %(value)s"
+msgstr "Datum: %(value)s"
+
+#: templates/emails/payment_receipt.txt:11
+#, python-format
+msgid "Your %(plan)s plan is active until %(date)s."
+msgstr "Je %(plan)s-abonnement is actief tot %(date)s."
+
+#: templates/emails/payment_receipt.txt:12
+#, python-format
+msgid "Track your NFC order: %(link)s"
+msgstr "Volg je NFC-bestelling: %(link)s"
+
+#: templates/emails/payment_receipt.txt:18
+msgid "The PDF receipt is attached. You can also download it any time from your dashboard."
+msgstr "De pdf-kwitantie zit als bijlage bij deze e-mail. Je kunt hem ook op elk moment downloaden in je dashboard."
+
+#: templates/emails/renewal_reminder.txt:3
+#, python-format
+msgid "Your %(plan)s plan ends today."
+msgstr "Je %(plan)s-abonnement eindigt vandaag."
+
+#: templates/emails/renewal_reminder.txt:3
+#, python-format
+msgid "Your %(plan)s plan ends in %(days)s day, on %(date)s."
+msgid_plural "Your %(plan)s plan ends in %(days)s days, on %(date)s."
+msgstr[0] "Je %(plan)s-abonnement eindigt over %(days)s dag, op %(date)s."
+msgstr[1] "Je %(plan)s-abonnement eindigt over %(days)s dagen, op %(date)s."
+
+#: templates/emails/renewal_reminder.txt:5
+msgid "Renew now to keep your card, QR code and NFC cards working without a break. Renewing early adds a full year to your current end date, so you lose nothing."
+msgstr "Verleng nu zodat je kaart, QR-code en NFC-kaarten zonder onderbreking blijven werken. Eerder verlengen voegt een heel jaar toe aan je huidige einddatum, dus je verliest niets."
+
+#: templates/emails/renewal_reminder.txt:7
+#, python-format
+msgid "Renew: %(link)s"
+msgstr "Verlengen: %(link)s"
+
+#: templates/emails/renewal_reminder.txt:9
+#, python-format
+msgid "If you do nothing, your card keeps working for a %(days)s-day grace period and then shows a \"card inactive\" page until you renew."
+msgid_plural "If you do nothing, your card keeps working for a %(days)s-day grace period and then shows a \"card inactive\" page until you renew."
+msgstr[0] "Doe je niets, dan blijft je kaart nog een respijtperiode van %(days)s dag werken en toont daarna een pagina ‘kaart inactief’ totdat je verlengt."
+msgstr[1] "Doe je niets, dan blijft je kaart nog een respijtperiode van %(days)s dagen werken en toont daarna een pagina ‘kaart inactief’ totdat je verlengt."
+
+#: templates/emails/support_received.txt:3
+#, python-format
+msgid "Thanks for getting in touch. Your reference is %(reference)s."
+msgstr "Bedankt voor je bericht. Je referentie is %(reference)s."
+
+#: templates/emails/support_received.txt:5
+msgid "We reply within 1 working day (4 working hours for Business plan customers)."
+msgstr "We reageren binnen 1 werkdag (4 werkuren voor klanten met het Business-abonnement)."
+
+#: templates/emails/support_received.txt:5
+msgid "We reply within 1 working day."
+msgstr "We reageren binnen 1 werkdag."
+
+#: templates/emails/support_received.txt:7
+#, python-format
+msgid "Subject: %(subject)s"
+msgstr "Onderwerp: %(subject)s"
+
+#: templates/emails/support_reply.txt:5
+#, python-format
+msgid "Reference: %(reference)s. Reply from your dashboard, or to this email."
+msgstr "Referentie: %(reference)s. Antwoord vanuit je dashboard of op deze e-mail."
+
+#: templates/emails/verify_email.txt:3
+msgid "Please confirm your email address to start building your card:"
+msgstr "Bevestig je e-mailadres om te beginnen met je kaart:"
+
+#: templates/emails/verify_email.txt:7
+msgid "The link works for 48 hours. If you did not create an account, you can ignore this email."
+msgstr "De link is 48 uur geldig. Heb je geen account aangemaakt, dan kun je deze e-mail negeren."
+
+#: templates/emails/welcome.txt:1
+#, python-format
+msgid "Welcome to AD Smart Business Cards, %(name)s!"
+msgstr "Welkom bij AD Smart Business Cards, %(name)s!"
+
+#: templates/emails/welcome.txt:3
+msgid "Here is how it works:"
+msgstr "Zo werkt het:"
+
+#: templates/emails/welcome.txt:4
+msgid "Confirm your email (check the other message we sent)."
+msgstr "Bevestig je e-mailadres (kijk in het andere bericht dat we je stuurden)."
+
+#: templates/emails/welcome.txt:5
+msgid "Build your card and preview it. It stays private until you choose a plan."
+msgstr "Maak je kaart en bekijk een voorbeeld. Hij blijft privé totdat je een abonnement kiest."
+
+#: templates/emails/welcome.txt:6
+msgid "Choose a yearly plan and pay with Mobile Money or a card."
+msgstr "Kies een jaarabonnement en betaal met Mobile Money of een kaart."
+
+#: templates/emails/welcome.txt:7
+msgid "Share your permanent link, QR code or NFC card."
+msgstr "Deel je permanente link, QR-code of NFC-kaart."
+
+#: templates/emails/welcome.txt:9
+msgid "Questions? Reply to this email or message us on WhatsApp."
+msgstr "Vragen? Antwoord op deze e-mail of stuur ons een bericht via WhatsApp."
+
+#: templates/errors/404.html:2
+#, python-format
+msgid "Page not found · %(SITE_NAME)s"
+msgstr "Pagina niet gevonden · %(SITE_NAME)s"
+
+#: templates/errors/404.html:7
+msgid "We could not find that page"
+msgstr "We konden die pagina niet vinden"
+
+#: templates/errors/404.html:8
+msgid "The link may be old or mistyped. If you scanned a card, try scanning it again."
+msgstr "De link is misschien oud of verkeerd getypt. Heb je een kaart gescand, probeer het dan opnieuw."
+
+#: templates/errors/404.html:9
+msgid "Go to the homepage"
+msgstr "Naar de startpagina"
+
+#: templates/errors/500.html:2
+msgid "Something went wrong · AD Smart Business Cards"
+msgstr "Er ging iets mis · AD Smart Business Cards"
+
+#: templates/errors/500.html:4
+msgid "Something went wrong on our side"
+msgstr "Er ging iets mis aan onze kant"
+
+#: templates/errors/500.html:4
+msgid "We have been told about it. Please try again in a minute. If it keeps happening, message us on WhatsApp."
+msgstr "We zijn op de hoogte gesteld. Probeer het over een minuut opnieuw. Blijft het gebeuren, stuur ons dan een bericht via WhatsApp."
+
+#: templates/errors/500.html:4
+msgid "Back to the homepage"
+msgstr "Terug naar de startpagina"
+
+#: templates/marketing/_gallery.html:5
+msgid "Recent designs"
+msgstr "Recente ontwerpen"
+
+#: templates/marketing/_gallery.html:7
+msgid "Previous design"
+msgstr "Vorig ontwerp"
+
+#: templates/marketing/_gallery.html:10
+msgid "Next design"
+msgstr "Volgend ontwerp"
+
+#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:32
+msgid "Policies"
+msgstr "Beleid"
+
+#: templates/marketing/_legal.html:7
+msgid "Last updated 25 September 2026."
+msgstr "Laatst bijgewerkt op 25 september 2026."
+
+#: templates/marketing/_legal.html:9
+msgid "<strong>Draft for review.</strong> This text follows the business rules in the AD Smart requirements. Have it reviewed by a lawyer before launch, and confirm your Data Protection Commission obligations (SRS PRV-03)."
+msgstr "<strong>Concept ter beoordeling.</strong> Deze tekst volgt de bedrijfsregels uit de AD Smart-vereisten. Laat hem vóór de lancering door een jurist nalezen en controleer je verplichtingen jegens de Data Protection Commission (SRS PRV-03)."
+
+#: templates/marketing/_lightbox.html:5
+msgid "Close"
+msgstr "Sluiten"
+
+#: templates/marketing/_nfc_section.html:5
+msgid "A printed card that opens your digital one."
+msgstr "Een gedrukte kaart die je digitale kaart opent."
+
+#: templates/marketing/_nfc_section.html:6
+msgid "We design it with you, print it, write your permanent link to the chip, lock it and test every card on Android and iPhone. Order as many as you need — the more you order, the less each costs."
+msgstr "We ontwerpen hem samen met je, drukken hem, schrijven je permanente link naar de chip, vergrendelen hem en testen elke kaart op Android en iPhone. Bestel zoveel als je nodig hebt: hoe meer je bestelt, hoe minder elke kaart kost."
+
+#: templates/marketing/_nfc_section.html:10
+msgid "NFC card prices by quantity"
+msgstr "Prijzen van NFC-kaarten per aantal"
+
+#: templates/marketing/_nfc_section.html:11
+msgid "Quantity"
+msgstr "Aantal"
+
+#: templates/marketing/_nfc_section.html:11
+msgid "Price per card"
+msgstr "Prijs per kaart"
+
+#: templates/marketing/_nfc_section.html:16
+#, python-format
+msgid "for each card above %(tier_min_quantity_add)s"
+msgstr "voor elke kaart boven %(tier_min_quantity_add)s"
+
+#: templates/marketing/_nfc_section.html:27
+msgid "How many cards?"
+msgstr "Hoeveel kaarten?"
+
+#: templates/marketing/_nfc_section.html:29
+msgid "One fewer card"
+msgstr "Eén kaart minder"
+
+#: templates/marketing/_nfc_section.html:31
+msgid "One more card"
+msgstr "Eén kaart meer"
+
+#: templates/marketing/_nfc_section.html:40
+msgid "<strong>Add 1 more card for no extra cost.</strong> The next card is free at this quantity."
+msgstr "<strong>Voeg 1 kaart extra toe zonder extra kosten.</strong> De volgende kaart is bij dit aantal gratis."
+
+#: templates/marketing/_nfc_section.html:41
+msgid "Delivery in Ghana, or shipping abroad, is added at checkout. Pickup from our office is free."
+msgstr "Bezorging in Ghana of verzending naar het buitenland wordt bij het afrekenen toegevoegd. Afhalen op ons kantoor is gratis."
+
+#: templates/marketing/_nfc_section.html:47
+msgid "Delivery and timelines"
+msgstr "Bezorging en doorlooptijden"
+
+#: templates/marketing/_nfc_section.html:60
+msgid "Your name here"
+msgstr "Jouw naam hier"
+
+#: templates/marketing/_nfc_section.html:61
+msgid "Your title · Your business"
+msgstr "Jouw functie · Jouw bedrijf"
+
+#: templates/marketing/_nfc_section.html:66
+#, python-format
+msgid "<strong>First design proof in 3 working days,</strong> with %(site_free_revision_rounds)s free rounds of changes."
+msgstr "<strong>Eerste ontwerpvoorstel binnen 3 werkdagen,</strong> met %(site_free_revision_rounds)s gratis aanpassingsrondes."
+
+#: templates/marketing/_nfc_section.html:67
+msgid "<strong>Printed and encoded within 5 working days</strong> of your approval."
+msgstr "<strong>Gedrukt en gecodeerd binnen 5 werkdagen</strong> na je goedkeuring."
+
+#: templates/marketing/_nfc_section.html:68
+msgid "<strong>Locked chips</strong> so nobody can overwrite your link."
+msgstr "<strong>Vergrendelde chips</strong> zodat niemand je link kan overschrijven."
+
+#: templates/marketing/_nfc_section.html:69
+msgid "<strong>Faulty chip?</strong> Report it within 30 days of delivery for a free replacement."
+msgstr "<strong>Defecte chip?</strong> Meld het binnen 30 dagen na bezorging voor een gratis vervanging."
+
+#: templates/marketing/_nfc_section.html:70
+msgid "<strong>Delivered in Ghana or shipped abroad.</strong> Outside Ghana you pay the shipping and delivery fee for your region."
+msgstr "<strong>Bezorgd in Ghana of verzonden naar het buitenland.</strong> Buiten Ghana betaal je de verzend- en bezorgkosten voor jouw regio."
+
+#: templates/marketing/_plans.html:12
+msgid "/ year"
+msgstr "/ jaar"
+
+#: templates/marketing/_plans.html:13
+#, python-format
+msgid "%(plan_price_minor_ghs)s per year"
+msgstr "%(plan_price_minor_ghs)s per jaar"
+
+#: templates/marketing/_plans.html:13 templates/marketing/_plans.html:14 templates/marketing/_plans.html:17
+#, python-format
+msgid "for up to %(plan_max_cards)s people"
+msgstr "voor maximaal %(plan_max_cards)s personen"
+
+#: templates/marketing/_plans.html:14
+#, python-format
+msgid "Approximate. You will be charged %(plan_price_minor_ghs)s. Your bank may apply its own exchange rate."
+msgstr "Bij benadering. Er wordt %(plan_price_minor_ghs)s van je afgeschreven. Je bank kan een eigen wisselkoers hanteren."
+
+#: templates/marketing/_plans.html:17
+msgid "per year"
+msgstr "per jaar"
+
+#: templates/marketing/_plans.html:23
+msgid "Not included:"
+msgstr "Niet inbegrepen:"
+
+#: templates/marketing/_plans.html:29 templates/marketing/_plans.html:29
+#, python-format
+msgid "Choose %(name)s"
+msgstr "Kies %(name)s"
+
+#: templates/marketing/_plans.html:34 templates/marketing/_plans.html:34
+#, python-format
+msgid "Start with %(name)s"
+msgstr "Begin met %(name)s"
+
+#: templates/marketing/_plans.html:41
+#, python-format
+msgid "Prices in other currencies use today’s rate of 1 USD = GHS %(rate_ghs_per_usd_floatformat)s (updated %(rate_fetched_at_date)s). You are always charged in Ghana cedis."
+msgstr "Prijzen in andere valuta gebruiken de koers van vandaag: 1 USD = %(rate_ghs_per_usd_floatformat)s GHS (bijgewerkt op %(rate_fetched_at_date)s). Je betaalt altijd in Ghanese cedi."
+
+#: templates/marketing/faq.html:2
+#, python-format
+msgid "Frequently asked questions · %(SITE_NAME)s"
+msgstr "Veelgestelde vragen · %(SITE_NAME)s"
+
+#: templates/marketing/faq.html:6 templates/partials/site_footer.html:18 templates/partials/site_header.html:14 templates/partials/site_header.html:46
+msgid "FAQ"
+msgstr "FAQ"
+
+#: templates/marketing/faq.html:7
+msgid "Questions and answers"
+msgstr "Vragen en antwoorden"
+
+#: templates/marketing/faq.html:8
+#, python-format
+msgid "How NFC works, iPhone and Android, renewals, delivery and refunds. Can’t find it? <a href=\"%(url_1)s\">Ask us</a>."
+msgstr "Hoe NFC werkt, iPhone en Android, verlengingen, bezorging en terugbetalingen. Staat het er niet bij? <a href=\"%(url_1)s\">Vraag het ons</a>."
+
+#: templates/marketing/home.html:3
+#, python-format
+msgid "%(SITE_NAME)s — your business card, one tap away"
+msgstr "%(SITE_NAME)s — je visitekaartje, één tik verwijderd"
+
+#: templates/marketing/home.html:18
+msgid "A hand holding an AD Graphics business card showing the AD logo, Kofi Adutwum’s name, WhatsApp, Instagram, phone and email"
+msgstr "Een hand die een AD Graphics-visitekaartje vasthoudt met het AD-logo, de naam van Kofi Adutwum, WhatsApp, Instagram, telefoon en e-mail"
+
+#: templates/marketing/home.html:24
+msgid "Your business card, <span class=\"glow\">one tap away.</span>"
+msgstr "Je visitekaartje, <span class=\"glow\">één tik verwijderd.</span>"
+
+#: templates/marketing/home.html:25
+msgid "Share your details by link, QR code or a tap of an NFC card. People save you to their phone in one tap — and you can change your details any time without reprinting."
+msgstr "Deel je gegevens via een link, QR-code of een tik met een NFC-kaart. Mensen slaan je met één tik op in hun telefoon, en je kunt je gegevens op elk moment wijzigen zonder opnieuw te drukken."
+
+#: templates/marketing/home.html:27 templates/marketing/home.html:174 templates/partials/site_header.html:55
+msgid "Create my card"
+msgstr "Mijn kaart maken"
+
+#: templates/marketing/home.html:28
+msgid "See plans and prices"
+msgstr "Abonnementen en prijzen bekijken"
+
+#: templates/marketing/home.html:31
+msgid "From"
+msgstr "Vanaf"
+
+#: templates/marketing/home.html:31
+msgid "a year"
+msgstr "per jaar"
+
+#: templates/marketing/home.html:32
+msgid "MoMo and cards via Paystack"
+msgstr "MoMo en kaarten via Paystack"
+
+#: templates/marketing/home.html:33
+msgid "Works on iPhone and Android"
+msgstr "Werkt op iPhone en Android"
+
+#: templates/marketing/home.html:43
+msgid "About AD"
+msgstr "Over AD"
+
+#: templates/marketing/home.html:44
+msgid "Made by a design studio that lives in print."
+msgstr "Gemaakt door een ontwerpstudio die leeft voor print."
+
+#: templates/marketing/home.html:45
+msgid "AD Smart Business Cards is a service of AD Graphics, a Ghanaian design studio behind more than 2,500 designs — logos, flyers, brand kits and print for businesses, churches, schools and events."
+msgstr "AD Smart Business Cards is een dienst van AD Graphics, een Ghanese ontwerpstudio met meer dan 2.500 ontwerpen op zijn naam: logo’s, flyers, huisstijlpakketten en drukwerk voor bedrijven, kerken, scholen en evenementen."
+
+#: templates/marketing/home.html:46
+msgid "We built AD Smart so your contact details work as hard as your brand does: always up to date, easy to share, and saved in one tap. Every NFC card is designed by our team, printed, encoded with your permanent link and tap-tested on both Android and iPhone before it leaves the studio."
+msgstr "We bouwden AD Smart zodat je contactgegevens net zo hard werken als je merk: altijd actueel, makkelijk te delen en met één tik opgeslagen. Elke NFC-kaart wordt door ons team ontworpen, gedrukt, gecodeerd met je permanente link en getest op Android en iPhone voordat hij de studio verlaat."
+
+#: templates/marketing/home.html:56
+msgid "designs delivered by the AD Graphics studio"
+msgstr "ontwerpen opgeleverd door studio AD Graphics"
+
+#: templates/marketing/home.html:60
+msgid "In-house"
+msgstr "Alles in eigen huis"
+
+#: templates/marketing/home.html:61
+msgid "design, printing and NFC encoding"
+msgstr "ontwerp, drukwerk en NFC-codering"
+
+#: templates/marketing/home.html:65
+msgid "3 days"
+msgstr "3 dagen"
+
+#: templates/marketing/home.html:66
+msgid "to your first NFC design proof"
+msgstr "tot je eerste NFC-ontwerpvoorstel"
+
+#: templates/marketing/home.html:70
+msgid "Worldwide"
+msgstr "Wereldwijd"
+
+#: templates/marketing/home.html:71
+msgid "delivery across Ghana, shipping abroad, or free pickup"
+msgstr "bezorging in heel Ghana, verzending naar het buitenland of gratis afhalen"
+
+#: templates/marketing/home.html:81 templates/partials/site_header.html:11 templates/partials/site_header.html:43
+msgid "How it works"
+msgstr "Hoe het werkt"
+
+#: templates/marketing/home.html:82
+msgid "From sign-up to shared in four steps."
+msgstr "Van aanmelden tot delen in vier stappen."
+
+#: templates/marketing/home.html:83
+msgid "Build your card for free and preview it first. You only pay when you are happy with how it looks."
+msgstr "Maak je kaart gratis en bekijk eerst een voorbeeld. Je betaalt pas als je tevreden bent met het resultaat."
+
+#: templates/marketing/home.html:98
+msgid "One card, three ways to share"
+msgstr "Eén kaart, drie manieren om te delen"
+
+#: templates/marketing/home.html:99
+msgid "Whatever they have in their hand, they can reach you."
+msgstr "Wat ze ook in hun hand hebben, ze kunnen je bereiken."
+
+#: templates/marketing/home.html:111
+msgid "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work."
+msgstr "Voorbeeld van een digitale kaart van Kofi Adutwum, CEO van AD Graphics. De knoppen werken."
+
+#: templates/marketing/home.html:116
+msgid "Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the contact."
+msgstr "Probeer het: tik op Bellen, WhatsApp of E-mail om AD Graphics te bereiken, of sla het contact op."
+
+#: templates/marketing/home.html:127
+msgid "Our work"
+msgstr "Ons werk"
+
+#: templates/marketing/home.html:128
+msgid "Recent designs from the AD Graphics studio."
+msgstr "Recente ontwerpen van studio AD Graphics."
+
+#: templates/marketing/home.html:129
+msgid "The same designers who make your NFC card. Open a slide to see the full design."
+msgstr "Dezelfde ontwerpers die je NFC-kaart maken. Open een dia om het volledige ontwerp te zien."
+
+#: templates/marketing/home.html:140 templates/marketing/pricing.html:7 templates/partials/site_footer.html:15 templates/partials/site_header.html:12 templates/partials/site_header.html:44
+msgid "Pricing"
+msgstr "Prijzen"
+
+#: templates/marketing/home.html:141 templates/marketing/pricing.html:8
+msgid "One simple yearly price."
+msgstr "Eén eenvoudige jaarprijs."
+
+#: templates/marketing/home.html:142
+msgid "Every plan includes your permanent link, QR code and save-contact file. Build and preview for free."
+msgstr "Elk abonnement bevat je permanente link, QR-code en contactbestand. Maak en bekijk gratis een voorbeeld."
+
+#: templates/marketing/home.html:159
+msgid "Questions"
+msgstr "Vragen"
+
+#: templates/marketing/home.html:160
+msgid "Good to know."
+msgstr "Goed om te weten."
+
+#: templates/marketing/home.html:163
+#, python-format
+msgid "<a href=\"%(url_3)s\">Read all questions</a> or <a href=\"%(url_4)s\">ask us directly</a>."
+msgstr "<a href=\"%(url_3)s\">Lees alle vragen</a> of <a href=\"%(url_4)s\">stel je vraag direct aan ons</a>."
+
+#: templates/marketing/home.html:171
+msgid "Your next introduction deserves better than paper."
+msgstr "Je volgende kennismaking verdient beter dan papier."
+
+#: templates/marketing/home.html:172
+msgid "Create your card in minutes. Preview it free, then choose a plan when you are ready."
+msgstr "Maak je kaart in een paar minuten. Bekijk gratis een voorbeeld en kies een abonnement wanneer je er klaar voor bent."
+
+#: templates/marketing/home.html:175
+msgid "Talk to us on WhatsApp"
+msgstr "Chat met ons via WhatsApp"
+
+#: templates/marketing/legal_privacy.html:2
+#, python-format
+msgid "Privacy Policy · %(SITE_NAME)s"
+msgstr "Privacybeleid · %(SITE_NAME)s"
+
+#: templates/marketing/legal_privacy.html:3 templates/partials/site_footer.html:35
+msgid "Privacy Policy"
+msgstr "Privacybeleid"
+
+#: templates/marketing/legal_privacy.html:4
+msgid "What we collect, why, and your choices, in line with Ghana’s Data Protection Act, 2012 (Act 843)."
+msgstr "Wat we verzamelen, waarom, en welke keuzes je hebt, in overeenstemming met de Ghanese Data Protection Act van 2012 (Act 843)."
+
+#: templates/marketing/legal_privacy.html:6
+msgid "What we collect"
+msgstr "Wat we verzamelen"
+
+#: templates/marketing/legal_privacy.html:8
+msgid "<strong>Account details:</strong> your name, email, mobile number and password (stored only as a secure hash)."
+msgstr "<strong>Accountgegevens:</strong> je naam, e-mailadres, mobiele nummer en wachtwoord (alleen opgeslagen als veilige hash)."
+
+#: templates/marketing/legal_privacy.html:9
+msgid "<strong>Card details:</strong> whatever you choose to put on your card. You decide what is shown publicly."
+msgstr "<strong>Kaartgegevens:</strong> wat je zelf op je kaart zet. Jij bepaalt wat openbaar zichtbaar is."
+
+#: templates/marketing/legal_privacy.html:10
+msgid "<strong>Payments:</strong> amounts, references and receipts. Card and Mobile Money details are handled by Paystack; we never see them."
+msgstr "<strong>Betalingen:</strong> bedragen, referenties en kwitanties. Kaart- en Mobile Money-gegevens worden door Paystack verwerkt; wij zien ze nooit."
+
+#: templates/marketing/legal_privacy.html:11
+msgid "<strong>Card visits:</strong> counts of views and clicks, where they came from (link, QR or NFC) and a one-way code to tell repeat visits apart. We do not store visitors’ IP addresses."
+msgstr "<strong>Kaartbezoeken:</strong> aantallen weergaven en klikken, waar ze vandaan kwamen (link, QR of NFC) en een eenrichtingscode om herhaalbezoeken te onderscheiden. We slaan de IP-adressen van bezoekers niet op."
+
+#: templates/marketing/legal_privacy.html:12
+msgid "<strong>NFC orders:</strong> the design details, files and delivery address you give us."
+msgstr "<strong>NFC-bestellingen:</strong> de ontwerpgegevens, bestanden en bezorgadres die je ons geeft."
+
+#: templates/marketing/legal_privacy.html:14
+msgid "Why we use it"
+msgstr "Waarom we het gebruiken"
+
+#: templates/marketing/legal_privacy.html:15
+msgid "To run your card, process orders and payments, send receipts and reminders, answer support requests and keep the service secure."
+msgstr "Om je kaart te laten werken, bestellingen en betalingen te verwerken, kwitanties en herinneringen te sturen, supportvragen te beantwoorden en de dienst veilig te houden."
+
+#: templates/marketing/legal_privacy.html:16
+msgid "Who we share it with"
+msgstr "Met wie we het delen"
+
+#: templates/marketing/legal_privacy.html:17
+msgid "Paystack (payments), our email provider (transactional email), Cloudinary (image storage) and our hosting provider. We do not sell your data or use advertising trackers."
+msgstr "Paystack (betalingen), onze e-mailprovider (transactionele e-mail), Cloudinary (beeldopslag) en onze hostingprovider. We verkopen je gegevens niet en gebruiken geen advertentietrackers."
+
+#: templates/marketing/legal_privacy.html:18
+msgid "Cookies"
+msgstr "Cookies"
+
+#: templates/marketing/legal_privacy.html:19
+msgid "We use only essential cookies: one to keep you signed in and one to protect forms. Your light or dark theme choice is saved in your browser. No marketing or tracking cookies are used."
+msgstr "We gebruiken alleen essentiële cookies: één om je ingelogd te houden en één om formulieren te beschermen. Je keuze voor een licht of donker thema wordt in je browser opgeslagen. Er worden geen marketing- of trackingcookies gebruikt."
+
+#: templates/marketing/legal_privacy.html:20
+msgid "How long we keep it"
+msgstr "Hoe lang we het bewaren"
+
+#: templates/marketing/legal_privacy.html:22
+#, python-format
+msgid "Card data is kept for %(site_data_retention_months)s months after a card becomes inactive, so a renewal restores it. We email you 30 days before deleting it."
+msgstr "Kaartgegevens worden %(site_data_retention_months)s maanden bewaard nadat een kaart inactief is geworden, zodat een verlenging ze herstelt. We mailen je 30 dagen voordat we ze verwijderen."
+
+#: templates/marketing/legal_privacy.html:23
+msgid "Visit analytics are kept for 24 months."
+msgstr "Bezoekstatistieken worden 24 maanden bewaard."
+
+#: templates/marketing/legal_privacy.html:24
+msgid "Financial records are kept as the law requires."
+msgstr "Financiële gegevens worden bewaard zoals de wet vereist."
+
+#: templates/marketing/legal_privacy.html:26
+msgid "Your choices"
+msgstr "Jouw keuzes"
+
+#: templates/marketing/legal_privacy.html:27
+msgid "You can edit or hide any detail on your card, download your contacts, and ask us to delete your account from Settings. We remove personal data within 30 days, except records we must keep for accounting."
+msgstr "Je kunt elk gegeven op je kaart bewerken of verbergen, je contacten downloaden en ons via Instellingen vragen je account te verwijderen. We verwijderen persoonsgegevens binnen 30 dagen, behalve gegevens die we voor de boekhouding moeten bewaren."
+
+#: templates/marketing/legal_privacy.html:28 templates/partials/site_footer.html:23 templates/partials/site_header.html:15 templates/partials/site_header.html:47 templates/support/contact.html:6
+msgid "Contact"
+msgstr "Contact"
+
+#: templates/marketing/legal_refunds.html:2
+#, python-format
+msgid "Refund Policy · %(SITE_NAME)s"
+msgstr "Terugbetalingsbeleid · %(SITE_NAME)s"
+
+#: templates/marketing/legal_refunds.html:3 templates/partials/site_footer.html:36
+msgid "Refund Policy"
+msgstr "Terugbetalingsbeleid"
+
+#: templates/marketing/legal_refunds.html:4
+msgid "When you can cancel, and what you get back."
+msgstr "Wanneer je kunt annuleren en wat je terugkrijgt."
+
+#: templates/marketing/legal_refunds.html:6
+msgid "Subscription plans"
+msgstr "Abonnementen"
+
+#: templates/marketing/legal_refunds.html:8
+msgid "NFC card orders"
+msgstr "NFC-kaartbestellingen"
+
+#: templates/marketing/legal_refunds.html:10
+msgid "<strong>Before design work starts:</strong> full refund of the cards and delivery."
+msgstr "<strong>Voordat het ontwerpwerk begint:</strong> volledige terugbetaling van de kaarten en bezorging."
+
+#: templates/marketing/legal_refunds.html:11
+msgid "<strong>After design starts, before printing:</strong> 50%% of the card price is refunded."
+msgstr "<strong>Na het starten van het ontwerp, vóór het drukken:</strong> 50%% van de kaartprijs wordt terugbetaald."
+
+#: templates/marketing/legal_refunds.html:12
+msgid "<strong>After printing starts:</strong> the order cannot be cancelled or refunded."
+msgstr "<strong>Nadat het drukken is begonnen:</strong> de bestelling kan niet meer worden geannuleerd of terugbetaald."
+
+#: templates/marketing/legal_refunds.html:13
+msgid "<strong>Faulty chip:</strong> a card whose NFC chip does not work, reported within 30 days of delivery, is replaced free."
+msgstr "<strong>Defecte chip:</strong> een kaart waarvan de NFC-chip niet werkt, gemeld binnen 30 dagen na bezorging, wordt gratis vervangen."
+
+#: templates/marketing/legal_refunds.html:14
+msgid "<strong>Lost or damaged cards:</strong> reorder at the standard price. The new card opens the same permanent link."
+msgstr "<strong>Verloren of beschadigde kaarten:</strong> bestel opnieuw tegen de standaardprijs. De nieuwe kaart opent dezelfde permanente link."
+
+#: templates/marketing/legal_refunds.html:16
+msgid "Refunds go back to the original payment method through Paystack. Your bank or network may take a few working days to show them."
+msgstr "Terugbetalingen gaan via Paystack terug naar de oorspronkelijke betaalmethode. Je bank of netwerk kan een paar werkdagen nodig hebben om ze te tonen."
+
+#: templates/marketing/legal_refunds.html:17
+msgid "How to ask"
+msgstr "Hoe je het aanvraagt"
+
+#: templates/marketing/legal_refunds.html:18
+#, python-format
+msgid "Cancel from your order page, or <a href=\"%(url_1)s?topic=payment\">contact support</a> with your order number or payment reference."
+msgstr "Annuleer vanaf je bestelpagina, of <a href=\"%(url_1)s?topic=payment\">neem contact op met de support</a> met je bestelnummer of betalingsreferentie."
+
+#: templates/marketing/legal_terms.html:2
+#, python-format
+msgid "Terms of Service · %(SITE_NAME)s"
+msgstr "Servicevoorwaarden · %(SITE_NAME)s"
+
+#: templates/marketing/legal_terms.html:3 templates/partials/site_footer.html:34
+msgid "Terms of Service"
+msgstr "Servicevoorwaarden"
+
+#: templates/marketing/legal_terms.html:4
+msgid "The rules for using AD Smart Business Cards, a service of AD Graphics."
+msgstr "De regels voor het gebruik van AD Smart Business Cards, een dienst van AD Graphics."
+
+#: templates/marketing/legal_terms.html:6
+msgid "1. The service"
+msgstr "1. De dienst"
+
+#: templates/marketing/legal_terms.html:7
+msgid "AD Smart Business Cards lets you create a digital contact card, share it by a permanent link, QR code or NFC card, and order customised NFC cards that we design, print, encode and deliver."
+msgstr "Met AD Smart Business Cards maak je een digitale contactkaart, deel je die via een permanente link, QR-code of NFC-kaart en bestel je NFC-kaarten op maat die wij ontwerpen, drukken, coderen en bezorgen."
+
+#: templates/marketing/legal_terms.html:8
+msgid "2. Your account"
+msgstr "2. Je account"
+
+#: templates/marketing/legal_terms.html:9
+msgid "You must give accurate details, confirm your email address, and keep your password private. You are responsible for what happens on your account."
+msgstr "Je moet juiste gegevens opgeven, je e-mailadres bevestigen en je wachtwoord geheim houden. Je bent verantwoordelijk voor wat er met je account gebeurt."
+
+#: templates/marketing/legal_terms.html:10
+msgid "3. Plans and payment"
+msgstr "3. Abonnementen en betaling"
+
+#: templates/marketing/legal_terms.html:12
+msgid "Plans are paid yearly in Ghana cedis through Paystack. US dollar prices are approximate and for guidance only."
+msgstr "Abonnementen worden jaarlijks betaald in Ghanese cedi via Paystack. Prijzen in Amerikaanse dollars zijn bij benadering en alleen ter indicatie."
+
+#: templates/marketing/legal_terms.html:13
+msgid "Your card becomes public only after Paystack confirms your payment."
+msgstr "Je kaart wordt pas openbaar nadat Paystack je betaling heeft bevestigd."
+
+#: templates/marketing/legal_terms.html:15
+#, python-format
+msgid "If you do not renew, your card keeps working for a %(site_grace_period_days)s-day grace period, then shows a “card inactive” page. Renew at any time to restore the same link, QR code and NFC cards."
+msgstr "Verleng je niet, dan blijft je kaart nog een respijtperiode van %(site_grace_period_days)s dagen werken en toont daarna een pagina ‘kaart inactief’. Verleng op elk moment om dezelfde link, QR-code en NFC-kaarten terug te krijgen."
+
+#: templates/marketing/legal_terms.html:16
+msgid "Price changes apply to new purchases and renewals only, never to time you have already paid for."
+msgstr "Prijswijzigingen gelden alleen voor nieuwe aankopen en verlengingen, nooit voor tijd die je al hebt betaald."
+
+#: templates/marketing/legal_terms.html:18
+msgid "4. Your card link"
+msgstr "4. Je kaartlink"
+
+#: templates/marketing/legal_terms.html:19
+msgid "Your card link is permanent. You can change it only until an NFC card has been ordered for it. Links are never given to another person, even after an account is deleted."
+msgstr "De link van je kaart is permanent. Je kunt hem alleen wijzigen zolang er nog geen NFC-kaart voor is besteld. Links worden nooit aan een andere persoon gegeven, ook niet nadat een account is verwijderd."
+
+#: templates/marketing/legal_terms.html:20
+msgid "5. Acceptable use"
+msgstr "5. Aanvaardbaar gebruik"
+
+#: templates/marketing/legal_terms.html:21
+msgid "You must not impersonate another person or business, use your card for fraud, or publish offensive or unlawful content. We may suspend a card that breaks these rules and will tell you why by email."
+msgstr "Je mag je niet voordoen als een andere persoon of een ander bedrijf, je kaart niet voor fraude gebruiken en geen aanstootgevende of onwettige inhoud publiceren. We kunnen een kaart die deze regels overtreedt schorsen en laten je per e-mail weten waarom."
+
+#: templates/marketing/legal_terms.html:22
+msgid "6. NFC orders"
+msgstr "6. NFC-bestellingen"
+
+#: templates/marketing/legal_terms.html:23
+#, python-format
+msgid "NFC orders follow the timelines, revision rounds and cancellation rules on the order page and in our <a href=\"%(url_1)s\">Refund Policy</a>."
+msgstr "NFC-bestellingen volgen de doorlooptijden, aanpassingsrondes en annuleringsregels op de bestelpagina en in ons <a href=\"%(url_1)s\">Terugbetalingsbeleid</a>."
+
+#: templates/marketing/legal_terms.html:24
+msgid "7. Availability"
+msgstr "7. Beschikbaarheid"
+
+#: templates/marketing/legal_terms.html:25
+msgid "We aim to keep public cards available at least 99.5%% of the time each month, excluding announced maintenance."
+msgstr "We streven ernaar openbare kaarten elke maand minstens 99,5%% van de tijd beschikbaar te houden, exclusief aangekondigd onderhoud."
+
+#: templates/marketing/legal_terms.html:26
+msgid "8. Contact"
+msgstr "8. Contact"
+
+#: templates/marketing/legal_terms.html:27
+#, python-format
+msgid "AD Graphics · %(site_support_email)s · %(site_support_phone_phone)s"
+msgstr "AD Graphics · %(site_support_email)s · %(site_support_phone_phone)s"
+
+#: templates/marketing/nfc.html:2
+#, python-format
+msgid "NFC business cards · %(SITE_NAME)s"
+msgstr "NFC-visitekaartjes · %(SITE_NAME)s"
+
+#: templates/marketing/nfc.html:3
+msgid "Customised NFC cards designed, printed, encoded and tested in Ghana. From GHS 135 per card, with delivery across Ghana and shipping worldwide."
+msgstr "NFC-kaarten op maat, ontworpen, gedrukt, gecodeerd en getest in Ghana. Vanaf GHS 135 per kaart, met bezorging in heel Ghana en wereldwijde verzending."
+
+#: templates/marketing/nfc.html:12
+msgid "How an order works"
+msgstr "Hoe een bestelling werkt"
+
+#: templates/marketing/nfc.html:13
+msgid "From your idea to a card in your hand."
+msgstr "Van je idee naar een kaart in je hand."
+
+#: templates/marketing/nfc.html:16
+msgid "Tell us your design"
+msgstr "Vertel ons je ontwerp"
+
+#: templates/marketing/nfc.html:16
+msgid "Pick the digital card it opens, upload your logo and describe what you want."
+msgstr "Kies de digitale kaart die hij opent, upload je logo en beschrijf wat je wilt."
+
+#: templates/marketing/nfc.html:17
+msgid "Approve the proof"
+msgstr "Keur het voorstel goed"
+
+#: templates/marketing/nfc.html:17
+#, python-format
+msgid "First proof within 3 working days. %(site_free_revision_rounds)s rounds of changes are free."
+msgstr "Eerste voorstel binnen 3 werkdagen. %(site_free_revision_rounds)s aanpassingsrondes zijn gratis."
+
+#: templates/marketing/nfc.html:18
+msgid "Print, encode, test"
+msgstr "Drukken, coderen, testen"
+
+#: templates/marketing/nfc.html:18
+msgid "Every chip is written with your link, locked, and tap-tested on Android and iPhone."
+msgstr "Elke chip wordt met je link beschreven, vergrendeld en met een tik getest op Android en iPhone."
+
+#: templates/marketing/nfc.html:19
+msgid "Delivered or collected"
+msgstr "Bezorgd of afgehaald"
+
+#: templates/marketing/nfc.html:19
+msgid "We email you at each step, with tracking when it ships."
+msgstr "We mailen je bij elke stap, met tracking zodra het is verzonden."
+
+#: templates/marketing/nfc.html:28
+msgid "Delivery, pickup and shipping abroad."
+msgstr "Bezorging, afhalen en verzending naar het buitenland."
+
+#: templates/marketing/nfc.html:29
+msgid "You see the fee and the estimated time before you pay. Outside Ghana, you pay the shipping and delivery fee for your region; any import duties in your country are paid by the recipient."
+msgstr "Je ziet de kosten en de verwachte levertijd voordat je betaalt. Buiten Ghana betaal je de verzend- en bezorgkosten voor jouw regio; eventuele invoerrechten in jouw land betaalt de ontvanger."
+
+#: templates/marketing/nfc.html:33
+msgid "Delivery options"
+msgstr "Bezorgopties"
+
+#: templates/marketing/nfc.html:34 templates/nfc/detail.html:100
+msgid "Option"
+msgstr "Optie"
+
+#: templates/marketing/nfc.html:34
+msgid "Estimated time"
+msgstr "Verwachte levertijd"
+
+#: templates/marketing/nfc.html:34
+msgid "Fee (shipping and delivery)"
+msgstr "Kosten (verzending en bezorging)"
+
+#: templates/marketing/nfc.html:44
+msgid "Questions about NFC cards"
+msgstr "Vragen over NFC-kaarten"
+
+#: templates/marketing/pricing.html:2
+#, python-format
+msgid "Pricing · %(SITE_NAME)s"
+msgstr "Prijzen · %(SITE_NAME)s"
+
+#: templates/marketing/pricing.html:3
+#, python-format
+msgid "Yearly digital business card plans from %(plans_0_price_minor_ghs)s. NFC cards from GHS 135 each."
+msgstr "Jaarabonnementen voor digitale visitekaartjes vanaf %(plans_0_price_minor_ghs)s. NFC-kaarten vanaf GHS 135 per stuk."
+
+#: templates/marketing/pricing.html:9
+msgid "Build and preview your card for free. Choose a plan when you are ready to share it."
+msgstr "Maak je kaart en bekijk gratis een voorbeeld. Kies een abonnement wanneer je klaar bent om hem te delen."
+
+#: templates/nfc/detail.html:2
+#, python-format
+msgid "Order %(order_order_number)s · %(SITE_NAME)s"
+msgstr "Bestelling %(order_order_number)s · %(SITE_NAME)s"
+
+#: templates/nfc/detail.html:7
+#, python-format
+msgid "Order %(order_order_number)s"
+msgstr "Bestelling %(order_order_number)s"
+
+#: templates/nfc/detail.html:10
+msgid "Ask about this order"
+msgstr "Een vraag over deze bestelling stellen"
+
+#: templates/nfc/detail.html:16
+msgid "<strong>This order is waiting for payment.</strong> If you already paid, it can take a moment to confirm."
+msgstr "<strong>Deze bestelling wacht op betaling.</strong> Heb je al betaald, dan kan de bevestiging even duren."
+
+#: templates/nfc/detail.html:17
+msgid "Check again"
+msgstr "Opnieuw controleren"
+
+#: templates/nfc/detail.html:18
+msgid "Pay now"
+msgstr "Nu betalen"
+
+#: templates/nfc/detail.html:21
+msgid "Order progress"
+msgstr "Voortgang van de bestelling"
+
+#: templates/nfc/detail.html:22
+msgid "(done)"
+msgstr "(klaar)"
+
+#: templates/nfc/detail.html:30
+msgid "Design proofs"
+msgstr "Ontwerpvoorstellen"
+
+#: templates/nfc/detail.html:35
+#, python-format
+msgid "Proof %(proof_version)s"
+msgstr "Voorstel %(proof_version)s"
+
+#: templates/nfc/detail.html:36
+msgid "Approved"
+msgstr "Goedgekeurd"
+
+#: templates/nfc/detail.html:36
+msgid "Changes requested"
+msgstr "Aanpassingen gevraagd"
+
+#: templates/nfc/detail.html:36
+msgid "Waiting for you"
+msgstr "Wacht op jou"
+
+#: templates/nfc/detail.html:39
+msgid "Open the PDF proof"
+msgstr "Pdf-voorstel openen"
+
+#: templates/nfc/detail.html:41
+#, python-format
+msgid "Design proof %(proof_version)s for order %(order_order_number)s"
+msgstr "Ontwerpvoorstel %(proof_version)s voor bestelling %(order_order_number)s"
+
+#: templates/nfc/detail.html:43
+#, python-format
+msgid "<strong>From the designer:</strong> %(proof_staff_note)s"
+msgstr "<strong>Van de ontwerper:</strong> %(proof_staff_note)s"
+
+#: templates/nfc/detail.html:44
+#, python-format
+msgid "<strong>Your comment:</strong> %(proof_customer_comment)s"
+msgstr "<strong>Jouw opmerking:</strong> %(proof_customer_comment)s"
+
+#: templates/nfc/detail.html:47
+msgid "Approve this design for printing? It cannot be changed after printing starts."
+msgstr "Dit ontwerp goedkeuren voor het drukken? Het kan niet meer worden gewijzigd zodra het drukken begint."
+
+#: templates/nfc/detail.html:48
+msgid "Approve design"
+msgstr "Ontwerp goedkeuren"
+
+#: templates/nfc/detail.html:51
+msgid "Request changes"
+msgstr "Aanpassingen vragen"
+
+#: templates/nfc/detail.html:55
+msgid "You have used the free rounds; further changes may carry a small fee."
+msgstr "Je hebt de gratis rondes gebruikt; verdere aanpassingen kunnen een kleine vergoeding kosten."
+
+#: templates/nfc/detail.html:56
+msgid "Send my changes"
+msgstr "Mijn aanpassingen versturen"
+
+#: templates/nfc/detail.html:64
+msgid "Download approved design (PDF)"
+msgstr "Goedgekeurd ontwerp downloaden (pdf)"
+
+#: templates/nfc/detail.html:69
+msgid "Timeline"
+msgstr "Verloop"
+
+#: templates/nfc/detail.html:84
+#, python-format
+msgid "%(order_bundled_plan_name)s plan"
+msgstr "%(order_bundled_plan_name)s-abonnement"
+
+#: templates/nfc/detail.html:85
+msgid "Discount"
+msgstr "Korting"
+
+#: templates/nfc/detail.html:86 templates/nfc/order.html:116
+msgid "Tax"
+msgstr "Belasting"
+
+#: templates/nfc/detail.html:89
+#, python-format
+msgid "Receipt %(payment_receipt_number)s"
+msgstr "Kwitantie %(payment_receipt_number)s"
+
+#: templates/nfc/detail.html:92
+msgid "Cards open"
+msgstr "Kaarten openen"
+
+#: templates/nfc/detail.html:98
+msgid "Pickup"
+msgstr "Afhalen"
+
+#: templates/nfc/detail.html:98
+msgid "International shipping"
+msgstr "Internationale verzending"
+
+#: templates/nfc/detail.html:101
+msgid "To"
+msgstr "Naar"
+
+#: templates/nfc/detail.html:102
+msgid "Customs"
+msgstr "Douane"
+
+#: templates/nfc/detail.html:102
+#, python-format
+msgid "Any import duties or taxes in %(order_delivery_country_name)s are paid by the recipient."
+msgstr "Eventuele invoerrechten of belastingen in %(order_delivery_country_name)s betaalt de ontvanger."
+
+#: templates/nfc/detail.html:103
+msgid "Courier"
+msgstr "Koerier"
+
+#: templates/nfc/detail.html:108
+msgid "Cancel this order"
+msgstr "Deze bestelling annuleren"
+
+#: templates/nfc/detail.html:111
+msgid "Cancel order"
+msgstr "Bestelling annuleren"
+
+#: templates/nfc/detail.html:112
+#, python-format
+msgid "Cancel order %(order_order_number)s?"
+msgstr "Bestelling %(order_order_number)s annuleren?"
+
+#: templates/nfc/detail.html:115
+msgid "Yes, cancel it"
+msgstr "Ja, annuleren"
+
+#: templates/nfc/order.html:2
+#, python-format
+msgid "Order NFC cards · %(SITE_NAME)s"
+msgstr "NFC-kaarten bestellen · %(SITE_NAME)s"
+
+#: templates/nfc/order.html:8
+msgid "Every card opens your digital card with a tap. We send a design proof within 3 working days."
+msgstr "Elke kaart opent je digitale kaart met een tik. We sturen binnen 3 werkdagen een ontwerpvoorstel."
+
+#: templates/nfc/order.html:14
+msgid "Please check:"
+msgstr "Controleer het volgende:"
+
+#: templates/nfc/order.html:26
+msgid "1. Cards and quantity"
+msgstr "1. Kaarten en aantal"
+
+#: templates/nfc/order.html:27
+msgid "Split the order across your team’s cards. Each printed card opens the digital card you choose."
+msgstr "Verdeel de bestelling over de kaarten van je team. Elke gedrukte kaart opent de digitale kaart die je kiest."
+
+#: templates/nfc/order.html:27
+#, python-format
+msgid "Each printed card opens your digital card at /c/%(form_cards_0_slug)s."
+msgstr "Elke gedrukte kaart opent je digitale kaart op /c/%(form_cards_0_slug)s."
+
+#: templates/nfc/order.html:33
+msgid "Add 1 more card for no extra cost."
+msgstr "Voeg 1 kaart extra toe zonder extra kosten."
+
+#: templates/nfc/order.html:37
+msgid "2. What goes on the card"
+msgstr "2. Wat er op de kaart komt"
+
+#: templates/nfc/order.html:38
+msgid "Filled in from your digital card. Change anything for the printed design."
+msgstr "Ingevuld vanuit je digitale kaart. Pas alles aan voor het gedrukte ontwerp."
+
+#: templates/nfc/order.html:54
+msgid "3. Design"
+msgstr "3. Ontwerp"
+
+#: templates/nfc/order.html:64
+msgid "4. Delivery or pickup"
+msgstr "4. Bezorging of afhalen"
+
+#: apps/nfc/models.py:72 templates/nfc/order.html:68
+msgid "In Ghana"
+msgstr "In Ghana"
+
+#: apps/nfc/models.py:72 templates/nfc/order.html:74
+msgid "Outside Ghana"
+msgstr "Buiten Ghana"
+
+#: templates/nfc/order.html:82
+msgid "<strong>Shipping outside Ghana.</strong> The fee covers international shipping and delivery to the address below. Import duties or taxes charged by your country, if any, are paid by the recipient."
+msgstr "<strong>Verzending buiten Ghana.</strong> De kosten dekken internationale verzending en bezorging op het onderstaande adres. Eventuele invoerrechten of belastingen van jouw land betaalt de ontvanger."
+
+#: templates/nfc/order.html:102
+msgid "5. Your digital card plan"
+msgstr "5. Je abonnement voor de digitale kaart"
+
+#: templates/nfc/order.html:111
+msgid "Your order"
+msgstr "Je bestelling"
+
+#: templates/nfc/order.html:118
+msgid "Promo codes are applied at the next step and shown on the Paystack page."
+msgstr "Actiecodes worden in de volgende stap toegepast en getoond op de Paystack-pagina."
+
+#: templates/nfc/order.html:123
+msgid "Continue to payment"
+msgstr "Doorgaan naar betaling"
+
+#: templates/nfc/order.html:125
+#, python-format
+msgid "We ship to Ghana and abroad; international shipping is added to the total. Read the <a href=\"%(url_2)s\" target=\"_blank\">Refund Policy</a>: a full refund before design starts, 50%% of the card price before printing, none after printing."
+msgstr "We leveren in Ghana en verzenden naar het buitenland; internationale verzending wordt aan het totaal toegevoegd. Lees het <a href=\"%(url_2)s\" target=\"_blank\">Terugbetalingsbeleid</a>: volledige terugbetaling vóór het ontwerp begint, 50%% van de kaartprijs vóór het drukken, geen na het drukken."
+
+#: templates/partials/cookie_notice.html:1
+msgid "Cookie notice"
+msgstr "Cookiemelding"
+
+#: templates/partials/cookie_notice.html:2
+#, python-format
+msgid "We use only essential cookies to keep you signed in and your forms secure, plus your theme choice. No tracking or advertising cookies. <a href=\"%(url_2)s#cookies\">Details</a>"
+msgstr "We gebruiken alleen essentiële cookies om je ingelogd te houden en je formulieren te beveiligen, plus je themakeuze. Geen tracking- of advertentiecookies. <a href=\"%(url_2)s#cookies\">Details</a>"
+
+#: templates/partials/cookie_notice.html:3
+msgid "OK"
+msgstr "OK"
+
+#: templates/partials/lang_switch.html:5 templates/partials/prefs.html:5
+msgid "Language"
+msgstr "Taal"
+
+#: templates/partials/lang_switch.html:9 templates/partials/prefs.html:13
+msgid "Save"
+msgstr "Opslaan"
+
+#: templates/partials/messages.html:8
+msgid "Dismiss"
+msgstr "Sluiten"
+
+#: templates/partials/prefs.html:9
+msgid "Currency"
+msgstr "Valuta"
+
+#: templates/partials/site_footer.html:10
+msgid "Digital and NFC business cards by AD Graphics. Designed, printed, encoded and tested in Ghana."
+msgstr "Digitale en NFC-visitekaartjes van AD Graphics. Ontworpen, gedrukt, gecodeerd en getest in Ghana."
+
+#: templates/partials/site_footer.html:13
+msgid "Product"
+msgstr "Product"
+
+#: templates/partials/site_footer.html:19
+msgid "Create a card"
+msgstr "Een kaart maken"
+
+#: templates/partials/site_footer.html:37
+msgid "Support"
+msgstr "Support"
+
+#: templates/partials/site_header.html:4
+#, python-format
+msgid "%(SITE_NAME)s, home"
+msgstr "%(SITE_NAME)s, startpagina"
+
+#: templates/partials/site_header.html:9 templates/partials/site_header.html:41
+msgid "Main"
+msgstr "Hoofd"
+
+#: templates/partials/site_header.html:32
+msgid "Get started"
+msgstr "Aan de slag"
+
+#: templates/partials/site_header.html:34
+msgid "Menu"
+msgstr "Menu"
+
+#: templates/partials/site_header.html:28 templates/partials/site_header.html:53
+msgid "Staff area"
+msgstr "Medewerkersgedeelte"
+
+#: templates/partials/site_header.html:53
+msgid "Go to dashboard"
+msgstr "Naar het dashboard"
+
+#: templates/partials/whatsapp_float.html:1
+msgid "Chat with support on WhatsApp"
+msgstr "Chat met de support via WhatsApp"
+
+#: templates/support/contact.html:2
+#, python-format
+msgid "Contact and support · %(SITE_NAME)s"
+msgstr "Contact en support · %(SITE_NAME)s"
+
+#: templates/support/contact.html:8
+msgid "Send us a message and we reply within 1 working day — Business plan customers within 4 working hours. For something quick, WhatsApp is fastest."
+msgstr "Stuur ons een bericht en we reageren binnen 1 werkdag — klanten met het Business-abonnement binnen 4 werkuren. Voor iets snels is WhatsApp het snelst."
+
+#: templates/support/contact.html:17
+msgid "Send message"
+msgstr "Bericht versturen"
+
+#: templates/support/contact.html:25
+#, python-format
+msgid "Looking for answers? Try the <a href=\"%(url_1)s\">FAQ</a>."
+msgstr "Op zoek naar antwoorden? Bekijk de <a href=\"%(url_1)s\">veelgestelde vragen</a>."
+
+#: templates/support/mine.html:2
+#, python-format
+msgid "Help and support · %(SITE_NAME)s"
+msgstr "Hulp en support · %(SITE_NAME)s"
+
+#: templates/support/mine.html:5 templates/support/ticket.html:6
+msgid "Help and support"
+msgstr "Hulp en support"
+
+#: templates/support/mine.html:5
+msgid "Your messages to our team and their status."
+msgstr "Je berichten aan ons team en hun status."
+
+#: templates/support/mine.html:6
+msgid "New request"
+msgstr "Nieuw verzoek"
+
+#: templates/support/mine.html:11
+msgid "Your support requests"
+msgstr "Je supportverzoeken"
+
+#: templates/support/mine.html:12
+msgid "Reference"
+msgstr "Referentie"
+
+#: apps/support/forms.py:15 templates/support/mine.html:12
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: apps/support/forms.py:15 templates/support/mine.html:12
+msgid "Topic"
+msgstr "Onderwerp"
+
+#: templates/support/mine.html:12
+msgid "Updated"
+msgstr "Bijgewerkt"
+
+#: templates/support/mine.html:27
+msgid "No requests yet"
+msgstr "Nog geen verzoeken"
+
+#: templates/support/mine.html:27
+msgid "Questions about your card, a payment or an NFC order? We are here to help."
+msgstr "Vragen over je kaart, een betaling of een NFC-bestelling? We helpen je graag."
+
+#: templates/support/ticket.html:14
+msgid "AD Smart support"
+msgstr "AD Smart-support"
+
+#: templates/support/ticket.html:14
+msgid "You"
+msgstr "Jij"
+
+#: templates/support/ticket.html:22
+msgid "Send reply"
+msgstr "Antwoord versturen"
+
+#: templates/accounts/register.html:17
+#, python-format
+msgid "By creating an account (with Google or email) you agree to our <a href=\"%(url_1)s\" target=\"_blank\">Terms of Service</a> and <a href=\"%(url_2)s\" target=\"_blank\">Privacy Policy</a>."
+msgstr "Door een account aan te maken (met Google of e-mail) ga je akkoord met onze <a href=\"%(url_1)s\" target=\"_blank\">Servicevoorwaarden</a> en ons <a href=\"%(url_2)s\" target=\"_blank\">Privacybeleid</a>."
+
+#: templates/billing/checkout.html:79
+#, python-format
+msgid "%(counter)s month"
+msgid_plural "%(counter)s months"
+msgstr[0] "%(counter)s maand"
+msgstr[1] "%(counter)s maanden"
+
+#: templates/billing/checkout.html:79
+#, python-format
+msgid "Or add %(counter)s person now for %(upgrade_amount)s, for the %(months_left)s left"
+msgid_plural "Or add %(counter)s people now for %(upgrade_amount)s, for the %(months_left)s left"
+msgstr[0] "Of voeg nu %(counter)s persoon toe voor %(upgrade_amount)s, voor de resterende %(months_left)s"
+msgstr[1] "Of voeg nu %(counter)s personen toe voor %(upgrade_amount)s, voor de resterende %(months_left)s"
+
+#: templates/billing/checkout.html:79
+#, python-format
+msgid "Or upgrade now for %(upgrade_amount)s, for the %(months_left)s left"
+msgstr "Of upgrade nu voor %(upgrade_amount)s, voor de resterende %(months_left)s"
+
+#: templates/cards/_card.html:57
+msgid "Mobile"
+msgstr "Mobiel"
+
+#: templates/cards/_card.html:82
+msgid "Address"
+msgstr "Adres"
+
+#: templates/cards/public.html:4
+#, python-format
+msgid "%(name)s, %(job)s at %(business)s. Save my contact in one tap."
+msgstr "%(name)s, %(job)s bij %(business)s. Sla mijn contact op met één tik."
+
+#: templates/cards/public.html:4
+#, python-format
+msgid "%(name)s, %(job)s. Save my contact in one tap."
+msgstr "%(name)s, %(job)s. Sla mijn contact op met één tik."
+
+#: templates/cards/public.html:4
+#, python-format
+msgid "%(name)s at %(business)s. Save my contact in one tap."
+msgstr "%(name)s bij %(business)s. Sla mijn contact op met één tik."
+
+#: templates/cards/public.html:4
+#, python-format
+msgid "%(name)s. Save my contact in one tap."
+msgstr "%(name)s. Sla mijn contact op met één tik."
+
+#: templates/components/google_button.html:5
+msgid "Continue with Google"
+msgstr "Doorgaan met Google"
+
+#: templates/components/google_button.html:7
+msgid "or"
+msgstr "of"
+
+#: templates/dashboard/_status_banner.html:23
+#, python-format
+msgid "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
+msgid_plural "<strong>Your plan ends in %(days_left)s days</strong> (%(expires)s). Renew early — the new year is added to the end, so you lose nothing."
+msgstr[0] "<strong>Je abonnement eindigt over %(days_left)s dag</strong> (%(expires)s). Verleng eerder: het nieuwe jaar wordt aan het einde toegevoegd, dus je verliest niets."
+msgstr[1] "<strong>Je abonnement eindigt over %(days_left)s dagen</strong> (%(expires)s). Verleng eerder: het nieuwe jaar wordt aan het einde toegevoegd, dus je verliest niets."
+
+#: templates/dashboard/analytics.html:21
+msgid "Total card views"
+msgstr "Totaal aantal kaartweergaven"
+
+#: templates/dashboard/analytics.html:30
+msgid "Views"
+msgstr "Weergaven"
+
+#: templates/dashboard/analytics.html:30
+#, python-format
+msgid "%(total_views)s all time"
+msgstr "%(total_views)s in totaal"
+
+#: templates/dashboard/analytics.html:31
+msgid "Unique visitors"
+msgstr "Unieke bezoekers"
+
+#: templates/dashboard/analytics.html:32 templates/dashboard/home.html:17
+msgid "Contacts saved"
+msgstr "Opgeslagen contacten"
+
+#: templates/dashboard/cards.html:7
+#, python-format
+msgid "%(enabled_count)s of %(limit)s card live on the %(plan_name)s plan, and %(total)s in total. Switched-off cards don't use a place."
+msgid_plural "%(enabled_count)s of %(limit)s cards live on the %(plan_name)s plan, and %(total)s in total. Switched-off cards don't use a place."
+msgstr[0] "%(enabled_count)s van %(limit)s kaart live in het %(plan_name)s-abonnement, en %(total)s in totaal. Uitgeschakelde kaarten nemen geen plek in."
+msgstr[1] "%(enabled_count)s van %(limit)s kaarten live in het %(plan_name)s-abonnement, en %(total)s in totaal. Uitgeschakelde kaarten nemen geen plek in."
+
+#: templates/dashboard/cards.html:7
+#, python-format
+msgid "%(enabled_count)s of %(limit)s card live on the %(plan_name)s plan. Switched-off cards don't use a place."
+msgid_plural "%(enabled_count)s of %(limit)s cards live on the %(plan_name)s plan. Switched-off cards don't use a place."
+msgstr[0] "%(enabled_count)s van %(limit)s kaart live in het %(plan_name)s-abonnement. Uitgeschakelde kaarten nemen geen plek in."
+msgstr[1] "%(enabled_count)s van %(limit)s kaarten live in het %(plan_name)s-abonnement. Uitgeschakelde kaarten nemen geen plek in."
+
+#: templates/dashboard/cards.html:43
+#, python-format
+msgid "Your plan includes %(limit)s live card. The Business plan gives a card to everyone in your team."
+msgid_plural "Your plan includes %(limit)s live cards. The Business plan gives a card to everyone in your team."
+msgstr[0] "Je abonnement bevat %(limit)s actieve kaart. Het Business-abonnement geeft iedereen in je team een kaart."
+msgstr[1] "Je abonnement bevat %(limit)s actieve kaarten. Het Business-abonnement geeft iedereen in je team een kaart."
+
+#: templates/dashboard/editor.html:168
+msgid "draft"
+msgstr "concept"
+
+#: templates/dashboard/editor.html:174
+#, python-format
+msgid "Features marked %(crown_icon)s are included with Professional and Business. You can try them now; they show on your public card once your plan includes them."
+msgstr "Functies met %(crown_icon)s zijn inbegrepen bij Professional en Business. Je kunt ze nu proberen; ze verschijnen op je openbare kaart zodra je abonnement ze bevat."
+
+#: templates/dashboard/home.html:6
+#, python-format
+msgid "Hello, %(name)s"
+msgstr "Hallo, %(name)s"
+
+#: templates/dashboard/home.html:16
+msgid "Card views · 30 days"
+msgstr "Kaartweergaven · 30 dagen"
+
+#: templates/dashboard/home.html:18
+msgid "Button clicks"
+msgstr "Knopklikken"
+
+#: templates/dashboard/home.html:19
+msgid "New contacts for you"
+msgstr "Nieuwe contacten voor jou"
+
+#: templates/dashboard/home.html:28
+msgid "30 days ago"
+msgstr "30 dagen geleden"
+
+#: templates/dashboard/home.html:28
+msgid "Today"
+msgstr "Vandaag"
+
+#: templates/marketing/_legal.html:8
+msgid "This page is translated to help you. If the translation and the English version differ, the English version applies."
+msgstr "Deze pagina is vertaald om je te helpen. Als de vertaling en de Engelse versie verschillen, geldt de Engelse versie."
+
+#: templates/marketing/home.html:23
+msgid "Digital + NFC business cards, made in Ghana"
+msgstr "Digitale + NFC-visitekaartjes, gemaakt in Ghana"
+
+#: templates/marketing/home.html:49
+msgid "CEO, AD Graphics"
+msgstr "CEO, AD Graphics"
+
+#: templates/nfc/detail.html:8
+#, python-format
+msgid "%(quantity)s card · placed %(placed)s · <strong>%(status)s</strong>"
+msgid_plural "%(quantity)s cards · placed %(placed)s · <strong>%(status)s</strong>"
+msgstr[0] "%(quantity)s kaart · geplaatst op %(placed)s · <strong>%(status)s</strong>"
+msgstr[1] "%(quantity)s kaarten · geplaatst op %(placed)s · <strong>%(status)s</strong>"
+
+#: templates/nfc/detail.html:55
+#, python-format
+msgid "%(revisions_left)s free round of changes left."
+msgid_plural "%(revisions_left)s free rounds of changes left."
+msgstr[0] "Nog %(revisions_left)s gratis aanpassingsronde."
+msgstr[1] "Nog %(revisions_left)s gratis aanpassingsrondes."
+
+#: templates/nfc/detail.html:82
+#, python-format
+msgid "%(quantity)s NFC card"
+msgid_plural "%(quantity)s NFC cards"
+msgstr[0] "%(quantity)s NFC-kaart"
+msgstr[1] "%(quantity)s NFC-kaarten"
+
+#: templates/nfc/detail.html:109
+#, python-format
+msgid "Refund if you cancel now: <strong>%(refund_amount)s</strong>. Subscription plans bought with the order are not refunded."
+msgstr "Terugbetaling als je nu annuleert: <strong>%(refund_amount)s</strong>. Abonnementen die bij de bestelling zijn gekocht, worden niet terugbetaald."
+
+#: templates/partials/site_footer.html:42
+#, python-format
+msgid "© %(current_year)s AD Graphics. All rights reserved."
+msgstr "© %(current_year)s AD Graphics. Alle rechten voorbehouden."
+
+#: templates/partials/site_footer.html:42
+msgid "Prices in Ghana cedis. Payments by Paystack."
+msgstr "Prijzen in Ghanese cedi. Betalingen via Paystack."
+
+#: apps/accounts/forms.py:126
+msgid "Company name for receipts"
+msgstr "Bedrijfsnaam voor kwitanties"
+
+#: apps/accounts/forms.py:127
+msgid "Company address for receipts"
+msgstr "Bedrijfsadres voor kwitanties"
+
+#: apps/billing/services.py:148
+#, python-format
+msgid "%(plan)s plan for %(people)d people"
+msgstr "%(plan)s-abonnement voor %(people)d personen"
+
+#: apps/billing/services.py:158
+#, python-format
+msgid "%(plan)s, 12 more months"
+msgstr "%(plan)s, 12 maanden extra"
+
+#: apps/billing/services.py:158 apps/billing/services.py:520
+#, python-format
+msgid "%(plan)s, 12 months"
+msgstr "%(plan)s, 12 maanden"
+
+#: apps/cards/forms.py:20 apps/dashboard/views.py:326
+msgid "Message"
+msgstr "Bericht"
+
+#: apps/cards/forms.py:42
+msgid "What is wrong with this card?"
+msgstr "Wat is er mis met deze kaart?"
+
+#: apps/cards/forms.py:43
+msgid "Details"
+msgstr "Details"
+
+#: apps/cards/forms.py:44
+msgid "Your email (optional, if you would like a reply)"
+msgstr "Je e-mailadres (optioneel, als je antwoord wilt)"
+
+#: apps/cards/models.py:26
+msgid "Blue"
+msgstr "Blauw"
+
+#: apps/cards/models.py:26
+msgid "Navy"
+msgstr "Marineblauw"
+
+#: apps/cards/models.py:26
+msgid "Sky"
+msgstr "Hemelsblauw"
+
+#: apps/cards/models.py:26
+msgid "Purple"
+msgstr "Paars"
+
+#: apps/cards/models.py:26
+msgid "Amber"
+msgstr "Amber"
+
+#: apps/cards/models.py:26
+msgid "Ink"
+msgstr "Inkt"
+
+#: apps/core/currency.py:23
+msgid "US dollar"
+msgstr "Amerikaanse dollar"
+
+#: apps/core/currency.py:24
+msgid "British pound"
+msgstr "Brits pond"
+
+#: apps/core/currency.py:25
+msgid "Euro"
+msgstr "Euro"
+
+#: apps/core/currency.py:26
+msgid "Chinese yuan"
+msgstr "Chinese yuan"
+
+#: apps/core/currency.py:27
+msgid "Nigerian naira"
+msgstr "Nigeriaanse naira"
+
+#: apps/core/currency.py:28
+msgid "West African CFA franc"
+msgstr "West-Afrikaanse CFA-frank"
+
+#: apps/core/currency.py:29
+msgid "Ghana cedi"
+msgstr "Ghanese cedi"
+
+#: apps/core/dynamic_strings.py:15
+msgid "Everything you need to share one card."
+msgstr "Alles wat je nodig hebt om één kaart te delen."
+
+#: apps/core/dynamic_strings.py:16
+msgid "Your brand, your colours, and full analytics."
+msgstr "Je merk, je kleuren en volledige statistieken."
+
+#: apps/core/dynamic_strings.py:17
+msgid "Your whole team under one brand. The bigger the team, the less each person costs."
+msgstr "Je hele team onder één merk. Hoe groter het team, hoe minder elke persoon kost."
+
+#: apps/core/dynamic_strings.py:21
+msgid "Pickup from the AD Graphics office"
+msgstr "Afhalen op het kantoor van AD Graphics"
+
+#: apps/core/dynamic_strings.py:22
+msgid "Collect in person. Free."
+msgstr "Zelf ophalen. Gratis."
+
+#: apps/core/dynamic_strings.py:23
+msgid "Ready the day your cards pass quality checks"
+msgstr "Klaar op de dag dat je kaarten de kwaliteitscontrole doorstaan"
+
+#: apps/core/dynamic_strings.py:24
+msgid "Delivery within Cape Coast"
+msgstr "Bezorging binnen Cape Coast"
+
+#: apps/core/dynamic_strings.py:25
+msgid "Rider delivery to your door."
+msgstr "Bezorging aan je deur door een koerier."
+
+#: apps/core/dynamic_strings.py:26
+msgid "1 working day after dispatch"
+msgstr "1 werkdag na verzending"
+
+#: apps/core/dynamic_strings.py:27
+msgid "Delivery to other regions of Ghana"
+msgstr "Bezorging in andere regio’s van Ghana"
+
+#: apps/core/dynamic_strings.py:28
+msgid "By courier to your nearest office or door."
+msgstr "Per koerier naar het dichtstbijzijnde kantoor of je deur."
+
+#: apps/core/dynamic_strings.py:29
+msgid "2–4 working days after dispatch"
+msgstr "2–4 werkdagen na verzending"
+
+#: apps/core/dynamic_strings.py:30
+msgid "West Africa"
+msgstr "West-Afrika"
+
+#: apps/core/dynamic_strings.py:31
+msgid "Nigeria, Côte d’Ivoire, Togo, Benin, Burkina Faso and neighbours."
+msgstr "Nigeria, Ivoorkust, Togo, Benin, Burkina Faso en buurlanden."
+
+#: apps/core/dynamic_strings.py:32
+msgid "3–7 working days after dispatch"
+msgstr "3–7 werkdagen na verzending"
+
+#: apps/core/dynamic_strings.py:33
+msgid "Rest of Africa"
+msgstr "Rest van Afrika"
+
+#: apps/core/dynamic_strings.py:34
+msgid "International courier to the rest of Africa."
+msgstr "Internationale koerier naar de rest van Afrika."
+
+#: apps/core/dynamic_strings.py:35
+msgid "5–10 working days after dispatch"
+msgstr "5–10 werkdagen na verzending"
+
+#: apps/core/dynamic_strings.py:36
+msgid "UK and Europe"
+msgstr "VK en Europa"
+
+#: apps/core/dynamic_strings.py:37
+msgid "International courier to the UK and Europe."
+msgstr "Internationale koerier naar het VK en Europa."
+
+#: apps/core/dynamic_strings.py:38
+msgid "USA, Canada and rest of the world"
+msgstr "VS, Canada en de rest van de wereld"
+
+#: apps/core/dynamic_strings.py:39
+msgid "International courier anywhere else."
+msgstr "Internationale koerier naar elke andere bestemming."
+
+#: apps/core/dynamic_strings.py:40
+msgid "5–12 working days after dispatch"
+msgstr "5–12 werkdagen na verzending"
+
+#: apps/dashboard/forms.py:27
+msgid "Custom"
+msgstr "Eigen"
+
+#: apps/dashboard/forms.py:49
+msgid "WhatsApp number"
+msgstr "WhatsApp-nummer"
+
+#: apps/dashboard/forms.py:53
+msgid "Ghana Post GPS address"
+msgstr "Ghana Post GPS-adres"
+
+#: apps/dashboard/forms.py:54
+msgid "Layout"
+msgstr "Indeling"
+
+#: apps/dashboard/forms.py:55
+msgid "Button style"
+msgstr "Knopstijl"
+
+#: apps/dashboard/forms.py:58
+msgid "Let search engines show my card"
+msgstr "Zoekmachines mijn kaart laten tonen"
+
+#: apps/dashboard/forms.py:59
+msgid "Let visitors send me their details"
+msgstr "Bezoekers hun gegevens naar mij laten sturen"
+
+#: apps/dashboard/forms.py:60
+msgid "Card is visible to the public"
+msgstr "De kaart is openbaar zichtbaar"
+
+#: apps/dashboard/forms.py:63
+msgid "Up to 300 characters."
+msgstr "Maximaal 300 tekens."
+
+#: apps/dashboard/forms.py:64
+msgid "Can differ from your call number."
+msgstr "Mag afwijken van je belnummer."
+
+#: apps/dashboard/forms.py:65
+msgid "For example GA-123-4567."
+msgstr "Bijvoorbeeld GA-123-4567."
+
+#: apps/dashboard/forms.py:66
+msgid "Off by default, so your card only reaches people you share it with."
+msgstr "Standaard uit, zodat je kaart alleen mensen bereikt met wie je hem deelt."
+
+#: apps/dashboard/forms.py:192
+msgid "Phone number"
+msgstr "Telefoonnummer"
+
+#: apps/dashboard/forms.py:192
+msgid "Label"
+msgstr "Label"
+
+#: apps/dashboard/forms.py:195
+msgid "MTN, Telecel, Office…"
+msgstr "MTN, Telecel, Kantoor…"
+
+#: apps/dashboard/forms.py:219
+msgid "Platform"
+msgstr "Platform"
+
+#: apps/dashboard/views.py:286
+msgid "QR code scans"
+msgstr "QR-code-scans"
+
+#: apps/dashboard/views.py:287
+msgid "NFC taps"
+msgstr "NFC-tikken"
+
+#: apps/marketing/demo.py:26
+msgid "CEO"
+msgstr "CEO"
+
+#: apps/marketing/demo.py:28
+msgid "Brand identity, print and digital design for businesses, churches, schools and events across Ghana."
+msgstr "Huisstijl, print- en digitaal ontwerp voor bedrijven, kerken, scholen en evenementen in heel Ghana."
+
+#: apps/marketing/demo.py:32
+msgid "AD Graphics logo"
+msgstr "Logo van AD Graphics"
+
+#: apps/marketing/demo.py:49
+msgid "Office"
+msgstr "Kantoor"
+
+#: apps/nfc/forms.py:18
+msgid "shipping and delivery"
+msgstr "verzending en bezorging"
+
+#: apps/nfc/forms.py:79
+msgid "Choose a country"
+msgstr "Kies een land"
+
+#: apps/nfc/models.py:43
+#, python-format
+msgid "More than %(count)d card"
+msgid_plural "More than %(count)d cards"
+msgstr[0] "Meer dan %(count)d kaart"
+msgstr[1] "Meer dan %(count)d kaarten"
+
+#: apps/nfc/models.py:46
+#, python-format
+msgid "%(count)d card"
+msgid_plural "%(count)d cards"
+msgstr[0] "%(count)d kaart"
+msgstr[1] "%(count)d kaarten"
+
+#: apps/nfc/models.py:47
+#, python-format
+msgid "%(min)d–%(max)d cards"
+msgstr "%(min)d–%(max)d kaarten"
+
+#: apps/support/forms.py:14
+msgid "Phone (optional)"
+msgstr "Telefoon (optioneel)"
+
+#: apps/support/models.py:12
+msgid "Account issue"
+msgstr "Probleem met account"
+
+#: apps/support/models.py:13
+msgid "Payment issue"
+msgstr "Probleem met betaling"
+
+#: apps/support/models.py:14
+msgid "Digital card issue"
+msgstr "Probleem met digitale kaart"
+
+#: apps/support/models.py:15
+msgid "NFC order issue"
+msgstr "Probleem met NFC-bestelling"
+
+#: apps/support/models.py:16
+msgid "Design request"
+msgstr "Ontwerpverzoek"
+
+#: templates/accounts/register.html:11
+msgid "Sign up with Google"
+msgstr "Registreren met Google"
+
+#: templates/accounts/register.html:11
+msgid "or sign up with your email"
+msgstr "of registreer met je e-mailadres"
+
+#: templates/dashboard/analytics.html:11
+msgid "7 days"
+msgstr "7 dagen"
+
+#: templates/dashboard/analytics.html:12
+msgid "30 days"
+msgstr "30 dagen"
+
+#: templates/dashboard/analytics.html:13
+msgid "90 days"
+msgstr "90 dagen"
+
+#: templates/dashboard/analytics.html:14
+msgid "12 months"
+msgstr "12 maanden"
+
+#: templates/dashboard/leads.html:23
+msgid "LINK"
+msgstr "LINK"
+
+#: templates/dashboard/share.html:37
+msgid "SVG for print"
+msgstr "SVG voor drukwerk"
+
+#: templates/partials/whatsapp_float.html:2
+msgid "Chat with us"
+msgstr "Chat met ons"
+
+#: apps/cards/models.py:230
+msgid "For example MTN, Telecel or Office."
+msgstr "Bijvoorbeeld MTN, Telecel of Kantoor."
+
+#: apps/billing/services.py:595 apps/billing/views.py:219 apps/core/dynamic_strings.py:46
+msgid "j F Y"
+msgstr "j F Y"
+
+#: apps/core/dynamic_strings.py:47
+msgid "j M Y"
+msgstr "j M Y"
+
+#: apps/core/dynamic_strings.py:48
+msgid "j M Y, H:i"
+msgstr "j M Y, H:i"
+
+#: apps/core/dynamic_strings.py:49
+msgid "j F Y, H:i"
+msgstr "j F Y, H:i"
+
+#: apps/core/dynamic_strings.py:50
+msgid "j M, H:i"
+msgstr "j M, H:i"
+
+#: apps/core/dynamic_strings.py:51 apps/dashboard/views.py:269
+msgid "d M"
+msgstr "d M"
+
+#: apps/core/dynamic_strings.py:52 apps/dashboard/views.py:273
+msgid "M Y"
+msgstr "M Y"
+
+#: templates/base.html:7
+msgid "Digital business cards you share by link, QR code or NFC tap. Recipients save you to their phone in one tap, and you can update your details any time."
+msgstr "Digitale visitekaartjes die je deelt via een link, QR-code of NFC-tik. Ontvangers slaan je met één tik op in hun telefoon en je kunt je gegevens op elk moment bijwerken."
+
+#: templates/base.html:31
+msgid "Share your contact details by link, QR code or NFC tap."
+msgstr "Deel je contactgegevens via een link, QR-code of NFC-tik."
+
+#: templates/billing/checkout.html:37
+#, python-format
+msgid "%(price)s/yr"
+msgstr "%(price)s/jr"
+
+#: templates/cards/_card.html:13
+#, python-format
+msgid "Photo of %(name)s"
+msgstr "Foto van %(name)s"
+
+#: templates/dashboard/_status_banner.html:28
+#, python-format
+msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s people</strong> on %(date)s."
+msgstr "Je abonnement verandert op %(date)s naar <strong style=\"display:inline\">%(plan)s voor %(seats)s personen</strong>."
+
+#: templates/dashboard/_status_banner.html:28
+#, python-format
+msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on %(date)s."
+msgstr "Je abonnement verandert op %(date)s naar <strong style=\"display:inline\">%(plan)s</strong>."
+
+#: apps/billing/models.py:218
+#, python-format
+msgid "%(brand)s ending %(last4)s"
+msgstr "%(brand)s eindigend op %(last4)s"
+
+#: apps/billing/services.py:432
+#, python-format
+msgid "Your plan has renewed. Receipt %(number)s"
+msgstr "Je abonnement is verlengd. Kwitantie %(number)s"
+
+#: apps/billing/services.py:586
+msgid "We could not renew your plan"
+msgstr "We konden je abonnement niet verlengen"
+
+#: apps/billing/services.py:619
+#, python-format
+msgid "Your plan renews on %(date)s"
+msgstr "Je abonnement wordt verlengd op %(date)s"
+
+#: apps/billing/services.py:657 templates/billing/checkout.html:21
+msgid "Automatic renewal is off"
+msgstr "Automatisch verlengen staat uit"
+
+#: apps/billing/views.py:213
+msgid "Automatic renewal is not on for your plan."
+msgstr "Automatisch verlengen staat niet aan voor je abonnement."
+
+#: apps/billing/views.py:218
+#, python-format
+msgid "Automatic renewal is off. Your plan stays active until %(date)s."
+msgstr "Automatisch verlengen staat uit. Je abonnement blijft actief tot %(date)s."
+
+#: apps/marketing/content.py:70
+msgid "Does my plan renew automatically?"
+msgstr "Wordt mijn abonnement automatisch verlengd?"
+
+#: apps/marketing/content.py:71
+msgid "If you pay by card, yes. Your card is charged the same yearly price on the day your plan ends, we email you about a week before and send a receipt after, and you can turn it off at any time in your dashboard. Your plan then stays active until the end of the year you paid for. Mobile Money payments never renew by themselves; we send you reminders instead."
+msgstr "Als je met een kaart betaalt, ja. Je kaart wordt op de dag dat je abonnement afloopt belast met dezelfde jaarprijs, we mailen je ongeveer een week van tevoren en sturen daarna een kwitantie, en je kunt het op elk moment uitschakelen in je dashboard. Je abonnement blijft dan actief tot het einde van het jaar dat je hebt betaald. Betalingen met Mobile Money worden nooit vanzelf verlengd; in plaats daarvan sturen we je herinneringen."
+
+#: templates/billing/checkout.html:14
+msgid "Automatic renewal is on"
+msgstr "Automatisch verlengen staat aan"
+
+#: templates/billing/checkout.html:15
+#, python-format
+msgid "Your card (%(card)s) will be charged on %(date)s. We email you a week before, and send a receipt after."
+msgstr "Je kaart (%(card)s) wordt op %(date)s belast. We mailen je een week van tevoren en sturen daarna een kwitantie."
+
+#: templates/billing/checkout.html:16
+#, python-format
+msgid "Turn off automatic renewal? Your plan stays active until %(date)s."
+msgstr "Automatisch verlengen uitschakelen? Je abonnement blijft actief tot %(date)s."
+
+#: templates/billing/checkout.html:18
+msgid "Cancel automatic renewal"
+msgstr "Automatisch verlengen annuleren"
+
+#: templates/billing/checkout.html:22
+msgid "Pay by card below to turn it on. The year is added to the end of your current plan, so you lose no time."
+msgstr "Betaal hieronder met een kaart om het aan te zetten. Het jaar wordt aan het einde van je huidige abonnement toegevoegd, dus je verliest geen tijd."
+
+#: templates/billing/checkout.html:77 templates/billing/checkout.html:80
+msgid "Don’t have a card? Pay with Mobile Money"
+msgstr "Geen kaart? Betaal met Mobile Money"
+
+#: templates/dashboard/home.html:67
+msgid "Automatic renewal"
+msgstr "Automatisch verlengen"
+
+#: templates/emails/auto_renewal_cancelled.txt:3
+#, python-format
+msgid "Automatic renewal is now off. Your plan stays active until %(date)s, and we no longer keep your card for renewal. We will send you reminders before your plan ends."
+msgstr "Automatisch verlengen staat nu uit. Je abonnement blijft actief tot %(date)s en we bewaren je kaart niet meer voor verlenging. We sturen je herinneringen voordat je abonnement afloopt."
+
+#: templates/emails/auto_renewal_cancelled.txt:5
+#, python-format
+msgid "To turn it back on, pay by card here: %(link)s"
+msgstr "Om het weer aan te zetten, betaal je hier met een kaart: %(link)s"
+
+#: templates/emails/auto_renewal_failed.txt:3
+#, python-format
+msgid "We could not charge your card (%(card)s) to renew your plan, so automatic renewal has stopped. Your card stays live until %(until)s."
+msgstr "We konden je kaart (%(card)s) niet belasten om je abonnement te verlengen, dus automatisch verlengen is gestopt. Je kaart blijft live tot %(until)s."
+
+#: templates/emails/auto_renewal_failed.txt:5
+#, python-format
+msgid "To keep it live, renew here: %(link)s"
+msgstr "Verleng hier om hem live te houden: %(link)s"
+
+#: templates/emails/auto_renewal_failed.txt:5
+#, python-format
+msgid "We could not charge your card (%(card)s) to renew your plan. We will try again on %(date)s."
+msgstr "We konden je kaart (%(card)s) niet belasten om je abonnement te verlengen. We proberen het opnieuw op %(date)s."
+
+#: templates/emails/auto_renewal_failed.txt:7
+#, python-format
+msgid "To pay with a different card or with Mobile Money now, go to: %(link)s"
+msgstr "Om nu met een andere kaart of met Mobile Money te betalen, ga je naar: %(link)s"
+
+#: templates/emails/auto_renewal_notice.txt:3
+#, python-format
+msgid "Your %(plan)s renews on %(date)s. We will charge %(amount)s to your card (%(card)s) on that day. You do not need to do anything."
+msgstr "Je abonnement wordt verlengd op %(date)s (%(plan)s). We belasten die dag %(amount)s op je kaart (%(card)s). Je hoeft niets te doen."
+
+#: templates/emails/auto_renewal_notice.txt:5
+#, python-format
+msgid "The yearly price has changed since your last payment, from %(previous)s to %(amount)s."
+msgstr "De jaarprijs is veranderd sinds je laatste betaling, van %(previous)s naar %(amount)s."
+
+#: templates/emails/auto_renewal_notice.txt:7
+#, python-format
+msgid "To turn off automatic renewal, or to pay with a different card, go to: %(link)s"
+msgstr "Om automatisch verlengen uit te schakelen, of met een andere kaart te betalen, ga je naar: %(link)s"
+
+#: templates/emails/payment_receipt.txt:14
+#, python-format
+msgid "This was your automatic yearly renewal. To turn off automatic renewal, go to: %(link)s"
+msgstr "Dit was je automatische jaarlijkse verlenging. Om automatisch verlengen uit te schakelen, ga je naar: %(link)s"
+
+#: templates/emails/payment_receipt.txt:16
+#, python-format
+msgid "Your plan will renew automatically on %(date)s: we will charge your card (%(card)s) and email you a week before. To turn off automatic renewal, go to: %(link)s"
+msgstr "Je abonnement wordt op %(date)s automatisch verlengd: we belasten je kaart (%(card)s) en mailen je een week van tevoren. Om automatisch verlengen uit te schakelen, ga je naar: %(link)s"
+
+#: templates/marketing/legal_refunds.html:7
+msgid "Plan payments, including automatic yearly renewals, are not refundable once your card is active, except for duplicate charges or a proven failure of the service."
+msgstr "Betalingen voor abonnementen, inclusief automatische jaarlijkse verlengingen, worden niet terugbetaald zodra je kaart actief is, behalve bij dubbele afschrijvingen of een bewezen storing van de dienst."
+
+#: templates/marketing/legal_terms.html:14
+msgid "A plan paid by Mobile Money is renewed by you. A plan paid by card renews automatically each year: on the day it ends we charge the same card the plan price shown at checkout, we email you about 7 days before and send a receipt after, and you can turn automatic renewal off at any time in your dashboard. Turning it off keeps your plan until the end of the year already paid for. Renewing early adds a year to your current end date."
+msgstr "Een abonnement dat met Mobile Money is betaald, verleng je zelf. Een abonnement dat met een kaart is betaald, wordt elk jaar automatisch verlengd: op de dag dat het afloopt belasten we dezelfde kaart met de abonnementsprijs die bij het afrekenen werd getoond, we mailen je ongeveer 7 dagen van tevoren en sturen daarna een kwitantie, en je kunt automatisch verlengen op elk moment uitschakelen in je dashboard. Uitschakelen houdt je abonnement actief tot het einde van het al betaalde jaar. Eerder verlengen voegt een jaar toe aan je huidige einddatum."

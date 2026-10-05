@@ -1,0 +1,3 @@
+# Tools for developers, not needed to run the site.
+# polib reads and writes the translation catalogs: python manage.py translations extract|compile|status
+polib==1.2.0

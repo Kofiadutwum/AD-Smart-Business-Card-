@@ -29,6 +29,22 @@ Tests (41, covering the SRS acceptance criteria):
 python manage.py test tests
 ```
 
+## Languages and currency
+
+The site follows the visitor's phone or browser language (French, Chinese (Simplified), Spanish, Dutch, Portuguese; English stays the default) and visitors can change it, and the currency they see prices in, from the picker. Customers are always charged in cedis. The staff area and the team's own emails stay in English; PDF receipts stay in English.
+
+Every sentence lives in `locale/<language>/LC_MESSAGES/django.po`, and the compiled `django.mo` files are committed, so the live site needs nothing extra. After adding or changing any wording in code or templates:
+
+```
+pip install -r requirements-dev.txt        # once, on your own computer
+python manage.py translations extract       # finds new sentences and adds them to every language
+# write the translations in the .po files (anything left empty shows in English)
+python manage.py translations compile       # checks every translation, then writes the .mo files
+python manage.py translations status        # how much of each language is done
+```
+
+Wording typed into the staff area (plan taglines, delivery options) shows as typed; the launch wording is translated through `apps/core/dynamic_strings.py`.
+
 ## What lives where
 
 | Path | What |
