@@ -45,7 +45,10 @@ HIDEABLE_FIELDS = [
 
 
 class Card(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cards")
+    # Empty only for a pre-made card nobody has claimed yet (see PremadeCard).
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cards", null=True, blank=True
+    )
     public_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)  # URL-07
     slug = models.CharField(max_length=64, unique=True)
 
@@ -125,10 +128,18 @@ class Card(models.Model):
     STATE_INACTIVE = "inactive"
     STATE_SUSPENDED = "suspended"
     STATE_DELETED = "deleted"
+    STATE_UNCLAIMED = "unclaimed"
+
+    @property
+    def is_unclaimed(self):
+        """A pre-made card that is waiting for its buyer to set it up."""
+        return self.owner_id is None and self.deleted_at is None
 
     def public_state(self):
         if self.deleted_at:
             return self.STATE_DELETED
+        if self.owner_id is None:
+            return self.STATE_UNCLAIMED
         if self.is_suspended or self.owner.is_suspended:
             return self.STATE_SUSPENDED
         if self.activated_at is None:
@@ -340,3 +351,77 @@ class CardReport(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+
+# --------------------------------------------------------------------------
+# Pre-made cards: printed with their QR code and NFC link, sold by shops
+# --------------------------------------------------------------------------
+
+
+class PremadeBatch(models.Model):
+    """A run of pre-made cards printed together, sold ready to use.
+
+    The price (GHS 350 by default) covers the printed card and the first year
+    on ``plan``. The shop collects it; it is recorded as revenue from outside
+    the website when the buyer sets the card up.
+    """
+
+    name = models.CharField(max_length=120, help_text="The design, for example Gold Classic.")
+    code = models.CharField(max_length=8, unique=True)
+    quantity = models.PositiveIntegerField()
+    price_minor = models.PositiveIntegerField(default=35000, help_text="What the buyer pays the shop, in pesewas.")
+    plan = models.ForeignKey("billing.Plan", on_delete=models.PROTECT, related_name="+")
+    months = models.PositiveSmallIntegerField(default=12)
+    note = models.CharField(max_length=200, blank=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.code} · {self.name}"
+
+
+class PremadeCard(models.Model):
+    """One printed card: an unclaimed digital card, its PIN and who claimed it."""
+
+    card = models.OneToOneField(Card, on_delete=models.CASCADE, related_name="premade")
+    batch = models.ForeignKey(PremadeBatch, on_delete=models.CASCADE, related_name="cards")
+    serial = models.PositiveIntegerField()
+    # Keyed hash of the PIN printed on the back; the PIN itself is never stored.
+    pin_hash = models.CharField(max_length=64)
+    pin_failures = models.PositiveSmallIntegerField(default=0)
+    pin_locked_until = models.DateTimeField(null=True, blank=True)
+
+    claimed_at = models.DateTimeField(null=True, blank=True)
+    claimed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="claimed_premade_cards"
+    )
+    payment = models.ForeignKey(
+        "billing.Payment", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
+    voided_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["batch_id", "serial"]
+        constraints = [models.UniqueConstraint(fields=["batch", "serial"], name="premade_serial_per_batch")]
+
+    def __str__(self):
+        return self.label
+
+    @property
+    def label(self):
+        return f"{self.batch.code}-{self.serial:04d}"
+
+    STATUS_UNCLAIMED, STATUS_CLAIMED, STATUS_VOID = "unclaimed", "claimed", "void"
+
+    @property
+    def status(self):
+        if self.claimed_at:
+            return self.STATUS_CLAIMED
+        if self.voided_at:
+            return self.STATUS_VOID
+        return self.STATUS_UNCLAIMED

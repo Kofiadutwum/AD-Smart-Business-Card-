@@ -25,6 +25,7 @@
           <li><a href="{% url 'staff:home' %}" {% nav_current 'staff:home' %}>{% icon "layout-dashboard" 18 %}Overview</a></li>
           {% if staff_perms.view_subscribers %}<li><a href="{% url 'staff:subscribers' %}" {% nav_current 'staff:subscribers' True %}>{% icon "users" 18 %}Subscribers</a></li>{% endif %}
           {% if staff_perms.nfc_view %}<li><a href="{% url 'staff:nfc_orders' %}" {% nav_current 'staff:nfc_orders' True %}>{% icon "nfc" 18 %}NFC orders</a></li>{% endif %}
+          {% if staff_perms.premade_cards %}<li><a href="{% url 'staff:premade' %}" {% nav_current 'staff:premade' True %}>{% icon "qr-code" 18 %}Pre-made cards</a></li>{% endif %}
         </ul>
       </div>
       {% if staff_perms.view_payments or staff_perms.promo_codes %}

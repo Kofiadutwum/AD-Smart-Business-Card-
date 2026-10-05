@@ -48,6 +48,7 @@ def home(request):
             {
                 "subscription_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose in subscription_kinds),
                 "nfc_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose == Payment.PURPOSE_NFC),
+                "premade_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose == Payment.PURPOSE_PREMADE),
                 "month_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.paid_at and p.paid_at >= month_start),
             }
         )
@@ -58,6 +59,7 @@ def home(request):
                 "successful_payments": paid.count(),
                 "subscription_revenue": paid.filter(purpose__in=[Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE]).aggregate(s=Sum("amount_minor"))["s"] or 0,
                 "nfc_revenue": paid.filter(purpose=Payment.PURPOSE_NFC).aggregate(s=Sum("amount_minor"))["s"] or 0,
+                "premade_revenue": paid.filter(purpose=Payment.PURPOSE_PREMADE).aggregate(s=Sum("amount_minor"))["s"] or 0,
                 "month_revenue": paid.filter(paid_at__gte=month_start).aggregate(s=Sum("amount_minor"))["s"] or 0,
             }
         )

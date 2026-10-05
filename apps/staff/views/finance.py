@@ -178,7 +178,7 @@ def refund(request, pk):
 @staff_required("finance")
 def report(request):
     paid = Payment.objects.filter(status__in=[Payment.SUCCESS, Payment.PARTIALLY_REFUNDED, Payment.REFUNDED], paid_at__isnull=False)
-    keys = ("subscription", "nfc", "delivery", "tax", "discount", "fees")
+    keys = ("subscription", "nfc", "delivery", "premade", "tax", "discount", "fees")
     months = OrderedDict()
 
     def add(bucket, key, minor, rate):
@@ -198,13 +198,16 @@ def report(request):
             add(bucket, "subscription", p.nfc_order.plan_minor, rate)
         elif p.purpose == Payment.PURPOSE_NFC:
             add(bucket, "nfc", p.amount_minor - p.tax_minor, rate)
+        elif p.purpose == Payment.PURPOSE_PREMADE:
+            # Sold in a shop, outside the website: counted as revenue when the buyer set the card up.
+            add(bucket, "premade", p.amount_minor - p.tax_minor, rate)
         else:
             add(bucket, "subscription", p.subtotal_minor, rate)
         add(bucket, "tax", p.tax_minor, rate)
         add(bucket, "discount", p.discount_minor, rate)
         add(bucket, "fees", p.gateway_fee_minor, rate)
     rows = list(months.items())[-24:]
-    peak = max((b["subscription"] + b["nfc"] + b["delivery"] for _, b in rows), default=0)
+    peak = max((b["subscription"] + b["nfc"] + b["delivery"] + b["premade"] for _, b in rows), default=0)
     totals = {k: sum(b[k] for _, b in rows) for k in keys}
     for k in keys:
         dollars = [b[k + "_usd"] for _, b in rows]

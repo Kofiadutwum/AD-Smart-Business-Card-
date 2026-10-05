@@ -1,0 +1,33 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><h1>Pre-made cards</h1><p>Cards printed with their QR code and NFC link and sold in shops. The buyer sets up the card with the PIN on its back and gets a year of the plan.</p></div></div>
+<div class="split">
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Batches of pre-made cards</caption>
+      <thead><tr><th>Batch</th><th>Plan and price</th><th class="num">Cards</th><th class="num">Set up</th><th class="num">Waiting</th><th>Made</th></tr></thead>
+      <tbody>
+        {% for b in batches %}
+          <tr>
+            <td><a href="{% url 'staff:premade_batch' b.pk %}"><strong>{{ b.code }}</strong> · {{ b.name }}</a>{% if b.note %}<br><span class="muted text-xs">{{ b.note }}</span>{% endif %}</td>
+            <td>{{ b.plan.name }}, {{ b.months }} months<br><span class="muted text-xs">{% money b.price_minor %}</span></td>
+            <td class="num">{{ b.quantity }}</td>
+            <td class="num">{{ b.counts.claimed }}</td>
+            <td class="num">{{ b.counts.waiting }}</td>
+            <td class="nowrap">{{ b.created_at|date:"j M Y" }}<br><span class="muted text-xs">{{ b.created_by.display_name|default:"" }}</span></td>
+          </tr>
+        {% empty %}<tr><td colspan="6" class="muted">No batches yet. Make the first one with the form.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">Make a batch</h2>
+    <p class="muted text-sm">Each card gets its own permanent link and a PIN. You then download the print pack with the QR codes, the NFC links and the PINs.</p>
+    <form method="post" class="form mt-4" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      <button class="btn btn--primary" type="submit">{% icon "qr-code" 16 %}Make the cards</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

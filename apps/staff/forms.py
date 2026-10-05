@@ -276,3 +276,24 @@ class BulkEmailForm(forms.Form):
         if cleaned.get("audience") == "one" and not cleaned.get("email"):
             self.add_error("email", "Enter the subscriber's email.")
         return cleaned
+
+
+class PremadeBatchForm(forms.Form):
+    """Make a batch of pre-made cards for shops to sell (staff only)."""
+
+    name = forms.CharField(label="Design name", max_length=120, help_text="For example Gold Classic. Only staff see it.")
+    quantity = forms.IntegerField(label="How many cards", min_value=1, max_value=500, initial=100, help_text="Up to 500 at a time.")
+    plan = forms.ModelChoiceField(label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None)
+    price = CedisField(
+        label="Price in the shop (GHS)", initial=350,
+        help_text="What the buyer pays the shop. It is counted as revenue from outside the website when the card is set up.",
+    )
+    note = forms.CharField(label="Note (optional)", max_length=200, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        plans = Plan.objects.filter(is_active=True)
+        self.fields["plan"].queryset = plans
+        professional = plans.filter(code="professional").first()
+        if professional:
+            self.fields["plan"].initial = professional.pk

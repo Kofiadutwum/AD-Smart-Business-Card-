@@ -8,6 +8,7 @@
   <div class="panel stat"><span class="stat__label">Subscriptions</span><span class="stat__value">{% money totals.subscription usd=totals.subscription_usd rate=None %}</span></div>
   <div class="panel stat"><span class="stat__label">NFC cards</span><span class="stat__value">{% money totals.nfc usd=totals.nfc_usd rate=None %}</span></div>
   <div class="panel stat"><span class="stat__label">Delivery fees</span><span class="stat__value">{% money totals.delivery usd=totals.delivery_usd rate=None %}</span></div>
+  <div class="panel stat"><span class="stat__label">Pre-made cards (outside the website)</span><span class="stat__value">{% money totals.premade usd=totals.premade_usd rate=None %}</span></div>
   <div class="panel stat"><span class="stat__label">Refunded</span><span class="stat__value">{% money refunded usd=refunded_usd rate=None %}</span></div>
 </div>
 <div class="stats mt-4">
@@ -20,14 +21,14 @@
   <div class="panel__head"><h2>By month</h2></div>
   <div class="table-wrap" style="border:0">
     <table class="table">
-      <thead><tr><th>Month</th><th class="num">Subscriptions</th><th class="num">NFC cards</th><th class="num">Delivery</th><th class="num">Discounts</th><th class="num">Tax</th><th class="num">Fees</th><th style="width:30%"><span class="visually-hidden">Chart</span></th></tr></thead>
+      <thead><tr><th>Month</th><th class="num">Subscriptions</th><th class="num">NFC cards</th><th class="num">Delivery</th><th class="num">Pre-made (shops)</th><th class="num">Discounts</th><th class="num">Tax</th><th class="num">Fees</th><th style="width:30%"><span class="visually-hidden">Chart</span></th></tr></thead>
       <tbody>
         {% for month, b in rows %}
           <tr>
-            <td>{{ month }}</td><td class="num">{% money b.subscription usd=b.subscription_usd rate=None %}</td><td class="num">{% money b.nfc usd=b.nfc_usd rate=None %}</td><td class="num">{% money b.delivery usd=b.delivery_usd rate=None %}</td><td class="num">{% money b.discount usd=b.discount_usd rate=None %}</td><td class="num">{% money b.tax usd=b.tax_usd rate=None %}</td><td class="num">{% money b.fees usd=b.fees_usd rate=None %}</td>
-            <td><div class="progress" title="Share of the best month"><span style="width: {% if peak %}{% widthratio b.subscription|add:b.nfc|add:b.delivery peak 100 %}{% else %}0{% endif %}%"></span></div></td>
+            <td>{{ month }}</td><td class="num">{% money b.subscription usd=b.subscription_usd rate=None %}</td><td class="num">{% money b.nfc usd=b.nfc_usd rate=None %}</td><td class="num">{% money b.delivery usd=b.delivery_usd rate=None %}</td><td class="num">{% money b.premade usd=b.premade_usd rate=None %}</td><td class="num">{% money b.discount usd=b.discount_usd rate=None %}</td><td class="num">{% money b.tax usd=b.tax_usd rate=None %}</td><td class="num">{% money b.fees usd=b.fees_usd rate=None %}</td>
+            <td><div class="progress" title="Share of the best month"><span style="width: {% if peak %}{% widthratio b.subscription|add:b.nfc|add:b.delivery|add:b.premade peak 100 %}{% else %}0{% endif %}%"></span></div></td>
           </tr>
-        {% empty %}<tr><td colspan="8" class="muted">No revenue yet.</td></tr>{% endfor %}
+        {% empty %}<tr><td colspan="9" class="muted">No revenue yet.</td></tr>{% endfor %}
       </tbody>
     </table>
   </div>

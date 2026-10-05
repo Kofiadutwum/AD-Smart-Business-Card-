@@ -45,6 +45,11 @@ def _lookup(request, slug, suffix=""):
     card, current = services.resolve_slug(slug)
     if card is None:
         return None, render(request, "cards/state.html", {"state": "missing"}, status=404)
+    if card.is_unclaimed:
+        # A pre-made card nobody has set up yet: the link leads to its set-up page, nothing else.
+        if suffix:
+            return None, render(request, "cards/state.html", {"state": "missing"}, status=404)
+        return None, redirect("cards:claim", slug=card.slug)
     if current:
         # URL-05: an old slug permanently redirects, keeping ?src= for analytics.
         query = request.META.get("QUERY_STRING")

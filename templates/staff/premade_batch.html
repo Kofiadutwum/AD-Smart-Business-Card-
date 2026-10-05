@@ -1,0 +1,56 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="crumbs"><a href="{% url 'staff:premade' %}">Pre-made cards</a><span>/</span><span>{{ batch.code }}</span></div>
+<div class="page-head"><div><h1>{{ batch.code }} · {{ batch.name }}</h1><p>{{ batch.quantity }} cards · {{ batch.plan.name }}, {{ batch.months }} months · sold for {% money batch.price_minor %}{% if batch.note %} · {{ batch.note }}{% endif %}</p></div></div>
+
+<div class="panel">
+  <h2 style="font-size: var(--text-lg)">Print pack</h2>
+  {% if pack_ready %}
+    <p class="muted text-sm">Ready for 24 hours after it was made. It holds each card’s QR link, NFC chip link and PIN. Send the QR codes to the printer, write the NFC links onto the chips and print the PIN on the back of each card.</p>
+    <div class="mt-4" style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+      <a class="btn btn--primary" href="{% url 'staff:premade_pack_zip' batch.pk %}">{% icon "download" 16 %}QR codes (ZIP, SVG and PNG)</a>
+      <a class="btn" href="{% url 'staff:premade_pack_csv' batch.pk %}">{% icon "download" 16 %}List with links and PINs (CSV)</a>
+    </div>
+  {% else %}
+    <p class="muted text-sm">The pack is no longer available, because PINs are not kept in a readable form. If you still need it, make new PINs for the cards that are waiting. Their old PINs stop working.</p>
+  {% endif %}
+  <form method="post" action="{% url 'staff:premade_reissue' batch.pk %}" class="mt-4" onsubmit="return confirm('Make new PINs for every card still waiting? The old PINs will stop working.')">
+    {% csrf_token %}
+    <button class="btn" type="submit">{% icon "refresh-cw" 16 %}New PINs for waiting cards</button>
+  </form>
+</div>
+
+<div class="stats mt-6">
+  <a class="panel stat" href="?status=" style="text-decoration:none;color:inherit"><span class="stat__label">All cards</span><span class="stat__value">{{ batch.quantity }}</span></a>
+  <a class="panel stat" href="?status=waiting" style="text-decoration:none;color:inherit"><span class="stat__label">Waiting for a buyer</span><span class="stat__value">{{ counts.waiting }}</span></a>
+  <a class="panel stat" href="?status=claimed" style="text-decoration:none;color:inherit"><span class="stat__label">Set up by buyers</span><span class="stat__value">{{ counts.claimed }}</span></a>
+  <a class="panel stat" href="?status=void" style="text-decoration:none;color:inherit"><span class="stat__label">Out of use</span><span class="stat__value">{{ counts.void }}</span></a>
+</div>
+
+<div class="table-wrap mt-6">
+  <table class="table">
+    <caption class="visually-hidden">Cards in this batch</caption>
+    <thead><tr><th>Card</th><th>Link</th><th>Status</th><th>Set up by</th><th></th></tr></thead>
+    <tbody>
+      {% for p in page %}
+        <tr>
+          <td class="mono">{{ p.label }}</td>
+          <td class="mono text-sm">/c/{{ p.card.slug }}</td>
+          <td>{% if p.status == "claimed" %}<span class="badge badge--success">Set up</span>{% elif p.status == "void" %}<span class="badge badge--danger">Out of use</span>{% else %}<span class="badge">Waiting</span>{% endif %}{% if p.pin_locked_until %} <span class="badge badge--warning">PIN locked</span>{% endif %}</td>
+          <td>{% if p.claimed_by %}<a href="{% url 'staff:subscriber' p.claimed_by_id %}">{{ p.claimed_by.display_name }}</a><br><span class="muted text-xs">{{ p.claimed_at|date:"j M Y, H:i" }}</span>{% else %}<span class="muted">—</span>{% endif %}</td>
+          <td class="num">
+            {% if p.status == "unclaimed" %}
+              <form method="post" action="{% url 'staff:premade_void' p.pk %}" onsubmit="return confirm('Take {{ p.label }} out of use? Its link will stop working.')">
+                {% csrf_token %}
+                <input type="hidden" name="reason" value="Taken out of use by staff">
+                <button class="btn btn--sm" type="submit">{% icon "ban" 14 %}Out of use</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}<tr><td colspan="5" class="muted">No cards match.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "staff/_pagination.html" %}
+{% endblock %}

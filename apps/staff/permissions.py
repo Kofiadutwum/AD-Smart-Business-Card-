@@ -25,6 +25,7 @@ PERMISSIONS = {
     "nfc_view": ALL,
     "nfc_design": {SUPER, DESIGN},
     "nfc_production": {SUPER, DESIGN, OPS},
+    "premade_cards": {SUPER, DESIGN, OPS},
     "support": {SUPER, SUPPORT},
     "reports": {SUPER, SUPPORT},
     "email_subscribers": {SUPER, SUPPORT},

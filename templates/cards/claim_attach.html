@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Add this card to your account · {{ SITE_NAME }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card">
+    <p class="eyebrow">Step 2 of 2</p>
+    <h1 class="mt-2">Add this card to your account</h1>
+    {% if problem %}
+      <div class="form-errors" role="alert"><p>{{ problem }}</p></div>
+      {% url 'dashboard:cards' as cards_url %}
+      {% hover_button "Go to my cards" href=cards_url variant="ink" css="ihb--block" %}
+    {% else %}
+      <p class="lead">You are signed in as <strong>{{ user.email }}</strong>. The card will be added to this account and one year of {{ batch.plan.name }} will be added to your plan. Its link and QR code stay exactly as printed.</p>
+      {% if subscription %}<p class="text-sm muted">Your plan is currently {{ subscription.plan.name }}, active until {{ subscription.expires_at|date:"j F Y" }}.</p>{% endif %}
+      <form method="post" class="form" novalidate>
+        {% csrf_token %}
+        {% hover_button "Add the card and the year" variant="ink" css="ihb--block" %}
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -350,10 +350,12 @@ class Payment(models.Model):
     PURPOSE_SUBSCRIPTION = "subscription"
     PURPOSE_UPGRADE = "upgrade"
     PURPOSE_NFC = "nfc_order"
+    PURPOSE_PREMADE = "premade_card"
     PURPOSES = [
         (PURPOSE_SUBSCRIPTION, "Subscription"),
         (PURPOSE_UPGRADE, "Plan upgrade"),
         (PURPOSE_NFC, "NFC order"),
+        (PURPOSE_PREMADE, "Pre-made card (sold in a shop)"),
     ]
 
     PENDING = "pending"
@@ -441,6 +443,9 @@ class Payment(models.Model):
             if self.plan_id:
                 parts.append(f"{self.plan.name} plan")
             return " + ".join(parts)
+        if self.purpose == self.PURPOSE_PREMADE:
+            plan = f" with {self.plan.name} plan, {self.months} months" if self.plan_id else ""
+            return f"Pre-made card{plan} (sold in a shop)"
         if self.purpose == self.PURPOSE_UPGRADE:
             if not self.plan:
                 return "Plan upgrade"

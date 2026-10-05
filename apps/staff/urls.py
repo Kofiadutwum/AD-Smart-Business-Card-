@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import admin, auth, content, finance, nfc, overview, subscribers
+from .views import admin, auth, content, finance, nfc, overview, premade, subscribers
 
 app_name = "staff"
 
@@ -32,6 +32,13 @@ urlpatterns = [
     path("nfc/<int:pk>/quality/", nfc.order_quality, name="nfc_quality"),
     path("nfc/<int:pk>/note/", nfc.order_note, name="nfc_note"),
     path("nfc/<int:pk>/file/<str:which>/", nfc.order_file, name="nfc_file"),
+    # pre-made cards sold in shops
+    path("premade-cards/", premade.batches, name="premade"),
+    path("premade-cards/<int:pk>/", premade.batch_detail, name="premade_batch"),
+    path("premade-cards/<int:pk>/pack.csv", premade.pack_csv, name="premade_pack_csv"),
+    path("premade-cards/<int:pk>/pack.zip", premade.pack_zip, name="premade_pack_zip"),
+    path("premade-cards/<int:pk>/reissue/", premade.reissue, name="premade_reissue"),
+    path("premade-cards/cards/<int:pk>/void/", premade.void, name="premade_void"),
     # support, reports, gallery, email
     path("support/", content.support_list, name="support"),
     path("support/<int:pk>/", content.support_detail, name="support_detail"),
