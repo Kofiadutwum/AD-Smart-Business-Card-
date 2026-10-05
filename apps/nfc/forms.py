@@ -8,14 +8,15 @@ from apps.core.currency import format_money_local
 from apps.core.utils import normalise_phone, validate_design_file
 
 from .models import DeliveryZone
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 
 class ZoneChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, zone):
-        fee = format_money_local(zone.fee_minor, latest_rate()) if zone.fee_minor else "Free"
-        label = "shipping and delivery" if zone.is_international else ""
-        return f"{zone.name} — {fee}{' ' + label if label else ''} · {zone.eta}"
+        fee = format_money_local(zone.fee_minor, latest_rate()) if zone.fee_minor else gettext("Free")
+        label = gettext("shipping and delivery") if zone.is_international else ""
+        return f"{gettext(zone.name)} — {fee}{' ' + label if label else ''} · {gettext(zone.eta)}"
 
 
 class NFCOrderForm(forms.Form):
@@ -75,7 +76,7 @@ class NFCOrderForm(forms.Form):
         self.cards = list(cards)
         self.needs_plan = needs_plan
         self.fields["delivery_zone"].queryset = DeliveryZone.objects.filter(is_active=True)
-        self.fields["delivery_country"].choices = [("", "Choose a country")] + [
+        self.fields["delivery_country"].choices = [("", _("Choose a country"))] + [
             (code, name) for code, name in countries if code != "GH"
         ]
         self.fields["plan"].queryset = plans

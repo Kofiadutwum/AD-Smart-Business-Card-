@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>{% trans "Team cards" %}</h1>
-    <p>{% blocktrans trimmed with limit_pluralize=limit|pluralize plan_name=plan.name %}{{ enabled_count }} of {{ limit }} card{{ limit_pluralize }} live on the {{ plan_name }} plan{% endblocktrans %}{% if cards|length > enabled_count %}{% blocktrans trimmed with cards_length_add=cards|length|add:0 %}, and {{ cards_length_add }} in total{% endblocktrans %}{% endif %}{% trans ". Switched-off cards don't use a place." %}</p>
+    <p>{% if cards|length > enabled_count %}{% blocktrans trimmed with plan_name=plan.name total=cards|length count limit=limit %}{{ enabled_count }} of {{ limit }} card live on the {{ plan_name }} plan, and {{ total }} in total. Switched-off cards don't use a place.{% plural %}{{ enabled_count }} of {{ limit }} cards live on the {{ plan_name }} plan, and {{ total }} in total. Switched-off cards don't use a place.{% endblocktrans %}{% else %}{% blocktrans trimmed with plan_name=plan.name count limit=limit %}{{ enabled_count }} of {{ limit }} card live on the {{ plan_name }} plan. Switched-off cards don't use a place.{% plural %}{{ enabled_count }} of {{ limit }} cards live on the {{ plan_name }} plan. Switched-off cards don't use a place.{% endblocktrans %}{% endif %}</p>
   </div>
 </div>
 {% if over_limit %}
@@ -40,7 +40,7 @@
         {% hover_button _("Create card") variant="ink" icon_name="plus" %}
       </form>
     {% else %}
-      <p class="muted text-sm mt-4">{% if plan.is_team %}{% trans "Every place on your plan is in use. When someone leaves, switch their card off or delete it, then add a card for the new person." %}{% else %}{% blocktrans trimmed with limit_pluralize=limit|pluralize %}Your plan includes {{ limit }} live card{{ limit_pluralize }}. The Business plan gives a card to everyone in your team.{% endblocktrans %}{% endif %}</p>
+      <p class="muted text-sm mt-4">{% if plan.is_team %}{% trans "Every place on your plan is in use. When someone leaves, switch their card off or delete it, then add a card for the new person." %}{% else %}{% blocktrans trimmed count limit=limit %}Your plan includes {{ limit }} live card. The Business plan gives a card to everyone in your team.{% plural %}Your plan includes {{ limit }} live cards. The Business plan gives a card to everyone in your team.{% endblocktrans %}{% endif %}</p>
       {% url 'billing:checkout' as checkout_url %}
       <div class="mt-4">{% if plan.is_team %}{% hover_button _("Add people to your plan") href=checkout_url|add:"?plan="|add:plan.code css="ihb--sm" %}{% else %}{% hover_button _("See Business") href=checkout_url|add:"?plan=business" css="ihb--sm" %}{% endif %}</div>
     {% endif %}

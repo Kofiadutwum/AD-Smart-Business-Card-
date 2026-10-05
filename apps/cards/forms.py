@@ -13,11 +13,11 @@ class LeadForm(forms.ModelForm):
         model = Lead
         fields = ["name", "phone", "email", "organisation", "note"]
         labels = {
-            "name": "Your name",
-            "phone": "Phone",
-            "email": "Email",
-            "organisation": "Company",
-            "note": "Message",
+            "name": _("Your name"),
+            "phone": _("Phone"),
+            "email": _("Email"),
+            "organisation": _("Company"),
+            "note": _("Message"),
         }
         widgets = {
             "name": forms.TextInput(attrs={"autocomplete": "name"}),
@@ -39,9 +39,9 @@ class ReportForm(forms.ModelForm):
         model = CardReport
         fields = ["reason", "details", "reporter_email"]
         labels = {
-            "reason": "What is wrong with this card?",
-            "details": "Details",
-            "reporter_email": "Your email (optional, if you would like a reply)",
+            "reason": _("What is wrong with this card?"),
+            "details": _("Details"),
+            "reporter_email": _("Your email (optional, if you would like a reply)"),
         }
         widgets = {"reason": forms.RadioSelect, "details": forms.Textarea(attrs={"rows": 4})}
 

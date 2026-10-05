@@ -10,6 +10,8 @@ account.
 from contextvars import ContextVar
 from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 
+from django.utils.translation import gettext_lazy as _
+
 from .utils import rate_value, to_usd
 
 COOKIE_NAME = "adsmart_currency"
@@ -18,13 +20,13 @@ DEFAULT = "USD"
 
 # symbol: what goes in front of the number; decimals: places shown when the amount is not whole.
 CURRENCIES = {
-    "USD": {"symbol": "$", "decimals": 2, "name": "US dollar"},
-    "GBP": {"symbol": "£", "decimals": 2, "name": "British pound"},
-    "EUR": {"symbol": "€", "decimals": 2, "name": "Euro"},
-    "CNY": {"symbol": "CN¥", "decimals": 2, "name": "Chinese yuan"},
-    "NGN": {"symbol": "₦", "decimals": 0, "name": "Nigerian naira"},
-    "XOF": {"symbol": "CFA ", "decimals": 0, "name": "West African CFA franc"},
-    "GHS": {"symbol": "GHS ", "decimals": 2, "name": "Ghana cedi"},
+    "USD": {"symbol": "$", "decimals": 2, "name": _("US dollar")},
+    "GBP": {"symbol": "£", "decimals": 2, "name": _("British pound")},
+    "EUR": {"symbol": "€", "decimals": 2, "name": _("Euro")},
+    "CNY": {"symbol": "CN¥", "decimals": 2, "name": _("Chinese yuan")},
+    "NGN": {"symbol": "₦", "decimals": 0, "name": _("Nigerian naira")},
+    "XOF": {"symbol": "CFA ", "decimals": 0, "name": _("West African CFA franc")},
+    "GHS": {"symbol": "GHS ", "decimals": 2, "name": _("Ghana cedi")},
 }
 # Currencies worked out from the dollar rate and the provider's other rates.
 CONVERTED = ("GBP", "EUR", "CNY", "NGN", "XOF")

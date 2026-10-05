@@ -8,7 +8,7 @@
 - {% blocktrans trimmed %}Our designers send your first proof within 3 working days.{% endblocktrans %}
 - {% blocktrans trimmed with rounds=site.free_revision_rounds %}You approve it, or ask for changes ({{ rounds }} rounds are free).{% endblocktrans %}
 - {% blocktrans trimmed %}We print, encode, lock and tap-test every card, then deliver it or prepare it for pickup.{% endblocktrans %}{% if order.is_international %}
-- {% blocktrans trimmed with country=order.delivery_country.name eta=order.delivery_zone.eta %}Your cards ship to {{ country }} ({{ eta }}). Any import duties or taxes in your country are paid by the recipient.{% endblocktrans %}{% endif %}
+- {% trans order.delivery_zone.eta as zone_eta %}{% blocktrans trimmed with country=order.delivery_country.name eta=zone_eta %}Your cards ship to {{ country }} ({{ eta }}). Any import duties or taxes in your country are paid by the recipient.{% endblocktrans %}{% endif %}
 
 {% blocktrans trimmed with link=order_url %}Track your order: {{ link }}{% endblocktrans %}
 

@@ -11,7 +11,7 @@ from django.db.models import Count
 from django.forms import inlineformset_factory
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
+from django.utils import dateformat, timezone
 from django.views.decorators.http import require_POST
 
 from apps.accounts.decorators import customer_required
@@ -266,11 +266,11 @@ def analytics(request, pk=None):
         by_source = dict(views.values_list("source").annotate(n=Count("id")))
         if days <= 90:
             series = _daily(views, days)
-            labels = [d.strftime("%d %b") for d in series]
+            labels = [dateformat.format(d, _("d M")) for d in series]
         else:
             series = OrderedDict()
             for when in views.values_list("occurred_at", flat=True):
-                key = timezone.localtime(when).strftime("%b %Y")
+                key = dateformat.format(timezone.localtime(when), _("M Y"))
                 series[key] = series.get(key, 0) + 1
             labels = list(series.keys())
         socials = dict(
@@ -283,9 +283,9 @@ def analytics(request, pk=None):
                 "unique": views.exclude(visitor_hash="").values("visitor_hash").distinct().count(),
                 "saves": by_kind.get(CardEvent.SAVE_CONTACT, 0),
                 "sources": [
-                    ("QR code scans", by_source.get("qr", 0), "qr-code"),
-                    ("NFC taps", by_source.get("nfc", 0), "nfc"),
-                    ("Direct link", by_source.get("link", 0), "link"),
+                    (_("QR code scans"), by_source.get("qr", 0), "qr-code"),
+                    (_("NFC taps"), by_source.get("nfc", 0), "nfc"),
+                    (_("Direct link"), by_source.get("link", 0), "link"),
                 ],
                 "clicks": [
                     (label, by_kind.get(kind, 0))
@@ -323,7 +323,7 @@ def leads_csv(request):
     response["Content-Disposition"] = 'attachment; filename="contacts.csv"'
     response.write("﻿")  # so Excel opens UTF-8 names correctly
     writer = csv.writer(response)
-    writer.writerow(["Date", "Name", "Phone", "Email", "Company", "Message", "Came via", "Card"])
+    writer.writerow([_("Date"), _("Name"), _("Phone"), _("Email"), _("Company"), _("Message"), _("Came via"), _("Card")])
     for lead in rows:
         writer.writerow([
             timezone.localtime(lead.created_at).strftime("%Y-%m-%d %H:%M"), lead.name, lead.phone, lead.email,

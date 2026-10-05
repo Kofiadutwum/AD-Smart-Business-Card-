@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
 
 from apps.cards.colors import valid_hex
-from apps.cards.models import ACCENT_PRESETS, HIDEABLE_FIELDS, Card, CardPhone, SocialLink
+from apps.cards.models import ACCENT_PRESETS, HIDEABLE_FIELDS, Card, CardPhone, SocialLink, accent_choices
 from apps.core.utils import normalise_phone, process_image
 from django.utils.translation import gettext_lazy as _
 
@@ -24,7 +24,7 @@ class CardForm(forms.ModelForm):
     background_upload = forms.ImageField(label=_("Background image"), required=False)
     remove_background = forms.BooleanField(label=_("Remove background"), required=False)
     accent_preset = forms.ChoiceField(
-        label=_("Card colour"), choices=[(v, k.title()) for k, v in ACCENT_PRESETS.items()] + [("custom", "Custom")],
+        label=_("Card colour"), choices=accent_choices() + [("custom", _("Custom"))],
         widget=forms.RadioSelect, required=False,
     )
     accent_custom = forms.CharField(label=_("Custom colour"), required=False, widget=forms.TextInput(attrs={"type": "color"}))
@@ -42,28 +42,28 @@ class CardForm(forms.ModelForm):
             "allow_indexing", "collect_leads", "is_published",
         ]
         labels = {
-            "full_name": "Full name",
-            "job_title": "Position / job title",
-            "business_name": "Business name",
-            "bio": "Short bio",
-            "whatsapp": "WhatsApp number",
-            "email": "Email address",
-            "website": "Website",
-            "address": "Physical address",
-            "ghana_post_gps": "Ghana Post GPS address",
-            "template": "Layout",
-            "button_style": "Button style",
-            "icon_layout": "Social links",
-            "hide_branding": "Remove “Powered by AD Smart”",
-            "allow_indexing": "Let search engines show my card",
-            "collect_leads": "Let visitors send me their details",
-            "is_published": "Card is visible to the public",
+            "full_name": _("Full name"),
+            "job_title": _("Position / job title"),
+            "business_name": _("Business name"),
+            "bio": _("Short bio"),
+            "whatsapp": _("WhatsApp number"),
+            "email": _("Email address"),
+            "website": _("Website"),
+            "address": _("Physical address"),
+            "ghana_post_gps": _("Ghana Post GPS address"),
+            "template": _("Layout"),
+            "button_style": _("Button style"),
+            "icon_layout": _("Social links"),
+            "hide_branding": _("Remove “Powered by AD Smart”"),
+            "allow_indexing": _("Let search engines show my card"),
+            "collect_leads": _("Let visitors send me their details"),
+            "is_published": _("Card is visible to the public"),
         }
         help_texts = {
-            "bio": "Up to 300 characters.",
-            "whatsapp": "Can differ from your call number.",
-            "ghana_post_gps": "For example GA-123-4567.",
-            "allow_indexing": "Off by default, so your card only reaches people you share it with.",
+            "bio": _("Up to 300 characters."),
+            "whatsapp": _("Can differ from your call number."),
+            "ghana_post_gps": _("For example GA-123-4567."),
+            "allow_indexing": _("Off by default, so your card only reaches people you share it with."),
         }
         widgets = {
             "bio": forms.Textarea(attrs={"rows": 3, "maxlength": 300}),
@@ -108,7 +108,7 @@ class CardForm(forms.ModelForm):
                 self.fields[name].disabled = True
                 self.locked[name] = True
         if not plan.custom_colours:
-            self.fields["accent_preset"].choices = [(v, k.title()) for k, v in ACCENT_PRESETS.items()]
+            self.fields["accent_preset"].choices = accent_choices()
 
     def clean_whatsapp(self):
         value = self.cleaned_data.get("whatsapp")
@@ -189,10 +189,10 @@ class PhoneForm(forms.ModelForm):
     class Meta:
         model = CardPhone
         fields = ["number", "label"]
-        labels = {"number": "Phone number", "label": "Label"}
+        labels = {"number": _("Phone number"), "label": _("Label")}
         widgets = {
             "number": forms.TextInput(attrs={"inputmode": "tel", "placeholder": "024 412 3456"}),
-            "label": forms.TextInput(attrs={"placeholder": "MTN, Telecel, Office…"}),
+            "label": forms.TextInput(attrs={"placeholder": _("MTN, Telecel, Office…")}),
         }
 
     def clean_number(self):
@@ -216,7 +216,7 @@ class SocialLinkForm(forms.ModelForm):
     class Meta:
         model = SocialLink
         fields = ["platform", "url"]
-        labels = {"platform": "Platform", "url": "Link"}
+        labels = {"platform": _("Platform"), "url": _("Link")}
         widgets = {"url": forms.URLInput(attrs={"placeholder": "https://"})}
 
 

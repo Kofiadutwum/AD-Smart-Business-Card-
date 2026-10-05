@@ -22,6 +22,14 @@ ACCENT_PRESETS = {
     "amber": "#B7790A",
     "ink": "#1F2430",
 }
+ACCENT_NAMES = {
+    "blue": _("Blue"), "navy": _("Navy"), "sky": _("Sky"), "purple": _("Purple"), "amber": _("Amber"), "ink": _("Ink"),
+}
+
+
+def accent_choices():
+    """The preset colours as (hex, name) pairs, named in the visitor's language."""
+    return [(value, ACCENT_NAMES[name]) for name, value in ACCENT_PRESETS.items()]
 
 TEMPLATES = [
     ("classic", _("Classic")),
@@ -219,7 +227,7 @@ class CardSlug(models.Model):
 class CardPhone(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="phones")
     number = models.CharField(max_length=20)
-    label = models.CharField(max_length=32, blank=True, help_text="For example MTN, Telecel or Office.")
+    label = models.CharField(max_length=32, blank=True, help_text=_("For example MTN, Telecel or Office."))
     position = models.PositiveSmallIntegerField(default=0)
 
     class Meta:

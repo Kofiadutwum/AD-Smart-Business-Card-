@@ -19,7 +19,8 @@ from django.conf import settings
 from django.db import transaction
 from django.db.models import F
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
+from django.utils.translation import gettext
 
 from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import AuditLog, Counter, SiteSettings
@@ -100,14 +101,28 @@ def resolve_promo(code, scope):
     return promo, None
 
 
+def _label_text(label, english=False):
+    """A quote line's wording. A label may be a function that builds the text, so the same line can be
+    written in English (kept with the payment, for the PDF receipt) and in the visitor's language."""
+    if not callable(label):
+        return str(label)
+    if english:
+        with translation.override("en"):
+            return str(label())
+    return str(label())
+
+
 def build_quote(lines, promo=None):
     """lines: list of (label, amount_minor). Returns a quote dict."""
-    subtotal = sum(amount for _, amount in lines)
+    subtotal = sum(amount for _label, amount in lines)
     discount = promo.discount_on(subtotal) if promo else 0
     taxable = subtotal - discount
     tax = tax_on(taxable)
     return {
-        "lines": [{"label": label, "amount_minor": amount} for label, amount in lines],
+        "lines": [
+            {"label": _label_text(label, True), "display": _label_text(label), "amount_minor": amount}
+            for label, amount in lines
+        ],
         "subtotal_minor": subtotal,
         "discount_minor": discount,
         "tax_minor": tax,
@@ -130,15 +145,20 @@ def upgrade_price(subscription, new_plan, seats=None):
 def plan_label(plan, seats=None):
     """'Business plan for 12 people' on team plans, 'Basic plan' otherwise."""
     if plan.is_team:
-        return f"{plan.name} plan for {plan.team_size(seats)} people"
-    return f"{plan.name} plan"
+        return gettext("%(plan)s plan for %(people)d people") % {"plan": plan.name, "people": plan.team_size(seats)}
+    return gettext("%(plan)s plan") % {"plan": plan.name}
 
 
 def subscription_quote(user, plan, promo=None, seats=None):
     """New subscription, renewal, or a renewal onto a different plan or team size."""
     subscription = user.subscription
-    months = "12 more months" if subscription and subscription.expires_at > timezone.now() else "12 months"
-    return build_quote([(f"{plan_label(plan, seats)}, {months}", plan.price_for(seats))], promo)
+    renewing = bool(subscription and subscription.expires_at > timezone.now())
+
+    def label():
+        text = gettext("%(plan)s, 12 more months") if renewing else gettext("%(plan)s, 12 months")
+        return text % {"plan": plan_label(plan, seats)}
+
+    return build_quote([(label, plan.price_for(seats))], promo)
 
 
 # --------------------------------------------------------------------------
@@ -162,7 +182,7 @@ def create_payment(*, user, purpose, quote, plan=None, months=0, nfc_order=None,
         amount_minor=quote["total_minor"],
         currency=settings.CURRENCY,
         promo_code=quote.get("promo"),
-        line_items=quote["lines"],
+        line_items=[{"label": line["label"], "amount_minor": line["amount_minor"]} for line in quote["lines"]],
         fx_rate=rate.ghs_per_usd if rate else None,
         fx_rate_at=rate.fetched_at if rate else None,
     )

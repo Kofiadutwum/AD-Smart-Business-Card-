@@ -9,12 +9,12 @@ from django.utils.translation import gettext_lazy as _
 
 class SupportRequest(models.Model):
     CATEGORIES = [
-        ("account", "Account issue"),
-        ("payment", "Payment issue"),
-        ("card", "Digital card issue"),
-        ("nfc", "NFC order issue"),
-        ("design", "Design request"),
-        ("other", "Other"),
+        ("account", _("Account issue")),
+        ("payment", _("Payment issue")),
+        ("card", _("Digital card issue")),
+        ("nfc", _("NFC order issue")),
+        ("design", _("Design request")),
+        ("other", _("Other")),
     ]
     OPEN = "open"
     IN_PROGRESS = "in_progress"

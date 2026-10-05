@@ -1,6 +1,6 @@
 {% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-{% if days == 0 %}{% blocktrans trimmed with plan=subscription.plan.name %}Your {{ plan }} plan ends today.{% endblocktrans %}{% else %}{% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|date:"j F Y" count days=days %}Your {{ plan }} plan ends in {{ days }} day, on {{ date }}.{% plural %}Your {{ plan }} plan ends in {{ days }} days, on {{ date }}.{% endblocktrans %}{% endif %}
+{% if days == 0 %}{% blocktrans trimmed with plan=subscription.plan.name %}Your {{ plan }} plan ends today.{% endblocktrans %}{% else %}{% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|ldate:"j F Y" count days=days %}Your {{ plan }} plan ends in {{ days }} day, on {{ date }}.{% plural %}Your {{ plan }} plan ends in {{ days }} days, on {{ date }}.{% endblocktrans %}{% endif %}
 
 {% blocktrans trimmed %}Renew now to keep your card, QR code and NFC cards working without a break. Renewing early adds a full year to your current end date, so you lose nothing.{% endblocktrans %}
 

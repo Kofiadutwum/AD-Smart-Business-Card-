@@ -25,14 +25,20 @@ from django.utils.translation import gettext as _, ngettext
 
 def _order_quote(quantity, zone, plan, promo):
     cards_minor = services.cards_price(quantity)
-    lines = [(ngettext("%(count)d customised NFC card", "%(count)d customised NFC cards", quantity) % {"count": quantity}, cards_minor)]
+    lines = [(
+        lambda: ngettext("%(count)d customised NFC card", "%(count)d customised NFC cards", quantity) % {"count": quantity},
+        cards_minor,
+    )]
     if zone and zone.fee_minor:
-        kind = _("Shipping and delivery") if zone.is_international else _("Delivery")
-        lines.append((f"{kind}: {zone.name}", zone.fee_minor))
-    nfc_subtotal = sum(amount for _, amount in lines)
+        def delivery_line():
+            kind = _("Shipping and delivery") if zone.is_international else _("Delivery")
+            return f"{kind}: {_(zone.name)}"
+
+        lines.append((delivery_line, zone.fee_minor))
+    nfc_subtotal = sum(amount for _label, amount in lines)
     plan_minor = plan.price_minor if plan else 0
     if plan:
-        lines.append((_("%(plan)s plan, 12 months") % {"plan": plan.name}, plan_minor))
+        lines.append((lambda: _("%(plan)s plan, 12 months") % {"plan": plan.name}, plan_minor))
     # A promo for NFC orders discounts the cards and delivery; one for both
     # also discounts a plan bought in the same checkout.
     discount = 0

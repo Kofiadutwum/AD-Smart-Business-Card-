@@ -20,8 +20,8 @@
             <td>{% if lead.phone %}<a href="tel:{{ lead.phone }}">{{ lead.phone }}</a>{% endif %}</td>
             <td>{% if lead.email %}<a href="mailto:{{ lead.email }}">{{ lead.email }}</a>{% endif %}</td>
             <td>{{ lead.organisation }}</td>
-            <td><span class="badge badge--plain">{{ lead.source|upper }}</span></td>
-            <td class="nowrap">{{ lead.created_at|date:"j M Y, H:i" }}</td>
+            <td><span class="badge badge--plain">{% if lead.source == "link" %}{% trans "LINK" %}{% else %}{{ lead.source|upper }}{% endif %}</span></td>
+            <td class="nowrap">{{ lead.created_at|ldate:"j M Y, H:i" }}</td>
             <td>{% blocktrans trimmed with lead_name=lead.name asvar t_1 %}Remove {{ lead_name }}?{% endblocktrans %}<form method="post" action="{% url 'dashboard:lead_delete' lead.pk %}" data-confirm="{{ t_1 }}">{% csrf_token %}{% blocktrans trimmed with lead_name=lead.name asvar t_2 %}Remove {{ lead_name }}{% endblocktrans %}<button class="btn btn--ghost btn--icon" aria-label="{{ t_2 }}">{% icon "trash-2" 18 %}</button></form></td>
           </tr>
         {% endfor %}

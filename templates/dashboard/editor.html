@@ -3,7 +3,7 @@
 {% block main %}
 <div class="page-head">
   <div>
-    {% if cards|length > 1 %}<div class="crumbs">{% url 'dashboard:cards' as url_1 %}{% blocktrans trimmed with card_full_name=card.full_name %}<a href="{{ url_1 }}">Team cards</a><span>/</span><span>{{ card_full_name }}</span>{% endblocktrans %}</div>{% endif %}
+    {% if cards|length > 1 %}<div class="crumbs">{% url 'dashboard:cards' as url_1 %}<a href="{{ url_1 }}">{% trans "Team cards" %}</a><span>/</span><span>{{ card.full_name }}</span></div>{% endif %}
     <h1>{% trans "Edit your card" %}</h1>
     <p>{% blocktrans trimmed with card_slug=card.slug %}Changes appear in the preview as you type. Your link <span class="mono">/c/{{ card_slug }}</span> never changes when you edit.{% endblocktrans %}</p>
   </div>
@@ -95,7 +95,7 @@
               {% if radio.data.value != "custom" %}
                 <label style="background: {{ radio.data.value }}" title="{{ radio.choice_label }}">{{ radio.tag }}<span class="visually-hidden">{{ radio.choice_label }}</span></label>
               {% else %}
-                {% trans "Custom colour" as t_4 %}<label style="background: conic-gradient(#0a0e9c, #8805a9, #f1ac17, #0270b4, #0a0e9c)" title="{{ t_4 }}">{% blocktrans trimmed with radio_tag=radio.tag %}{{ radio_tag }}<span class="visually-hidden">Custom colour</span>{% endblocktrans %}</label>
+                {% trans "Custom colour" as t_4 %}<label style="background: conic-gradient(#0a0e9c, #8805a9, #f1ac17, #0270b4, #0a0e9c)" title="{{ t_4 }}">{{ radio.tag }}<span class="visually-hidden">{{ t_4 }}</span></label>
               {% endif %}
             {% endfor %}
           </div>
@@ -165,13 +165,13 @@
   </form>
 
   {% trans "Live preview" as t_6 %}<aside class="editor__preview" aria-label="{{ t_6 }}">
-    <p class="label" style="margin-bottom: var(--space-3)">{% trans "Live preview" %}{% if is_draft %} {% blocktrans trimmed %}· <span class="muted">draft</span>{% endblocktrans %}{% endif %}</p>
+    <p class="label" style="margin-bottom: var(--space-3)">{% trans "Live preview" %}{% if is_draft %} · <span class="muted">{% trans "draft" %}</span>{% endif %}</p>
     <div class="phone" data-preview>
       <div class="phone__screen">
         {% include "cards/_card.html" with card=preview.card eff=preview.eff pal=preview.pal card_url=preview.card_url vcf_url=preview.vcf_url demo=True lead_form=None qr_svg=None %}
       </div>
     </div>
-    {% if is_draft %}<p class="text-sm muted mt-4">{% trans "Features marked" %} {% icon "crown" 12 %} {% trans "are included with Professional and Business. You can try them now; they show on your public card once your plan includes them." %}</p>{% endif %}
+    {% if is_draft %}<p class="text-sm muted mt-4">{% icon "crown" 12 as crown_icon %}{% blocktrans trimmed %}Features marked {{ crown_icon }} are included with Professional and Business. You can try them now; they show on your public card once your plan includes them.{% endblocktrans %}</p>{% endif %}
 
     <section class="panel mt-6">
       <h2 class="text-sm" style="font-size: var(--text-base)">{% trans "Card link" %}</h2>

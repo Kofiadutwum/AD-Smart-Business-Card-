@@ -7,6 +7,7 @@ from django.utils.functional import cached_property
 from django_countries.fields import CountryField
 
 from apps.core.utils import keep_name
+from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
 
 
@@ -39,10 +40,11 @@ class PriceTier(models.Model):
     @property
     def range_label(self):
         if self.max_quantity is None:
-            return f"More than {self.min_quantity - 1} cards"
+            return ngettext("More than %(count)d card", "More than %(count)d cards", self.min_quantity - 1) % {
+                "count": self.min_quantity - 1}
         if self.min_quantity == self.max_quantity:
-            return f"{self.min_quantity} card{'s' if self.min_quantity != 1 else ''}"
-        return f"{self.min_quantity}–{self.max_quantity} cards"
+            return ngettext("%(count)d card", "%(count)d cards", self.min_quantity) % {"count": self.min_quantity}
+        return gettext("%(min)d–%(max)d cards") % {"min": self.min_quantity, "max": self.max_quantity}
 
 
 class DeliveryZone(models.Model):
@@ -67,7 +69,7 @@ class DeliveryZone(models.Model):
 
     @property
     def region_label(self):
-        return "Outside Ghana" if self.is_international else "In Ghana"
+        return gettext("Outside Ghana") if self.is_international else gettext("In Ghana")
 
 
 class NFCOrder(models.Model):

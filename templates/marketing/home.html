@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{% static 'css/carousel.css' %}{{ ASSET_Q }}">
   <link rel="preload" as="image" href="{% static 'brand/hero-1920.webp' %}" media="(min-width: 60rem)" imagesrcset="{% static 'brand/hero-1280.webp' %} 1280w, {% static 'brand/hero-1920.webp' %} 1920w" imagesizes="100vw">
 {% endblock %}
-{% block body_class %}{% trans "page-home" %}{% endblock %}
+{% block body_class %}page-home{% endblock %}
 
 {% block content %}
 
@@ -20,7 +20,7 @@
   </picture>
   <div class="container hero__inner">
     <div class="hero__copy">
-      <p class="hero__eyebrow">{% blocktrans trimmed %}<span class="pulse" aria-hidden="true"></span>Digital + NFC business cards, made in Ghana{% endblocktrans %}</p>
+      <p class="hero__eyebrow"><span class="pulse" aria-hidden="true"></span>{% trans "Digital + NFC business cards, made in Ghana" %}</p>
       <h1 id="hero-title">{% blocktrans trimmed %}Your business card, <span class="glow">one tap away.</span>{% endblocktrans %}</h1>
       <p class="hero__lead">{% trans "Share your details by link, QR code or a tap of an NFC card. People save you to their phone in one tap — and you can change your details any time without reprinting." %}</p>
       <div class="cluster hero__ctas">
@@ -46,7 +46,7 @@
       <p class="muted mt-4">{% trans "We built AD Smart so your contact details work as hard as your brand does: always up to date, easy to share, and saved in one tap. Every NFC card is designed by our team, printed, encoded with your permanent link and tap-tested on both Android and iPhone before it leaves the studio." %}</p>
       <div class="about__sign">
         <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
-        <div>{% blocktrans trimmed %}<strong>Kofi Adutwum</strong><span class="muted text-sm">CEO, AD Graphics</span>{% endblocktrans %}</div>
+        <div><strong>Kofi Adutwum</strong><span class="muted text-sm">{% trans "CEO, AD Graphics" %}</span></div>
       </div>
     </div>
     <div class="about__stats">

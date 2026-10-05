@@ -122,9 +122,9 @@ class AccountForm(forms.ModelForm):
         model = User
         fields = ["full_name", "phone", "company_name", "company_address"]
         labels = {
-            "full_name": "Your name",
-            "company_name": "Company name for receipts",
-            "company_address": "Company address for receipts",
+            "full_name": _("Your name"),
+            "company_name": _("Company name for receipts"),
+            "company_address": _("Company address for receipts"),
         }
 
     def clean_phone(self):

@@ -12,6 +12,7 @@ from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.templatetags.static import static
 from django.urls import reverse
+from django.utils.translation import gettext as _
 from PIL import Image
 
 from apps.cards.colors import palette
@@ -22,13 +23,13 @@ def demo_card(site):
     card = SimpleNamespace(
         slug="kofi-adutwum",
         full_name="Kofi Adutwum",
-        job_title="CEO",
+        job_title=_("CEO"),
         business_name="AD Graphics",
-        bio="Brand identity, print and digital design for businesses, churches, schools and events across Ghana.",
+        bio=_("Brand identity, print and digital design for businesses, churches, schools and events across Ghana."),
         # The AD logo sits in the profile circle.
         avatar=SimpleNamespace(url=static("brand/logo-192.webp")),
         avatar_is_logo=True,
-        avatar_alt="AD Graphics logo",
+        avatar_alt=_("AD Graphics logo"),
         initials="KA",
         whatsapp=site.support_whatsapp,
         email=site.support_email,
@@ -45,7 +46,7 @@ def demo_card(site):
         "icon_layout": "list",
         "logo": None,
         "background": None,
-        "phones": [SimpleNamespace(number=site.support_phone, label="Office")],
+        "phones": [SimpleNamespace(number=site.support_phone, label=_("Office"))],
         "social_links": [
             SimpleNamespace(
                 url=site.instagram_link, platform="instagram", label="Instagram", brand_icon="instagram"

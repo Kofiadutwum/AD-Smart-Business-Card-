@@ -19,8 +19,8 @@
     </div>
     <aside class="stack" style="--stack: var(--space-4)">
       <a class="panel cluster" href="{{ site.whatsapp_link }}" target="_blank" rel="noopener" style="text-decoration:none; color: inherit">{% brand_icon "whatsapp" 24 %}<span><strong>WhatsApp</strong><br><span class="muted text-sm">{{ site.support_whatsapp|phone }}</span></span></a>
-      <a class="panel cluster" href="tel:{{ site.support_phone }}" style="text-decoration:none; color: inherit">{% icon "phone" 24 %}<span><strong>Call</strong><br><span class="muted text-sm">{{ site.support_phone|phone }}</span></span></a>
-      <a class="panel cluster" href="mailto:{{ site.support_email }}" style="text-decoration:none; color: inherit">{% icon "mail" 24 %}<span><strong>Email</strong><br><span class="muted text-sm">{{ site.support_email }}</span></span></a>
+      <a class="panel cluster" href="tel:{{ site.support_phone }}" style="text-decoration:none; color: inherit">{% icon "phone" 24 %}<span><strong>{% trans "Call" %}</strong><br><span class="muted text-sm">{{ site.support_phone|phone }}</span></span></a>
+      <a class="panel cluster" href="mailto:{{ site.support_email }}" style="text-decoration:none; color: inherit">{% icon "mail" 24 %}<span><strong>{% trans "Email" %}</strong><br><span class="muted text-sm">{{ site.support_email }}</span></span></a>
       <a class="panel cluster" href="{{ site.instagram_link }}" target="_blank" rel="noopener" style="text-decoration:none; color: inherit">{% brand_icon "instagram" 24 %}<span><strong>Instagram</strong><br><span class="muted text-sm">@{{ site.instagram_handle }}</span></span></a>
       <p class="text-sm muted">{% url 'marketing:faq' as url_1 %}{% blocktrans trimmed %}Looking for answers? Try the <a href="{{ url_1 }}">FAQ</a>.{% endblocktrans %}</p>
     </aside>

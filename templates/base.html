@@ -1,10 +1,10 @@
-{% load static %}{% trans "<!doctype html>" %}
+{% load static %}<!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
-  <meta name="description" content="{% block description %}Digital business cards you share by link, QR code or NFC tap. Recipients save you to their phone in one tap, and you can update your details any time.{% endblock %}">
+  <meta name="description" content="{% block description %}{% trans "Digital business cards you share by link, QR code or NFC tap. Recipients save you to their phone in one tap, and you can update your details any time." %}{% endblock %}">
   {% block robots %}{% endblock %}
   <script>
     /* Apply the stored theme before first paint (Section 18). */
@@ -28,7 +28,7 @@
   <meta property="og:site_name" content="{{ SITE_NAME }}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ SITE_NAME }}">
-  <meta property="og:description" content="Share your contact details by link, QR code or NFC tap.">
+  <meta property="og:description" content="{% trans "Share your contact details by link, QR code or NFC tap." %}">
   <meta property="og:image" content="{{ SITE_URL }}{% static 'brand/og-image.jpg' %}">
   <meta name="twitter:card" content="summary_large_image">
   {% endblock %}

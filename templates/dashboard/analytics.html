@@ -8,17 +8,17 @@
   </div>
   {% if full %}
   {% trans "Period" as t_1 %}<nav class="tabs" aria-label="{{ t_1 }}" style="margin:0; border:0">
-    <a href="?days=7" {% if period == "7" %}aria-current="page"{% endif %}>7 days</a>
-    <a href="?days=30" {% if period == "30" %}aria-current="page"{% endif %}>30 days</a>
-    <a href="?days=90" {% if period == "90" %}aria-current="page"{% endif %}>90 days</a>
-    <a href="?days=365" {% if period == "365" %}aria-current="page"{% endif %}>12 months</a>
+    <a href="?days=7" {% if period == "7" %}aria-current="page"{% endif %}>{% trans "7 days" %}</a>
+    <a href="?days=30" {% if period == "30" %}aria-current="page"{% endif %}>{% trans "30 days" %}</a>
+    <a href="?days=90" {% if period == "90" %}aria-current="page"{% endif %}>{% trans "90 days" %}</a>
+    <a href="?days=365" {% if period == "365" %}aria-current="page"{% endif %}>{% trans "12 months" %}</a>
   </nav>
   {% endif %}
 </div>
 
 {% if not full %}
   <div class="stats">
-    <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">Total card views</span><span class="stat__value">{{ total_views }}</span>{% endblocktrans %}</div>
+    <div class="panel stat"><span class="stat__label">{% trans "Total card views" %}</span><span class="stat__value">{{ total_views }}</span></div>
   </div>
   <div class="banner banner--info mt-6">
     {% icon "chart-column" 22 %}
@@ -27,9 +27,9 @@
   </div>
 {% else %}
   <div class="stats">
-    <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">Views</span><span class="stat__value">{{ views }}</span><span class="stat__hint">{{ total_views }} all time</span>{% endblocktrans %}</div>
-    <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">Unique visitors</span><span class="stat__value">{{ unique }}</span>{% endblocktrans %}</div>
-    <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">Contacts saved</span><span class="stat__value">{{ saves }}</span>{% endblocktrans %}</div>
+    <div class="panel stat"><span class="stat__label">{% trans "Views" %}</span><span class="stat__value">{{ views }}</span><span class="stat__hint">{% blocktrans trimmed %}{{ total_views }} all time{% endblocktrans %}</span></div>
+    <div class="panel stat"><span class="stat__label">{% trans "Unique visitors" %}</span><span class="stat__value">{{ unique }}</span></div>
+    <div class="panel stat"><span class="stat__label">{% trans "Contacts saved" %}</span><span class="stat__value">{{ saves }}</span></div>
   </div>
 
   <section class="panel mt-6">

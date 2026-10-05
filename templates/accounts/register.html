@@ -8,13 +8,13 @@
     <h1 class="mt-2">{% trans "Create your account" %}</h1>
     <p class="lead">{% trans "Then build and preview your card for free. You only pay when you choose a plan." %}</p>
     {% if google_enabled %}
-      {% include "components/google_button.html" with label="Sign up with Google" divider="or sign up with your email" %}
+      {% trans "Sign up with Google" as google_label %}{% trans "or sign up with your email" as google_divider %}{% include "components/google_button.html" with label=google_label divider=google_divider %}
       <p class="text-xs muted" style="margin-top: calc(-1 * var(--space-2))">{% trans "Signing up with Google confirms your email straight away. We will ask for your mobile number next." %}</p>
     {% endif %}
     <form method="post" class="form" novalidate{% if google_enabled %} style="margin-top: var(--space-6)"{% endif %}>
       {% csrf_token %}
       {% include "components/form_fields.html" %}
-      <p class="text-xs muted">{% trans "By creating an account" %}{% if google_enabled %} {% trans "(with Google or email)" %}{% endif %}{% url 'marketing:terms' as url_1 %}{% url 'marketing:privacy' as url_2 %} {% blocktrans trimmed %}you agree to our <a href="{{ url_1 }}" target="_blank">Terms of Service</a> and <a href="{{ url_2 }}" target="_blank">Privacy Policy</a>.{% endblocktrans %}</p>
+      <p class="text-xs muted">{% url 'marketing:terms' as url_1 %}{% url 'marketing:privacy' as url_2 %}{% if google_enabled %}{% blocktrans trimmed %}By creating an account (with Google or email) you agree to our <a href="{{ url_1 }}" target="_blank">Terms of Service</a> and <a href="{{ url_2 }}" target="_blank">Privacy Policy</a>.{% endblocktrans %}{% else %}{% blocktrans trimmed %}By creating an account you agree to our <a href="{{ url_1 }}" target="_blank">Terms of Service</a> and <a href="{{ url_2 }}" target="_blank">Privacy Policy</a>.{% endblocktrans %}{% endif %}</p>
       {% hover_button _("Create account") variant="ink" css="ihb--block" %}
     </form>
     <p class="auth-alt">{% url 'accounts:login' as url_3 %}{% blocktrans trimmed %}Already have an account? <a href="{{ url_3 }}">Log in</a>{% endblocktrans %}</p>

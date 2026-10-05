@@ -20,7 +20,7 @@
     <div class="cluster mt-6">
       <a class="btn" href="https://wa.me/?text={{ link_url|urlencode }}" target="_blank" rel="noopener">{% brand_icon "whatsapp" 18 %}WhatsApp</a>
       <a class="btn" href="sms:?&body={{ link_url|urlencode }}">{% icon "message-circle" 18 %}SMS</a>
-      <a class="btn" href="mailto:?subject={{ card.full_name|urlencode }}&amp;body={{ link_url|urlencode }}">{% icon "mail" 18 %}Email</a>
+      <a class="btn" href="mailto:?subject={{ card.full_name|urlencode }}&amp;body={{ link_url|urlencode }}">{% icon "mail" 18 %}{% trans "Email" %}</a>
       <button type="button" class="btn" data-share="{{ link_url }}" data-share-title="{{ card.full_name }}">{% icon "share-2" 18 %}{% trans "More…" %}</button>
     </div>
     <hr>
@@ -34,7 +34,7 @@
     <div class="qr-box mt-6">{{ qr_svg|safe }}</div>
     <div class="cluster mt-6" style="justify-content:center">
       <a class="btn" href="{% url 'cards:qr' card.slug 'png' %}?download=1&amp;scale=20">{% icon "download" 18 %}PNG</a>
-      <a class="btn" href="{% url 'cards:qr' card.slug 'svg' %}?download=1">{% icon "download" 18 %}SVG for print</a>
+      <a class="btn" href="{% url 'cards:qr' card.slug 'svg' %}?download=1">{% icon "download" 18 %}{% trans "SVG for print" %}</a>
     </div>
   </section>
 </div>

@@ -343,7 +343,7 @@ def claim_with_new_account(premade_pk, data):
     card.job_title = data.get("job_title", "")
     card.business_name = data.get("business_name", "")
     card.save(update_fields=["owner", "full_name", "email", "job_title", "business_name", "updated_at"])
-    CardPhone.objects.create(card=card, number=data["phone"], label="Mobile", position=0)
+    CardPhone.objects.create(card=card, number=data["phone"], label="", position=0)
     payment = _finish(premade, user)
     return user, card, payment
 
@@ -360,6 +360,6 @@ def claim_for_existing_account(premade_pk, user):
     card.email = user.email
     card.save(update_fields=["owner", "full_name", "email", "updated_at"])
     if user.phone and not card.phones.exists():
-        CardPhone.objects.create(card=card, number=user.phone, label="Mobile", position=0)
+        CardPhone.objects.create(card=card, number=user.phone, label="", position=0)
     payment = _finish(premade, user)
     return card, payment

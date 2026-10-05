@@ -4,11 +4,24 @@ from django import template
 from django.templatetags.static import static
 from django.urls import NoReverseMatch, reverse
 from django.utils.html import format_html
+from django.utils.translation import gettext
 
 from apps.core import currency
 from apps.core.utils import display_phone, format_dollars, format_ghs, format_money, format_usd, whatsapp_digits
 
 register = template.Library()
+
+
+@register.filter
+def ldate(value, pattern):
+    """A date written the way the visitor's language writes dates.
+
+    The pattern is itself translated (see apps/core/dynamic_strings.py), so Chinese can write
+    2026年10月5日 and Spanish 5 de octubre de 2026 where English writes 5 October 2026.
+    """
+    from django.template.defaultfilters import date
+
+    return date(value, gettext(pattern))
 
 
 @register.simple_tag

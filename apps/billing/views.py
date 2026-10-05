@@ -72,18 +72,19 @@ def checkout(request):
             return redirect("dashboard:editor")
         else:
             if request.POST["action"] == "upgrade" and upgrade:
-                months_left = ngettext(
-                    "%(count)d remaining month", "%(count)d remaining months", upgrade["months"]
-                ) % {"count": upgrade["months"]}
-                if upgrade["added"]:
-                    label = ngettext(
-                        "%(added)d more person on %(plan)s for %(months_left)s",
-                        "%(added)d more people on %(plan)s for %(months_left)s", upgrade["added"],
-                    ) % {"added": upgrade["added"], "plan": plan.name, "months_left": months_left}
-                else:
-                    label = _("Upgrade to %(plan)s for %(months_left)s") % {
+                def upgrade_label():
+                    months_left = ngettext(
+                        "%(count)d remaining month", "%(count)d remaining months", upgrade["months"]
+                    ) % {"count": upgrade["months"]}
+                    if upgrade["added"]:
+                        return ngettext(
+                            "%(added)d more person on %(plan)s for %(months_left)s",
+                            "%(added)d more people on %(plan)s for %(months_left)s", upgrade["added"],
+                        ) % {"added": upgrade["added"], "plan": plan.name, "months_left": months_left}
+                    return _("Upgrade to %(plan)s for %(months_left)s") % {
                         "plan": services.plan_label(plan, seats), "months_left": months_left}
-                upgrade_quote = services.build_quote([(label, upgrade["amount_minor"])], promo)
+
+                upgrade_quote = services.build_quote([(upgrade_label, upgrade["amount_minor"])], promo)
                 payment = services.create_payment(
                     user=user, purpose=Payment.PURPOSE_UPGRADE, quote=upgrade_quote, plan=plan, seats=seats,
                 )

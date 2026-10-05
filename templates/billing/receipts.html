@@ -12,7 +12,7 @@
       <tbody>
         {% for p in payments %}
           <tr>
-            <td class="nowrap">{{ p.created_at|date:"j M Y" }}</td>
+            <td class="nowrap">{{ p.created_at|ldate:"j M Y" }}</td>
             <td>{{ p.description }}<br><span class="muted text-xs mono">{{ p.reference }}</span></td>
             <td>{% if p.status == "success" %}<span class="badge badge--success">{% trans "Paid" %}</span>{% elif p.status == "pending" %}<span class="badge badge--warning">{% trans "Pending" %}</span>{% elif p.status == "refunded" or p.status == "partially_refunded" %}<span class="badge badge--info">{{ p.get_status_display }}</span>{% else %}<span class="badge">{{ p.get_status_display }}</span>{% endif %}</td>
             <td class="num">{% money p.amount_minor rate=p.usd_rate %}</td>

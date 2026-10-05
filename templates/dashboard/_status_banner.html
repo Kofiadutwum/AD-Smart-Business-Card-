@@ -8,7 +8,7 @@
 {% elif shell_subscription.state == "grace" %}
   <div class="banner banner--danger" role="alert">
     {% icon "triangle-alert" 22 %}
-    <p>{% blocktrans trimmed with shell_subscription_expires_at_date=shell_subscription.expires_at|date:"j F Y" shell_subscription_grace_ends_at_date=shell_subscription.grace_ends_at|date:"j F Y" %}<strong>Your plan ended on {{ shell_subscription_expires_at_date }}.</strong> Your card still works until {{ shell_subscription_grace_ends_at_date }}. Renew before then to keep it live.{% endblocktrans %}</p>
+    <p>{% blocktrans trimmed with shell_subscription_expires_at_date=shell_subscription.expires_at|ldate:"j F Y" shell_subscription_grace_ends_at_date=shell_subscription.grace_ends_at|ldate:"j F Y" %}<strong>Your plan ended on {{ shell_subscription_expires_at_date }}.</strong> Your card still works until {{ shell_subscription_grace_ends_at_date }}. Renew before then to keep it live.{% endblocktrans %}</p>
     {% url 'billing:checkout' as checkout_url %}{% hover_button _("Renew now") href=checkout_url variant="primary" css="ihb--sm" %}
   </div>
 {% elif shell_subscription.state == "inactive" %}
@@ -20,10 +20,10 @@
 {% elif shell_subscription.state == "expiring_soon" %}
   <div class="banner banner--warning">
     {% icon "clock" 22 %}
-    <p>{% blocktrans trimmed with shell_subscription_days_left=shell_subscription.days_left shell_subscription_days_left_pluralize=shell_subscription.days_left|pluralize shell_subscription_expires_at_date=shell_subscription.expires_at|date:"j F Y" %}<strong>Your plan ends in {{ shell_subscription_days_left }} day{{ shell_subscription_days_left_pluralize }}</strong> ({{ shell_subscription_expires_at_date }}). Renew early — the new year is added to the end, so you lose nothing.{% endblocktrans %}</p>
+    <p>{% blocktrans trimmed with expires=shell_subscription.expires_at|ldate:"j F Y" count days_left=shell_subscription.days_left %}<strong>Your plan ends in {{ days_left }} day</strong> ({{ expires }}). Renew early — the new year is added to the end, so you lose nothing.{% plural %}<strong>Your plan ends in {{ days_left }} days</strong> ({{ expires }}). Renew early — the new year is added to the end, so you lose nothing.{% endblocktrans %}</p>
     {% url 'billing:checkout' as checkout_url %}{% hover_button _("Renew") href=checkout_url css="ihb--sm" %}
   </div>
 {% endif %}
 {% if shell_subscription.pending_plan %}
-  <div class="banner banner--info">{% icon "info" 22 %}<p>Your plan changes to <strong style="display:inline">{{ shell_subscription.pending_plan.name }}{% if shell_subscription.pending_seats %} {% blocktrans trimmed with shell_subscription_pending_seats=shell_subscription.pending_seats %}for {{ shell_subscription_pending_seats }} people{% endblocktrans %}{% endif %}</strong> {% blocktrans trimmed with shell_subscription_pending_plan_from_date=shell_subscription.pending_plan_from|date:"j F Y" %}on {{ shell_subscription_pending_plan_from_date }}.{% endblocktrans %}</p></div>
+  <div class="banner banner--info">{% icon "info" 22 %}<p>{% if shell_subscription.pending_seats %}{% blocktrans trimmed with plan=shell_subscription.pending_plan.name seats=shell_subscription.pending_seats date=shell_subscription.pending_plan_from|ldate:"j F Y" %}Your plan changes to <strong style="display:inline">{{ plan }} for {{ seats }} people</strong> on {{ date }}.{% endblocktrans %}{% else %}{% blocktrans trimmed with plan=shell_subscription.pending_plan.name date=shell_subscription.pending_plan_from|ldate:"j F Y" %}Your plan changes to <strong style="display:inline">{{ plan }}</strong> on {{ date }}.{% endblocktrans %}{% endif %}</p></div>
 {% endif %}

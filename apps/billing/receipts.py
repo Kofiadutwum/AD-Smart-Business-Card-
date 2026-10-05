@@ -4,7 +4,7 @@ import io
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
-from django.utils import timezone
+from django.utils import timezone, translation
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
@@ -21,6 +21,12 @@ LINE = colors.HexColor("#DADDE5")
 
 
 def render_receipt_pdf(payment):
+    """Receipts are always in English, whatever language the customer reads the site in."""
+    with translation.override("en"):
+        return _draw_receipt(payment)
+
+
+def _draw_receipt(payment):
     site = SiteSettings.load()
     buffer = io.BytesIO()
     pdf = canvas.Canvas(buffer, pagesize=A4)

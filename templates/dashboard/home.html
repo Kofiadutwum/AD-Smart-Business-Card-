@@ -3,8 +3,8 @@
 {% block main %}
 <div class="page-head">
   <div>
-    <h1>{% blocktrans trimmed with user_first_name_default=user.first_name|default:"there" %}Hello, {{ user_first_name_default }}{% endblocktrans %}</h1>
-    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_state_label=subscription.state_label %}{{ subscription_plan_name }} plan · {{ subscription_state_label }}{% endblocktrans %}{% if subscription.is_live %} {% blocktrans trimmed with subscription_expires_at_date=subscription.expires_at|date:"j M Y" %}until {{ subscription_expires_at_date }}{% endblocktrans %}{% endif %}{% else %}{% trans "Your card is a draft until you choose a plan." %}{% endif %}</p>
+    <h1>{% blocktrans trimmed with name=user.first_name|default:_("there") %}Hello, {{ name }}{% endblocktrans %}</h1>
+    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_state_label=subscription.state_label %}{{ subscription_plan_name }} plan · {{ subscription_state_label }}{% endblocktrans %}{% if subscription.is_live %} {% blocktrans trimmed with subscription_expires_at_date=subscription.expires_at|ldate:"j M Y" %}until {{ subscription_expires_at_date }}{% endblocktrans %}{% endif %}{% else %}{% trans "Your card is a draft until you choose a plan." %}{% endif %}</p>
   </div>
   <div class="cluster">
     <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "eye" 16 %}{% trans "View card" %}</a>
@@ -13,10 +13,10 @@
 </div>
 
 <div class="stats">
-  <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">Card views · 30 days</span><span class="stat__value">{{ views_30 }}</span>{% endblocktrans %}</div>
-  <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">Contacts saved</span><span class="stat__value">{{ saves_30 }}</span>{% endblocktrans %}</div>
-  <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">Button clicks</span><span class="stat__value">{{ clicks_30 }}</span>{% endblocktrans %}</div>
-  <div class="panel stat">{% blocktrans trimmed %}<span class="stat__label">New contacts for you</span><span class="stat__value">{{ unread_leads }}</span>{% endblocktrans %}{% if unread_leads %}<a class="stat__hint" href="{% url 'dashboard:leads' %}">{% trans "See who" %}</a>{% endif %}</div>
+  <div class="panel stat"><span class="stat__label">{% trans "Card views · 30 days" %}</span><span class="stat__value">{{ views_30 }}</span></div>
+  <div class="panel stat"><span class="stat__label">{% trans "Contacts saved" %}</span><span class="stat__value">{{ saves_30 }}</span></div>
+  <div class="panel stat"><span class="stat__label">{% trans "Button clicks" %}</span><span class="stat__value">{{ clicks_30 }}</span></div>
+  <div class="panel stat"><span class="stat__label">{% trans "New contacts for you" %}</span><span class="stat__value">{{ unread_leads }}</span>{% if unread_leads %}<a class="stat__hint" href="{% url 'dashboard:leads' %}">{% trans "See who" %}</a>{% endif %}</div>
 </div>
 
 <div class="split mt-6">
@@ -25,7 +25,7 @@
     {% blocktrans trimmed asvar t_1 %}{{ views_30 }} views in the last 30 days{% endblocktrans %}<div class="bars" role="img" aria-label="{{ t_1 }}">
       {% for day, n in series.items %}<span style="height: {% if series_max %}{% widthratio n series_max 100 %}{% else %}0{% endif %}%" title="{{ day|date:'j M' }}: {{ n }}"></span>{% endfor %}
     </div>
-    <div class="bars-axis">{% blocktrans trimmed %}<span>30 days ago</span><span>Today</span>{% endblocktrans %}</div>
+    <div class="bars-axis"><span>{% trans "30 days ago" %}</span><span>{% trans "Today" %}</span></div>
   </section>
 
   <section class="panel" aria-labelledby="share-title">
@@ -63,7 +63,7 @@
       <dl class="dl">
         <dt>{% trans "Plan" %}</dt><dd>{{ subscription.plan.name }}{% if subscription.plan.is_team %} {% blocktrans trimmed with subscription_team_size=subscription.team_size %}· {{ subscription_team_size }} people{% endblocktrans %}{% endif %}</dd>
         <dt>{% trans "Status" %}</dt><dd>{{ subscription.state_label }}</dd>
-        <dt>{% trans "Paid until" %}</dt><dd>{{ subscription.expires_at|date:"j F Y" }}</dd>
+        <dt>{% trans "Paid until" %}</dt><dd>{{ subscription.expires_at|ldate:"j F Y" }}</dd>
       </dl>
       <div class="mt-4"><a class="btn btn--sm" href="{% url 'billing:checkout' %}">{% icon "refresh-cw" 16 %}{% trans "Renew or upgrade" %}</a></div>
     {% else %}

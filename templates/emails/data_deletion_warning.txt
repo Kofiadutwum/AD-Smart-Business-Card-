@@ -1,6 +1,6 @@
 {% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-{% blocktrans trimmed with date=delete_on|date:"j F Y" %}Your card has been inactive for a while. We will delete its details on {{ date }}, in line with our privacy policy.{% endblocktrans %}
+{% blocktrans trimmed with date=delete_on|ldate:"j F Y" %}Your card has been inactive for a while. We will delete its details on {{ date }}, in line with our privacy policy.{% endblocktrans %}
 
 {% blocktrans trimmed with link=site_url|add:"/billing/" %}To keep your card, renew before then: {{ link }}{% endblocktrans %}
 

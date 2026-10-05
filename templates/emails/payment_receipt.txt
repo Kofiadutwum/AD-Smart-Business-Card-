@@ -6,9 +6,9 @@
 {% blocktrans trimmed with value=payment.reference %}Reference: {{ value }}{% endblocktrans %}
 {% blocktrans trimmed with value=payment.description %}For: {{ value }}{% endblocktrans %}
 {% blocktrans trimmed with value=payment.amount_minor|money_text:payment.usd_rate %}Amount: {{ value }}{% endblocktrans %}
-{% blocktrans trimmed with value=payment.paid_at|date:"j F Y, H:i" %}Date: {{ value }}{% endblocktrans %}
+{% blocktrans trimmed with value=payment.paid_at|ldate:"j F Y, H:i" %}Date: {{ value }}{% endblocktrans %}
 {% if subscription and payment.purpose != "nfc_order" %}
-{% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|date:"j F Y" %}Your {{ plan }} plan is active until {{ date }}.{% endblocktrans %}{% endif %}{% if payment.nfc_order %}
+{% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|ldate:"j F Y" %}Your {{ plan }} plan is active until {{ date }}.{% endblocktrans %}{% endif %}{% if payment.nfc_order %}
 {% blocktrans trimmed with link=site_url|add:"/nfc/orders/"|add:payment.nfc_order.order_number %}Track your NFC order: {{ link }}{% endblocktrans %}{% endif %}
 
 {% blocktrans trimmed %}The PDF receipt is attached. You can also download it any time from your dashboard.{% endblocktrans %}

@@ -3,7 +3,7 @@
 {% block main %}
 <div class="page-head">
   <div>
-    <div class="crumbs">{% url 'support:mine' as url_1 %}{% blocktrans trimmed with ticket_reference=ticket.reference %}<a href="{{ url_1 }}">Help and support</a><span>/</span><span>{{ ticket_reference }}</span>{% endblocktrans %}</div>
+    <div class="crumbs">{% url 'support:mine' as url_1 %}<a href="{{ url_1 }}">{% trans "Help and support" %}</a><span>/</span><span>{{ ticket.reference }}</span></div>
     <h1>{{ ticket.subject }}</h1>
     <p>{{ ticket.get_category_display }} · <strong>{{ ticket.get_status_display }}</strong></p>
   </div>
@@ -11,7 +11,7 @@
 <div class="thread">
   {% for m in ticket.messages.all %}
     <article class="msg{% if m.from_staff %} msg--staff{% endif %}">
-      <header><strong>{% if m.from_staff %}{% trans "AD Smart support" %}{% else %}{% trans "You" %}{% endif %}</strong><time>{{ m.created_at|date:"j M Y, H:i" }}</time></header>
+      <header><strong>{% if m.from_staff %}{% trans "AD Smart support" %}{% else %}{% trans "You" %}{% endif %}</strong><time>{{ m.created_at|ldate:"j M Y, H:i" }}</time></header>
       <p>{{ m.body|linebreaksbr }}</p>
     </article>
   {% endfor %}

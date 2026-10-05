@@ -6,7 +6,7 @@
       <h3 id="plan-{{ plan.code }}">{{ plan.name }}</h3>
       {% if plan.is_featured %}<span class="badge badge--accent badge--plain">{% trans "Most popular" %}</span>{% endif %}
     </div>
-    <p class="plan__blurb">{{ plan.blurb }}</p>
+    <p class="plan__blurb">{% trans plan.blurb %}</p>
     <div class="plan__price">
       {% if rate %}
         <div class="plan__amount">{% if plan.is_team %}<span class="plan__per">{% trans "from" %}</span>{% endif %}<span class="plan__usd">{% local_amount plan.price_minor %}</span><span class="plan__per">{% trans "/ year" %}</span></div>
@@ -38,5 +38,5 @@
   {% endfor %}
 </div>
 {% if rate %}
-<p class="fx-note">{% blocktrans trimmed with rate_ghs_per_usd_floatformat=rate.ghs_per_usd|floatformat:2 rate_fetched_at_date=rate.fetched_at|date:"j M, H:i" %}Prices in other currencies use today’s rate of 1 USD = GHS {{ rate_ghs_per_usd_floatformat }} (updated {{ rate_fetched_at_date }}). You are always charged in Ghana cedis.{% endblocktrans %}</p>
+<p class="fx-note">{% blocktrans trimmed with rate_ghs_per_usd_floatformat=rate.ghs_per_usd|floatformat:2 rate_fetched_at_date=rate.fetched_at|ldate:"j M, H:i" %}Prices in other currencies use today’s rate of 1 USD = GHS {{ rate_ghs_per_usd_floatformat }} (updated {{ rate_fetched_at_date }}). You are always charged in Ghana cedis.{% endblocktrans %}</p>
 {% endif %}

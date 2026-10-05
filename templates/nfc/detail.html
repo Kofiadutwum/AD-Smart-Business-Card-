@@ -3,9 +3,9 @@
 {% block main %}
 <div class="page-head">
   <div>
-    <div class="crumbs">{% url 'dashboard:nfc' as url_1 %}{% blocktrans trimmed with order_order_number=order.order_number %}<a href="{{ url_1 }}">NFC cards</a><span>/</span><span>{{ order_order_number }}</span>{% endblocktrans %}</div>
+    <div class="crumbs">{% url 'dashboard:nfc' as url_1 %}<a href="{{ url_1 }}">{% trans "NFC cards" %}</a><span>/</span><span>{{ order.order_number }}</span></div>
     <h1>{% blocktrans trimmed with order_order_number=order.order_number %}Order {{ order_order_number }}{% endblocktrans %}</h1>
-    <p>{% blocktrans trimmed with order_quantity=order.quantity order_quantity_pluralize=order.quantity|pluralize order_created_at_date=order.created_at|date:"j F Y" order_get_status_display=order.get_status_display %}{{ order_quantity }} card{{ order_quantity_pluralize }} · placed {{ order_created_at_date }} · <strong>{{ order_get_status_display }}</strong>{% endblocktrans %}</p>
+    <p>{% blocktrans trimmed with placed=order.created_at|ldate:"j F Y" status=order.get_status_display count quantity=order.quantity %}{{ quantity }} card · placed {{ placed }} · <strong>{{ status }}</strong>{% plural %}{{ quantity }} cards · placed {{ placed }} · <strong>{{ status }}</strong>{% endblocktrans %}</p>
   </div>
   <a class="btn" href="{% url 'support:contact' %}?topic=nfc">{% icon "life-buoy" 16 %}{% trans "Ask about this order" %}</a>
 </div>
@@ -52,7 +52,7 @@
                     <form method="post" action="{% url 'nfc:changes' order.order_number proof.version %}" class="form mt-4">
                       {% csrf_token %}
                       {% include "components/form_fields.html" with form=changes_form %}
-                      <p class="field-help">{% if revisions_left %}{% blocktrans trimmed with revisions_left_pluralize=revisions_left|pluralize %}{{ revisions_left }} free round{{ revisions_left_pluralize }} of changes left.{% endblocktrans %}{% else %}{% trans "You have used the free rounds; further changes may carry a small fee." %}{% endif %}</p>
+                      <p class="field-help">{% if revisions_left %}{% blocktrans trimmed count revisions_left=revisions_left %}{{ revisions_left }} free round of changes left.{% plural %}{{ revisions_left }} free rounds of changes left.{% endblocktrans %}{% else %}{% trans "You have used the free rounds; further changes may carry a small fee." %}{% endif %}</p>
                       <button class="btn" type="submit">{% trans "Send my changes" %}</button>
                     </form>
                   </details>
@@ -69,7 +69,7 @@
       <h2 style="font-size: var(--text-lg); margin-bottom: var(--space-5)">{% trans "Timeline" %}</h2>
       <ol class="timeline">
         {% for event in events %}
-          <li><time datetime="{{ event.created_at|date:'c' }}">{{ event.created_at|date:"j M Y, H:i" }}</time>{% if event.status %}<strong>{{ event.status_label }}</strong>{% if event.message %} — {% endif %}{% endif %}{{ event.message }}</li>
+          <li><time datetime="{{ event.created_at|date:'c' }}">{{ event.created_at|ldate:"j M Y, H:i" }}</time>{% if event.status %}<strong>{{ event.status_label }}</strong>{% if event.message %} — {% endif %}{% endif %}{{ event.message }}</li>
         {% endfor %}
       </ol>
     </section>
@@ -79,7 +79,7 @@
     <section class="panel">
       <h2 style="font-size: var(--text-lg)">{% trans "Summary" %}</h2>
       <div class="summary mt-4">
-        <div class="summary__row"><span>{% blocktrans trimmed with order_quantity=order.quantity order_quantity_pluralize=order.quantity|pluralize %}{{ order_quantity }} NFC card{{ order_quantity_pluralize }}{% endblocktrans %}</span><span>{% money order.cards_minor rate=order.usd_rate %}</span></div>
+        <div class="summary__row"><span>{% blocktrans trimmed count quantity=order.quantity %}{{ quantity }} NFC card{% plural %}{{ quantity }} NFC cards{% endblocktrans %}</span><span>{% money order.cards_minor rate=order.usd_rate %}</span></div>
         <div class="summary__row"><span>{% if order.is_international %}{% trans "Shipping and delivery" %}{% else %}{% trans "Delivery" %}{% endif %}</span><span>{% if order.delivery_fee_minor %}{% money order.delivery_fee_minor rate=order.usd_rate %}{% else %}{% trans "Free" %}{% endif %}</span></div>
         {% if order.plan_minor %}<div class="summary__row"><span>{% blocktrans trimmed with order_bundled_plan_name=order.bundled_plan.name %}{{ order_bundled_plan_name }} plan{% endblocktrans %}</span><span>{% money order.plan_minor rate=order.usd_rate %}</span></div>{% endif %}
         {% if order.discount_minor %}<div class="summary__row"><span>{% trans "Discount" %}</span><span>{% money order.discount_minor sign="−" rate=order.usd_rate %}</span></div>{% endif %}
@@ -97,7 +97,7 @@
     <section class="panel">
       <h2 style="font-size: var(--text-lg)">{% if order.is_pickup %}{% trans "Pickup" %}{% elif order.is_international %}{% trans "International shipping" %}{% else %}{% trans "Delivery" %}{% endif %}</h2>
       <dl class="dl mt-4">
-        <dt>{% trans "Option" %}</dt><dd>{{ order.delivery_zone.name }}</dd>
+        <dt>{% trans "Option" %}</dt><dd>{% trans order.delivery_zone.name %}</dd>
         {% if not order.is_pickup %}<dt>{% trans "To" %}</dt><dd>{% for line in order.shipping_address_lines %}{{ line }}<br>{% endfor %}{{ order.recipient_phone|phone }}</dd>{% endif %}
         {% if order.is_international %}<dt>{% trans "Customs" %}</dt><dd class="muted">{% blocktrans trimmed with order_delivery_country_name=order.delivery_country.name %}Any import duties or taxes in {{ order_delivery_country_name }} are paid by the recipient.{% endblocktrans %}</dd>{% endif %}
         {% if order.courier_name %}<dt>{% trans "Courier" %}</dt><dd>{{ order.courier_name }}{% if order.tracking_number %} · {{ order.tracking_number }}{% endif %}</dd>{% endif %}
@@ -106,7 +106,7 @@
     {% if order.customer_can_cancel %}
       <section class="panel">
         <h2 style="font-size: var(--text-lg)">{% trans "Cancel this order" %}</h2>
-        <p class="text-sm muted mt-2">{% trans "Refund if you cancel now:" %} <strong>{% money order.refundable_minor inline=True rate=order.usd_rate %}</strong>{% trans ". Subscription plans bought with the order are not refunded." %}</p>
+        <p class="text-sm muted mt-2">{% money order.refundable_minor inline=True rate=order.usd_rate as refund_amount %}{% blocktrans trimmed %}Refund if you cancel now: <strong>{{ refund_amount }}</strong>. Subscription plans bought with the order are not refunded.{% endblocktrans %}</p>
         <details class="mt-4">
           <summary class="btn btn--danger">{% trans "Cancel order" %}</summary>
           {% blocktrans trimmed with order_order_number=order.order_number asvar t_5 %}Cancel order {{ order_order_number }}?{% endblocktrans %}<form method="post" action="{% url 'nfc:cancel' order.order_number %}" class="form mt-4" data-confirm="{{ t_5 }}">

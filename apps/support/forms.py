@@ -10,7 +10,10 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = SupportRequest
         fields = ["name", "email", "phone", "category", "subject"]
-        labels = {"name": "Your name", "phone": "Phone (optional)", "category": "Topic"}
+        labels = {
+            "name": _("Your name"), "email": _("Email"), "phone": _("Phone (optional)"),
+            "category": _("Topic"), "subject": _("Subject"),
+        }
         widgets = {
             "name": forms.TextInput(attrs={"autocomplete": "name"}),
             "email": forms.EmailInput(attrs={"autocomplete": "email"}),

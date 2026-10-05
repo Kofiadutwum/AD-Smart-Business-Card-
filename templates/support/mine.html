@@ -17,7 +17,7 @@
             <td>{{ t.subject }}</td>
             <td>{{ t.get_category_display }}</td>
             <td>{% if t.status == "resolved" or t.status == "closed" %}<span class="badge badge--success">{{ t.get_status_display }}</span>{% else %}<span class="badge badge--info">{{ t.get_status_display }}</span>{% endif %}</td>
-            <td class="nowrap">{{ t.updated_at|date:"j M Y" }}</td>
+            <td class="nowrap">{{ t.updated_at|ldate:"j M Y" }}</td>
           </tr>
         {% endfor %}
       </tbody>

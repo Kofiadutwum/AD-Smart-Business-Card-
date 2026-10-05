@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>{% if subscription %}{% trans "Renew or change your plan" %}{% else %}{% trans "Choose your plan" %}{% endif %}</h1>
-    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_expires_at_date=subscription.expires_at|date:"j F Y" %}Your {{ subscription_plan_name }} plan runs until {{ subscription_expires_at_date }}. Renewing adds 12 months to that date.{% endblocktrans %}{% else %}{% trans "Your card goes live as soon as Paystack confirms your payment." %}{% endif %}</p>
+    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_expires_at_date=subscription.expires_at|ldate:"j F Y" %}Your {{ subscription_plan_name }} plan runs until {{ subscription_expires_at_date }}. Renewing adds 12 months to that date.{% endblocktrans %}{% else %}{% trans "Your card goes live as soon as Paystack confirms your payment." %}{% endif %}</p>
   </div>
 </div>
 
@@ -17,8 +17,8 @@
         {% for p in plans %}
           <label class="check" style="padding: var(--space-4); border:1px solid {% if p == plan %}var(--primary){% else %}var(--border){% endif %}; border-radius: var(--radius); align-items:center">
             <input type="radio" name="plan" value="{{ p.code }}" {% if p == plan %}checked{% endif %} data-plan-radio>
-            <span style="flex:1"><strong style="font-size: var(--text-base)">{{ p.name }}</strong>{% if p.is_featured %} <span class="badge badge--accent badge--plain">{% trans "Most popular" %}</span>{% endif %}<br><span class="muted">{{ p.blurb }}</span></span>
-            <span class="center" style="text-align:right">{% if p.is_team %}<span class="text-xs muted">{% trans "from" %}</span><br>{% endif %}{% if rate and currency != "GHS" %}<strong style="font-size: var(--text-xl)">{% local_amount p.price_minor %}</strong><br>{% endif %}<span class="text-sm {% if rate and currency != "GHS" %}muted{% endif %}">{{ p.price_minor|ghs }}/yr{% if p.is_team %} {% blocktrans trimmed with p_max_cards=p.max_cards %}for {{ p_max_cards }} people{% endblocktrans %}{% endif %}</span></span>
+            <span style="flex:1"><strong style="font-size: var(--text-base)">{{ p.name }}</strong>{% if p.is_featured %} <span class="badge badge--accent badge--plain">{% trans "Most popular" %}</span>{% endif %}<br><span class="muted">{% trans p.blurb %}</span></span>
+            <span class="center" style="text-align:right">{% if p.is_team %}<span class="text-xs muted">{% trans "from" %}</span><br>{% endif %}{% if rate and currency != "GHS" %}<strong style="font-size: var(--text-xl)">{% local_amount p.price_minor %}</strong><br>{% endif %}<span class="text-sm {% if rate and currency != "GHS" %}muted{% endif %}">{% blocktrans trimmed with price=p.price_minor|ghs %}{{ price }}/yr{% endblocktrans %}{% if p.is_team %} {% blocktrans trimmed with p_max_cards=p.max_cards %}for {{ p_max_cards }} people{% endblocktrans %}{% endif %}</span></span>
           </label>
         {% endfor %}
       </div>
@@ -42,14 +42,14 @@
     </fieldset>
 
     {% if pending_downgrade %}
-      <div class="alert alert--info">{% icon "info" 18 %}<span>{% blocktrans trimmed with plan_name=plan.name subscription_expires_at_date=subscription.expires_at|date:"j F Y" subscription_plan_name=subscription.plan.name %}<strong>{{ plan_name }} costs less than your current plan.</strong> It starts when your current year ends on {{ subscription_expires_at_date }}. Until then you keep everything in {{ subscription_plan_name }}.{% endblocktrans %}</span></div>
+      <div class="alert alert--info">{% icon "info" 18 %}<span>{% blocktrans trimmed with plan_name=plan.name subscription_expires_at_date=subscription.expires_at|ldate:"j F Y" subscription_plan_name=subscription.plan.name %}<strong>{{ plan_name }} costs less than your current plan.</strong> It starts when your current year ends on {{ subscription_expires_at_date }}. Until then you keep everything in {{ subscription_plan_name }}.{% endblocktrans %}</span></div>
     {% endif %}
   </div>
 
   <aside class="panel" style="position: sticky; top: var(--space-6)">
     <h2 style="font-size: var(--text-lg)">{% trans "Summary" %}</h2>
     <div class="summary mt-4">
-      {% for line in quote.lines %}<div class="summary__row"><span>{{ line.label }}</span><span>{% money line.amount_minor %}</span></div>{% endfor %}
+      {% for line in quote.lines %}<div class="summary__row"><span>{{ line.display|default:line.label }}</span><span>{% money line.amount_minor %}</span></div>{% endfor %}
       {% if quote.discount_minor %}<div class="summary__row" style="color: var(--success)"><span>{% blocktrans trimmed with quote_promo_code=quote.promo.code %}Discount ({{ quote_promo_code }}){% endblocktrans %}</span><span>{% money quote.discount_minor sign="−" %}</span></div>{% endif %}
       {% if quote.tax_minor %}<div class="summary__row"><span>{{ quote.tax_label }}</span><span>{% money quote.tax_minor %}</span></div>{% endif %}
       <div class="summary__row summary__total"><span>{% trans "You pay" %}</span><span>{% money quote.total_minor %}</span></div>
@@ -59,7 +59,7 @@
     <div class="stack mt-6" style="--stack: var(--space-3)">
       {% hover_button pay_label variant="primary" css="ihb--block" name="action" value="pay" icon_name="lock" %}
       {% if upgrade %}
-        <button class="btn" style="width:100%; height:auto; white-space:normal; line-height:1.35; padding-block: var(--space-3)" type="submit" name="action" value="upgrade"><span>{% if upgrade.added %}{% blocktrans trimmed with upgrade_added=upgrade.added %}Or add {{ upgrade_added }}{% endblocktrans %} {% if upgrade.added == 1 %}{% trans "person" %}{% else %}{% trans "people" %}{% endif %} {% trans "now" %}{% else %}{% trans "Or upgrade now" %}{% endif %} for {% money upgrade.amount_minor inline=True %}, for the {{ upgrade.months }} month{{ upgrade.months|pluralize }} left</span></button>
+        <button class="btn" style="width:100%; height:auto; white-space:normal; line-height:1.35; padding-block: var(--space-3)" type="submit" name="action" value="upgrade"><span>{% money upgrade.amount_minor inline=True as upgrade_amount %}{% blocktrans trimmed count counter=upgrade.months asvar months_left %}{{ counter }} month{% plural %}{{ counter }} months{% endblocktrans %}{% if upgrade.added %}{% blocktrans trimmed count counter=upgrade.added %}Or add {{ counter }} person now for {{ upgrade_amount }}, for the {{ months_left }} left{% plural %}Or add {{ counter }} people now for {{ upgrade_amount }}, for the {{ months_left }} left{% endblocktrans %}{% else %}{% blocktrans trimmed %}Or upgrade now for {{ upgrade_amount }}, for the {{ months_left }} left{% endblocktrans %}{% endif %}</span></button>
       {% endif %}
     </div>
     <p class="text-xs muted mt-4 cluster" style="--cluster: var(--space-2)">{% icon "shield-check" 16 %}{% trans "Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard." %}{% if payment_sandbox %} <strong>{% trans "Test mode — no real money moves." %}</strong>{% endif %}</p>
