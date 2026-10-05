@@ -1,14 +1,14 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-{{ lead.name }} shared their details from your card /c/{{ card.slug }}:
+{% blocktrans trimmed with name=lead.name slug=card.slug %}{{ name }} shared their details from your card /c/{{ slug }}:{% endblocktrans %}
 {% if lead.phone %}
-Phone: {{ lead.phone }}{% endif %}{% if lead.email %}
-Email: {{ lead.email }}{% endif %}{% if lead.organisation %}
-Company: {{ lead.organisation }}{% endif %}{% if lead.note %}
+{% blocktrans trimmed with value=lead.phone %}Phone: {{ value }}{% endblocktrans %}{% endif %}{% if lead.email %}
+{% blocktrans trimmed with value=lead.email %}Email: {{ value }}{% endblocktrans %}{% endif %}{% if lead.organisation %}
+{% blocktrans trimmed with value=lead.organisation %}Company: {{ value }}{% endblocktrans %}{% endif %}{% if lead.note %}
 
-Message: {{ lead.note }}{% endif %}
+{% blocktrans trimmed with value=lead.note %}Message: {{ value }}{% endblocktrans %}{% endif %}
 
-See all your contacts: {{ site_url }}/dashboard/contacts/
+{% blocktrans trimmed with link=site_url|add:"/dashboard/contacts/" %}See all your contacts: {{ link }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

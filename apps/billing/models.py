@@ -13,6 +13,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 
 from apps.core.models import SiteSettings
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext  # noqa: F401
 
 
 class Plan(models.Model):
@@ -56,7 +58,7 @@ class Plan(models.Model):
 
     @property
     def social_limit_label(self):
-        return "Unlimited" if self.max_social_links is None else f"Up to {self.max_social_links}"
+        return _("Unlimited") if self.max_social_links is None else _("Up to %(count)d") % {"count": self.max_social_links}
 
     # --- team pricing ---------------------------------------------------------
     # A team plan's base price covers ``max_cards`` people. Each larger team pays
@@ -104,26 +106,33 @@ class Plan(models.Model):
     def feature_rows(self):
         """Human-readable feature list for pricing pages, in matrix order."""
         if self.is_team:
-            cards = f"Cards for your whole team: {self.max_cards} people included, then priced per person"
+            cards = _("Cards for your whole team: %(count)d people included, then priced per person") % {"count": self.max_cards}
+        elif self.max_cards == 1:
+            cards = _("1 digital card")
         else:
-            cards = "1 digital card" if self.max_cards == 1 else f"Up to {self.max_cards} digital cards"
+            cards = _("Up to %(count)d digital cards") % {"count": self.max_cards}
+        if self.max_social_links is None:
+            social = _("Unlimited social media links")
+        else:
+            social = _("Up to %(count)d social media links") % {"count": self.max_social_links}
+        if self.shared_brand_theme:
+            colours = _("Any colour + shared brand theme")
+        elif self.custom_colours:
+            colours = _("Any card colour")
+        else:
+            colours = _("Preset colours")
         rows = [
             (True, cards),
-            (True, "Permanent link, QR code and .vcf contact"),
-            (True, f"Up to {self.max_phones} phone numbers per card"),
-            (True, f"{self.social_limit_label} social media links"),
-            (True, "All templates" if self.all_templates else "1 standard template"),
-            (
-                True,
-                "Any colour + shared brand theme"
-                if self.shared_brand_theme
-                else ("Any card colour" if self.custom_colours else "Preset colours"),
-            ),
-            (self.allow_logo, "Business logo on card"),
-            (self.allow_advanced_style, "Background image, button style, icon layout"),
-            (self.branding_footer == "removable", "Remove “Powered by AD Smart”"),
-            (True, "Full analytics" if self.full_analytics else "Total views"),
-            (self.priority_support, "Priority support (4 working hours)"),
+            (True, _("Permanent link, QR code and .vcf contact")),
+            (True, _("Up to %(count)d phone numbers per card") % {"count": self.max_phones}),
+            (True, social),
+            (True, _("All templates") if self.all_templates else _("1 standard template")),
+            (True, colours),
+            (self.allow_logo, _("Business logo on card")),
+            (self.allow_advanced_style, _("Background image, button style, icon layout")),
+            (self.branding_footer == "removable", _("Remove \u201cPowered by AD Smart\u201d")),
+            (True, _("Full analytics") if self.full_analytics else _("Total views")),
+            (self.priority_support, _("Priority support (4 working hours)")),
         ]
         return rows
 
@@ -158,10 +167,10 @@ class Subscription(models.Model):
     STATE_GRACE = "grace"
     STATE_INACTIVE = "inactive"
     STATE_LABELS = {
-        STATE_ACTIVE: "Active",
-        STATE_EXPIRING: "Expiring soon",
-        STATE_GRACE: "Grace period",
-        STATE_INACTIVE: "Inactive",
+        STATE_ACTIVE: _("Active"),
+        STATE_EXPIRING: _("Expiring soon"),
+        STATE_GRACE: _("Grace period"),
+        STATE_INACTIVE: _("Inactive"),
     }
 
     user = models.OneToOneField(
@@ -352,10 +361,10 @@ class Payment(models.Model):
     PURPOSE_NFC = "nfc_order"
     PURPOSE_PREMADE = "premade_card"
     PURPOSES = [
-        (PURPOSE_SUBSCRIPTION, "Subscription"),
-        (PURPOSE_UPGRADE, "Plan upgrade"),
-        (PURPOSE_NFC, "NFC order"),
-        (PURPOSE_PREMADE, "Pre-made card (sold in a shop)"),
+        (PURPOSE_SUBSCRIPTION, _("Subscription")),
+        (PURPOSE_UPGRADE, _("Plan upgrade")),
+        (PURPOSE_NFC, _("NFC order")),
+        (PURPOSE_PREMADE, _("Pre-made card (sold in a shop)")),
     ]
 
     PENDING = "pending"
@@ -365,12 +374,12 @@ class Payment(models.Model):
     REFUNDED = "refunded"
     PARTIALLY_REFUNDED = "partially_refunded"
     STATUSES = [
-        (PENDING, "Pending"),
-        (SUCCESS, "Successful"),
-        (FAILED, "Failed"),
-        (ABANDONED, "Abandoned"),
-        (REFUNDED, "Refunded"),
-        (PARTIALLY_REFUNDED, "Partially refunded"),
+        (PENDING, _("Pending")),
+        (SUCCESS, _("Successful")),
+        (FAILED, _("Failed")),
+        (ABANDONED, _("Abandoned")),
+        (REFUNDED, _("Refunded")),
+        (PARTIALLY_REFUNDED, _("Partially refunded")),
     ]
 
     user = models.ForeignKey(
@@ -439,21 +448,25 @@ class Payment(models.Model):
     @property
     def description(self):
         if self.purpose == self.PURPOSE_NFC:
-            parts = [f"NFC order {self.nfc_order.order_number}" if self.nfc_order else "NFC order"]
+            parts = [_("NFC order %(number)s") % {"number": self.nfc_order.order_number} if self.nfc_order else _("NFC order")]
             if self.plan_id:
-                parts.append(f"{self.plan.name} plan")
-            return " + ".join(parts)
+                parts.append(_("%(plan)s plan") % {"plan": self.plan.name})
+            return " + ".join(str(part) for part in parts)
         if self.purpose == self.PURPOSE_PREMADE:
-            plan = f" with {self.plan.name} plan, {self.months} months" if self.plan_id else ""
-            return f"Pre-made card{plan} (sold in a shop)"
+            if not self.plan_id:
+                return _("Pre-made card (sold in a shop)")
+            return _("Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)") % {"plan": self.plan.name, "count": self.months}
         if self.purpose == self.PURPOSE_UPGRADE:
             if not self.plan:
-                return "Plan upgrade"
-            return f"Upgrade to {self.plan.name}" + (f" for {self.seats} people" if self.seats else "")
+                return _("Plan upgrade")
+            if self.seats:
+                return _("Upgrade to %(plan)s for %(count)d people") % {"plan": self.plan.name, "count": self.seats}
+            return _("Upgrade to %(plan)s") % {"plan": self.plan.name}
         if not self.plan:
-            return "Subscription"
-        people = f" for {self.seats} people" if self.seats else ""
-        return f"{self.plan.name} plan{people}, {self.months} months"
+            return _("Subscription")
+        if self.seats:
+            return _("%(plan)s plan for %(people)d people, %(count)d months") % {"plan": self.plan.name, "people": self.seats, "count": self.months}
+        return _("%(plan)s plan, %(count)d months") % {"plan": self.plan.name, "count": self.months}
 
     @property
     def is_manual(self):

@@ -7,7 +7,7 @@ from django.db import transaction
 from django.urls import reverse
 from django.utils import timezone
 
-from apps.core.emails import notify_admins, send_email
+from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import AuditLog, SiteSettings
 from apps.core.utils import format_money
 
@@ -128,7 +128,7 @@ def _after_paid(order_pk):
     order = NFCOrder.objects.get(pk=order_pk)
     email_customer(
         order,
-        f"Order {order.order_number} confirmed",
+        subject_text("Order %(number)s confirmed", number=order.order_number),
         "nfc_order_confirmed",
         dedupe_key=f"nfc-confirmed:{order.pk}",
     )
@@ -153,17 +153,17 @@ def notify_admin_new_order(order):
 
 
 STATUS_EMAILS = {
-    NFCOrder.DESIGN_IN_PROGRESS: "Our designers have started on your cards",
-    NFCOrder.ON_HOLD: "Your NFC order is on hold",
-    NFCOrder.PRINTING: "Your NFC cards are being printed",
-    NFCOrder.ENCODING_QC: "Your NFC cards are being encoded and tested",
-    NFCOrder.READY_FOR_DELIVERY: "Your NFC cards are ready for delivery",
-    NFCOrder.READY_FOR_PICKUP: "Your NFC cards are ready for pickup",
-    NFCOrder.DISPATCHED: "Your NFC cards are on their way",
-    NFCOrder.DELIVERED: "Your NFC cards have been delivered",
-    NFCOrder.CANCELLED: "Your NFC order has been cancelled",
-    NFCOrder.REFUNDED: "Your NFC order has been refunded",
-    NFCOrder.DESIGN_PENDING: "Your NFC order is in the design queue",
+    NFCOrder.DESIGN_IN_PROGRESS: subject_text("Our designers have started on your cards"),
+    NFCOrder.ON_HOLD: subject_text("Your NFC order is on hold"),
+    NFCOrder.PRINTING: subject_text("Your NFC cards are being printed"),
+    NFCOrder.ENCODING_QC: subject_text("Your NFC cards are being encoded and tested"),
+    NFCOrder.READY_FOR_DELIVERY: subject_text("Your NFC cards are ready for delivery"),
+    NFCOrder.READY_FOR_PICKUP: subject_text("Your NFC cards are ready for pickup"),
+    NFCOrder.DISPATCHED: subject_text("Your NFC cards are on their way"),
+    NFCOrder.DELIVERED: subject_text("Your NFC cards have been delivered"),
+    NFCOrder.CANCELLED: subject_text("Your NFC order has been cancelled"),
+    NFCOrder.REFUNDED: subject_text("Your NFC order has been refunded"),
+    NFCOrder.DESIGN_PENDING: subject_text("Your NFC order is in the design queue"),
 }
 
 
@@ -223,7 +223,7 @@ def add_proof(order, file, actor, note=""):
     AuditLog.record(actor, "nfc_proof_uploaded", order, version=version)
     transaction.on_commit(
         lambda: email_customer(
-            order, f"Please review design proof {version} for {order.order_number}",
+            order, subject_text("Please review design proof %(version)s for %(number)s", version=version, number=order.order_number),
             "nfc_proof_ready", {"proof": proof}, dedupe_key=f"nfc-proof:{proof.pk}",
         )
     )
@@ -317,7 +317,7 @@ def run_proof_reminders():
             if waited >= day:
                 proof = order.latest_proof
                 if email_customer(
-                    order, f"Reminder: your design proof for {order.order_number} is waiting",
+                    order, subject_text("Reminder: your design proof for %(number)s is waiting", number=order.order_number),
                     "nfc_proof_reminder", {"proof": proof, "days": day},
                     dedupe_key=f"nfc-remind:{order.pk}:{proof.pk if proof else 0}:{day}",
                 ):

@@ -1,8 +1,8 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your card has been inactive for a while. We will delete its details on {{ delete_on|date:"j F Y" }}, in line with our privacy policy.
+{% blocktrans trimmed with date=delete_on|date:"j F Y" %}Your card has been inactive for a while. We will delete its details on {{ date }}, in line with our privacy policy.{% endblocktrans %}
 
-To keep your card, renew before then: {{ site_url }}/billing/
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}To keep your card, renew before then: {{ link }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

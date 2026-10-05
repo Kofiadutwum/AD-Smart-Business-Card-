@@ -89,7 +89,7 @@
   }
 
   function paint() {
-    var name = val("full_name") || "Your name";
+    var name = val("full_name") || window.ADSmart.t("your_name", "Your name");
     setText(".pcard__name", name);
     var avatarSpan = card.querySelector(".pcard__avatar span");
     if (avatarSpan) avatarSpan.textContent = initials(name);
@@ -181,15 +181,15 @@
   if (locate && navigator.geolocation) {
     locate.addEventListener("click", function () {
       var status = document.querySelector("[data-locate-status]");
-      status.textContent = "Finding you…";
+      status.textContent = window.ADSmart.t("locate_finding", "Finding you…");
       navigator.geolocation.getCurrentPosition(
         function (pos) {
           form.elements.latitude.value = pos.coords.latitude.toFixed(6);
           form.elements.longitude.value = pos.coords.longitude.toFixed(6);
-          status.textContent = "Location added. Save to keep it.";
+          status.textContent = window.ADSmart.t("locate_added", "Location added. Save to keep it.");
         },
         function () {
-          status.textContent = "We could not get your location. Check your browser’s permission.";
+          status.textContent = window.ADSmart.t("locate_failed", "We could not get your location. Check your browser’s permission.");
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );
@@ -199,7 +199,7 @@
       clear.addEventListener("click", function () {
         form.elements.latitude.value = "";
         form.elements.longitude.value = "";
-        document.querySelector("[data-locate-status]").textContent = "Map pin removed. Save to keep it.";
+        document.querySelector("[data-locate-status]").textContent = window.ADSmart.t("locate_cleared", "Map pin removed. Save to keep it.");
       });
     }
   } else if (locate) {

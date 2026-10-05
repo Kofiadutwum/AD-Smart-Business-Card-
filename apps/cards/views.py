@@ -9,7 +9,7 @@ from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from apps.core.emails import notify_admins, send_email
+from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import SiteSettings
 from apps.core.utils import rate_limited, visitor_hash
 
@@ -17,6 +17,7 @@ from . import services
 from .colors import palette
 from .forms import LeadForm, ReportForm
 from .models import CardEvent
+from django.utils.translation import gettext as _
 
 
 def card_context(card, request=None, lead_form=None, **extra):
@@ -129,7 +130,7 @@ def connect(request, slug):
         return redirect(card.get_absolute_url())
     first_name = card.full_name.split()[0]
     if request.POST.get("website_url"):  # honeypot
-        messages.success(request, f"Thank you. {first_name} has your details.")
+        messages.success(request, _("Thank you. %(name)s has your details.") % {"name": first_name})
         return redirect(card.get_absolute_url())
     form = LeadForm(request.POST, auto_id="lead_%s")
     if not form.is_valid():
@@ -138,7 +139,7 @@ def connect(request, slug):
         )
     fingerprint = visitor_hash(request)
     if rate_limited(f"lead:{card.pk}:{fingerprint}", 3, 3600):
-        messages.warning(request, "You have already sent your details. Try again in an hour.")
+        messages.warning(request, _("You have already sent your details. Try again in an hour."))
         return redirect(card.get_absolute_url())
     lead = form.save(commit=False)
     lead.card = card
@@ -147,13 +148,13 @@ def connect(request, slug):
     lead.save()
     send_email(
         to=card.owner.email,
-        subject=f"{lead.name} shared their details with you",
+        subject=subject_text("%(name)s shared their details with you", name=lead.name),
         template="new_lead",
         context={"lead": lead, "card": card, "user": card.owner},
         user=card.owner,
         kind="new_lead",
     )
-    messages.success(request, f"Thank you. {first_name} has your details.")
+    messages.success(request, _("Thank you. %(name)s has your details.") % {"name": first_name})
     return redirect(card.get_absolute_url())
 
 
@@ -164,7 +165,7 @@ def report(request, slug):
     form = ReportForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         if rate_limited(f"report:{visitor_hash(request)}", 5, 3600):
-            messages.error(request, "You have sent several reports already. Try again later.")
+            messages.error(request, _("You have sent several reports already. Try again later."))
             return redirect(card.get_absolute_url())
         report_obj = form.save(commit=False)
         report_obj.card = card
@@ -174,7 +175,7 @@ def report(request, slug):
             f"Card reported: {card.slug}", "admin_card_report",
             {"report": report_obj, "card": card, "staff_url": settings.SITE_URL + "/staff/reports/"},
         )
-        messages.success(request, "Thank you. Our support team will review this card.")
+        messages.success(request, _("Thank you. Our support team will review this card."))
         return redirect(card.get_absolute_url())
     return render(request, "cards/report.html", {"form": form, "card": card})
 

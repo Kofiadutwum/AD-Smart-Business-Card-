@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.functional import SimpleLazyObject, lazy
 
 from . import currency
+from .jsstrings import strings_json
 from .models import SiteSettings
 
 
@@ -53,6 +54,7 @@ def site(request):
         "currency": chosen,
         "currency_choices": [(code, info["symbol"].strip() or code, info["name"]) for code, info in currency.CURRENCIES.items()],
         "currency_json": lazy(_currency_json, str)(chosen),
+        "js_strings_json": strings_json(),
         # Today's USD rate for the {% money %} tag; looked up once, on first use.
         "fx_rate": SimpleLazyObject(_latest_rate),
         # Development only: defeat the browser cache for CSS/JS. Production

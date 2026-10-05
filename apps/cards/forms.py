@@ -3,6 +3,7 @@ from django import forms
 from apps.accounts.forms import RegisterForm
 
 from .models import CardReport, Lead
+from django.utils.translation import gettext_lazy as _
 
 
 class LeadForm(forms.ModelForm):
@@ -29,7 +30,7 @@ class LeadForm(forms.ModelForm):
     def clean(self):
         cleaned = super().clean()
         if not cleaned.get("phone") and not cleaned.get("email"):
-            raise forms.ValidationError("Add a phone number or an email so they can reach you.")
+            raise forms.ValidationError(_("Add a phone number or an email so they can reach you."))
         return cleaned
 
 
@@ -49,9 +50,9 @@ class PinForm(forms.Form):
     """The PIN printed on the back of a pre-made card."""
 
     pin = forms.CharField(
-        label="PIN on the back of your card",
+        label=_("PIN on the back of your card"),
         max_length=12,
-        help_text="Eight letters and numbers, for example K7M2-X9QA.",
+        help_text=_("Eight letters and numbers, for example K7M2-X9QA."),
         widget=forms.TextInput(
             attrs={
                 "autocomplete": "off", "autocapitalize": "characters", "spellcheck": "false",
@@ -64,7 +65,7 @@ class PinForm(forms.Form):
 class ClaimForm(RegisterForm):
     """A new account for the buyer, plus two optional lines for the card."""
 
-    job_title = forms.CharField(label="Job title", max_length=120, required=False)
-    business_name = forms.CharField(label="Business or organisation", max_length=160, required=False)
+    job_title = forms.CharField(label=_("Job title"), max_length=120, required=False)
+    business_name = forms.CharField(label=_("Business or organisation"), max_length=160, required=False)
 
     field_order = ["full_name", "job_title", "business_name", "email", "phone", "password", "accept_terms"]

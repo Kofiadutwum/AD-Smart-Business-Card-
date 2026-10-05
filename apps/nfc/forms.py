@@ -8,6 +8,7 @@ from apps.core.currency import format_money_local
 from apps.core.utils import normalise_phone, validate_design_file
 
 from .models import DeliveryZone
+from django.utils.translation import gettext_lazy as _
 
 
 class ZoneChoiceField(forms.ModelChoiceField):
@@ -20,53 +21,53 @@ class ZoneChoiceField(forms.ModelChoiceField):
 class NFCOrderForm(forms.Form):
     """Section 8 steps 1-7 on one page, in order."""
 
-    full_name = forms.CharField(label="Name on the card", max_length=120)
-    business_name = forms.CharField(label="Business name", max_length=160, required=False)
-    position = forms.CharField(label="Position / job title", max_length=120, required=False)
-    email = forms.EmailField(label="Email on the card")
-    phone = forms.CharField(label="Phone on the card", max_length=32)
-    website = forms.CharField(label="Website", max_length=255, required=False)
+    full_name = forms.CharField(label=_("Name on the card"), max_length=120)
+    business_name = forms.CharField(label=_("Business name"), max_length=160, required=False)
+    position = forms.CharField(label=_("Position / job title"), max_length=120, required=False)
+    email = forms.EmailField(label=_("Email on the card"))
+    phone = forms.CharField(label=_("Phone on the card"), max_length=32)
+    website = forms.CharField(label=_("Website"), max_length=255, required=False)
     logo = forms.FileField(
-        label="Logo", required=False,
-        help_text="JPG, PNG, SVG or PDF up to 10 MB. We print from this file, so send the best quality you have.",
+        label=_("Logo"), required=False,
+        help_text=_("JPG, PNG, SVG or PDF up to 10 MB. We print from this file, so send the best quality you have."),
     )
     reference_design = forms.FileField(
-        label="Reference design (optional)", required=False,
-        help_text="A card or style you like. JPG, PNG, SVG or PDF up to 10 MB.",
+        label=_("Reference design (optional)"), required=False,
+        help_text=_("A card or style you like. JPG, PNG, SVG or PDF up to 10 MB."),
     )
     design_description = forms.CharField(
-        label="Describe the design you want",
+        label=_("Describe the design you want"),
         widget=forms.Textarea(attrs={"rows": 4}),
-        help_text="Colours, layout, what goes on the front and back.",
+        help_text=_("Colours, layout, what goes on the front and back."),
     )
-    notes = forms.CharField(label="Anything else?", widget=forms.Textarea(attrs={"rows": 2}), required=False)
+    notes = forms.CharField(label=_("Anything else?"), widget=forms.Textarea(attrs={"rows": 2}), required=False)
 
     delivery_zone = ZoneChoiceField(
-        label="Choose how you get your cards", queryset=DeliveryZone.objects.none(), widget=forms.RadioSelect, empty_label=None
+        label=_("Choose how you get your cards"), queryset=DeliveryZone.objects.none(), widget=forms.RadioSelect, empty_label=None
     )
-    recipient_name = forms.CharField(label="Recipient’s name", max_length=120, required=False)
+    recipient_name = forms.CharField(label=_("Recipient’s name"), max_length=120, required=False)
     recipient_phone = forms.CharField(
-        label="Recipient’s phone", max_length=32, required=False,
-        help_text="Outside Ghana, include the country code, for example +44 7700 900123.",
+        label=_("Recipient’s phone"), max_length=32, required=False,
+        help_text=_("Outside Ghana, include the country code, for example +44 7700 900123."),
     )
-    delivery_country = forms.ChoiceField(label="Country", required=False, choices=[])
-    delivery_address = forms.CharField(label="Street address", max_length=255, required=False)
-    delivery_city = forms.CharField(label="Town or city", max_length=120, required=False)
-    delivery_postcode = forms.CharField(label="Postcode / ZIP (if your country uses one)", max_length=20, required=False)
+    delivery_country = forms.ChoiceField(label=_("Country"), required=False, choices=[])
+    delivery_address = forms.CharField(label=_("Street address"), max_length=255, required=False)
+    delivery_city = forms.CharField(label=_("Town or city"), max_length=120, required=False)
+    delivery_postcode = forms.CharField(label=_("Postcode / ZIP (if your country uses one)"), max_length=20, required=False)
     delivery_gps = forms.CharField(
-        label="Ghana Post GPS (optional)", max_length=16, required=False,
+        label=_("Ghana Post GPS (optional)"), max_length=16, required=False,
         widget=forms.TextInput(attrs={"placeholder": "GA-123-4567"}),
     )
-    landmark = forms.CharField(label="Landmark or directions", max_length=200, required=False)
+    landmark = forms.CharField(label=_("Landmark or directions"), max_length=200, required=False)
 
     plan = forms.ModelChoiceField(
-        label="Digital card plan", queryset=Plan.objects.none(), widget=forms.RadioSelect, required=False, empty_label=None,
-        help_text="NFC cards open your digital card, which needs an active plan. Buy both together here.",
+        label=_("Digital card plan"), queryset=Plan.objects.none(), widget=forms.RadioSelect, required=False, empty_label=None,
+        help_text=_("NFC cards open your digital card, which needs an active plan. Buy both together here."),
     )
-    promo = forms.CharField(label="Promo code", max_length=32, required=False)
+    promo = forms.CharField(label=_("Promo code"), max_length=32, required=False)
     accept_policy = forms.BooleanField(
-        label="I have read and accept the Refund Policy and Terms of Service",
-        error_messages={"required": "Please accept the Refund Policy before paying."},
+        label=_("I have read and accept the Refund Policy and Terms of Service"),
+        error_messages={"required": _("Please accept the Refund Policy before paying.")},
     )
 
     def __init__(self, *args, cards, needs_plan, plans, **kwargs):
@@ -84,7 +85,7 @@ class NFCOrderForm(forms.Form):
         for card in self.cards:
             name = f"qty_{card.pk}"
             self.fields[name] = forms.IntegerField(
-                label=f"Cards for {card.full_name} (/c/{card.slug})",
+                label=_("Cards for %(name)s (/c/%(slug)s)") % {"name": card.full_name, "slug": card.slug},
                 min_value=0, max_value=500, initial=1 if card == self.cards[0] else 0,
                 widget=forms.NumberInput(attrs={"inputmode": "numeric", "class": "qty-input"}),
             )
@@ -110,7 +111,7 @@ class NFCOrderForm(forms.Form):
         items = [(card, cleaned.get(name) or 0) for card, name in self.quantity_fields]
         items = [(card, qty) for card, qty in items if qty > 0]
         if not items:
-            raise ValidationError("Choose how many NFC cards you would like.")
+            raise ValidationError(_("Choose how many NFC cards you would like."))
         cleaned["items"] = items
         cleaned["quantity"] = sum(qty for _, qty in items)
         zone = cleaned.get("delivery_zone")
@@ -120,7 +121,7 @@ class NFCOrderForm(forms.Form):
                 needed += ["delivery_country", "delivery_city"]
             for field in needed:
                 if not cleaned.get(field):
-                    self.add_error(field, "Needed for delivery.")
+                    self.add_error(field, _("Needed for delivery."))
             if cleaned.get("recipient_phone"):
                 try:
                     cleaned["recipient_phone"] = normalise_phone(cleaned["recipient_phone"])
@@ -137,9 +138,9 @@ class NFCOrderForm(forms.Form):
 
 class ChangesForm(forms.Form):
     comment = forms.CharField(
-        label="What should we change?", widget=forms.Textarea(attrs={"rows": 4}), max_length=2000
+        label=_("What should we change?"), widget=forms.Textarea(attrs={"rows": 4}), max_length=2000
     )
 
 
 class CancelForm(forms.Form):
-    reason = forms.CharField(label="Why are you cancelling? (optional)", required=False, widget=forms.Textarea(attrs={"rows": 3}))
+    reason = forms.CharField(label=_("Why are you cancelling? (optional)"), required=False, widget=forms.Textarea(attrs={"rows": 3}))

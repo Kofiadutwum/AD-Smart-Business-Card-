@@ -1,8 +1,8 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your grace period has ended, so your card now shows a "card inactive" page. Your details are safe.
+{% blocktrans trimmed %}Your grace period has ended, so your card now shows a "card inactive" page. Your details are safe.{% endblocktrans %}
 
-Renew at any time and the same link, QR code and NFC cards work again straight away: {{ site_url }}/billing/
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}Renew at any time and the same link, QR code and NFC cards work again straight away: {{ link }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

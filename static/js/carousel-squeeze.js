@@ -324,7 +324,7 @@
     }
 
     /* --- wiring ------------------------------------------------------------------ */
-    strip.setAttribute("aria-label", opts.label || "Featured");
+    strip.setAttribute("aria-label", opts.label || (window.ADSmart && window.ADSmart.t ? window.ADSmart.t("featured", "Featured") : "Featured"));
 
     strip.addEventListener("keydown", function (event) {
       var by = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;

@@ -10,13 +10,14 @@ from django.urls import reverse
 
 from apps.accounts import services as account_services
 from apps.accounts.views import BACKEND
-from apps.core.emails import send_email
+from apps.core.emails import send_email, subject_text
 from apps.core.utils import client_ip, rate_limited
 
 from . import premade as premade_service
 from .forms import ClaimForm, PinForm
 from .models import Card
 from .premade import CLAIM_WINDOW_SECONDS, ClaimError
+from django.utils.translation import gettext as _
 
 
 def _premade_for(request, slug):
@@ -79,7 +80,7 @@ def claim_setup(request, slug):
     form = ClaimForm(request.POST or None)
     if request.method == "POST":
         if rate_limited(f"claim:{client_ip(request)}", 10, 3600):
-            messages.error(request, "Too many attempts from this connection. Try again in an hour.")
+            messages.error(request, _("Too many attempts from this connection. Try again in an hour."))
         elif form.is_valid():
             try:
                 user, card, _payment = premade_service.claim_with_new_account(premade.pk, form.cleaned_data)
@@ -87,16 +88,16 @@ def claim_setup(request, slug):
                 messages.error(request, str(exc))
                 return redirect("cards:public", slug=premade.card.slug)
             except IntegrityError:
-                messages.error(request, "That email or number was just used for another account. Please check and try again.")
+                messages.error(request, _("That email or number was just used for another account. Please check and try again."))
             else:
                 login(request, user, backend=BACKEND)
                 _forget(request, card.slug)
                 account_services.send_verification_email(user)
                 send_email(
-                    to=user.email, subject="Welcome to AD Smart Business Cards", template="welcome",
+                    to=user.email, subject=subject_text("Welcome to AD Smart Business Cards"), template="welcome",
                     context={"user": user}, user=user, kind="welcome", dedupe_key=f"welcome:{user.pk}",
                 )
-                messages.success(request, "Your card is live and your first year is active. Confirm your email to edit it.")
+                messages.success(request, _("Your card is live and your first year is active. Confirm your email to edit it."))
                 return redirect("accounts:verify_pending")
     return render(
         request, "cards/claim_setup.html",
@@ -122,7 +123,7 @@ def claim_attach(request, slug):
             messages.error(request, str(exc))
         else:
             _forget(request, card.slug)
-            messages.success(request, "The card is now on your account and a year has been added to your plan.")
+            messages.success(request, _("The card is now on your account and a year has been added to your plan."))
             return redirect("dashboard:cards")
     return render(
         request, "cards/claim_attach.html",

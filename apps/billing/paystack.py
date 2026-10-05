@@ -17,6 +17,7 @@ from urllib.parse import urlencode
 
 import requests
 from django.conf import settings
+from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ def _call(method, path, payload=None):
         response = requests.request(method, url, headers=_headers(), json=payload, timeout=30)
     except requests.RequestException as exc:
         logger.warning("Paystack %s %s unreachable: %s", method, path, exc)
-        raise PaymentError("The payment gateway could not be reached. Try again in a moment.") from exc
+        raise PaymentError(_("The payment gateway could not be reached. Try again in a moment.")) from exc
     try:
         body = response.json() if response.content else {}
     except ValueError:
@@ -112,4 +113,4 @@ def parse_event(raw_body):
     try:
         return json.loads(raw_body.decode("utf-8"))
     except (ValueError, UnicodeDecodeError) as exc:
-        raise PaymentError("Malformed webhook payload.") from exc
+        raise PaymentError(_("Malformed webhook payload.")) from exc

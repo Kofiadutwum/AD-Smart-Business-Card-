@@ -135,6 +135,7 @@
       </a>
     {% endif %}
     {% if not demo %}<a class="pcard__report" href="{% url 'cards:report' card.slug %}">{% icon "flag" 14 %} {% trans "Report this card" %}</a>{% endif %}
+    {% if not demo %}{% include "partials/lang_switch.html" %}{% endif %}
   </footer>
 </article>
 {% endwith %}

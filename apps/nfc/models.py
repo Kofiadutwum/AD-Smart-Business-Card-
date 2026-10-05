@@ -7,6 +7,7 @@ from django.utils.functional import cached_property
 from django_countries.fields import CountryField
 
 from apps.core.utils import keep_name
+from django.utils.translation import gettext_lazy as _
 
 
 class PriceTier(models.Model):
@@ -88,22 +89,22 @@ class NFCOrder(models.Model):
     REFUNDED = "refunded"
 
     STATUSES = [
-        (PENDING_PAYMENT, "Pending payment"),
-        (PAYMENT_CONFIRMED, "Payment confirmed"),
-        (DESIGN_PENDING, "Design pending"),
-        (DESIGN_IN_PROGRESS, "Design in progress"),
-        (AWAITING_APPROVAL, "Awaiting your approval"),
-        (REVISION_REQUESTED, "Revision requested"),
-        (ON_HOLD, "On hold"),
-        (APPROVED, "Design approved"),
-        (PRINTING, "Printing"),
-        (ENCODING_QC, "Encoding and quality check"),
-        (READY_FOR_DELIVERY, "Ready for delivery"),
-        (READY_FOR_PICKUP, "Ready for pickup"),
-        (DISPATCHED, "Dispatched"),
-        (DELIVERED, "Delivered"),
-        (CANCELLED, "Cancelled"),
-        (REFUNDED, "Refunded"),
+        (PENDING_PAYMENT, _("Pending payment")),
+        (PAYMENT_CONFIRMED, _("Payment confirmed")),
+        (DESIGN_PENDING, _("Design pending")),
+        (DESIGN_IN_PROGRESS, _("Design in progress")),
+        (AWAITING_APPROVAL, _("Awaiting your approval")),
+        (REVISION_REQUESTED, _("Revision requested")),
+        (ON_HOLD, _("On hold")),
+        (APPROVED, _("Design approved")),
+        (PRINTING, _("Printing")),
+        (ENCODING_QC, _("Encoding and quality check")),
+        (READY_FOR_DELIVERY, _("Ready for delivery")),
+        (READY_FOR_PICKUP, _("Ready for pickup")),
+        (DISPATCHED, _("Dispatched")),
+        (DELIVERED, _("Delivered")),
+        (CANCELLED, _("Cancelled")),
+        (REFUNDED, _("Refunded")),
     ]
 
     # Where staff may move an order next. Customer actions (approve, request

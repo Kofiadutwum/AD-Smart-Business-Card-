@@ -4,6 +4,19 @@
 
   var root = document.documentElement;
 
+  /* Sentences for the visitor's language, set by the server; the English given here is the fallback. */
+  var strings = {};
+  try { strings = JSON.parse(document.getElementById("i18n-strings").textContent); } catch (e) {}
+  function t(key, fallback, vars) {
+    var text = strings[key] || fallback || key;
+    Object.keys(vars || {}).forEach(function (name) {
+      text = text.split("%(" + name + ")s").join(vars[name]).split("%(" + name + ")d").join(vars[name]);
+    });
+    return text;
+  }
+  window.ADSmart = window.ADSmart || {};
+  window.ADSmart.t = t;
+
   function store(key, value) {
     try {
       if (value === undefined) return localStorage.getItem(key);
@@ -21,8 +34,8 @@
     else root.removeAttribute("data-theme");
     toggles.forEach(function (btn) {
       btn.setAttribute("data-mode", mode);
-      var label = { system: "Theme: match device", light: "Theme: light", dark: "Theme: dark" }[mode];
-      btn.setAttribute("aria-label", label + ". Change theme");
+      var label = { system: t("theme_system", "Theme: match device"), light: t("theme_light", "Theme: light"), dark: t("theme_dark", "Theme: dark") }[mode];
+      btn.setAttribute("aria-label", t("theme_change", "%(label)s. Change theme", { label: label }));
       btn.title = label;
     });
   }
@@ -103,7 +116,7 @@
       var label = btn.querySelector("[data-copy-label]");
       if (!label) return;
       var original = label.textContent;
-      label.textContent = "Copied";
+      label.textContent = t("copied", "Copied");
       btn.setAttribute("aria-live", "polite");
       setTimeout(function () {
         label.textContent = original;
@@ -271,7 +284,7 @@
       // The CSS shrinks a long total by its length so it stays beside the stepper.
       total.style.setProperty("--chars", String(total.textContent.length));
       // Only worth saying once there is more than one card.
-      each.textContent = q > 1 ? (rate ? usd(per, rate) + " each (" + ghs(per) + ")" : ghs(per) + " each") : "";
+      each.textContent = q > 1 ? (rate ? t("each_with", "%(price)s each (%(cedis)s)", { price: usd(per, rate), cedis: ghs(per) }) : t("each", "%(price)s each", { price: ghs(per) })) : "";
       var next = cardsPrice(q + 1, tiers);
       if (hint) hint.hidden = !(next !== null && next <= price);
       calc.dispatchEvent(new CustomEvent("nfc:price", { detail: { quantity: q, price: price } }));
@@ -316,7 +329,7 @@
       var price = teamPrice(n, team);
       setMoney(total, price, rate);
       var per = Math.round(price / n);
-      each.textContent = (rate ? usd(per, rate) + " (" + ghs(per) + ")" : ghs(per)) + " per person a year";
+      each.textContent = t("per_person_year", "%(price)s per person a year", { price: rate ? usd(per, rate) + " (" + ghs(per) + ")" : ghs(per) });
       if (link) {
         var url = new URL(link.href, window.location.href);
         url.searchParams.set("seats", String(n));

@@ -1,10 +1,10 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your card /c/{{ card.slug }} has been suspended, so visitors see "This card is unavailable".
+{% blocktrans trimmed with slug=card.slug %}Your card /c/{{ slug }} has been suspended, so visitors see "This card is unavailable".{% endblocktrans %}
 
-Reason: {{ reason }}
+{% blocktrans trimmed with reason=reason %}Reason: {{ reason }}{% endblocktrans %}
 
-If you think this is a mistake, reply to this email.
+{% blocktrans trimmed %}If you think this is a mistake, reply to this email.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

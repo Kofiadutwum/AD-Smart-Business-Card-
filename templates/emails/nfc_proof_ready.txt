@@ -1,10 +1,10 @@
-{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=order.user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Design proof {{ proof.version }} for your order {{ order.order_number }} is ready.
+{% blocktrans trimmed with version=proof.version number=order.order_number %}Design proof {{ version }} for your order {{ number }} is ready.{% endblocktrans %}
 {% if proof.staff_note %}
-From the designer: {{ proof.staff_note }}
+{% blocktrans trimmed with note=proof.staff_note %}From the designer: {{ note }}{% endblocktrans %}
 {% endif %}
-Please approve it or tell us what to change: {{ order_url }}
+{% blocktrans trimmed with link=order_url %}Please approve it or tell us what to change: {{ link }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

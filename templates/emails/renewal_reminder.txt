@@ -1,12 +1,12 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-{% if days == 0 %}Your {{ subscription.plan.name }} plan ends today.{% else %}Your {{ subscription.plan.name }} plan ends in {{ days }} day{{ days|pluralize }}, on {{ subscription.expires_at|date:"j F Y" }}.{% endif %}
+{% if days == 0 %}{% blocktrans trimmed with plan=subscription.plan.name %}Your {{ plan }} plan ends today.{% endblocktrans %}{% else %}{% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|date:"j F Y" count days=days %}Your {{ plan }} plan ends in {{ days }} day, on {{ date }}.{% plural %}Your {{ plan }} plan ends in {{ days }} days, on {{ date }}.{% endblocktrans %}{% endif %}
 
-Renew now to keep your card, QR code and NFC cards working without a break. Renewing early adds a full year to your current end date, so you lose nothing.
+{% blocktrans trimmed %}Renew now to keep your card, QR code and NFC cards working without a break. Renewing early adds a full year to your current end date, so you lose nothing.{% endblocktrans %}
 
-Renew: {{ site_url }}/billing/
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}Renew: {{ link }}{% endblocktrans %}
 
-If you do nothing, your card keeps working for a {{ site.grace_period_days }}-day grace period and then shows a "card inactive" page until you renew.
+{% blocktrans trimmed count days=site.grace_period_days %}If you do nothing, your card keeps working for a {{ days }}-day grace period and then shows a "card inactive" page until you renew.{% plural %}If you do nothing, your card keeps working for a {{ days }}-day grace period and then shows a "card inactive" page until you renew.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

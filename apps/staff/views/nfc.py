@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
+from apps.core.emails import subject_text
 from apps.core.models import AuditLog, SiteSettings
 from apps.nfc import services
 from apps.nfc.models import NFCOrder
@@ -132,7 +133,7 @@ def order_note(request, pk):
         visible = form.cleaned_data["visible_to_customer"]
         services.log(order, form.cleaned_data["message"], actor=request.user, visible=visible)
         if visible:
-            services.email_customer(order, f"An update on your order {order.order_number}", "nfc_status_update",
+            services.email_customer(order, subject_text("An update on your order %(number)s", number=order.order_number), "nfc_status_update",
                                     {"note": form.cleaned_data["message"]})
         messages.success(request, "Note added.")
     return redirect("staff:nfc_detail", pk=pk)

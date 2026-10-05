@@ -17,6 +17,7 @@ from apps.core.currency import format_money_local
 from . import fx, paystack, services
 from .models import Payment, Plan
 from .receipts import render_receipt_pdf
+from django.utils.translation import gettext as _, ngettext
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ def checkout(request):
     subscription = user.subscription
     plans = list(services.active_plans())
     if not plans:
-        messages.error(request, "Plans are not set up yet. Please contact support.")
+        messages.error(request, _("Plans are not set up yet. Please contact support."))
         return redirect("dashboard:home")
     default_code = (
         subscription.plan.code
@@ -65,17 +66,23 @@ def checkout(request):
         if promo_error:
             messages.error(request, promo_error)
         elif not request.POST.get("accept_policy"):
-            messages.error(request, "Please tick the box to accept the Terms and Refund Policy before paying.")
+            messages.error(request, _("Please tick the box to accept the Terms and Refund Policy before paying."))
         elif not user.cards.filter(deleted_at__isnull=True).exists():
-            messages.error(request, "Create your card before choosing a plan.")
+            messages.error(request, _("Create your card before choosing a plan."))
             return redirect("dashboard:editor")
         else:
             if request.POST["action"] == "upgrade" and upgrade:
-                months_left = f"{upgrade['months']} remaining month{'s' if upgrade['months'] != 1 else ''}"
+                months_left = ngettext(
+                    "%(count)d remaining month", "%(count)d remaining months", upgrade["months"]
+                ) % {"count": upgrade["months"]}
                 if upgrade["added"]:
-                    label = f"{upgrade['added']} more {'person' if upgrade['added'] == 1 else 'people'} on {plan.name} for {months_left}"
+                    label = ngettext(
+                        "%(added)d more person on %(plan)s for %(months_left)s",
+                        "%(added)d more people on %(plan)s for %(months_left)s", upgrade["added"],
+                    ) % {"added": upgrade["added"], "plan": plan.name, "months_left": months_left}
                 else:
-                    label = f"Upgrade to {services.plan_label(plan, seats)} for {months_left}"
+                    label = _("Upgrade to %(plan)s for %(months_left)s") % {
+                        "plan": services.plan_label(plan, seats), "months_left": months_left}
                 upgrade_quote = services.build_quote([(label, upgrade["amount_minor"])], promo)
                 payment = services.create_payment(
                     user=user, purpose=Payment.PURPOSE_UPGRADE, quote=upgrade_quote, plan=plan, seats=seats,
@@ -89,11 +96,11 @@ def checkout(request):
                 return redirect(services.checkout_url(payment, request))
             except paystack.PaymentError as exc:
                 Payment.objects.filter(pk=payment.pk).update(status=Payment.FAILED)
-                messages.error(request, f"{exc} You have not been charged.")
+                messages.error(request, _("%(reason)s You have not been charged.") % {"reason": exc})
     elif promo_code and promo_error:
         messages.error(request, promo_error)
     elif promo:
-        messages.success(request, f"Promo code {promo.code} applied: {promo.label}.")
+        messages.success(request, _("Promo code %(code)s applied: %(label)s.") % {"code": promo.code, "label": promo.label})
 
     return render(
         request,
@@ -106,7 +113,7 @@ def checkout(request):
             "team_max": services.TEAM_MAX_SEATS,
             "subscription": subscription,
             "quote": quote,
-            "pay_label": f"Pay {format_money_local(quote['total_minor'], fx.latest_rate())}",
+            "pay_label": _("Pay %(amount)s") % {"amount": format_money_local(quote["total_minor"], fx.latest_rate())},
             "upgrade": upgrade,
             "promo_code": promo.code if promo else promo_code,
             "rate": fx.latest_rate(),
@@ -123,7 +130,7 @@ def callback(request):
     reference = request.GET.get("reference") or request.GET.get("trxref")
     payment = Payment.objects.filter(reference=reference).first() if reference else None
     if payment is None:
-        messages.error(request, "We could not find that payment. If money left your account, contact support with the reference.")
+        messages.error(request, _("We could not find that payment. If money left your account, contact support with the reference."))
         return redirect("dashboard:home" if request.user.is_authenticated else "marketing:home")
     services.verify_and_fulfil(payment, "callback")
     return redirect("billing:result", reference=payment.reference)

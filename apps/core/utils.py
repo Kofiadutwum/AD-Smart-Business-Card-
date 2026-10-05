@@ -11,6 +11,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from PIL import Image, ImageOps, UnidentifiedImageError
+from django.utils.translation import gettext as _
 
 # --------------------------------------------------------------------------
 # Money. Amounts are integers of pesewas everywhere; floats lose pennies.
@@ -99,7 +100,7 @@ def normalise_phone(raw):
     +233244123456. Other countries must be written with their + prefix.
     """
     if not raw:
-        raise ValidationError("Enter a phone number.")
+        raise ValidationError(_("Enter a phone number."))
     text = str(raw).strip()
     plus = text.startswith("+") or text.startswith("00")
     digits = re.sub(r"\D", "", text)
@@ -109,12 +110,12 @@ def normalise_phone(raw):
         return "+233" + digits[1:]
     if digits.startswith("233"):
         if len(digits) != 12:
-            raise ValidationError("A Ghanaian number has 10 digits, for example 024 412 3456.")
+            raise ValidationError(_("A Ghanaian number has 10 digits, for example 024 412 3456."))
         return "+" + digits
     if plus and 8 <= len(digits) <= 15:
         return "+" + digits
     raise ValidationError(
-        "Enter a Ghanaian number such as 024 412 3456, or an international number starting with +."
+        _("Enter a Ghanaian number such as 024 412 3456, or an international number starting with +.")
     )
 
 
@@ -150,15 +151,15 @@ def process_image(upload, *, folder, max_px=800, max_bytes=None):
     """
     max_bytes = max_bytes or settings.MAX_IMAGE_UPLOAD_BYTES
     if upload.size > max_bytes:
-        raise ValidationError(f"That image is larger than {max_bytes // (1024 * 1024)} MB.")
+        raise ValidationError(_("That image is larger than %(mb)d MB.") % {"mb": max_bytes // (1024 * 1024)})
     try:
         image = Image.open(upload)
         image_format = image.format
         image.load()
     except (UnidentifiedImageError, OSError, ValueError):
-        raise ValidationError("Upload a JPG, PNG or WebP image.")
+        raise ValidationError(_("Upload a JPG, PNG or WebP image."))
     if image_format not in RASTER_TYPES:
-        raise ValidationError("Upload a JPG, PNG or WebP image.")
+        raise ValidationError(_("Upload a JPG, PNG or WebP image."))
 
     image = ImageOps.exif_transpose(image)
     if image.mode not in ("RGB", "RGBA"):
@@ -184,13 +185,13 @@ def sanitise_svg(data):
     try:
         root = SafeET.fromstring(data)
     except Exception:
-        raise ValidationError("That SVG file could not be read.")
+        raise ValidationError(_("That SVG file could not be read."))
 
     def local(tag):
         return tag.rsplit("}", 1)[-1].lower()
 
     if local(root.tag) != "svg":
-        raise ValidationError("That file is not an SVG image.")
+        raise ValidationError(_("That file is not an SVG image."))
 
     def clean(element):
         for child in list(element):
@@ -218,7 +219,7 @@ def validate_design_file(upload, *, folder):
     Raster files are kept at full resolution because they are going to print.
     """
     if upload.size > settings.MAX_DESIGN_UPLOAD_BYTES:
-        raise ValidationError("Design files can be up to 10 MB.")
+        raise ValidationError(_("Design files can be up to 10 MB."))
     head = upload.read(2048)
     upload.seek(0)
     if head.startswith(b"%PDF"):
@@ -230,9 +231,9 @@ def validate_design_file(upload, *, folder):
         image_format = image.format
         image.verify()
     except (UnidentifiedImageError, OSError, ValueError):
-        raise ValidationError("Upload a JPG, PNG, WebP, SVG or PDF file.")
+        raise ValidationError(_("Upload a JPG, PNG, WebP, SVG or PDF file."))
     if image_format not in RASTER_TYPES:
-        raise ValidationError("Upload a JPG, PNG, WebP, SVG or PDF file.")
+        raise ValidationError(_("Upload a JPG, PNG, WebP, SVG or PDF file."))
     upload.seek(0)
     return ContentFile(upload.read(), name=f"{folder}/{uuid.uuid4().hex}.{RASTER_TYPES[image_format]}")
 

@@ -1,0 +1,10 @@
+{# Language switch for a shared card: visitors see the card in their phone's language and can change it. #}
+<form class="prefs prefs--lang" method="post" action="{% url 'prefs' %}">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  <label class="visually-hidden" for="prefs-language-card">{% trans "Language" %}</label>
+  <select id="prefs-language-card" name="language" data-prefs-select>
+    {% for code, name in LANGUAGES %}<option value="{{ code }}" lang="{{ code }}"{% if code == LANGUAGE_CODE %} selected{% endif %}>{{ name }}</option>{% endfor %}
+  </select>
+  <noscript><button type="submit" class="btn btn--sm">{% trans "Save" %}</button></noscript>
+</form>

@@ -14,6 +14,8 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.db import IntegrityError, transaction
 from django.template.loader import render_to_string
+from django.utils import translation
+from django.utils.translation import gettext, ngettext
 
 from .models import EmailLog, SiteSettings
 
@@ -30,6 +32,33 @@ def _context(extra):
     return ctx
 
 
+def subject_text(message, **params):
+    """A subject that is translated when the email is built, in the language of the person it goes to."""
+
+    def build():
+        text = gettext(message)
+        return text % params if params else text
+
+    return build
+
+
+def subject_plural(singular, plural, count, **params):
+    """Like subject_text, with a singular and a plural form chosen by ``count``."""
+
+    def build():
+        return ngettext(singular, plural, count) % {"count": count, **params}
+
+    return build
+
+
+def language_for(user):
+    """The language an email to ``user`` is written in: the one they saved, else the one in use now."""
+    saved = getattr(user, "language", "") or ""
+    if saved and saved in dict(settings.LANGUAGES):
+        return saved
+    return translation.get_language() or settings.LANGUAGE_CODE
+
+
 def send_email(
     *,
     to,
@@ -42,6 +71,7 @@ def send_email(
     attachments=None,
     sent_by=None,
     reply_to=None,
+    language=None,
 ):
     """Render and send one email. Returns True when it was handed to the provider.
 
@@ -52,11 +82,16 @@ def send_email(
     if dedupe_key and EmailLog.objects.filter(dedupe_key=dedupe_key).exists():
         return False
 
-    ctx = _context(context)
-    ctx["subject"] = subject
-    body = render_to_string(f"emails/{template}.txt", ctx).strip() + "\n"
-    ctx["body_text"] = body
-    html = render_to_string("emails/_layout.html", ctx)
+    # Messages to the team are English; a customer's email is in their language. A visitor who is not
+    # signed in (a contact form, say) is answered in the language of the page they were on.
+    language = language or (language_for(user) if user is not None else "en")
+    with translation.override(language):
+        subject = str(subject() if callable(subject) else subject)
+        ctx = _context(context)
+        ctx["subject"] = subject
+        body = render_to_string(f"emails/{template}.txt", ctx).strip() + "\n"
+        ctx["body_text"] = body
+        html = render_to_string("emails/_layout.html", ctx)
 
     reply_to = reply_to or SiteSettings.load().support_email
     log = EmailLog(
@@ -134,9 +169,10 @@ def retry_failed_emails(days=3, max_retries=3):
             EmailLog.objects.filter(pk=log.pk).update(retries=max_retries)
             continue
         attachments, payment = _attachments_for(log)
-        html = render_to_string(
-            "emails/_layout.html", _context({"subject": log.subject, "body_text": log.body})
-        )
+        with translation.override(language_for(log.user) if log.user_id else "en"):
+            html = render_to_string(
+                "emails/_layout.html", _context({"subject": log.subject, "body_text": log.body})
+            )
         log.retries += 1
         try:
             _build(log.subject, log.body, html, log.to,

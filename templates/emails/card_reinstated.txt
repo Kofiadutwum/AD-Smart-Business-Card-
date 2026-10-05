@@ -1,6 +1,6 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your card /c/{{ card.slug }} is live again.
+{% blocktrans trimmed with slug=card.slug %}Your card /c/{{ slug }} is live again.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from apps.core.utils import keep_name
+from django.utils.translation import gettext_lazy as _
 
 ACCENT_PRESETS = {
     "blue": "#0048A9",
@@ -23,24 +24,24 @@ ACCENT_PRESETS = {
 }
 
 TEMPLATES = [
-    ("classic", "Classic"),
-    ("banner", "Banner"),
-    ("minimal", "Minimal"),
+    ("classic", _("Classic")),
+    ("banner", _("Banner")),
+    ("minimal", _("Minimal")),
 ]
 
-BUTTON_STYLES = [("pill", "Pill"), ("rounded", "Rounded"), ("square", "Square")]
-ICON_LAYOUTS = [("list", "List"), ("grid", "Grid"), ("row", "Icon row")]
+BUTTON_STYLES = [("pill", _("Pill")), ("rounded", _("Rounded")), ("square", _("Square"))]
+ICON_LAYOUTS = [("list", _("List")), ("grid", _("Grid")), ("row", _("Icon row"))]
 
 # Fields a subscriber may hide from the public card (PRV-01).
 HIDEABLE_FIELDS = [
-    ("email", "Email address"),
-    ("phones", "Phone numbers"),
-    ("whatsapp", "WhatsApp"),
-    ("website", "Website"),
-    ("address", "Physical address"),
-    ("ghana_post_gps", "Ghana Post GPS"),
-    ("map", "Map location"),
-    ("bio", "Short bio"),
+    ("email", _("Email address")),
+    ("phones", _("Phone numbers")),
+    ("whatsapp", _("WhatsApp")),
+    ("website", _("Website")),
+    ("address", _("Physical address")),
+    ("ghana_post_gps", _("Ghana Post GPS")),
+    ("map", _("Map location")),
+    ("bio", _("Short bio")),
 ]
 
 
@@ -230,23 +231,23 @@ class CardPhone(models.Model):
 
 class SocialLink(models.Model):
     PLATFORMS = [
-        ("linkedin", "LinkedIn"),
-        ("instagram", "Instagram"),
-        ("facebook", "Facebook"),
-        ("x", "X"),
-        ("tiktok", "TikTok"),
-        ("youtube", "YouTube"),
-        ("snapchat", "Snapchat"),
-        ("threads", "Threads"),
-        ("pinterest", "Pinterest"),
-        ("telegram", "Telegram"),
-        ("whatsapp", "WhatsApp"),
-        ("github", "GitHub"),
-        ("behance", "Behance"),
-        ("researchgate", "ResearchGate"),
-        ("orcid", "ORCID"),
-        ("scholar", "Google Scholar"),
-        ("website", "Website"),
+        ("linkedin", _("LinkedIn")),
+        ("instagram", _("Instagram")),
+        ("facebook", _("Facebook")),
+        ("x", _("X")),
+        ("tiktok", _("TikTok")),
+        ("youtube", _("YouTube")),
+        ("snapchat", _("Snapchat")),
+        ("threads", _("Threads")),
+        ("pinterest", _("Pinterest")),
+        ("telegram", _("Telegram")),
+        ("whatsapp", _("WhatsApp")),
+        ("github", _("GitHub")),
+        ("behance", _("Behance")),
+        ("researchgate", _("ResearchGate")),
+        ("orcid", _("ORCID")),
+        ("scholar", _("Google Scholar")),
+        ("website", _("Website")),
     ]
     ICONS = {"scholar": "googlescholar", "website": None}
 
@@ -282,16 +283,16 @@ class CardEvent(models.Model):
     SOCIAL = "social"
     LOCATION = "location"
     KINDS = [
-        (VIEW, "View"),
-        (SAVE_CONTACT, "Contact saved"),
-        (CALL, "Phone click"),
-        (WHATSAPP, "WhatsApp click"),
-        (EMAIL, "Email click"),
-        (WEBSITE, "Website click"),
-        (SOCIAL, "Social click"),
-        (LOCATION, "Location click"),
+        (VIEW, _("View")),
+        (SAVE_CONTACT, _("Contact saved")),
+        (CALL, _("Phone click")),
+        (WHATSAPP, _("WhatsApp click")),
+        (EMAIL, _("Email click")),
+        (WEBSITE, _("Website click")),
+        (SOCIAL, _("Social click")),
+        (LOCATION, _("Location click")),
     ]
-    SOURCES = [("link", "Direct link"), ("qr", "QR code"), ("nfc", "NFC tap")]
+    SOURCES = [("link", _("Direct link")), ("qr", _("QR code")), ("nfc", _("NFC tap"))]
 
     card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="events")
     kind = models.CharField(max_length=16, choices=KINDS, db_index=True)
@@ -329,13 +330,13 @@ class CardReport(models.Model):
     """'Report this card' (MOD-01)."""
 
     REASONS = [
-        ("impersonation", "Impersonation"),
-        ("fraud", "Fraud or scam"),
-        ("offensive", "Offensive content"),
-        ("other", "Other"),
+        ("impersonation", _("Impersonation")),
+        ("fraud", _("Fraud or scam")),
+        ("offensive", _("Offensive content")),
+        ("other", _("Other")),
     ]
     OPEN = "open"
-    STATUSES = [(OPEN, "Open"), ("dismissed", "Dismissed"), ("actioned", "Actioned")]
+    STATUSES = [(OPEN, _("Open")), ("dismissed", _("Dismissed")), ("actioned", _("Actioned"))]
 
     card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="reports")
     reason = models.CharField(max_length=16, choices=REASONS)

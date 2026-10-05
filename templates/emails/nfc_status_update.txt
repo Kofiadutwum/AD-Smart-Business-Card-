@@ -1,13 +1,13 @@
-{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=order.user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your NFC order {{ order.order_number }} is now: {{ order.get_status_display }}.
+{% blocktrans trimmed with number=order.order_number status=order.get_status_display %}Your NFC order {{ number }} is now: {{ status }}.{% endblocktrans %}
 {% if note %}
 {{ note }}
 {% endif %}{% if order.status == "dispatched" and order.courier_name %}
-Courier: {{ order.courier_name }}{% if order.tracking_number %} · Tracking: {{ order.tracking_number }}{% endif %}{% if order.is_international %}
-Shipping to {{ order.delivery_country.name }}. Customs in your country may add a day or two, and any import duties are paid by the recipient.{% endif %}
+{% blocktrans trimmed with name=order.courier_name %}Courier: {{ name }}{% endblocktrans %}{% if order.tracking_number %} · {% blocktrans trimmed with number=order.tracking_number %}Tracking: {{ number }}{% endblocktrans %}{% endif %}{% if order.is_international %}
+{% blocktrans trimmed with country=order.delivery_country.name %}Shipping to {{ country }}. Customs in your country may add a day or two, and any import duties are paid by the recipient.{% endblocktrans %}{% endif %}
 {% endif %}
-See the full timeline: {{ order_url }}
+{% blocktrans trimmed with link=order_url %}See the full timeline: {{ link }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

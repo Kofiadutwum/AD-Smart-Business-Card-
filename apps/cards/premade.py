@@ -28,6 +28,7 @@ from apps.core.utils import client_ip, rate_limited
 
 from . import services
 from .models import Card, CardPhone, CardSlug, PremadeBatch, PremadeCard
+from django.utils.translation import gettext as _, ngettext
 
 # No 0/O/1/I in codes people may read off a card and type by hand.
 SLUG_ALPHABET = "abcdefghjkmnpqrstuvwxyz23456789"
@@ -156,7 +157,7 @@ def void_card(premade, staff, reason=""):
     """Take an unclaimed card out of use (lost, damaged or misprinted)."""
     premade = PremadeCard.objects.select_for_update().select_related("card", "batch").get(pk=premade.pk)
     if premade.claimed_at:
-        raise ValidationError("This card has already been set up by its buyer.")
+        raise ValidationError(_("This card has already been set up by its buyer."))
     now = timezone.now()
     premade.voided_at = now
     premade.save(update_fields=["voided_at"])
@@ -207,18 +208,21 @@ def pack_zip(rows):
 def check_pin(premade, raw_pin, request):
     """Return True for the right PIN, else raise ClaimError. Guesses are limited per card and per connection."""
     if premade.claimed_at:
-        raise ClaimError("This card has already been set up.")
+        raise ClaimError(_("This card has already been set up."))
     if premade.voided_at:
-        raise ClaimError("This card is no longer in use. Please contact the shop you bought it from.")
+        raise ClaimError(_("This card is no longer in use. Please contact the shop you bought it from."))
     if rate_limited(f"premade-pin-ip:{client_ip(request)}", 30, 3600):
-        raise ClaimError("Too many attempts from this connection. Please try again later.")
+        raise ClaimError(_("Too many attempts from this connection. Please try again later."))
     now = timezone.now()
     failed_message = None
     with transaction.atomic():
         locked = PremadeCard.objects.select_for_update().get(pk=premade.pk)
         if locked.pin_locked_until and locked.pin_locked_until > now:
             minutes = max(1, int((locked.pin_locked_until - now).total_seconds() // 60) + 1)
-            raise ClaimError(f"Too many wrong PINs. Please try again in {minutes} minutes.")
+            raise ClaimError(ngettext(
+                "Too many wrong PINs. Please try again in %(minutes)d minute.",
+                "Too many wrong PINs. Please try again in %(minutes)d minutes.", minutes,
+            ) % {"minutes": minutes})
         pin = normalise_pin(raw_pin)
         if len(pin) == PIN_LENGTH and hmac.compare_digest(hash_pin(pin), locked.pin_hash):
             if locked.pin_failures:
@@ -229,11 +233,13 @@ def check_pin(premade, raw_pin, request):
             PremadeCard.objects.filter(pk=locked.pk).update(
                 pin_failures=0, pin_locked_until=now + timedelta(minutes=LOCK_MINUTES)
             )
-            failed_message = f"That PIN is not right. This card is locked for {LOCK_MINUTES} minutes."
+            failed_message = _("That PIN is not right. This card is locked for %(minutes)d minutes.") % {"minutes": LOCK_MINUTES}
         else:
             PremadeCard.objects.filter(pk=locked.pk).update(pin_failures=F("pin_failures") + 1)
             left = MAX_PIN_FAILURES - failures
-            failed_message = f"That PIN is not right. {left} {'try' if left == 1 else 'tries'} left."
+            failed_message = ngettext(
+                "That PIN is not right. %(left)d try left.", "That PIN is not right. %(left)d tries left.", left
+            ) % {"left": left}
     raise ClaimError(failed_message)
 
 
@@ -315,9 +321,9 @@ def _finish(premade, user):
 def _lock_claimable(premade_pk):
     premade = PremadeCard.objects.select_for_update().select_related("card", "batch", "batch__plan").get(pk=premade_pk)
     if premade.claimed_at:
-        raise ClaimError("This card has already been set up.")
+        raise ClaimError(_("This card has already been set up."))
     if premade.voided_at:
-        raise ClaimError("This card is no longer in use. Please contact the shop you bought it from.")
+        raise ClaimError(_("This card is no longer in use. Please contact the shop you bought it from."))
     return premade
 
 

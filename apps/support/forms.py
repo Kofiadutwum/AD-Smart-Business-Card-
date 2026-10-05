@@ -1,10 +1,11 @@
 from django import forms
 
 from .models import SupportRequest
+from django.utils.translation import gettext_lazy as _
 
 
 class ContactForm(forms.ModelForm):
-    message = forms.CharField(label="How can we help?", widget=forms.Textarea(attrs={"rows": 5}), max_length=4000)
+    message = forms.CharField(label=_("How can we help?"), widget=forms.Textarea(attrs={"rows": 5}), max_length=4000)
 
     class Meta:
         model = SupportRequest
@@ -18,4 +19,4 @@ class ContactForm(forms.ModelForm):
 
 
 class ReplyForm(forms.Form):
-    body = forms.CharField(label="Your reply", widget=forms.Textarea(attrs={"rows": 4}), max_length=4000)
+    body = forms.CharField(label=_("Your reply"), widget=forms.Textarea(attrs={"rows": 4}), max_length=4000)

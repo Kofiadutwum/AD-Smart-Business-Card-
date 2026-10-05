@@ -12,6 +12,7 @@ from django.utils import timezone
 from apps.core.utils import visitor_hash
 
 from .models import Card, CardEvent, CardSlug
+from django.utils.translation import gettext as _
 
 # --------------------------------------------------------------------------
 # Slugs (URL-02..06)
@@ -90,12 +91,12 @@ def change_slug(card, new_slug):
     if new_slug == card.slug:
         return
     if card.has_nfc_orders:
-        raise ValidationError("This card's link is printed on NFC cards, so it can no longer change.")
+        raise ValidationError(_("This card's link is printed on NFC cards, so it can no longer change."))
     problem = slug_problem(new_slug)
     if problem:
         raise ValidationError(problem)
     if slug_taken(new_slug, exclude_card=card):
-        raise ValidationError("That link is already taken.")
+        raise ValidationError(_("That link is already taken."))
     CardSlug.objects.filter(card=card, is_current=True).update(is_current=False)
     own = CardSlug.objects.filter(slug=new_slug, card=card).first()
     if own:

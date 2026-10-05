@@ -15,7 +15,7 @@ from apps.billing import fx
 from apps.billing.models import Subscription
 from apps.billing.services import activate_cards, expire_stale_pending
 from apps.cards.models import CardEvent
-from apps.core.emails import retry_failed_emails, send_email
+from apps.core.emails import retry_failed_emails, send_email, subject_plural, subject_text
 from apps.core.models import SiteSettings
 from apps.nfc import services as nfc
 from apps.nfc.models import NFCOrder
@@ -86,7 +86,8 @@ class Command(BaseCommand):
                 continue
             if send_email(
                 to=sub.user.email,
-                subject="Your card plan ends today" if days == 0 else f"Your card plan ends in {days} day{'s' if days != 1 else ''}",
+                subject=subject_text("Your card plan ends today") if days == 0 else subject_plural(
+                    "Your card plan ends in %(count)d day", "Your card plan ends in %(count)d days", days),
                 template="renewal_reminder",
                 context={"user": sub.user, "subscription": sub, "days": days},
                 user=sub.user,
@@ -107,9 +108,9 @@ class Command(BaseCommand):
         ):
             state = sub.state
             if state == Subscription.STATE_GRACE:
-                key, template, subject = "grace", "grace_started", "Your card is in its grace period"
+                key, template, subject = "grace", "grace_started", subject_text("Your card is in its grace period")
             elif state == Subscription.STATE_INACTIVE and now - sub.grace_ends_at < timedelta(days=7):
-                key, template, subject = "inactive", "card_inactive", "Your card is now inactive"
+                key, template, subject = "inactive", "card_inactive", subject_text("Your card is now inactive")
             else:
                 continue
             if send_email(
@@ -138,7 +139,7 @@ class Command(BaseCommand):
             delete_on = inactive_since + keep
             if now >= delete_on - timedelta(days=30) and now < delete_on:
                 if send_email(
-                    to=sub.user.email, subject="Your card details will be deleted soon", template="data_deletion_warning",
+                    to=sub.user.email, subject=subject_text("Your card details will be deleted soon"), template="data_deletion_warning",
                     context={"user": sub.user, "delete_on": delete_on}, user=sub.user,
                     kind="data_deletion_warning", dedupe_key=f"purge-warn:{sub.pk}:{sub.expires_at:%Y%m%d}",
                 ):

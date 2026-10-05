@@ -4,9 +4,11 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import translation
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
-from apps.core.emails import notify_admins, send_email
+from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.utils import client_ip, rate_limited
 
 from .forms import ContactForm, ReplyForm
@@ -23,7 +25,7 @@ def contact(request):
     form = ContactForm(request.POST or None, initial=initial)
     if request.method == "POST" and form.is_valid():
         if rate_limited(f"contact:{client_ip(request)}", 6, 3600):
-            messages.error(request, "You have sent several messages already. We will get back to you soon.")
+            messages.error(request, _("You have sent several messages already. We will get back to you soon."))
             return redirect("support:contact")
         ticket = form.save(commit=False)
         ticket.user = user
@@ -32,8 +34,9 @@ def contact(request):
         ticket.save()
         SupportMessage.objects.create(request=ticket, author=user, body=form.cleaned_data["message"])
         send_email(
-            to=ticket.email, subject=f"We received your message ({ticket.reference})", template="support_received",
+            to=ticket.email, subject=subject_text("We received your message (%(reference)s)", reference=ticket.reference), template="support_received",
             context={"ticket": ticket}, user=user, kind="support_received",
+            language=translation.get_language(),
         )
         notify_admins(
             f"{'PRIORITY · ' if ticket.priority else ''}Support request {ticket.reference}: {ticket.subject}",
@@ -41,7 +44,7 @@ def contact(request):
             {"ticket": ticket, "message": form.cleaned_data["message"],
              "staff_url": f"{settings.SITE_URL}/staff/support/{ticket.pk}/"},
         )
-        messages.success(request, f"Thanks — your reference is {ticket.reference}. We reply within 1 working day.")
+        messages.success(request, _("Thanks — your reference is %(reference)s. We reply within 1 working day.") % {"reference": ticket.reference})
         return redirect("support:mine" if user else "support:contact")
     return render(request, "support/contact.html", {"form": form})
 
@@ -71,5 +74,5 @@ def reply(request, reference):
         notify_admins(f"Customer replied on {item.reference}", "admin_support_request",
                       {"ticket": item, "message": form.cleaned_data["body"],
                        "staff_url": f"{settings.SITE_URL}/staff/support/{item.pk}/"})
-        messages.success(request, "Reply sent.")
+        messages.success(request, _("Reply sent."))
     return redirect("support:ticket", reference=reference)

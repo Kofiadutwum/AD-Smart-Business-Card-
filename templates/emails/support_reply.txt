@@ -1,8 +1,8 @@
-{% autoescape off %}Hello {{ ticket.name }},
+{% autoescape off %}{% blocktrans with name=ticket.name %}Hello {{ name }},{% endblocktrans %}
 
 {{ reply }}
 
-Reference: {{ ticket.reference }}. Reply from your dashboard, or to this email.
+{% blocktrans trimmed with reference=ticket.reference %}Reference: {{ reference }}. Reply from your dashboard, or to this email.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

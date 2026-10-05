@@ -20,18 +20,19 @@ from apps.core.utils import format_money
 from . import services
 from .forms import CancelForm, ChangesForm, NFCOrderForm
 from .models import DeliveryZone, DesignProof, NFCOrder, NFCOrderItem
+from django.utils.translation import gettext as _, ngettext
 
 
 def _order_quote(quantity, zone, plan, promo):
     cards_minor = services.cards_price(quantity)
-    lines = [(f"{quantity} customised NFC card{'s' if quantity != 1 else ''}", cards_minor)]
+    lines = [(ngettext("%(count)d customised NFC card", "%(count)d customised NFC cards", quantity) % {"count": quantity}, cards_minor)]
     if zone and zone.fee_minor:
-        kind = "Shipping and delivery" if zone.is_international else "Delivery"
+        kind = _("Shipping and delivery") if zone.is_international else _("Delivery")
         lines.append((f"{kind}: {zone.name}", zone.fee_minor))
     nfc_subtotal = sum(amount for _, amount in lines)
     plan_minor = plan.price_minor if plan else 0
     if plan:
-        lines.append((f"{plan.name} plan, 12 months", plan_minor))
+        lines.append((_("%(plan)s plan, 12 months") % {"plan": plan.name}, plan_minor))
     # A promo for NFC orders discounts the cards and delivery; one for both
     # also discounts a plan bought in the same checkout.
     discount = 0
@@ -53,7 +54,7 @@ def order(request):
     user = request.user
     cards = list(user.cards.filter(deleted_at__isnull=True).order_by("created_at"))
     if not cards:
-        messages.info(request, "Create your digital card first. Your NFC cards will open it.")
+        messages.info(request, _("Create your digital card first. Your NFC cards will open it."))
         return redirect("dashboard:editor")
     subscription = user.subscription
     needs_plan = not (subscription and subscription.is_live)
@@ -133,7 +134,7 @@ def order(request):
                     return redirect(billing.checkout_url(payment, request))
                 except PaymentError as exc:
                     Payment.objects.filter(pk=payment.pk).update(status=Payment.FAILED)
-                    messages.error(request, f"{exc} Your order is saved; you can pay from the order page.")
+                    messages.error(request, _("%(reason)s Your order is saved; you can pay from the order page.") % {"reason": exc})
                     return redirect("nfc:detail", number=nfc_order.order_number)
 
     return render(
@@ -161,15 +162,15 @@ def callback(request):
     reference = request.GET.get("reference") or request.GET.get("trxref")
     payment = Payment.objects.select_related("nfc_order").filter(reference=reference).first() if reference else None
     if payment is None or payment.nfc_order is None:
-        messages.error(request, "We could not find that payment. If money left your account, contact support.")
+        messages.error(request, _("We could not find that payment. If money left your account, contact support."))
         return redirect("dashboard:home" if request.user.is_authenticated else "marketing:home")
     status = billing.verify_and_fulfil(payment, "callback")
     if status == Payment.SUCCESS:
-        messages.success(request, "Payment received. Your NFC order is confirmed.")
+        messages.success(request, _("Payment received. Your NFC order is confirmed."))
     elif status == Payment.PENDING:
-        messages.info(request, "Your payment is still being confirmed. This page updates when it is.")
+        messages.info(request, _("Your payment is still being confirmed. This page updates when it is."))
     else:
-        messages.error(request, "That payment did not go through. You have not been charged.")
+        messages.error(request, _("That payment did not go through. You have not been charged."))
     if not request.user.is_authenticated:
         return redirect("accounts:login")
     return redirect("nfc:detail", number=payment.nfc_order.order_number)
@@ -201,7 +202,7 @@ def detail(request, number):
             billing.verify_and_fulfil(pending, "order-page")
             nfc_order.refresh_from_db()
     reached = -1
-    for index, (_, statuses) in enumerate(PROGRESS):
+    for index, (_step, statuses) in enumerate(PROGRESS):
         if nfc_order.status in statuses:
             reached = index
     return render(
@@ -246,7 +247,7 @@ def pay(request, number):
         return redirect(billing.checkout_url(payment, request))
     except PaymentError as exc:
         Payment.objects.filter(pk=payment.pk).update(status=Payment.FAILED)
-        messages.error(request, f"{exc} You have not been charged.")
+        messages.error(request, _("%(reason)s You have not been charged.") % {"reason": exc})
         return redirect("nfc:detail", number=number)
 
 
@@ -257,7 +258,7 @@ def approve(request, number, version):
     proof = get_object_or_404(DesignProof, order=nfc_order, version=version)
     try:
         services.approve_proof(nfc_order, proof, request.user)
-        messages.success(request, "Design approved. We will start printing and encoding your cards.")
+        messages.success(request, _("Design approved. We will start printing and encoding your cards."))
     except services.TransitionError as exc:
         messages.error(request, str(exc))
     return redirect("nfc:detail", number=number)
@@ -270,15 +271,18 @@ def request_changes(request, number, version):
     proof = get_object_or_404(DesignProof, order=nfc_order, version=version)
     form = ChangesForm(request.POST)
     if not form.is_valid():
-        messages.error(request, "Tell us what to change.")
+        messages.error(request, _("Tell us what to change."))
         return redirect("nfc:detail", number=number)
     try:
         services.request_changes(nfc_order, proof, request.user, form.cleaned_data["comment"])
         left = services.revisions_left(nfc_order)
         if left:
-            messages.success(request, f"Thanks. Our designers will send a new proof. You have {left} free round{'s' if left != 1 else ''} of changes left.")
+            messages.success(request, ngettext(
+                "Thanks. Our designers will send a new proof. You have %(left)d free round of changes left.",
+                "Thanks. Our designers will send a new proof. You have %(left)d free rounds of changes left.", left,
+            ) % {"left": left})
         else:
-            messages.warning(request, "Thanks. This is beyond the free revision rounds, so our team may contact you about a small fee.")
+            messages.warning(request, _("Thanks. This is beyond the free revision rounds, so our team may contact you about a small fee."))
     except services.TransitionError as exc:
         messages.error(request, str(exc))
     return redirect("nfc:detail", number=number)
@@ -291,11 +295,12 @@ def cancel(request, number):
     form = CancelForm(request.POST)
     form.is_valid()
     try:
-        _, refundable = services.cancel_by_customer(nfc_order, request.user, form.cleaned_data.get("reason", ""))
+        _order, refundable = services.cancel_by_customer(nfc_order, request.user, form.cleaned_data.get("reason", ""))
         messages.success(
             request,
-            f"Order cancelled. A refund of {format_money(refundable, nfc_order.usd_rate)} will be processed to your original payment method."
-            if refundable else "Order cancelled.",
+            _("Order cancelled. A refund of %(amount)s will be processed to your original payment method.")
+            % {"amount": format_money(refundable, nfc_order.usd_rate)}
+            if refundable else _("Order cancelled."),
         )
     except services.TransitionError as exc:
         messages.error(request, str(exc))

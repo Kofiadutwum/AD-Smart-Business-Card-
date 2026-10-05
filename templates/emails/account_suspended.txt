@@ -1,10 +1,10 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your AD Smart account has been suspended, so your cards are not showing.
+{% blocktrans trimmed %}Your AD Smart account has been suspended, so your cards are not showing.{% endblocktrans %}
 
-Reason: {{ reason }}
+{% blocktrans trimmed with reason=reason %}Reason: {{ reason }}{% endblocktrans %}
 
-If you think this is a mistake, reply to this email and our team will look into it.
+{% blocktrans trimmed %}If you think this is a mistake, reply to this email and our team will look into it.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

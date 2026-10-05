@@ -9,27 +9,28 @@ from django.forms import inlineformset_factory
 from apps.cards.colors import valid_hex
 from apps.cards.models import ACCENT_PRESETS, HIDEABLE_FIELDS, Card, CardPhone, SocialLink
 from apps.core.utils import normalise_phone, process_image
+from django.utils.translation import gettext_lazy as _
 
 GPS_RE = re.compile(r"^[A-Z]{2}-\d{1,4}-\d{3,4}$")
 
 
 class CardForm(forms.ModelForm):
     avatar_upload = forms.ImageField(
-        label="Profile photo", required=False, help_text="JPG, PNG or WebP up to 5 MB. We resize it for fast loading."
+        label=_("Profile photo"), required=False, help_text=_("JPG, PNG or WebP up to 5 MB. We resize it for fast loading.")
     )
-    remove_avatar = forms.BooleanField(label="Remove photo", required=False)
-    logo_upload = forms.ImageField(label="Business logo", required=False, help_text="PNG with a transparent background works best.")
-    remove_logo = forms.BooleanField(label="Remove logo", required=False)
-    background_upload = forms.ImageField(label="Background image", required=False)
-    remove_background = forms.BooleanField(label="Remove background", required=False)
+    remove_avatar = forms.BooleanField(label=_("Remove photo"), required=False)
+    logo_upload = forms.ImageField(label=_("Business logo"), required=False, help_text=_("PNG with a transparent background works best."))
+    remove_logo = forms.BooleanField(label=_("Remove logo"), required=False)
+    background_upload = forms.ImageField(label=_("Background image"), required=False)
+    remove_background = forms.BooleanField(label=_("Remove background"), required=False)
     accent_preset = forms.ChoiceField(
-        label="Card colour", choices=[(v, k.title()) for k, v in ACCENT_PRESETS.items()] + [("custom", "Custom")],
+        label=_("Card colour"), choices=[(v, k.title()) for k, v in ACCENT_PRESETS.items()] + [("custom", "Custom")],
         widget=forms.RadioSelect, required=False,
     )
-    accent_custom = forms.CharField(label="Custom colour", required=False, widget=forms.TextInput(attrs={"type": "color"}))
-    card_colour = forms.CharField(label="Band colour", required=False, widget=forms.TextInput(attrs={"type": "color"}))
+    accent_custom = forms.CharField(label=_("Custom colour"), required=False, widget=forms.TextInput(attrs={"type": "color"}))
+    card_colour = forms.CharField(label=_("Band colour"), required=False, widget=forms.TextInput(attrs={"type": "color"}))
     visible = forms.MultipleChoiceField(
-        label="Show on my public card", choices=HIDEABLE_FIELDS, widget=forms.CheckboxSelectMultiple, required=False
+        label=_("Show on my public card"), choices=HIDEABLE_FIELDS, widget=forms.CheckboxSelectMultiple, required=False
     )
 
     class Meta:
@@ -116,19 +117,19 @@ class CardForm(forms.ModelForm):
     def clean_ghana_post_gps(self):
         value = (self.cleaned_data.get("ghana_post_gps") or "").strip().upper()
         if value and not GPS_RE.match(value):
-            raise ValidationError("Use the format GA-123-4567.")
+            raise ValidationError(_("Use the format GA-123-4567."))
         return value
 
     def clean_accent_custom(self):
         value = self.cleaned_data.get("accent_custom") or ""
         if value and not valid_hex(value):
-            raise ValidationError("Choose a colour.")
+            raise ValidationError(_("Choose a colour."))
         return value.lower()
 
     def clean_card_colour(self):
         value = self.cleaned_data.get("card_colour") or ""
         if value and not valid_hex(value):
-            raise ValidationError("Choose a colour.")
+            raise ValidationError(_("Choose a colour."))
         return value.lower()
 
     def _image(self, name, folder, max_px):
@@ -206,8 +207,8 @@ PhoneFormSet = inlineformset_factory(
 
 class SlugForm(forms.Form):
     slug = forms.CharField(
-        label="Your card link", max_length=40,
-        help_text="3 to 40 lowercase letters, numbers and hyphens.",
+        label=_("Your card link"), max_length=40,
+        help_text=_("3 to 40 lowercase letters, numbers and hyphens."),
     )
 
 
@@ -220,5 +221,5 @@ class SocialLinkForm(forms.ModelForm):
 
 
 class NewCardForm(forms.Form):
-    full_name = forms.CharField(label="Full name on the new card", max_length=120)
-    job_title = forms.CharField(label="Position", max_length=120, required=False)
+    full_name = forms.CharField(label=_("Full name on the new card"), max_length=120)
+    job_title = forms.CharField(label=_("Position"), max_length=120, required=False)

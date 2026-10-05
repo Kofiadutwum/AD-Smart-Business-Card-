@@ -13,7 +13,7 @@ from apps.accounts.models import User
 from apps.billing.services import manual_activation
 from apps.cards.models import Card
 from apps.cards.views import card_context
-from apps.core.emails import send_email
+from apps.core.emails import send_email, subject_text
 from apps.core.models import AuditLog, SiteSettings
 from apps.core.utils import ghs_to_minor, safe_next
 
@@ -118,7 +118,7 @@ def suspend(request, pk):
     AuditLog.record(request.user, action, customer, reason=reason)
     send_email(
         to=customer.email,
-        subject="Your AD Smart account has been suspended" if customer.is_suspended else "Your AD Smart account is active again",
+        subject=subject_text("Your AD Smart account has been suspended") if customer.is_suspended else subject_text("Your AD Smart account is active again"),
         template="account_suspended" if customer.is_suspended else "account_reinstated",
         context={"user": customer, "reason": reason}, user=customer, kind=action,
     )
@@ -142,7 +142,8 @@ def suspend_card(request, pk):
     AuditLog.record(request.user, action, card, reason=reason)
     send_email(
         to=card.owner.email,
-        subject=f"Your card /c/{card.slug} has been {'suspended' if card.is_suspended else 'reinstated'}",
+        subject=(subject_text("Your card /c/%(slug)s has been suspended", slug=card.slug) if card.is_suspended
+                 else subject_text("Your card /c/%(slug)s has been reinstated", slug=card.slug)),
         template="card_suspended" if card.is_suspended else "card_reinstated",
         context={"user": card.owner, "card": card, "reason": reason}, user=card.owner, kind=action,
     )

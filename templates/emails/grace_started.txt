@@ -1,8 +1,8 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your plan ended on {{ subscription.expires_at|date:"j F Y" }}. Your card is still working during a grace period until {{ subscription.grace_ends_at|date:"j F Y" }}.
+{% blocktrans trimmed with ended=subscription.expires_at|date:"j F Y" until=subscription.grace_ends_at|date:"j F Y" %}Your plan ended on {{ ended }}. Your card is still working during a grace period until {{ until }}.{% endblocktrans %}
 
-Renew before then to keep it live: {{ site_url }}/billing/
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}Renew before then to keep it live: {{ link }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

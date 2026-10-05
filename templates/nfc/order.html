@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var zones = JSON.parse(document.getElementById("nfc-order-zones").textContent);
   var plans = JSON.parse(document.getElementById("nfc-order-plans").textContent);
   var taxRate = parseFloat("{{ tax_rate }}") || 0;
-  var price = window.ADSmart.cardsPrice, setMoney = window.ADSmart.setMoney;
+  var price = window.ADSmart.cardsPrice, setMoney = window.ADSmart.setMoney, T = window.ADSmart.t;
   var rate = window.ADSmart.currencyRate();
   function show(selector, minor, empty) {
     var el = form.querySelector(selector + " .money");
@@ -158,9 +158,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var plan = planId && plans[planId] ? plans[planId] : 0;
     var subtotal = (cards || 0) + delivery + plan;
     var tax = Math.round(subtotal * taxRate / 100);
-    form.querySelector("[data-sum-cards-label]").textContent = qty + " NFC card" + (qty === 1 ? "" : "s");
+    form.querySelector("[data-sum-cards-label]").textContent = qty === 1 ? T("nfc_card_one", "%(count)d NFC card", { count: qty }) : T("nfc_card_many", "%(count)d NFC cards", { count: qty });
     show("[data-sum-cards]", cards, cards === null ? "—" : "");
-    show("[data-sum-delivery]", delivery, zone ? (delivery ? "" : "Free") : "—");
+    show("[data-sum-delivery]", delivery, zone ? (delivery ? "" : T("free", "Free")) : "—");
     show("[data-sum-plan]", plan, plan ? "" : "—");
     show("[data-sum-tax]", tax, "");
     show("[data-sum-total]", subtotal + tax, "");
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.querySelectorAll("[data-intl-fields]").forEach(function (el) { el.hidden = !intl; });
     form.querySelectorAll("[data-gh-fields]").forEach(function (el) { el.hidden = intl; });
     form.querySelector("[data-intl-note]").hidden = !intl;
-    form.querySelector("[data-sum-delivery-label]").textContent = intl ? "Shipping and delivery" : "Delivery";
+    form.querySelector("[data-sum-delivery-label]").textContent = intl ? T("shipping_delivery", "Shipping and delivery") : T("delivery", "Delivery");
   }
   form.addEventListener("input", update);
   form.addEventListener("change", update);

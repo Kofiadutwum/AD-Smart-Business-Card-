@@ -41,6 +41,15 @@ def preferences(request):
     from .utils import safe_next
 
     response = redirect(safe_next(request.POST.get("next")) or "/")
+    language = request.POST.get("language")
+    if language in dict(settings.LANGUAGES):
+        response.set_cookie(
+            settings.LANGUAGE_COOKIE_NAME, language, max_age=settings.LANGUAGE_COOKIE_AGE, path=settings.LANGUAGE_COOKIE_PATH,
+            samesite=settings.LANGUAGE_COOKIE_SAMESITE, secure=request.is_secure(),
+        )
+        user = request.user
+        if user.is_authenticated and not user.is_staff:
+            get_user_model().objects.filter(pk=user.pk).update(language=language)
     code = currency.valid(request.POST.get("currency"))
     if code:
         response.set_cookie(

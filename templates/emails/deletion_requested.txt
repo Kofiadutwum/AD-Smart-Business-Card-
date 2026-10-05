@@ -1,8 +1,8 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-We received your request to delete your AD Smart account. Your cards are now offline, and your personal data will be removed within 30 days. Payment records are kept for accounting, as the law requires.
+{% blocktrans trimmed %}We received your request to delete your AD Smart account. Your cards are now offline, and your personal data will be removed within 30 days. Payment records are kept for accounting, as the law requires.{% endblocktrans %}
 
-Changed your mind? Reply to this email within 30 days.
+{% blocktrans trimmed %}Changed your mind? Reply to this email within 30 days.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

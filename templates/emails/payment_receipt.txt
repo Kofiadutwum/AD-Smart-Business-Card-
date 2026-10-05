@@ -1,17 +1,17 @@
-{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Thank you, we have received your payment.
+{% blocktrans trimmed %}Thank you, we have received your payment.{% endblocktrans %}
 
-Receipt: {{ payment.receipt_number }}
-Reference: {{ payment.reference }}
-For: {{ payment.description }}
-Amount: {{ payment.amount_minor|money_text:payment.usd_rate }}
-Date: {{ payment.paid_at|date:"j F Y, H:i" }}
+{% blocktrans trimmed with value=payment.receipt_number %}Receipt: {{ value }}{% endblocktrans %}
+{% blocktrans trimmed with value=payment.reference %}Reference: {{ value }}{% endblocktrans %}
+{% blocktrans trimmed with value=payment.description %}For: {{ value }}{% endblocktrans %}
+{% blocktrans trimmed with value=payment.amount_minor|money_text:payment.usd_rate %}Amount: {{ value }}{% endblocktrans %}
+{% blocktrans trimmed with value=payment.paid_at|date:"j F Y, H:i" %}Date: {{ value }}{% endblocktrans %}
 {% if subscription and payment.purpose != "nfc_order" %}
-Your {{ subscription.plan.name }} plan is active until {{ subscription.expires_at|date:"j F Y" }}.{% endif %}{% if payment.nfc_order %}
-Track your NFC order: {{ site_url }}/nfc/orders/{{ payment.nfc_order.order_number }}{% endif %}
+{% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|date:"j F Y" %}Your {{ plan }} plan is active until {{ date }}.{% endblocktrans %}{% endif %}{% if payment.nfc_order %}
+{% blocktrans trimmed with link=site_url|add:"/nfc/orders/"|add:payment.nfc_order.order_number %}Track your NFC order: {{ link }}{% endblocktrans %}{% endif %}
 
-The PDF receipt is attached. You can also download it any time from your dashboard.
+{% blocktrans trimmed %}The PDF receipt is attached. You can also download it any time from your dashboard.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

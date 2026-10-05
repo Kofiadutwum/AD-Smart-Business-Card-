@@ -21,7 +21,7 @@ from django.db.models import F
 from django.urls import reverse
 from django.utils import timezone
 
-from apps.core.emails import notify_admins, send_email
+from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import AuditLog, Counter, SiteSettings
 from apps.core.utils import percent_of
 
@@ -402,7 +402,7 @@ def send_receipt(payment):
     subscription = getattr(payment.user, "subscription", None)
     sent = send_email(
         to=payment.user.email,
-        subject=f"Your receipt {payment.receipt_number}",
+        subject=subject_text("Your receipt %(number)s", number=payment.receipt_number),
         template="payment_receipt",
         context={"payment": payment, "user": payment.user, "subscription": subscription},
         user=payment.user,

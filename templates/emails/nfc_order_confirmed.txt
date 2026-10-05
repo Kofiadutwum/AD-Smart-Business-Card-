@@ -1,16 +1,16 @@
-{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=order.user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-Your NFC order {{ order.order_number }} is confirmed and paid.
+{% blocktrans trimmed with number=order.order_number %}Your NFC order {{ number }} is confirmed and paid.{% endblocktrans %}
 
-{{ order.quantity }} card{{ order.quantity|pluralize }} · {{ order.total_minor|money_text:order.usd_rate }}
+{% blocktrans trimmed count counter=order.quantity %}{{ counter }} card{% plural %}{{ counter }} cards{% endblocktrans %} · {{ order.total_minor|money_text:order.usd_rate }}
 
-What happens next:
-- Our designers send your first proof within 3 working days.
-- You approve it, or ask for changes ({{ site.free_revision_rounds }} rounds are free).
-- We print, encode, lock and tap-test every card, then deliver it or prepare it for pickup.{% if order.is_international %}
-- Your cards ship to {{ order.delivery_country.name }} ({{ order.delivery_zone.eta }}). Any import duties or taxes in your country are paid by the recipient.{% endif %}
+{% blocktrans trimmed %}What happens next:{% endblocktrans %}
+- {% blocktrans trimmed %}Our designers send your first proof within 3 working days.{% endblocktrans %}
+- {% blocktrans trimmed with rounds=site.free_revision_rounds %}You approve it, or ask for changes ({{ rounds }} rounds are free).{% endblocktrans %}
+- {% blocktrans trimmed %}We print, encode, lock and tap-test every card, then deliver it or prepare it for pickup.{% endblocktrans %}{% if order.is_international %}
+- {% blocktrans trimmed with country=order.delivery_country.name eta=order.delivery_zone.eta %}Your cards ship to {{ country }} ({{ eta }}). Any import duties or taxes in your country are paid by the recipient.{% endblocktrans %}{% endif %}
 
-Track your order: {{ order_url }}
+{% blocktrans trimmed with link=order_url %}Track your order: {{ link }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

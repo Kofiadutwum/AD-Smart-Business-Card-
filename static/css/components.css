@@ -881,3 +881,6 @@
 .prefs select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .app-side__prefs { margin-bottom: var(--space-3); }
 .mobile-menu__actions .prefs { margin-bottom: var(--space-3); }
+
+.prefs--lang { justify-content: center; margin-top: var(--space-3); }
+.prefs--lang select { background: transparent; color: inherit; opacity: .8; font-size: var(--text-xs); min-height: 2rem; }

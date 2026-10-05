@@ -1,10 +1,10 @@
-{% autoescape off %}Hello {{ ticket.name }},
+{% autoescape off %}{% blocktrans with name=ticket.name %}Hello {{ name }},{% endblocktrans %}
 
-Thanks for getting in touch. Your reference is {{ ticket.reference }}.
+{% blocktrans trimmed with reference=ticket.reference %}Thanks for getting in touch. Your reference is {{ reference }}.{% endblocktrans %}
 
-We reply within 1 working day{% if ticket.priority %} (4 working hours for Business plan customers){% endif %}.
+{% if ticket.priority %}{% blocktrans trimmed %}We reply within 1 working day (4 working hours for Business plan customers).{% endblocktrans %}{% else %}{% blocktrans trimmed %}We reply within 1 working day.{% endblocktrans %}{% endif %}
 
-Subject: {{ ticket.subject }}
+{% blocktrans trimmed with subject=ticket.subject %}Subject: {{ subject }}{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

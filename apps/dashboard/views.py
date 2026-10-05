@@ -20,11 +20,12 @@ from apps.billing.services import activate_cards, card_limit, plan_for_limits
 from apps.cards import services as card_services
 from apps.cards.colors import palette
 from apps.cards.models import ACCENT_PRESETS, Card, CardEvent, CardPhone, Lead, SocialLink
-from apps.core.emails import notify_admins, send_email
+from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import AuditLog
 from apps.nfc.models import NFCOrder
 
 from .forms import CardForm, NewCardForm, PhoneForm, SlugForm, SocialLinkForm
+from django.utils.translation import gettext as _, ngettext
 
 
 def _cards(user):
@@ -126,7 +127,7 @@ def editor(request, pk=None):
                     CardPhone.objects.filter(pk=phone.pk).update(position=position)
             messages.success(request, "Card saved." + ("" if card.activated_at else " Preview it, then choose a plan to make it live."))
             return redirect(request.path)
-        messages.error(request, "Some details need fixing. Look for the messages in red.")
+        messages.error(request, _("Some details need fixing. Look for the messages in red."))
     eff = card.effective()
     return render(
         request,
@@ -162,11 +163,11 @@ def change_slug(request, pk):
             old = card.slug
             card_services.change_slug(card, form.cleaned_data["slug"])
             AuditLog.record(request.user, "slug_changed", card, old=old, new=card.slug)
-            messages.success(request, f"Your link is now /c/{card.slug}. The old link redirects here.")
+            messages.success(request, _("Your link is now /c/%(slug)s. The old link redirects here.") % {"slug": card.slug})
         except ValidationError as exc:
             messages.error(request, " ".join(exc.messages))
     else:
-        messages.error(request, "Enter a link between 3 and 40 characters.")
+        messages.error(request, _("Enter a link between 3 and 40 characters."))
     return redirect("dashboard:editor_card", pk=card.pk)
 
 
@@ -184,13 +185,13 @@ def links(request, pk=None):
     limit = plan.max_social_links
     if request.method == "POST" and form.is_valid():
         if limit is not None and count >= limit:
-            messages.warning(request, f"The {plan.name} plan includes {limit} social links. Upgrade for unlimited links.")
+            messages.warning(request, _("The %(plan)s plan includes %(limit)s social links. Upgrade for unlimited links.") % {"plan": plan.name, "limit": limit})
         else:
             link = form.save(commit=False)
             link.card = card
             link.position = count
             link.save()
-            messages.success(request, f"{link.label} added.")
+            messages.success(request, _("%(label)s added.") % {"label": link.label})
         return redirect(request.path)
     return render(
         request,
@@ -206,7 +207,7 @@ def link_action(request, link_id, action):
     card = link.card
     if action == "delete":
         link.delete()
-        messages.info(request, "Link removed.")
+        messages.info(request, _("Link removed."))
     elif action in ("up", "down"):
         ordered = list(card.social_links.all())
         index = ordered.index(link)
@@ -335,7 +336,7 @@ def leads_csv(request):
 @require_POST
 def lead_delete(request, pk):
     get_object_or_404(Lead, pk=pk, card__owner=request.user).delete()
-    messages.info(request, "Contact removed.")
+    messages.info(request, _("Contact removed."))
     return redirect("dashboard:leads")
 
 
@@ -358,12 +359,15 @@ def cards_list(request):
         if len(enabled) >= limit:
             messages.warning(
                 request,
-                f"All {limit} place{'s' if limit != 1 else ''} on your plan are in use. Switch off or delete a card "
-                "you no longer need, or add people to your plan.",
+                ngettext(
+                    "All %(limit)d place on your plan is in use. Switch off or delete a card you no longer need, or add people to your plan.",
+                    "All %(limit)d places on your plan are in use. Switch off or delete a card you no longer need, or add people to your plan.",
+                    limit,
+                ) % {"limit": limit},
             )
         else:
             card = card_services.create_card(user, form.cleaned_data["full_name"], job_title=form.cleaned_data["job_title"])
-            messages.success(request, "New card created. Fill in the details.")
+            messages.success(request, _("New card created. Fill in the details."))
             return redirect("dashboard:editor_card", pk=card.pk)
     return render(
         request, "dashboard/cards.html",
@@ -377,11 +381,14 @@ def card_toggle(request, pk):
     card = _card(request, pk)
     enabled = _cards(request.user).filter(is_enabled=True).count()
     if not card.is_enabled and enabled >= card_limit(request.user):
-        messages.warning(request, "Switch another card off first, or add people to your plan.")
+        messages.warning(request, _("Switch another card off first, or add people to your plan."))
     else:
         card.is_enabled = not card.is_enabled
         card.save(update_fields=["is_enabled"])
-        messages.success(request, f"{card.full_name} is now {'live' if card.is_enabled else 'switched off'}.")
+        messages.success(
+            request,
+            (_("%(name)s is now live.") if card.is_enabled else _("%(name)s is now switched off.")) % {"name": card.full_name},
+        )
     return redirect("dashboard:cards")
 
 
@@ -390,11 +397,11 @@ def card_toggle(request, pk):
 def card_delete(request, pk):
     card = _card(request, pk)
     if _cards(request.user).count() <= 1:
-        messages.error(request, "You need at least one card. Edit this one instead.")
+        messages.error(request, _("You need at least one card. Edit this one instead."))
         return redirect("dashboard:cards")
     card_services.retire_card(card)
     AuditLog.record(request.user, "card_deleted_by_owner", card)
-    messages.info(request, f"{card.full_name}'s card was deleted. Its link will show that the card no longer exists.")
+    messages.info(request, _("%(name)s's card was deleted. Its link will show that the card no longer exists.") % {"name": card.full_name})
     return redirect("dashboard:cards")
 
 
@@ -414,7 +421,7 @@ def settings_view(request):
     form = AccountForm(request.POST or None, instance=request.user)
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "Account details saved.")
+        messages.success(request, _("Account details saved."))
         return redirect("dashboard:settings")
     return render(request, "dashboard/settings.html", _base(request, "settings", form=form))
 
@@ -425,7 +432,7 @@ def request_deletion(request):
     """PRV-04: personal data is removed within 30 days; slugs are retired."""
     user = request.user
     if request.POST.get("confirm_email", "").strip().lower() != user.email.lower():
-        messages.error(request, "Type your email address exactly to confirm.")
+        messages.error(request, _("Type your email address exactly to confirm."))
         return redirect("dashboard:settings")
     user.deletion_requested_at = timezone.now()
     user.save(update_fields=["deletion_requested_at"])
@@ -433,9 +440,9 @@ def request_deletion(request):
         card.is_published = False
         card.save(update_fields=["is_published"])
     AuditLog.record(user, "deletion_requested", user)
-    send_email(to=user.email, subject="We received your account deletion request", template="deletion_requested",
+    send_email(to=user.email, subject=subject_text("We received your account deletion request"), template="deletion_requested",
                context={"user": user}, user=user, kind="deletion_requested")
     notify_admins(f"Account deletion requested: {user.email}", "admin_deletion_requested", {"user_obj": user})
     logout(request)
-    messages.info(request, "Your deletion request is recorded. Your data will be removed within 30 days.")
+    messages.info(request, _("Your deletion request is recorded. Your data will be removed within 30 days."))
     return redirect("marketing:home")

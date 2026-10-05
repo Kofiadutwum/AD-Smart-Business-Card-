@@ -12,7 +12,7 @@ from django.core import signing
 from django.urls import reverse
 from django.utils import timezone
 
-from apps.core.emails import send_email
+from apps.core.emails import send_email, subject_text
 
 from .models import OneTimeCode
 
@@ -27,7 +27,7 @@ def send_verification_email(user):
     link = settings.SITE_URL + reverse("accounts:verify_email", args=[token])
     return send_email(
         to=user.email,
-        subject="Confirm your email address",
+        subject=subject_text("Confirm your email address"),
         template="verify_email",
         context={"user": user, "link": link},
         user=user,
@@ -62,7 +62,7 @@ def issue_reset_code(user):
     otp.save()
     send_email(
         to=user.email,
-        subject=f"Your password reset code: {code}",
+        subject=subject_text("Your password reset code: %(code)s", code=code),
         template="password_reset_code",
         context={"user": user, "code": code, "minutes": RESET_CODE_MINUTES},
         user=user,

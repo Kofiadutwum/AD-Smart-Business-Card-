@@ -1,10 +1,10 @@
-{% autoescape off %}Hello {{ order.user.first_name|default:"there" }},
+{% autoescape off %}{% blocktrans with name=order.user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
 
-A quick reminder: your design proof for order {{ order.order_number }} has been waiting for {{ days }} days.
+{% blocktrans trimmed with number=order.order_number count days=days %}A quick reminder: your design proof for order {{ number }} has been waiting for {{ days }} day.{% plural %}A quick reminder: your design proof for order {{ number }} has been waiting for {{ days }} days.{% endblocktrans %}
 
-Approve it or ask for changes here: {{ order_url }}
+{% blocktrans trimmed with link=order_url %}Approve it or ask for changes here: {{ link }}{% endblocktrans %}
 
-If we do not hear back within {{ site.on_hold_after_days }} days of sending it, the order goes on hold.
+{% blocktrans trimmed count days=site.on_hold_after_days %}If we do not hear back within {{ days }} day of sending it, the order goes on hold.{% plural %}If we do not hear back within {{ days }} days of sending it, the order goes on hold.{% endblocktrans %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}
