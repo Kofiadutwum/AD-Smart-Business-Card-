@@ -67,6 +67,13 @@ def faq(site, plans=None, tiers=None):
                    "If you miss the date your card keeps working for a %(grace)d-day grace period.") % {"grace": grace},
         },
         {
+            "q": _("Does my plan renew automatically?"),
+            "a": _("If you pay by card, yes. Your card is charged the same yearly price on the day your plan ends, we email you "
+                   "about a week before and send a receipt after, and you can turn it off at any time in your dashboard. "
+                   "Your plan then stays active until the end of the year you paid for. Mobile Money payments never renew by "
+                   "themselves; we send you reminders instead."),
+        },
+        {
             "q": _("What if my plan runs out?"),
             "a": _("After the grace period your card shows a short 'card inactive' page instead of your details. "
                    "Renew at any time and the same link, QR code and NFC cards work again straight away."),

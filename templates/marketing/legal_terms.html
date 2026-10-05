@@ -11,7 +11,7 @@
 <ul>
   <li>{% trans "Plans are paid yearly in Ghana cedis through Paystack. US dollar prices are approximate and for guidance only." %}</li>
   <li>{% trans "Your card becomes public only after Paystack confirms your payment." %}</li>
-  <li>{% trans "Renewal is manual. Renewing early adds a year to your current end date." %}</li>
+  <li>{% trans "A plan paid by Mobile Money is renewed by you. A plan paid by card renews automatically each year: on the day it ends we charge the same card the plan price shown at checkout, we email you about 7 days before and send a receipt after, and you can turn automatic renewal off at any time in your dashboard. Turning it off keeps your plan until the end of the year already paid for. Renewing early adds a year to your current end date." %}</li>
   <li>{% blocktrans trimmed with site_grace_period_days=site.grace_period_days %}If you do not renew, your card keeps working for a {{ site_grace_period_days }}-day grace period, then shows a “card inactive” page. Renew at any time to restore the same link, QR code and NFC cards.{% endblocktrans %}</li>
   <li>{% trans "Price changes apply to new purchases and renewals only, never to time you have already paid for." %}</li>
 </ul>

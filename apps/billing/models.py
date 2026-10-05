@@ -188,11 +188,34 @@ class Subscription(models.Model):
     seats = models.PositiveIntegerField(null=True, blank=True)
     pending_seats = models.PositiveIntegerField(null=True, blank=True)
     cancelled_at = models.DateTimeField(null=True, blank=True)
+    # Automatic yearly renewal by card. The authorisation is Paystack's reusable token for the card the
+    # customer paid with; the card number itself never reaches us. Cancelling deletes the token.
+    auto_renew = models.BooleanField(default=False)
+    authorization_code = models.CharField(max_length=64, blank=True)
+    authorization_email = models.EmailField(blank=True)
+    card_brand = models.CharField(max_length=24, blank=True)
+    card_last4 = models.CharField(max_length=4, blank=True)
+    card_expiry = models.CharField(max_length=7, blank=True)
+    renew_attempts = models.PositiveSmallIntegerField(default=0)
+    last_renew_attempt_at = models.DateTimeField(null=True, blank=True)
+    auto_renew_stopped_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.user} · {self.plan} until {self.expires_at:%d %b %Y}"
+
+    @property
+    def renews_automatically(self):
+        return bool(self.auto_renew and self.authorization_code and not self.cancelled_at)
+
+    @property
+    def card_label(self):
+        """'Visa ending 4242', for showing the customer which card renews their plan."""
+        if not self.card_last4:
+            return ""
+        brand = (self.card_brand or "").strip().title() or _("Card")
+        return _("%(brand)s ending %(last4)s") % {"brand": brand, "last4": self.card_last4}
 
     # --- state ---------------------------------------------------------------
 
@@ -253,10 +276,16 @@ class Subscription(models.Model):
 
     # --- changes -------------------------------------------------------------
 
-    def extend(self, months):
-        """Add ``months`` from the later of now and the current expiry."""
+    def extend(self, months, anchor=False):
+        """Add ``months`` from the later of now and the current expiry.
+
+        ``anchor`` (automatic renewals) always counts from the expiry date, even when the charge went
+        through a few hours or days late, so the yearly anniversary does not drift.
+        """
         now = timezone.now()
         base = self.expires_at if self.expires_at and self.expires_at > now and not self.cancelled_at else now
+        if anchor and self.expires_at and not self.cancelled_at:
+            base = self.expires_at
         if base == now:
             self.started_at = now
         self.expires_at = base + relativedelta(months=months)
@@ -408,6 +437,10 @@ class Payment(models.Model):
     gateway_fee_minor = models.PositiveIntegerField(default=0)
     gateway_response = models.JSONField(default=dict, blank=True)
     flag = models.CharField(max_length=64, blank=True, help_text="Set when verification found a problem.")
+    # Paid by card from the checkout page, so the card is kept for automatic renewal when the payment succeeds.
+    set_up_auto_renew = models.BooleanField(default=False)
+    # Charged by the daily job to the stored card, with no action from the customer.
+    is_auto_renewal = models.BooleanField(default=False)
 
     # The USD rate shown to the customer when they paid (CUR-05).
     fx_rate = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)

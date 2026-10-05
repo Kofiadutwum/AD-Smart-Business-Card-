@@ -1,0 +1,10 @@
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
+
+{% blocktrans trimmed with plan=plan_label date=charge_on|ldate:"j F Y" amount=amount_minor|money_text:usd_rate %}Your {{ plan }} renews on {{ date }}. We will charge {{ amount }} to your card ({{ card }}) on that day. You do not need to do anything.{% endblocktrans %}{% if previous_minor %}
+
+{% blocktrans trimmed with previous=previous_minor|money_text:usd_rate amount=amount_minor|money_text:usd_rate %}The yearly price has changed since your last payment, from {{ previous }} to {{ amount }}.{% endblocktrans %}{% endif %}
+
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}To turn off automatic renewal, or to pay with a different card, go to: {{ link }}{% endblocktrans %}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

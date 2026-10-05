@@ -1,0 +1,10 @@
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
+
+{% if final %}{% blocktrans trimmed with card=card until=subscription.grace_ends_at|ldate:"j F Y" %}We could not charge your card ({{ card }}) to renew your plan, so automatic renewal has stopped. Your card stays live until {{ until }}.{% endblocktrans %}
+
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}To keep it live, renew here: {{ link }}{% endblocktrans %}{% else %}{% blocktrans trimmed with card=card date=next_try|ldate:"j F Y" %}We could not charge your card ({{ card }}) to renew your plan. We will try again on {{ date }}.{% endblocktrans %}
+
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}To pay with a different card or with Mobile Money now, go to: {{ link }}{% endblocktrans %}{% endif %}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

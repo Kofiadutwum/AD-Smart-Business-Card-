@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.utils.formats import date_format
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -62,7 +63,12 @@ def checkout(request):
             added = (seats or 0) - subscription.team_size if same_plan and plan.is_team else 0
             upgrade = {"amount_minor": amount, "months": months, "added": added}
 
-    if request.method == "POST" and request.POST.get("action") in ("pay", "upgrade"):
+    # "pay" and "upgrade" are the card buttons (the card is kept for automatic renewal); the "_momo"
+    # variants are the small "Don't have a card?" buttons, which pay by Mobile Money once.
+    action = request.POST.get("action") or ""
+    method = "momo" if action.endswith("_momo") else "card"
+    action = action.removesuffix("_momo")
+    if request.method == "POST" and action in ("pay", "upgrade"):
         if promo_error:
             messages.error(request, promo_error)
         elif not request.POST.get("accept_policy"):
@@ -71,7 +77,7 @@ def checkout(request):
             messages.error(request, _("Create your card before choosing a plan."))
             return redirect("dashboard:editor")
         else:
-            if request.POST["action"] == "upgrade" and upgrade:
+            if action == "upgrade" and upgrade:
                 def upgrade_label():
                     months_left = ngettext(
                         "%(count)d remaining month", "%(count)d remaining months", upgrade["months"]
@@ -87,14 +93,15 @@ def checkout(request):
                 upgrade_quote = services.build_quote([(upgrade_label, upgrade["amount_minor"])], promo)
                 payment = services.create_payment(
                     user=user, purpose=Payment.PURPOSE_UPGRADE, quote=upgrade_quote, plan=plan, seats=seats,
+                    set_up_auto_renew=method == "card",
                 )
             else:
                 payment = services.create_payment(
                     user=user, purpose=Payment.PURPOSE_SUBSCRIPTION, quote=quote, plan=plan,
-                    months=plan.duration_months, seats=seats,
+                    months=plan.duration_months, seats=seats, set_up_auto_renew=method == "card",
                 )
             try:
-                return redirect(services.checkout_url(payment, request))
+                return redirect(services.checkout_url(payment, request, method=method))
             except paystack.PaymentError as exc:
                 Payment.objects.filter(pk=payment.pk).update(status=Payment.FAILED)
                 messages.error(request, _("%(reason)s You have not been charged.") % {"reason": exc})
@@ -195,3 +202,20 @@ def receipt_pdf(request, reference):
         content_type="application/pdf",
         headers={"Content-Disposition": f'inline; filename="{payment.receipt_number}.pdf"'},
     )
+
+
+@customer_required
+@require_POST
+def auto_renew_cancel(request):
+    """Turn automatic renewal off. The plan keeps running until the end of what has been paid for."""
+    subscription = request.user.subscription
+    if subscription is None or not subscription.renews_automatically:
+        messages.info(request, _("Automatic renewal is not on for your plan."))
+    else:
+        services.cancel_auto_renew(subscription, actor=request.user)
+        messages.success(
+            request,
+            _("Automatic renewal is off. Your plan stays active until %(date)s.")
+            % {"date": date_format(timezone.localtime(subscription.expires_at), _("j F Y"))},
+        )
+    return redirect("billing:checkout")

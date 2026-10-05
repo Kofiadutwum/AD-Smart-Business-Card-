@@ -1,0 +1,8 @@
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
+
+{% blocktrans trimmed with date=subscription.expires_at|ldate:"j F Y" %}Automatic renewal is now off. Your plan stays active until {{ date }}, and we no longer keep your card for renewal. We will send you reminders before your plan ends.{% endblocktrans %}
+
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}To turn it back on, pay by card here: {{ link }}{% endblocktrans %}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

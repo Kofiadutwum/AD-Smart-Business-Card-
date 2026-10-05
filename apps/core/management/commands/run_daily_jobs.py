@@ -13,7 +13,7 @@ from django.utils import timezone
 from apps.accounts.services import anonymise_user
 from apps.billing import fx
 from apps.billing.models import Subscription
-from apps.billing.services import activate_cards, expire_stale_pending
+from apps.billing.services import activate_cards, expire_stale_pending, run_auto_renewals, send_renewal_notices
 from apps.cards.models import CardEvent
 from apps.core.emails import retry_failed_emails, send_email, subject_plural, subject_text
 from apps.core.models import SiteSettings
@@ -33,6 +33,8 @@ class Command(BaseCommand):
         steps = [
             ("exchange_rate", self.exchange_rate),
             ("pending_plans", self.pending_plans),
+            ("auto_renewals", self.auto_renewals),
+            ("renewal_notices", self.renewal_notices),
             ("reminders", self.reminders),
             ("expiry_notices", self.expiry_notices),
             ("retention", self.retention),
@@ -67,8 +69,19 @@ class Command(BaseCommand):
                 changed += 1
         return f"{changed} plan change(s) applied"
 
+    def auto_renewals(self):
+        """Charge the stored card of every plan that renews automatically and has reached its end date."""
+        counts = run_auto_renewals()
+        return f"{counts['renewed']} renewed, {counts['failed']} failed, {counts['pending']} waiting on Paystack"
+
+    def renewal_notices(self):
+        """The advance notice, a week before the card is charged."""
+        return f"{send_renewal_notices()} advance notice(s)"
+
     def reminders(self):
-        """EXP-01: 30, 7 and 1 day before, and on the expiry date."""
+        """EXP-01: 30, 7 and 1 day before, and on the expiry date.
+
+        Plans that renew by themselves get the advance notice instead of these reminders."""
         site = SiteSettings.load()
         thresholds = sorted(site.reminder_day_list)  # e.g. [0, 1, 7, 30]
         today = timezone.localdate()
@@ -78,7 +91,7 @@ class Command(BaseCommand):
             expires_at__date__gte=today,
             expires_at__date__lte=today + timedelta(days=max(thresholds or [0])),
             user__is_active=True,
-        )
+        ).exclude(auto_renew=True, authorization_code__gt="")
         for sub in subs:
             days = (timezone.localtime(sub.expires_at).date() - today).days
             due = next((t for t in thresholds if days <= t), None)
@@ -105,7 +118,7 @@ class Command(BaseCommand):
         sent = 0
         for sub in Subscription.objects.select_related("user", "plan").filter(
             cancelled_at__isnull=True, expires_at__lt=now, expires_at__gte=now - grace - timedelta(days=7)
-        ):
+        ).exclude(auto_renew=True, authorization_code__gt=""):
             state = sub.state
             if state == Subscription.STATE_GRACE:
                 key, template, subject = "grace", "grace_started", subject_text("Your card is in its grace period")

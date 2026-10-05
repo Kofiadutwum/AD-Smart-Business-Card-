@@ -64,6 +64,7 @@
         <dt>{% trans "Plan" %}</dt><dd>{{ subscription.plan.name }}{% if subscription.plan.is_team %} {% blocktrans trimmed with subscription_team_size=subscription.team_size %}· {{ subscription_team_size }} people{% endblocktrans %}{% endif %}</dd>
         <dt>{% trans "Status" %}</dt><dd>{{ subscription.state_label }}</dd>
         <dt>{% trans "Paid until" %}</dt><dd>{{ subscription.expires_at|ldate:"j F Y" }}</dd>
+        <dt>{% trans "Automatic renewal" %}</dt><dd>{% if subscription.renews_automatically %}{% trans "On" %} · {{ subscription.card_label }}{% else %}{% trans "Off" %}{% endif %}</dd>
       </dl>
       <div class="mt-4"><a class="btn btn--sm" href="{% url 'billing:checkout' %}">{% icon "refresh-cw" 16 %}{% trans "Renew or upgrade" %}</a></div>
     {% else %}

@@ -8,6 +8,22 @@
   </div>
 </div>
 
+{% if subscription %}
+<section class="panel" style="margin-bottom: var(--space-6)" id="auto-renew">
+  {% if subscription.renews_automatically %}
+    <h2 style="font-size: var(--text-base)">{% trans "Automatic renewal is on" %}</h2>
+    <p class="muted text-sm mt-2">{% blocktrans trimmed with card=subscription.card_label date=subscription.expires_at|ldate:"j F Y" %}Your card ({{ card }}) will be charged on {{ date }}. We email you a week before, and send a receipt after.{% endblocktrans %}</p>
+    <form method="post" action="{% url 'billing:auto_renew_cancel' %}" class="mt-4" data-confirm="{% blocktrans trimmed with date=subscription.expires_at|ldate:"j F Y" %}Turn off automatic renewal? Your plan stays active until {{ date }}.{% endblocktrans %}">
+      {% csrf_token %}
+      <button class="btn btn--sm" type="submit">{% trans "Cancel automatic renewal" %}</button>
+    </form>
+  {% else %}
+    <h2 style="font-size: var(--text-base)">{% trans "Automatic renewal is off" %}</h2>
+    <p class="muted text-sm mt-2">{% trans "Pay by card below to turn it on. The year is added to the end of your current plan, so you lose no time." %}</p>
+  {% endif %}
+</section>
+{% endif %}
+
 <form method="post" class="split" novalidate>
   {% csrf_token %}
   <div class="stack" style="--stack: var(--space-4)">
@@ -57,9 +73,11 @@
     </div>
     <label class="check mt-6">{% url 'marketing:terms' as url_1 %}{% url 'marketing:refunds' as url_2 %}<input type="checkbox" name="accept_policy" value="1" required><span>{% blocktrans trimmed %}I accept the <a href="{{ url_1 }}" target="_blank">Terms of Service</a> and <a href="{{ url_2 }}" target="_blank">Refund Policy</a>. Subscriptions are not refundable once active.{% endblocktrans %}</span></label>
     <div class="stack mt-6" style="--stack: var(--space-3)">
-      {% hover_button pay_label variant="primary" css="ihb--block" name="action" value="pay" icon_name="lock" %}
+      {% hover_button pay_label variant="primary" css="ihb--block" name="action" value="pay" icon_name="credit-card" %}
+      <p class="text-center text-sm"><button class="link-btn" type="submit" name="action" value="pay_momo">{% trans "Don’t have a card? Pay with Mobile Money" %}</button></p>
       {% if upgrade %}
         <button class="btn" style="width:100%; height:auto; white-space:normal; line-height:1.35; padding-block: var(--space-3)" type="submit" name="action" value="upgrade"><span>{% money upgrade.amount_minor inline=True as upgrade_amount %}{% blocktrans trimmed count counter=upgrade.months asvar months_left %}{{ counter }} month{% plural %}{{ counter }} months{% endblocktrans %}{% if upgrade.added %}{% blocktrans trimmed count counter=upgrade.added %}Or add {{ counter }} person now for {{ upgrade_amount }}, for the {{ months_left }} left{% plural %}Or add {{ counter }} people now for {{ upgrade_amount }}, for the {{ months_left }} left{% endblocktrans %}{% else %}{% blocktrans trimmed %}Or upgrade now for {{ upgrade_amount }}, for the {{ months_left }} left{% endblocktrans %}{% endif %}</span></button>
+        <p class="text-center text-sm"><button class="link-btn" type="submit" name="action" value="upgrade_momo">{% trans "Don’t have a card? Pay with Mobile Money" %}</button></p>
       {% endif %}
     </div>
     <p class="text-xs muted mt-4 cluster" style="--cluster: var(--space-2)">{% icon "shield-check" 16 %}{% trans "Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard." %}{% if payment_sandbox %} <strong>{% trans "Test mode — no real money moves." %}</strong>{% endif %}</p>

@@ -9,7 +9,11 @@
 {% blocktrans trimmed with value=payment.paid_at|ldate:"j F Y, H:i" %}Date: {{ value }}{% endblocktrans %}
 {% if subscription and payment.purpose != "nfc_order" %}
 {% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|ldate:"j F Y" %}Your {{ plan }} plan is active until {{ date }}.{% endblocktrans %}{% endif %}{% if payment.nfc_order %}
-{% blocktrans trimmed with link=site_url|add:"/nfc/orders/"|add:payment.nfc_order.order_number %}Track your NFC order: {{ link }}{% endblocktrans %}{% endif %}
+{% blocktrans trimmed with link=site_url|add:"/nfc/orders/"|add:payment.nfc_order.order_number %}Track your NFC order: {{ link }}{% endblocktrans %}{% endif %}{% if payment.is_auto_renewal %}
+
+{% blocktrans trimmed with link=site_url|add:"/billing/" %}This was your automatic yearly renewal. To turn off automatic renewal, go to: {{ link }}{% endblocktrans %}{% elif subscription.renews_automatically and payment.set_up_auto_renew %}
+
+{% blocktrans trimmed with date=subscription.expires_at|ldate:"j F Y" card=subscription.card_label link=site_url|add:"/billing/" %}Your plan will renew automatically on {{ date }}: we will charge your card ({{ card }}) and email you a week before. To turn off automatic renewal, go to: {{ link }}{% endblocktrans %}{% endif %}
 
 {% blocktrans trimmed %}The PDF receipt is attached. You can also download it any time from your dashboard.{% endblocktrans %}
 

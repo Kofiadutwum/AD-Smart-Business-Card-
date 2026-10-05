@@ -11,6 +11,7 @@ urlpatterns = [
     path("callback", views.callback, name="callback"),
     path("webhook", views.webhook, name="webhook"),
     path("result/<str:reference>", views.result, name="result"),
+    path("auto-renew/cancel", views.auto_renew_cancel, name="auto_renew_cancel"),
     path("receipts", views.receipts, name="receipts"),
     path("receipts/<str:reference>.pdf", views.receipt_pdf, name="receipt_pdf"),
 ]

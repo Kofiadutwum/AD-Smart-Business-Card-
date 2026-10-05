@@ -217,7 +217,10 @@ class Command(BaseCommand):
             if Counter(TAG.findall(source)) != Counter(TAG.findall(translated)):
                 problems.append("HTML tags differ")
             # A literal percent sign is written %% in these sentences; it must stay that way.
-            if source.count("%%") != translated.count("%%") or re.search(r"%(?!\()", translated.replace("%%", "")):
+            lone = r"%(?!\()"
+            if source.count("%%") != translated.count("%%") or len(re.findall(lone, source.replace("%%", ""))) != len(
+                re.findall(lone, translated.replace("%%", ""))
+            ):
                 problems.append("percent signs differ")
         return problems
 

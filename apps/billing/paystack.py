@@ -54,8 +54,11 @@ def _call(method, path, payload=None):
     return body.get("data") or {}
 
 
-def initialize(*, email, amount_minor, reference, callback_url, metadata=None):
-    """Start a hosted checkout and return the URL to send the customer to."""
+def initialize(*, email, amount_minor, reference, callback_url, metadata=None, channels=None):
+    """Start a hosted checkout and return the URL to send the customer to.
+
+    ``channels`` narrows the page to card or Mobile Money; without it both are offered.
+    """
     if settings.PAYMENT_SANDBOX:
         return {
             "authorization_url": f"{callback_url}?{urlencode({'reference': reference, 'sandbox': 1})}",
@@ -70,7 +73,7 @@ def initialize(*, email, amount_minor, reference, callback_url, metadata=None):
             "currency": settings.CURRENCY,
             "reference": reference,
             "callback_url": callback_url,
-            "channels": ["card", "mobile_money"],
+            "channels": list(channels or ["card", "mobile_money"]),
             "metadata": metadata or {},
         },
     )
@@ -90,8 +93,33 @@ def verify(reference, *, expected_amount=None, expected_currency=None):
             "channel": "sandbox",
             "fees": 0,
             "paid_at": None,
+            # What Paystack returns for a card payment: a token that can be charged again later.
+            "authorization": {
+                "authorization_code": f"AUTH_sandbox_{reference[-8:]}", "reusable": True, "channel": "card",
+                "brand": "visa", "last4": "4081", "exp_month": "12", "exp_year": "2030",
+            },
         }
     return _call("GET", f"/transaction/verify/{reference}")
+
+
+def charge_authorization(*, email, amount_minor, reference, authorization_code, metadata=None):
+    """Charge a card the customer has already paid with (automatic renewal). Returns Paystack's result;
+    a decline comes back as a status other than "success" or as a PaymentError."""
+    if settings.PAYMENT_SANDBOX:
+        outcome = "failed" if settings.PAYMENT_SANDBOX_OUTCOME == "failed" else "success"
+        return {"status": outcome, "reference": reference, "amount": amount_minor}
+    return _call(
+        "POST",
+        "/transaction/charge_authorization",
+        {
+            "authorization_code": authorization_code,
+            "email": email,
+            "amount": amount_minor,
+            "currency": settings.CURRENCY,
+            "reference": reference,
+            "metadata": metadata or {},
+        },
+    )
 
 
 def refund(reference, amount_minor):
