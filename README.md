@@ -19,7 +19,7 @@ python manage.py runserver
 ```
 
 - Site: http://127.0.0.1:8000
-- Staff area: http://127.0.0.1:8000/staff/login (you set up an authenticator app at first sign-in)
+- Staff area: http://127.0.0.1:8000/staff/login (email and password; set `STAFF_TWO_FACTOR_REQUIRED=1` to also ask for an authenticator-app code)
 - Emails print to the console until `RESEND_API_KEY` or `GMAIL_REFRESH_TOKEN` is set.
 - Payments run in **sandbox** (no money moves) until a Paystack secret key is set and `PAYMENT_SANDBOX=0`.
 
@@ -56,7 +56,7 @@ Wording typed into the staff area (plan taglines, delivery options) shows as typ
 | `apps/nfc` | NFC price tiers, delivery zones, orders, design proofs, approvals, production workflow |
 | `apps/dashboard` | Customer dashboard, card editor with live preview, analytics, contacts, team cards |
 | `apps/support` | Contact form and support tickets |
-| `apps/staff` | Staff area with role permissions, 2FA, audit log, finance exports, gallery management |
+| `apps/staff` | Staff area with role permissions, optional 2FA, audit log, finance exports, gallery management |
 | `apps/core` | Settings, audit log, email log, storage, daily job, seed and Flask import commands |
 | `static/css`, `static/js` | Hand-written CSS/JS. Brand tokens in `tokens.css`. No build step. |
 

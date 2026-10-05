@@ -3,8 +3,8 @@
 You have been added to the AD Smart staff area as {{ role }}.
 
 1. Set your password: go to {{ site_url }}/auth/forgot-password and enter {{ user.email }}. We will email you a code.
-2. Sign in at {{ site_url }}/staff/login
-3. Set up two-factor sign-in with an authenticator app (Google Authenticator, Microsoft Authenticator or similar).
+2. Sign in at {{ site_url }}/staff/login{% if two_factor_required %}
+3. Set up two-factor sign-in with an authenticator app (Google Authenticator, Microsoft Authenticator or similar).{% endif %}
 
 AD Smart Business Cards
 {{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

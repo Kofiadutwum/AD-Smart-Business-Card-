@@ -319,12 +319,7 @@ class NFCFlowTests(BaseTest):
 class StaffAccessTests(BaseTest):
     def login_staff(self, role):
         user = User.objects.create_user(email=f"{role}@example.com", password="Staff-pass-2026", is_staff=True, staff_role=role)
-        secret = pyotp.random_base32()
-        user.totp_secret = secret
-        user.totp_confirmed_at = timezone.now()
-        user.save()
         self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
-        self.client.post("/staff/2fa", {"code": pyotp.TOTP(secret).now()})
         return user
 
     def test_customers_get_404(self):
@@ -332,11 +327,103 @@ class StaffAccessTests(BaseTest):
         self.assertEqual(self.client.get("/staff/").status_code, 404)
         self.assertEqual(self.client.get("/staff/db/").status_code, 404)
 
-    def test_two_factor_required(self):
+    # ------------------------------------------------------------------ email and password only (the default)
+    def test_staff_get_in_with_email_and_password_alone(self):
+        user = User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
+        response = self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
+        self.assertRedirects(response, "/staff/", fetch_redirect_response=False)
+        self.assertEqual(self.client.get("/staff/subscribers/").status_code, 200)
+        self.assertTrue(AuditLog.objects.filter(action="staff_login", actor=user).exists())
+
+    def test_sign_in_goes_back_to_the_page_that_was_asked_for(self):
+        User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
+        response = self.client.post(
+            "/staff/login?next=/staff/subscribers/", {"email": "ops@example.com", "password": "Staff-pass-2026"}
+        )
+        self.assertRedirects(response, "/staff/subscribers/", fetch_redirect_response=False)
+
+    def test_wrong_password_gets_nowhere(self):
+        User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
+        response = self.client.post("/staff/login", {"email": "ops@example.com", "password": "not-the-password"})
+        self.assertContains(response, "do not match a staff account")
+        self.assertTrue(self.client.get("/staff/").url.startswith("/staff/login"))
+
+    def test_a_customer_cannot_use_the_staff_form(self):
+        self.make_user()
+        response = self.client.post("/staff/login", {"email": "kwame@example.com", "password": "Str0ng-pass-123"})
+        self.assertContains(response, "do not match a staff account")
+        self.assertEqual(self.client.get("/staff/").status_code, 302)
+
+    def test_staff_who_use_the_ordinary_sign_in_form_are_not_asked_for_a_code(self):
+        User.objects.create_user(
+            email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops", email_verified_at=timezone.now(),
+        )
+        response = self.client.post("/auth/login", {"email": "ops@example.com", "password": "Staff-pass-2026"})
+        self.assertRedirects(response, "/staff/2fa", fetch_redirect_response=False)
+        self.assertRedirects(self.client.get("/staff/2fa"), "/staff/", fetch_redirect_response=False)
+        self.assertEqual(self.client.get("/staff/").status_code, 200)
+
+    def test_the_sign_in_page_no_longer_mentions_an_authenticator_app(self):
+        page = self.client.get("/staff/login")
+        self.assertNotContains(page, "authenticator")
+        self.assertContains(page, '<span class="ihb__label">Sign in</span>')
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_the_sign_in_page_explains_the_next_step_when_the_code_is_switched_on(self):
+        page = self.client.get("/staff/login")
+        self.assertContains(page, "You will confirm with your authenticator app next.")
+        self.assertContains(page, '<span class="ihb__label">Continue</span>')
+
+    def test_administrators_page_has_no_two_factor_column_while_it_is_off(self):
+        self.login_staff("super")
+        page = self.client.get("/staff/admins/")
+        self.assertEqual(page.status_code, 200)
+        self.assertNotContains(page, "Reset 2FA")
+        self.assertNotContains(page, "authenticator")
+
+    def test_invite_email_has_no_authenticator_step_while_it_is_off(self):
+        self.login_staff("super")
+        self.client.post("/staff/admins/", {"full_name": "New Person", "email": "new@example.com", "role": "support"})
+        body = [m for m in mail.outbox if m.to == ["new@example.com"]][-1].body
+        self.assertIn("Sign in at", body)
+        self.assertNotIn("authenticator", body)
+
+    def test_idle_staff_are_still_signed_out_without_a_code_step(self):
+        """SEC-05 holds with the check off."""
+        self.login_staff("super")
+        session = self.client.session
+        session["staff_seen"] = session["staff_seen"] - 31 * 60
+        session.save()
+        self.assertTrue(self.client.get("/staff/subscribers/")["Location"].startswith("/staff/login"))
+
+    # ------------------------------------------------------------------ the authenticator code, when it is switched on
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_two_factor_required_when_switched_on(self):
         """SEC-03."""
         user = User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
-        self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
+        response = self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
+        self.assertRedirects(response, "/staff/2fa?next=", fetch_redirect_response=False)
         self.assertRedirects(self.client.get("/staff/subscribers/"), "/staff/2fa?next=/staff/subscribers/", fetch_redirect_response=False)
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_the_code_unlocks_the_staff_area_when_switched_on(self):
+        user = User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
+        secret = pyotp.random_base32()
+        user.totp_secret = secret
+        user.totp_confirmed_at = timezone.now()
+        user.save()
+        self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
+        self.client.post("/staff/2fa", {"code": "000000"})
+        self.assertEqual(self.client.get("/staff/").status_code, 302)
+        self.client.post("/staff/2fa", {"code": pyotp.TOTP(secret).now()})
+        self.assertEqual(self.client.get("/staff/").status_code, 200)
+
+    def test_switching_it_on_later_asks_people_already_signed_in_for_their_code(self):
+        self.login_staff("super")
+        self.assertEqual(self.client.get("/staff/").status_code, 200)
+        with override_settings(STAFF_TWO_FACTOR_REQUIRED=True):
+            response = self.client.get("/staff/")
+        self.assertRedirects(response, "/staff/2fa?next=/staff/", fetch_redirect_response=False)
 
     def test_role_matrix(self):
         """AC-14."""

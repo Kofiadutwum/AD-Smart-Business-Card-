@@ -4,7 +4,6 @@ import io
 import zipfile
 from datetime import timedelta
 
-import pyotp
 from django.core import mail
 from django.core.cache import cache
 from django.utils import timezone
@@ -198,12 +197,8 @@ class ClaimTests(PremadeBase):
         self.verify_pin(rows[0])
         self.client.post(f"/c/{rows[0]['code']}/claim/setup", BUYER)
         boss = User.objects.create_user(email="boss@example.com", password="x", is_staff=True, is_superuser=True)
-        boss.totp_secret = pyotp.random_base32()
-        boss.totp_confirmed_at = timezone.now()
-        boss.save()
         self.client.logout()
         self.client.post("/staff/login", {"email": boss.email, "password": "x"})
-        self.client.post("/staff/2fa", {"code": pyotp.TOTP(boss.totp_secret).now()})
         report = self.client.get("/staff/reports/finance/")
         self.assertContains(report, "Pre-made cards (outside the website)")
         self.assertEqual(report.context["totals"]["premade"], 35000)
@@ -339,12 +334,7 @@ class VoidTests(PremadeBase):
 class StaffPageTests(PremadeBase):
     def login_staff(self, role):
         user = User.objects.create_user(email=f"{role}@example.com", password="Staff-pass-2026", is_staff=True, staff_role=role)
-        secret = pyotp.random_base32()
-        user.totp_secret = secret
-        user.totp_confirmed_at = timezone.now()
-        user.save()
         self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
-        self.client.post("/staff/2fa", {"code": pyotp.TOTP(secret).now()})
         return user
 
     def test_ops_can_make_a_batch_and_download_the_pack(self):

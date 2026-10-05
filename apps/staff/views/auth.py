@@ -1,4 +1,4 @@
-"""Staff sign-in with two-factor authentication (SEC-03, Figure 8A)."""
+"""Staff sign-in (SEC-03, Figure 8A): email and password, plus an authenticator code when STAFF_TWO_FACTOR_REQUIRED is on."""
 
 import time
 
@@ -20,6 +20,19 @@ from ..forms import StaffLoginForm, TotpForm
 BACKEND = "django.contrib.auth.backends.ModelBackend"
 
 
+def _start_staff_session(request, user, two_factor_passed):
+    """The session of a signed-in staff member: idle clock, long cookie, audit entry.
+
+    ``staff_2fa`` is only set when the code was really checked, so switching STAFF_TWO_FACTOR_REQUIRED on later
+    asks anyone already signed in for their code instead of trusting their old session.
+    """
+    if two_factor_passed:
+        request.session["staff_2fa"] = user.pk
+    request.session["staff_seen"] = time.time()
+    request.session.set_expiry(settings.STAFF_IDLE_TIMEOUT_SECONDS * 16)
+    AuditLog.record(user, "staff_login", user)
+
+
 def staff_login(request):
     if request.user.is_authenticated and request.user.is_staff:
         return redirect("staff:two_factor")
@@ -35,9 +48,13 @@ def staff_login(request):
                 clear_rate_limit(key)
                 login(request, user, backend=BACKEND)
                 request.session.pop("staff_2fa", None)
-                return redirect(f"/staff/2fa?next={safe_next(request.GET.get('next')) or ''}")
+                next_url = safe_next(request.GET.get("next"))
+                if settings.STAFF_TWO_FACTOR_REQUIRED:
+                    return redirect(f"/staff/2fa?next={next_url or ''}")
+                _start_staff_session(request, user, two_factor_passed=False)
+                return redirect(next_url or "/staff/")
             messages.error(request, "Those details do not match a staff account.")
-    return render(request, "staff/login.html", {"form": form})
+    return render(request, "staff/login.html", {"form": form, "two_factor_required": settings.STAFF_TWO_FACTOR_REQUIRED})
 
 
 def two_factor(request):
@@ -45,6 +62,11 @@ def two_factor(request):
     if not user.is_authenticated or not user.is_staff:
         return redirect("staff:login")
     next_url = safe_next(request.GET.get("next")) or "/staff/"
+    if not settings.STAFF_TWO_FACTOR_REQUIRED:
+        # Staff who signed in through the customer form or Google land here; with the check off they are simply in.
+        if "staff_seen" not in request.session:
+            _start_staff_session(request, user, two_factor_passed=False)
+        return redirect(next_url)
     enrolling = not user.has_totp
     if enrolling:
         secret = request.session.get("totp_enrol") or pyotp.random_base32()
@@ -64,10 +86,7 @@ def two_factor(request):
                 user.save(update_fields=["totp_secret", "totp_confirmed_at"])
                 request.session.pop("totp_enrol", None)
                 AuditLog.record(user, "staff_2fa_enrolled", user)
-            request.session["staff_2fa"] = user.pk
-            request.session["staff_seen"] = time.time()
-            request.session.set_expiry(settings.STAFF_IDLE_TIMEOUT_SECONDS * 16)
-            AuditLog.record(user, "staff_login", user)
+            _start_staff_session(request, user, two_factor_passed=True)
             return redirect(next_url)
         else:
             messages.error(request, "That code is not right. Check the time on your phone and try again.")

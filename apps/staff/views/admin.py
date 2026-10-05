@@ -2,6 +2,7 @@
 
 import secrets
 
+from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.forms import inlineformset_factory, modelformset_factory
@@ -122,13 +123,17 @@ def admins(request):
         member.save(update_fields=["email_verified_at"])
         send_email(
             to=member.email, subject="You have been added to the AD Smart staff area", template="staff_invite",
-            context={"user": member, "role": member.role_label}, user=member, kind="staff_invite",
+            context={"user": member, "role": member.role_label, "two_factor_required": settings.STAFF_TWO_FACTOR_REQUIRED},
+            user=member, kind="staff_invite",
         )
         AuditLog.record(request.user, "admin_created", member, role=data["role"])
-        messages.success(request, f"{member.email} was invited. They set a password with the code we emailed, then enrol two-factor.")
+        after = ", then enrol two-factor" if settings.STAFF_TWO_FACTOR_REQUIRED else ""
+        messages.success(request, f"{member.email} was invited. They set a password with the code we emailed{after}.")
         return redirect("staff:admins")
     staff = User.objects.filter(is_staff=True).order_by("staff_role", "email")
-    return render(request, "staff/admins.html", {"form": form, "staff": staff, "role_form": RoleForm()})
+    return render(request, "staff/admins.html", {
+        "form": form, "staff": staff, "role_form": RoleForm(), "two_factor_required": settings.STAFF_TWO_FACTOR_REQUIRED,
+    })
 
 
 @staff_required("manage_admins")

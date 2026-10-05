@@ -1,7 +1,7 @@
 """Guards for the staff area and the Django admin (SEC-03, SEC-05, SEC-08).
 
 * Only staff reach /staff/ and /staff/db/ (everyone else gets a 404).
-* Staff must pass two-factor authentication in this session.
+* Staff must pass two-factor authentication in this session, when STAFF_TWO_FACTOR_REQUIRED is on.
 * Staff sessions end after 30 minutes without activity.
 """
 
@@ -34,7 +34,7 @@ class StaffAccessMiddleware:
                 logout(request)
                 messages.info(request, "You were signed out after 30 minutes without activity.")
                 return redirect(f"/staff/login?next={path}")
-            if request.session.get("staff_2fa") != user.pk:
+            if settings.STAFF_TWO_FACTOR_REQUIRED and request.session.get("staff_2fa") != user.pk:
                 return redirect(f"/staff/2fa?next={path}")
             request.session["staff_seen"] = now
             if path.startswith("/staff/db") and not user.is_superuser:
