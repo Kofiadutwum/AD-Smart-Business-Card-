@@ -1,0 +1,20 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}{{ title }} · {{ SITE_NAME }}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>{{ title }}</h1>
+    <p><a href="{% url 'dashboard:business' %}">{% icon "arrow-left" 14 %} {% trans "Back to your business page" %}</a></p>
+  </div>
+</div>
+<section class="panel" style="max-width:36rem">
+  {% if kind == "products" and item %}
+    <p><img src="{{ item.image.url }}" alt="" width="120" height="120" style="width:7.5rem;height:7.5rem;object-fit:cover;border-radius:0.75rem"></p>
+  {% endif %}
+  <form method="post" enctype="multipart/form-data" class="form mt-4" novalidate>
+    {% csrf_token %}
+    {% include "components/form_fields.html" %}
+    {% hover_button _("Save") variant="ink" icon_name="check" %}
+  </form>
+</section>
+{% endblock %}

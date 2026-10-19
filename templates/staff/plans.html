@@ -4,7 +4,7 @@
 <div class="table-wrap">
   <table class="table">
     <caption class="visually-hidden">Plans</caption>
-    <thead><tr><th>Plan</th><th class="num">Price / year</th><th class="num">Cards</th><th class="num">Phones</th><th>Social links</th><th>Logo</th><th>Analytics</th><th>Status</th></tr></thead>
+    <thead><tr><th>Plan</th><th class="num">Price / year</th><th class="num">Cards</th><th class="num">Phones</th><th>Social links</th><th>Logo</th><th>Business page</th><th>Analytics</th><th>Status</th></tr></thead>
     <tbody>
       {% for p in plans %}
         <tr>
@@ -14,6 +14,7 @@
           <td class="num">{{ p.max_phones }}</td>
           <td>{{ p.social_limit_label }}</td>
           <td>{% if p.allow_logo %}Yes{% else %}No{% endif %}</td>
+          <td>{% if p.allow_business_page %}Up to {{ p.max_products }} products{% else %}No{% endif %}</td>
           <td>{% if p.full_analytics %}Full{% else %}Views only{% endif %}</td>
           <td>{% if p.is_active %}<span class="badge badge--success">On sale</span>{% else %}<span class="badge">Hidden</span>{% endif %}</td>
         </tr>

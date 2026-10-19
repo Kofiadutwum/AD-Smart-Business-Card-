@@ -9,11 +9,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/accounts/forms.py:12 apps/dashboard/forms.py:45
+#: apps/accounts/forms.py:12 apps/dashboard/forms.py:49
 msgid "Full name"
 msgstr "Volledige naam"
 
-#: apps/accounts/forms.py:13 apps/accounts/forms.py:54 apps/accounts/forms.py:60 apps/cards/models.py:45 apps/dashboard/forms.py:50
+#: apps/accounts/forms.py:13 apps/accounts/forms.py:54 apps/accounts/forms.py:60 apps/cards/models.py:45 apps/dashboard/forms.py:54
 msgid "Email address"
 msgstr "E-mailadres"
 
@@ -190,178 +190,178 @@ msgstr "Je Google-inlogsessie is verlopen. Probeer het opnieuw."
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr "Voeg je mobiele nummer toe zodat we contact met je kunnen opnemen over bestellingen en bezorging."
 
-#: apps/billing/models.py:61
+#: apps/billing/models.py:63
 msgid "Unlimited"
 msgstr "Onbeperkt"
 
-#: apps/billing/models.py:61
+#: apps/billing/models.py:63
 #, python-format
 msgid "Up to %(count)d"
 msgstr "Maximaal %(count)d"
 
-#: apps/billing/models.py:109
+#: apps/billing/models.py:111
 #, python-format
 msgid "Cards for your whole team: %(count)d people included, then priced per person"
 msgstr "Kaarten voor je hele team: %(count)d personen inbegrepen, daarna een prijs per persoon"
 
-#: apps/billing/models.py:111
+#: apps/billing/models.py:113
 msgid "1 digital card"
 msgstr "1 digitale kaart"
 
-#: apps/billing/models.py:113
+#: apps/billing/models.py:115
 #, python-format
 msgid "Up to %(count)d digital cards"
 msgstr "Maximaal %(count)d digitale kaarten"
 
-#: apps/billing/models.py:115
+#: apps/billing/models.py:117
 msgid "Unlimited social media links"
 msgstr "Onbeperkt aantal links naar sociale media"
 
-#: apps/billing/models.py:117
+#: apps/billing/models.py:119
 #, python-format
 msgid "Up to %(count)d social media links"
 msgstr "Maximaal %(count)d links naar sociale media"
 
-#: apps/billing/models.py:119
+#: apps/billing/models.py:121
 msgid "Any colour + shared brand theme"
 msgstr "Elke kleur + gedeeld merkthema"
 
-#: apps/billing/models.py:121
+#: apps/billing/models.py:123
 msgid "Any card colour"
 msgstr "Elke kaartkleur"
 
-#: apps/billing/models.py:123
+#: apps/billing/models.py:125
 msgid "Preset colours"
 msgstr "Vooraf ingestelde kleuren"
 
-#: apps/billing/models.py:126
+#: apps/billing/models.py:128
 msgid "Permanent link, QR code and .vcf contact"
 msgstr "Permanente link, QR-code en .vcf-contact"
 
-#: apps/billing/models.py:127
+#: apps/billing/models.py:129
 #, python-format
 msgid "Up to %(count)d phone numbers per card"
 msgstr "Maximaal %(count)d telefoonnummers per kaart"
 
-#: apps/billing/models.py:129
+#: apps/billing/models.py:131
 msgid "All templates"
 msgstr "Alle sjablonen"
 
-#: apps/billing/models.py:129
+#: apps/billing/models.py:131
 msgid "1 standard template"
 msgstr "1 standaardsjabloon"
 
-#: apps/billing/models.py:131
+#: apps/billing/models.py:133
 msgid "Business logo on card"
 msgstr "Bedrijfslogo op de kaart"
 
-#: apps/billing/models.py:132
+#: apps/billing/models.py:139
 msgid "Background image, button style, icon layout"
 msgstr "Achtergrondafbeelding, knopstijl, pictogramindeling"
 
-#: apps/billing/models.py:133 apps/dashboard/forms.py:57
+#: apps/billing/models.py:140 apps/dashboard/forms.py:61
 msgid "Remove “Powered by AD Smart”"
 msgstr "‘Mogelijk gemaakt door AD Smart’ verwijderen"
 
-#: apps/billing/models.py:134 templates/dashboard/home.html:24
+#: apps/billing/models.py:141 templates/dashboard/home.html:24
 msgid "Full analytics"
 msgstr "Volledige statistieken"
 
-#: apps/billing/models.py:134
+#: apps/billing/models.py:141
 msgid "Total views"
 msgstr "Totaal aantal weergaven"
 
-#: apps/billing/models.py:135
+#: apps/billing/models.py:142
 msgid "Priority support (4 working hours)"
 msgstr "Voorrangssupport (4 werkuren)"
 
-#: apps/billing/models.py:170
+#: apps/billing/models.py:177
 msgid "Active"
 msgstr "Actief"
 
-#: apps/billing/models.py:171
+#: apps/billing/models.py:178
 msgid "Expiring soon"
 msgstr "Verloopt binnenkort"
 
-#: apps/billing/models.py:172
+#: apps/billing/models.py:179
 msgid "Grace period"
 msgstr "Respijtperiode"
 
-#: apps/billing/models.py:173
+#: apps/billing/models.py:180
 msgid "Inactive"
 msgstr "Inactief"
 
-#: apps/billing/models.py:393 apps/billing/models.py:499
+#: apps/billing/models.py:400 apps/billing/models.py:506
 msgid "Subscription"
 msgstr "Abonnement"
 
-#: apps/billing/models.py:394 apps/billing/models.py:494
+#: apps/billing/models.py:401 apps/billing/models.py:501
 msgid "Plan upgrade"
 msgstr "Upgrade van abonnement"
 
-#: apps/billing/models.py:395 apps/billing/models.py:484
+#: apps/billing/models.py:402 apps/billing/models.py:491
 msgid "NFC order"
 msgstr "NFC-bestelling"
 
-#: apps/billing/models.py:396 apps/billing/models.py:490
+#: apps/billing/models.py:403 apps/billing/models.py:497
 msgid "Pre-made card (sold in a shop)"
 msgstr "Kant-en-klare kaart (verkocht in een winkel)"
 
-#: apps/billing/models.py:406 templates/billing/receipts.html:17
+#: apps/billing/models.py:413 templates/billing/receipts.html:17
 msgid "Pending"
 msgstr "In behandeling"
 
-#: apps/billing/models.py:407
+#: apps/billing/models.py:414
 msgid "Successful"
 msgstr "Geslaagd"
 
-#: apps/billing/models.py:408
+#: apps/billing/models.py:415
 msgid "Failed"
 msgstr "Mislukt"
 
-#: apps/billing/models.py:409
+#: apps/billing/models.py:416
 msgid "Abandoned"
 msgstr "Afgebroken"
 
-#: apps/billing/models.py:410 apps/nfc/models.py:109
+#: apps/billing/models.py:417 apps/nfc/models.py:109
 msgid "Refunded"
 msgstr "Terugbetaald"
 
-#: apps/billing/models.py:411
+#: apps/billing/models.py:418
 msgid "Partially refunded"
 msgstr "Gedeeltelijk terugbetaald"
 
-#: apps/billing/models.py:484
+#: apps/billing/models.py:491
 #, python-format
 msgid "NFC order %(number)s"
 msgstr "NFC-bestelling %(number)s"
 
-#: apps/billing/models.py:486 apps/billing/services.py:149
+#: apps/billing/models.py:493 apps/billing/services.py:149
 #, python-format
 msgid "%(plan)s plan"
 msgstr "%(plan)s-abonnement"
 
-#: apps/billing/models.py:491
+#: apps/billing/models.py:498
 #, python-format
 msgid "Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)"
 msgstr "Kant-en-klare kaart met %(plan)s-abonnement, %(count)d maanden (verkocht in een winkel)"
 
-#: apps/billing/models.py:496
+#: apps/billing/models.py:503
 #, python-format
 msgid "Upgrade to %(plan)s for %(count)d people"
 msgstr "Upgrade naar %(plan)s voor %(count)d personen"
 
-#: apps/billing/models.py:497
+#: apps/billing/models.py:504
 #, python-format
 msgid "Upgrade to %(plan)s"
 msgstr "Upgrade naar %(plan)s"
 
-#: apps/billing/models.py:501
+#: apps/billing/models.py:508
 #, python-format
 msgid "%(plan)s plan for %(people)d people, %(count)d months"
 msgstr "%(plan)s-abonnement voor %(people)d personen, %(count)d maanden"
 
-#: apps/billing/models.py:502
+#: apps/billing/models.py:509
 #, python-format
 msgid "%(plan)s plan, %(count)d months"
 msgstr "%(plan)s-abonnement, %(count)d maanden"
@@ -445,19 +445,19 @@ msgstr "De kaart staat nu op je account en er is een jaar aan je abonnement toeg
 msgid "Add a phone number or an email so they can reach you."
 msgstr "Voeg een telefoonnummer of e-mailadres toe zodat ze contact met je kunnen opnemen."
 
-#: apps/cards/forms.py:53
+#: apps/cards/forms.py:65
 msgid "PIN on the back of your card"
 msgstr "Pincode op de achterkant van je kaart"
 
-#: apps/cards/forms.py:55
+#: apps/cards/forms.py:67
 msgid "Eight letters and numbers, for example K7M2-X9QA."
 msgstr "Acht letters en cijfers, bijvoorbeeld K7M2-X9QA."
 
-#: apps/cards/forms.py:68
+#: apps/cards/forms.py:80
 msgid "Job title"
 msgstr "Functie"
 
-#: apps/cards/forms.py:69
+#: apps/cards/forms.py:81
 msgid "Business or organisation"
 msgstr "Bedrijf of organisatie"
 
@@ -501,19 +501,19 @@ msgstr "Pictogramrij"
 msgid "Phone numbers"
 msgstr "Telefoonnummers"
 
-#: apps/cards/models.py:47 apps/cards/models.py:252 templates/cards/_card.html:36 templates/cards/_card.html:64
+#: apps/cards/models.py:47 apps/cards/models.py:252 templates/cards/_contact.html:8 templates/cards/_contact.html:36
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:48 apps/cards/models.py:258 apps/dashboard/forms.py:51 apps/nfc/forms.py:30 templates/cards/_card.html:42 templates/cards/_card.html:76
+#: apps/cards/models.py:48 apps/cards/models.py:258 apps/dashboard/forms.py:55 apps/nfc/forms.py:30 templates/cards/_contact.html:14 templates/cards/_contact.html:48
 msgid "Website"
 msgstr "Website"
 
-#: apps/cards/models.py:49 apps/dashboard/forms.py:52
+#: apps/cards/models.py:49 apps/dashboard/forms.py:56
 msgid "Physical address"
 msgstr "Fysiek adres"
 
-#: apps/cards/models.py:50 templates/cards/_card.html:88
+#: apps/cards/models.py:50 templates/cards/_contact.html:60
 msgid "Ghana Post GPS"
 msgstr "Ghana Post GPS"
 
@@ -521,7 +521,7 @@ msgstr "Ghana Post GPS"
 msgid "Map location"
 msgstr "Locatie op de kaart"
 
-#: apps/cards/models.py:52 apps/dashboard/forms.py:48
+#: apps/cards/models.py:52 apps/dashboard/forms.py:52
 msgid "Short bio"
 msgstr "Korte bio"
 
@@ -617,7 +617,7 @@ msgstr "Klik op sociale media"
 msgid "Location click"
 msgstr "Klik op locatie"
 
-#: apps/cards/models.py:303 apps/dashboard/views.py:288
+#: apps/cards/models.py:303 apps/dashboard/views.py:293
 msgid "Direct link"
 msgstr "Directe link"
 
@@ -700,25 +700,25 @@ msgstr "De link van deze kaart staat op NFC-kaarten gedrukt en kan dus niet meer
 msgid "That link is already taken."
 msgstr "Die link is al in gebruik."
 
-#: apps/cards/views.py:133 apps/cards/views.py:157
+#: apps/cards/views.py:135 apps/cards/views.py:159
 #, python-format
 msgid "Thank you. %(name)s has your details."
 msgstr "Bedankt. %(name)s heeft je gegevens ontvangen."
 
-#: apps/cards/views.py:142
+#: apps/cards/views.py:144
 msgid "You have already sent your details. Try again in an hour."
 msgstr "Je hebt je gegevens al verstuurd. Probeer het over een uur opnieuw."
 
-#: apps/cards/views.py:151
+#: apps/cards/views.py:153
 #, python-format
 msgid "%(name)s shared their details with you"
 msgstr "%(name)s heeft zijn of haar gegevens met je gedeeld"
 
-#: apps/cards/views.py:168
+#: apps/cards/views.py:251
 msgid "You have sent several reports already. Try again later."
 msgstr "Je hebt al meerdere meldingen verstuurd. Probeer het later opnieuw."
 
-#: apps/cards/views.py:178
+#: apps/cards/views.py:261
 msgid "Thank you. Our support team will review this card."
 msgstr "Bedankt. Ons supportteam bekijkt deze kaart."
 
@@ -839,181 +839,181 @@ msgstr "Een Ghanees nummer heeft 10 cijfers, bijvoorbeeld 024 412 3456."
 msgid "Enter a Ghanaian number such as 024 412 3456, or an international number starting with +."
 msgstr "Voer een Ghanees nummer in, zoals 024 412 3456, of een internationaal nummer dat met + begint."
 
-#: apps/core/utils.py:154
+#: apps/core/utils.py:170
 #, python-format
 msgid "That image is larger than %(mb)d MB."
 msgstr "Die afbeelding is groter dan %(mb)d MB."
 
-#: apps/core/utils.py:160 apps/core/utils.py:162
+#: apps/core/utils.py:176 apps/core/utils.py:178
 msgid "Upload a JPG, PNG or WebP image."
 msgstr "Upload een JPG-, PNG- of WebP-afbeelding."
 
-#: apps/core/utils.py:188
+#: apps/core/utils.py:208
 msgid "That SVG file could not be read."
 msgstr "Dat SVG-bestand kon niet worden gelezen."
 
-#: apps/core/utils.py:194
+#: apps/core/utils.py:214
 msgid "That file is not an SVG image."
 msgstr "Dat bestand is geen SVG-afbeelding."
 
-#: apps/core/utils.py:222
+#: apps/core/utils.py:242
 msgid "Design files can be up to 10 MB."
 msgstr "Ontwerpbestanden mogen maximaal 10 MB zijn."
 
-#: apps/core/utils.py:234 apps/core/utils.py:236
+#: apps/core/utils.py:254 apps/core/utils.py:256
 msgid "Upload a JPG, PNG, WebP, SVG or PDF file."
 msgstr "Upload een JPG-, PNG-, WebP-, SVG- of PDF-bestand."
 
-#: apps/dashboard/forms.py:19
+#: apps/dashboard/forms.py:23
 msgid "Profile photo"
 msgstr "Profielfoto"
 
-#: apps/dashboard/forms.py:19
+#: apps/dashboard/forms.py:23
 msgid "JPG, PNG or WebP up to 5 MB. We resize it for fast loading."
 msgstr "JPG, PNG of WebP tot 5 MB. We verkleinen hem zodat hij snel laadt."
 
-#: apps/dashboard/forms.py:21
+#: apps/dashboard/forms.py:25
 msgid "Remove photo"
 msgstr "Foto verwijderen"
 
-#: apps/dashboard/forms.py:22
+#: apps/dashboard/forms.py:26
 msgid "Business logo"
 msgstr "Bedrijfslogo"
 
-#: apps/dashboard/forms.py:22
+#: apps/dashboard/forms.py:26
 msgid "PNG with a transparent background works best."
 msgstr "Een PNG met transparante achtergrond werkt het best."
 
-#: apps/dashboard/forms.py:23
+#: apps/dashboard/forms.py:27
 msgid "Remove logo"
 msgstr "Logo verwijderen"
 
-#: apps/dashboard/forms.py:24
+#: apps/dashboard/forms.py:28
 msgid "Background image"
 msgstr "Achtergrondafbeelding"
 
-#: apps/dashboard/forms.py:25
+#: apps/dashboard/forms.py:29
 msgid "Remove background"
 msgstr "Achtergrond verwijderen"
 
-#: apps/dashboard/forms.py:27 templates/dashboard/editor.html:93
+#: apps/dashboard/forms.py:31 templates/dashboard/editor.html:93
 msgid "Card colour"
 msgstr "Kaartkleur"
 
-#: apps/dashboard/forms.py:30 templates/dashboard/editor.html:98
+#: apps/dashboard/forms.py:34 templates/dashboard/editor.html:98
 msgid "Custom colour"
 msgstr "Eigen kleur"
 
-#: apps/dashboard/forms.py:31
+#: apps/dashboard/forms.py:35
 msgid "Band colour"
 msgstr "Kleur van de band"
 
-#: apps/dashboard/forms.py:33
+#: apps/dashboard/forms.py:37
 msgid "Show on my public card"
 msgstr "Tonen op mijn openbare kaart"
 
-#: apps/dashboard/forms.py:120
+#: apps/dashboard/forms.py:124
 msgid "Use the format GA-123-4567."
 msgstr "Gebruik de notatie GA-123-4567."
 
-#: apps/dashboard/forms.py:126 apps/dashboard/forms.py:132
+#: apps/dashboard/forms.py:130 apps/dashboard/forms.py:136
 msgid "Choose a colour."
 msgstr "Kies een kleur."
 
-#: apps/dashboard/forms.py:210 templates/dashboard/editor.html:185 templates/dashboard/home.html:32 templates/dashboard/share.html:17
+#: apps/dashboard/forms.py:214 templates/dashboard/editor.html:185 templates/dashboard/home.html:32 templates/dashboard/share.html:17
 msgid "Your card link"
 msgstr "Je kaartlink"
 
-#: apps/dashboard/forms.py:211
+#: apps/dashboard/forms.py:215
 msgid "3 to 40 lowercase letters, numbers and hyphens."
 msgstr "3 tot 40 kleine letters, cijfers en koppeltekens."
 
-#: apps/dashboard/forms.py:224
+#: apps/dashboard/forms.py:228
 msgid "Full name on the new card"
 msgstr "Volledige naam op de nieuwe kaart"
 
-#: apps/dashboard/forms.py:225
+#: apps/dashboard/forms.py:229
 msgid "Position"
 msgstr "Functie"
 
-#: apps/dashboard/views.py:130
+#: apps/dashboard/views.py:135
 msgid "Some details need fixing. Look for the messages in red."
 msgstr "Een paar gegevens moeten worden aangepast. Zoek de rode meldingen."
 
-#: apps/dashboard/views.py:166
+#: apps/dashboard/views.py:171
 #, python-format
 msgid "Your link is now /c/%(slug)s. The old link redirects here."
 msgstr "Je link is nu /c/%(slug)s. De oude link verwijst hierheen."
 
-#: apps/dashboard/views.py:170
+#: apps/dashboard/views.py:175
 msgid "Enter a link between 3 and 40 characters."
 msgstr "Voer een link in van 3 tot 40 tekens."
 
-#: apps/dashboard/views.py:188
+#: apps/dashboard/views.py:193
 #, python-format
 msgid "The %(plan)s plan includes %(limit)s social links. Upgrade for unlimited links."
 msgstr "Het %(plan)s-abonnement bevat %(limit)s links naar sociale media. Upgrade voor onbeperkt veel links."
 
-#: apps/dashboard/views.py:194
+#: apps/dashboard/views.py:199
 #, python-format
 msgid "%(label)s added."
 msgstr "%(label)s toegevoegd."
 
-#: apps/dashboard/views.py:210
+#: apps/dashboard/views.py:215
 msgid "Link removed."
 msgstr "Link verwijderd."
 
-#: apps/dashboard/views.py:339
+#: apps/dashboard/views.py:344
 msgid "Contact removed."
 msgstr "Contact verwijderd."
 
-#: apps/dashboard/views.py:362
+#: apps/dashboard/views.py:367
 #, python-format
 msgid "All %(limit)d place on your plan is in use. Switch off or delete a card you no longer need, or add people to your plan."
 msgid_plural "All %(limit)d places on your plan are in use. Switch off or delete a card you no longer need, or add people to your plan."
 msgstr[0] "De %(limit)d plek in je abonnement is in gebruik. Schakel een kaart die je niet meer nodig hebt uit of verwijder die, of voeg personen aan je abonnement toe."
 msgstr[1] "Alle %(limit)d plekken in je abonnement zijn in gebruik. Schakel een kaart die je niet meer nodig hebt uit of verwijder die, of voeg personen aan je abonnement toe."
 
-#: apps/dashboard/views.py:370
+#: apps/dashboard/views.py:375
 msgid "New card created. Fill in the details."
 msgstr "Nieuwe kaart aangemaakt. Vul de gegevens in."
 
-#: apps/dashboard/views.py:384
+#: apps/dashboard/views.py:389
 msgid "Switch another card off first, or add people to your plan."
 msgstr "Schakel eerst een andere kaart uit of voeg personen aan je abonnement toe."
 
-#: apps/dashboard/views.py:390
+#: apps/dashboard/views.py:395
 #, python-format
 msgid "%(name)s is now live."
 msgstr "De kaart van %(name)s staat nu live."
 
-#: apps/dashboard/views.py:390
+#: apps/dashboard/views.py:395
 #, python-format
 msgid "%(name)s is now switched off."
 msgstr "De kaart van %(name)s is nu uitgeschakeld."
 
-#: apps/dashboard/views.py:400
+#: apps/dashboard/views.py:405
 msgid "You need at least one card. Edit this one instead."
 msgstr "Je hebt minstens één kaart nodig. Bewerk deze kaart in plaats daarvan."
 
-#: apps/dashboard/views.py:404
+#: apps/dashboard/views.py:409
 #, python-format
 msgid "%(name)s's card was deleted. Its link will show that the card no longer exists."
 msgstr "De kaart van %(name)s is verwijderd. De link toont dat de kaart niet meer bestaat."
 
-#: apps/dashboard/views.py:424
+#: apps/dashboard/views.py:527
 msgid "Account details saved."
 msgstr "Accountgegevens opgeslagen."
 
-#: apps/dashboard/views.py:435
+#: apps/dashboard/views.py:538
 msgid "Type your email address exactly to confirm."
 msgstr "Typ je e-mailadres precies zo in om te bevestigen."
 
-#: apps/dashboard/views.py:443
+#: apps/dashboard/views.py:546
 msgid "We received your account deletion request"
 msgstr "We hebben je verzoek om je account te verwijderen ontvangen"
 
-#: apps/dashboard/views.py:447
+#: apps/dashboard/views.py:550
 msgid "Your deletion request is recorded. Your data will be removed within 30 days."
 msgstr "Je verzoek tot verwijdering is vastgelegd. Je gegevens worden binnen 30 dagen verwijderd."
 
@@ -1175,11 +1175,11 @@ msgstr "MTN MoMo, Telecel Cash en AirtelTigo Money, plus Visa- en Mastercard-kaa
 msgid "Name on the card"
 msgstr "Naam op de kaart"
 
-#: apps/dashboard/forms.py:47 apps/nfc/forms.py:26
+#: apps/dashboard/forms.py:51 apps/nfc/forms.py:26
 msgid "Business name"
 msgstr "Bedrijfsnaam"
 
-#: apps/dashboard/forms.py:46 apps/nfc/forms.py:27
+#: apps/dashboard/forms.py:50 apps/nfc/forms.py:27
 msgid "Position / job title"
 msgstr "Functie / functietitel"
 
@@ -1851,7 +1851,7 @@ msgstr "Al je betalingen, met een pdf-kwitantie voor elke geslaagde betaling. Vo
 msgid "Your payments"
 msgstr "Je betalingen"
 
-#: apps/dashboard/views.py:326 templates/billing/receipts.html:11
+#: apps/dashboard/views.py:331 templates/billing/receipts.html:11
 msgid "Date"
 msgstr "Datum"
 
@@ -1955,62 +1955,62 @@ msgstr "Contact opslaan"
 msgid "Share this card"
 msgstr "Deze kaart delen"
 
-#: templates/cards/_card.html:31
+#: templates/cards/_contact.html:3
 #, python-format
 msgid "Contact %(first)s"
 msgstr "Neem contact op met %(first)s"
 
-#: templates/cards/_card.html:33 templates/support/contact.html:22
+#: templates/cards/_contact.html:5 templates/support/contact.html:22
 msgid "Call"
 msgstr "Bellen"
 
-#: apps/cards/forms.py:18 apps/dashboard/views.py:326 apps/support/forms.py:14 templates/cards/_card.html:39 templates/cards/_card.html:70 templates/dashboard/leads.html:15 templates/dashboard/share.html:23 templates/support/contact.html:23
+#: apps/cards/forms.py:18 apps/dashboard/views.py:331 apps/support/forms.py:14 templates/cards/_contact.html:11 templates/cards/_contact.html:42 templates/dashboard/leads.html:15 templates/dashboard/share.html:23 templates/support/contact.html:23
 msgid "Email"
 msgstr "E-mail"
 
-#: templates/cards/_card.html:45 templates/cards/_card.html:47
+#: templates/cards/_contact.html:17 templates/cards/_contact.html:19
 msgid "Map"
 msgstr "Kaart"
 
-#: templates/cards/_card.html:51 templates/dashboard/editor.html:65
+#: templates/cards/_contact.html:23 templates/dashboard/editor.html:65
 msgid "Contact details"
 msgstr "Contactgegevens"
 
-#: templates/cards/_card.html:96
+#: templates/cards/_card.html:37
 #, python-format
 msgid "About %(first)s"
 msgstr "Over %(first)s"
 
-#: templates/cards/_card.html:100
+#: templates/cards/_card.html:41 templates/cards/business.html:111
 msgid "Social media"
 msgstr "Sociale media"
 
-#: templates/cards/_card.html:114
+#: templates/cards/_card.html:55
 #, python-format
 msgid "Share your details with %(first)s"
 msgstr "Deel je gegevens met %(first)s"
 
-#: templates/cards/_card.html:117
+#: templates/cards/_card.html:58 templates/cards/business.html:128
 msgid "Leave empty"
 msgstr "Leeg laten"
 
-#: templates/cards/_card.html:119
+#: templates/cards/_card.html:60
 msgid "Send my details"
 msgstr "Mijn gegevens versturen"
 
-#: templates/cards/_card.html:126
+#: templates/cards/_card.html:67
 msgid "Show QR code"
 msgstr "QR-code tonen"
 
-#: templates/cards/_card.html:127
+#: templates/cards/_card.html:68
 msgid "Let someone scan this to open the card."
 msgstr "Laat iemand dit scannen om de kaart te openen."
 
-#: templates/cards/_card.html:134
+#: templates/cards/_card.html:75 templates/cards/business.html:142
 msgid "Powered by AD Smart"
 msgstr "Mogelijk gemaakt door AD Smart"
 
-#: templates/cards/_card.html:137 templates/cards/report.html:7
+#: templates/cards/_card.html:78 templates/cards/business.html:145 templates/cards/report.html:7
 msgid "Report this card"
 msgstr "Deze kaart melden"
 
@@ -2167,7 +2167,7 @@ msgstr "Krijg je eigen slimme kaart"
 msgid "Open menu"
 msgstr "Menu openen"
 
-#: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:64 templates/dashboard/settings.html:26 templates/partials/site_header.html:21
+#: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65 templates/dashboard/settings.html:26 templates/partials/site_header.html:21
 msgid "Change theme"
 msgstr "Thema wijzigen"
 
@@ -2187,55 +2187,55 @@ msgstr "Overzicht"
 msgid "Edit card"
 msgstr "Kaart bewerken"
 
-#: apps/dashboard/forms.py:56 templates/dashboard/_shell.html:34 templates/dashboard/analytics.html:63 templates/dashboard/links.html:6
+#: apps/dashboard/forms.py:60 templates/dashboard/_shell.html:34 templates/dashboard/analytics.html:63 templates/dashboard/links.html:6
 msgid "Social links"
 msgstr "Sociale links"
 
-#: templates/dashboard/_shell.html:35
+#: templates/dashboard/_shell.html:36
 msgid "Share &amp; QR"
 msgstr "Delen en QR"
 
-#: templates/dashboard/_shell.html:36 templates/dashboard/analytics.html:6
+#: templates/dashboard/_shell.html:37 templates/dashboard/analytics.html:6
 msgid "Analytics"
 msgstr "Statistieken"
 
-#: templates/dashboard/_shell.html:37 templates/dashboard/leads.html:6
+#: templates/dashboard/_shell.html:38 templates/dashboard/leads.html:6
 msgid "Contacts"
 msgstr "Contacten"
 
-#: templates/dashboard/_shell.html:38 templates/dashboard/cards.html:6 templates/dashboard/editor.html:6
+#: templates/dashboard/_shell.html:39 templates/dashboard/cards.html:6 templates/dashboard/editor.html:6
 msgid "Team cards"
 msgstr "Teamkaarten"
 
-#: templates/dashboard/_shell.html:42
+#: templates/dashboard/_shell.html:43
 msgid "Orders &amp; billing"
 msgstr "Bestellingen en facturatie"
 
-#: templates/dashboard/_shell.html:44 templates/dashboard/home.html:48 templates/dashboard/nfc_orders.html:6 templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6 templates/nfc/order.html:6 templates/nfc/order.html:113 templates/partials/site_footer.html:16 templates/partials/site_header.html:13 templates/partials/site_header.html:45
+#: templates/dashboard/_shell.html:45 templates/dashboard/home.html:48 templates/dashboard/nfc_orders.html:6 templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6 templates/nfc/order.html:6 templates/nfc/order.html:113 templates/partials/site_footer.html:16 templates/partials/site_header.html:13 templates/partials/site_header.html:45
 msgid "NFC cards"
 msgstr "NFC-kaarten"
 
-#: templates/dashboard/_shell.html:45
+#: templates/dashboard/_shell.html:46
 msgid "Plan &amp; renewal"
 msgstr "Abonnement en verlenging"
 
-#: templates/dashboard/_shell.html:46 templates/dashboard/home.html:61
+#: templates/dashboard/_shell.html:47 templates/dashboard/home.html:61
 msgid "Receipts"
 msgstr "Kwitanties"
 
-#: templates/dashboard/_shell.html:50
+#: templates/dashboard/_shell.html:51
 msgid "Account"
 msgstr "Account"
 
-#: templates/dashboard/_shell.html:52 templates/dashboard/settings.html:4
+#: templates/dashboard/_shell.html:53 templates/dashboard/settings.html:4
 msgid "Settings"
 msgstr "Instellingen"
 
-#: templates/dashboard/_shell.html:53
+#: templates/dashboard/_shell.html:54
 msgid "Help &amp; support"
 msgstr "Hulp en support"
 
-#: templates/dashboard/_shell.html:67
+#: templates/dashboard/_shell.html:68
 msgid "Log out"
 msgstr "Uitloggen"
 
@@ -2243,7 +2243,7 @@ msgstr "Uitloggen"
 msgid "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to give it its permanent link and switch it on."
 msgstr "<strong>Je kaart is een concept.</strong> Alleen jij kunt hem zien. Kies een abonnement om hem zijn permanente link te geven en hem aan te zetten."
 
-#: templates/dashboard/_status_banner.html:13 templates/dashboard/editor.html:162
+#: templates/dashboard/_status_banner.html:13 templates/dashboard/business.html:17 templates/dashboard/editor.html:162
 msgid "Choose a plan"
 msgstr "Kies een abonnement"
 
@@ -2319,11 +2319,11 @@ msgstr "<strong>Je hebt meer kaarten ingeschakeld dan je abonnement bevat.</stro
 msgid "Your cards"
 msgstr "Je kaarten"
 
-#: apps/billing/models.py:217 apps/dashboard/views.py:326 templates/dashboard/cards.html:17
+#: apps/billing/models.py:224 apps/dashboard/views.py:331 templates/dashboard/cards.html:17
 msgid "Card"
 msgstr "Kaart"
 
-#: apps/dashboard/forms.py:219 templates/dashboard/cards.html:17
+#: apps/dashboard/forms.py:223 templates/dashboard/cards.html:17
 msgid "Link"
 msgstr "Link"
 
@@ -2331,15 +2331,15 @@ msgstr "Link"
 msgid "Actions"
 msgstr "Acties"
 
-#: templates/dashboard/cards.html:23 templates/dashboard/home.html:67
+#: templates/dashboard/business.html:32 templates/dashboard/cards.html:23 templates/dashboard/home.html:67
 msgid "On"
 msgstr "Aan"
 
-#: templates/dashboard/cards.html:23 templates/dashboard/home.html:67
+#: templates/dashboard/business.html:32 templates/dashboard/cards.html:23 templates/dashboard/home.html:67
 msgid "Off"
 msgstr "Uit"
 
-#: templates/dashboard/cards.html:25
+#: templates/dashboard/business.html:60 templates/dashboard/cards.html:25
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -2566,10 +2566,6 @@ msgstr "Abonnementen bekijken"
 msgid "Contacts · %(SITE_NAME)s"
 msgstr "Contacten · %(SITE_NAME)s"
 
-#: templates/dashboard/leads.html:7
-msgid "People who sent you their details from your card."
-msgstr "Mensen die hun gegevens via je kaart naar je hebben gestuurd."
-
 #: templates/dashboard/leads.html:9
 msgid "Export CSV"
 msgstr "CSV exporteren"
@@ -2578,19 +2574,19 @@ msgstr "CSV exporteren"
 msgid "Contacts received"
 msgstr "Ontvangen contacten"
 
-#: apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+#: apps/dashboard/forms.py:260 apps/dashboard/views.py:331 templates/dashboard/leads.html:15
 msgid "Name"
 msgstr "Naam"
 
-#: apps/cards/forms.py:17 apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+#: apps/cards/forms.py:17 apps/dashboard/views.py:331 templates/dashboard/leads.html:15
 msgid "Phone"
 msgstr "Telefoon"
 
-#: apps/cards/forms.py:19 apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+#: apps/cards/forms.py:19 apps/dashboard/views.py:331 templates/dashboard/leads.html:15
 msgid "Company"
 msgstr "Bedrijf"
 
-#: apps/dashboard/views.py:326 templates/dashboard/leads.html:15
+#: apps/dashboard/views.py:331 templates/dashboard/leads.html:15
 msgid "Came via"
 msgstr "Via"
 
@@ -2615,10 +2611,6 @@ msgstr "%(lead_name)s verwijderen"
 #: templates/dashboard/leads.html:32
 msgid "No contacts yet"
 msgstr "Nog geen contacten"
-
-#: templates/dashboard/leads.html:32
-msgid "When someone taps “Share your details” on your card, they appear here and you get an email."
-msgstr "Als iemand op je kaart op ‘Deel je gegevens’ tikt, verschijnt die persoon hier en krijg je een e-mail."
 
 #: templates/dashboard/links.html:2
 #, python-format
@@ -2820,11 +2812,11 @@ msgstr "Voor flyers, banners en naamkaartjes. Scans tellen als QR-bezoeken."
 msgid "You received this because of your account or order with us."
 msgstr "Je ontvangt dit omdat je een account of bestelling bij ons hebt."
 
-#: templates/dashboard/home.html:6 templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1 templates/emails/welcome.txt:1
+#: templates/dashboard/home.html:6 templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1 templates/emails/welcome.txt:1
 msgid "there"
 msgstr "daar"
 
-#: templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/support_received.txt:1 templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
+#: templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/support_received.txt:1 templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
 #, python-format
 msgid "Hello %(name)s,"
 msgstr "Hallo %(name)s,"
@@ -2902,12 +2894,12 @@ msgstr "Verleng vóór die datum om hem live te houden: %(link)s"
 msgid "%(name)s shared their details from your card /c/%(slug)s:"
 msgstr "%(name)s heeft gegevens gedeeld via je kaart /c/%(slug)s:"
 
-#: templates/emails/new_lead.txt:5
+#: templates/emails/new_enquiry.txt:5 templates/emails/new_lead.txt:5
 #, python-format
 msgid "Phone: %(value)s"
 msgstr "Telefoon: %(value)s"
 
-#: templates/emails/new_lead.txt:6
+#: templates/emails/new_enquiry.txt:6 templates/emails/new_lead.txt:6
 #, python-format
 msgid "Email: %(value)s"
 msgstr "E-mail: %(value)s"
@@ -2917,12 +2909,12 @@ msgstr "E-mail: %(value)s"
 msgid "Company: %(value)s"
 msgstr "Bedrijf: %(value)s"
 
-#: templates/emails/new_lead.txt:9
+#: templates/emails/new_enquiry.txt:8 templates/emails/new_lead.txt:9
 #, python-format
 msgid "Message: %(value)s"
 msgstr "Bericht: %(value)s"
 
-#: templates/emails/new_lead.txt:11
+#: templates/emails/new_enquiry.txt:10 templates/emails/new_lead.txt:11
 #, python-format
 msgid "See all your contacts: %(link)s"
 msgstr "Bekijk al je contacten: %(link)s"
@@ -4125,7 +4117,7 @@ msgstr "OK"
 msgid "Language"
 msgstr "Taal"
 
-#: templates/partials/lang_switch.html:9 templates/partials/prefs.html:13
+#: templates/dashboard/business.html:26 templates/dashboard/business_item.html:17 templates/partials/lang_switch.html:9 templates/partials/prefs.html:13
 msgid "Save"
 msgstr "Opslaan"
 
@@ -4281,11 +4273,11 @@ msgstr[1] "Of voeg nu %(counter)s personen toe voor %(upgrade_amount)s, voor de 
 msgid "Or upgrade now for %(upgrade_amount)s, for the %(months_left)s left"
 msgstr "Of upgrade nu voor %(upgrade_amount)s, voor de resterende %(months_left)s"
 
-#: templates/cards/_card.html:57
+#: templates/cards/_contact.html:29
 msgid "Mobile"
 msgstr "Mobiel"
 
-#: templates/cards/_card.html:82
+#: templates/cards/_contact.html:54
 msgid "Address"
 msgstr "Adres"
 
@@ -4470,19 +4462,19 @@ msgstr "%(plan)s, 12 maanden extra"
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s, 12 maanden"
 
-#: apps/cards/forms.py:20 apps/dashboard/views.py:326
+#: apps/cards/forms.py:20 apps/dashboard/views.py:331
 msgid "Message"
 msgstr "Bericht"
 
-#: apps/cards/forms.py:42
+#: apps/cards/forms.py:54
 msgid "What is wrong with this card?"
 msgstr "Wat is er mis met deze kaart?"
 
-#: apps/cards/forms.py:43
+#: apps/cards/forms.py:55
 msgid "Details"
 msgstr "Details"
 
-#: apps/cards/forms.py:44
+#: apps/cards/forms.py:56
 msgid "Your email (optional, if you would like a reply)"
 msgstr "Je e-mailadres (optioneel, als je antwoord wilt)"
 
@@ -4630,75 +4622,75 @@ msgstr "Internationale koerier naar elke andere bestemming."
 msgid "5–12 working days after dispatch"
 msgstr "5–12 werkdagen na verzending"
 
-#: apps/dashboard/forms.py:27
+#: apps/dashboard/forms.py:31
 msgid "Custom"
 msgstr "Eigen"
 
-#: apps/dashboard/forms.py:49
+#: apps/dashboard/forms.py:53
 msgid "WhatsApp number"
 msgstr "WhatsApp-nummer"
 
-#: apps/dashboard/forms.py:53
+#: apps/dashboard/forms.py:57
 msgid "Ghana Post GPS address"
 msgstr "Ghana Post GPS-adres"
 
-#: apps/dashboard/forms.py:54
+#: apps/dashboard/forms.py:58
 msgid "Layout"
 msgstr "Indeling"
 
-#: apps/dashboard/forms.py:55
+#: apps/dashboard/forms.py:59
 msgid "Button style"
 msgstr "Knopstijl"
 
-#: apps/dashboard/forms.py:58
+#: apps/dashboard/forms.py:62
 msgid "Let search engines show my card"
 msgstr "Zoekmachines mijn kaart laten tonen"
 
-#: apps/dashboard/forms.py:59
+#: apps/dashboard/forms.py:63
 msgid "Let visitors send me their details"
 msgstr "Bezoekers hun gegevens naar mij laten sturen"
 
-#: apps/dashboard/forms.py:60
+#: apps/dashboard/forms.py:64
 msgid "Card is visible to the public"
 msgstr "De kaart is openbaar zichtbaar"
 
-#: apps/dashboard/forms.py:63
+#: apps/dashboard/forms.py:67
 msgid "Up to 300 characters."
 msgstr "Maximaal 300 tekens."
 
-#: apps/dashboard/forms.py:64
+#: apps/dashboard/forms.py:68
 msgid "Can differ from your call number."
 msgstr "Mag afwijken van je belnummer."
 
-#: apps/dashboard/forms.py:65
+#: apps/dashboard/forms.py:69
 msgid "For example GA-123-4567."
 msgstr "Bijvoorbeeld GA-123-4567."
 
-#: apps/dashboard/forms.py:66
+#: apps/dashboard/forms.py:70
 msgid "Off by default, so your card only reaches people you share it with."
 msgstr "Standaard uit, zodat je kaart alleen mensen bereikt met wie je hem deelt."
 
-#: apps/dashboard/forms.py:192
+#: apps/dashboard/forms.py:196
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
-#: apps/dashboard/forms.py:192
+#: apps/dashboard/forms.py:196
 msgid "Label"
 msgstr "Label"
 
-#: apps/dashboard/forms.py:195
+#: apps/dashboard/forms.py:199
 msgid "MTN, Telecel, Office…"
 msgstr "MTN, Telecel, Kantoor…"
 
-#: apps/dashboard/forms.py:219
+#: apps/dashboard/forms.py:223
 msgid "Platform"
 msgstr "Platform"
 
-#: apps/dashboard/views.py:286
+#: apps/dashboard/views.py:291
 msgid "QR code scans"
 msgstr "QR-code-scans"
 
-#: apps/dashboard/views.py:287
+#: apps/dashboard/views.py:292
 msgid "NFC taps"
 msgstr "NFC-tikken"
 
@@ -4829,11 +4821,11 @@ msgstr "j F Y, H:i"
 msgid "j M, H:i"
 msgstr "j M, H:i"
 
-#: apps/core/dynamic_strings.py:51 apps/dashboard/views.py:269
+#: apps/core/dynamic_strings.py:51 apps/dashboard/views.py:274
 msgid "d M"
 msgstr "d M"
 
-#: apps/core/dynamic_strings.py:52 apps/dashboard/views.py:273
+#: apps/core/dynamic_strings.py:52 apps/dashboard/views.py:278
 msgid "M Y"
 msgstr "M Y"
 
@@ -4865,7 +4857,7 @@ msgstr "Je abonnement verandert op %(date)s naar <strong style=\"display:inline\
 msgid "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on %(date)s."
 msgstr "Je abonnement verandert op %(date)s naar <strong style=\"display:inline\">%(plan)s</strong>."
 
-#: apps/billing/models.py:218
+#: apps/billing/models.py:225
 #, python-format
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s eindigend op %(last4)s"
@@ -5010,3 +5002,277 @@ msgstr "<strong>Bevestig je e-mailadres.</strong> Je hebt het nodig om je accoun
 #: templates/dashboard/_status_banner.html:6
 msgid "Send me the link"
 msgstr "Stuur me de link"
+
+#: apps/billing/models.py:136
+#, python-format
+msgid "Business page with up to %(count)d products"
+msgstr "Bedrijfspagina met maximaal %(count)d producten"
+
+#: apps/billing/models.py:137
+msgid "Business page for your products"
+msgstr "Bedrijfspagina voor je producten"
+
+#: apps/cards/forms.py:42
+msgid "What would you like to know?"
+msgstr "Wat wil je weten?"
+
+#: apps/cards/views.py:216
+#, python-format
+msgid "Thank you. %(name)s has your enquiry."
+msgstr "Bedankt. %(name)s heeft je vraag ontvangen."
+
+#: apps/cards/views.py:225
+msgid "You have already sent an enquiry. Try again in an hour."
+msgstr "Je hebt al een vraag gestuurd. Probeer het over een uur opnieuw."
+
+#: apps/cards/views.py:234
+#, python-format
+msgid "New enquiry from %(name)s"
+msgstr "Nieuwe vraag van %(name)s"
+
+#: apps/dashboard/forms.py:242
+msgid "Show my business page to everyone"
+msgstr "Mijn bedrijfspagina aan iedereen tonen"
+
+#: apps/dashboard/forms.py:243
+msgid "Tagline"
+msgstr "Slogan"
+
+#: apps/dashboard/forms.py:244
+msgid "About your business"
+msgstr "Over je bedrijf"
+
+#: apps/dashboard/forms.py:245 templates/cards/business.html:105
+msgid "Opening hours"
+msgstr "Openingstijden"
+
+#: apps/dashboard/forms.py:248
+msgid "When it is on, an “Explore Business” button appears on your card."
+msgstr "Als de pagina aan staat, verschijnt er een knop ‘Ontdek het bedrijf’ op je kaart."
+
+#: apps/dashboard/forms.py:249
+msgid "One short line under your business name."
+msgstr "Eén korte regel onder de naam van je bedrijf."
+
+#: apps/dashboard/forms.py:250
+msgid "One line for each day or group of days, for example Mon–Fri 8am–6pm."
+msgstr "Eén regel per dag of groep dagen, bijvoorbeeld ma–vr 8.00–18.00 uur."
+
+#: apps/dashboard/forms.py:260
+msgid "Picture"
+msgstr "Afbeelding"
+
+#: apps/dashboard/forms.py:260
+msgid "Price (optional)"
+msgstr "Prijs (optioneel)"
+
+#: apps/dashboard/forms.py:260 apps/dashboard/forms.py:284
+msgid "Description (optional)"
+msgstr "Beschrijving (optioneel)"
+
+#: apps/dashboard/forms.py:263
+msgid "JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page opens fast."
+msgstr "JPG, PNG of WebP. We verkleinen elke afbeelding tot maximaal 50 KB, zodat je pagina snel opent."
+
+#: apps/dashboard/forms.py:264
+msgid "Write it the way you want it shown, for example GHS 120 or From GHS 50."
+msgstr "Schrijf het zoals je het getoond wilt hebben, bijvoorbeeld GHS 120 of Vanaf GHS 50."
+
+#: apps/dashboard/forms.py:284
+msgid "Service"
+msgstr "Dienst"
+
+#: apps/dashboard/forms.py:290
+msgid "Stars (optional)"
+msgstr "Sterren (optioneel)"
+
+#: apps/dashboard/forms.py:297
+msgid "Customer name"
+msgstr "Naam van de klant"
+
+#: apps/dashboard/forms.py:297
+msgid "What they said"
+msgstr "Wat de klant zei"
+
+#: apps/dashboard/forms.py:298
+msgid "Only add words your customer has agreed to share."
+msgstr "Voeg alleen woorden toe die je klant wil delen."
+
+#: apps/dashboard/views.py:442
+msgid "Business page saved."
+msgstr "Bedrijfspagina opgeslagen."
+
+#: apps/dashboard/views.py:471
+#, python-format
+msgid "You have used all %(limit)d places here. Remove one to add another."
+msgstr "Je hebt alle %(limit)d plaatsen hier gebruikt. Verwijder er een om een nieuwe toe te voegen."
+
+#: apps/dashboard/views.py:483
+msgid "Saved."
+msgstr "Opgeslagen."
+
+#: apps/dashboard/views.py:486
+msgid "Add a product"
+msgstr "Een product toevoegen"
+
+#: apps/dashboard/views.py:486
+msgid "Edit product"
+msgstr "Product bewerken"
+
+#: apps/dashboard/views.py:487
+msgid "Add a service"
+msgstr "Een dienst toevoegen"
+
+#: apps/dashboard/views.py:487
+msgid "Edit service"
+msgstr "Dienst bewerken"
+
+#: apps/dashboard/views.py:488
+msgid "Add a customer review"
+msgstr "Een klantbeoordeling toevoegen"
+
+#: apps/dashboard/views.py:488
+msgid "Edit customer review"
+msgstr "Klantbeoordeling bewerken"
+
+#: apps/dashboard/views.py:507
+msgid "Removed."
+msgstr "Verwijderd."
+
+#: templates/cards/_card.html:31
+msgid "Explore Business"
+msgstr "Ontdek het bedrijf"
+
+#: templates/cards/business.html:25
+msgid "Only you can see this page. Switch it on in your dashboard to show it to everyone."
+msgstr "Alleen jij ziet deze pagina. Zet hem aan in je dashboard om hem aan iedereen te tonen."
+
+#: templates/cards/business.html:38 templates/cards/business.html:125
+msgid "Send an enquiry"
+msgstr "Een vraag sturen"
+
+#: templates/cards/business.html:40 templates/cards/business.html:136
+msgid "Contact card"
+msgstr "Contactkaart"
+
+#: templates/cards/business.html:42
+msgid "Share this page"
+msgstr "Deze pagina delen"
+
+#: templates/cards/business.html:51
+msgid "About us"
+msgstr "Over ons"
+
+#: templates/cards/business.html:58 templates/dashboard/business.html:40
+msgid "Products"
+msgstr "Producten"
+
+#: templates/cards/business.html:76 templates/dashboard/business.html:40
+msgid "Services"
+msgstr "Diensten"
+
+#: templates/cards/business.html:90
+msgid "What customers say"
+msgstr "Wat klanten zeggen"
+
+#: templates/cards/business.html:94
+#, python-format
+msgid "%(rating)s out of 5 stars"
+msgstr "%(rating)s van de 5 sterren"
+
+#: templates/cards/business.html:130
+msgid "Send enquiry"
+msgstr "Vraag versturen"
+
+#: templates/dashboard/_shell.html:35 templates/dashboard/business.html:6
+msgid "Business page"
+msgstr "Bedrijfspagina"
+
+#: templates/dashboard/business.html:2
+#, python-format
+msgid "Business page · %(SITE_NAME)s"
+msgstr "Bedrijfspagina · %(SITE_NAME)s"
+
+#: templates/dashboard/business.html:7
+msgid "A page for your business with your products, services and a way for customers to contact you."
+msgstr "Een pagina voor je bedrijf met je producten, diensten en een manier voor klanten om contact op te nemen."
+
+#: templates/dashboard/business.html:9
+msgid "View page"
+msgstr "Pagina bekijken"
+
+#: templates/dashboard/business.html:9
+msgid "Preview page"
+msgstr "Voorbeeld van de pagina"
+
+#: templates/dashboard/business.html:15
+msgid "Business pages come with Professional and Business"
+msgstr "Bedrijfspagina’s zitten bij Professional en Business"
+
+#: templates/dashboard/business.html:16
+msgid "Show up to 10 products on Professional and up to 30 on Business, with your services, customer reviews and an enquiry form. An “Explore Business” button appears on your card."
+msgstr "Toon tot 10 producten met Professional en tot 30 met Business, samen met je diensten, klantbeoordelingen en een vraagformulier. Er verschijnt een knop ‘Ontdek het bedrijf’ op je kaart."
+
+#: templates/dashboard/business.html:22
+msgid "Page details"
+msgstr "Paginagegevens"
+
+#: templates/dashboard/business.html:30
+msgid "Your page link"
+msgstr "De link naar je pagina"
+
+#: templates/dashboard/business.html:33
+msgid "Your page uses the logo from your card, or your photo if you have no logo. Change it under Edit card."
+msgstr "Je pagina gebruikt het logo van je kaart, of je foto als je geen logo hebt. Wijzig dit onder ‘Kaart bewerken’."
+
+#: templates/dashboard/business.html:40
+msgid "Customer reviews"
+msgstr "Klantbeoordelingen"
+
+#: templates/dashboard/business.html:41
+#, python-format
+msgid "%(used)s of %(limit)s used"
+msgstr "%(used)s van %(limit)s gebruikt"
+
+#: templates/dashboard/business.html:43
+msgid "Every picture is shrunk to 50 KB or less so your page opens fast."
+msgstr "Elke afbeelding wordt verkleind tot maximaal 50 KB, zodat je pagina snel opent."
+
+#: templates/dashboard/business.html:45
+#, python-format
+msgid "Your plan shows the first %(limit)s products on your page."
+msgstr "Je abonnement toont de eerste %(limit)s producten op je pagina."
+
+#: templates/dashboard/business.html:61
+msgid "Remove this?"
+msgstr "Dit verwijderen?"
+
+#: templates/dashboard/business.html:61
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: templates/dashboard/business.html:69
+#, python-format
+msgid "You have used all %(limit)s places here. Remove one to add another."
+msgstr "Je hebt alle %(limit)s plaatsen hier gebruikt. Verwijder er een om een nieuwe toe te voegen."
+
+#: templates/dashboard/business.html:71
+msgid "Add"
+msgstr "Toevoegen"
+
+#: templates/dashboard/business_item.html:7
+msgid "Back to your business page"
+msgstr "Terug naar je bedrijfspagina"
+
+#: templates/dashboard/leads.html:7
+msgid "People who sent you their details or an enquiry, from your card or your business page."
+msgstr "Mensen die je hun gegevens of een vraag hebben gestuurd, via je kaart of je bedrijfspagina."
+
+#: templates/dashboard/leads.html:32
+msgid "When someone taps “Share your details” on your card or sends an enquiry from your business page, they appear here and you get an email."
+msgstr "Als iemand op je kaart op ‘Deel je gegevens’ tikt of een vraag stuurt via je bedrijfspagina, verschijnt die persoon hier en krijg je een e-mail."
+
+#: templates/emails/new_enquiry.txt:3
+#, python-format
+msgid "%(name)s sent an enquiry through your business page:"
+msgstr "%(name)s heeft een vraag gestuurd via je bedrijfspagina:"

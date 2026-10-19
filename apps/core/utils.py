@@ -143,11 +143,27 @@ def keep_name(instance, filename):
 RASTER_TYPES = {"JPEG": "jpg", "PNG": "png", "WEBP": "webp"}
 
 
-def process_image(upload, *, folder, max_px=800, max_bytes=None):
+def _webp_within(image, limit):
+    """WebP bytes of ``image`` no bigger than ``limit``: lower the quality first, then the picture size."""
+    while True:
+        for quality in (80, 65, 50, 40):
+            out = io.BytesIO()
+            image.save(out, format="WEBP", quality=quality, method=4)
+            if out.tell() <= limit:
+                return out.getvalue()
+        if max(image.size) <= 64:  # shortcut: cannot happen for a real limit, stops a runaway loop
+            return out.getvalue()
+        # File size follows the pixel count, so aim a little under the limit instead of shrinking in small steps.
+        scale = min(0.9, max(0.5, (limit / out.tell()) ** 0.5 * 0.95))
+        image = image.resize((max(1, int(image.width * scale)), max(1, int(image.height * scale))), Image.LANCZOS)
+
+
+def process_image(upload, *, folder, max_px=800, max_bytes=None, target_bytes=None):
     """Validate an uploaded picture and return a resized WebP ContentFile.
 
     Pillow must be able to decode it as JPEG, PNG or WebP; the file name and
-    the browser's content type are not trusted.
+    the browser's content type are not trusted. ``max_bytes`` limits the upload;
+    ``target_bytes`` squeezes the saved picture down to that size.
     """
     max_bytes = max_bytes or settings.MAX_IMAGE_UPLOAD_BYTES
     if upload.size > max_bytes:
@@ -166,9 +182,13 @@ def process_image(upload, *, folder, max_px=800, max_bytes=None):
         image = image.convert("RGBA" if "A" in image.getbands() else "RGB")
     image.thumbnail((max_px, max_px), Image.LANCZOS)
 
-    out = io.BytesIO()
-    image.save(out, format="WEBP", quality=82, method=6)
-    return ContentFile(out.getvalue(), name=f"{folder}/{uuid.uuid4().hex}.webp")
+    if target_bytes:
+        data = _webp_within(image, target_bytes)
+    else:
+        out = io.BytesIO()
+        image.save(out, format="WEBP", quality=82, method=6)
+        data = out.getvalue()
+    return ContentFile(data, name=f"{folder}/{uuid.uuid4().hex}.webp")
 
 
 SVG_ALLOWED_TAGS = {

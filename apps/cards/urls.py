@@ -13,6 +13,9 @@ urlpatterns = [
     path("c/<str:slug>/connect", views.connect, name="connect"),
     path("c/<str:slug>/report", views.report, name="report"),
     path("c/<str:slug>/e", views.event, name="event"),
+    # The business page: same slug as the card, so it follows the card if the link is changed.
+    path("b/<str:slug>", views.business, name="business"),
+    path("b/<str:slug>/enquire", views.enquire, name="enquire"),
     # Pre-made cards: the buyer sets the card up with the PIN on its back.
     path("c/<str:slug>/claim", claim.claim, name="claim"),
     path("c/<str:slug>/claim/setup", claim.claim_setup, name="claim_setup"),

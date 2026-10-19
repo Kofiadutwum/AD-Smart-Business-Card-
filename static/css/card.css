@@ -456,6 +456,146 @@
   top: 1rem;
 }
 
+/* --- business page ------------------------------------------------------------------ */
+
+/* The "Explore Business" button on the card, and the same look for "Contact card" on the page. */
+.pcard__explore-row {
+  padding: 0.75rem 1.5rem 0;
+}
+.pcard__explore {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  border: 1.5px solid var(--pc-accent);
+  border-radius: var(--pc-radius);
+  color: var(--pc-link);
+  font-weight: 650;
+  text-decoration: none;
+  transition: background var(--dur-fast), transform var(--dur-fast);
+}
+.pcard__explore:hover {
+  background: color-mix(in srgb, var(--pc-accent) 10%, var(--surface));
+  text-decoration: none;
+}
+.pcard__explore:active {
+  transform: scale(0.98);
+}
+
+.pcard.biz {
+  max-width: 40rem;
+}
+.biz-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background: var(--bg-alt);
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+.biz-section {
+  padding: 1.5rem 1.5rem 0;
+}
+.biz-section h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.biz-text {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+.biz-grid,
+.biz-list,
+.biz-reviews {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.biz-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+@media (min-width: 36rem) {
+  .biz-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.biz-item {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+}
+.biz-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--bg-alt);
+}
+.biz-item__body {
+  padding: 0.625rem 0.75rem 0.75rem;
+}
+.biz-item h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.biz-price {
+  margin-top: 0.125rem;
+  color: var(--pc-link);
+  font-weight: 650;
+}
+.biz-item .biz-text {
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+}
+.biz-list {
+  display: grid;
+  gap: 0.75rem;
+}
+.biz-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+.biz-list strong {
+  display: block;
+  font-weight: 600;
+}
+.biz-reviews {
+  display: grid;
+  gap: 0.75rem;
+}
+.biz-reviews li {
+  padding: 1rem 1.125rem;
+  border-radius: 1rem;
+  background: var(--bg-alt);
+}
+.biz-stars {
+  color: var(--pc-link);
+  letter-spacing: 0.1em;
+}
+.biz-reviews blockquote {
+  margin: 0.25rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+.biz-author {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
 /* State pages: not yet active, inactive, unavailable, gone (Figure 5A). */
 .state-card {
   max-width: 26rem;

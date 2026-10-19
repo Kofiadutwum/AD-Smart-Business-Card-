@@ -178,6 +178,42 @@ class LanguageTests(BaseTest):
         payment = Payment.objects.latest("created_at")
         self.assertEqual(payment.line_items[0]["label"], "Professional plan, 12 months")
 
+    # ------------------------------------------------------------------ the business page
+    def test_the_business_page_and_the_button_on_the_card_follow_the_visitors_language(self):
+        from apps.cards.models import BusinessPage
+
+        user = self.make_user()
+        card = self.make_card(user)
+        self.subscribe(user, self.pro)
+        BusinessPage.objects.create(owner=user, is_on=True, about="We weave.")
+        expected = {
+            "fr": ("Découvrir l’entreprise", "Envoyer une demande", "À propos de nous"),
+            "zh-hans": ("了解业务", "发送咨询", "关于我们"),
+            "es": ("Explorar el negocio", "Enviar una consulta", "Quiénes somos"),
+            "nl": ("Ontdek het bedrijf", "Een vraag sturen", "Over ons"),
+            "pt": ("Explorar a empresa", "Enviar um pedido", "Sobre nós"),
+        }
+        for code, (button, enquiry, about) in expected.items():
+            self.assertContains(self.client.get(f"/c/{card.slug}", HTTP_ACCEPT_LANGUAGE=code), button, msg_prefix=code)
+            page = self.client.get(f"/b/{card.slug}", HTTP_ACCEPT_LANGUAGE=code)
+            self.assertContains(page, enquiry, msg_prefix=code)
+            self.assertContains(page, about, msg_prefix=code)
+
+    def test_an_enquiry_email_reaches_the_owner_in_their_own_language(self):
+        from apps.cards.models import BusinessPage
+
+        user = self.make_user(language="fr")
+        card = self.make_card(user)
+        self.subscribe(user, self.pro)
+        BusinessPage.objects.create(owner=user, is_on=True)
+        self.client.post(
+            f"/b/{card.slug}/enquire", {"name": "Yaw", "email": "yaw@example.com", "note": "Do you ship to Kumasi?"},
+            HTTP_ACCEPT_LANGUAGE="es",
+        )
+        message = mail.outbox[-1]
+        self.assertEqual(message.subject, "Nouvelle demande de Yaw")
+        self.assertIn("a envoyé une demande via votre page entreprise", message.body)
+
     # ------------------------------------------------------------------ wording that lives in the database
     def test_delivery_options_and_plan_taglines_are_translated(self):
         response = self.client.get("/nfc-cards", HTTP_ACCEPT_LANGUAGE="fr")

@@ -4,10 +4,14 @@ import re
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import UploadedFile
 from django.forms import inlineformset_factory
 
 from apps.cards.colors import valid_hex
-from apps.cards.models import ACCENT_PRESETS, HIDEABLE_FIELDS, Card, CardPhone, SocialLink, accent_choices
+from apps.cards.models import (
+    ACCENT_PRESETS, HIDEABLE_FIELDS, PRODUCT_IMAGE_BYTES, BusinessPage, BusinessProduct, BusinessReview,
+    BusinessService, Card, CardPhone, SocialLink, accent_choices,
+)
 from apps.core.utils import normalise_phone, process_image
 from django.utils.translation import gettext_lazy as _
 
@@ -223,3 +227,73 @@ class SocialLinkForm(forms.ModelForm):
 class NewCardForm(forms.Form):
     full_name = forms.CharField(label=_("Full name on the new card"), max_length=120)
     job_title = forms.CharField(label=_("Position"), max_length=120, required=False)
+
+
+# --------------------------------------------------------------------------
+# Business page
+# --------------------------------------------------------------------------
+
+
+class BusinessPageForm(forms.ModelForm):
+    class Meta:
+        model = BusinessPage
+        fields = ["is_on", "tagline", "about", "hours"]
+        labels = {
+            "is_on": _("Show my business page to everyone"),
+            "tagline": _("Tagline"),
+            "about": _("About your business"),
+            "hours": _("Opening hours"),
+        }
+        help_texts = {
+            "is_on": _("When it is on, an “Explore Business” button appears on your card."),
+            "tagline": _("One short line under your business name."),
+            "hours": _("One line for each day or group of days, for example Mon–Fri 8am–6pm."),
+        }
+        widgets = {"about": forms.Textarea(attrs={"rows": 6}), "hours": forms.Textarea(attrs={"rows": 4})}
+
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = BusinessProduct
+        fields = ["image", "title", "price", "description"]
+        labels = {
+            "image": _("Picture"), "title": _("Name"), "price": _("Price (optional)"), "description": _("Description (optional)"),
+        }
+        help_texts = {
+            "image": _("JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page opens fast."),
+            "price": _("Write it the way you want it shown, for example GHS 120 or From GHS 50."),
+        }
+        widgets = {"description": forms.Textarea(attrs={"rows": 3})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.fields["image"].required = False  # keep the current picture unless a new one is chosen
+
+    def clean_image(self):
+        upload = self.cleaned_data.get("image")
+        if isinstance(upload, UploadedFile):
+            return process_image(upload, folder="products", max_px=1000, target_bytes=PRODUCT_IMAGE_BYTES)
+        return upload
+
+
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = BusinessService
+        fields = ["title", "description"]
+        labels = {"title": _("Service"), "description": _("Description (optional)")}
+        widgets = {"description": forms.Textarea(attrs={"rows": 3})}
+
+
+class ReviewForm(forms.ModelForm):
+    rating = forms.TypedChoiceField(
+        label=_("Stars (optional)"), required=False, coerce=int, empty_value=None,
+        choices=[("", "—")] + [(n, "★" * n + "☆" * (5 - n)) for n in range(5, 0, -1)],
+    )
+
+    class Meta:
+        model = BusinessReview
+        fields = ["author", "text", "rating"]
+        labels = {"author": _("Customer name"), "text": _("What they said")}
+        help_texts = {"text": _("Only add words your customer has agreed to share.")}
+        widgets = {"text": forms.Textarea(attrs={"rows": 3})}

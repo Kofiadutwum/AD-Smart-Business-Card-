@@ -120,6 +120,21 @@ def resolve_slug(slug):
     return None, None
 
 
+def business_page_for(card, viewer=None):
+    """The owner's business page when it is switched on and their plan includes one, else None.
+
+    The owner (``viewer``) can also open it while it is still off, to preview it.
+    """
+    from apps.billing.services import plan_for_limits
+
+    page = getattr(card.owner, "business_page", None)  # a missing page raises an AttributeError subclass
+    if page is None or not plan_for_limits(card.owner).allow_business_page:
+        return None
+    if not page.is_on and not (viewer is not None and viewer.is_authenticated and viewer.pk == card.owner_id):
+        return None
+    return page
+
+
 @transaction.atomic
 def retire_card(card):
     """Delete a card's public presence; its slugs are never reused."""

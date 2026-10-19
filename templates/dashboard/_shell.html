@@ -32,6 +32,7 @@
           <li><a href="{% url 'dashboard:home' %}" {% if active == 'home' %}aria-current="page"{% endif %}>{% icon "layout-dashboard" 18 %}{% trans "Overview" %}</a></li>
           <li><a href="{% url 'dashboard:editor' %}" {% if active == 'editor' %}aria-current="page"{% endif %}>{% icon "square-pen" 18 %}{% trans "Edit card" %}</a></li>
           <li><a href="{% url 'dashboard:links' %}" {% if active == 'links' %}aria-current="page"{% endif %}>{% icon "link" 18 %}{% trans "Social links" %}</a></li>
+          <li><a href="{% url 'dashboard:business' %}" {% if active == 'business' %}aria-current="page"{% endif %}>{% icon "store" 18 %}{% trans "Business page" %}</a></li>
           <li><a href="{% url 'dashboard:share' %}" {% if active == 'share' %}aria-current="page"{% endif %}>{% icon "share-2" 18 %}{% trans "Share &amp; QR" %}</a></li>
           <li><a href="{% url 'dashboard:analytics' %}" {% if active == 'analytics' %}aria-current="page"{% endif %}>{% icon "chart-column" 18 %}{% trans "Analytics" %}</a></li>
           <li><a href="{% url 'dashboard:leads' %}" {% if active == 'leads' %}aria-current="page"{% endif %}>{% icon "inbox" 18 %}{% trans "Contacts" %}</a></li>

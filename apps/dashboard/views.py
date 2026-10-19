@@ -19,12 +19,17 @@ from apps.accounts.forms import AccountForm
 from apps.billing.services import activate_cards, card_limit, plan_for_limits
 from apps.cards import services as card_services
 from apps.cards.colors import palette
-from apps.cards.models import ACCENT_PRESETS, Card, CardEvent, CardPhone, Lead, SocialLink
+from apps.cards.models import (
+    ACCENT_PRESETS, MAX_REVIEWS, MAX_SERVICES, BusinessPage, BusinessProduct, BusinessReview, BusinessService, Card,
+    CardEvent, CardPhone, Lead, SocialLink,
+)
 from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import AuditLog
 from apps.nfc.models import NFCOrder
 
-from .forms import CardForm, NewCardForm, PhoneForm, SlugForm, SocialLinkForm
+from .forms import (
+    BusinessPageForm, CardForm, NewCardForm, PhoneForm, ProductForm, ReviewForm, ServiceForm, SlugForm, SocialLinkForm,
+)
 from django.utils.translation import gettext as _, ngettext
 
 
@@ -403,6 +408,104 @@ def card_delete(request, pk):
     AuditLog.record(request.user, "card_deleted_by_owner", card)
     messages.info(request, _("%(name)s's card was deleted. Its link will show that the card no longer exists.") % {"name": card.full_name})
     return redirect("dashboard:cards")
+
+
+# --------------------------------------------------------------------------
+# Business page (Professional and Business plans)
+# --------------------------------------------------------------------------
+
+# What can be added to the page: the model, its form, and how many the plan allows.
+BUSINESS_ITEMS = {
+    "products": (BusinessProduct, ProductForm, lambda plan: plan.max_products),
+    "services": (BusinessService, ServiceForm, lambda plan: MAX_SERVICES),
+    "reviews": (BusinessReview, ReviewForm, lambda plan: MAX_REVIEWS),
+}
+
+
+def _business_page(request):
+    """The owner's business page, or None when their plan does not include one."""
+    if not plan_for_limits(request.user).allow_business_page:
+        return None
+    _card(request)  # the page borrows the first card's link, colours and contact details
+    return BusinessPage.objects.get_or_create(owner=request.user)[0]
+
+
+@customer_required
+def business(request):
+    page = _business_page(request)
+    if page is None:
+        return render(request, "dashboard/business.html", _base(request, "business", locked=True))
+    plan = plan_for_limits(request.user)
+    form = BusinessPageForm(request.POST or None, instance=page)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, _("Business page saved."))
+        return redirect("dashboard:business")
+    return render(
+        request,
+        "dashboard/business.html",
+        _base(
+            request,
+            "business",
+            page=page,
+            form=form,
+            page_url=page.public_url(),
+            sections=[
+                ("products", page.products.all(), plan.max_products),
+                ("services", page.services.all(), MAX_SERVICES),
+                ("reviews", page.reviews.all(), MAX_REVIEWS),
+            ],
+        ),
+    )
+
+
+@customer_required
+def business_item(request, kind, pk=None):
+    page = _business_page(request)
+    if page is None or kind not in BUSINESS_ITEMS:
+        raise Http404
+    model, form_class, limit_for = BUSINESS_ITEMS[kind]
+    item = get_object_or_404(model, pk=pk, page=page) if pk else None
+    limit = limit_for(plan_for_limits(request.user))
+    if item is None and getattr(page, kind).count() >= limit:
+        messages.warning(request, _("You have used all %(limit)d places here. Remove one to add another.") % {"limit": limit})
+        return redirect("dashboard:business")
+    old_picture = item.image.name if kind == "products" and item else ""  # the form swaps it before we can look
+    form = form_class(request.POST or None, request.FILES or None, instance=item)
+    if request.method == "POST" and form.is_valid():
+        saved = form.save(commit=False)
+        saved.page = page
+        if item is None:
+            saved.position = getattr(page, kind).count()
+        saved.save()
+        if old_picture and saved.image.name != old_picture:
+            saved.image.storage.delete(old_picture)
+        messages.success(request, _("Saved."))
+        return redirect("dashboard:business")
+    titles = {
+        "products": (_("Add a product"), _("Edit product")),
+        "services": (_("Add a service"), _("Edit service")),
+        "reviews": (_("Add a customer review"), _("Edit customer review")),
+    }
+    return render(
+        request,
+        "dashboard/business_item.html",
+        _base(request, "business", form=form, kind=kind, item=item, title=titles[kind][1 if item else 0]),
+    )
+
+
+@customer_required
+@require_POST
+def business_item_delete(request, kind, pk):
+    page = _business_page(request)
+    if page is None or kind not in BUSINESS_ITEMS:
+        raise Http404
+    item = get_object_or_404(BUSINESS_ITEMS[kind][0], pk=pk, page=page)
+    if kind == "products":
+        item.image.delete(save=False)
+    item.delete()
+    messages.info(request, _("Removed."))
+    return redirect("dashboard:business")
 
 
 # --------------------------------------------------------------------------

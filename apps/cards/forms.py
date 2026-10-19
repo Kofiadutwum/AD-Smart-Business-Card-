@@ -34,6 +34,18 @@ class LeadForm(forms.ModelForm):
         return cleaned
 
 
+class EnquiryForm(LeadForm):
+    """The enquiry box on a business page. It lands in the owner's contacts like any other lead."""
+
+    class Meta(LeadForm.Meta):
+        fields = ["name", "phone", "email", "note"]
+        labels = {**LeadForm.Meta.labels, "note": _("What would you like to know?")}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["note"].required = True
+
+
 class ReportForm(forms.ModelForm):
     class Meta:
         model = CardReport

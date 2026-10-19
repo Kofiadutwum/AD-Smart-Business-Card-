@@ -1,0 +1,13 @@
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
+
+{% blocktrans trimmed with name=lead.name %}{{ name }} sent an enquiry through your business page:{% endblocktrans %}
+{% if lead.phone %}
+{% blocktrans trimmed with value=lead.phone %}Phone: {{ value }}{% endblocktrans %}{% endif %}{% if lead.email %}
+{% blocktrans trimmed with value=lead.email %}Email: {{ value }}{% endblocktrans %}{% endif %}
+
+{% blocktrans trimmed with value=lead.note %}Message: {{ value }}{% endblocktrans %}
+
+{% blocktrans trimmed with link=site_url|add:"/dashboard/contacts/" %}See all your contacts: {{ link }}{% endblocktrans %}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

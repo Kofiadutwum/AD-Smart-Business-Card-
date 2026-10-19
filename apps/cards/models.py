@@ -434,3 +434,90 @@ class PremadeCard(models.Model):
         if self.voided_at:
             return self.STATUS_VOID
         return self.STATUS_UNCLAIMED
+
+
+# --------------------------------------------------------------------------
+# Business page: a landing page for the owner's business, linked from the card
+# --------------------------------------------------------------------------
+
+PRODUCT_IMAGE_BYTES = 50 * 1024  # every product picture is squeezed down to this
+MAX_SERVICES = 12
+MAX_REVIEWS = 20
+
+
+class BusinessPage(models.Model):
+    """One per account, so a team shares one page. Shown at /b/<slug> when switched on.
+
+    The logo is not stored here: the page borrows the card's logo, or its photo.
+    How many products show is the plan's ``max_products``, checked when it is shown.
+    """
+
+    owner = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="business_page")
+    is_on = models.BooleanField(default=False)
+    tagline = models.CharField(max_length=120, blank=True)
+    about = models.TextField(max_length=1500, blank=True)
+    hours = models.TextField(max_length=300, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Business page of {self.owner}"
+
+    def primary_card(self):
+        """The card whose contact details, colours and link the page uses."""
+        cards = self.owner.cards.filter(deleted_at__isnull=True)
+        return cards.filter(is_enabled=True).first() or cards.first()
+
+    def get_absolute_url(self):
+        card = self.primary_card()
+        return reverse("cards:business", args=[card.slug]) if card else ""
+
+    def public_url(self):
+        return settings.SITE_URL + self.get_absolute_url()
+
+
+class BusinessProduct(models.Model):
+    page = models.ForeignKey(BusinessPage, on_delete=models.CASCADE, related_name="products")
+    image = models.ImageField(upload_to=keep_name)
+    title = models.CharField(max_length=120)
+    description = models.TextField(max_length=500, blank=True)
+    price = models.CharField(max_length=40, blank=True)  # free text, so any currency or "from" works
+    position = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["position", "id"]
+
+    def __str__(self):
+        return self.title
+
+
+class BusinessService(models.Model):
+    page = models.ForeignKey(BusinessPage, on_delete=models.CASCADE, related_name="services")
+    title = models.CharField(max_length=120)
+    description = models.TextField(max_length=300, blank=True)
+    position = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["position", "id"]
+
+    def __str__(self):
+        return self.title
+
+
+class BusinessReview(models.Model):
+    """A customer's words, added by the owner."""
+
+    page = models.ForeignKey(BusinessPage, on_delete=models.CASCADE, related_name="reviews")
+    author = models.CharField(max_length=120)
+    text = models.TextField(max_length=400)
+    rating = models.PositiveSmallIntegerField(null=True, blank=True, choices=[(n, str(n)) for n in range(1, 6)])
+    position = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["position", "id"]
+
+    def __str__(self):
+        return self.author
+
+    @property
+    def stars(self):
+        return "★" * (self.rating or 0) + "☆" * (5 - (self.rating or 0))

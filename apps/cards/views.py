@@ -15,18 +15,20 @@ from apps.core.utils import rate_limited, visitor_hash
 
 from . import services
 from .colors import palette
-from .forms import LeadForm, ReportForm
+from .forms import EnquiryForm, LeadForm, ReportForm
 from .models import CardEvent
 from django.utils.translation import gettext as _
 
 
 def card_context(card, request=None, lead_form=None, **extra):
     eff = card.effective()
+    page = services.business_page_for(card)
     context = {
         "card": card,
         "eff": eff,
         "pal": palette(eff["accent"], eff["card_colour"]),
         "card_url": card.public_url(),
+        "business_url": page.get_absolute_url() if page else "",
         "vcf_url": card.get_absolute_url() + "/card.vcf" + _src_suffix(request),
         "qr_svg": services.qr_svg(card.public_url("qr"), scale=5),
         "lead_form": lead_form,
@@ -42,19 +44,19 @@ def _src_suffix(request):
     return f"?src={source}" if source != "link" else ""
 
 
-def _lookup(request, slug, suffix=""):
+def _lookup(request, slug, suffix="", prefix="c"):
     card, current = services.resolve_slug(slug)
     if card is None:
         return None, render(request, "cards/state.html", {"state": "missing"}, status=404)
     if card.is_unclaimed:
         # A pre-made card nobody has set up yet: the link leads to its set-up page, nothing else.
-        if suffix:
+        if suffix or prefix != "c":
             return None, render(request, "cards/state.html", {"state": "missing"}, status=404)
         return None, redirect("cards:claim", slug=card.slug)
     if current:
         # URL-05: an old slug permanently redirects, keeping ?src= for analytics.
         query = request.META.get("QUERY_STRING")
-        target = f"/c/{current}{suffix}" + (f"?{query}" if query else "")
+        target = f"/{prefix}/{current}{suffix}" + (f"?{query}" if query else "")
         return None, redirect(target, permanent=True)
     return card, None
 
@@ -156,6 +158,87 @@ def connect(request, slug):
     )
     messages.success(request, _("Thank you. %(name)s has your details.") % {"name": first_name})
     return redirect(card.get_absolute_url())
+
+
+def business_context(page, form=None, **extra):
+    """The owner's business page: the primary card's colours and contact details, the plan's product limit."""
+    card = page.primary_card()
+    eff = card.effective()
+    context = {
+        "page": page,
+        "preview": not page.is_on,  # only the owner gets here while the page is off
+        "card": card,
+        "eff": eff,
+        "pal": palette(eff["accent"], eff["card_colour"]),
+        "logo": eff["logo"] or card.avatar or None,  # the page never asks for a second logo
+        "page_url": page.public_url(),
+        "card_url": card.public_url(),
+        "products": list(page.products.all()[: eff["plan"].max_products]),
+        "services": list(page.services.all()),
+        "reviews": list(page.reviews.all()),
+        "enquiry_form": form,
+    }
+    context.update(extra)
+    return context
+
+
+def _business(request, slug):
+    """The live business page behind /b/<slug>, or the response to show instead."""
+    card, response = _lookup(request, slug, prefix="b")
+    if response:
+        return None, response
+    blocked = _state_response(request, card)
+    if blocked:
+        return None, blocked
+    page = services.business_page_for(card, request.user)
+    if page is None:
+        return None, render(request, "cards/state.html", {"state": "missing"}, status=404)
+    return page, None
+
+
+def business(request, slug):
+    page, response = _business(request, slug)
+    if response:
+        return response
+    form = EnquiryForm(auto_id="enq_%s") if SiteSettings.load().leads_enabled else None
+    return render(request, "cards/business.html", business_context(page, form))
+
+
+@require_POST
+def enquire(request, slug):
+    page, response = _business(request, slug)
+    if response:
+        return response
+    if not SiteSettings.load().leads_enabled:
+        return redirect(page.get_absolute_url())
+    card = page.primary_card()
+    name = card.business_name or card.full_name
+    thanks = _("Thank you. %(name)s has your enquiry.") % {"name": name}
+    if request.POST.get("website_url"):  # honeypot
+        messages.success(request, thanks)
+        return redirect(page.get_absolute_url())
+    form = EnquiryForm(request.POST, auto_id="enq_%s")
+    if not form.is_valid():
+        return render(request, "cards/business.html", business_context(page, form, open_enquiry=True), status=400)
+    fingerprint = visitor_hash(request)
+    if rate_limited(f"enquiry:{page.pk}:{fingerprint}", 3, 3600):
+        messages.warning(request, _("You have already sent an enquiry. Try again in an hour."))
+        return redirect(page.get_absolute_url())
+    lead = form.save(commit=False)
+    lead.card = card
+    lead.source = "business"
+    lead.visitor_hash = fingerprint
+    lead.save()
+    send_email(
+        to=page.owner.email,
+        subject=subject_text("New enquiry from %(name)s", name=lead.name),
+        template="new_enquiry",
+        context={"lead": lead, "card": card, "user": page.owner},
+        user=page.owner,
+        kind="new_enquiry",
+    )
+    messages.success(request, thanks)
+    return redirect(page.get_absolute_url())
 
 
 def report(request, slug):

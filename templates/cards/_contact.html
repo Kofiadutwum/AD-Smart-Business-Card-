@@ -1,0 +1,65 @@
+{% load l10n %}{# Quick contact buttons and the contact details list, shared by the card and the business page. #}
+  {% with phones=eff.phones %}
+  {% blocktrans trimmed asvar t_3 %}Contact {{ first }}{% endblocktrans %}<nav class="pcard__quick" aria-label="{{ t_3 }}">
+    {% if phones and card|card_shows:"phones" %}
+      <a href="tel:{{ phones.0.number }}" data-track="call">{% icon "phone" 20 %}<span>{% trans "Call" %}</span></a>
+    {% endif %}
+    {% if card.whatsapp and card|card_shows:"whatsapp" %}
+      <a href="https://wa.me/{{ card.whatsapp|wa_digits }}" target="_blank" rel="noopener" data-track="whatsapp">{% brand_icon "whatsapp" 20 %}<span>{% trans "WhatsApp" %}</span></a>
+    {% endif %}
+    {% if card.email and card|card_shows:"email" %}
+      <a href="mailto:{{ card.email }}" data-track="email">{% icon "mail" 20 %}<span>{% trans "Email" %}</span></a>
+    {% endif %}
+    {% if card.website and card|card_shows:"website" %}
+      <a href="{{ card.website }}" target="_blank" rel="noopener" data-track="website">{% icon "globe" 20 %}<span>{% trans "Website" %}</span></a>
+    {% endif %}
+    {% if card.latitude and card.longitude and card|card_shows:"map" %}
+      <a href="https://www.google.com/maps/search/?api=1&amp;query={{ card.latitude|unlocalize }},{{ card.longitude|unlocalize }}" target="_blank" rel="noopener" data-track="location">{% icon "map-pin" 20 %}<span>{% trans "Map" %}</span></a>
+    {% elif card.address and card|card_shows:"address" %}
+      <a href="https://www.google.com/maps/search/?api=1&amp;query={{ card.address|urlencode }}" target="_blank" rel="noopener" data-track="location">{% icon "map-pin" 20 %}<span>{% trans "Map" %}</span></a>
+    {% endif %}
+  </nav>
+
+  {% trans "Contact details" as t_4 %}<section class="pcard__details" aria-label="{{ t_4 }}">
+    <ul>
+      {% if card|card_shows:"phones" %}
+        {% for phone in phones %}
+        <li><a href="tel:{{ phone.number }}" data-track="call">
+          <span class="pcard__ico">{% icon "phone" 18 %}</span>
+          <span><span class="pcard__val">{{ phone.number|phone }}</span><span class="pcard__lbl">{{ phone.label|default:_("Mobile") }}</span></span>
+        </a></li>
+        {% endfor %}
+      {% endif %}
+      {% if card.whatsapp and card|card_shows:"whatsapp" %}
+        <li><a href="https://wa.me/{{ card.whatsapp|wa_digits }}" target="_blank" rel="noopener" data-track="whatsapp">
+          <span class="pcard__ico">{% brand_icon "whatsapp" 18 %}</span>
+          <span><span class="pcard__val">{{ card.whatsapp|phone }}</span><span class="pcard__lbl">{% trans "WhatsApp" %}</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.email and card|card_shows:"email" %}
+        <li><a href="mailto:{{ card.email }}" data-track="email">
+          <span class="pcard__ico">{% icon "mail" 18 %}</span>
+          <span><span class="pcard__val">{{ card.email }}</span><span class="pcard__lbl">{% trans "Email" %}</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.website and card|card_shows:"website" %}
+        <li><a href="{{ card.website }}" target="_blank" rel="noopener" data-track="website">
+          <span class="pcard__ico">{% icon "globe" 18 %}</span>
+          <span><span class="pcard__val">{{ card.website|cut:"https://"|cut:"http://"|truncatechars:40 }}</span><span class="pcard__lbl">{% trans "Website" %}</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.address and card|card_shows:"address" %}
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query={{ card.address|urlencode }}" target="_blank" rel="noopener" data-track="location">
+          <span class="pcard__ico">{% icon "map-pin" 18 %}</span>
+          <span><span class="pcard__val">{{ card.address }}</span><span class="pcard__lbl">{% trans "Address" %}</span></span>
+        </a></li>
+      {% endif %}
+      {% if card.ghana_post_gps and card|card_shows:"ghana_post_gps" %}
+        <li><div class="pcard__static">
+          <span class="pcard__ico">{% icon "navigation" 18 %}</span>
+          <span><span class="pcard__val mono">{{ card.ghana_post_gps }}</span><span class="pcard__lbl">{% trans "Ghana Post GPS" %}</span></span>
+        </div></li>
+      {% endif %}
+    </ul>
+  </section>
+  {% endwith %}

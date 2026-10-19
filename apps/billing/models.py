@@ -35,6 +35,8 @@ class Plan(models.Model):
     custom_colours = models.BooleanField(default=False)
     shared_brand_theme = models.BooleanField(default=False)
     allow_logo = models.BooleanField(default=False)
+    allow_business_page = models.BooleanField(default=False, help_text="A landing page for the business, linked from the card.")
+    max_products = models.PositiveSmallIntegerField(default=0, help_text="Pictures of products on the business page.")
     allow_advanced_style = models.BooleanField(
         default=False, help_text="Background image, button style and icon arrangement."
     )
@@ -129,6 +131,11 @@ class Plan(models.Model):
             (True, _("All templates") if self.all_templates else _("1 standard template")),
             (True, colours),
             (self.allow_logo, _("Business logo on card")),
+            (
+                self.allow_business_page,
+                _("Business page with up to %(count)d products") % {"count": self.max_products}
+                if self.allow_business_page else _("Business page for your products"),
+            ),
             (self.allow_advanced_style, _("Background image, button style, icon layout")),
             (self.branding_footer == "removable", _("Remove \u201cPowered by AD Smart\u201d")),
             (True, _("Full analytics") if self.full_analytics else _("Total views")),

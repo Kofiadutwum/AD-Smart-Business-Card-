@@ -1,0 +1,77 @@
+{% extends "dashboard/_shell.html" %}
+{% block title %}{% blocktrans trimmed %}Business page · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>{% trans "Business page" %}</h1>
+    <p>{% trans "A page for your business with your products, services and a way for customers to contact you." %}</p>
+  </div>
+  {% if not locked %}<a class="btn" href="{{ page_url }}" target="_blank" rel="noopener">{% icon "eye" 16 %}{% if page.is_on %}{% trans "View page" %}{% else %}{% trans "Preview page" %}{% endif %}</a>{% endif %}
+</div>
+
+{% if locked %}
+  <section class="panel empty">
+    {% icon "store" 40 %}
+    <h3>{% trans "Business pages come with Professional and Business" %}</h3>
+    <p>{% trans "Show up to 10 products on Professional and up to 30 on Business, with your services, customer reviews and an enquiry form. An “Explore Business” button appears on your card." %}</p>
+    <div class="mt-4">{% url 'billing:checkout' as checkout_url %}{% hover_button _("Choose a plan") href=checkout_url css="ihb--sm" %}</div>
+  </section>
+{% else %}
+  <div class="split">
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">{% trans "Page details" %}</h2>
+      <form method="post" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" %}
+        {% hover_button _("Save") variant="ink" icon_name="check" %}
+      </form>
+    </section>
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">{% trans "Your page link" %}</h2>
+      <p class="mono mt-4" style="overflow-wrap:anywhere">{{ page_url }}</p>
+      <p class="mt-2">{% if page.is_on %}<span class="badge badge--success">{% trans "On" %}</span>{% else %}<span class="badge">{% trans "Off" %}</span>{% endif %}</p>
+      <p class="muted text-sm mt-4">{% trans "Your page uses the logo from your card, or your photo if you have no logo. Change it under Edit card." %}</p>
+    </section>
+  </div>
+
+  {% for kind, items, limit in sections %}
+    <section class="panel mt-6">
+      <div class="cluster" style="justify-content:space-between">
+        <h2 style="font-size: var(--text-lg)">{% if kind == "products" %}{% trans "Products" %}{% elif kind == "services" %}{% trans "Services" %}{% else %}{% trans "Customer reviews" %}{% endif %}</h2>
+        <span class="muted text-sm">{% blocktrans trimmed with used=items|length %}{{ used }} of {{ limit }} used{% endblocktrans %}</span>
+      </div>
+      {% if kind == "products" %}<p class="muted text-sm mt-2">{% trans "Every picture is shrunk to 50 KB or less so your page opens fast." %}</p>{% endif %}
+      {% if kind == "products" and items|length > limit %}
+        <p class="mt-2 text-sm">{% blocktrans trimmed %}Your plan shows the first {{ limit }} products on your page.{% endblocktrans %}</p>
+      {% endif %}
+      {% if items %}
+        <ul class="stack mt-4" style="list-style:none;margin-inline:0;padding:0;--stack: var(--space-3)">
+          {% for item in items %}
+            <li class="cluster" style="justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom: var(--space-3)">
+              <span class="cluster" style="--cluster: var(--space-3); min-width:0">
+                {% if kind == "products" %}<img src="{{ item.image.url }}" alt="" width="56" height="56" style="width:3.5rem;height:3.5rem;object-fit:cover;border-radius:0.5rem">{% endif %}
+                <span style="min-width:0">
+                  <strong>{% if kind == "reviews" %}{{ item.author }}{% else %}{{ item.title }}{% endif %}</strong>
+                  {% if kind == "products" and item.price %}<br><span class="muted text-sm">{{ item.price }}</span>{% endif %}
+                  {% if kind == "reviews" %}<br><span class="muted text-sm">{{ item.text|truncatechars:70 }}</span>{% endif %}
+                </span>
+              </span>
+              <span class="cluster" style="--cluster: var(--space-1)">
+                {% blocktrans trimmed asvar t_edit %}Edit{% endblocktrans %}<a class="btn btn--ghost btn--icon" href="{% url 'dashboard:business_edit' kind item.pk %}" aria-label="{{ t_edit }}">{% icon "pencil" 18 %}</a>
+                {% trans "Remove this?" as t_confirm %}<form method="post" action="{% url 'dashboard:business_delete' kind item.pk %}" class="inline-form" data-confirm="{{ t_confirm }}">{% csrf_token %}{% trans "Remove" as t_remove %}<button class="btn btn--ghost btn--icon" aria-label="{{ t_remove }}">{% icon "trash-2" 18 %}</button></form>
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <div class="mt-4">
+        {% if items|length >= limit %}
+          <p class="muted text-sm">{% blocktrans trimmed %}You have used all {{ limit }} places here. Remove one to add another.{% endblocktrans %}</p>
+        {% else %}
+          {% url 'dashboard:business_add' kind as add_url %}{% hover_button _("Add") href=add_url variant="ink" icon_name="plus" css="ihb--sm" %}
+        {% endif %}
+      </div>
+    </section>
+  {% endfor %}
+{% endif %}
+{% endblock %}

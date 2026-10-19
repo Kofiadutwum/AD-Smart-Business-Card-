@@ -23,11 +23,13 @@ PLANS = [
          blurb="Everything you need to share one card."),
     dict(code="professional", name="Professional", price_minor=35000, sort_order=2, max_cards=1, max_phones=3,
          max_social_links=None, all_templates=True, custom_colours=True, allow_logo=True,
+         allow_business_page=True, max_products=10,
          allow_advanced_style=True, branding_footer="small", full_analytics=True, priority_support=False,
          is_featured=True, blurb="Your brand, your colours, and full analytics."),
     # The Business price covers 5 people; bigger teams add BUSINESS_BANDS.
     dict(code="business", name="Business", price_minor=70000, sort_order=3, max_cards=5, max_phones=3,
          max_social_links=None, all_templates=True, custom_colours=True, shared_brand_theme=True, allow_logo=True,
+         allow_business_page=True, max_products=30,
          allow_advanced_style=True, branding_footer="removable", full_analytics=True, priority_support=True,
          blurb="Your whole team under one brand. The bigger the team, the less each person costs."),
 ]

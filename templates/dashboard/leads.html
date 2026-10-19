@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>{% trans "Contacts" %}</h1>
-    <p>{% trans "People who sent you their details from your card." %}</p>
+    <p>{% trans "People who sent you their details or an enquiry, from your card or your business page." %}</p>
   </div>
   {% if leads %}<a class="btn" href="{% url 'dashboard:leads_csv' %}">{% icon "download" 16 %}{% trans "Export CSV" %}</a>{% endif %}
 </div>
@@ -29,6 +29,6 @@
     </table>
   </div>
 {% else %}
-  <div class="panel empty">{% icon "inbox" 40 %}<h3>{% trans "No contacts yet" %}</h3><p>{% trans "When someone taps “Share your details” on your card, they appear here and you get an email." %}</p></div>
+  <div class="panel empty">{% icon "inbox" 40 %}<h3>{% trans "No contacts yet" %}</h3><p>{% trans "When someone taps “Share your details” on your card or sends an enquiry from your business page, they appear here and you get an email." %}</p></div>
 {% endif %}
 {% endblock %}

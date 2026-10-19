@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ card.business_name|default:card.full_name }}{% if page.tagline %} · {{ page.tagline }}{% endif %}{% endblock %}
+{% block description %}{% if page.tagline or page.about %}{{ page.tagline|default:page.about|truncatechars:160 }}{% else %}{{ block.super }}{% endif %}{% endblock %}
+{% block robots %}{% if not card.allow_indexing %}<meta name="robots" content="noindex, nofollow">{% endif %}{% endblock %}
+{% block meta %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ SITE_NAME }}">
+  <meta property="og:title" content="{{ card.business_name|default:card.full_name }}">
+  <meta property="og:description" content="{{ page.tagline|default:page.about|truncatechars:160 }}">
+  <meta property="og:url" content="{{ page_url }}">
+  {% if logo %}<meta property="og:image" content="{{ logo.url }}">{% elif products %}<meta property="og:image" content="{{ products.0.image.url }}">{% else %}<meta property="og:image" content="{{ SITE_URL }}{% static 'brand/og-image.jpg' %}">{% endif %}
+  <link rel="canonical" href="{{ page_url }}">
+{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block body_class %}card-page{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block floating %}{% endblock %}
+{% block content %}
+{% with name=card.business_name|default:card.full_name %}
+<article class="pcard biz pcard--{{ eff.template }} pcard--btn-{{ eff.button_style }}"
+  style="--pc-accent:{{ pal.accent }};--pc-on-accent:{{ pal.on_accent }};--pc-accent-text:{{ pal.accent_text_light }};--pc-accent-text-dark:{{ pal.accent_text_dark }};--pc-band:{{ pal.band }};--pc-on-band:{{ pal.on_band }};">
+
+  {% if preview %}<p class="biz-preview">{% icon "eye" 16 %} <span>{% trans "Only you can see this page. Switch it on in your dashboard to show it to everyone." %}</span></p>{% endif %}
+  <div class="pcard__band"{% if eff.background %} style="background-image:url('{{ eff.background.url }}')"{% endif %}></div>
+
+  <header class="pcard__head">
+    <div class="pcard__avatar{% if eff.logo %} pcard__avatar--logo{% endif %}">
+      {% if logo %}<img src="{{ logo.url }}" alt="{{ name }}" width="120" height="120">{% else %}<span aria-hidden="true">{{ name|slice:":2"|upper }}</span>{% endif %}
+    </div>
+    <h1 class="pcard__name">{{ name }}</h1>
+    {% if page.tagline %}<p class="pcard__role">{{ page.tagline }}</p>{% endif %}
+  </header>
+
+  <div class="pcard__primary">
+    {% if enquiry_form %}
+      <a class="pcard__save" href="#enquire">{% icon "send" 20 %}<span>{% trans "Send an enquiry" %}</span></a>
+    {% else %}
+      <a class="pcard__save" href="{{ card_url }}">{% icon "user-plus" 20 %}<span>{% trans "Contact card" %}</span></a>
+    {% endif %}
+    {% trans "Share this page" as t_share %}<button type="button" class="pcard__share" data-share="{{ page_url }}" data-share-title="{{ name }}" aria-label="{{ t_share }}">
+      {% icon "share-2" 20 %}
+    </button>
+  </div>
+
+  {% include "cards/_contact.html" with first=name %}
+
+  {% if page.about %}
+    <section class="biz-section" aria-labelledby="biz-about">
+      <h2 id="biz-about">{% trans "About us" %}</h2>
+      <p class="biz-text">{{ page.about|linebreaksbr }}</p>
+    </section>
+  {% endif %}
+
+  {% if products %}
+    <section class="biz-section" aria-labelledby="biz-products">
+      <h2 id="biz-products">{% trans "Products" %}</h2>
+      <ul class="biz-grid">
+        {% for product in products %}
+          <li class="biz-item">
+            <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy" decoding="async">
+            <div class="biz-item__body">
+              <h3>{{ product.title }}</h3>
+              {% if product.price %}<p class="biz-price">{{ product.price }}</p>{% endif %}
+              {% if product.description %}<p class="biz-text">{{ product.description|linebreaksbr }}</p>{% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if services %}
+    <section class="biz-section" aria-labelledby="biz-services">
+      <h2 id="biz-services">{% trans "Services" %}</h2>
+      <ul class="biz-list">
+        {% for service in services %}
+          <li>
+            <span class="pcard__ico">{% icon "briefcase" 18 %}</span>
+            <span><strong>{{ service.title }}</strong>{% if service.description %}<span class="biz-text">{{ service.description|linebreaksbr }}</span>{% endif %}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if reviews %}
+    <section class="biz-section" aria-labelledby="biz-reviews">
+      <h2 id="biz-reviews">{% trans "What customers say" %}</h2>
+      <ul class="biz-reviews">
+        {% for review in reviews %}
+          <li>
+            {% if review.rating %}{% blocktrans trimmed with rating=review.rating asvar t_stars %}{{ rating }} out of 5 stars{% endblocktrans %}<p class="biz-stars" role="img" aria-label="{{ t_stars }}">{{ review.stars }}</p>{% endif %}
+            <blockquote>{{ review.text|linebreaksbr }}</blockquote>
+            <p class="biz-author">{{ review.author }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if page.hours %}
+    <section class="biz-section" aria-labelledby="biz-hours">
+      <h2 id="biz-hours">{% trans "Opening hours" %}</h2>
+      <p class="biz-text">{{ page.hours|linebreaksbr }}</p>
+    </section>
+  {% endif %}
+
+  {% if eff.social_links %}
+    {% trans "Social media" as t_social %}<section class="pcard__social pcard__social--{{ eff.icon_layout }}" aria-label="{{ t_social }}">
+      <ul>
+        {% for link in eff.social_links %}
+          <li><a href="{{ link.url }}" target="_blank" rel="noopener"{% if eff.icon_layout == "row" %} aria-label="{{ link.label }}"{% endif %}>
+            <span class="pcard__ico">{% if link.brand_icon %}{% brand_icon link.brand_icon 18 %}{% else %}{% icon "globe" 18 %}{% endif %}</span>
+            {% if eff.icon_layout != "row" %}<span class="pcard__val">{{ link.label }}</span>{% icon "arrow-up-right" 16 "pcard__go" %}{% endif %}
+          </a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if enquiry_form %}
+    <details class="pcard__panel" id="enquire"{% if open_enquiry %} open{% endif %}>
+      <summary>{% icon "send" 18 %}<span>{% trans "Send an enquiry" %}</span>{% icon "chevron-down" 18 "pcard__chev" %}</summary>
+      <form method="post" action="{% url 'cards:enquire' card.slug %}" class="form pcard__form" novalidate>
+        {% csrf_token %}
+        <div class="visually-hidden" aria-hidden="true"><label>{% trans "Leave empty" %} <input name="website_url" tabindex="-1" autocomplete="off"></label></div>
+        {% include "components/form_fields.html" with form=enquiry_form %}
+        <button class="pcard__submit" type="submit">{% trans "Send enquiry" %}</button>
+      </form>
+    </details>
+  {% endif %}
+
+  <div class="pcard__primary">
+    <a class="pcard__explore" href="{{ card_url }}">{% icon "user-plus" 20 %}<span>{% trans "Contact card" %}</span>{% icon "arrow-right" 18 %}</a>
+  </div>
+
+  <footer class="pcard__foot">
+    {% if eff.branding != "hidden" %}
+      <a class="pcard__brand{% if eff.branding == 'small' %} pcard__brand--small{% endif %}" href="{{ SITE_URL }}/?src=card" rel="noopener">
+        <img src="{% static 'brand/logo-96.webp' %}" alt="" width="24" height="18">{% trans "Powered by AD Smart" %}
+      </a>
+    {% endif %}
+    <a class="pcard__report" href="{% url 'cards:report' card.slug %}">{% icon "flag" 14 %} {% trans "Report this card" %}</a>
+    {% include "partials/lang_switch.html" %}
+  </footer>
+</article>
+{% endwith %}
+{% endblock %}
