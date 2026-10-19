@@ -434,6 +434,8 @@ class Payment(models.Model):
     discount_minor = models.PositiveIntegerField(default=0)
     tax_minor = models.PositiveIntegerField(default=0)
     amount_minor = models.PositiveIntegerField(help_text="What the customer is charged, in pesewas.")
+    # Part of amount_minor: Paystack's fee, added on top of the price so the customer carries it.
+    processing_fee_minor = models.PositiveIntegerField(default=0)
     currency = models.CharField(max_length=3, default="GHS")
     promo_code = models.ForeignKey(PromoCode, null=True, blank=True, on_delete=models.SET_NULL)
     line_items = models.JSONField(default=list, blank=True)

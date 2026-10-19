@@ -197,7 +197,7 @@ def report(request):
             add(bucket, "delivery", p.nfc_order.delivery_fee_minor, rate)
             add(bucket, "subscription", p.nfc_order.plan_minor, rate)
         elif p.purpose == Payment.PURPOSE_NFC:
-            add(bucket, "nfc", p.amount_minor - p.tax_minor, rate)
+            add(bucket, "nfc", p.amount_minor - p.tax_minor - p.processing_fee_minor, rate)
         elif p.purpose == Payment.PURPOSE_PREMADE:
             # Sold in a shop, outside the website: counted as revenue when the buyer set the card up.
             add(bucket, "premade", p.amount_minor - p.tax_minor, rate)

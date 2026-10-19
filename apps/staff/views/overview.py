@@ -2,7 +2,7 @@
 
 from datetime import timedelta
 
-from django.db.models import Count, Q, Sum
+from django.db.models import Count, F, Q, Sum
 from django.shortcuts import render
 from django.utils import timezone
 
@@ -42,14 +42,15 @@ def home(request):
         paid = Payment.objects.filter(status=Payment.SUCCESS)
         month_start = timezone.localtime(now).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
         # Dollars at each payment's own rate, added up (never today's rate on old money).
-        paid_list = list(paid.only("amount_minor", "purpose", "fx_rate", "paid_at", "created_at"))
+        paid_list = list(paid.only("amount_minor", "processing_fee_minor", "purpose", "fx_rate", "paid_at", "created_at"))
         subscription_kinds = {Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE}
+        # Revenue is the price; the processing fee the customer paid on top goes straight to Paystack.
         context.update(
             {
-                "subscription_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose in subscription_kinds),
-                "nfc_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose == Payment.PURPOSE_NFC),
-                "premade_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.purpose == Payment.PURPOSE_PREMADE),
-                "month_revenue_usd": usd_total((p.amount_minor, p.usd_rate) for p in paid_list if p.paid_at and p.paid_at >= month_start),
+                "subscription_revenue_usd": usd_total((p.amount_minor - p.processing_fee_minor, p.usd_rate) for p in paid_list if p.purpose in subscription_kinds),
+                "nfc_revenue_usd": usd_total((p.amount_minor - p.processing_fee_minor, p.usd_rate) for p in paid_list if p.purpose == Payment.PURPOSE_NFC),
+                "premade_revenue_usd": usd_total((p.amount_minor - p.processing_fee_minor, p.usd_rate) for p in paid_list if p.purpose == Payment.PURPOSE_PREMADE),
+                "month_revenue_usd": usd_total((p.amount_minor - p.processing_fee_minor, p.usd_rate) for p in paid_list if p.paid_at and p.paid_at >= month_start),
             }
         )
         context.update(
@@ -57,10 +58,10 @@ def home(request):
                 "show_money": True,
                 "pending_payments": Payment.objects.filter(status=Payment.PENDING).count(),
                 "successful_payments": paid.count(),
-                "subscription_revenue": paid.filter(purpose__in=[Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE]).aggregate(s=Sum("amount_minor"))["s"] or 0,
-                "nfc_revenue": paid.filter(purpose=Payment.PURPOSE_NFC).aggregate(s=Sum("amount_minor"))["s"] or 0,
-                "premade_revenue": paid.filter(purpose=Payment.PURPOSE_PREMADE).aggregate(s=Sum("amount_minor"))["s"] or 0,
-                "month_revenue": paid.filter(paid_at__gte=month_start).aggregate(s=Sum("amount_minor"))["s"] or 0,
+                "subscription_revenue": paid.filter(purpose__in=[Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE]).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
+                "nfc_revenue": paid.filter(purpose=Payment.PURPOSE_NFC).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
+                "premade_revenue": paid.filter(purpose=Payment.PURPOSE_PREMADE).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
+                "month_revenue": paid.filter(paid_at__gte=month_start).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
             }
         )
     return render(request, "staff/home.html", context)

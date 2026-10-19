@@ -1,6 +1,6 @@
 """Pre-made cards: batches, PINs and claiming.
 
-A shop sells a printed card for GHS 350. The card carries a QR code and an NFC
+A shop sells a printed card for GHS 450. The card carries a QR code and an NFC
 chip that both open ``/c/<code>``, and a PIN on the back. Until someone claims
 it, that link leads to a "set up your card" page. The buyer proves they hold the
 card with the PIN, fills in their details and gets an account; the same link
@@ -109,7 +109,7 @@ def _pack_row(premade, pin):
 
 
 @transaction.atomic
-def create_batch(staff, *, name, quantity, plan, price_minor=35000, months=12, note=""):
+def create_batch(staff, *, name, quantity, plan, price_minor=45000, months=12, note=""):
     if not 1 <= quantity <= MAX_BATCH:
         raise ValidationError(f"Make between 1 and {MAX_BATCH} cards at a time.")
     code = f"B{Counter.next('premade-batch'):03d}"

@@ -10,7 +10,7 @@ from django.utils import timezone
 from apps.accounts.hashers import WerkzeugPasswordHasher
 from apps.billing import fx
 from apps.billing.models import ExchangeRate, Subscription
-from apps.billing.services import activate, upgrade_price
+from apps.billing.services import activate, processing_fee, upgrade_price
 from apps.cards import services as card_services
 from apps.cards.colors import contrast, palette
 from apps.cards.models import CardSlug
@@ -313,7 +313,7 @@ class TeamPricingTests(BaseTest):
         self.assertContains(page, "Business plan for 12 people, 12 months")
         self.client.post("/billing/", {"plan": "business", "seats": "12", "action": "pay", "accept_policy": "1"})
         payment = Payment.objects.get()
-        self.assertEqual((payment.amount_minor, payment.seats), (166000, 12))
+        self.assertEqual((payment.amount_minor, payment.seats), (166000 + processing_fee(166000), 12))
         self.client.get(f"/billing/callback?reference={payment.reference}")
         user.refresh_from_db()
         self.assertEqual(user.subscription.card_limit, 12)

@@ -14,6 +14,7 @@ Order of trust, stated once (Figures 4A-4C):
 
 import logging
 from datetime import timedelta
+from decimal import ROUND_CEILING, Decimal
 
 from django.conf import settings
 from django.db import transaction
@@ -166,11 +167,22 @@ def subscription_quote(user, plan, promo=None, seats=None):
 # --------------------------------------------------------------------------
 
 
+def processing_fee(total_minor):
+    """Paystack's cut, grossed up so that after Paystack takes its percent of the amount charged,
+    AD Graphics still receives ``total_minor``. Rounded up to the pesewa."""
+    percent = settings.PAYSTACK_FEE_PERCENT
+    if not total_minor or percent <= 0:
+        return 0
+    charged = (Decimal(total_minor) * 100 / (100 - percent)).to_integral_value(rounding=ROUND_CEILING)
+    return int(charged) - total_minor
+
+
 def create_payment(
     *, user, purpose, quote, plan=None, months=0, nfc_order=None, seats=None,
     set_up_auto_renew=False, is_auto_renewal=False,
 ):
     rate = fx.latest_rate()
+    fee = processing_fee(quote["total_minor"])
     return Payment.objects.create(
         user=user,
         reference=paystack.new_reference("NFC" if purpose == Payment.PURPOSE_NFC else "ADS"),
@@ -182,7 +194,8 @@ def create_payment(
         subtotal_minor=quote["subtotal_minor"],
         discount_minor=quote["discount_minor"],
         tax_minor=quote["tax_minor"],
-        amount_minor=quote["total_minor"],
+        amount_minor=quote["total_minor"] + fee,
+        processing_fee_minor=fee,
         currency=settings.CURRENCY,
         promo_code=quote.get("promo"),
         line_items=[{"label": line["label"], "amount_minor": line["amount_minor"]} for line in quote["lines"]],
@@ -613,14 +626,15 @@ def send_renewal_notices(today=None):
             Payment.objects.filter(user=sub.user, purpose=Payment.PURPOSE_SUBSCRIPTION, status=Payment.SUCCESS)
             .exclude(amount_minor=0).order_by("-paid_at").first()
         )
-        changed = previous is not None and previous.amount_minor != quote["total_minor"]
+        charge = quote["total_minor"] + processing_fee(quote["total_minor"])
+        changed = previous is not None and previous.amount_minor != charge
         if send_email(
             to=sub.user.email,
             subject=subject_text("Your plan renews on %(date)s", date=_notice_date(renewal_due_date(sub))),
             template="auto_renewal_notice",
             context={
                 "user": sub.user, "subscription": sub, "plan": plan, "seats": seats, "plan_label": plan_label(plan, seats),
-                "amount_minor": quote["total_minor"], "previous_minor": previous.amount_minor if changed else None,
+                "amount_minor": charge, "previous_minor": previous.amount_minor if changed else None,
                 "usd_rate": usd_rate, "charge_on": renewal_due_date(sub), "card": sub.card_label,
             },
             user=sub.user, kind="auto_renewal_notice", dedupe_key=f"autonotice:{sub.pk}:{sub.expires_at:%Y%m%d}",

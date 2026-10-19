@@ -285,7 +285,7 @@ class PremadeBatchForm(forms.Form):
     quantity = forms.IntegerField(label="How many cards", min_value=1, max_value=500, initial=100, help_text="Up to 500 at a time.")
     plan = forms.ModelChoiceField(label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None)
     price = CedisField(
-        label="Price in the shop (GHS)", initial=350,
+        label="Price in the shop (GHS)", initial=450,
         help_text="What the buyer pays the shop. It is counted as revenue from outside the website when the card is set up.",
     )
     note = forms.CharField(label="Note (optional)", max_length=200, required=False)

@@ -126,6 +126,8 @@ def _draw_receipt(payment):
         total_row(f"Discount{promo}", payment.discount_minor, sign="−")
     if payment.tax_minor:
         total_row(site.tax_label or "Tax", payment.tax_minor)
+    if payment.processing_fee_minor:
+        total_row("Payment processing", payment.processing_fee_minor)
     total_row("Total paid", payment.amount_minor, bold=True)
 
     y -= 8 * mm

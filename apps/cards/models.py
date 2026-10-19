@@ -370,7 +370,7 @@ class CardReport(models.Model):
 class PremadeBatch(models.Model):
     """A run of pre-made cards printed together, sold ready to use.
 
-    The price (GHS 350 by default) covers the printed card and the first year
+    The price (GHS 450 by default) covers the printed card and the first year
     on ``plan``. The shop collects it; it is recorded as revenue from outside
     the website when the buyer sets the card up.
     """
@@ -378,7 +378,7 @@ class PremadeBatch(models.Model):
     name = models.CharField(max_length=120, help_text="The design, for example Gold Classic.")
     code = models.CharField(max_length=8, unique=True)
     quantity = models.PositiveIntegerField()
-    price_minor = models.PositiveIntegerField(default=35000, help_text="What the buyer pays the shop, in pesewas.")
+    price_minor = models.PositiveIntegerField(default=45000, help_text="What the buyer pays the shop, in pesewas.")
     plan = models.ForeignKey("billing.Plan", on_delete=models.PROTECT, related_name="+")
     months = models.PositiveSmallIntegerField(default=12)
     note = models.CharField(max_length=200, blank=True)

@@ -96,7 +96,7 @@ class AutoRenewTests(BaseTest):
         message = mail.outbox[-1]
         self.assertEqual(message.to, [self.user.email])
         self.assertIn("Visa ending 4081", message.body)
-        self.assertIn("350.00", message.body)
+        self.assertIn("356.97", message.body)  # GHS 350 plus the processing fee
         self.assertIn("turn off automatic renewal", message.body)
         self.assertEqual(services.send_renewal_notices(), 0)
 
@@ -126,7 +126,7 @@ class AutoRenewTests(BaseTest):
         self.assertLess(sub.expires_at, old_end + timedelta(days=370))
         payment = Payment.objects.get(is_auto_renewal=True)
         self.assertEqual(payment.status, Payment.SUCCESS)
-        self.assertEqual(payment.amount_minor, 35000)
+        self.assertEqual(payment.amount_minor, 35697)  # GHS 350 plus the processing fee
         self.assertEqual(sub.renew_attempts, 0)
         self.assertTrue(any("Your plan has renewed" in m.subject for m in mail.outbox))
         self.assertIn("automatic yearly renewal", mail.outbox[-1].body)

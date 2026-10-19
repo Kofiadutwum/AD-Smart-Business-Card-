@@ -7,6 +7,7 @@ same code runs in development, staging and production (SRS PRJ-01, SEC-11).
 
 import os
 import sys
+from decimal import Decimal
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -277,6 +278,9 @@ SUPPORT_EMAIL = env("SUPPORT_EMAIL", "adgraphics881@gmail.com")
 PAYSTACK_SECRET_KEY = env("PAYSTACK_SECRET_KEY")
 PAYSTACK_PUBLIC_KEY = env("PAYSTACK_PUBLIC_KEY")
 PAYSTACK_BASE_URL = "https://api.paystack.co"
+# The customer covers Paystack's fee: it is added to the amount sent to Paystack and never shown on
+# our own pages. Percent of what Paystack receives; 0 turns it off.
+PAYSTACK_FEE_PERCENT = Decimal(env("PAYSTACK_FEE_PERCENT", "1.95"))
 # Sandbox simulates the gateway end to end. It is forced on whenever no
 # secret key is configured, so a fresh clone can never reach a live gateway.
 PAYMENT_SANDBOX = env_bool("PAYMENT_SANDBOX", True) or not PAYSTACK_SECRET_KEY

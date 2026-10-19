@@ -20,6 +20,7 @@
       <dt>Subtotal</dt><dd>{% money payment.subtotal_minor rate=payment.usd_rate %}</dd>
       {% if payment.discount_minor %}<dt>Discount</dt><dd>{% money payment.discount_minor sign="−" rate=payment.usd_rate %}{% if payment.promo_code %} ({{ payment.promo_code.code }}){% endif %}</dd>{% endif %}
       {% if payment.tax_minor %}<dt>Tax</dt><dd>{% money payment.tax_minor rate=payment.usd_rate %}</dd>{% endif %}
+      {% if payment.processing_fee_minor %}<dt>Processing fee (paid by customer)</dt><dd>{% money payment.processing_fee_minor rate=payment.usd_rate %}</dd>{% endif %}
       <dt>Charged</dt><dd><strong>{% money payment.amount_minor rate=payment.usd_rate %}</strong></dd>
       <dt>Paystack fee</dt><dd>{% money payment.gateway_fee_minor rate=payment.usd_rate %}</dd>
       <dt>Refunded</dt><dd>{% money payment.refunded_minor rate=payment.usd_rate %}</dd>
