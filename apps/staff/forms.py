@@ -8,6 +8,8 @@ from apps.core.utils import ghs_to_minor, process_image, validate_design_file
 from apps.marketing.models import GalleryImage
 from apps.nfc.models import DeliveryZone, NFCOrder, PriceTier
 
+BASIC_TERM_MONTHS = 36  # the 3-year Basic shop card
+
 
 class CedisField(forms.DecimalField):
     """Staff type cedis; the database stores pesewas."""
@@ -283,7 +285,15 @@ class PremadeBatchForm(forms.Form):
 
     name = forms.CharField(label="Design name", max_length=120, help_text="For example Gold Classic. Only staff see it.")
     quantity = forms.IntegerField(label="How many cards", min_value=1, max_value=500, initial=100, help_text="Up to 500 at a time.")
-    plan = forms.ModelChoiceField(label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None)
+    term = forms.ChoiceField(
+        label="What the card includes",
+        choices=[("year", "A year of the plan chosen below"), ("basic3", "Basic for 3 years, then it renews as normal")],
+        initial="year",
+        help_text="The 3-year Basic card has only the Basic features; the plan below is ignored for it.",
+    )
+    plan = forms.ModelChoiceField(
+        label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None, required=False
+    )
     price = CedisField(
         label="Price in the shop (GHS)", initial=450,
         help_text="What the buyer pays the shop. It is counted as revenue from outside the website when the card is set up.",
@@ -297,3 +307,18 @@ class PremadeBatchForm(forms.Form):
         professional = plans.filter(code="professional").first()
         if professional:
             self.fields["plan"].initial = professional.pk
+
+    def clean(self):
+        cleaned = super().clean()
+        term = cleaned.get("term")
+        if term == "basic3":
+            cleaned["plan"] = self.fields["plan"].queryset.filter(code="basic").first()
+            cleaned["months"] = BASIC_TERM_MONTHS
+            if not cleaned["plan"]:
+                self.add_error("term", "The Basic plan is switched off. Switch it on under Plans first.")
+        elif term == "year":
+            if not cleaned.get("plan"):
+                self.add_error("plan", "Choose a plan.")
+            else:
+                cleaned["months"] = cleaned["plan"].duration_months
+        return cleaned

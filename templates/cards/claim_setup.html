@@ -6,7 +6,11 @@
   <div class="auth-card">
     <p class="eyebrow">{% trans "Step 2 of 2" %}</p>
     <h1 class="mt-2">{% trans "Your details" %}</h1>
-    <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card comes with one year of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+    {% if batch.months == 12 %}
+      <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card comes with one year of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+    {% else %}
+      <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name batch_months=batch.months %}This card comes with {{ batch_months }} months of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+    {% endif %}
     <form method="post" class="form" novalidate>
       {% csrf_token %}
       {% include "components/form_fields.html" %}

@@ -122,12 +122,19 @@ def claim_attach(request, slug):
     problem = premade_service.attach_problem(request.user, premade)
     if request.method == "POST" and not problem:
         try:
-            card, _payment = premade_service.claim_for_existing_account(premade.pk, request.user)
+            card, payment = premade_service.claim_for_existing_account(premade.pk, request.user)
         except ClaimError as exc:
             messages.error(request, str(exc))
         else:
             _forget(request, card.slug)
-            messages.success(request, _("The card is now on your account and a year has been added to your plan."))
+            if payment.months == 12:
+                messages.success(request, _("The card is now on your account and a year has been added to your plan."))
+            else:
+                messages.success(
+                    request,
+                    _("The card is now on your account and %(months)d months have been added to your plan.")
+                    % {"months": payment.months},
+                )
             return redirect("dashboard:cards")
     return render(
         request, "cards/claim_attach.html",

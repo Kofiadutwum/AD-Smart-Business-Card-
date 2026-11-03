@@ -22,9 +22,11 @@ BUYER = {
 
 
 class PremadeBase(BaseTest):
-    def make_batch(self, quantity=3, plan=None, price=35000):
+    def make_batch(self, quantity=3, plan=None, price=35000, months=12):
         staff = User.objects.create_user(email="ops@example.com", password="x", is_staff=True, staff_role="ops")
-        batch = premade.create_batch(staff, name="Gold Classic", quantity=quantity, plan=plan or self.pro, price_minor=price)
+        batch = premade.create_batch(
+            staff, name="Gold Classic", quantity=quantity, plan=plan or self.pro, price_minor=price, months=months
+        )
         rows = premade.get_pack(batch)
         return batch, rows
 
@@ -340,7 +342,7 @@ class StaffPageTests(PremadeBase):
     def test_ops_can_make_a_batch_and_download_the_pack(self):
         self.login_staff("ops")
         response = self.client.post("/staff/premade-cards/", {
-            "name": "Gold Classic", "quantity": 4, "plan": self.pro.pk, "price": "350", "note": "First print",
+            "name": "Gold Classic", "quantity": 4, "term": "year", "plan": self.pro.pk, "price": "350", "note": "First print",
         })
         self.assertEqual(response.status_code, 302)
         from apps.cards.models import PremadeBatch
@@ -358,9 +360,69 @@ class StaffPageTests(PremadeBase):
         self.assertEqual(zip_response["Content-Type"], "application/zip")
         self.assertContains(self.client.get("/staff/premade-cards/"), "Gold Classic")
 
+    def test_three_year_basic_option_makes_basic_for_36_months_whatever_plan_is_picked(self):
+        from apps.cards.models import PremadeBatch
+
+        self.login_staff("ops")
+        response = self.client.post("/staff/premade-cards/", {
+            "name": "Counter Basic", "quantity": 2, "term": "basic3", "plan": self.pro.pk, "price": "450",
+        })
+        self.assertEqual(response.status_code, 302)
+        batch = PremadeBatch.objects.get()
+        self.assertEqual((batch.plan, batch.months, batch.price_minor), (self.basic, 36, 45000))
+
+    def test_a_year_card_still_needs_a_plan(self):
+        from apps.cards.models import PremadeBatch
+
+        self.login_staff("ops")
+        response = self.client.post("/staff/premade-cards/", {
+            "name": "Gold Classic", "quantity": 2, "term": "year", "price": "450",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Choose a plan.")
+        self.assertFalse(PremadeBatch.objects.exists())
+
     def test_roles_without_access_are_turned_away(self):
         self.login_staff("support")
         self.assertEqual(self.client.get("/staff/premade-cards/").status_code, 403)
         self.client.post("/staff/logout")
         self.login_staff("finance")
         self.assertEqual(self.client.get("/staff/premade-cards/").status_code, 403)
+
+
+class ThreeYearBasicTests(PremadeBase):
+    def make_three_year(self):
+        return self.make_batch(quantity=1, plan=self.basic, price=45000, months=36)
+
+    def test_new_buyer_gets_basic_for_three_years(self):
+        batch, rows = self.make_three_year()
+        code = rows[0]["code"]
+        self.verify_pin(rows[0])
+        self.assertContains(self.client.get(f"/c/{code}/claim/setup"), "36 months of the Basic plan")
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post(f"/c/{code}/claim/setup", BUYER)
+        user = User.objects.get(email="ama@example.com")
+        self.assertEqual(user.subscription.plan, self.basic)
+        self.assertTrue(1090 < (user.subscription.expires_at - timezone.now()).days < 1100)
+        payment = Payment.objects.get(user=user)
+        self.assertEqual((payment.amount_minor, payment.months), (45000, 36))
+        self.assertIn("36 months", payment.line_items[0]["label"])
+
+    def test_existing_account_is_told_the_months_and_gets_them(self):
+        batch, rows = self.make_three_year()
+        user = self.make_user()
+        self.client.force_login(user)
+        self.verify_pin(rows[0])
+        self.assertContains(self.client.get(f"/c/{rows[0]['code']}/claim/attach"), "36 months of Basic")
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach", follow=True)
+        self.assertIn(
+            "The card is now on your account and 36 months have been added to your plan.",
+            [str(m) for m in response.context["messages"]],
+        )
+        self.assertGreater((Subscription.objects.get(user=user).expires_at - timezone.now()).days, 1090)
+
+    def test_year_cards_keep_their_wording(self):
+        batch, rows = self.make_batch(quantity=1)
+        self.verify_pin(rows[0])
+        self.assertContains(self.client.get(f"/c/{rows[0]['code']}/claim/setup"), "one year of the")

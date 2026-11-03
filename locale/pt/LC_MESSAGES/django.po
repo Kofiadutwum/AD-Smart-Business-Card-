@@ -291,19 +291,19 @@ msgstr "Período de tolerância"
 msgid "Inactive"
 msgstr "Inativo"
 
-#: apps/billing/models.py:400 apps/billing/models.py:506
+#: apps/billing/models.py:400 apps/billing/models.py:508
 msgid "Subscription"
 msgstr "Subscrição"
 
-#: apps/billing/models.py:401 apps/billing/models.py:501
+#: apps/billing/models.py:401 apps/billing/models.py:503
 msgid "Plan upgrade"
 msgstr "Mudança de plano"
 
-#: apps/billing/models.py:402 apps/billing/models.py:491
+#: apps/billing/models.py:402 apps/billing/models.py:493
 msgid "NFC order"
 msgstr "Encomenda NFC"
 
-#: apps/billing/models.py:403 apps/billing/models.py:497
+#: apps/billing/models.py:403 apps/billing/models.py:499
 msgid "Pre-made card (sold in a shop)"
 msgstr "Cartão pré-fabricado (vendido em loja)"
 
@@ -331,37 +331,37 @@ msgstr "Reembolsado"
 msgid "Partially refunded"
 msgstr "Reembolsado parcialmente"
 
-#: apps/billing/models.py:491
+#: apps/billing/models.py:493
 #, python-format
 msgid "NFC order %(number)s"
 msgstr "Encomenda NFC %(number)s"
 
-#: apps/billing/models.py:493 apps/billing/services.py:149
+#: apps/billing/models.py:495 apps/billing/services.py:150
 #, python-format
 msgid "%(plan)s plan"
 msgstr "Plano %(plan)s"
 
-#: apps/billing/models.py:498
+#: apps/billing/models.py:500
 #, python-format
 msgid "Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)"
 msgstr "Cartão pré-fabricado com plano %(plan)s, %(count)d meses (vendido em loja)"
 
-#: apps/billing/models.py:503
+#: apps/billing/models.py:505
 #, python-format
 msgid "Upgrade to %(plan)s for %(count)d people"
 msgstr "Mudança para %(plan)s para %(count)d pessoas"
 
-#: apps/billing/models.py:504
+#: apps/billing/models.py:506
 #, python-format
 msgid "Upgrade to %(plan)s"
 msgstr "Mudança para %(plan)s"
 
-#: apps/billing/models.py:508
+#: apps/billing/models.py:510
 #, python-format
 msgid "%(plan)s plan for %(people)d people, %(count)d months"
 msgstr "Plano %(plan)s para %(people)d pessoas, %(count)d meses"
 
-#: apps/billing/models.py:509
+#: apps/billing/models.py:511
 #, python-format
 msgid "%(plan)s plan, %(count)d months"
 msgstr "Plano %(plan)s, %(count)d meses"
@@ -374,7 +374,7 @@ msgstr "Não foi possível contactar o serviço de pagamento. Tente novamente de
 msgid "Malformed webhook payload."
 msgstr "Malformed webhook payload."
 
-#: apps/billing/services.py:434
+#: apps/billing/services.py:447
 #, python-format
 msgid "Your receipt %(number)s"
 msgstr "O seu recibo %(number)s"
@@ -437,7 +437,7 @@ msgstr "Demasiadas tentativas a partir desta ligação. Tente novamente dentro d
 msgid "That email or number was just used for another account. Please check and try again."
 msgstr "Esse e-mail ou número acabou de ser usado noutra conta. Verifique e tente novamente."
 
-#: apps/cards/claim.py:130
+#: apps/cards/claim.py:131
 msgid "The card is now on your account and a year has been added to your plan."
 msgstr "O cartão já está na sua conta e foi acrescentado um ano ao seu plano."
 
@@ -2031,17 +2031,17 @@ msgstr "Adicione este cartão à sua conta"
 msgid "Go to my cards"
 msgstr "Ir para os meus cartões"
 
-#: templates/cards/claim_attach.html:14
+#: templates/cards/claim_attach.html:15
 #, python-format
 msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and one year of %(batch_plan_name)s will be added to your plan. Its link and QR code stay exactly as printed."
 msgstr "Iniciou sessão como <strong>%(user_email)s</strong>. O cartão será adicionado a esta conta e será acrescentado um ano de %(batch_plan_name)s ao seu plano. O link e o código QR mantêm-se exatamente como impressos."
 
-#: templates/cards/claim_attach.html:15
+#: templates/cards/claim_attach.html:19
 #, python-format
 msgid "Your plan is currently %(subscription_plan_name)s, active until %(subscription_expires_at_date)s."
 msgstr "O seu plano atual é %(subscription_plan_name)s, ativo até %(subscription_expires_at_date)s."
 
-#: templates/cards/claim_attach.html:18
+#: templates/cards/claim_attach.html:22
 msgid "Add the card and the year"
 msgstr "Adicionar o cartão e o ano"
 
@@ -2074,21 +2074,21 @@ msgstr "Não encontra o PIN? Está impresso no verso do cartão. Pergunte à loj
 msgid "Your details"
 msgstr "Os seus dados"
 
-#: templates/cards/claim_setup.html:9
+#: templates/cards/claim_setup.html:10
 #, python-format
 msgid "This card comes with one year of the %(batch_plan_name)s plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
 msgstr "Este cartão inclui um ano do plano %(batch_plan_name)s, já pago. Adicione os seus dados e crie a sua conta. O link e o código QR do seu cartão mantêm-se exatamente como impressos."
 
-#: templates/accounts/register.html:17 templates/cards/claim_setup.html:13
+#: templates/accounts/register.html:17 templates/cards/claim_setup.html:17
 #, python-format
 msgid "By creating an account you agree to our <a href=\"%(url_1)s\" target=\"_blank\">Terms of Service</a> and <a href=\"%(url_2)s\" target=\"_blank\">Privacy Policy</a>."
 msgstr "Ao criar uma conta, aceita os nossos <a href=\"%(url_1)s\" target=\"_blank\">Termos de Serviço</a> e a nossa <a href=\"%(url_2)s\" target=\"_blank\">Política de Privacidade</a>."
 
-#: templates/cards/claim_setup.html:14
+#: templates/cards/claim_setup.html:18
 msgid "Activate my card"
 msgstr "Ativar o meu cartão"
 
-#: templates/cards/claim_setup.html:16
+#: templates/cards/claim_setup.html:20
 #, python-format
 msgid "Already have an account? <a href=\"%(login_url)s\">Log in to add this card to it</a>"
 msgstr "Já tem uma conta? <a href=\"%(login_url)s\">Inicie sessão para lhe adicionar este cartão</a>"
@@ -4447,17 +4447,17 @@ msgstr "Nome da empresa para os recibos"
 msgid "Company address for receipts"
 msgstr "Morada da empresa para os recibos"
 
-#: apps/billing/services.py:148
+#: apps/billing/services.py:149
 #, python-format
 msgid "%(plan)s plan for %(people)d people"
 msgstr "Plano %(plan)s para %(people)d pessoas"
 
-#: apps/billing/services.py:158
+#: apps/billing/services.py:159
 #, python-format
 msgid "%(plan)s, 12 more months"
 msgstr "%(plan)s, mais 12 meses"
 
-#: apps/billing/services.py:158 apps/billing/services.py:520
+#: apps/billing/services.py:159 apps/billing/services.py:533
 #, python-format
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s, 12 meses"
@@ -4801,7 +4801,7 @@ msgstr "Fale connosco"
 msgid "For example MTN, Telecel or Office."
 msgstr "Por exemplo MTN, Telecel ou Escritório."
 
-#: apps/billing/services.py:595 apps/billing/views.py:219 apps/core/dynamic_strings.py:46
+#: apps/billing/services.py:608 apps/billing/views.py:219 apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "j \\d\\e F \\d\\e Y"
 
@@ -4862,21 +4862,21 @@ msgstr "O seu plano muda para <strong style=\"display:inline\">%(plan)s</strong>
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s terminado em %(last4)s"
 
-#: apps/billing/services.py:432
+#: apps/billing/services.py:445
 #, python-format
 msgid "Your plan has renewed. Receipt %(number)s"
 msgstr "O seu plano foi renovado. Recibo %(number)s"
 
-#: apps/billing/services.py:586
+#: apps/billing/services.py:599
 msgid "We could not renew your plan"
 msgstr "Não foi possível renovar o seu plano"
 
-#: apps/billing/services.py:619
+#: apps/billing/services.py:633
 #, python-format
 msgid "Your plan renews on %(date)s"
 msgstr "O seu plano é renovado em %(date)s"
 
-#: apps/billing/services.py:657 templates/billing/checkout.html:21
+#: apps/billing/services.py:671 templates/billing/checkout.html:21
 msgid "Automatic renewal is off"
 msgstr "A renovação automática está desativada"
 
@@ -5276,3 +5276,22 @@ msgstr "Quando alguém toca em «Partilhe os seus dados» no seu cartão ou envi
 #, python-format
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s enviou um pedido através da sua página da empresa:"
+
+#: apps/cards/claim.py:135
+#, python-format
+msgid "The card is now on your account and %(months)d months have been added to your plan."
+msgstr "O cartão já está na sua conta e foram acrescentados %(months)d meses ao seu plano."
+
+#: templates/cards/claim_attach.html:17
+#, python-format
+msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and %(batch_months)s months of %(batch_plan_name)s will be added to your plan. Its link and QR code stay exactly as printed."
+msgstr "Iniciou sessão como <strong>%(user_email)s</strong>. O cartão será adicionado a esta conta e serão acrescentados %(batch_months)s meses de %(batch_plan_name)s ao seu plano. O link e o código QR mantêm-se exatamente como impressos."
+
+#: templates/cards/claim_attach.html:22
+msgid "Add the card to my account"
+msgstr "Adicionar o cartão à minha conta"
+
+#: templates/cards/claim_setup.html:12
+#, python-format
+msgid "This card comes with %(batch_months)s months of the %(batch_plan_name)s plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
+msgstr "Este cartão inclui %(batch_months)s meses do plano %(batch_plan_name)s, já pagos. Adicione os seus dados e crie a sua conta. O link e o código QR do seu cartão mantêm-se exatamente como impressos."
