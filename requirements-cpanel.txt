@@ -1,0 +1,5 @@
+# For the cPanel (Stormer) host, where the database is MariaDB. Render keeps using requirements.txt.
+# mysqlclient has to be compiled and that host has no Python headers, so it is built once into
+# ~/wheels and installed from there:  pip install --no-index --find-links ~/wheels mysqlclient
+-r requirements.txt
+mysqlclient==2.3.0

@@ -143,6 +143,14 @@ DATABASES = {
         conn_health_checks=True,
     )
 }
+if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
+    # MariaDB on the cPanel host: full Unicode (names, emoji) and strict mode, so bad data is refused, not cut short.
+    DATABASES["default"].setdefault("OPTIONS", {}).update(
+        charset="utf8mb4", init_command="SET sql_mode='STRICT_TRANS_TABLES'"
+    )
+    # cPanel users cannot create databases on the fly, so tests run in one made ahead of time (use --keepdb).
+    if env("TEST_DATABASE_NAME"):
+        DATABASES["default"]["TEST"] = {"NAME": env("TEST_DATABASE_NAME")}
 
 # A database-backed cache so rate limits are shared by every worker process.
 CACHES = {
