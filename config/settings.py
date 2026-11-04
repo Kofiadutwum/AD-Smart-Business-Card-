@@ -218,6 +218,10 @@ LANGUAGES = [
 ]
 LOCALE_PATHS = [BASE_DIR / "locale"]
 USE_TZ = True
+if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
+    # The host's MariaDB has no time-zone tables, so date lookups (CONVERT_TZ) would silently match nothing
+    # unless the connection already uses our zone. Ghana has no daylight saving, so this equals UTC.
+    DATABASES["default"]["TIME_ZONE"] = TIME_ZONE
 CURRENCY = "GHS"
 
 # --------------------------------------------------------------------------
