@@ -13,6 +13,7 @@ from apps.cards.models import (
 )
 from apps.core.models import SiteSettings
 from apps.core.utils import process_image
+from apps.marketing.models import GalleryImage
 
 from .helpers import BaseTest
 
@@ -398,3 +399,42 @@ class EnquiryTests(BusinessBase):
 
     def test_only_post_is_allowed(self):
         self.assertEqual(self.client.get(self.url).status_code, 405)
+
+
+class LandingPageTests(BusinessBase):
+    """The home page tells visitors about business pages, with AD Graphics' own page as the sample."""
+
+    def test_the_home_page_has_a_business_pages_section_with_the_plans_that_include_it(self):
+        page = self.client.get("/")
+        self.assertContains(page, 'id="business-pages"')
+        self.assertContains(page, "Show what you sell, not just who you are.")
+        self.assertContains(page, "up to 10 products")
+        self.assertContains(page, "up to 30 products")
+        self.assertContains(page, 'src="/demo/business"')
+        self.assertContains(page, '<a href="/#business-pages">Business pages</a>', count=3)  # desktop menu, mobile menu, footer
+
+    def test_the_sample_page_is_the_real_template_with_no_made_up_prices_or_reviews(self):
+        GalleryImage.objects.create(image="gallery/flyer.jpg", title="Flyer design", description="A flyer", is_published=True)
+        page = self.client.get("/demo/business")
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "Logos and brand identity")
+        self.assertContains(page, "Flyer design")
+        self.assertNotContains(page, "What customers say")
+        self.assertNotContains(page, "biz-price")
+        self.assertNotContains(page, "Report this card")  # a sample cannot be reported
+        self.assertContains(page, 'name="robots" content="noindex, nofollow"')
+
+    def test_only_the_sample_page_may_be_shown_inside_another_page(self):
+        self.assertEqual(self.client.get("/demo/business").headers["X-Frame-Options"], "SAMEORIGIN")
+        self.assertEqual(self.client.get("/").headers["X-Frame-Options"], "DENY")
+
+    def test_the_faq_explains_business_pages_and_names_the_plans(self):
+        page = self.client.get("/faq")
+        self.assertContains(page, "What is a business page?")
+        self.assertContains(page, "A business page comes with Professional (up to 10 products), Business (up to 30 products).")
+        self.assertNotContains(self.client.get("/nfc-cards"), "What is a business page?")
+
+    def test_the_plan_cards_point_out_the_business_page_and_link_to_the_sample(self):
+        page = self.client.get("/pricing")
+        self.assertContains(page, 'class="is-highlight"', count=2)  # Professional and Business, not Basic
+        self.assertContains(page, "See a sample", count=2)

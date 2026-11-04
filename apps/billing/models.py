@@ -105,6 +105,11 @@ class Plan(models.Model):
             "bands": [[b.min_seats, b.max_seats, b.unit_price_minor] for b in self.seat_band_list],
         }
 
+    def business_page_text(self):
+        if self.allow_business_page:
+            return _("Business page with up to %(count)d products") % {"count": self.max_products}
+        return _("Business page for your products")
+
     def feature_rows(self):
         """Human-readable feature list for pricing pages, in matrix order."""
         if self.is_team:
@@ -131,11 +136,7 @@ class Plan(models.Model):
             (True, _("All templates") if self.all_templates else _("1 standard template")),
             (True, colours),
             (self.allow_logo, _("Business logo on card")),
-            (
-                self.allow_business_page,
-                _("Business page with up to %(count)d products") % {"count": self.max_products}
-                if self.allow_business_page else _("Business page for your products"),
-            ),
+            (self.allow_business_page, self.business_page_text()),
             (self.allow_advanced_style, _("Background image, button style, icon layout")),
             (self.branding_footer == "removable", _("Remove \u201cPowered by AD Smart\u201d")),
             (True, _("Full analytics") if self.full_analytics else _("Total views")),

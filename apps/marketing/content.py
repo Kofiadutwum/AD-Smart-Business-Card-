@@ -8,6 +8,8 @@ actually does. Every sentence is translated into the visitor's language.
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
+from apps.billing.services import active_plans
+
 HOW_IT_WORKS = [
     {
         "icon": "user-plus",
@@ -42,7 +44,7 @@ SHARING = [
 def faq(site, plans=None, tiers=None):
     grace = site.grace_period_days
     rounds = site.free_revision_rounds
-    return [
+    items = [
         {
             "q": _("How does an NFC card work?"),
             "a": _("Each card has a small chip programmed with the permanent link to your digital card. "
@@ -114,4 +116,22 @@ def faq(site, plans=None, tiers=None):
             "a": _("MTN MoMo, Telecel Cash and AirtelTigo Money, plus Visa and Mastercard cards. Payments go through "
                    "Paystack's secure checkout; we never see your card or wallet details."),
         },
+        {
+            "q": _("What is a business page?"),
+            "a": _("A page of your own for your business, linked from your card. It shows your products with pictures "
+                   "and prices, your services, your opening hours and what your customers say, and visitors can send "
+                   "you an enquiry. You switch it on or off from your dashboard."),
+        },
     ]
+    with_page = ", ".join(
+        _("%(name)s (up to %(count)d products)") % {"name": plan.name, "count": plan.max_products}
+        for plan in (plans if plans is not None else active_plans())
+        if plan.allow_business_page
+    )
+    if with_page:
+        items.append({"q": _("Which plans include a business page?"),
+                      "a": _("A business page comes with %(plans)s.") % {"plans": with_page}})
+    items.append({"q": _("Do my customers need an app or an account to see my business page?"),
+                  "a": _("No. It is an ordinary web page. It opens from the button on your card, or from its own link, "
+                         "on any phone.")})
+    return items

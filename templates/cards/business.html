@@ -142,8 +142,8 @@
         <img src="{% static 'brand/logo-96.webp' %}" alt="" width="24" height="18">{% trans "Powered by AD Smart" %}
       </a>
     {% endif %}
-    <a class="pcard__report" href="{% url 'cards:report' card.slug %}">{% icon "flag" 14 %} {% trans "Report this card" %}</a>
-    {% include "partials/lang_switch.html" %}
+    {% if not demo %}<a class="pcard__report" href="{% url 'cards:report' card.slug %}">{% icon "flag" 14 %} {% trans "Report this card" %}</a>
+    {% include "partials/lang_switch.html" %}{% endif %}
   </footer>
 </article>
 {% endwith %}

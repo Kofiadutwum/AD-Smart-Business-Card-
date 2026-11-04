@@ -119,6 +119,43 @@
   </div>
 </section>
 
+{# ========================== BUSINESS PAGES ========================== #}
+<section class="section" id="business-pages" aria-labelledby="biz-title">
+  <div class="container">
+    <div class="share-showcase biz-promo">
+      <div>
+        <p class="eyebrow">{% trans "Business pages" %}</p>
+        <h2 id="biz-title" class="mt-4">{% trans "Show what you sell, not just who you are." %}</h2>
+        <p class="lead mt-6">{% trans "Your card shares your contact details. A business page goes further: your own page where customers see your products and services, read what other customers say, and send you an enquiry. It is linked from your card, in the same colours." %}</p>
+        <ul class="share-list">
+          <li><span class="icon-tile">{% icon "image" 20 %}</span><h3>{% trans "Your products, with pictures" %}</h3><p>{% trans "Add photos, names, prices and short descriptions. Every picture is made light enough to load quickly on a phone." %}</p></li>
+          <li><span class="icon-tile">{% icon "briefcase" 20 %}</span><h3>{% trans "The services you offer" %}</h3><p>{% trans "List what you do, so people know what to ask you for." %}</p></li>
+          <li><span class="icon-tile">{% icon "star" 20 %}</span><h3>{% trans "What customers say" %}</h3><p>{% trans "Add kind words from your customers, with a star rating." %}</p></li>
+          <li><span class="icon-tile">{% icon "send" 20 %}</span><h3>{% trans "Enquiries in your inbox" %}</h3><p>{% trans "Visitors send an enquiry from the page, and we email it to you." %}</p></li>
+        </ul>
+        {% if business_plans %}
+        <p class="biz-plans-title">{% trans "Included with these plans" %}</p>
+        <ul class="biz-plans">
+          {% for plan in business_plans %}<li>{% icon "badge-check" 18 %}<span><strong>{{ plan.name }}</strong> · {% blocktrans trimmed with count=plan.max_products %}up to {{ count }} products{% endblocktrans %}</span></li>{% endfor %}
+        </ul>
+        <div class="cluster mt-8">
+          {% with plan=business_plans.0 %}{% url 'accounts:register' as plan_url %}{% blocktrans trimmed asvar start_label with name=plan.name %}Start with {{ name }}{% endblocktrans %}{% hover_button start_label href=plan_url|add:"?plan="|add:plan.code variant="primary" %}{% endwith %}
+          <a class="btn" href="#pricing">{% trans "See plans and prices" %}</a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="share-visual">
+        <div class="phone">
+          <div class="phone__screen">
+            {% trans "Sample business page of AD Graphics" as t_biz %}<iframe src="{% url 'marketing:demo_business' %}" title="{{ t_biz }}" loading="lazy"></iframe>
+          </div>
+        </div>
+        <p class="phone-hint">{% icon "hand" 16 %}{% trans "Try it — scroll through the page. This is the business page of AD Graphics." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 {# ============================== GALLERY ============================ #}
 {% if gallery %}
 <section class="section" id="work" aria-labelledby="work-title">

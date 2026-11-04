@@ -64,6 +64,44 @@ def demo_card(site):
     }
 
 
+def demo_business(site, gallery):
+    """AD Graphics' own business page, rendered by the real business-page template.
+
+    The products are the studio's published gallery designs, so nothing is made up: no prices and no
+    customer reviews are shown, because we would be inventing them.
+    """
+    context = demo_card(site)
+    card, eff = context["card"], context["eff"]
+    card.allow_indexing = False  # a sample, not a page for search engines
+    eff["branding"] = "hidden"  # the page already sits inside our own site
+    products = [
+        SimpleNamespace(image=image.image, title=image.title, description=image.description, price="")
+        for image in gallery[:4]
+    ]
+    services = [
+        SimpleNamespace(title=_("Logos and brand identity"), description=_("A mark and a look your customers remember.")),
+        SimpleNamespace(title=_("Flyers, posters and social media designs"), description=_("Ready for print and for your feed.")),
+        SimpleNamespace(title=_("Printing and packaging"), description=_("T-shirts, packaging and printed materials.")),
+        SimpleNamespace(title=_("Digital and NFC business cards"), description=_("Made, printed and tap-tested in our studio.")),
+    ]
+    context.update(
+        {
+            "page": SimpleNamespace(
+                tagline=_("Design and print studio in Cape Coast"), about=card.bio, hours=""
+            ),
+            "preview": False,
+            "logo": card.avatar,
+            "page_url": settings.SITE_URL + reverse("marketing:demo_business"),
+            "card_url": context["vcf_url"],  # "Contact card" saves AD Graphics' contact
+            "products": products,
+            "services": services,
+            "reviews": [],
+            "enquiry_form": None,
+        }
+    )
+    return context
+
+
 def _logo_photo_line():
     """The AD logo on white, as the contact photo."""
     path = finders.find("brand/logo-192.png")

@@ -83,6 +83,13 @@
   text-decoration: none;
   transition: color var(--dur-fast), background var(--dur-fast);
 }
+/* The sixth link only fits beside the language, currency and sign-in controls on wide screens;
+   the footer and the mobile menu carry it everywhere else. */
+@media (max-width: 83.99rem) {
+  .site-nav__wide {
+    display: none;
+  }
+}
 .site-nav a:hover {
   color: var(--ink);
   background: var(--bg-alt);
@@ -684,6 +691,61 @@
   border-radius: var(--radius-pill);
   background: #111214;
   transform: translateX(-50%);
+}
+/* Business pages section: the phone comes first on wide screens, and holds the sample page in a frame. */
+.biz-promo {
+  margin-top: 0;
+}
+@media (min-width: 64rem) {
+  .biz-promo {
+    grid-template-columns: 1fr 1.15fr;
+  }
+  .biz-promo .share-visual {
+    order: -1;
+  }
+}
+.phone__screen iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--bg);
+}
+.biz-promo .share-list li {
+  align-content: start; /* items in one row differ in height; keep each one's icon and text together */
+}
+.biz-plans-title {
+  margin: var(--space-8) 0 var(--space-3);
+  font-weight: 600;
+}
+.biz-plans {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.biz-plans li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.biz-plans .icon {
+  margin-top: 0.15rem;
+  color: var(--success);
+}
+.plan__features .is-highlight {
+  align-self: start; /* the card stretches its rows to match taller cards; keep the tint snug around the text */
+  margin-inline: calc(var(--space-3) * -1);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+.plan__features .is-highlight a {
+  display: block;
+  font-weight: 500;
+  color: var(--link);
 }
 .share-visual {
   position: relative;

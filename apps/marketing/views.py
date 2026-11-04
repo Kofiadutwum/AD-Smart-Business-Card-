@@ -2,6 +2,7 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from apps.billing.fx import latest_rate
 from apps.billing.services import TEAM_MAX_SEATS, active_plans
@@ -10,7 +11,7 @@ from apps.nfc import services as nfc
 from apps.nfc.models import DeliveryZone
 
 from .content import HOW_IT_WORKS, SHARING, faq
-from .demo import demo_card, demo_vcard
+from .demo import demo_business, demo_card, demo_vcard
 from .models import GalleryImage
 
 EXAMPLE_QUANTITIES = [1, 4, 5, 10, 20, 21, 30, 50]
@@ -58,10 +59,17 @@ def home(request):
             "sharing": SHARING,
             "faq": faq(site)[:6],
             "demo": demo_card(site),
+            "business_plans": [plan for plan in context["plans"] if plan.allow_business_page],
             "over_hero": True,
         }
     )
     return render(request, "marketing/home.html", context)
+
+
+@xframe_options_sameorigin  # shown in a phone frame on the home page; the site otherwise refuses to be framed
+def demo_business_page(request):
+    gallery = GalleryImage.objects.filter(is_published=True)
+    return render(request, "cards/business.html", demo_business(SiteSettings.load(), list(gallery)) | {"demo": True})
 
 
 def pricing(request):
