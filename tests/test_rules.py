@@ -411,3 +411,15 @@ class HasherTests(BaseTest):
         sc = hashlib.scrypt(b"secret-pass", salt=salt.encode(), n=1024, r=8, p=1, maxmem=132 * 1024 * 8, dklen=64).hex()
         self.assertTrue(hasher.verify("secret-pass", f"werkzeug$scrypt:1024:8:1${salt}${sc}"))
         self.assertFalse(hasher.verify("wrong", f"werkzeug$scrypt:1024:8:1${salt}${sc}"))
+
+    def test_the_password_column_holds_a_full_length_flask_hash(self):
+        # "werkzeug$" + scrypt:32768:8:1 + $ + 16-character salt + $ + 128 hex characters = 171. A column of 128
+        # (Django's default) holds it on SQLite and Postgres-with-no-limit but is rejected by MariaDB.
+        from apps.accounts.models import User
+
+        flask_hash = "werkzeug$scrypt:32768:8:1$" + "s" * 16 + "$" + "f" * 128
+        self.assertEqual(len(flask_hash), 171)
+        self.assertGreaterEqual(User._meta.get_field("password").max_length, len(flask_hash))
+        user = User.objects.create(email="old-flask-user@example.com", password=flask_hash)
+        user.refresh_from_db()
+        self.assertEqual(user.password, flask_hash)

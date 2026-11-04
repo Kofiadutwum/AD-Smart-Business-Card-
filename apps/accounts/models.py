@@ -51,6 +51,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         (ROLE_OPS, "Operations Manager"),
     ]
 
+    # Django's default of 128 is too short for the Flask site's scrypt hashes ("werkzeug$" + 162 characters).
+    password = models.CharField("password", max_length=255)
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=120, blank=True)
     phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
