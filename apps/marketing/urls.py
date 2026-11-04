@@ -11,6 +11,8 @@ urlpatterns = [
     path("nfc-cards", views.nfc_cards, name="nfc"),
     path("delivery", RedirectView.as_view(url="/nfc-cards#delivery", permanent=False), name="delivery"),
     path("faq", views.faq_page, name="faq"),
+    path("robots.txt", views.robots_txt, name="robots"),
+    path("sitemap.xml", views.sitemap_xml, name="sitemap"),
     path("demo/kofi-adutwum.vcf", views.demo_vcf, name="demo_vcf"),
     path("demo/business", views.demo_business_page, name="demo_business"),
     path("terms", views.legal, {"page": "terms"}, name="terms"),

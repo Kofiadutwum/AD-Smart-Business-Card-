@@ -1,7 +1,9 @@
 """Public marketing pages (Section 26)."""
 
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from apps.billing.fx import latest_rate
@@ -88,6 +90,23 @@ def faq_page(request):
 
 def legal(request, page):
     return render(request, f"marketing/legal_{page}.html", {"page": page})
+
+
+SITEMAP_PAGES = ["marketing:home", "marketing:pricing", "marketing:nfc", "marketing:faq", "marketing:terms",
+                 "marketing:privacy", "marketing:refunds"]
+# Everything behind a sign-in, a payment or a staff login, which search engines have no use for.
+ROBOTS_DISALLOW = ["/dashboard/", "/staff/", "/auth/", "/billing/", "/nfc/", "/internal/", "/prefs/"]
+
+
+def robots_txt(request):
+    lines = ["User-agent: *", *(f"Disallow: {path}" for path in ROBOTS_DISALLOW), "", f"Sitemap: {settings.SITE_URL}/sitemap.xml", ""]
+    return HttpResponse("\n".join(lines), content_type="text/plain; charset=utf-8")
+
+
+def sitemap_xml(request):
+    urls = "".join(f"<url><loc>{settings.SITE_URL}{reverse(name)}</loc></url>" for name in SITEMAP_PAGES)
+    xml = f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>'
+    return HttpResponse(xml, content_type="application/xml; charset=utf-8")
 
 
 def demo_vcf(request):

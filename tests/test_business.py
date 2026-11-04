@@ -438,3 +438,24 @@ class LandingPageTests(BusinessBase):
         page = self.client.get("/pricing")
         self.assertContains(page, 'class="is-highlight"', count=2)  # Professional and Business, not Basic
         self.assertContains(page, "See a sample", count=2)
+
+
+class SearchEngineTests(BusinessBase):
+    def test_robots_txt_keeps_crawlers_out_of_private_areas_and_names_the_sitemap(self):
+        page = self.client.get("/robots.txt")
+        self.assertEqual(page["Content-Type"], "text/plain; charset=utf-8")
+        for path in ("/dashboard/", "/staff/", "/auth/", "/billing/"):
+            self.assertContains(page, f"Disallow: {path}")
+        self.assertNotContains(page, "Disallow: /\n")  # the public pages stay crawlable
+        self.assertContains(page, "Sitemap: http://127.0.0.1:8000/sitemap.xml")
+
+    def test_sitemap_lists_the_public_pages_and_nothing_private(self):
+        page = self.client.get("/sitemap.xml")
+        self.assertEqual(page["Content-Type"], "application/xml; charset=utf-8")
+        for path in ("/", "/pricing", "/nfc-cards", "/faq", "/terms", "/privacy", "/refunds"):
+            self.assertContains(page, f"<loc>http://127.0.0.1:8000{path}</loc>")
+        self.assertNotContains(page, "/dashboard")
+        self.assertNotContains(page, "/demo/")
+
+    def test_marketing_pages_name_their_own_address_as_canonical(self):
+        self.assertContains(self.client.get("/pricing"), '<link rel="canonical" href="http://127.0.0.1:8000/pricing">')
