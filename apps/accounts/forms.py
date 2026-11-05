@@ -84,6 +84,27 @@ class RecoveryVerifyForm(forms.Form):
         return cleaned
 
 
+class OneTimePasswordForm(RecoveryVerifyForm):
+    """A customer who lost their email: the phone number on the account, the one-time password support read out, and a new password."""
+
+    phone = forms.CharField(
+        label=_("Phone number on your account"),
+        widget=forms.TextInput(attrs={"autocomplete": "tel", "inputmode": "tel", "placeholder": "024 412 3456"}),
+    )
+    code = forms.CharField(
+        label=_("One-time password from support"),
+        widget=forms.TextInput(attrs={"autocomplete": "off", "autocapitalize": "characters", "placeholder": "XXXXX-XXXXX"}),
+    )
+    field_order = ["phone", "code", "password", "password_confirm"]
+
+    def clean_phone(self):
+        return normalise_phone(self.cleaned_data["phone"])
+
+    def clean_code(self):
+        raw = "".join(ch for ch in self.cleaned_data["code"].upper() if ch.isalnum())
+        return f"{raw[:5]}-{raw[5:]}"
+
+
 class PasswordChangeForm(forms.Form):
     current_password = forms.CharField(
         label=_("Current password"), widget=forms.PasswordInput(attrs={"autocomplete": "current-password"})

@@ -19,7 +19,7 @@ msgstr "Nom complet"
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: apps/accounts/forms.py:15 apps/accounts/forms.py:119
+#: apps/accounts/forms.py:15 apps/accounts/forms.py:140
 msgid "Mobile number"
 msgstr "Numéro de mobile"
 
@@ -71,27 +71,27 @@ msgstr "Code à 6 chiffres"
 msgid "Enter the 6 digits from the email."
 msgstr "Saisissez les 6 chiffres reçus par e-mail."
 
-#: apps/accounts/forms.py:70 apps/accounts/forms.py:91
+#: apps/accounts/forms.py:70 apps/accounts/forms.py:112
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: apps/accounts/forms.py:72 apps/accounts/forms.py:93
+#: apps/accounts/forms.py:72 apps/accounts/forms.py:114
 msgid "Confirm new password"
 msgstr "Confirmer le nouveau mot de passe"
 
-#: apps/accounts/forms.py:78 apps/accounts/forms.py:109
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:130
 msgid "The two passwords do not match."
 msgstr "Les deux mots de passe ne correspondent pas."
 
-#: apps/accounts/forms.py:89
+#: apps/accounts/forms.py:110
 msgid "Current password"
 msgstr "Mot de passe actuel"
 
-#: apps/accounts/forms.py:103
+#: apps/accounts/forms.py:124
 msgid "That is not your current password."
 msgstr "Ce n’est pas votre mot de passe actuel."
 
-#: apps/accounts/forms.py:133
+#: apps/accounts/forms.py:154
 msgid "That number is linked to another account."
 msgstr "Ce numéro est lié à un autre compte."
 
@@ -104,15 +104,15 @@ msgstr "Confirmez votre adresse e-mail"
 msgid "Your password reset code: %(code)s"
 msgstr "Votre code de réinitialisation du mot de passe : %(code)s"
 
-#: apps/accounts/views.py:48
+#: apps/accounts/views.py:50
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr "Trop d’inscriptions depuis cette connexion. Réessayez dans une heure."
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:301 apps/cards/claim.py:97
+#: apps/accounts/views.py:65 apps/accounts/views.py:322 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Bienvenue sur AD Smart Business Cards"
 
-#: apps/accounts/views.py:76
+#: apps/accounts/views.py:78
 msgid ""
 "You have asked for several emails already. Check your spam folder, or try "
 "again later."
@@ -120,47 +120,48 @@ msgstr ""
 "Vous avez déjà demandé plusieurs e-mails. Vérifiez vos courriers "
 "indésirables ou réessayez plus tard."
 
-#: apps/accounts/views.py:79
+#: apps/accounts/views.py:81
 #, python-format
 msgid "We sent a new link to %(email)s."
 msgstr "Nous avons envoyé un nouveau lien à %(email)s."
 
-#: apps/accounts/views.py:91
+#: apps/accounts/views.py:93
 msgid ""
 "That link has expired or was already used. Sign in and ask for a new one."
 msgstr ""
 "Ce lien a expiré ou a déjà été utilisé. Connectez-vous et demandez-en un "
 "nouveau."
 
-#: apps/accounts/views.py:98
+#: apps/accounts/views.py:100
 msgid "Email confirmed. Build your card, preview it, then choose a plan."
 msgstr ""
 "E-mail confirmé. Créez votre carte, prévisualisez-la, puis choisissez une "
 "formule."
 
-#: apps/accounts/views.py:116
+#: apps/accounts/views.py:118
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr ""
 "Trop de tentatives. Patientez 15 minutes ou réinitialisez votre mot de "
 "passe."
 
-#: apps/accounts/views.py:121
+#: apps/accounts/views.py:123
 msgid "That email and password do not match."
 msgstr "Cet e-mail et ce mot de passe ne correspondent pas."
 
-#: apps/accounts/views.py:127 apps/accounts/views.py:305
+#: apps/accounts/views.py:131 apps/accounts/views.py:257
+#: apps/accounts/views.py:326
 msgid "This account is suspended. Contact support."
 msgstr "Ce compte est suspendu. Contactez l’assistance."
 
-#: apps/accounts/views.py:146
+#: apps/accounts/views.py:150
 msgid "You are signed out."
 msgstr "Vous êtes déconnecté."
 
-#: apps/accounts/views.py:162
+#: apps/accounts/views.py:166
 msgid "Too many requests. Try again in an hour."
 msgstr "Trop de demandes. Réessayez dans une heure."
 
-#: apps/accounts/views.py:166
+#: apps/accounts/views.py:170
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
@@ -168,52 +169,52 @@ msgstr ""
 "Un code a été envoyé il y a moins d’une minute. Consultez votre boîte de "
 "réception avant d’en redemander un."
 
-#: apps/accounts/views.py:180
+#: apps/accounts/views.py:184
 msgid "Too many attempts from this connection. Try again later."
 msgstr "Trop de tentatives depuis cette connexion. Réessayez plus tard."
 
-#: apps/accounts/views.py:187
+#: apps/accounts/views.py:191
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr ""
 "Ce code a expiré ou a été utilisé trop de fois. Demandez-en un nouveau."
 
-#: apps/accounts/views.py:196 apps/accounts/views.py:224
-#: apps/accounts/views.py:244
+#: apps/accounts/views.py:200 apps/accounts/views.py:228
+#: apps/accounts/views.py:264
 msgid "Your password was changed"
 msgstr "Votre mot de passe a été modifié"
 
-#: apps/accounts/views.py:200
+#: apps/accounts/views.py:204
 msgid "Your password has been reset."
 msgstr "Votre mot de passe a été réinitialisé."
 
-#: apps/accounts/views.py:206
+#: apps/accounts/views.py:210
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Ce code n’est pas le bon. %(left)d tentative restante."
 msgstr[1] "Ce code n’est pas le bon. %(left)d tentatives restantes."
 
-#: apps/accounts/views.py:211
+#: apps/accounts/views.py:215
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Trop de codes erronés. Demandez-en un nouveau."
 
-#: apps/accounts/views.py:227
+#: apps/accounts/views.py:231
 msgid "Password updated."
 msgstr "Mot de passe mis à jour."
 
-#: apps/accounts/views.py:259
+#: apps/accounts/views.py:280
 msgid "Google sign-in is not available yet."
 msgstr "La connexion avec Google n’est pas encore disponible."
 
-#: apps/accounts/views.py:271
+#: apps/accounts/views.py:292
 msgid "Google sign-in was cancelled."
 msgstr "La connexion avec Google a été annulée."
 
-#: apps/accounts/views.py:275
+#: apps/accounts/views.py:296
 msgid "Your Google sign-in session expired. Try again."
 msgstr "Votre session de connexion Google a expiré. Réessayez."
 
-#: apps/accounts/views.py:311
+#: apps/accounts/views.py:332
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 "Ajoutez votre numéro de mobile pour que nous puissions vous joindre au sujet"
@@ -821,7 +822,7 @@ msgstr "%(price)s chacune"
 msgid "%(price)s per person a year"
 msgstr "%(price)s par personne et par an"
 
-#: apps/accounts/forms.py:125 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/accounts/forms.py:146 apps/cards/forms.py:21 apps/core/jsstrings.py:21
 #: apps/support/forms.py:18
 msgid "Your name"
 msgstr "Votre nom"
@@ -1747,12 +1748,12 @@ msgstr "Votre compte AD Smart a été suspendu"
 msgid "Your AD Smart account is active again"
 msgstr "Votre compte AD Smart est de nouveau actif"
 
-#: apps/staff/views/subscribers.py:168
+#: apps/staff/views/subscribers.py:175
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "Votre carte /c/%(slug)s a été suspendue"
 
-#: apps/staff/views/subscribers.py:169
+#: apps/staff/views/subscribers.py:176
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "Votre carte /c/%(slug)s a été rétablie"
@@ -1841,7 +1842,8 @@ msgstr ""
 msgid "Send my code"
 msgstr "Envoyer mon code"
 
-#: templates/accounts/forgot_password.html:14
+#: templates/accounts/forgot_password.html:16
+#: templates/accounts/one_time_password.html:14
 msgid "Back to log in"
 msgstr "Retour à la connexion"
 
@@ -1860,12 +1862,12 @@ msgstr ""
 "Connectez-vous pour modifier votre carte, voir qui l’a consultée et suivre "
 "vos commandes NFC."
 
-#: templates/accounts/login.html:15 templates/partials/site_header.html:32
+#: templates/accounts/login.html:16 templates/partials/site_header.html:32
 #: templates/partials/site_header.html:58
 msgid "Log in"
 msgstr "Se connecter"
 
-#: templates/accounts/login.html:17
+#: templates/accounts/login.html:18
 #, python-format
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
 msgstr "Nouveau ici ? <a href=\"%(url_1)s\">Créez une carte</a>"
@@ -5559,11 +5561,11 @@ msgstr "© %(current_year)s AD Graphics. Tous droits réservés."
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "Prix en cedis ghanéens. Paiements par Paystack."
 
-#: apps/accounts/forms.py:126
+#: apps/accounts/forms.py:147
 msgid "Company name for receipts"
 msgstr "Nom de l’entreprise pour les reçus"
 
-#: apps/accounts/forms.py:127
+#: apps/accounts/forms.py:148
 msgid "Company address for receipts"
 msgstr "Adresse de l’entreprise pour les reçus"
 
@@ -6852,34 +6854,7 @@ msgstr "Créer mon compte"
 msgid "Our support team reset your AD Smart password"
 msgstr "Notre équipe d’assistance a réinitialisé votre mot de passe AD Smart"
 
-#: apps/accounts/views.py:124
-msgid "This temporary password has expired. Ask support for a new one."
-msgstr ""
-"Ce mot de passe temporaire a expiré. Demandez-en un nouveau à l’assistance."
-
-#: apps/accounts/views.py:247
-msgid "Your password is saved. Welcome back."
-msgstr "Votre mot de passe est enregistré. Bon retour parmi nous."
-
-#: templates/accounts/choose_password.html:2
-#, python-format
-msgid "Choose your password · %(SITE_NAME)s"
-msgstr "Choisissez votre mot de passe · %(SITE_NAME)s"
-
-#: templates/accounts/choose_password.html:7
-msgid "Choose your own password"
-msgstr "Choisissez votre propre mot de passe"
-
-#: templates/accounts/choose_password.html:8
-msgid ""
-"You signed in with a temporary password from our support team. Enter it as "
-"your current password, then choose a password only you know."
-msgstr ""
-"Vous vous êtes connecté avec un mot de passe temporaire donné par notre "
-"équipe d’assistance. Saisissez-le comme mot de passe actuel, puis choisissez"
-" un mot de passe que vous seul connaissez."
-
-#: templates/accounts/choose_password.html:12
+#: templates/accounts/one_time_password.html:12
 msgid "Save my password"
 msgstr "Enregistrer mon mot de passe"
 
@@ -6891,17 +6866,6 @@ msgstr ""
 "Notre équipe d’assistance a réinitialisé le mot de passe de votre compte AD "
 "Smart à votre demande."
 
-#: templates/emails/password_reset_by_staff.txt:5
-#, python-format
-msgid ""
-"They gave you a temporary password by phone. It works for %(hours)s hours, "
-"and you will be asked to choose your own password the first time you sign "
-"in."
-msgstr ""
-"Elle vous a donné un mot de passe temporaire par téléphone. Il est valable "
-"%(hours)s heures, et on vous demandera de choisir votre propre mot de passe "
-"dès votre première connexion."
-
 #: templates/emails/password_reset_by_staff.txt:7
 msgid ""
 "If you did not ask for this, reply to this email or message us on WhatsApp "
@@ -6909,3 +6873,131 @@ msgid ""
 msgstr ""
 "Si vous n’avez rien demandé, répondez à cet e-mail ou écrivez-nous sur "
 "WhatsApp sans attendre."
+
+#: templates/accounts/forgot_password.html:14
+#, python-format
+msgid ""
+"Lost access to that email too? <a href=\"%(url_1)s\">Contact support</a> and"
+" we will help you get back in."
+msgstr ""
+"Vous n’avez plus accès à cet e-mail non plus ? <a "
+"href=\"%(url_1)s\">Contactez l’assistance</a> et nous vous aiderons à "
+"récupérer votre compte."
+
+#: apps/accounts/forms.py:91
+msgid "Phone number on your account"
+msgstr "Numéro de téléphone de votre compte"
+
+#: apps/accounts/forms.py:95
+msgid "One-time password from support"
+msgstr "Mot de passe à usage unique de l’assistance"
+
+#: apps/accounts/views.py:127
+msgid ""
+"That is a one-time password from support. Use it on the one-time password "
+"page, linked under this form."
+msgstr ""
+"Ceci est un mot de passe à usage unique de l’assistance. Utilisez-le sur la "
+"page du mot de passe à usage unique, indiquée sous ce formulaire."
+
+#: apps/accounts/views.py:245
+msgid ""
+"Too many attempts. Wait 15 minutes, or ask support for a new one-time "
+"password."
+msgstr ""
+"Trop de tentatives. Attendez 15 minutes ou demandez à l’assistance un "
+"nouveau mot de passe à usage unique."
+
+#: apps/accounts/views.py:254
+msgid ""
+"That phone number and one-time password do not match, or the password has "
+"expired. Ask support for a new one."
+msgstr ""
+"Ce numéro de téléphone et ce mot de passe à usage unique ne correspondent "
+"pas, ou le mot de passe a expiré. Demandez-en un nouveau à l’assistance."
+
+#: apps/accounts/views.py:268
+#, python-format
+msgid "Your password is saved. Next time, sign in with %(email)s."
+msgstr ""
+"Votre mot de passe est enregistré. La prochaine fois, connectez-vous avec "
+"%(email)s."
+
+#: templates/accounts/forgot_password.html:15
+#, python-format
+msgid ""
+"Have a one-time password from support? <a href=\"%(url_2)s\">Use it "
+"here</a>."
+msgstr ""
+"Vous avez un mot de passe à usage unique de l’assistance ? <a "
+"href=\"%(url_2)s\">Utilisez-le ici</a>."
+
+#: templates/accounts/login.html:15
+#, python-format
+msgid ""
+"Have a one-time password from support? <a href=\"%(url_1)s\">Use it "
+"here</a>."
+msgstr ""
+"Vous avez un mot de passe à usage unique de l’assistance ? <a "
+"href=\"%(url_1)s\">Utilisez-le ici</a>."
+
+#: templates/accounts/one_time_password.html:2
+#, python-format
+msgid "One-time password · %(SITE_NAME)s"
+msgstr "Mot de passe à usage unique · %(SITE_NAME)s"
+
+#: templates/accounts/one_time_password.html:7
+msgid "Use your one-time password"
+msgstr "Utilisez votre mot de passe à usage unique"
+
+#: templates/accounts/one_time_password.html:8
+msgid ""
+"Our support team gave you a one-time password. Enter it with the phone "
+"number on your account, then choose a new password. It works once."
+msgstr ""
+"Notre équipe d’assistance vous a donné un mot de passe à usage unique. "
+"Saisissez-le avec le numéro de téléphone de votre compte, puis choisissez un"
+" nouveau mot de passe. Il ne fonctionne qu’une seule fois."
+
+#: templates/emails/password_reset_by_staff.txt:5
+#, python-format
+msgid ""
+"They gave you a one-time password by phone. Enter it with your phone number "
+"at %(link)s to choose a new password. It works once, within %(hours)s hours."
+msgstr ""
+"Elle vous a donné un mot de passe à usage unique par téléphone. Saisissez-le"
+" avec votre numéro de téléphone sur %(link)s pour choisir un nouveau mot de "
+"passe. Il ne fonctionne qu’une seule fois, dans un délai de %(hours)s "
+"heures."
+
+#~ msgid "This temporary password has expired. Ask support for a new one."
+#~ msgstr ""
+#~ "Ce mot de passe temporaire a expiré. Demandez-en un nouveau à l’assistance."
+
+#~ msgid "Your password is saved. Welcome back."
+#~ msgstr "Votre mot de passe est enregistré. Bon retour parmi nous."
+
+#, python-format
+#~ msgid "Choose your password · %(SITE_NAME)s"
+#~ msgstr "Choisissez votre mot de passe · %(SITE_NAME)s"
+
+#~ msgid "Choose your own password"
+#~ msgstr "Choisissez votre propre mot de passe"
+
+#~ msgid ""
+#~ "You signed in with a temporary password from our support team. Enter it as "
+#~ "your current password, then choose a password only you know."
+#~ msgstr ""
+#~ "Vous vous êtes connecté avec un mot de passe temporaire donné par notre "
+#~ "équipe d’assistance. Saisissez-le comme mot de passe actuel, puis choisissez"
+#~ " un mot de passe que vous seul connaissez."
+
+#, python-format
+#~ msgid ""
+#~ "They gave you a temporary password by phone. It works for %(hours)s hours, "
+#~ "and you will be asked to choose your own password the first time you sign "
+#~ "in."
+#~ msgstr ""
+#~ "Elle vous a donné un mot de passe temporaire par téléphone. Il est valable "
+#~ "%(hours)s heures, et on vous demandera de choisir votre propre mot de passe "
+#~ "dès votre première connexion."

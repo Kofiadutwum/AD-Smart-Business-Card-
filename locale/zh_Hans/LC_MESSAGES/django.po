@@ -19,7 +19,7 @@ msgstr "姓名"
 msgid "Email address"
 msgstr "电子邮箱"
 
-#: apps/accounts/forms.py:15 apps/accounts/forms.py:119
+#: apps/accounts/forms.py:15 apps/accounts/forms.py:140
 msgid "Mobile number"
 msgstr "手机号码"
 
@@ -65,27 +65,27 @@ msgstr "6 位验证码"
 msgid "Enter the 6 digits from the email."
 msgstr "请输入邮件中的 6 位数字。"
 
-#: apps/accounts/forms.py:70 apps/accounts/forms.py:91
+#: apps/accounts/forms.py:70 apps/accounts/forms.py:112
 msgid "New password"
 msgstr "新密码"
 
-#: apps/accounts/forms.py:72 apps/accounts/forms.py:93
+#: apps/accounts/forms.py:72 apps/accounts/forms.py:114
 msgid "Confirm new password"
 msgstr "确认新密码"
 
-#: apps/accounts/forms.py:78 apps/accounts/forms.py:109
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:130
 msgid "The two passwords do not match."
 msgstr "两次输入的密码不一致。"
 
-#: apps/accounts/forms.py:89
+#: apps/accounts/forms.py:110
 msgid "Current password"
 msgstr "当前密码"
 
-#: apps/accounts/forms.py:103
+#: apps/accounts/forms.py:124
 msgid "That is not your current password."
 msgstr "这不是您当前的密码。"
 
-#: apps/accounts/forms.py:133
+#: apps/accounts/forms.py:154
 msgid "That number is linked to another account."
 msgstr "该号码已关联到另一个账户。"
 
@@ -98,104 +98,105 @@ msgstr "请确认您的邮箱地址"
 msgid "Your password reset code: %(code)s"
 msgstr "您的密码重置验证码：%(code)s"
 
-#: apps/accounts/views.py:48
+#: apps/accounts/views.py:50
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr "此网络的注册次数过多，请一小时后再试。"
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:301 apps/cards/claim.py:97
+#: apps/accounts/views.py:65 apps/accounts/views.py:322 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "欢迎使用 AD Smart Business Cards"
 
-#: apps/accounts/views.py:76
+#: apps/accounts/views.py:78
 msgid ""
 "You have asked for several emails already. Check your spam folder, or try "
 "again later."
 msgstr "您已多次请求发送邮件。请查看垃圾邮件文件夹，或稍后再试。"
 
-#: apps/accounts/views.py:79
+#: apps/accounts/views.py:81
 #, python-format
 msgid "We sent a new link to %(email)s."
 msgstr "我们已向 %(email)s 发送了新的链接。"
 
-#: apps/accounts/views.py:91
+#: apps/accounts/views.py:93
 msgid ""
 "That link has expired or was already used. Sign in and ask for a new one."
 msgstr "该链接已过期或已被使用。请登录后重新申请。"
 
-#: apps/accounts/views.py:98
+#: apps/accounts/views.py:100
 msgid "Email confirmed. Build your card, preview it, then choose a plan."
 msgstr "邮箱已确认。请制作并预览您的名片，然后选择套餐。"
 
-#: apps/accounts/views.py:116
+#: apps/accounts/views.py:118
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "尝试次数过多。请等待 15 分钟，或重置密码。"
 
-#: apps/accounts/views.py:121
+#: apps/accounts/views.py:123
 msgid "That email and password do not match."
 msgstr "邮箱与密码不匹配。"
 
-#: apps/accounts/views.py:127 apps/accounts/views.py:305
+#: apps/accounts/views.py:131 apps/accounts/views.py:257
+#: apps/accounts/views.py:326
 msgid "This account is suspended. Contact support."
 msgstr "此账户已被暂停。请联系客服。"
 
-#: apps/accounts/views.py:146
+#: apps/accounts/views.py:150
 msgid "You are signed out."
 msgstr "您已退出登录。"
 
-#: apps/accounts/views.py:162
+#: apps/accounts/views.py:166
 msgid "Too many requests. Try again in an hour."
 msgstr "请求过多，请一小时后再试。"
 
-#: apps/accounts/views.py:166
+#: apps/accounts/views.py:170
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
 msgstr "不到一分钟前已发送过验证码。请先查看收件箱，再重新申请。"
 
-#: apps/accounts/views.py:180
+#: apps/accounts/views.py:184
 msgid "Too many attempts from this connection. Try again later."
 msgstr "此网络的尝试次数过多，请稍后再试。"
 
-#: apps/accounts/views.py:187
+#: apps/accounts/views.py:191
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "该验证码已过期或使用次数过多。请重新申请。"
 
-#: apps/accounts/views.py:196 apps/accounts/views.py:224
-#: apps/accounts/views.py:244
+#: apps/accounts/views.py:200 apps/accounts/views.py:228
+#: apps/accounts/views.py:264
 msgid "Your password was changed"
 msgstr "您的密码已修改"
 
-#: apps/accounts/views.py:200
+#: apps/accounts/views.py:204
 msgid "Your password has been reset."
 msgstr "您的密码已重置。"
 
-#: apps/accounts/views.py:206
+#: apps/accounts/views.py:210
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "验证码不正确，还可尝试 %(left)d 次。"
 
-#: apps/accounts/views.py:211
+#: apps/accounts/views.py:215
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "错误次数过多。请重新申请验证码。"
 
-#: apps/accounts/views.py:227
+#: apps/accounts/views.py:231
 msgid "Password updated."
 msgstr "密码已更新。"
 
-#: apps/accounts/views.py:259
+#: apps/accounts/views.py:280
 msgid "Google sign-in is not available yet."
 msgstr "暂不支持使用 Google 登录。"
 
-#: apps/accounts/views.py:271
+#: apps/accounts/views.py:292
 msgid "Google sign-in was cancelled."
 msgstr "已取消 Google 登录。"
 
-#: apps/accounts/views.py:275
+#: apps/accounts/views.py:296
 msgid "Your Google sign-in session expired. Try again."
 msgstr "您的 Google 登录会话已过期，请重试。"
 
-#: apps/accounts/views.py:311
+#: apps/accounts/views.py:332
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr "请添加您的手机号码，以便我们就订单和配送与您联系。"
 
@@ -774,7 +775,7 @@ msgstr "每张 %(price)s"
 msgid "%(price)s per person a year"
 msgstr "每人每年 %(price)s"
 
-#: apps/accounts/forms.py:125 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/accounts/forms.py:146 apps/cards/forms.py:21 apps/core/jsstrings.py:21
 #: apps/support/forms.py:18
 msgid "Your name"
 msgstr "您的姓名"
@@ -1602,12 +1603,12 @@ msgstr "您的 AD Smart 账户已被暂停"
 msgid "Your AD Smart account is active again"
 msgstr "您的 AD Smart 账户已恢复"
 
-#: apps/staff/views/subscribers.py:168
+#: apps/staff/views/subscribers.py:175
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "您的名片 /c/%(slug)s 已被暂停"
 
-#: apps/staff/views/subscribers.py:169
+#: apps/staff/views/subscribers.py:176
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "您的名片 /c/%(slug)s 已恢复"
@@ -1691,7 +1692,8 @@ msgstr "请输入邮箱，我们会发送一个 6 位验证码，15 分钟内有
 msgid "Send my code"
 msgstr "发送验证码"
 
-#: templates/accounts/forgot_password.html:14
+#: templates/accounts/forgot_password.html:16
+#: templates/accounts/one_time_password.html:14
 msgid "Back to log in"
 msgstr "返回登录"
 
@@ -1708,12 +1710,12 @@ msgstr "欢迎回来"
 msgid "Log in to edit your card, see who viewed it and track NFC orders."
 msgstr "登录后可编辑名片、查看访客并跟踪 NFC 订单。"
 
-#: templates/accounts/login.html:15 templates/partials/site_header.html:32
+#: templates/accounts/login.html:16 templates/partials/site_header.html:32
 #: templates/partials/site_header.html:58
 msgid "Log in"
 msgstr "登录"
 
-#: templates/accounts/login.html:17
+#: templates/accounts/login.html:18
 #, python-format
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
 msgstr "新用户？<a href=\"%(url_1)s\">创建名片</a>"
@@ -5016,11 +5018,11 @@ msgstr "© %(current_year)s AD Graphics。保留所有权利。"
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "价格以加纳塞地计。由 Paystack 提供支付服务。"
 
-#: apps/accounts/forms.py:126
+#: apps/accounts/forms.py:147
 msgid "Company name for receipts"
 msgstr "收据上的公司名称"
 
-#: apps/accounts/forms.py:127
+#: apps/accounts/forms.py:148
 msgid "Company address for receipts"
 msgstr "收据上的公司地址"
 
@@ -6184,30 +6186,7 @@ msgstr "创建我的账户"
 msgid "Our support team reset your AD Smart password"
 msgstr "我们的客服团队已重置您的 AD Smart 密码"
 
-#: apps/accounts/views.py:124
-msgid "This temporary password has expired. Ask support for a new one."
-msgstr "此临时密码已过期。请向客服申请新的密码。"
-
-#: apps/accounts/views.py:247
-msgid "Your password is saved. Welcome back."
-msgstr "您的密码已保存。欢迎回来。"
-
-#: templates/accounts/choose_password.html:2
-#, python-format
-msgid "Choose your password · %(SITE_NAME)s"
-msgstr "设置您的密码 · %(SITE_NAME)s"
-
-#: templates/accounts/choose_password.html:7
-msgid "Choose your own password"
-msgstr "设置您自己的密码"
-
-#: templates/accounts/choose_password.html:8
-msgid ""
-"You signed in with a temporary password from our support team. Enter it as "
-"your current password, then choose a password only you know."
-msgstr "您使用的是我们客服团队提供的临时密码登录。请将其作为当前密码输入，然后设置一个只有您自己知道的密码。"
-
-#: templates/accounts/choose_password.html:12
+#: templates/accounts/one_time_password.html:12
 msgid "Save my password"
 msgstr "保存我的密码"
 
@@ -6217,16 +6196,109 @@ msgid ""
 "request."
 msgstr "应您的要求，我们的客服团队已重置您 AD Smart 账户的密码。"
 
-#: templates/emails/password_reset_by_staff.txt:5
-#, python-format
-msgid ""
-"They gave you a temporary password by phone. It works for %(hours)s hours, "
-"and you will be asked to choose your own password the first time you sign "
-"in."
-msgstr "他们通过电话给了您一个临时密码。该密码在 %(hours)s 小时内有效，您首次登录时需要设置自己的密码。"
-
 #: templates/emails/password_reset_by_staff.txt:7
 msgid ""
 "If you did not ask for this, reply to this email or message us on WhatsApp "
 "straight away."
 msgstr "如果这不是您的请求，请立即回复此邮件或通过 WhatsApp 联系我们。"
+
+#: templates/accounts/forgot_password.html:14
+#, python-format
+msgid ""
+"Lost access to that email too? <a href=\"%(url_1)s\">Contact support</a> and"
+" we will help you get back in."
+msgstr "也无法访问该邮箱了？<a href=\"%(url_1)s\">联系客服</a>，我们会帮您重新登录。"
+
+#: apps/accounts/forms.py:91
+msgid "Phone number on your account"
+msgstr "您账户的手机号码"
+
+#: apps/accounts/forms.py:95
+msgid "One-time password from support"
+msgstr "客服提供的一次性密码"
+
+#: apps/accounts/views.py:127
+msgid ""
+"That is a one-time password from support. Use it on the one-time password "
+"page, linked under this form."
+msgstr "这是客服提供的一次性密码。请在此表单下方链接的一次性密码页面使用它。"
+
+#: apps/accounts/views.py:245
+msgid ""
+"Too many attempts. Wait 15 minutes, or ask support for a new one-time "
+"password."
+msgstr "尝试次数过多。请等待 15 分钟，或向客服索取新的一次性密码。"
+
+#: apps/accounts/views.py:254
+msgid ""
+"That phone number and one-time password do not match, or the password has "
+"expired. Ask support for a new one."
+msgstr "该手机号码与一次性密码不匹配，或密码已过期。请向客服索取新的密码。"
+
+#: apps/accounts/views.py:268
+#, python-format
+msgid "Your password is saved. Next time, sign in with %(email)s."
+msgstr "您的密码已保存。下次请使用 %(email)s 登录。"
+
+#: templates/accounts/forgot_password.html:15
+#, python-format
+msgid ""
+"Have a one-time password from support? <a href=\"%(url_2)s\">Use it "
+"here</a>."
+msgstr "有客服提供的一次性密码？<a href=\"%(url_2)s\">在此使用</a>。"
+
+#: templates/accounts/login.html:15
+#, python-format
+msgid ""
+"Have a one-time password from support? <a href=\"%(url_1)s\">Use it "
+"here</a>."
+msgstr "有客服提供的一次性密码？<a href=\"%(url_1)s\">在此使用</a>。"
+
+#: templates/accounts/one_time_password.html:2
+#, python-format
+msgid "One-time password · %(SITE_NAME)s"
+msgstr "一次性密码 · %(SITE_NAME)s"
+
+#: templates/accounts/one_time_password.html:7
+msgid "Use your one-time password"
+msgstr "使用您的一次性密码"
+
+#: templates/accounts/one_time_password.html:8
+msgid ""
+"Our support team gave you a one-time password. Enter it with the phone "
+"number on your account, then choose a new password. It works once."
+msgstr "我们的客服团队已给您一个一次性密码。请连同您账户的手机号码一起输入，然后设置新密码。该密码只能使用一次。"
+
+#: templates/emails/password_reset_by_staff.txt:5
+#, python-format
+msgid ""
+"They gave you a one-time password by phone. Enter it with your phone number "
+"at %(link)s to choose a new password. It works once, within %(hours)s hours."
+msgstr ""
+"他们已通过电话给了您一个一次性密码。请在 %(link)s 输入该密码和您的手机号码，以设置新密码。该密码只能使用一次，有效期 %(hours)s "
+"小时。"
+
+#~ msgid "This temporary password has expired. Ask support for a new one."
+#~ msgstr "此临时密码已过期。请向客服申请新的密码。"
+
+#~ msgid "Your password is saved. Welcome back."
+#~ msgstr "您的密码已保存。欢迎回来。"
+
+#, python-format
+#~ msgid "Choose your password · %(SITE_NAME)s"
+#~ msgstr "设置您的密码 · %(SITE_NAME)s"
+
+#~ msgid "Choose your own password"
+#~ msgstr "设置您自己的密码"
+
+#~ msgid ""
+#~ "You signed in with a temporary password from our support team. Enter it as "
+#~ "your current password, then choose a password only you know."
+#~ msgstr "您使用的是我们客服团队提供的临时密码登录。请将其作为当前密码输入，然后设置一个只有您自己知道的密码。"
+
+#, python-format
+#~ msgid ""
+#~ "They gave you a temporary password by phone. It works for %(hours)s hours, "
+#~ "and you will be asked to choose your own password the first time you sign "
+#~ "in."
+#~ msgstr "他们通过电话给了您一个临时密码。该密码在 %(hours)s 小时内有效，您首次登录时需要设置自己的密码。"

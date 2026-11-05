@@ -16,8 +16,6 @@ def customer_required(view):
         user = request.user
         if user.is_staff:
             return redirect("staff:home")
-        if user.password_temp_until:  # support gave them a temporary password: choose their own first
-            return redirect("accounts:choose_password")
         if not user.can_use_account:
             return redirect("accounts:verify_pending")
         try:  # a paid card must go live when its owner comes back, even if Paystack's notice never arrived

@@ -12,6 +12,7 @@
       <input type="hidden" name="next" value="{{ next }}">
       {% include "components/form_fields.html" %}
       <p class="text-sm"><a href="{% url 'accounts:forgot_password' %}">{% trans "Forgot your password?" %}</a></p>
+      <p class="text-sm">{% url 'accounts:one_time_password' as url_1 %}{% blocktrans trimmed %}Have a one-time password from support? <a href="{{ url_1 }}">Use it here</a>.{% endblocktrans %}</p>
       {% hover_button _("Log in") variant="ink" css="ihb--block" icon_name="log-in" %}
     </form>
     <p class="auth-alt">{% url 'accounts:register' as url_1 %}{% blocktrans trimmed %}New here? <a href="{{ url_1 }}">Create a card</a>{% endblocktrans %}</p>

@@ -15,7 +15,7 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: apps/accounts/forms.py:15 apps/accounts/forms.py:119
+#: apps/accounts/forms.py:15 apps/accounts/forms.py:140
 msgid "Mobile number"
 msgstr ""
 
@@ -59,39 +59,47 @@ msgstr ""
 msgid "Enter the 6 digits from the email."
 msgstr ""
 
-#: apps/accounts/forms.py:70 apps/accounts/forms.py:91
+#: apps/accounts/forms.py:70 apps/accounts/forms.py:112
 msgid "New password"
 msgstr ""
 
-#: apps/accounts/forms.py:72 apps/accounts/forms.py:93
+#: apps/accounts/forms.py:72 apps/accounts/forms.py:114
 msgid "Confirm new password"
 msgstr ""
 
-#: apps/accounts/forms.py:78 apps/accounts/forms.py:109
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:130
 msgid "The two passwords do not match."
 msgstr ""
 
-#: apps/accounts/forms.py:89
+#: apps/accounts/forms.py:91
+msgid "Phone number on your account"
+msgstr ""
+
+#: apps/accounts/forms.py:95
+msgid "One-time password from support"
+msgstr ""
+
+#: apps/accounts/forms.py:110
 msgid "Current password"
 msgstr ""
 
-#: apps/accounts/forms.py:103
+#: apps/accounts/forms.py:124
 msgid "That is not your current password."
 msgstr ""
 
-#: apps/accounts/forms.py:125 apps/cards/forms.py:21 apps/core/jsstrings.py:21 apps/support/forms.py:18
+#: apps/accounts/forms.py:146 apps/cards/forms.py:21 apps/core/jsstrings.py:21 apps/support/forms.py:18
 msgid "Your name"
 msgstr ""
 
-#: apps/accounts/forms.py:126
+#: apps/accounts/forms.py:147
 msgid "Company name for receipts"
 msgstr ""
 
-#: apps/accounts/forms.py:127
+#: apps/accounts/forms.py:148
 msgid "Company address for receipts"
 msgstr ""
 
-#: apps/accounts/forms.py:133
+#: apps/accounts/forms.py:154
 msgid "That number is linked to another account."
 msgstr ""
 
@@ -108,106 +116,115 @@ msgstr ""
 msgid "Our support team reset your AD Smart password"
 msgstr ""
 
-#: apps/accounts/views.py:48
+#: apps/accounts/views.py:50
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr ""
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:301 apps/cards/claim.py:97
+#: apps/accounts/views.py:65 apps/accounts/views.py:322 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr ""
 
-#: apps/accounts/views.py:76
+#: apps/accounts/views.py:78
 msgid "You have asked for several emails already. Check your spam folder, or try again later."
 msgstr ""
 
-#: apps/accounts/views.py:79
+#: apps/accounts/views.py:81
 #, python-format
 msgid "We sent a new link to %(email)s."
 msgstr ""
 
-#: apps/accounts/views.py:91
+#: apps/accounts/views.py:93
 msgid "That link has expired or was already used. Sign in and ask for a new one."
 msgstr ""
 
-#: apps/accounts/views.py:98
+#: apps/accounts/views.py:100
 msgid "Email confirmed. Build your card, preview it, then choose a plan."
 msgstr ""
 
-#: apps/accounts/views.py:116
+#: apps/accounts/views.py:118
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr ""
 
-#: apps/accounts/views.py:121
+#: apps/accounts/views.py:123
 msgid "That email and password do not match."
 msgstr ""
 
-#: apps/accounts/views.py:124
-msgid "This temporary password has expired. Ask support for a new one."
+#: apps/accounts/views.py:127
+msgid "That is a one-time password from support. Use it on the one-time password page, linked under this form."
 msgstr ""
 
-#: apps/accounts/views.py:127 apps/accounts/views.py:305
+#: apps/accounts/views.py:131 apps/accounts/views.py:257 apps/accounts/views.py:326
 msgid "This account is suspended. Contact support."
 msgstr ""
 
-#: apps/accounts/views.py:146
+#: apps/accounts/views.py:150
 msgid "You are signed out."
 msgstr ""
 
-#: apps/accounts/views.py:162
+#: apps/accounts/views.py:166
 msgid "Too many requests. Try again in an hour."
 msgstr ""
 
-#: apps/accounts/views.py:166
+#: apps/accounts/views.py:170
 msgid "A code was sent less than a minute ago. Check your inbox before asking again."
 msgstr ""
 
-#: apps/accounts/views.py:180
+#: apps/accounts/views.py:184
 msgid "Too many attempts from this connection. Try again later."
 msgstr ""
 
-#: apps/accounts/views.py:187
+#: apps/accounts/views.py:191
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr ""
 
-#: apps/accounts/views.py:196 apps/accounts/views.py:224 apps/accounts/views.py:244
+#: apps/accounts/views.py:200 apps/accounts/views.py:228 apps/accounts/views.py:264
 msgid "Your password was changed"
 msgstr ""
 
-#: apps/accounts/views.py:200
+#: apps/accounts/views.py:204
 msgid "Your password has been reset."
 msgstr ""
 
-#: apps/accounts/views.py:206
+#: apps/accounts/views.py:210
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr ""
 
-#: apps/accounts/views.py:211
+#: apps/accounts/views.py:215
 msgid "Too many wrong codes. Ask for a new one."
 msgstr ""
 
-#: apps/accounts/views.py:227
+#: apps/accounts/views.py:231
 msgid "Password updated."
 msgstr ""
 
-#: apps/accounts/views.py:247
-msgid "Your password is saved. Welcome back."
+#: apps/accounts/views.py:245
+msgid "Too many attempts. Wait 15 minutes, or ask support for a new one-time password."
 msgstr ""
 
-#: apps/accounts/views.py:259
+#: apps/accounts/views.py:254
+msgid "That phone number and one-time password do not match, or the password has expired. Ask support for a new one."
+msgstr ""
+
+#: apps/accounts/views.py:268
+#, python-format
+msgid "Your password is saved. Next time, sign in with %(email)s."
+msgstr ""
+
+#: apps/accounts/views.py:280
 msgid "Google sign-in is not available yet."
 msgstr ""
 
-#: apps/accounts/views.py:271
+#: apps/accounts/views.py:292
 msgid "Google sign-in was cancelled."
 msgstr ""
 
-#: apps/accounts/views.py:275
+#: apps/accounts/views.py:296
 msgid "Your Google sign-in session expired. Try again."
 msgstr ""
 
-#: apps/accounts/views.py:311
+#: apps/accounts/views.py:332
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 
@@ -2142,12 +2159,12 @@ msgstr ""
 msgid "Your AD Smart account is active again"
 msgstr ""
 
-#: apps/staff/views/subscribers.py:168
+#: apps/staff/views/subscribers.py:175
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr ""
 
-#: apps/staff/views/subscribers.py:169
+#: apps/staff/views/subscribers.py:176
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr ""
@@ -2251,23 +2268,6 @@ msgstr ""
 msgid "Back to settings"
 msgstr ""
 
-#: templates/accounts/choose_password.html:2
-#, python-format
-msgid "Choose your password · %(SITE_NAME)s"
-msgstr ""
-
-#: templates/accounts/choose_password.html:7
-msgid "Choose your own password"
-msgstr ""
-
-#: templates/accounts/choose_password.html:8
-msgid "You signed in with a temporary password from our support team. Enter it as your current password, then choose a password only you know."
-msgstr ""
-
-#: templates/accounts/choose_password.html:12
-msgid "Save my password"
-msgstr ""
-
 #: templates/accounts/forgot_password.html:2
 #, python-format
 msgid "Reset your password · %(SITE_NAME)s"
@@ -2286,6 +2286,16 @@ msgid "Send my code"
 msgstr ""
 
 #: templates/accounts/forgot_password.html:14
+#, python-format
+msgid "Lost access to that email too? <a href=\"%(url_1)s\">Contact support</a> and we will help you get back in."
+msgstr ""
+
+#: templates/accounts/forgot_password.html:15
+#, python-format
+msgid "Have a one-time password from support? <a href=\"%(url_2)s\">Use it here</a>."
+msgstr ""
+
+#: templates/accounts/forgot_password.html:16 templates/accounts/one_time_password.html:14
 msgid "Back to log in"
 msgstr ""
 
@@ -2302,13 +2312,35 @@ msgstr ""
 msgid "Log in to edit your card, see who viewed it and track NFC orders."
 msgstr ""
 
-#: templates/accounts/login.html:15 templates/partials/site_header.html:32 templates/partials/site_header.html:58
+#: templates/accounts/login.html:15
+#, python-format
+msgid "Have a one-time password from support? <a href=\"%(url_1)s\">Use it here</a>."
+msgstr ""
+
+#: templates/accounts/login.html:16 templates/partials/site_header.html:32 templates/partials/site_header.html:58
 msgid "Log in"
 msgstr ""
 
-#: templates/accounts/login.html:17
+#: templates/accounts/login.html:18
 #, python-format
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
+msgstr ""
+
+#: templates/accounts/one_time_password.html:2
+#, python-format
+msgid "One-time password · %(SITE_NAME)s"
+msgstr ""
+
+#: templates/accounts/one_time_password.html:7
+msgid "Use your one-time password"
+msgstr ""
+
+#: templates/accounts/one_time_password.html:8
+msgid "Our support team gave you a one-time password. Enter it with the phone number on your account, then choose a new password. It works once."
+msgstr ""
+
+#: templates/accounts/one_time_password.html:12
+msgid "Save my password"
 msgstr ""
 
 #: templates/accounts/register.html:2
@@ -4152,7 +4184,7 @@ msgstr ""
 
 #: templates/emails/password_reset_by_staff.txt:5
 #, python-format
-msgid "They gave you a temporary password by phone. It works for %(hours)s hours, and you will be asked to choose your own password the first time you sign in."
+msgid "They gave you a one-time password by phone. Enter it with your phone number at %(link)s to choose a new password. It works once, within %(hours)s hours."
 msgstr ""
 
 #: templates/emails/password_reset_by_staff.txt:7

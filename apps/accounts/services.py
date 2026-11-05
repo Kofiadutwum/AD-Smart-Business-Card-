@@ -100,7 +100,10 @@ def staff_reset_password(staff, customer, reason):
         to=customer.email,
         subject=subject_text("Our support team reset your AD Smart password"),
         template="password_reset_by_staff",
-        context={"user": customer, "hours": TEMP_PASSWORD_HOURS},
+        context={
+            "user": customer, "hours": TEMP_PASSWORD_HOURS,
+            "link": settings.SITE_URL + reverse("accounts:one_time_password"),
+        },
         user=customer,
         kind="password_reset_by_staff",
     )

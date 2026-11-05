@@ -15,7 +15,7 @@ urlpatterns = [
     path("forgot-password", views.forgot_password, name="forgot_password"),
     path("forgot-password/verify", views.reset_password, name="reset_password"),
     path("password", views.change_password, name="change_password"),
-    path("choose-password", views.choose_password, name="choose_password"),
+    path("one-time-password", views.one_time_password, name="one_time_password"),
     path("google", views.google_start, name="google"),
     path("google/callback", views.google_callback, name="google_callback"),
 ]

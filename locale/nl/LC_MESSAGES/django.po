@@ -19,7 +19,7 @@ msgstr "Volledige naam"
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: apps/accounts/forms.py:15 apps/accounts/forms.py:119
+#: apps/accounts/forms.py:15 apps/accounts/forms.py:140
 msgid "Mobile number"
 msgstr "Mobiel nummer"
 
@@ -71,27 +71,27 @@ msgstr "Code van 6 cijfers"
 msgid "Enter the 6 digits from the email."
 msgstr "Voer de 6 cijfers uit de e-mail in."
 
-#: apps/accounts/forms.py:70 apps/accounts/forms.py:91
+#: apps/accounts/forms.py:70 apps/accounts/forms.py:112
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: apps/accounts/forms.py:72 apps/accounts/forms.py:93
+#: apps/accounts/forms.py:72 apps/accounts/forms.py:114
 msgid "Confirm new password"
 msgstr "Bevestig nieuw wachtwoord"
 
-#: apps/accounts/forms.py:78 apps/accounts/forms.py:109
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:130
 msgid "The two passwords do not match."
 msgstr "De twee wachtwoorden komen niet overeen."
 
-#: apps/accounts/forms.py:89
+#: apps/accounts/forms.py:110
 msgid "Current password"
 msgstr "Huidig wachtwoord"
 
-#: apps/accounts/forms.py:103
+#: apps/accounts/forms.py:124
 msgid "That is not your current password."
 msgstr "Dat is je huidige wachtwoord niet."
 
-#: apps/accounts/forms.py:133
+#: apps/accounts/forms.py:154
 msgid "That number is linked to another account."
 msgstr "Dit nummer is gekoppeld aan een ander account."
 
@@ -104,17 +104,17 @@ msgstr "Bevestig je e-mailadres"
 msgid "Your password reset code: %(code)s"
 msgstr "Je code om je wachtwoord te herstellen: %(code)s"
 
-#: apps/accounts/views.py:48
+#: apps/accounts/views.py:50
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr ""
 "Te veel registraties vanaf deze verbinding. Probeer het over een uur "
 "opnieuw."
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:301 apps/cards/claim.py:97
+#: apps/accounts/views.py:65 apps/accounts/views.py:322 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Welkom bij AD Smart Business Cards"
 
-#: apps/accounts/views.py:76
+#: apps/accounts/views.py:78
 msgid ""
 "You have asked for several emails already. Check your spam folder, or try "
 "again later."
@@ -122,43 +122,44 @@ msgstr ""
 "Je hebt al meerdere e-mails aangevraagd. Controleer je spammap of probeer "
 "het later opnieuw."
 
-#: apps/accounts/views.py:79
+#: apps/accounts/views.py:81
 #, python-format
 msgid "We sent a new link to %(email)s."
 msgstr "We hebben een nieuwe link naar %(email)s gestuurd."
 
-#: apps/accounts/views.py:91
+#: apps/accounts/views.py:93
 msgid ""
 "That link has expired or was already used. Sign in and ask for a new one."
 msgstr "Die link is verlopen of al gebruikt. Log in en vraag een nieuwe aan."
 
-#: apps/accounts/views.py:98
+#: apps/accounts/views.py:100
 msgid "Email confirmed. Build your card, preview it, then choose a plan."
 msgstr ""
 "E-mail bevestigd. Maak je kaart, bekijk een voorbeeld en kies een "
 "abonnement."
 
-#: apps/accounts/views.py:116
+#: apps/accounts/views.py:118
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "Te veel pogingen. Wacht 15 minuten of herstel je wachtwoord."
 
-#: apps/accounts/views.py:121
+#: apps/accounts/views.py:123
 msgid "That email and password do not match."
 msgstr "Dat e-mailadres en wachtwoord komen niet overeen."
 
-#: apps/accounts/views.py:127 apps/accounts/views.py:305
+#: apps/accounts/views.py:131 apps/accounts/views.py:257
+#: apps/accounts/views.py:326
 msgid "This account is suspended. Contact support."
 msgstr "Dit account is geschorst. Neem contact op met de support."
 
-#: apps/accounts/views.py:146
+#: apps/accounts/views.py:150
 msgid "You are signed out."
 msgstr "Je bent uitgelogd."
 
-#: apps/accounts/views.py:162
+#: apps/accounts/views.py:166
 msgid "Too many requests. Try again in an hour."
 msgstr "Te veel verzoeken. Probeer het over een uur opnieuw."
 
-#: apps/accounts/views.py:166
+#: apps/accounts/views.py:170
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
@@ -166,51 +167,51 @@ msgstr ""
 "Er is minder dan een minuut geleden een code verstuurd. Controleer je inbox "
 "voordat je een nieuwe aanvraagt."
 
-#: apps/accounts/views.py:180
+#: apps/accounts/views.py:184
 msgid "Too many attempts from this connection. Try again later."
 msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
 
-#: apps/accounts/views.py:187
+#: apps/accounts/views.py:191
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "Die code is verlopen of te vaak gebruikt. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:196 apps/accounts/views.py:224
-#: apps/accounts/views.py:244
+#: apps/accounts/views.py:200 apps/accounts/views.py:228
+#: apps/accounts/views.py:264
 msgid "Your password was changed"
 msgstr "Je wachtwoord is gewijzigd"
 
-#: apps/accounts/views.py:200
+#: apps/accounts/views.py:204
 msgid "Your password has been reset."
 msgstr "Je wachtwoord is hersteld."
 
-#: apps/accounts/views.py:206
+#: apps/accounts/views.py:210
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Die code klopt niet. Nog %(left)d poging over."
 msgstr[1] "Die code klopt niet. Nog %(left)d pogingen over."
 
-#: apps/accounts/views.py:211
+#: apps/accounts/views.py:215
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Te veel foute codes. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:227
+#: apps/accounts/views.py:231
 msgid "Password updated."
 msgstr "Wachtwoord bijgewerkt."
 
-#: apps/accounts/views.py:259
+#: apps/accounts/views.py:280
 msgid "Google sign-in is not available yet."
 msgstr "Inloggen met Google is nog niet beschikbaar."
 
-#: apps/accounts/views.py:271
+#: apps/accounts/views.py:292
 msgid "Google sign-in was cancelled."
 msgstr "Inloggen met Google is geannuleerd."
 
-#: apps/accounts/views.py:275
+#: apps/accounts/views.py:296
 msgid "Your Google sign-in session expired. Try again."
 msgstr "Je Google-inlogsessie is verlopen. Probeer het opnieuw."
 
-#: apps/accounts/views.py:311
+#: apps/accounts/views.py:332
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 "Voeg je mobiele nummer toe zodat we contact met je kunnen opnemen over "
@@ -819,7 +820,7 @@ msgstr "%(price)s per stuk"
 msgid "%(price)s per person a year"
 msgstr "%(price)s per persoon per jaar"
 
-#: apps/accounts/forms.py:125 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/accounts/forms.py:146 apps/cards/forms.py:21 apps/core/jsstrings.py:21
 #: apps/support/forms.py:18
 msgid "Your name"
 msgstr "Je naam"
@@ -1733,12 +1734,12 @@ msgstr "Je AD Smart-account is geschorst"
 msgid "Your AD Smart account is active again"
 msgstr "Je AD Smart-account is weer actief"
 
-#: apps/staff/views/subscribers.py:168
+#: apps/staff/views/subscribers.py:175
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "Je kaart /c/%(slug)s is geschorst"
 
-#: apps/staff/views/subscribers.py:169
+#: apps/staff/views/subscribers.py:176
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "Je kaart /c/%(slug)s is hersteld"
@@ -1825,7 +1826,8 @@ msgstr ""
 msgid "Send my code"
 msgstr "Stuur mijn code"
 
-#: templates/accounts/forgot_password.html:14
+#: templates/accounts/forgot_password.html:16
+#: templates/accounts/one_time_password.html:14
 msgid "Back to log in"
 msgstr "Terug naar inloggen"
 
@@ -1844,12 +1846,12 @@ msgstr ""
 "Log in om je kaart te bewerken, te zien wie hem heeft bekeken en je NFC-"
 "bestellingen te volgen."
 
-#: templates/accounts/login.html:15 templates/partials/site_header.html:32
+#: templates/accounts/login.html:16 templates/partials/site_header.html:32
 #: templates/partials/site_header.html:58
 msgid "Log in"
 msgstr "Inloggen"
 
-#: templates/accounts/login.html:17
+#: templates/accounts/login.html:18
 #, python-format
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
 msgstr "Nieuw hier? <a href=\"%(url_1)s\">Maak een kaart</a>"
@@ -5498,11 +5500,11 @@ msgstr "© %(current_year)s AD Graphics. Alle rechten voorbehouden."
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "Prijzen in Ghanese cedi. Betalingen via Paystack."
 
-#: apps/accounts/forms.py:126
+#: apps/accounts/forms.py:147
 msgid "Company name for receipts"
 msgstr "Bedrijfsnaam voor kwitanties"
 
-#: apps/accounts/forms.py:127
+#: apps/accounts/forms.py:148
 msgid "Company address for receipts"
 msgstr "Bedrijfsadres voor kwitanties"
 
@@ -6786,34 +6788,7 @@ msgstr "Mijn account aanmaken"
 msgid "Our support team reset your AD Smart password"
 msgstr "Ons supportteam heeft je AD Smart-wachtwoord opnieuw ingesteld"
 
-#: apps/accounts/views.py:124
-msgid "This temporary password has expired. Ask support for a new one."
-msgstr ""
-"Dit tijdelijke wachtwoord is verlopen. Vraag support om een nieuw "
-"wachtwoord."
-
-#: apps/accounts/views.py:247
-msgid "Your password is saved. Welcome back."
-msgstr "Je wachtwoord is opgeslagen. Welkom terug."
-
-#: templates/accounts/choose_password.html:2
-#, python-format
-msgid "Choose your password · %(SITE_NAME)s"
-msgstr "Kies je wachtwoord · %(SITE_NAME)s"
-
-#: templates/accounts/choose_password.html:7
-msgid "Choose your own password"
-msgstr "Kies je eigen wachtwoord"
-
-#: templates/accounts/choose_password.html:8
-msgid ""
-"You signed in with a temporary password from our support team. Enter it as "
-"your current password, then choose a password only you know."
-msgstr ""
-"Je bent ingelogd met een tijdelijk wachtwoord van ons supportteam. Vul het "
-"in als huidig wachtwoord en kies daarna een wachtwoord dat alleen jij kent."
-
-#: templates/accounts/choose_password.html:12
+#: templates/accounts/one_time_password.html:12
 msgid "Save my password"
 msgstr "Mijn wachtwoord opslaan"
 
@@ -6825,17 +6800,6 @@ msgstr ""
 "Ons supportteam heeft op jouw verzoek het wachtwoord van je AD Smart-account"
 " opnieuw ingesteld."
 
-#: templates/emails/password_reset_by_staff.txt:5
-#, python-format
-msgid ""
-"They gave you a temporary password by phone. It works for %(hours)s hours, "
-"and you will be asked to choose your own password the first time you sign "
-"in."
-msgstr ""
-"Ze hebben je telefonisch een tijdelijk wachtwoord gegeven. Het werkt "
-"%(hours)s uur en je wordt gevraagd een eigen wachtwoord te kiezen bij je "
-"eerste keer inloggen."
-
 #: templates/emails/password_reset_by_staff.txt:7
 msgid ""
 "If you did not ask for this, reply to this email or message us on WhatsApp "
@@ -6843,3 +6807,127 @@ msgid ""
 msgstr ""
 "Heb je dit niet aangevraagd? Beantwoord dan deze e-mail of stuur ons meteen "
 "een bericht via WhatsApp."
+
+#: templates/accounts/forgot_password.html:14
+#, python-format
+msgid ""
+"Lost access to that email too? <a href=\"%(url_1)s\">Contact support</a> and"
+" we will help you get back in."
+msgstr ""
+"Ook geen toegang meer tot dat e-mailadres? <a href=\"%(url_1)s\">Neem "
+"contact op met support</a> en we helpen je weer binnen te komen."
+
+#: apps/accounts/forms.py:91
+msgid "Phone number on your account"
+msgstr "Telefoonnummer van je account"
+
+#: apps/accounts/forms.py:95
+msgid "One-time password from support"
+msgstr "Eenmalig wachtwoord van support"
+
+#: apps/accounts/views.py:127
+msgid ""
+"That is a one-time password from support. Use it on the one-time password "
+"page, linked under this form."
+msgstr ""
+"Dit is een eenmalig wachtwoord van support. Gebruik het op de pagina voor "
+"het eenmalige wachtwoord, die je onder dit formulier vindt."
+
+#: apps/accounts/views.py:245
+msgid ""
+"Too many attempts. Wait 15 minutes, or ask support for a new one-time "
+"password."
+msgstr ""
+"Te veel pogingen. Wacht 15 minuten of vraag support om een nieuw eenmalig "
+"wachtwoord."
+
+#: apps/accounts/views.py:254
+msgid ""
+"That phone number and one-time password do not match, or the password has "
+"expired. Ask support for a new one."
+msgstr ""
+"Dit telefoonnummer en eenmalige wachtwoord komen niet overeen, of het "
+"wachtwoord is verlopen. Vraag support om een nieuw wachtwoord."
+
+#: apps/accounts/views.py:268
+#, python-format
+msgid "Your password is saved. Next time, sign in with %(email)s."
+msgstr "Je wachtwoord is opgeslagen. Log de volgende keer in met %(email)s."
+
+#: templates/accounts/forgot_password.html:15
+#, python-format
+msgid ""
+"Have a one-time password from support? <a href=\"%(url_2)s\">Use it "
+"here</a>."
+msgstr ""
+"Heb je een eenmalig wachtwoord van support? <a href=\"%(url_2)s\">Gebruik "
+"het hier</a>."
+
+#: templates/accounts/login.html:15
+#, python-format
+msgid ""
+"Have a one-time password from support? <a href=\"%(url_1)s\">Use it "
+"here</a>."
+msgstr ""
+"Heb je een eenmalig wachtwoord van support? <a href=\"%(url_1)s\">Gebruik "
+"het hier</a>."
+
+#: templates/accounts/one_time_password.html:2
+#, python-format
+msgid "One-time password · %(SITE_NAME)s"
+msgstr "Eenmalig wachtwoord · %(SITE_NAME)s"
+
+#: templates/accounts/one_time_password.html:7
+msgid "Use your one-time password"
+msgstr "Gebruik je eenmalige wachtwoord"
+
+#: templates/accounts/one_time_password.html:8
+msgid ""
+"Our support team gave you a one-time password. Enter it with the phone "
+"number on your account, then choose a new password. It works once."
+msgstr ""
+"Ons supportteam heeft je een eenmalig wachtwoord gegeven. Vul het in met het"
+" telefoonnummer van je account en kies dan een nieuw wachtwoord. Het werkt "
+"maar één keer."
+
+#: templates/emails/password_reset_by_staff.txt:5
+#, python-format
+msgid ""
+"They gave you a one-time password by phone. Enter it with your phone number "
+"at %(link)s to choose a new password. It works once, within %(hours)s hours."
+msgstr ""
+"Ze hebben je telefonisch een eenmalig wachtwoord gegeven. Vul het in met je "
+"telefoonnummer op %(link)s om een nieuw wachtwoord te kiezen. Het werkt maar"
+" één keer, binnen %(hours)s uur."
+
+#~ msgid "This temporary password has expired. Ask support for a new one."
+#~ msgstr ""
+#~ "Dit tijdelijke wachtwoord is verlopen. Vraag support om een nieuw "
+#~ "wachtwoord."
+
+#~ msgid "Your password is saved. Welcome back."
+#~ msgstr "Je wachtwoord is opgeslagen. Welkom terug."
+
+#, python-format
+#~ msgid "Choose your password · %(SITE_NAME)s"
+#~ msgstr "Kies je wachtwoord · %(SITE_NAME)s"
+
+#~ msgid "Choose your own password"
+#~ msgstr "Kies je eigen wachtwoord"
+
+#~ msgid ""
+#~ "You signed in with a temporary password from our support team. Enter it as "
+#~ "your current password, then choose a password only you know."
+#~ msgstr ""
+#~ "Je bent ingelogd met een tijdelijk wachtwoord van ons supportteam. Vul het "
+#~ "in als huidig wachtwoord en kies daarna een wachtwoord dat alleen jij kent."
+
+#, python-format
+#~ msgid ""
+#~ "They gave you a temporary password by phone. It works for %(hours)s hours, "
+#~ "and you will be asked to choose your own password the first time you sign "
+#~ "in."
+#~ msgstr ""
+#~ "Ze hebben je telefonisch een tijdelijk wachtwoord gegeven. Het werkt "
+#~ "%(hours)s uur en je wordt gevraagd een eigen wachtwoord te kiezen bij je "
+#~ "eerste keer inloggen."

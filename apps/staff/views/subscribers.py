@@ -136,6 +136,13 @@ def reset_customer_password(request, pk):
     if customer.anonymised_at:
         messages.error(request, "This account was deleted, so there is nothing to reset.")
         return redirect("staff:subscriber", pk=pk)
+    if not customer.phone:
+        messages.error(
+            request,
+            "This account has no phone number, and the one-time password page finds the account by it. "
+            "Ask the customer to sign in with Google, or to use the code sent to their email.",
+        )
+        return redirect("staff:subscriber", pk=pk)
     form = CustomerPasswordResetForm(request.POST)
     if not form.is_valid():
         messages.error(request, "Tick all three checks and give a reason. Nothing was changed.")
