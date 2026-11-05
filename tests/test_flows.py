@@ -138,6 +138,30 @@ class PaymentFlowTests(BaseTest):
         pdf = self.client.get(f"/billing/receipts/{payment.reference}.pdf")
         self.assertEqual(pdf["Content-Type"], "application/pdf")
 
+    def test_a_paid_card_goes_live_when_its_owner_returns_even_with_no_callback(self):
+        """Paystack recorded the payment but neither its redirect nor its webhook reached us."""
+        self.client.post("/billing/", {"plan": "professional", "action": "pay", "accept_policy": "1"})
+        payment = Payment.objects.get()
+        self.assertEqual(payment.status, Payment.PENDING)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.assertEqual(self.client.get("/dashboard/").status_code, 200)
+        payment.refresh_from_db()
+        self.assertEqual(payment.status, Payment.SUCCESS)
+        self.card.refresh_from_db()
+        self.assertTrue(self.card.is_live)
+
+    def test_an_open_payment_is_left_pending_when_paystack_has_not_seen_it_paid(self):
+        """The customer may still be on Paystack's page in another tab, so only a success changes anything."""
+        self.client.post("/billing/", {"plan": "professional", "action": "pay", "accept_policy": "1"})
+        unpaid = {"status": "abandoned", "reference": Payment.objects.get().reference}
+        with mock.patch("apps.billing.paystack.verify", return_value=unpaid) as verify:
+            self.client.get("/dashboard/")
+            self.client.get("/dashboard/")  # within 15 seconds: Paystack is not asked again
+        self.assertEqual(verify.call_count, 1)
+        self.assertEqual(Payment.objects.get().status, Payment.PENDING)
+        self.card.refresh_from_db()
+        self.assertFalse(self.card.is_live)
+
     def test_refund_policy_must_be_accepted(self):
         self.client.post("/billing/", {"plan": "basic", "action": "pay"})
         self.assertFalse(Payment.objects.exists())

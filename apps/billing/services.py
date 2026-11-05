@@ -255,8 +255,12 @@ def gateway_matches(payment, data):
     return problems
 
 
-def verify_and_fulfil(payment, source):
-    """Confirm with Paystack and fulfil. Returns the payment's final status."""
+def verify_and_fulfil(payment, source, success_only=False):
+    """Confirm with Paystack and fulfil. Returns the payment's final status.
+
+    ``success_only`` leaves a payment Paystack does not call paid still pending, because the customer may be
+    part way through checkout in another tab.
+    """
     if payment.status != Payment.PENDING:
         return payment.status
     try:
@@ -273,13 +277,33 @@ def verify_and_fulfil(payment, source):
             flag_payment(payment, "mismatch:" + ",".join(problems), data)
             return payment.status
         fulfil(payment, data, source=source)
-    elif status in {"failed", "abandoned", "reversed"}:
+    elif not success_only and status in {"failed", "abandoned", "reversed"}:
         Payment.objects.filter(pk=payment.pk, status=Payment.PENDING).update(
             status=Payment.FAILED if status != "abandoned" else Payment.ABANDONED,
             gateway_response=_trim(data),
         )
     payment.refresh_from_db()
     return payment.status
+
+
+def settle_pending(user, session=None, hours=48, every=15):
+    """Safety net for a callback or webhook that never reached us: when a customer opens any page, ask
+    Paystack about their open payments and switch the plan on if one was paid.
+
+    ``session`` throttles this to one round of Paystack calls every ``every`` seconds.
+    """
+    pending = list(user.payments.filter(
+        status=Payment.PENDING, gateway="paystack", created_at__gte=timezone.now() - timedelta(hours=hours),
+    ))
+    if not pending:
+        return
+    now = timezone.now().timestamp()
+    if session is not None:
+        if now - session.get("settle_checked", 0) < every:
+            return
+        session["settle_checked"] = now
+    for payment in pending:
+        verify_and_fulfil(payment, "return-visit", success_only=True)
 
 
 def flag_payment(payment, flag, data):

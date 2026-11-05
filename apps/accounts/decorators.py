@@ -1,7 +1,10 @@
+import logging
 from functools import wraps
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+
+logger = logging.getLogger(__name__)
 
 
 def customer_required(view):
@@ -15,6 +18,12 @@ def customer_required(view):
             return redirect("staff:home")
         if not user.can_use_account:
             return redirect("accounts:verify_pending")
+        try:  # a paid card must go live when its owner comes back, even if Paystack's notice never arrived
+            from apps.billing.services import settle_pending
+
+            settle_pending(user, request.session)
+        except Exception:
+            logger.exception("Could not check open payments for user %s", user.pk)
         return view(request, *args, **kwargs)
 
     return wrapped
