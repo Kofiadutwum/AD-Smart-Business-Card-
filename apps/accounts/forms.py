@@ -3,14 +3,19 @@ from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
 from apps.core.utils import normalise_phone
+from django.urls import reverse_lazy
 
 from .models import User
+from .services import email_problem
 from django.utils.translation import gettext_lazy as _
+
+# The email box asks /auth/check-email as the customer types (static/js/email-check.js).
+EMAIL_CHECK_ATTRS = {"autocomplete": "email", "data-email-check": reverse_lazy("accounts:check_email")}
 
 
 class RegisterForm(forms.Form):
     full_name = forms.CharField(label=_("Full name"), max_length=120, widget=forms.TextInput(attrs={"autocomplete": "name"}))
-    email = forms.EmailField(label=_("Email address"), widget=forms.EmailInput(attrs={"autocomplete": "email"}))
+    email = forms.EmailField(label=_("Email address"), widget=forms.EmailInput(attrs=EMAIL_CHECK_ATTRS))
     phone = forms.CharField(
         label=_("Mobile number"),
         help_text=_("We use it only to reach you about orders and delivery."),
@@ -28,8 +33,9 @@ class RegisterForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data["email"].strip().lower()
-        if User.objects.filter(email__iexact=email).exists():
-            raise ValidationError(_("That email already has an account. Sign in instead."))
+        problem = email_problem(email)
+        if problem:
+            raise ValidationError(problem)
         return email
 
     def clean_phone(self):
@@ -134,6 +140,30 @@ class PasswordChangeForm(forms.Form):
             except ValidationError as exc:
                 self.add_error("password", exc)
         return cleaned
+
+
+class EmailChangeForm(forms.Form):
+    email = forms.EmailField(label=_("New email address"), widget=forms.EmailInput(attrs=EMAIL_CHECK_ATTRS))
+    current_password = forms.CharField(
+        label=_("Current password"), widget=forms.PasswordInput(attrs={"autocomplete": "current-password"})
+    )
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def clean_email(self):
+        email = self.cleaned_data["email"].strip().lower()
+        problem = email_problem(email, self.user)
+        if problem:
+            raise ValidationError(problem)
+        return email
+
+    def clean_current_password(self):
+        value = self.cleaned_data["current_password"]
+        if not self.user.check_password(value):
+            raise ValidationError(_("That is not your current password."))
+        return value
 
 
 class AccountForm(forms.ModelForm):

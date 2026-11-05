@@ -20,6 +20,7 @@ PERMISSIONS = {
     "manual_activation": {SUPER, FINANCE, SUPPORT},
     "suspend": {SUPER, SUPPORT},
     "reset_customer_password": {SUPER, SUPPORT},
+    "change_customer_email": {SUPER, SUPPORT},
     "finance": {SUPER, FINANCE},
     "refunds": {SUPER, FINANCE},
     "promo_codes": {SUPER, FINANCE},

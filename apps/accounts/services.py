@@ -1,5 +1,6 @@
-"""Email verification, recovery codes and Google sign-in."""
+"""Recovery codes, the live email check and Google sign-in."""
 
+import difflib
 import json
 import secrets
 from datetime import timedelta
@@ -8,39 +9,88 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from django.conf import settings
-from django.core import signing
+from django.core.cache import cache
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from apps.core.emails import send_email, subject_text
 
 from .models import OneTimeCode
 
-VERIFY_SALT = "accounts.verify-email"
-VERIFY_MAX_AGE = 60 * 60 * 48
 RESET_CODE_MINUTES = 15  # REG-06
 RESET_COOLDOWN_SECONDS = 60
 
 
-def send_verification_email(user):
-    token = signing.dumps({"uid": user.pk, "email": user.email}, salt=VERIFY_SALT)
-    link = settings.SITE_URL + reverse("accounts:verify_email", args=[token])
-    return send_email(
-        to=user.email,
-        subject=subject_text("Confirm your email address"),
-        template="verify_email",
-        context={"user": user, "link": link},
-        user=user,
-        kind="verify_email",
-    )
+COMMON_MAIL_DOMAINS = (
+    "gmail.com", "googlemail.com", "yahoo.com", "yahoo.co.uk", "ymail.com", "outlook.com", "hotmail.com",
+    "live.com", "msn.com", "icloud.com", "me.com", "aol.com", "proton.me", "protonmail.com", "mail.com",
+)
 
 
-def read_verification_token(token):
+def _domain_can_receive_mail(domain):
+    """False only when DNS says nothing at this domain can take mail. A slow or broken lookup never blocks anyone."""
+    import dns.exception
+    import dns.resolver
+
+    key = f"mailhost:{domain}"
+    cached = cache.get(key)
+    if cached is not None:
+        return cached
     try:
-        data = signing.loads(token, salt=VERIFY_SALT, max_age=VERIFY_MAX_AGE)
-    except signing.BadSignature:
+        try:
+            answers = dns.resolver.resolve(domain, "MX", lifetime=3)
+            found = any(str(record.exchange).strip(".") for record in answers)  # a lone "." is a null MX: no mail
+        except dns.resolver.NoAnswer:  # no MX record: mail goes to the domain's own address, if it has one
+            try:
+                dns.resolver.resolve(domain, "A", lifetime=3)
+                found = True
+            except dns.resolver.NoAnswer:
+                found = False
+    except dns.resolver.NXDOMAIN:
+        found = False
+    except dns.exception.DNSException:
+        return True
+    cache.set(key, found, 3600)
+    return found
+
+
+def email_problem(raw, current_user=None):
+    """Why this email address cannot be used, as a sentence for the customer, or None when it can.
+
+    Used by sign-up, card setup, change-email and the live check beside those boxes, so they always agree.
+    ``current_user`` is the signed-in customer changing their own address.
+    """
+    from django.core.exceptions import ValidationError
+    from django.core.validators import validate_email
+
+    from .models import User
+
+    email = (raw or "").strip().lower()
+    try:
+        validate_email(email)
+    except ValidationError:
+        return _("That does not look like an email address.")
+    if current_user and email == current_user.email.lower():
+        return _("That is already your email address.")
+    taken = User.objects.filter(email__iexact=email)
+    if current_user:
+        taken = taken.exclude(pk=current_user.pk)
+    if taken.exists():
+        return _("That email belongs to another account.") if current_user else _("That email already has an account. Sign in instead.")
+    domain = email.rpartition("@")[2]
+    if settings.EMAIL_DOMAIN_CHECK and not _domain_can_receive_mail(domain):
+        return _("We could not find a mail server for %(domain)s. Check the spelling after the @.") % {"domain": domain}
+    return None
+
+
+def email_suggestion(raw):
+    """A likely fix for a mistyped popular domain (gmial.com), or None. A hint only: it never blocks."""
+    local, _at, domain = (raw or "").strip().lower().rpartition("@")
+    if not local or domain in COMMON_MAIL_DOMAINS:
         return None
-    return data
+    close = difflib.get_close_matches(domain, COMMON_MAIL_DOMAINS, n=1, cutoff=0.8)
+    return f"{local}@{close[0]}" if close else None
 
 
 def issue_reset_code(user):
@@ -108,6 +158,23 @@ def staff_reset_password(staff, customer, reason):
         kind="password_reset_by_staff",
     )
     return temporary
+
+
+def staff_change_email(staff, customer, new_email, reason):
+    """Support changes the email of a customer who lost access to the old one. The old address gets a notice."""
+    from django.db import transaction
+
+    from apps.core.models import AuditLog
+
+    old = customer.email
+    with transaction.atomic():
+        customer.email = new_email
+        customer.save(update_fields=["email"])
+        AuditLog.record(staff, "customer_email_changed", customer, reason=reason, old=old, new=new_email)
+    send_email(
+        to=old, subject=subject_text("The email on your AD Smart account was changed"), template="email_changed",
+        context={"user": customer, "new": new_email}, user=customer, kind="email_changed",
+    )
 
 
 def anonymise_user(user, reason=""):

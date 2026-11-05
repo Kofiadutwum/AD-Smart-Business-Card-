@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{% blocktrans trimmed %}Set up your card · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block scripts %}<script src="{% static 'js/email-check.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card">

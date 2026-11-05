@@ -307,6 +307,9 @@ CRON_SECRET = env("CRON_SECRET")
 FX_PROVIDER_URL = env("FX_PROVIDER_URL", "https://open.er-api.com/v6/latest/USD")
 FX_AUTO_REFRESH = env_bool("FX_AUTO_REFRESH", sys.argv[1:2] != ["test"])
 
+# Email addresses are checked as they are typed, including a DNS lookup for a mail server. Off while the tests run.
+EMAIL_DOMAIN_CHECK = env_bool("EMAIL_DOMAIN_CHECK", sys.argv[1:2] != ["test"])
+
 # The Flask site signed its visitor hashes with its own secret; new hashes use
 # this salt so repeat-visitor counting survives a SECRET_KEY rotation.
 ANALYTICS_SALT = env("ANALYTICS_SALT", SECRET_KEY)

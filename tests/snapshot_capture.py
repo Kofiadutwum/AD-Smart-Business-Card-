@@ -84,8 +84,4 @@ class SnapshotCapture(BaseTest):
             for path in CUSTOMER:
                 save("customer_" + path, self.client.get(path))
             self.client.logout()
-
-            unverified = self.make_user(email="new@example.com", verified=False, phone="+233200000000")
-            self.client.force_login(unverified)
-            save("customer_verify", self.client.get("/auth/verify"))
         self.assertTrue(any(out.iterdir()))

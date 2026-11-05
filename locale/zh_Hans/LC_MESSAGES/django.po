@@ -9,194 +9,170 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps/accounts/forms.py:12 apps/dashboard/forms.py:49
+#: apps/accounts/forms.py:17 apps/dashboard/forms.py:49
 msgid "Full name"
 msgstr "姓名"
 
-#: apps/accounts/forms.py:13 apps/accounts/forms.py:54
-#: apps/accounts/forms.py:60 apps/cards/models.py:45
-#: apps/dashboard/forms.py:54
+#: apps/accounts/forms.py:18 apps/accounts/forms.py:60
+#: apps/accounts/forms.py:66 apps/cards/models.py:45
+#: apps/dashboard/forms.py:54 templates/dashboard/settings.html:16
 msgid "Email address"
 msgstr "电子邮箱"
 
-#: apps/accounts/forms.py:15 apps/accounts/forms.py:140
+#: apps/accounts/forms.py:20 apps/accounts/forms.py:170
 msgid "Mobile number"
 msgstr "手机号码"
 
-#: apps/accounts/forms.py:16
+#: apps/accounts/forms.py:21
 msgid "We use it only to reach you about orders and delivery."
 msgstr "仅用于就订单和配送与您联系。"
 
-#: apps/accounts/forms.py:20 apps/accounts/forms.py:55
-#: templates/dashboard/settings.html:16
+#: apps/accounts/forms.py:25 apps/accounts/forms.py:61
+#: templates/dashboard/settings.html:21
 msgid "Password"
 msgstr "密码"
 
-#: apps/accounts/forms.py:22
+#: apps/accounts/forms.py:27
 msgid "At least 8 characters. Avoid common words and all-number passwords."
 msgstr "至少 8 个字符。请避免使用常见单词或纯数字密码。"
 
-#: apps/accounts/forms.py:25
+#: apps/accounts/forms.py:30
 msgid "I accept the Terms of Service and Privacy Policy"
 msgstr "我接受服务条款和隐私政策"
 
-#: apps/accounts/forms.py:26
+#: apps/accounts/forms.py:31
 msgid "You need to accept the terms to create an account."
 msgstr "您需要接受条款才能创建账户。"
 
-#: apps/accounts/forms.py:32
+#: apps/accounts/services.py:80
 msgid "That email already has an account. Sign in instead."
 msgstr "该邮箱已有账户，请直接登录。"
 
-#: apps/accounts/forms.py:38
+#: apps/accounts/forms.py:44
 msgid ""
 "That number is linked to another account. Sign in or recover that account."
 msgstr "该号码已关联到另一个账户。请登录或找回该账户。"
 
-#: apps/accounts/forms.py:56
+#: apps/accounts/forms.py:62
 msgid "Keep me signed in"
 msgstr "保持登录"
 
-#: apps/accounts/forms.py:65
+#: apps/accounts/forms.py:71
 msgid "6-digit code"
 msgstr "6 位验证码"
 
-#: apps/accounts/forms.py:67
+#: apps/accounts/forms.py:73
 msgid "Enter the 6 digits from the email."
 msgstr "请输入邮件中的 6 位数字。"
 
-#: apps/accounts/forms.py:70 apps/accounts/forms.py:112
+#: apps/accounts/forms.py:76 apps/accounts/forms.py:118
 msgid "New password"
 msgstr "新密码"
 
-#: apps/accounts/forms.py:72 apps/accounts/forms.py:114
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:120
 msgid "Confirm new password"
 msgstr "确认新密码"
 
-#: apps/accounts/forms.py:78 apps/accounts/forms.py:130
+#: apps/accounts/forms.py:84 apps/accounts/forms.py:136
 msgid "The two passwords do not match."
 msgstr "两次输入的密码不一致。"
 
-#: apps/accounts/forms.py:110
+#: apps/accounts/forms.py:116 apps/accounts/forms.py:148
 msgid "Current password"
 msgstr "当前密码"
 
-#: apps/accounts/forms.py:124
+#: apps/accounts/forms.py:130 apps/accounts/forms.py:165
 msgid "That is not your current password."
 msgstr "这不是您当前的密码。"
 
-#: apps/accounts/forms.py:154
+#: apps/accounts/forms.py:184
 msgid "That number is linked to another account."
 msgstr "该号码已关联到另一个账户。"
 
-#: apps/accounts/services.py:30
-msgid "Confirm your email address"
-msgstr "请确认您的邮箱地址"
-
-#: apps/accounts/services.py:65
+#: apps/accounts/services.py:115
 #, python-format
 msgid "Your password reset code: %(code)s"
 msgstr "您的密码重置验证码：%(code)s"
 
-#: apps/accounts/views.py:50
+#: apps/accounts/views.py:56
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr "此网络的注册次数过多，请一小时后再试。"
 
-#: apps/accounts/views.py:65 apps/accounts/views.py:322 apps/cards/claim.py:97
+#: apps/accounts/views.py:70 apps/accounts/views.py:355 apps/cards/claim.py:95
 msgid "Welcome to AD Smart Business Cards"
 msgstr "欢迎使用 AD Smart Business Cards"
 
-#: apps/accounts/views.py:78
-msgid ""
-"You have asked for several emails already. Check your spam folder, or try "
-"again later."
-msgstr "您已多次请求发送邮件。请查看垃圾邮件文件夹，或稍后再试。"
-
-#: apps/accounts/views.py:81
-#, python-format
-msgid "We sent a new link to %(email)s."
-msgstr "我们已向 %(email)s 发送了新的链接。"
-
-#: apps/accounts/views.py:93
-msgid ""
-"That link has expired or was already used. Sign in and ask for a new one."
-msgstr "该链接已过期或已被使用。请登录后重新申请。"
-
-#: apps/accounts/views.py:100
-msgid "Email confirmed. Build your card, preview it, then choose a plan."
-msgstr "邮箱已确认。请制作并预览您的名片，然后选择套餐。"
-
-#: apps/accounts/views.py:118
+#: apps/accounts/views.py:92
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "尝试次数过多。请等待 15 分钟，或重置密码。"
 
-#: apps/accounts/views.py:123
+#: apps/accounts/views.py:97
 msgid "That email and password do not match."
 msgstr "邮箱与密码不匹配。"
 
-#: apps/accounts/views.py:131 apps/accounts/views.py:257
-#: apps/accounts/views.py:326
+#: apps/accounts/views.py:105 apps/accounts/views.py:292
+#: apps/accounts/views.py:359
 msgid "This account is suspended. Contact support."
 msgstr "此账户已被暂停。请联系客服。"
 
-#: apps/accounts/views.py:150
+#: apps/accounts/views.py:124
 msgid "You are signed out."
 msgstr "您已退出登录。"
 
-#: apps/accounts/views.py:166
+#: apps/accounts/views.py:140
 msgid "Too many requests. Try again in an hour."
 msgstr "请求过多，请一小时后再试。"
 
-#: apps/accounts/views.py:170
+#: apps/accounts/views.py:144
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
 msgstr "不到一分钟前已发送过验证码。请先查看收件箱，再重新申请。"
 
-#: apps/accounts/views.py:184
+#: apps/accounts/views.py:158
 msgid "Too many attempts from this connection. Try again later."
 msgstr "此网络的尝试次数过多，请稍后再试。"
 
-#: apps/accounts/views.py:191
+#: apps/accounts/views.py:165
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "该验证码已过期或使用次数过多。请重新申请。"
 
-#: apps/accounts/views.py:200 apps/accounts/views.py:228
-#: apps/accounts/views.py:264
+#: apps/accounts/views.py:174 apps/accounts/views.py:202
+#: apps/accounts/views.py:299
 msgid "Your password was changed"
 msgstr "您的密码已修改"
 
-#: apps/accounts/views.py:204
+#: apps/accounts/views.py:178
 msgid "Your password has been reset."
 msgstr "您的密码已重置。"
 
-#: apps/accounts/views.py:210
+#: apps/accounts/views.py:184
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "验证码不正确，还可尝试 %(left)d 次。"
 
-#: apps/accounts/views.py:215
+#: apps/accounts/views.py:189
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "错误次数过多。请重新申请验证码。"
 
-#: apps/accounts/views.py:231
+#: apps/accounts/views.py:205
 msgid "Password updated."
 msgstr "密码已更新。"
 
-#: apps/accounts/views.py:280
+#: apps/accounts/views.py:315
 msgid "Google sign-in is not available yet."
 msgstr "暂不支持使用 Google 登录。"
 
-#: apps/accounts/views.py:292
+#: apps/accounts/views.py:327
 msgid "Google sign-in was cancelled."
 msgstr "已取消 Google 登录。"
 
-#: apps/accounts/views.py:296
+#: apps/accounts/views.py:331
 msgid "Your Google sign-in session expired. Try again."
 msgstr "您的 Google 登录会话已过期，请重试。"
 
-#: apps/accounts/views.py:332
+#: apps/accounts/views.py:365
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr "请添加您的手机号码，以便我们就订单和配送与您联系。"
 
@@ -441,17 +417,17 @@ msgid ""
 "with the reference."
 msgstr "找不到该笔付款。如果款项已从您的账户扣除，请联系客服并提供付款参考号。"
 
-#: apps/cards/claim.py:83
+#: apps/cards/claim.py:82
 msgid "Too many attempts from this connection. Try again in an hour."
 msgstr "此网络的尝试次数过多，请一小时后再试。"
 
-#: apps/cards/claim.py:91
+#: apps/cards/claim.py:90
 msgid ""
 "That email or number was just used for another account. Please check and try"
 " again."
 msgstr "该邮箱或号码刚刚已被用于另一个账户。请检查后重试。"
 
-#: apps/cards/claim.py:144
+#: apps/cards/claim.py:141
 msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr "名片已添加到您的账户，并已为您的套餐增加一年。"
@@ -775,7 +751,7 @@ msgstr "每张 %(price)s"
 msgid "%(price)s per person a year"
 msgstr "每人每年 %(price)s"
 
-#: apps/accounts/forms.py:146 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/accounts/forms.py:176 apps/cards/forms.py:21 apps/core/jsstrings.py:21
 #: apps/support/forms.py:18
 msgid "Your name"
 msgstr "您的姓名"
@@ -1049,7 +1025,7 @@ msgid ""
 "Your deletion request is recorded. Your data will be removed within 30 days."
 msgstr "已记录您的删除申请，您的数据将在 30 天内删除。"
 
-#: apps/marketing/content.py:16 templates/accounts/register.html:8
+#: apps/marketing/content.py:16 templates/accounts/register.html:10
 msgid "Create your account"
 msgstr "创建您的账户"
 
@@ -1595,20 +1571,20 @@ msgstr "订单已取消。"
 msgid "An update on your order %(number)s"
 msgstr "订单 %(number)s 的最新进展"
 
-#: apps/staff/views/subscribers.py:123
+#: apps/staff/views/subscribers.py:124
 msgid "Your AD Smart account has been suspended"
 msgstr "您的 AD Smart 账户已被暂停"
 
-#: apps/staff/views/subscribers.py:123
+#: apps/staff/views/subscribers.py:124
 msgid "Your AD Smart account is active again"
 msgstr "您的 AD Smart 账户已恢复"
 
-#: apps/staff/views/subscribers.py:175
+#: apps/staff/views/subscribers.py:198
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "您的名片 /c/%(slug)s 已被暂停"
 
-#: apps/staff/views/subscribers.py:176
+#: apps/staff/views/subscribers.py:199
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "您的名片 /c/%(slug)s 已恢复"
@@ -1669,6 +1645,7 @@ msgstr "我们会发送邮件确认此次修改。"
 msgid "Update password"
 msgstr "更新密码"
 
+#: templates/accounts/change_email.html:22
 #: templates/accounts/change_password.html:14
 msgid "Back to settings"
 msgstr "返回设置"
@@ -1720,32 +1697,26 @@ msgstr "登录"
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
 msgstr "新用户？<a href=\"%(url_1)s\">创建名片</a>"
 
-#: templates/accounts/register.html:2
+#: templates/accounts/register.html:3
 #, python-format
 msgid "Create your account · %(SITE_NAME)s"
 msgstr "创建账户 · %(SITE_NAME)s"
 
-#: templates/accounts/register.html:7 templates/cards/claim_pin.html:7
+#: templates/accounts/register.html:9 templates/cards/claim_pin.html:7
 msgid "Step 1 of 3"
 msgstr "第 1 步（共 3 步）"
 
-#: templates/accounts/register.html:9
+#: templates/accounts/register.html:11
 msgid ""
 "Then build and preview your card for free. You only pay when you choose a "
 "plan."
 msgstr "之后可免费制作并预览名片，选择套餐时才需付费。"
 
-#: templates/accounts/register.html:12
-msgid ""
-"Signing up with Google confirms your email straight away. We will ask for "
-"your mobile number next."
-msgstr "使用 Google 注册会立即确认您的邮箱，之后我们会请您填写手机号码。"
-
-#: templates/accounts/register.html:18
+#: templates/accounts/register.html:20
 msgid "Create account"
 msgstr "创建账户"
 
-#: templates/accounts/register.html:20
+#: templates/accounts/register.html:22
 #, python-format
 msgid "Already have an account? <a href=\"%(url_3)s\">Log in</a>"
 msgstr "已有账户？<a href=\"%(url_3)s\">登录</a>"
@@ -1774,38 +1745,9 @@ msgstr "重置密码"
 msgid "Send a new code"
 msgstr "重新发送验证码"
 
-#: templates/accounts/verify_pending.html:2
-#, python-format
-msgid "Confirm your email · %(SITE_NAME)s"
-msgstr "确认邮箱 · %(SITE_NAME)s"
-
-#: templates/accounts/verify_pending.html:8
-#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:9
 msgid "Step 2 of 3"
 msgstr "第 2 步（共 3 步）"
-
-#: templates/accounts/verify_pending.html:9
-msgid "Check your email"
-msgstr "请查收邮件"
-
-#: templates/accounts/verify_pending.html:10
-#, python-format
-msgid ""
-"We sent a confirmation link to <strong>%(user_email)s</strong>. Open it to "
-"start building your card."
-msgstr "我们已向 <strong>%(user_email)s</strong> 发送了确认链接。打开链接即可开始制作名片。"
-
-#: templates/accounts/verify_pending.html:11
-msgid "No email after a few minutes? Check your spam or promotions folder."
-msgstr "几分钟后仍未收到邮件？请查看垃圾邮件或促销邮件文件夹。"
-
-#: templates/accounts/verify_pending.html:14
-msgid "Send the link again"
-msgstr "重新发送链接"
-
-#: templates/accounts/verify_pending.html:16
-msgid "Use a different account"
-msgstr "使用其他账户"
 
 #: templates/base.html:39
 msgid "Skip to main content"
@@ -2182,7 +2124,7 @@ msgstr "举报这张名片"
 msgid "Add this card to your account · %(SITE_NAME)s"
 msgstr "将此名片添加到您的账户 · %(SITE_NAME)s"
 
-#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:9
 msgid "Step 2 of 2"
 msgstr "第 2 步（共 2 步）"
 
@@ -2216,7 +2158,7 @@ msgstr ""
 msgid "Add the card and the year"
 msgstr "添加名片并延长一年"
 
-#: templates/cards/claim_pin.html:2 templates/cards/claim_setup.html:2
+#: templates/cards/claim_pin.html:2 templates/cards/claim_setup.html:3
 #, python-format
 msgid "Set up your card · %(SITE_NAME)s"
 msgstr "设置您的名片 · %(SITE_NAME)s"
@@ -2245,11 +2187,11 @@ msgid ""
 "that sold it to you."
 msgstr "找不到 PIN 码？它印在名片背面。您也可以向售卖名片的门店询问。"
 
-#: templates/cards/claim_setup.html:8
+#: templates/cards/claim_setup.html:10
 msgid "Your details"
 msgstr "您的资料"
 
-#: templates/cards/claim_setup.html:12
+#: templates/cards/claim_setup.html:14
 #, python-format
 msgid ""
 "This card comes with one year of the %(batch_plan_name)s plan, already paid."
@@ -2257,7 +2199,7 @@ msgid ""
 " exactly as printed."
 msgstr "这张名片附带一年 %(batch_plan_name)s 套餐，费用已付清。请填写您的资料并创建账户，名片上的链接和二维码保持不变。"
 
-#: templates/accounts/register.html:17 templates/cards/claim_setup.html:19
+#: templates/accounts/register.html:19 templates/cards/claim_setup.html:21
 #, python-format
 msgid ""
 "By creating an account you agree to our <a href=\"%(url_1)s\" "
@@ -2267,11 +2209,11 @@ msgstr ""
 "创建账户即表示您同意我们的<a href=\"%(url_1)s\" target=\"_blank\">服务条款</a>和<a "
 "href=\"%(url_2)s\" target=\"_blank\">隐私政策</a>。"
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 msgid "Activate my card"
 msgstr "激活我的名片"
 
-#: templates/cards/claim_setup.html:22
+#: templates/cards/claim_setup.html:24
 #, python-format
 msgid ""
 "Already have an account? <a href=\"%(login_url)s\">Log in to add this card "
@@ -2357,7 +2299,7 @@ msgid "Open menu"
 msgstr "打开菜单"
 
 #: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65
-#: templates/dashboard/settings.html:26 templates/partials/site_header.html:22
+#: templates/dashboard/settings.html:31 templates/partials/site_header.html:22
 msgid "Change theme"
 msgstr "切换主题"
 
@@ -2438,18 +2380,18 @@ msgstr "帮助与支持"
 msgid "Log out"
 msgstr "退出登录"
 
-#: templates/dashboard/_status_banner.html:12
+#: templates/dashboard/_status_banner.html:5
 msgid ""
 "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to"
 " give it its permanent link and switch it on."
 msgstr "<strong>您的名片目前是草稿。</strong>只有您自己能看到。选择套餐后即可获得永久链接并上线。"
 
-#: templates/dashboard/_status_banner.html:13
+#: templates/dashboard/_status_banner.html:6
 #: templates/dashboard/business.html:17 templates/dashboard/editor.html:162
 msgid "Choose a plan"
 msgstr "选择套餐"
 
-#: templates/dashboard/_status_banner.html:18
+#: templates/dashboard/_status_banner.html:11
 #, python-format
 msgid ""
 "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> "
@@ -2459,18 +2401,18 @@ msgstr ""
 "<strong>您的套餐已于 %(shell_subscription_expires_at_date)s 到期。</strong>名片在 "
 "%(shell_subscription_grace_ends_at_date)s 前仍可使用。请在此之前续订以保持上线。"
 
-#: templates/dashboard/_status_banner.html:19
-#: templates/dashboard/_status_banner.html:25
+#: templates/dashboard/_status_banner.html:12
+#: templates/dashboard/_status_banner.html:18
 msgid "Renew now"
 msgstr "立即续订"
 
-#: templates/dashboard/_status_banner.html:24
+#: templates/dashboard/_status_banner.html:17
 msgid ""
 "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page."
 " Renew to bring back the same link, QR code and NFC cards."
 msgstr "<strong>您的名片已停用。</strong>访客会看到“名片已停用”页面。续订后即可恢复原有的链接、二维码和 NFC 卡片。"
 
-#: templates/dashboard/_status_banner.html:31
+#: templates/dashboard/_status_banner.html:24
 msgid "Renew"
 msgstr "续订"
 
@@ -2978,47 +2920,47 @@ msgstr "账户信息"
 msgid "Save details"
 msgstr "保存信息"
 
-#: templates/dashboard/settings.html:17
+#: templates/dashboard/settings.html:22
 msgid "You can sign in with Google."
 msgstr "您可以使用 Google 登录。"
 
-#: templates/dashboard/settings.html:17
+#: templates/dashboard/settings.html:22
 msgid "Change the password you use to sign in with your email."
 msgstr "修改您使用邮箱登录时的密码。"
 
-#: templates/dashboard/settings.html:18
+#: templates/dashboard/settings.html:23
 msgid "Change password"
 msgstr "修改密码"
 
-#: templates/dashboard/settings.html:23
+#: templates/dashboard/settings.html:28
 msgid "Appearance"
 msgstr "外观"
 
-#: templates/dashboard/settings.html:24
+#: templates/dashboard/settings.html:29
 msgid ""
 "Light, dark or match your device. Your choice is remembered on this device."
 msgstr "浅色、深色或跟随设备。您的选择会保存在此设备上。"
 
-#: templates/dashboard/settings.html:30
+#: templates/dashboard/settings.html:35
 msgid "Delete account"
 msgstr "删除账户"
 
-#: templates/dashboard/settings.html:31
+#: templates/dashboard/settings.html:36
 msgid ""
 "Your cards go offline straight away and your personal data is removed within"
 " 30 days. Payment records are kept for accounting. Your card links are "
 "retired and never given to anyone else."
 msgstr "您的名片会立即下线，个人数据将在 30 天内删除。付款记录会因会计需要而保留。您的名片链接将被停用，不会分配给其他任何人。"
 
-#: templates/dashboard/settings.html:32
+#: templates/dashboard/settings.html:37
 msgid "Delete your account? This cannot be undone."
 msgstr "删除您的账户？此操作无法撤销。"
 
-#: templates/dashboard/settings.html:35
+#: templates/dashboard/settings.html:40
 msgid "Type your email to confirm"
 msgstr "输入您的邮箱以确认"
 
-#: templates/dashboard/settings.html:38
+#: templates/dashboard/settings.html:43
 msgid "Delete my account"
 msgstr "删除我的账户"
 
@@ -3082,8 +3024,9 @@ msgstr "您收到此邮件，是因为您在我们这里有账户或订单。"
 #: templates/emails/card_suspended.txt:1
 #: templates/emails/data_deletion_warning.txt:1
 #: templates/emails/deletion_requested.txt:1
-#: templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1
-#: templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1
+#: templates/emails/email_changed.txt:1 templates/emails/grace_started.txt:1
+#: templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1
+#: templates/emails/nfc_order_confirmed.txt:1
 #: templates/emails/nfc_proof_ready.txt:1
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
@@ -3092,8 +3035,7 @@ msgstr "您收到此邮件，是因为您在我们这里有账户或订单。"
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
-#: templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1
-#: templates/emails/welcome.txt:1
+#: templates/emails/staff_message.txt:1 templates/emails/welcome.txt:1
 msgid "there"
 msgstr "用户"
 
@@ -3106,8 +3048,9 @@ msgstr "用户"
 #: templates/emails/card_suspended.txt:1
 #: templates/emails/data_deletion_warning.txt:1
 #: templates/emails/deletion_requested.txt:1
-#: templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1
-#: templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1
+#: templates/emails/email_changed.txt:1 templates/emails/grace_started.txt:1
+#: templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1
+#: templates/emails/nfc_order_confirmed.txt:1
 #: templates/emails/nfc_proof_ready.txt:1
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
@@ -3118,7 +3061,7 @@ msgstr "用户"
 #: templates/emails/renewal_reminder.txt:1
 #: templates/emails/staff_message.txt:1
 #: templates/emails/support_received.txt:1
-#: templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
+#: templates/emails/support_reply.txt:1
 #, python-format
 msgid "Hello %(name)s,"
 msgstr "%(name)s，您好："
@@ -3471,16 +3414,6 @@ msgstr "主题：%(subject)s"
 msgid "Reference: %(reference)s. Reply from your dashboard, or to this email."
 msgstr "参考编号：%(reference)s。您可以在控制面板中回复，或直接回复此邮件。"
 
-#: templates/emails/verify_email.txt:3
-msgid "Please confirm your email address to start building your card:"
-msgstr "请确认您的邮箱地址，以开始制作名片："
-
-#: templates/emails/verify_email.txt:7
-msgid ""
-"The link works for 48 hours. If you did not create an account, you can "
-"ignore this email."
-msgstr "链接 48 小时内有效。如果您没有创建账户，可以忽略此邮件。"
-
 #: templates/emails/welcome.txt:1
 #, python-format
 msgid "Welcome to AD Smart Business Cards, %(name)s!"
@@ -3491,23 +3424,19 @@ msgid "Here is how it works:"
 msgstr "使用流程如下："
 
 #: templates/emails/welcome.txt:4
-msgid "Confirm your email (check the other message we sent)."
-msgstr "确认您的邮箱（请查看我们发送的另一封邮件）。"
-
-#: templates/emails/welcome.txt:5
 msgid ""
 "Build your card and preview it. It stays private until you choose a plan."
 msgstr "制作并预览您的名片。在选择套餐之前，名片仅您自己可见。"
 
-#: templates/emails/welcome.txt:6
+#: templates/emails/welcome.txt:5
 msgid "Choose a yearly plan and pay with Mobile Money or a card."
 msgstr "选择年度套餐，并使用 Mobile Money 或银行卡付款。"
 
-#: templates/emails/welcome.txt:7
+#: templates/emails/welcome.txt:6
 msgid "Share your permanent link, QR code or NFC card."
 msgstr "分享您的永久链接、二维码或 NFC 卡片。"
 
-#: templates/emails/welcome.txt:9
+#: templates/emails/welcome.txt:8
 msgid "Questions? Reply to this email or message us on WhatsApp."
 msgstr "有疑问？请回复此邮件，或通过 WhatsApp 联系我们。"
 
@@ -4797,7 +4726,7 @@ msgstr "您"
 msgid "Send reply"
 msgstr "发送回复"
 
-#: templates/accounts/register.html:17
+#: templates/accounts/register.html:19
 #, python-format
 msgid ""
 "By creating an account (with Google or email) you agree to our <a "
@@ -4864,7 +4793,7 @@ msgstr "使用 Google 继续"
 msgid "or"
 msgstr "或"
 
-#: templates/dashboard/_status_banner.html:30
+#: templates/dashboard/_status_banner.html:23
 #, python-format
 msgid ""
 "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew "
@@ -5018,11 +4947,11 @@ msgstr "© %(current_year)s AD Graphics。保留所有权利。"
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "价格以加纳塞地计。由 Paystack 提供支付服务。"
 
-#: apps/accounts/forms.py:147
+#: apps/accounts/forms.py:177
 msgid "Company name for receipts"
 msgstr "收据上的公司名称"
 
-#: apps/accounts/forms.py:148
+#: apps/accounts/forms.py:178
 msgid "Company address for receipts"
 msgstr "收据上的公司地址"
 
@@ -5342,11 +5271,11 @@ msgstr "NFC 订单问题"
 msgid "Design request"
 msgstr "设计需求"
 
-#: templates/accounts/register.html:11
+#: templates/accounts/register.html:13
 msgid "Sign up with Google"
 msgstr "使用 Google 注册"
 
-#: templates/accounts/register.html:11
+#: templates/accounts/register.html:13
 msgid "or sign up with your email"
 msgstr "或使用邮箱注册"
 
@@ -5432,7 +5361,7 @@ msgstr "%(price)s/年"
 msgid "Photo of %(name)s"
 msgstr "%(name)s 的照片"
 
-#: templates/dashboard/_status_banner.html:35
+#: templates/dashboard/_status_banner.html:28
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s"
@@ -5441,7 +5370,7 @@ msgstr ""
 "您的套餐将于 %(date)s 变更为 <strong style=\"display:inline\">%(plan)s（%(seats)s "
 "人）</strong>。"
 
-#: templates/dashboard/_status_banner.html:35
+#: templates/dashboard/_status_banner.html:28
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on "
@@ -5623,23 +5552,6 @@ msgstr ""
 "通过 Mobile Money "
 "付款的套餐需由您自行续订。通过银行卡付款的套餐每年自动续订：套餐到期当天，我们会按结账时显示的套餐价格从同一张银行卡扣款，并在约 7 "
 "天前发邮件提醒、扣款后发送收据，您可以随时在控制面板中关闭自动续订。关闭后，套餐会持续到已付费年度结束。提前续订会在当前到期日基础上增加一年。"
-
-#: apps/cards/claim.py:108
-#, python-format
-msgid ""
-"Your card is live and your first year is active. We sent a link to %(email)s"
-" so you can confirm your address when you are ready."
-msgstr "您的名片已上线，第一年已生效。我们已向 %(email)s 发送了一个链接，您可以在方便时确认邮箱地址。"
-
-#: templates/dashboard/_status_banner.html:5
-msgid ""
-"<strong>Confirm your email address.</strong> You will need it to recover "
-"your account and to receive your receipts."
-msgstr "<strong>请确认您的邮箱地址。</strong>找回账户和接收收据都需要用到它。"
-
-#: templates/dashboard/_status_banner.html:6
-msgid "Send me the link"
-msgstr "给我发送链接"
 
 #: apps/billing/models.py:110
 #, python-format
@@ -5933,7 +5845,7 @@ msgstr "当有人在您的名片上点击“分享您的联系方式”，或通
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s 通过您的商家主页发送了一条咨询："
 
-#: apps/cards/claim.py:148
+#: apps/cards/claim.py:145
 #, python-format
 msgid ""
 "The card is now on your account and %(months)d months have been added to "
@@ -5954,7 +5866,7 @@ msgstr ""
 msgid "Add the card to my account"
 msgstr "将名片添加到我的账户"
 
-#: templates/cards/claim_setup.html:14
+#: templates/cards/claim_setup.html:16
 #, python-format
 msgid ""
 "This card comes with %(batch_months)s months of the %(batch_plan_name)s "
@@ -6142,17 +6054,17 @@ msgid ""
 msgstr ""
 "<strong>访客提交的信息：</strong>当有人通过名片或商家主页分享自己的信息、发送咨询，或联系我们的客服团队时，他们填写的姓名、电话、邮箱和留言。他们通过勾选表单上的复选框表示同意。在名片或商家主页上，这些信息会发送给名片所有者，所有者可在其联系人中查看。"
 
-#: apps/cards/claim.py:103
+#: apps/cards/claim.py:101
 msgid ""
 "Your account is ready. Choose a plan and pay to switch your card on. Its "
 "link and QR code stay exactly as printed."
 msgstr "您的账户已就绪。请选择套餐并付款以激活您的名片。名片的链接和二维码与印刷的完全一致。"
 
-#: apps/cards/claim.py:139
+#: apps/cards/claim.py:136
 msgid "The card is now on your account and live on your current plan."
 msgstr "名片已添加到您的账户，并已按您当前的套餐激活。"
 
-#: apps/cards/claim.py:141
+#: apps/cards/claim.py:138
 msgid ""
 "The card is now on your account. Choose a plan and pay to switch it on."
 msgstr "名片已添加到您的账户。请选择套餐并付款以激活它。"
@@ -6172,17 +6084,17 @@ msgid ""
 "Your card is ready. Enter the PIN printed on the back of the card to begin."
 msgstr "您的名片已准备就绪。请输入名片背面印刷的 PIN 码开始设置。"
 
-#: templates/cards/claim_setup.html:10
+#: templates/cards/claim_setup.html:12
 msgid ""
 "Add your details and create your account. Next you choose a plan and pay to "
 "switch your card on. Your card’s link and QR code stay exactly as printed."
 msgstr "填写您的信息并创建账户。接下来您选择套餐并付款，即可激活名片。名片的链接和二维码与印刷的完全一致。"
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 msgid "Create my account"
 msgstr "创建我的账户"
 
-#: apps/accounts/services.py:101
+#: apps/accounts/services.py:151
 msgid "Our support team reset your AD Smart password"
 msgstr "我们的客服团队已重置您的 AD Smart 密码"
 
@@ -6196,6 +6108,7 @@ msgid ""
 "request."
 msgstr "应您的要求，我们的客服团队已重置您 AD Smart 账户的密码。"
 
+#: templates/emails/email_changed.txt:5
 #: templates/emails/password_reset_by_staff.txt:7
 msgid ""
 "If you did not ask for this, reply to this email or message us on WhatsApp "
@@ -6209,33 +6122,33 @@ msgid ""
 " we will help you get back in."
 msgstr "也无法访问该邮箱了？<a href=\"%(url_1)s\">联系客服</a>，我们会帮您重新登录。"
 
-#: apps/accounts/forms.py:91
+#: apps/accounts/forms.py:97
 msgid "Phone number on your account"
 msgstr "您账户的手机号码"
 
-#: apps/accounts/forms.py:95
+#: apps/accounts/forms.py:101
 msgid "One-time password from support"
 msgstr "客服提供的一次性密码"
 
-#: apps/accounts/views.py:127
+#: apps/accounts/views.py:101
 msgid ""
 "That is a one-time password from support. Use it on the one-time password "
 "page, linked under this form."
 msgstr "这是客服提供的一次性密码。请在此表单下方链接的一次性密码页面使用它。"
 
-#: apps/accounts/views.py:245
+#: apps/accounts/views.py:280
 msgid ""
 "Too many attempts. Wait 15 minutes, or ask support for a new one-time "
 "password."
 msgstr "尝试次数过多。请等待 15 分钟，或向客服索取新的一次性密码。"
 
-#: apps/accounts/views.py:254
+#: apps/accounts/views.py:289
 msgid ""
 "That phone number and one-time password do not match, or the password has "
 "expired. Ask support for a new one."
 msgstr "该手机号码与一次性密码不匹配，或密码已过期。请向客服索取新的密码。"
 
-#: apps/accounts/views.py:268
+#: apps/accounts/views.py:303
 #, python-format
 msgid "Your password is saved. Next time, sign in with %(email)s."
 msgstr "您的密码已保存。下次请使用 %(email)s 登录。"
@@ -6277,6 +6190,193 @@ msgid ""
 msgstr ""
 "他们已通过电话给了您一个一次性密码。请在 %(link)s 输入该密码和您的手机号码，以设置新密码。该密码只能使用一次，有效期 %(hours)s "
 "小时。"
+
+#: apps/accounts/forms.py:146
+msgid "New email address"
+msgstr "新的电子邮箱地址"
+
+#: apps/accounts/services.py:73
+msgid "That does not look like an email address."
+msgstr "这看起来不像电子邮箱地址。"
+
+#: apps/accounts/services.py:75
+msgid "That is already your email address."
+msgstr "这已经是您的电子邮箱地址了。"
+
+#: apps/accounts/services.py:80 apps/accounts/views.py:259
+msgid "That email belongs to another account."
+msgstr "该电子邮箱属于另一个账户。"
+
+#: apps/accounts/services.py:83
+#, python-format
+msgid ""
+"We could not find a mail server for %(domain)s. Check the spelling after the"
+" @."
+msgstr "我们找不到 %(domain)s 的邮件服务器。请检查 @ 后面的拼写。"
+
+#: apps/accounts/services.py:175 apps/accounts/views.py:263
+msgid "The email on your AD Smart account was changed"
+msgstr "您的 AD Smart 账户的电子邮箱已更改"
+
+#: apps/accounts/views.py:73
+msgid ""
+"Your account is ready. Build your card, preview it, then choose a plan."
+msgstr "您的账户已就绪。请制作并预览您的名片，然后选择一个套餐。"
+
+#: apps/accounts/views.py:222
+#, python-format
+msgid "Did you mean %(email)s?"
+msgstr "您是想输入 %(email)s 吗？"
+
+#: apps/accounts/views.py:223
+msgid "Use it"
+msgstr "使用它"
+
+#: apps/accounts/views.py:226
+msgid "This address looks good."
+msgstr "这个地址看起来没问题。"
+
+#: apps/accounts/views.py:241
+#, python-format
+msgid ""
+"You changed your email recently. You can change it again on %(date)s. "
+"Contact support if you cannot wait."
+msgstr "您最近刚更改过电子邮箱。您可以在 %(date)s 再次更改。如果等不及，请联系客服。"
+
+#: apps/accounts/views.py:245
+msgid "Too many attempts. Try again in an hour."
+msgstr "尝试次数过多。请一小时后再试。"
+
+#: apps/accounts/views.py:266
+#, python-format
+msgid "Your email is now %(email)s. Use it the next time you log in."
+msgstr "您的电子邮箱现在是 %(email)s。下次登录时请使用它。"
+
+#: apps/cards/claim.py:106
+msgid "Your card is live and your first year is active."
+msgstr "您的名片已上线，第一年已开通。"
+
+#: templates/accounts/change_email.html:3
+#, python-format
+msgid "Change email · %(SITE_NAME)s"
+msgstr "更改电子邮箱 · %(SITE_NAME)s"
+
+#: templates/accounts/change_email.html:9
+msgid "Change your email"
+msgstr "更改您的电子邮箱"
+
+#: templates/accounts/change_email.html:11
+#, python-format
+msgid ""
+"You sign in with Google and have no password yet. <a href=\"%(url_1)s\">Set "
+"one</a> first, then come back here to change your email."
+msgstr "您通过 Google 登录，还没有密码。请先<a href=\"%(url_1)s\">设置一个</a>，再回到这里更改电子邮箱。"
+
+#: templates/accounts/change_email.html:13
+#, python-format
+msgid ""
+"You changed your email recently. You can change it again on %(next_date)s. "
+"Contact support if you cannot wait."
+msgstr "您最近刚更改过电子邮箱。您可以在 %(next_date)s 再次更改。如果等不及，请联系客服。"
+
+#: templates/accounts/change_email.html:15
+#, python-format
+msgid ""
+"Your email is %(current_email)s. We will tell that address about the change,"
+" and every other device you are signed in on will be signed out."
+msgstr "您的电子邮箱是 %(current_email)s。我们会就这次更改通知该地址，并且您在其他设备上的登录都会退出。"
+
+#: templates/accounts/change_email.html:19
+msgid "Change my email"
+msgstr "更改我的电子邮箱"
+
+#: templates/accounts/register.html:14
+msgid "We will ask for your mobile number next."
+msgstr "接下来我们会请您填写手机号码。"
+
+#: templates/dashboard/settings.html:17
+msgid "The email you log in with. Receipts and notices are sent to it."
+msgstr "您用来登录的电子邮箱。收据和通知都会发送到这里。"
+
+#: templates/dashboard/settings.html:18
+msgid "Change email"
+msgstr "更改电子邮箱"
+
+#: templates/emails/email_changed.txt:3
+#, python-format
+msgid "The email address on your AD Smart account was changed to %(new)s."
+msgstr "您的 AD Smart 账户的电子邮箱已更改为 %(new)s。"
+
+#~ msgid "Confirm your email address"
+#~ msgstr "请确认您的邮箱地址"
+
+#~ msgid ""
+#~ "You have asked for several emails already. Check your spam folder, or try "
+#~ "again later."
+#~ msgstr "您已多次请求发送邮件。请查看垃圾邮件文件夹，或稍后再试。"
+
+#, python-format
+#~ msgid "We sent a new link to %(email)s."
+#~ msgstr "我们已向 %(email)s 发送了新的链接。"
+
+#~ msgid ""
+#~ "That link has expired or was already used. Sign in and ask for a new one."
+#~ msgstr "该链接已过期或已被使用。请登录后重新申请。"
+
+#~ msgid "Email confirmed. Build your card, preview it, then choose a plan."
+#~ msgstr "邮箱已确认。请制作并预览您的名片，然后选择套餐。"
+
+#~ msgid ""
+#~ "Signing up with Google confirms your email straight away. We will ask for "
+#~ "your mobile number next."
+#~ msgstr "使用 Google 注册会立即确认您的邮箱，之后我们会请您填写手机号码。"
+
+#, python-format
+#~ msgid "Confirm your email · %(SITE_NAME)s"
+#~ msgstr "确认邮箱 · %(SITE_NAME)s"
+
+#~ msgid "Check your email"
+#~ msgstr "请查收邮件"
+
+#, python-format
+#~ msgid ""
+#~ "We sent a confirmation link to <strong>%(user_email)s</strong>. Open it to "
+#~ "start building your card."
+#~ msgstr "我们已向 <strong>%(user_email)s</strong> 发送了确认链接。打开链接即可开始制作名片。"
+
+#~ msgid "No email after a few minutes? Check your spam or promotions folder."
+#~ msgstr "几分钟后仍未收到邮件？请查看垃圾邮件或促销邮件文件夹。"
+
+#~ msgid "Send the link again"
+#~ msgstr "重新发送链接"
+
+#~ msgid "Use a different account"
+#~ msgstr "使用其他账户"
+
+#~ msgid "Please confirm your email address to start building your card:"
+#~ msgstr "请确认您的邮箱地址，以开始制作名片："
+
+#~ msgid ""
+#~ "The link works for 48 hours. If you did not create an account, you can "
+#~ "ignore this email."
+#~ msgstr "链接 48 小时内有效。如果您没有创建账户，可以忽略此邮件。"
+
+#~ msgid "Confirm your email (check the other message we sent)."
+#~ msgstr "确认您的邮箱（请查看我们发送的另一封邮件）。"
+
+#, python-format
+#~ msgid ""
+#~ "Your card is live and your first year is active. We sent a link to %(email)s"
+#~ " so you can confirm your address when you are ready."
+#~ msgstr "您的名片已上线，第一年已生效。我们已向 %(email)s 发送了一个链接，您可以在方便时确认邮箱地址。"
+
+#~ msgid ""
+#~ "<strong>Confirm your email address.</strong> You will need it to recover "
+#~ "your account and to receive your receipts."
+#~ msgstr "<strong>请确认您的邮箱地址。</strong>找回账户和接收收据都需要用到它。"
+
+#~ msgid "Send me the link"
+#~ msgstr "给我发送链接"
 
 #~ msgid "This temporary password has expired. Ask support for a new one."
 #~ msgstr "此临时密码已过期。请向客服申请新的密码。"

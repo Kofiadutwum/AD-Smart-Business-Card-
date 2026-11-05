@@ -9,157 +9,129 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/accounts/forms.py:12 apps/dashboard/forms.py:49
+#: apps/accounts/forms.py:17 apps/dashboard/forms.py:49
 msgid "Full name"
 msgstr "Volledige naam"
 
-#: apps/accounts/forms.py:13 apps/accounts/forms.py:54
-#: apps/accounts/forms.py:60 apps/cards/models.py:45
-#: apps/dashboard/forms.py:54
+#: apps/accounts/forms.py:18 apps/accounts/forms.py:60
+#: apps/accounts/forms.py:66 apps/cards/models.py:45
+#: apps/dashboard/forms.py:54 templates/dashboard/settings.html:16
 msgid "Email address"
 msgstr "E-mailadres"
 
-#: apps/accounts/forms.py:15 apps/accounts/forms.py:140
+#: apps/accounts/forms.py:20 apps/accounts/forms.py:170
 msgid "Mobile number"
 msgstr "Mobiel nummer"
 
-#: apps/accounts/forms.py:16
+#: apps/accounts/forms.py:21
 msgid "We use it only to reach you about orders and delivery."
 msgstr ""
 "We gebruiken het alleen om contact met je op te nemen over bestellingen en "
 "bezorging."
 
-#: apps/accounts/forms.py:20 apps/accounts/forms.py:55
-#: templates/dashboard/settings.html:16
+#: apps/accounts/forms.py:25 apps/accounts/forms.py:61
+#: templates/dashboard/settings.html:21
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: apps/accounts/forms.py:22
+#: apps/accounts/forms.py:27
 msgid "At least 8 characters. Avoid common words and all-number passwords."
 msgstr ""
 "Minstens 8 tekens. Vermijd veelvoorkomende woorden en wachtwoorden met "
 "alleen cijfers."
 
-#: apps/accounts/forms.py:25
+#: apps/accounts/forms.py:30
 msgid "I accept the Terms of Service and Privacy Policy"
 msgstr "Ik ga akkoord met de Servicevoorwaarden en het Privacybeleid"
 
-#: apps/accounts/forms.py:26
+#: apps/accounts/forms.py:31
 msgid "You need to accept the terms to create an account."
 msgstr "Je moet de voorwaarden accepteren om een account aan te maken."
 
-#: apps/accounts/forms.py:32
+#: apps/accounts/services.py:80
 msgid "That email already has an account. Sign in instead."
 msgstr "Dit e-mailadres heeft al een account. Log in."
 
-#: apps/accounts/forms.py:38
+#: apps/accounts/forms.py:44
 msgid ""
 "That number is linked to another account. Sign in or recover that account."
 msgstr ""
 "Dit nummer is gekoppeld aan een ander account. Log in of herstel dat "
 "account."
 
-#: apps/accounts/forms.py:56
+#: apps/accounts/forms.py:62
 msgid "Keep me signed in"
 msgstr "Ingelogd blijven"
 
-#: apps/accounts/forms.py:65
+#: apps/accounts/forms.py:71
 msgid "6-digit code"
 msgstr "Code van 6 cijfers"
 
-#: apps/accounts/forms.py:67
+#: apps/accounts/forms.py:73
 msgid "Enter the 6 digits from the email."
 msgstr "Voer de 6 cijfers uit de e-mail in."
 
-#: apps/accounts/forms.py:70 apps/accounts/forms.py:112
+#: apps/accounts/forms.py:76 apps/accounts/forms.py:118
 msgid "New password"
 msgstr "Nieuw wachtwoord"
 
-#: apps/accounts/forms.py:72 apps/accounts/forms.py:114
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:120
 msgid "Confirm new password"
 msgstr "Bevestig nieuw wachtwoord"
 
-#: apps/accounts/forms.py:78 apps/accounts/forms.py:130
+#: apps/accounts/forms.py:84 apps/accounts/forms.py:136
 msgid "The two passwords do not match."
 msgstr "De twee wachtwoorden komen niet overeen."
 
-#: apps/accounts/forms.py:110
+#: apps/accounts/forms.py:116 apps/accounts/forms.py:148
 msgid "Current password"
 msgstr "Huidig wachtwoord"
 
-#: apps/accounts/forms.py:124
+#: apps/accounts/forms.py:130 apps/accounts/forms.py:165
 msgid "That is not your current password."
 msgstr "Dat is je huidige wachtwoord niet."
 
-#: apps/accounts/forms.py:154
+#: apps/accounts/forms.py:184
 msgid "That number is linked to another account."
 msgstr "Dit nummer is gekoppeld aan een ander account."
 
-#: apps/accounts/services.py:30
-msgid "Confirm your email address"
-msgstr "Bevestig je e-mailadres"
-
-#: apps/accounts/services.py:65
+#: apps/accounts/services.py:115
 #, python-format
 msgid "Your password reset code: %(code)s"
 msgstr "Je code om je wachtwoord te herstellen: %(code)s"
 
-#: apps/accounts/views.py:50
+#: apps/accounts/views.py:56
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr ""
 "Te veel registraties vanaf deze verbinding. Probeer het over een uur "
 "opnieuw."
 
-#: apps/accounts/views.py:65 apps/accounts/views.py:322 apps/cards/claim.py:97
+#: apps/accounts/views.py:70 apps/accounts/views.py:355 apps/cards/claim.py:95
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Welkom bij AD Smart Business Cards"
 
-#: apps/accounts/views.py:78
-msgid ""
-"You have asked for several emails already. Check your spam folder, or try "
-"again later."
-msgstr ""
-"Je hebt al meerdere e-mails aangevraagd. Controleer je spammap of probeer "
-"het later opnieuw."
-
-#: apps/accounts/views.py:81
-#, python-format
-msgid "We sent a new link to %(email)s."
-msgstr "We hebben een nieuwe link naar %(email)s gestuurd."
-
-#: apps/accounts/views.py:93
-msgid ""
-"That link has expired or was already used. Sign in and ask for a new one."
-msgstr "Die link is verlopen of al gebruikt. Log in en vraag een nieuwe aan."
-
-#: apps/accounts/views.py:100
-msgid "Email confirmed. Build your card, preview it, then choose a plan."
-msgstr ""
-"E-mail bevestigd. Maak je kaart, bekijk een voorbeeld en kies een "
-"abonnement."
-
-#: apps/accounts/views.py:118
+#: apps/accounts/views.py:92
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "Te veel pogingen. Wacht 15 minuten of herstel je wachtwoord."
 
-#: apps/accounts/views.py:123
+#: apps/accounts/views.py:97
 msgid "That email and password do not match."
 msgstr "Dat e-mailadres en wachtwoord komen niet overeen."
 
-#: apps/accounts/views.py:131 apps/accounts/views.py:257
-#: apps/accounts/views.py:326
+#: apps/accounts/views.py:105 apps/accounts/views.py:292
+#: apps/accounts/views.py:359
 msgid "This account is suspended. Contact support."
 msgstr "Dit account is geschorst. Neem contact op met de support."
 
-#: apps/accounts/views.py:150
+#: apps/accounts/views.py:124
 msgid "You are signed out."
 msgstr "Je bent uitgelogd."
 
-#: apps/accounts/views.py:166
+#: apps/accounts/views.py:140
 msgid "Too many requests. Try again in an hour."
 msgstr "Te veel verzoeken. Probeer het over een uur opnieuw."
 
-#: apps/accounts/views.py:170
+#: apps/accounts/views.py:144
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
@@ -167,51 +139,51 @@ msgstr ""
 "Er is minder dan een minuut geleden een code verstuurd. Controleer je inbox "
 "voordat je een nieuwe aanvraagt."
 
-#: apps/accounts/views.py:184
+#: apps/accounts/views.py:158
 msgid "Too many attempts from this connection. Try again later."
 msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
 
-#: apps/accounts/views.py:191
+#: apps/accounts/views.py:165
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "Die code is verlopen of te vaak gebruikt. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:200 apps/accounts/views.py:228
-#: apps/accounts/views.py:264
+#: apps/accounts/views.py:174 apps/accounts/views.py:202
+#: apps/accounts/views.py:299
 msgid "Your password was changed"
 msgstr "Je wachtwoord is gewijzigd"
 
-#: apps/accounts/views.py:204
+#: apps/accounts/views.py:178
 msgid "Your password has been reset."
 msgstr "Je wachtwoord is hersteld."
 
-#: apps/accounts/views.py:210
+#: apps/accounts/views.py:184
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Die code klopt niet. Nog %(left)d poging over."
 msgstr[1] "Die code klopt niet. Nog %(left)d pogingen over."
 
-#: apps/accounts/views.py:215
+#: apps/accounts/views.py:189
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Te veel foute codes. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:231
+#: apps/accounts/views.py:205
 msgid "Password updated."
 msgstr "Wachtwoord bijgewerkt."
 
-#: apps/accounts/views.py:280
+#: apps/accounts/views.py:315
 msgid "Google sign-in is not available yet."
 msgstr "Inloggen met Google is nog niet beschikbaar."
 
-#: apps/accounts/views.py:292
+#: apps/accounts/views.py:327
 msgid "Google sign-in was cancelled."
 msgstr "Inloggen met Google is geannuleerd."
 
-#: apps/accounts/views.py:296
+#: apps/accounts/views.py:331
 msgid "Your Google sign-in session expired. Try again."
 msgstr "Je Google-inlogsessie is verlopen. Probeer het opnieuw."
 
-#: apps/accounts/views.py:332
+#: apps/accounts/views.py:365
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 "Voeg je mobiele nummer toe zodat we contact met je kunnen opnemen over "
@@ -470,12 +442,12 @@ msgstr ""
 "We konden die betaling niet vinden. Als er geld van je rekening is "
 "afgeschreven, neem dan contact op met de support en vermeld de referentie."
 
-#: apps/cards/claim.py:83
+#: apps/cards/claim.py:82
 msgid "Too many attempts from this connection. Try again in an hour."
 msgstr ""
 "Te veel pogingen vanaf deze verbinding. Probeer het over een uur opnieuw."
 
-#: apps/cards/claim.py:91
+#: apps/cards/claim.py:90
 msgid ""
 "That email or number was just used for another account. Please check and try"
 " again."
@@ -483,7 +455,7 @@ msgstr ""
 "Dat e-mailadres of nummer is net voor een ander account gebruikt. Controleer"
 " het en probeer opnieuw."
 
-#: apps/cards/claim.py:144
+#: apps/cards/claim.py:141
 msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr ""
@@ -820,7 +792,7 @@ msgstr "%(price)s per stuk"
 msgid "%(price)s per person a year"
 msgstr "%(price)s per persoon per jaar"
 
-#: apps/accounts/forms.py:146 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/accounts/forms.py:176 apps/cards/forms.py:21 apps/core/jsstrings.py:21
 #: apps/support/forms.py:18
 msgid "Your name"
 msgstr "Je naam"
@@ -1113,7 +1085,7 @@ msgstr ""
 "Je verzoek tot verwijdering is vastgelegd. Je gegevens worden binnen 30 "
 "dagen verwijderd."
 
-#: apps/marketing/content.py:16 templates/accounts/register.html:8
+#: apps/marketing/content.py:16 templates/accounts/register.html:10
 msgid "Create your account"
 msgstr "Maak je account aan"
 
@@ -1726,20 +1698,20 @@ msgstr "Bestelling geannuleerd."
 msgid "An update on your order %(number)s"
 msgstr "Een update over je bestelling %(number)s"
 
-#: apps/staff/views/subscribers.py:123
+#: apps/staff/views/subscribers.py:124
 msgid "Your AD Smart account has been suspended"
 msgstr "Je AD Smart-account is geschorst"
 
-#: apps/staff/views/subscribers.py:123
+#: apps/staff/views/subscribers.py:124
 msgid "Your AD Smart account is active again"
 msgstr "Je AD Smart-account is weer actief"
 
-#: apps/staff/views/subscribers.py:175
+#: apps/staff/views/subscribers.py:198
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "Je kaart /c/%(slug)s is geschorst"
 
-#: apps/staff/views/subscribers.py:176
+#: apps/staff/views/subscribers.py:199
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "Je kaart /c/%(slug)s is hersteld"
@@ -1801,6 +1773,7 @@ msgstr "We sturen je een e-mail om de wijziging te bevestigen."
 msgid "Update password"
 msgstr "Wachtwoord bijwerken"
 
+#: templates/accounts/change_email.html:22
 #: templates/accounts/change_password.html:14
 msgid "Back to settings"
 msgstr "Terug naar instellingen"
@@ -1856,16 +1829,16 @@ msgstr "Inloggen"
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
 msgstr "Nieuw hier? <a href=\"%(url_1)s\">Maak een kaart</a>"
 
-#: templates/accounts/register.html:2
+#: templates/accounts/register.html:3
 #, python-format
 msgid "Create your account · %(SITE_NAME)s"
 msgstr "Maak je account aan · %(SITE_NAME)s"
 
-#: templates/accounts/register.html:7 templates/cards/claim_pin.html:7
+#: templates/accounts/register.html:9 templates/cards/claim_pin.html:7
 msgid "Step 1 of 3"
 msgstr "Stap 1 van 3"
 
-#: templates/accounts/register.html:9
+#: templates/accounts/register.html:11
 msgid ""
 "Then build and preview your card for free. You only pay when you choose a "
 "plan."
@@ -1873,19 +1846,11 @@ msgstr ""
 "Daarna maak je je kaart gratis en bekijk je een voorbeeld. Je betaalt pas "
 "als je een abonnement kiest."
 
-#: templates/accounts/register.html:12
-msgid ""
-"Signing up with Google confirms your email straight away. We will ask for "
-"your mobile number next."
-msgstr ""
-"Registreren met Google bevestigt je e-mailadres meteen. Daarna vragen we om "
-"je mobiele nummer."
-
-#: templates/accounts/register.html:18
+#: templates/accounts/register.html:20
 msgid "Create account"
 msgstr "Account aanmaken"
 
-#: templates/accounts/register.html:20
+#: templates/accounts/register.html:22
 #, python-format
 msgid "Already have an account? <a href=\"%(url_3)s\">Log in</a>"
 msgstr "Heb je al een account? <a href=\"%(url_3)s\">Log in</a>"
@@ -1916,41 +1881,9 @@ msgstr "Wachtwoord herstellen"
 msgid "Send a new code"
 msgstr "Nieuwe code sturen"
 
-#: templates/accounts/verify_pending.html:2
-#, python-format
-msgid "Confirm your email · %(SITE_NAME)s"
-msgstr "Bevestig je e-mailadres · %(SITE_NAME)s"
-
-#: templates/accounts/verify_pending.html:8
-#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:9
 msgid "Step 2 of 3"
 msgstr "Stap 2 van 3"
-
-#: templates/accounts/verify_pending.html:9
-msgid "Check your email"
-msgstr "Controleer je e-mail"
-
-#: templates/accounts/verify_pending.html:10
-#, python-format
-msgid ""
-"We sent a confirmation link to <strong>%(user_email)s</strong>. Open it to "
-"start building your card."
-msgstr ""
-"We hebben een bevestigingslink gestuurd naar "
-"<strong>%(user_email)s</strong>. Open hem om te beginnen met je kaart."
-
-#: templates/accounts/verify_pending.html:11
-msgid "No email after a few minutes? Check your spam or promotions folder."
-msgstr ""
-"Na een paar minuten nog geen e-mail? Controleer je spam- of promotiemap."
-
-#: templates/accounts/verify_pending.html:14
-msgid "Send the link again"
-msgstr "Link opnieuw sturen"
-
-#: templates/accounts/verify_pending.html:16
-msgid "Use a different account"
-msgstr "Een ander account gebruiken"
 
 #: templates/base.html:39
 msgid "Skip to main content"
@@ -2347,7 +2280,7 @@ msgstr "Deze kaart melden"
 msgid "Add this card to your account · %(SITE_NAME)s"
 msgstr "Voeg deze kaart toe aan je account · %(SITE_NAME)s"
 
-#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:9
 msgid "Step 2 of 2"
 msgstr "Stap 2 van 2"
 
@@ -2383,7 +2316,7 @@ msgstr ""
 msgid "Add the card and the year"
 msgstr "Kaart en jaar toevoegen"
 
-#: templates/cards/claim_pin.html:2 templates/cards/claim_setup.html:2
+#: templates/cards/claim_pin.html:2 templates/cards/claim_setup.html:3
 #, python-format
 msgid "Set up your card · %(SITE_NAME)s"
 msgstr "Stel je kaart in · %(SITE_NAME)s"
@@ -2416,11 +2349,11 @@ msgstr ""
 "Kun je de pincode niet vinden? Die staat op de achterkant van de kaart. "
 "Vraag het de winkel die hem je verkocht heeft."
 
-#: templates/cards/claim_setup.html:8
+#: templates/cards/claim_setup.html:10
 msgid "Your details"
 msgstr "Je gegevens"
 
-#: templates/cards/claim_setup.html:12
+#: templates/cards/claim_setup.html:14
 #, python-format
 msgid ""
 "This card comes with one year of the %(batch_plan_name)s plan, already paid."
@@ -2431,7 +2364,7 @@ msgstr ""
 "betaald. Vul je gegevens in en maak je account aan. De link en QR-code van "
 "je kaart blijven precies zoals gedrukt."
 
-#: templates/accounts/register.html:17 templates/cards/claim_setup.html:19
+#: templates/accounts/register.html:19 templates/cards/claim_setup.html:21
 #, python-format
 msgid ""
 "By creating an account you agree to our <a href=\"%(url_1)s\" "
@@ -2442,11 +2375,11 @@ msgstr ""
 "target=\"_blank\">Servicevoorwaarden</a> en ons <a href=\"%(url_2)s\" "
 "target=\"_blank\">Privacybeleid</a>."
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 msgid "Activate my card"
 msgstr "Mijn kaart activeren"
 
-#: templates/cards/claim_setup.html:22
+#: templates/cards/claim_setup.html:24
 #, python-format
 msgid ""
 "Already have an account? <a href=\"%(login_url)s\">Log in to add this card "
@@ -2540,7 +2473,7 @@ msgid "Open menu"
 msgstr "Menu openen"
 
 #: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65
-#: templates/dashboard/settings.html:26 templates/partials/site_header.html:22
+#: templates/dashboard/settings.html:31 templates/partials/site_header.html:22
 msgid "Change theme"
 msgstr "Thema wijzigen"
 
@@ -2621,7 +2554,7 @@ msgstr "Hulp en support"
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: templates/dashboard/_status_banner.html:12
+#: templates/dashboard/_status_banner.html:5
 msgid ""
 "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to"
 " give it its permanent link and switch it on."
@@ -2629,12 +2562,12 @@ msgstr ""
 "<strong>Je kaart is een concept.</strong> Alleen jij kunt hem zien. Kies een"
 " abonnement om hem zijn permanente link te geven en hem aan te zetten."
 
-#: templates/dashboard/_status_banner.html:13
+#: templates/dashboard/_status_banner.html:6
 #: templates/dashboard/business.html:17 templates/dashboard/editor.html:162
 msgid "Choose a plan"
 msgstr "Kies een abonnement"
 
-#: templates/dashboard/_status_banner.html:18
+#: templates/dashboard/_status_banner.html:11
 #, python-format
 msgid ""
 "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> "
@@ -2646,12 +2579,12 @@ msgstr ""
 "%(shell_subscription_grace_ends_at_date)s. Verleng vóór die datum om hem "
 "live te houden."
 
-#: templates/dashboard/_status_banner.html:19
-#: templates/dashboard/_status_banner.html:25
+#: templates/dashboard/_status_banner.html:12
+#: templates/dashboard/_status_banner.html:18
 msgid "Renew now"
 msgstr "Nu verlengen"
 
-#: templates/dashboard/_status_banner.html:24
+#: templates/dashboard/_status_banner.html:17
 msgid ""
 "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page."
 " Renew to bring back the same link, QR code and NFC cards."
@@ -2660,7 +2593,7 @@ msgstr ""
 "inactief’. Verleng om dezelfde link, QR-code en NFC-kaarten terug te "
 "krijgen."
 
-#: templates/dashboard/_status_banner.html:31
+#: templates/dashboard/_status_banner.html:24
 msgid "Renew"
 msgstr "Verlengen"
 
@@ -3196,33 +3129,33 @@ msgstr "Accountgegevens"
 msgid "Save details"
 msgstr "Gegevens opslaan"
 
-#: templates/dashboard/settings.html:17
+#: templates/dashboard/settings.html:22
 msgid "You can sign in with Google."
 msgstr "Je kunt inloggen met Google."
 
-#: templates/dashboard/settings.html:17
+#: templates/dashboard/settings.html:22
 msgid "Change the password you use to sign in with your email."
 msgstr "Wijzig het wachtwoord waarmee je met je e-mailadres inlogt."
 
-#: templates/dashboard/settings.html:18
+#: templates/dashboard/settings.html:23
 msgid "Change password"
 msgstr "Wachtwoord wijzigen"
 
-#: templates/dashboard/settings.html:23
+#: templates/dashboard/settings.html:28
 msgid "Appearance"
 msgstr "Weergave"
 
-#: templates/dashboard/settings.html:24
+#: templates/dashboard/settings.html:29
 msgid ""
 "Light, dark or match your device. Your choice is remembered on this device."
 msgstr ""
 "Licht, donker of volg je apparaat. Je keuze wordt onthouden op dit apparaat."
 
-#: templates/dashboard/settings.html:30
+#: templates/dashboard/settings.html:35
 msgid "Delete account"
 msgstr "Account verwijderen"
 
-#: templates/dashboard/settings.html:31
+#: templates/dashboard/settings.html:36
 msgid ""
 "Your cards go offline straight away and your personal data is removed within"
 " 30 days. Payment records are kept for accounting. Your card links are "
@@ -3233,15 +3166,15 @@ msgstr ""
 "links van je kaarten worden buiten gebruik gesteld en nooit aan iemand "
 "anders gegeven."
 
-#: templates/dashboard/settings.html:32
+#: templates/dashboard/settings.html:37
 msgid "Delete your account? This cannot be undone."
 msgstr "Je account verwijderen? Dit kan niet ongedaan worden gemaakt."
 
-#: templates/dashboard/settings.html:35
+#: templates/dashboard/settings.html:40
 msgid "Type your email to confirm"
 msgstr "Typ je e-mailadres om te bevestigen"
 
-#: templates/dashboard/settings.html:38
+#: templates/dashboard/settings.html:43
 msgid "Delete my account"
 msgstr "Mijn account verwijderen"
 
@@ -3311,8 +3244,9 @@ msgstr "Je ontvangt dit omdat je een account of bestelling bij ons hebt."
 #: templates/emails/card_suspended.txt:1
 #: templates/emails/data_deletion_warning.txt:1
 #: templates/emails/deletion_requested.txt:1
-#: templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1
-#: templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1
+#: templates/emails/email_changed.txt:1 templates/emails/grace_started.txt:1
+#: templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1
+#: templates/emails/nfc_order_confirmed.txt:1
 #: templates/emails/nfc_proof_ready.txt:1
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
@@ -3321,8 +3255,7 @@ msgstr "Je ontvangt dit omdat je een account of bestelling bij ons hebt."
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
-#: templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1
-#: templates/emails/welcome.txt:1
+#: templates/emails/staff_message.txt:1 templates/emails/welcome.txt:1
 msgid "there"
 msgstr "daar"
 
@@ -3335,8 +3268,9 @@ msgstr "daar"
 #: templates/emails/card_suspended.txt:1
 #: templates/emails/data_deletion_warning.txt:1
 #: templates/emails/deletion_requested.txt:1
-#: templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1
-#: templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1
+#: templates/emails/email_changed.txt:1 templates/emails/grace_started.txt:1
+#: templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1
+#: templates/emails/nfc_order_confirmed.txt:1
 #: templates/emails/nfc_proof_ready.txt:1
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
@@ -3347,7 +3281,7 @@ msgstr "daar"
 #: templates/emails/renewal_reminder.txt:1
 #: templates/emails/staff_message.txt:1
 #: templates/emails/support_received.txt:1
-#: templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
+#: templates/emails/support_reply.txt:1
 #, python-format
 msgid "Hello %(name)s,"
 msgstr "Hallo %(name)s,"
@@ -3753,18 +3687,6 @@ msgid "Reference: %(reference)s. Reply from your dashboard, or to this email."
 msgstr ""
 "Referentie: %(reference)s. Antwoord vanuit je dashboard of op deze e-mail."
 
-#: templates/emails/verify_email.txt:3
-msgid "Please confirm your email address to start building your card:"
-msgstr "Bevestig je e-mailadres om te beginnen met je kaart:"
-
-#: templates/emails/verify_email.txt:7
-msgid ""
-"The link works for 48 hours. If you did not create an account, you can "
-"ignore this email."
-msgstr ""
-"De link is 48 uur geldig. Heb je geen account aangemaakt, dan kun je deze "
-"e-mail negeren."
-
 #: templates/emails/welcome.txt:1
 #, python-format
 msgid "Welcome to AD Smart Business Cards, %(name)s!"
@@ -3775,26 +3697,21 @@ msgid "Here is how it works:"
 msgstr "Zo werkt het:"
 
 #: templates/emails/welcome.txt:4
-msgid "Confirm your email (check the other message we sent)."
-msgstr ""
-"Bevestig je e-mailadres (kijk in het andere bericht dat we je stuurden)."
-
-#: templates/emails/welcome.txt:5
 msgid ""
 "Build your card and preview it. It stays private until you choose a plan."
 msgstr ""
 "Maak je kaart en bekijk een voorbeeld. Hij blijft privé totdat je een "
 "abonnement kiest."
 
-#: templates/emails/welcome.txt:6
+#: templates/emails/welcome.txt:5
 msgid "Choose a yearly plan and pay with Mobile Money or a card."
 msgstr "Kies een jaarabonnement en betaal met Mobile Money of een kaart."
 
-#: templates/emails/welcome.txt:7
+#: templates/emails/welcome.txt:6
 msgid "Share your permanent link, QR code or NFC card."
 msgstr "Deel je permanente link, QR-code of NFC-kaart."
 
-#: templates/emails/welcome.txt:9
+#: templates/emails/welcome.txt:8
 msgid "Questions? Reply to this email or message us on WhatsApp."
 msgstr ""
 "Vragen? Antwoord op deze e-mail of stuur ons een bericht via WhatsApp."
@@ -5243,7 +5160,7 @@ msgstr "Jij"
 msgid "Send reply"
 msgstr "Antwoord versturen"
 
-#: templates/accounts/register.html:17
+#: templates/accounts/register.html:19
 #, python-format
 msgid ""
 "By creating an account (with Google or email) you agree to our <a "
@@ -5318,7 +5235,7 @@ msgstr "Doorgaan met Google"
 msgid "or"
 msgstr "of"
 
-#: templates/dashboard/_status_banner.html:30
+#: templates/dashboard/_status_banner.html:23
 #, python-format
 msgid ""
 "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew "
@@ -5500,11 +5417,11 @@ msgstr "© %(current_year)s AD Graphics. Alle rechten voorbehouden."
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "Prijzen in Ghanese cedi. Betalingen via Paystack."
 
-#: apps/accounts/forms.py:147
+#: apps/accounts/forms.py:177
 msgid "Company name for receipts"
 msgstr "Bedrijfsnaam voor kwitanties"
 
-#: apps/accounts/forms.py:148
+#: apps/accounts/forms.py:178
 msgid "Company address for receipts"
 msgstr "Bedrijfsadres voor kwitanties"
 
@@ -5831,11 +5748,11 @@ msgstr "Probleem met NFC-bestelling"
 msgid "Design request"
 msgstr "Ontwerpverzoek"
 
-#: templates/accounts/register.html:11
+#: templates/accounts/register.html:13
 msgid "Sign up with Google"
 msgstr "Registreren met Google"
 
-#: templates/accounts/register.html:11
+#: templates/accounts/register.html:13
 msgid "or sign up with your email"
 msgstr "of registreer met je e-mailadres"
 
@@ -5924,7 +5841,7 @@ msgstr "%(price)s/jr"
 msgid "Photo of %(name)s"
 msgstr "Foto van %(name)s"
 
-#: templates/dashboard/_status_banner.html:35
+#: templates/dashboard/_status_banner.html:28
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s"
@@ -5933,7 +5850,7 @@ msgstr ""
 "Je abonnement verandert op %(date)s naar <strong "
 "style=\"display:inline\">%(plan)s voor %(seats)s personen</strong>."
 
-#: templates/dashboard/_status_banner.html:35
+#: templates/dashboard/_status_banner.html:28
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on "
@@ -6154,28 +6071,6 @@ msgstr ""
 "verlengen op elk moment uitschakelen in je dashboard. Uitschakelen houdt je "
 "abonnement actief tot het einde van het al betaalde jaar. Eerder verlengen "
 "voegt een jaar toe aan je huidige einddatum."
-
-#: apps/cards/claim.py:108
-#, python-format
-msgid ""
-"Your card is live and your first year is active. We sent a link to %(email)s"
-" so you can confirm your address when you are ready."
-msgstr ""
-"Je kaart staat online en je eerste jaar is actief. We hebben een link "
-"gestuurd naar %(email)s, zodat je je adres kunt bevestigen wanneer het jou "
-"uitkomt."
-
-#: templates/dashboard/_status_banner.html:5
-msgid ""
-"<strong>Confirm your email address.</strong> You will need it to recover "
-"your account and to receive your receipts."
-msgstr ""
-"<strong>Bevestig je e-mailadres.</strong> Je hebt het nodig om je account te"
-" herstellen en je kwitanties te ontvangen."
-
-#: templates/dashboard/_status_banner.html:6
-msgid "Send me the link"
-msgstr "Stuur me de link"
 
 #: apps/billing/models.py:110
 #, python-format
@@ -6492,7 +6387,7 @@ msgstr ""
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s heeft een vraag gestuurd via je bedrijfspagina:"
 
-#: apps/cards/claim.py:148
+#: apps/cards/claim.py:145
 #, python-format
 msgid ""
 "The card is now on your account and %(months)d months have been added to "
@@ -6517,7 +6412,7 @@ msgstr ""
 msgid "Add the card to my account"
 msgstr "Kaart aan mijn account toevoegen"
 
-#: templates/cards/claim_setup.html:14
+#: templates/cards/claim_setup.html:16
 #, python-format
 msgid ""
 "This card comes with %(batch_months)s months of the %(batch_plan_name)s "
@@ -6732,7 +6627,7 @@ msgstr ""
 " het formulier aan te vinken. Bij een kaart of bedrijfspagina gaan de "
 "gegevens naar de eigenaar van de kaart, die ze in zijn contacten ziet."
 
-#: apps/cards/claim.py:103
+#: apps/cards/claim.py:101
 msgid ""
 "Your account is ready. Choose a plan and pay to switch your card on. Its "
 "link and QR code stay exactly as printed."
@@ -6740,12 +6635,12 @@ msgstr ""
 "Je account is klaar. Kies een abonnement en betaal om je kaart te activeren."
 " De link en QR-code blijven precies zoals afgedrukt."
 
-#: apps/cards/claim.py:139
+#: apps/cards/claim.py:136
 msgid "The card is now on your account and live on your current plan."
 msgstr ""
 "De kaart staat nu op je account en is actief met je huidige abonnement."
 
-#: apps/cards/claim.py:141
+#: apps/cards/claim.py:138
 msgid ""
 "The card is now on your account. Choose a plan and pay to switch it on."
 msgstr ""
@@ -6771,7 +6666,7 @@ msgstr ""
 "Je kaart is klaar. Voer de pincode op de achterkant van de kaart in om te "
 "beginnen."
 
-#: templates/cards/claim_setup.html:10
+#: templates/cards/claim_setup.html:12
 msgid ""
 "Add your details and create your account. Next you choose a plan and pay to "
 "switch your card on. Your card’s link and QR code stay exactly as printed."
@@ -6780,11 +6675,11 @@ msgstr ""
 "betaal je om je kaart te activeren. De link en QR-code van je kaart blijven "
 "precies zoals afgedrukt."
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 msgid "Create my account"
 msgstr "Mijn account aanmaken"
 
-#: apps/accounts/services.py:101
+#: apps/accounts/services.py:151
 msgid "Our support team reset your AD Smart password"
 msgstr "Ons supportteam heeft je AD Smart-wachtwoord opnieuw ingesteld"
 
@@ -6800,6 +6695,7 @@ msgstr ""
 "Ons supportteam heeft op jouw verzoek het wachtwoord van je AD Smart-account"
 " opnieuw ingesteld."
 
+#: templates/emails/email_changed.txt:5
 #: templates/emails/password_reset_by_staff.txt:7
 msgid ""
 "If you did not ask for this, reply to this email or message us on WhatsApp "
@@ -6817,15 +6713,15 @@ msgstr ""
 "Ook geen toegang meer tot dat e-mailadres? <a href=\"%(url_1)s\">Neem "
 "contact op met support</a> en we helpen je weer binnen te komen."
 
-#: apps/accounts/forms.py:91
+#: apps/accounts/forms.py:97
 msgid "Phone number on your account"
 msgstr "Telefoonnummer van je account"
 
-#: apps/accounts/forms.py:95
+#: apps/accounts/forms.py:101
 msgid "One-time password from support"
 msgstr "Eenmalig wachtwoord van support"
 
-#: apps/accounts/views.py:127
+#: apps/accounts/views.py:101
 msgid ""
 "That is a one-time password from support. Use it on the one-time password "
 "page, linked under this form."
@@ -6833,7 +6729,7 @@ msgstr ""
 "Dit is een eenmalig wachtwoord van support. Gebruik het op de pagina voor "
 "het eenmalige wachtwoord, die je onder dit formulier vindt."
 
-#: apps/accounts/views.py:245
+#: apps/accounts/views.py:280
 msgid ""
 "Too many attempts. Wait 15 minutes, or ask support for a new one-time "
 "password."
@@ -6841,7 +6737,7 @@ msgstr ""
 "Te veel pogingen. Wacht 15 minuten of vraag support om een nieuw eenmalig "
 "wachtwoord."
 
-#: apps/accounts/views.py:254
+#: apps/accounts/views.py:289
 msgid ""
 "That phone number and one-time password do not match, or the password has "
 "expired. Ask support for a new one."
@@ -6849,7 +6745,7 @@ msgstr ""
 "Dit telefoonnummer en eenmalige wachtwoord komen niet overeen, of het "
 "wachtwoord is verlopen. Vraag support om een nieuw wachtwoord."
 
-#: apps/accounts/views.py:268
+#: apps/accounts/views.py:303
 #, python-format
 msgid "Your password is saved. Next time, sign in with %(email)s."
 msgstr "Je wachtwoord is opgeslagen. Log de volgende keer in met %(email)s."
@@ -6899,6 +6795,226 @@ msgstr ""
 "Ze hebben je telefonisch een eenmalig wachtwoord gegeven. Vul het in met je "
 "telefoonnummer op %(link)s om een nieuw wachtwoord te kiezen. Het werkt maar"
 " één keer, binnen %(hours)s uur."
+
+#: apps/accounts/forms.py:146
+msgid "New email address"
+msgstr "Nieuw e-mailadres"
+
+#: apps/accounts/services.py:73
+msgid "That does not look like an email address."
+msgstr "Dat lijkt geen e-mailadres."
+
+#: apps/accounts/services.py:75
+msgid "That is already your email address."
+msgstr "Dat is al je e-mailadres."
+
+#: apps/accounts/services.py:80 apps/accounts/views.py:259
+msgid "That email belongs to another account."
+msgstr "Dat e-mailadres hoort bij een ander account."
+
+#: apps/accounts/services.py:83
+#, python-format
+msgid ""
+"We could not find a mail server for %(domain)s. Check the spelling after the"
+" @."
+msgstr ""
+"We vonden geen mailserver voor %(domain)s. Controleer de spelling na de @."
+
+#: apps/accounts/services.py:175 apps/accounts/views.py:263
+msgid "The email on your AD Smart account was changed"
+msgstr "Het e-mailadres van je AD Smart-account is gewijzigd"
+
+#: apps/accounts/views.py:73
+msgid ""
+"Your account is ready. Build your card, preview it, then choose a plan."
+msgstr ""
+"Je account staat klaar. Maak je kaart, bekijk de voorbeeldweergave en kies "
+"dan een abonnement."
+
+#: apps/accounts/views.py:222
+#, python-format
+msgid "Did you mean %(email)s?"
+msgstr "Bedoelde je %(email)s?"
+
+#: apps/accounts/views.py:223
+msgid "Use it"
+msgstr "Gebruik dit"
+
+#: apps/accounts/views.py:226
+msgid "This address looks good."
+msgstr "Dit adres ziet er goed uit."
+
+#: apps/accounts/views.py:241
+#, python-format
+msgid ""
+"You changed your email recently. You can change it again on %(date)s. "
+"Contact support if you cannot wait."
+msgstr ""
+"Je hebt je e-mailadres onlangs gewijzigd. Je kunt het op %(date)s opnieuw "
+"wijzigen. Neem contact op met support als je niet kunt wachten."
+
+#: apps/accounts/views.py:245
+msgid "Too many attempts. Try again in an hour."
+msgstr "Te veel pogingen. Probeer het over een uur opnieuw."
+
+#: apps/accounts/views.py:266
+#, python-format
+msgid "Your email is now %(email)s. Use it the next time you log in."
+msgstr ""
+"Je e-mailadres is nu %(email)s. Gebruik het de volgende keer dat je inlogt."
+
+#: apps/cards/claim.py:106
+msgid "Your card is live and your first year is active."
+msgstr "Je kaart staat online en je eerste jaar is actief."
+
+#: templates/accounts/change_email.html:3
+#, python-format
+msgid "Change email · %(SITE_NAME)s"
+msgstr "E-mailadres wijzigen · %(SITE_NAME)s"
+
+#: templates/accounts/change_email.html:9
+msgid "Change your email"
+msgstr "Wijzig je e-mailadres"
+
+#: templates/accounts/change_email.html:11
+#, python-format
+msgid ""
+"You sign in with Google and have no password yet. <a href=\"%(url_1)s\">Set "
+"one</a> first, then come back here to change your email."
+msgstr ""
+"Je logt in met Google en hebt nog geen wachtwoord. <a "
+"href=\"%(url_1)s\">Stel er eerst een in</a> en kom dan terug om je "
+"e-mailadres te wijzigen."
+
+#: templates/accounts/change_email.html:13
+#, python-format
+msgid ""
+"You changed your email recently. You can change it again on %(next_date)s. "
+"Contact support if you cannot wait."
+msgstr ""
+"Je hebt je e-mailadres onlangs gewijzigd. Je kunt het op %(next_date)s "
+"opnieuw wijzigen. Neem contact op met support als je niet kunt wachten."
+
+#: templates/accounts/change_email.html:15
+#, python-format
+msgid ""
+"Your email is %(current_email)s. We will tell that address about the change,"
+" and every other device you are signed in on will be signed out."
+msgstr ""
+"Je e-mailadres is %(current_email)s. We laten dat adres weten dat het is "
+"gewijzigd, en alle andere apparaten waarop je bent ingelogd worden "
+"uitgelogd."
+
+#: templates/accounts/change_email.html:19
+msgid "Change my email"
+msgstr "Mijn e-mailadres wijzigen"
+
+#: templates/accounts/register.html:14
+msgid "We will ask for your mobile number next."
+msgstr "Daarna vragen we om je mobiele nummer."
+
+#: templates/dashboard/settings.html:17
+msgid "The email you log in with. Receipts and notices are sent to it."
+msgstr ""
+"Het e-mailadres waarmee je inlogt. Betalingsbewijzen en meldingen worden "
+"daarheen gestuurd."
+
+#: templates/dashboard/settings.html:18
+msgid "Change email"
+msgstr "E-mailadres wijzigen"
+
+#: templates/emails/email_changed.txt:3
+#, python-format
+msgid "The email address on your AD Smart account was changed to %(new)s."
+msgstr "Het e-mailadres van je AD Smart-account is gewijzigd in %(new)s."
+
+#~ msgid "Confirm your email address"
+#~ msgstr "Bevestig je e-mailadres"
+
+#~ msgid ""
+#~ "You have asked for several emails already. Check your spam folder, or try "
+#~ "again later."
+#~ msgstr ""
+#~ "Je hebt al meerdere e-mails aangevraagd. Controleer je spammap of probeer "
+#~ "het later opnieuw."
+
+#, python-format
+#~ msgid "We sent a new link to %(email)s."
+#~ msgstr "We hebben een nieuwe link naar %(email)s gestuurd."
+
+#~ msgid ""
+#~ "That link has expired or was already used. Sign in and ask for a new one."
+#~ msgstr "Die link is verlopen of al gebruikt. Log in en vraag een nieuwe aan."
+
+#~ msgid "Email confirmed. Build your card, preview it, then choose a plan."
+#~ msgstr ""
+#~ "E-mail bevestigd. Maak je kaart, bekijk een voorbeeld en kies een "
+#~ "abonnement."
+
+#~ msgid ""
+#~ "Signing up with Google confirms your email straight away. We will ask for "
+#~ "your mobile number next."
+#~ msgstr ""
+#~ "Registreren met Google bevestigt je e-mailadres meteen. Daarna vragen we om "
+#~ "je mobiele nummer."
+
+#, python-format
+#~ msgid "Confirm your email · %(SITE_NAME)s"
+#~ msgstr "Bevestig je e-mailadres · %(SITE_NAME)s"
+
+#~ msgid "Check your email"
+#~ msgstr "Controleer je e-mail"
+
+#, python-format
+#~ msgid ""
+#~ "We sent a confirmation link to <strong>%(user_email)s</strong>. Open it to "
+#~ "start building your card."
+#~ msgstr ""
+#~ "We hebben een bevestigingslink gestuurd naar "
+#~ "<strong>%(user_email)s</strong>. Open hem om te beginnen met je kaart."
+
+#~ msgid "No email after a few minutes? Check your spam or promotions folder."
+#~ msgstr ""
+#~ "Na een paar minuten nog geen e-mail? Controleer je spam- of promotiemap."
+
+#~ msgid "Send the link again"
+#~ msgstr "Link opnieuw sturen"
+
+#~ msgid "Use a different account"
+#~ msgstr "Een ander account gebruiken"
+
+#~ msgid "Please confirm your email address to start building your card:"
+#~ msgstr "Bevestig je e-mailadres om te beginnen met je kaart:"
+
+#~ msgid ""
+#~ "The link works for 48 hours. If you did not create an account, you can "
+#~ "ignore this email."
+#~ msgstr ""
+#~ "De link is 48 uur geldig. Heb je geen account aangemaakt, dan kun je deze "
+#~ "e-mail negeren."
+
+#~ msgid "Confirm your email (check the other message we sent)."
+#~ msgstr ""
+#~ "Bevestig je e-mailadres (kijk in het andere bericht dat we je stuurden)."
+
+#, python-format
+#~ msgid ""
+#~ "Your card is live and your first year is active. We sent a link to %(email)s"
+#~ " so you can confirm your address when you are ready."
+#~ msgstr ""
+#~ "Je kaart staat online en je eerste jaar is actief. We hebben een link "
+#~ "gestuurd naar %(email)s, zodat je je adres kunt bevestigen wanneer het jou "
+#~ "uitkomt."
+
+#~ msgid ""
+#~ "<strong>Confirm your email address.</strong> You will need it to recover "
+#~ "your account and to receive your receipts."
+#~ msgstr ""
+#~ "<strong>Bevestig je e-mailadres.</strong> Je hebt het nodig om je account te"
+#~ " herstellen en je kwitanties te ontvangen."
+
+#~ msgid "Send me the link"
+#~ msgstr "Stuur me de link"
 
 #~ msgid "This temporary password has expired. Ask support for a new one."
 #~ msgstr ""

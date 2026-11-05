@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% blocktrans trimmed %}Change email · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block scripts %}<script src="{% static 'js/email-check.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card">
+    <h1>{% trans "Change your email" %}</h1>
+    {% if not user.has_usable_password %}
+      <p class="lead">{% url 'accounts:forgot_password' as url_1 %}{% blocktrans trimmed %}You sign in with Google and have no password yet. <a href="{{ url_1 }}">Set one</a> first, then come back here to change your email.{% endblocktrans %}</p>
+    {% elif not user.can_change_email %}
+      <p class="lead">{% blocktrans trimmed with next_date=user.next_email_change|ldate:"j F Y" %}You changed your email recently. You can change it again on {{ next_date }}. Contact support if you cannot wait.{% endblocktrans %}</p>
+    {% else %}
+      <p class="lead">{% blocktrans trimmed with current_email=user.email %}Your email is {{ current_email }}. We will tell that address about the change, and every other device you are signed in on will be signed out.{% endblocktrans %}</p>
+      <form method="post" class="form" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" %}
+        {% hover_button _("Change my email") variant="ink" css="ihb--block" icon_name="check" %}
+      </form>
+    {% endif %}
+    <p class="auth-alt"><a href="{% url 'dashboard:settings' %}">{% trans "Back to settings" %}</a></p>
+  </div>
+</div>
+{% endblock %}

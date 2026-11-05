@@ -146,7 +146,7 @@ RETRIED_ELSEWHERE = (
     "nfc:nfc_proof_reminder", "admin:admin_nfc_order",
 )
 # Codes and links that are useless a day later; the customer asks again.
-TIME_SENSITIVE = ("verify_email", "password_reset_code")
+TIME_SENSITIVE = ("password_reset_code",)
 
 
 def retry_failed_emails(days=3, max_retries=3):

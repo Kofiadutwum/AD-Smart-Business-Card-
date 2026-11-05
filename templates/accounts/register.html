@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{% blocktrans trimmed %}Create your account · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex">{% endblock %}
+{% block scripts %}<script src="{% static 'js/email-check.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card">
@@ -9,7 +11,7 @@
     <p class="lead">{% trans "Then build and preview your card for free. You only pay when you choose a plan." %}</p>
     {% if google_enabled %}
       {% trans "Sign up with Google" as google_label %}{% trans "or sign up with your email" as google_divider %}{% include "components/google_button.html" with label=google_label divider=google_divider %}
-      <p class="text-xs muted" style="margin-top: calc(-1 * var(--space-2))">{% trans "Signing up with Google confirms your email straight away. We will ask for your mobile number next." %}</p>
+      <p class="text-xs muted" style="margin-top: calc(-1 * var(--space-2))">{% trans "We will ask for your mobile number next." %}</p>
     {% endif %}
     <form method="post" class="form" novalidate{% if google_enabled %} style="margin-top: var(--space-6)"{% endif %}>
       {% csrf_token %}

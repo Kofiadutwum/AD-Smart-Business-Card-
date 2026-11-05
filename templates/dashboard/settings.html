@@ -13,6 +13,11 @@
       </form>
     </section>
     <section class="panel">
+      <h2 style="font-size: var(--text-lg)">{% trans "Email address" %}</h2>
+      <p class="muted text-sm mt-2">{% trans "The email you log in with. Receipts and notices are sent to it." %} <strong>{{ user.email }}</strong></p>
+      <a class="btn mt-4" href="{% url 'accounts:change_email' %}">{% icon "mail" 16 %}{% trans "Change email" %}</a>
+    </section>
+    <section class="panel">
       <h2 style="font-size: var(--text-lg)">{% trans "Password" %}</h2>
       <p class="muted text-sm mt-2">{% if user.google_sub %}{% trans "You can sign in with Google." %} {% endif %}{% trans "Change the password you use to sign in with your email." %}</p>
       <a class="btn mt-4" href="{% url 'accounts:change_password' %}">{% icon "key-round" 16 %}{% trans "Change password" %}</a>

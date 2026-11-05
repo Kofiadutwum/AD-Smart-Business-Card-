@@ -1,10 +1,9 @@
 {% autoescape off %}{% blocktrans trimmed with name=user.first_name|default:_("there") %}Welcome to AD Smart Business Cards, {{ name }}!{% endblocktrans %}
 
 {% blocktrans trimmed %}Here is how it works:{% endblocktrans %}
-1. {% blocktrans trimmed %}Confirm your email (check the other message we sent).{% endblocktrans %}
-2. {% blocktrans trimmed %}Build your card and preview it. It stays private until you choose a plan.{% endblocktrans %}
-3. {% blocktrans trimmed %}Choose a yearly plan and pay with Mobile Money or a card.{% endblocktrans %}
-4. {% blocktrans trimmed %}Share your permanent link, QR code or NFC card.{% endblocktrans %}
+1. {% blocktrans trimmed %}Build your card and preview it. It stays private until you choose a plan.{% endblocktrans %}
+2. {% blocktrans trimmed %}Choose a yearly plan and pay with Mobile Money or a card.{% endblocktrans %}
+3. {% blocktrans trimmed %}Share your permanent link, QR code or NFC card.{% endblocktrans %}
 
 {% blocktrans trimmed %}Questions? Reply to this email or message us on WhatsApp.{% endblocktrans %}
 

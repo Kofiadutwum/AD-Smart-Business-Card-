@@ -14,5 +14,6 @@ pyotp==2.10.0
 reportlab==5.0.1
 openpyxl==3.1.5
 defusedxml==0.7.1
+dnspython==2.8.0
 python-dateutil==2.9.0.post0
 django-countries==9.1.0

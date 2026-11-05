@@ -11,6 +11,9 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
+EMAIL_CHANGE_DAYS = 90  # a customer may change their email this often
+EMAIL_FIX_WINDOW = 24  # hours after a change in which a typo may be corrected
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -58,9 +61,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
     google_sub = models.CharField(max_length=255, unique=True, null=True, blank=True)
 
+    # Email confirmation was removed (the form checks the address as it is typed). These two are kept as history
+    # of the old flow and are no longer read.
     email_verified_at = models.DateTimeField(null=True, blank=True)
-    # A shop-card buyer is let straight in: setting up with the PIN from the card is the proof of purchase,
-    # so confirming the email address can wait. The dashboard keeps asking until it is confirmed.
     verification_waived_at = models.DateTimeField(null=True, blank=True)
     email_changed_at = models.DateTimeField(null=True, blank=True)
     accepted_terms_at = models.DateTimeField(null=True, blank=True)
@@ -119,19 +122,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         return (self.display_name or "").split(" ")[0]
 
     @property
-    def is_email_verified(self):
-        return self.email_verified_at is not None
-
-    @property
-    def can_use_account(self):
-        """Confirmed their email, or was let in without it (see ``verification_waived_at``)."""
-        return self.email_verified_at is not None or self.verification_waived_at is not None
-
-    @property
     def can_change_email(self):
+        """Once every 90 days, but a slip can be fixed for 24 hours after a change."""
         if not self.email_changed_at:
             return True
-        return timezone.now() >= self.email_changed_at + timedelta(days=90)
+        age = timezone.now() - self.email_changed_at
+        return age < timedelta(hours=EMAIL_FIX_WINDOW) or age >= timedelta(days=EMAIL_CHANGE_DAYS)
+
+    @property
+    def next_email_change(self):
+        return self.email_changed_at + timedelta(days=EMAIL_CHANGE_DAYS)
 
     # --- staff --------------------------------------------------------------
 

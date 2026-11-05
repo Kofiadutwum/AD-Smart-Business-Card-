@@ -9,155 +9,127 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/accounts/forms.py:12 apps/dashboard/forms.py:49
+#: apps/accounts/forms.py:17 apps/dashboard/forms.py:49
 msgid "Full name"
 msgstr "Nome completo"
 
-#: apps/accounts/forms.py:13 apps/accounts/forms.py:54
-#: apps/accounts/forms.py:60 apps/cards/models.py:45
-#: apps/dashboard/forms.py:54
+#: apps/accounts/forms.py:18 apps/accounts/forms.py:60
+#: apps/accounts/forms.py:66 apps/cards/models.py:45
+#: apps/dashboard/forms.py:54 templates/dashboard/settings.html:16
 msgid "Email address"
 msgstr "Endereço de e-mail"
 
-#: apps/accounts/forms.py:15 apps/accounts/forms.py:140
+#: apps/accounts/forms.py:20 apps/accounts/forms.py:170
 msgid "Mobile number"
 msgstr "Número de telemóvel"
 
-#: apps/accounts/forms.py:16
+#: apps/accounts/forms.py:21
 msgid "We use it only to reach you about orders and delivery."
 msgstr "Utilizamos apenas para o contactar sobre encomendas e entregas."
 
-#: apps/accounts/forms.py:20 apps/accounts/forms.py:55
-#: templates/dashboard/settings.html:16
+#: apps/accounts/forms.py:25 apps/accounts/forms.py:61
+#: templates/dashboard/settings.html:21
 msgid "Password"
 msgstr "Palavra-passe"
 
-#: apps/accounts/forms.py:22
+#: apps/accounts/forms.py:27
 msgid "At least 8 characters. Avoid common words and all-number passwords."
 msgstr ""
 "Pelo menos 8 caracteres. Evite palavras comuns e palavras-passe só com "
 "números."
 
-#: apps/accounts/forms.py:25
+#: apps/accounts/forms.py:30
 msgid "I accept the Terms of Service and Privacy Policy"
 msgstr "Aceito os Termos de Serviço e a Política de Privacidade"
 
-#: apps/accounts/forms.py:26
+#: apps/accounts/forms.py:31
 msgid "You need to accept the terms to create an account."
 msgstr "Tem de aceitar os termos para criar uma conta."
 
-#: apps/accounts/forms.py:32
+#: apps/accounts/services.py:80
 msgid "That email already has an account. Sign in instead."
 msgstr "Esse e-mail já tem uma conta. Inicie sessão."
 
-#: apps/accounts/forms.py:38
+#: apps/accounts/forms.py:44
 msgid ""
 "That number is linked to another account. Sign in or recover that account."
 msgstr ""
 "Esse número está associado a outra conta. Inicie sessão ou recupere essa "
 "conta."
 
-#: apps/accounts/forms.py:56
+#: apps/accounts/forms.py:62
 msgid "Keep me signed in"
 msgstr "Manter sessão iniciada"
 
-#: apps/accounts/forms.py:65
+#: apps/accounts/forms.py:71
 msgid "6-digit code"
 msgstr "Código de 6 dígitos"
 
-#: apps/accounts/forms.py:67
+#: apps/accounts/forms.py:73
 msgid "Enter the 6 digits from the email."
 msgstr "Introduza os 6 dígitos do e-mail."
 
-#: apps/accounts/forms.py:70 apps/accounts/forms.py:112
+#: apps/accounts/forms.py:76 apps/accounts/forms.py:118
 msgid "New password"
 msgstr "Nova palavra-passe"
 
-#: apps/accounts/forms.py:72 apps/accounts/forms.py:114
+#: apps/accounts/forms.py:78 apps/accounts/forms.py:120
 msgid "Confirm new password"
 msgstr "Confirmar nova palavra-passe"
 
-#: apps/accounts/forms.py:78 apps/accounts/forms.py:130
+#: apps/accounts/forms.py:84 apps/accounts/forms.py:136
 msgid "The two passwords do not match."
 msgstr "As duas palavras-passe não coincidem."
 
-#: apps/accounts/forms.py:110
+#: apps/accounts/forms.py:116 apps/accounts/forms.py:148
 msgid "Current password"
 msgstr "Palavra-passe atual"
 
-#: apps/accounts/forms.py:124
+#: apps/accounts/forms.py:130 apps/accounts/forms.py:165
 msgid "That is not your current password."
 msgstr "Essa não é a sua palavra-passe atual."
 
-#: apps/accounts/forms.py:154
+#: apps/accounts/forms.py:184
 msgid "That number is linked to another account."
 msgstr "Esse número está associado a outra conta."
 
-#: apps/accounts/services.py:30
-msgid "Confirm your email address"
-msgstr "Confirme o seu endereço de e-mail"
-
-#: apps/accounts/services.py:65
+#: apps/accounts/services.py:115
 #, python-format
 msgid "Your password reset code: %(code)s"
 msgstr "O seu código para repor a palavra-passe: %(code)s"
 
-#: apps/accounts/views.py:50
+#: apps/accounts/views.py:56
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr ""
 "Demasiados registos a partir desta ligação. Tente novamente dentro de uma "
 "hora."
 
-#: apps/accounts/views.py:65 apps/accounts/views.py:322 apps/cards/claim.py:97
+#: apps/accounts/views.py:70 apps/accounts/views.py:355 apps/cards/claim.py:95
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Bem-vindo ao AD Smart Business Cards"
 
-#: apps/accounts/views.py:78
-msgid ""
-"You have asked for several emails already. Check your spam folder, or try "
-"again later."
-msgstr ""
-"Já pediu vários e-mails. Verifique a pasta de spam ou tente novamente mais "
-"tarde."
-
-#: apps/accounts/views.py:81
-#, python-format
-msgid "We sent a new link to %(email)s."
-msgstr "Enviámos um novo link para %(email)s."
-
-#: apps/accounts/views.py:93
-msgid ""
-"That link has expired or was already used. Sign in and ask for a new one."
-msgstr "Esse link expirou ou já foi utilizado. Inicie sessão e peça um novo."
-
-#: apps/accounts/views.py:100
-msgid "Email confirmed. Build your card, preview it, then choose a plan."
-msgstr ""
-"E-mail confirmado. Crie o seu cartão, veja a pré-visualização e escolha um "
-"plano."
-
-#: apps/accounts/views.py:118
+#: apps/accounts/views.py:92
 msgid "Too many attempts. Wait 15 minutes, or reset your password."
 msgstr "Demasiadas tentativas. Aguarde 15 minutos ou reponha a palavra-passe."
 
-#: apps/accounts/views.py:123
+#: apps/accounts/views.py:97
 msgid "That email and password do not match."
 msgstr "Esse e-mail e palavra-passe não coincidem."
 
-#: apps/accounts/views.py:131 apps/accounts/views.py:257
-#: apps/accounts/views.py:326
+#: apps/accounts/views.py:105 apps/accounts/views.py:292
+#: apps/accounts/views.py:359
 msgid "This account is suspended. Contact support."
 msgstr "Esta conta está suspensa. Contacte o suporte."
 
-#: apps/accounts/views.py:150
+#: apps/accounts/views.py:124
 msgid "You are signed out."
 msgstr "Terminou a sessão."
 
-#: apps/accounts/views.py:166
+#: apps/accounts/views.py:140
 msgid "Too many requests. Try again in an hour."
 msgstr "Demasiados pedidos. Tente novamente dentro de uma hora."
 
-#: apps/accounts/views.py:170
+#: apps/accounts/views.py:144
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
@@ -165,52 +137,52 @@ msgstr ""
 "Foi enviado um código há menos de um minuto. Verifique a caixa de entrada "
 "antes de pedir outro."
 
-#: apps/accounts/views.py:184
+#: apps/accounts/views.py:158
 msgid "Too many attempts from this connection. Try again later."
 msgstr ""
 "Demasiadas tentativas a partir desta ligação. Tente novamente mais tarde."
 
-#: apps/accounts/views.py:191
+#: apps/accounts/views.py:165
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "Esse código expirou ou foi usado demasiadas vezes. Peça um novo."
 
-#: apps/accounts/views.py:200 apps/accounts/views.py:228
-#: apps/accounts/views.py:264
+#: apps/accounts/views.py:174 apps/accounts/views.py:202
+#: apps/accounts/views.py:299
 msgid "Your password was changed"
 msgstr "A sua palavra-passe foi alterada"
 
-#: apps/accounts/views.py:204
+#: apps/accounts/views.py:178
 msgid "Your password has been reset."
 msgstr "A sua palavra-passe foi reposta."
 
-#: apps/accounts/views.py:210
+#: apps/accounts/views.py:184
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Esse código não está correto. Resta %(left)d tentativa."
 msgstr[1] "Esse código não está correto. Restam %(left)d tentativas."
 
-#: apps/accounts/views.py:215
+#: apps/accounts/views.py:189
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Demasiados códigos errados. Peça um novo."
 
-#: apps/accounts/views.py:231
+#: apps/accounts/views.py:205
 msgid "Password updated."
 msgstr "Palavra-passe atualizada."
 
-#: apps/accounts/views.py:280
+#: apps/accounts/views.py:315
 msgid "Google sign-in is not available yet."
 msgstr "O início de sessão com o Google ainda não está disponível."
 
-#: apps/accounts/views.py:292
+#: apps/accounts/views.py:327
 msgid "Google sign-in was cancelled."
 msgstr "O início de sessão com o Google foi cancelado."
 
-#: apps/accounts/views.py:296
+#: apps/accounts/views.py:331
 msgid "Your Google sign-in session expired. Try again."
 msgstr "A sua sessão de início com o Google expirou. Tente novamente."
 
-#: apps/accounts/views.py:332
+#: apps/accounts/views.py:365
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 "Adicione o seu número de telemóvel para o podermos contactar sobre "
@@ -468,13 +440,13 @@ msgstr ""
 "Não encontrámos esse pagamento. Se foi debitado dinheiro da sua conta, "
 "contacte o suporte indicando a referência."
 
-#: apps/cards/claim.py:83
+#: apps/cards/claim.py:82
 msgid "Too many attempts from this connection. Try again in an hour."
 msgstr ""
 "Demasiadas tentativas a partir desta ligação. Tente novamente dentro de uma "
 "hora."
 
-#: apps/cards/claim.py:91
+#: apps/cards/claim.py:90
 msgid ""
 "That email or number was just used for another account. Please check and try"
 " again."
@@ -482,7 +454,7 @@ msgstr ""
 "Esse e-mail ou número acabou de ser usado noutra conta. Verifique e tente "
 "novamente."
 
-#: apps/cards/claim.py:144
+#: apps/cards/claim.py:141
 msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr "O cartão já está na sua conta e foi acrescentado um ano ao seu plano."
@@ -815,7 +787,7 @@ msgstr "%(price)s cada"
 msgid "%(price)s per person a year"
 msgstr "%(price)s por pessoa por ano"
 
-#: apps/accounts/forms.py:146 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/accounts/forms.py:176 apps/cards/forms.py:21 apps/core/jsstrings.py:21
 #: apps/support/forms.py:18
 msgid "Your name"
 msgstr "O seu nome"
@@ -1106,7 +1078,7 @@ msgstr ""
 "O seu pedido de eliminação ficou registado. Os seus dados serão removidos no"
 " prazo de 30 dias."
 
-#: apps/marketing/content.py:16 templates/accounts/register.html:8
+#: apps/marketing/content.py:16 templates/accounts/register.html:10
 msgid "Create your account"
 msgstr "Crie a sua conta"
 
@@ -1716,20 +1688,20 @@ msgstr "Encomenda cancelada."
 msgid "An update on your order %(number)s"
 msgstr "Novidades sobre a sua encomenda %(number)s"
 
-#: apps/staff/views/subscribers.py:123
+#: apps/staff/views/subscribers.py:124
 msgid "Your AD Smart account has been suspended"
 msgstr "A sua conta AD Smart foi suspensa"
 
-#: apps/staff/views/subscribers.py:123
+#: apps/staff/views/subscribers.py:124
 msgid "Your AD Smart account is active again"
 msgstr "A sua conta AD Smart voltou a estar ativa"
 
-#: apps/staff/views/subscribers.py:175
+#: apps/staff/views/subscribers.py:198
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "O seu cartão /c/%(slug)s foi suspenso"
 
-#: apps/staff/views/subscribers.py:176
+#: apps/staff/views/subscribers.py:199
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "O seu cartão /c/%(slug)s foi reposto"
@@ -1792,6 +1764,7 @@ msgstr "Enviaremos um e-mail para confirmar a alteração."
 msgid "Update password"
 msgstr "Atualizar palavra-passe"
 
+#: templates/accounts/change_email.html:22
 #: templates/accounts/change_password.html:14
 msgid "Back to settings"
 msgstr "Voltar às definições"
@@ -1847,16 +1820,16 @@ msgstr "Iniciar sessão"
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
 msgstr "É novo aqui? <a href=\"%(url_1)s\">Crie um cartão</a>"
 
-#: templates/accounts/register.html:2
+#: templates/accounts/register.html:3
 #, python-format
 msgid "Create your account · %(SITE_NAME)s"
 msgstr "Crie a sua conta · %(SITE_NAME)s"
 
-#: templates/accounts/register.html:7 templates/cards/claim_pin.html:7
+#: templates/accounts/register.html:9 templates/cards/claim_pin.html:7
 msgid "Step 1 of 3"
 msgstr "Passo 1 de 3"
 
-#: templates/accounts/register.html:9
+#: templates/accounts/register.html:11
 msgid ""
 "Then build and preview your card for free. You only pay when you choose a "
 "plan."
@@ -1864,19 +1837,11 @@ msgstr ""
 "Depois crie e pré-visualize o seu cartão gratuitamente. Só paga quando "
 "escolher um plano."
 
-#: templates/accounts/register.html:12
-msgid ""
-"Signing up with Google confirms your email straight away. We will ask for "
-"your mobile number next."
-msgstr ""
-"Registar-se com o Google confirma de imediato o seu e-mail. A seguir "
-"pediremos o seu número de telemóvel."
-
-#: templates/accounts/register.html:18
+#: templates/accounts/register.html:20
 msgid "Create account"
 msgstr "Criar conta"
 
-#: templates/accounts/register.html:20
+#: templates/accounts/register.html:22
 #, python-format
 msgid "Already have an account? <a href=\"%(url_3)s\">Log in</a>"
 msgstr "Já tem uma conta? <a href=\"%(url_3)s\">Inicie sessão</a>"
@@ -1907,41 +1872,9 @@ msgstr "Repor palavra-passe"
 msgid "Send a new code"
 msgstr "Enviar um novo código"
 
-#: templates/accounts/verify_pending.html:2
-#, python-format
-msgid "Confirm your email · %(SITE_NAME)s"
-msgstr "Confirme o seu e-mail · %(SITE_NAME)s"
-
-#: templates/accounts/verify_pending.html:8
-#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:9
 msgid "Step 2 of 3"
 msgstr "Passo 2 de 3"
-
-#: templates/accounts/verify_pending.html:9
-msgid "Check your email"
-msgstr "Verifique o seu e-mail"
-
-#: templates/accounts/verify_pending.html:10
-#, python-format
-msgid ""
-"We sent a confirmation link to <strong>%(user_email)s</strong>. Open it to "
-"start building your card."
-msgstr ""
-"Enviámos um link de confirmação para <strong>%(user_email)s</strong>. Abra-o"
-" para começar a criar o seu cartão."
-
-#: templates/accounts/verify_pending.html:11
-msgid "No email after a few minutes? Check your spam or promotions folder."
-msgstr ""
-"Sem e-mail ao fim de alguns minutos? Verifique a pasta de spam ou promoções."
-
-#: templates/accounts/verify_pending.html:14
-msgid "Send the link again"
-msgstr "Reenviar o link"
-
-#: templates/accounts/verify_pending.html:16
-msgid "Use a different account"
-msgstr "Usar outra conta"
 
 #: templates/base.html:39
 msgid "Skip to main content"
@@ -2338,7 +2271,7 @@ msgstr "Denunciar este cartão"
 msgid "Add this card to your account · %(SITE_NAME)s"
 msgstr "Adicione este cartão à sua conta · %(SITE_NAME)s"
 
-#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:9
 msgid "Step 2 of 2"
 msgstr "Passo 2 de 2"
 
@@ -2374,7 +2307,7 @@ msgstr ""
 msgid "Add the card and the year"
 msgstr "Adicionar o cartão e o ano"
 
-#: templates/cards/claim_pin.html:2 templates/cards/claim_setup.html:2
+#: templates/cards/claim_pin.html:2 templates/cards/claim_setup.html:3
 #, python-format
 msgid "Set up your card · %(SITE_NAME)s"
 msgstr "Configure o seu cartão · %(SITE_NAME)s"
@@ -2407,11 +2340,11 @@ msgstr ""
 "Não encontra o PIN? Está impresso no verso do cartão. Pergunte à loja que "
 "lho vendeu."
 
-#: templates/cards/claim_setup.html:8
+#: templates/cards/claim_setup.html:10
 msgid "Your details"
 msgstr "Os seus dados"
 
-#: templates/cards/claim_setup.html:12
+#: templates/cards/claim_setup.html:14
 #, python-format
 msgid ""
 "This card comes with one year of the %(batch_plan_name)s plan, already paid."
@@ -2422,7 +2355,7 @@ msgstr ""
 " seus dados e crie a sua conta. O link e o código QR do seu cartão mantêm-se"
 " exatamente como impressos."
 
-#: templates/accounts/register.html:17 templates/cards/claim_setup.html:19
+#: templates/accounts/register.html:19 templates/cards/claim_setup.html:21
 #, python-format
 msgid ""
 "By creating an account you agree to our <a href=\"%(url_1)s\" "
@@ -2433,11 +2366,11 @@ msgstr ""
 "target=\"_blank\">Termos de Serviço</a> e a nossa <a href=\"%(url_2)s\" "
 "target=\"_blank\">Política de Privacidade</a>."
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 msgid "Activate my card"
 msgstr "Ativar o meu cartão"
 
-#: templates/cards/claim_setup.html:22
+#: templates/cards/claim_setup.html:24
 #, python-format
 msgid ""
 "Already have an account? <a href=\"%(login_url)s\">Log in to add this card "
@@ -2530,7 +2463,7 @@ msgid "Open menu"
 msgstr "Abrir menu"
 
 #: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65
-#: templates/dashboard/settings.html:26 templates/partials/site_header.html:22
+#: templates/dashboard/settings.html:31 templates/partials/site_header.html:22
 msgid "Change theme"
 msgstr "Alterar tema"
 
@@ -2611,7 +2544,7 @@ msgstr "Ajuda e suporte"
 msgid "Log out"
 msgstr "Terminar sessão"
 
-#: templates/dashboard/_status_banner.html:12
+#: templates/dashboard/_status_banner.html:5
 msgid ""
 "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to"
 " give it its permanent link and switch it on."
@@ -2619,12 +2552,12 @@ msgstr ""
 "<strong>O seu cartão é um rascunho.</strong> Só você o pode ver. Escolha um "
 "plano para lhe dar o link permanente e ativá-lo."
 
-#: templates/dashboard/_status_banner.html:13
+#: templates/dashboard/_status_banner.html:6
 #: templates/dashboard/business.html:17 templates/dashboard/editor.html:162
 msgid "Choose a plan"
 msgstr "Escolher um plano"
 
-#: templates/dashboard/_status_banner.html:18
+#: templates/dashboard/_status_banner.html:11
 #, python-format
 msgid ""
 "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> "
@@ -2636,12 +2569,12 @@ msgstr ""
 "funcionar até %(shell_subscription_grace_ends_at_date)s. Renove antes dessa "
 "data para o manter ativo."
 
-#: templates/dashboard/_status_banner.html:19
-#: templates/dashboard/_status_banner.html:25
+#: templates/dashboard/_status_banner.html:12
+#: templates/dashboard/_status_banner.html:18
 msgid "Renew now"
 msgstr "Renovar agora"
 
-#: templates/dashboard/_status_banner.html:24
+#: templates/dashboard/_status_banner.html:17
 msgid ""
 "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page."
 " Renew to bring back the same link, QR code and NFC cards."
@@ -2650,7 +2583,7 @@ msgstr ""
 " «cartão inativo». Renove para recuperar o mesmo link, código QR e cartões "
 "NFC."
 
-#: templates/dashboard/_status_banner.html:31
+#: templates/dashboard/_status_banner.html:24
 msgid "Renew"
 msgstr "Renovar"
 
@@ -3183,34 +3116,34 @@ msgstr "Dados da conta"
 msgid "Save details"
 msgstr "Guardar dados"
 
-#: templates/dashboard/settings.html:17
+#: templates/dashboard/settings.html:22
 msgid "You can sign in with Google."
 msgstr "Pode iniciar sessão com o Google."
 
-#: templates/dashboard/settings.html:17
+#: templates/dashboard/settings.html:22
 msgid "Change the password you use to sign in with your email."
 msgstr "Altere a palavra-passe que usa para iniciar sessão com o seu e-mail."
 
-#: templates/dashboard/settings.html:18
+#: templates/dashboard/settings.html:23
 msgid "Change password"
 msgstr "Alterar palavra-passe"
 
-#: templates/dashboard/settings.html:23
+#: templates/dashboard/settings.html:28
 msgid "Appearance"
 msgstr "Aparência"
 
-#: templates/dashboard/settings.html:24
+#: templates/dashboard/settings.html:29
 msgid ""
 "Light, dark or match your device. Your choice is remembered on this device."
 msgstr ""
 "Claro, escuro ou igual ao dispositivo. A sua escolha fica guardada neste "
 "dispositivo."
 
-#: templates/dashboard/settings.html:30
+#: templates/dashboard/settings.html:35
 msgid "Delete account"
 msgstr "Eliminar conta"
 
-#: templates/dashboard/settings.html:31
+#: templates/dashboard/settings.html:36
 msgid ""
 "Your cards go offline straight away and your personal data is removed within"
 " 30 days. Payment records are kept for accounting. Your card links are "
@@ -3221,15 +3154,15 @@ msgstr ""
 " fins contabilísticos. Os links dos seus cartões são retirados e nunca são "
 "atribuídos a outra pessoa."
 
-#: templates/dashboard/settings.html:32
+#: templates/dashboard/settings.html:37
 msgid "Delete your account? This cannot be undone."
 msgstr "Eliminar a sua conta? Esta ação não pode ser anulada."
 
-#: templates/dashboard/settings.html:35
+#: templates/dashboard/settings.html:40
 msgid "Type your email to confirm"
 msgstr "Escreva o seu e-mail para confirmar"
 
-#: templates/dashboard/settings.html:38
+#: templates/dashboard/settings.html:43
 msgid "Delete my account"
 msgstr "Eliminar a minha conta"
 
@@ -3300,8 +3233,9 @@ msgstr "Recebe esta mensagem por causa da sua conta ou encomenda connosco."
 #: templates/emails/card_suspended.txt:1
 #: templates/emails/data_deletion_warning.txt:1
 #: templates/emails/deletion_requested.txt:1
-#: templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1
-#: templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1
+#: templates/emails/email_changed.txt:1 templates/emails/grace_started.txt:1
+#: templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1
+#: templates/emails/nfc_order_confirmed.txt:1
 #: templates/emails/nfc_proof_ready.txt:1
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
@@ -3310,8 +3244,7 @@ msgstr "Recebe esta mensagem por causa da sua conta ou encomenda connosco."
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
-#: templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1
-#: templates/emails/welcome.txt:1
+#: templates/emails/staff_message.txt:1 templates/emails/welcome.txt:1
 msgid "there"
 msgstr "utilizador"
 
@@ -3324,8 +3257,9 @@ msgstr "utilizador"
 #: templates/emails/card_suspended.txt:1
 #: templates/emails/data_deletion_warning.txt:1
 #: templates/emails/deletion_requested.txt:1
-#: templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1
-#: templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1
+#: templates/emails/email_changed.txt:1 templates/emails/grace_started.txt:1
+#: templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1
+#: templates/emails/nfc_order_confirmed.txt:1
 #: templates/emails/nfc_proof_ready.txt:1
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
@@ -3336,7 +3270,7 @@ msgstr "utilizador"
 #: templates/emails/renewal_reminder.txt:1
 #: templates/emails/staff_message.txt:1
 #: templates/emails/support_received.txt:1
-#: templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
+#: templates/emails/support_reply.txt:1
 #, python-format
 msgid "Hello %(name)s,"
 msgstr "Olá %(name)s,"
@@ -3747,18 +3681,6 @@ msgid "Reference: %(reference)s. Reply from your dashboard, or to this email."
 msgstr ""
 "Referência: %(reference)s. Responda a partir do seu painel ou a este e-mail."
 
-#: templates/emails/verify_email.txt:3
-msgid "Please confirm your email address to start building your card:"
-msgstr "Confirme o seu endereço de e-mail para começar a criar o seu cartão:"
-
-#: templates/emails/verify_email.txt:7
-msgid ""
-"The link works for 48 hours. If you did not create an account, you can "
-"ignore this email."
-msgstr ""
-"O link funciona durante 48 horas. Se não criou uma conta, pode ignorar este "
-"e-mail."
-
 #: templates/emails/welcome.txt:1
 #, python-format
 msgid "Welcome to AD Smart Business Cards, %(name)s!"
@@ -3769,25 +3691,21 @@ msgid "Here is how it works:"
 msgstr "É assim que funciona:"
 
 #: templates/emails/welcome.txt:4
-msgid "Confirm your email (check the other message we sent)."
-msgstr "Confirme o seu e-mail (veja a outra mensagem que enviámos)."
-
-#: templates/emails/welcome.txt:5
 msgid ""
 "Build your card and preview it. It stays private until you choose a plan."
 msgstr ""
 "Crie o seu cartão e veja a pré-visualização. Fica privado até escolher um "
 "plano."
 
-#: templates/emails/welcome.txt:6
+#: templates/emails/welcome.txt:5
 msgid "Choose a yearly plan and pay with Mobile Money or a card."
 msgstr "Escolha um plano anual e pague com Mobile Money ou cartão."
 
-#: templates/emails/welcome.txt:7
+#: templates/emails/welcome.txt:6
 msgid "Share your permanent link, QR code or NFC card."
 msgstr "Partilhe o seu link permanente, o código QR ou o cartão NFC."
 
-#: templates/emails/welcome.txt:9
+#: templates/emails/welcome.txt:8
 msgid "Questions? Reply to this email or message us on WhatsApp."
 msgstr ""
 "Dúvidas? Responda a este e-mail ou envie-nos uma mensagem por WhatsApp."
@@ -5238,7 +5156,7 @@ msgstr "Você"
 msgid "Send reply"
 msgstr "Enviar resposta"
 
-#: templates/accounts/register.html:17
+#: templates/accounts/register.html:19
 #, python-format
 msgid ""
 "By creating an account (with Google or email) you agree to our <a "
@@ -5315,7 +5233,7 @@ msgstr "Continuar com o Google"
 msgid "or"
 msgstr "ou"
 
-#: templates/dashboard/_status_banner.html:30
+#: templates/dashboard/_status_banner.html:23
 #, python-format
 msgid ""
 "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew "
@@ -5496,11 +5414,11 @@ msgstr "© %(current_year)s AD Graphics. Todos os direitos reservados."
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "Preços em cedis do Gana. Pagamentos pela Paystack."
 
-#: apps/accounts/forms.py:147
+#: apps/accounts/forms.py:177
 msgid "Company name for receipts"
 msgstr "Nome da empresa para os recibos"
 
-#: apps/accounts/forms.py:148
+#: apps/accounts/forms.py:178
 msgid "Company address for receipts"
 msgstr "Morada da empresa para os recibos"
 
@@ -5830,11 +5748,11 @@ msgstr "Problema com uma encomenda NFC"
 msgid "Design request"
 msgstr "Pedido de design"
 
-#: templates/accounts/register.html:11
+#: templates/accounts/register.html:13
 msgid "Sign up with Google"
 msgstr "Registar-se com o Google"
 
-#: templates/accounts/register.html:11
+#: templates/accounts/register.html:13
 msgid "or sign up with your email"
 msgstr "ou registe-se com o seu e-mail"
 
@@ -5923,7 +5841,7 @@ msgstr "%(price)s/ano"
 msgid "Photo of %(name)s"
 msgstr "Fotografia de %(name)s"
 
-#: templates/dashboard/_status_banner.html:35
+#: templates/dashboard/_status_banner.html:28
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s"
@@ -5932,7 +5850,7 @@ msgstr ""
 "O seu plano muda para <strong style=\"display:inline\">%(plan)s para "
 "%(seats)s pessoas</strong> em %(date)s."
 
-#: templates/dashboard/_status_banner.html:35
+#: templates/dashboard/_status_banner.html:28
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on "
@@ -6151,28 +6069,6 @@ msgstr ""
 "renovação automática a qualquer momento no seu painel. Ao desativá-la, o "
 "plano mantém-se até ao fim do ano já pago. Renovar mais cedo acrescenta um "
 "ano à data de fim atual."
-
-#: apps/cards/claim.py:108
-#, python-format
-msgid ""
-"Your card is live and your first year is active. We sent a link to %(email)s"
-" so you can confirm your address when you are ready."
-msgstr ""
-"O seu cartão está ativo e o primeiro ano já está em curso. Enviámos um link "
-"para %(email)s para que possa confirmar o seu endereço quando lhe for "
-"conveniente."
-
-#: templates/dashboard/_status_banner.html:5
-msgid ""
-"<strong>Confirm your email address.</strong> You will need it to recover "
-"your account and to receive your receipts."
-msgstr ""
-"<strong>Confirme o seu endereço de e-mail.</strong> Vai precisar dele para "
-"recuperar a sua conta e receber os seus recibos."
-
-#: templates/dashboard/_status_banner.html:6
-msgid "Send me the link"
-msgstr "Enviar-me o link"
 
 #: apps/billing/models.py:110
 #, python-format
@@ -6487,7 +6383,7 @@ msgstr ""
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s enviou um pedido através da sua página da empresa:"
 
-#: apps/cards/claim.py:148
+#: apps/cards/claim.py:145
 #, python-format
 msgid ""
 "The card is now on your account and %(months)d months have been added to "
@@ -6512,7 +6408,7 @@ msgstr ""
 msgid "Add the card to my account"
 msgstr "Adicionar o cartão à minha conta"
 
-#: templates/cards/claim_setup.html:14
+#: templates/cards/claim_setup.html:16
 #, python-format
 msgid ""
 "This card comes with %(batch_months)s months of the %(batch_plan_name)s "
@@ -6727,7 +6623,7 @@ msgstr ""
 " Num cartão ou numa página da empresa, os dados vão para o proprietário do "
 "cartão, que os vê nos seus contactos."
 
-#: apps/cards/claim.py:103
+#: apps/cards/claim.py:101
 msgid ""
 "Your account is ready. Choose a plan and pay to switch your card on. Its "
 "link and QR code stay exactly as printed."
@@ -6735,11 +6631,11 @@ msgstr ""
 "A sua conta está pronta. Escolha um plano e pague para ativar o seu cartão. "
 "A ligação e o código QR ficam exatamente como foram impressos."
 
-#: apps/cards/claim.py:139
+#: apps/cards/claim.py:136
 msgid "The card is now on your account and live on your current plan."
 msgstr "O cartão já está na sua conta e ativo com o seu plano atual."
 
-#: apps/cards/claim.py:141
+#: apps/cards/claim.py:138
 msgid ""
 "The card is now on your account. Choose a plan and pay to switch it on."
 msgstr ""
@@ -6764,7 +6660,7 @@ msgstr ""
 "O seu cartão está pronto. Introduza o PIN impresso no verso do cartão para "
 "começar."
 
-#: templates/cards/claim_setup.html:10
+#: templates/cards/claim_setup.html:12
 msgid ""
 "Add your details and create your account. Next you choose a plan and pay to "
 "switch your card on. Your card’s link and QR code stay exactly as printed."
@@ -6773,11 +6669,11 @@ msgstr ""
 "para ativar o seu cartão. A ligação e o código QR do seu cartão ficam "
 "exatamente como foram impressos."
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 msgid "Create my account"
 msgstr "Criar a minha conta"
 
-#: apps/accounts/services.py:101
+#: apps/accounts/services.py:151
 msgid "Our support team reset your AD Smart password"
 msgstr "A nossa equipa de apoio repôs a sua palavra-passe da AD Smart"
 
@@ -6793,6 +6689,7 @@ msgstr ""
 "A nossa equipa de apoio repôs a palavra-passe da sua conta AD Smart a seu "
 "pedido."
 
+#: templates/emails/email_changed.txt:5
 #: templates/emails/password_reset_by_staff.txt:7
 msgid ""
 "If you did not ask for this, reply to this email or message us on WhatsApp "
@@ -6810,15 +6707,15 @@ msgstr ""
 "Também perdeu o acesso a esse e-mail? <a href=\"%(url_1)s\">Contacte o "
 "apoio</a> e ajudamos a voltar a entrar."
 
-#: apps/accounts/forms.py:91
+#: apps/accounts/forms.py:97
 msgid "Phone number on your account"
 msgstr "Número de telefone da sua conta"
 
-#: apps/accounts/forms.py:95
+#: apps/accounts/forms.py:101
 msgid "One-time password from support"
 msgstr "Palavra-passe de utilização única do apoio"
 
-#: apps/accounts/views.py:127
+#: apps/accounts/views.py:101
 msgid ""
 "That is a one-time password from support. Use it on the one-time password "
 "page, linked under this form."
@@ -6826,7 +6723,7 @@ msgstr ""
 "Esta é uma palavra-passe de utilização única do apoio. Use-a na página da "
 "palavra-passe de utilização única, indicada abaixo deste formulário."
 
-#: apps/accounts/views.py:245
+#: apps/accounts/views.py:280
 msgid ""
 "Too many attempts. Wait 15 minutes, or ask support for a new one-time "
 "password."
@@ -6834,7 +6731,7 @@ msgstr ""
 "Demasiadas tentativas. Aguarde 15 minutos ou peça ao apoio uma nova palavra-"
 "passe de utilização única."
 
-#: apps/accounts/views.py:254
+#: apps/accounts/views.py:289
 msgid ""
 "That phone number and one-time password do not match, or the password has "
 "expired. Ask support for a new one."
@@ -6842,7 +6739,7 @@ msgstr ""
 "Este número de telefone e esta palavra-passe de utilização única não "
 "correspondem, ou a palavra-passe expirou. Peça uma nova ao apoio."
 
-#: apps/accounts/views.py:268
+#: apps/accounts/views.py:303
 #, python-format
 msgid "Your password is saved. Next time, sign in with %(email)s."
 msgstr ""
@@ -6894,6 +6791,224 @@ msgstr ""
 "Deram-lhe uma palavra-passe de utilização única por telefone. Introduza-a "
 "com o seu número de telefone em %(link)s para escolher uma nova palavra-"
 "passe. Só funciona uma vez, no prazo de %(hours)s horas."
+
+#: apps/accounts/forms.py:146
+msgid "New email address"
+msgstr "Novo endereço de e-mail"
+
+#: apps/accounts/services.py:73
+msgid "That does not look like an email address."
+msgstr "Isso não parece um endereço de e-mail."
+
+#: apps/accounts/services.py:75
+msgid "That is already your email address."
+msgstr "Esse já é o seu endereço de e-mail."
+
+#: apps/accounts/services.py:80 apps/accounts/views.py:259
+msgid "That email belongs to another account."
+msgstr "Esse e-mail pertence a outra conta."
+
+#: apps/accounts/services.py:83
+#, python-format
+msgid ""
+"We could not find a mail server for %(domain)s. Check the spelling after the"
+" @."
+msgstr ""
+"Não encontrámos um servidor de correio para %(domain)s. Verifique a grafia "
+"depois do @."
+
+#: apps/accounts/services.py:175 apps/accounts/views.py:263
+msgid "The email on your AD Smart account was changed"
+msgstr "O e-mail da sua conta AD Smart foi alterado"
+
+#: apps/accounts/views.py:73
+msgid ""
+"Your account is ready. Build your card, preview it, then choose a plan."
+msgstr ""
+"A sua conta está pronta. Crie o seu cartão, pré-visualize-o e escolha depois"
+" um plano."
+
+#: apps/accounts/views.py:222
+#, python-format
+msgid "Did you mean %(email)s?"
+msgstr "Queria escrever %(email)s?"
+
+#: apps/accounts/views.py:223
+msgid "Use it"
+msgstr "Usar"
+
+#: apps/accounts/views.py:226
+msgid "This address looks good."
+msgstr "Este endereço parece correto."
+
+#: apps/accounts/views.py:241
+#, python-format
+msgid ""
+"You changed your email recently. You can change it again on %(date)s. "
+"Contact support if you cannot wait."
+msgstr ""
+"Alterou o seu e-mail há pouco tempo. Poderá alterá-lo novamente em %(date)s."
+" Contacte o apoio se não puder esperar."
+
+#: apps/accounts/views.py:245
+msgid "Too many attempts. Try again in an hour."
+msgstr "Demasiadas tentativas. Tente novamente dentro de uma hora."
+
+#: apps/accounts/views.py:266
+#, python-format
+msgid "Your email is now %(email)s. Use it the next time you log in."
+msgstr ""
+"O seu e-mail é agora %(email)s. Use-o da próxima vez que iniciar sessão."
+
+#: apps/cards/claim.py:106
+msgid "Your card is live and your first year is active."
+msgstr "O seu cartão está ativo e o seu primeiro ano está em curso."
+
+#: templates/accounts/change_email.html:3
+#, python-format
+msgid "Change email · %(SITE_NAME)s"
+msgstr "Alterar e-mail · %(SITE_NAME)s"
+
+#: templates/accounts/change_email.html:9
+msgid "Change your email"
+msgstr "Altere o seu e-mail"
+
+#: templates/accounts/change_email.html:11
+#, python-format
+msgid ""
+"You sign in with Google and have no password yet. <a href=\"%(url_1)s\">Set "
+"one</a> first, then come back here to change your email."
+msgstr ""
+"Inicia sessão com o Google e ainda não tem palavra-passe. <a "
+"href=\"%(url_1)s\">Defina uma</a> primeiro e volte aqui para alterar o seu "
+"e-mail."
+
+#: templates/accounts/change_email.html:13
+#, python-format
+msgid ""
+"You changed your email recently. You can change it again on %(next_date)s. "
+"Contact support if you cannot wait."
+msgstr ""
+"Alterou o seu e-mail há pouco tempo. Poderá alterá-lo novamente em "
+"%(next_date)s. Contacte o apoio se não puder esperar."
+
+#: templates/accounts/change_email.html:15
+#, python-format
+msgid ""
+"Your email is %(current_email)s. We will tell that address about the change,"
+" and every other device you are signed in on will be signed out."
+msgstr ""
+"O seu e-mail é %(current_email)s. Vamos avisar esse endereço da alteração e "
+"todos os outros dispositivos em que tem sessão iniciada terminarão a sessão."
+
+#: templates/accounts/change_email.html:19
+msgid "Change my email"
+msgstr "Alterar o meu e-mail"
+
+#: templates/accounts/register.html:14
+msgid "We will ask for your mobile number next."
+msgstr "A seguir, pediremos o seu número de telemóvel."
+
+#: templates/dashboard/settings.html:17
+msgid "The email you log in with. Receipts and notices are sent to it."
+msgstr ""
+"O e-mail com que inicia sessão. Os recibos e avisos são enviados para ele."
+
+#: templates/dashboard/settings.html:18
+msgid "Change email"
+msgstr "Alterar e-mail"
+
+#: templates/emails/email_changed.txt:3
+#, python-format
+msgid "The email address on your AD Smart account was changed to %(new)s."
+msgstr "O e-mail da sua conta AD Smart foi alterado para %(new)s."
+
+#~ msgid "Confirm your email address"
+#~ msgstr "Confirme o seu endereço de e-mail"
+
+#~ msgid ""
+#~ "You have asked for several emails already. Check your spam folder, or try "
+#~ "again later."
+#~ msgstr ""
+#~ "Já pediu vários e-mails. Verifique a pasta de spam ou tente novamente mais "
+#~ "tarde."
+
+#, python-format
+#~ msgid "We sent a new link to %(email)s."
+#~ msgstr "Enviámos um novo link para %(email)s."
+
+#~ msgid ""
+#~ "That link has expired or was already used. Sign in and ask for a new one."
+#~ msgstr "Esse link expirou ou já foi utilizado. Inicie sessão e peça um novo."
+
+#~ msgid "Email confirmed. Build your card, preview it, then choose a plan."
+#~ msgstr ""
+#~ "E-mail confirmado. Crie o seu cartão, veja a pré-visualização e escolha um "
+#~ "plano."
+
+#~ msgid ""
+#~ "Signing up with Google confirms your email straight away. We will ask for "
+#~ "your mobile number next."
+#~ msgstr ""
+#~ "Registar-se com o Google confirma de imediato o seu e-mail. A seguir "
+#~ "pediremos o seu número de telemóvel."
+
+#, python-format
+#~ msgid "Confirm your email · %(SITE_NAME)s"
+#~ msgstr "Confirme o seu e-mail · %(SITE_NAME)s"
+
+#~ msgid "Check your email"
+#~ msgstr "Verifique o seu e-mail"
+
+#, python-format
+#~ msgid ""
+#~ "We sent a confirmation link to <strong>%(user_email)s</strong>. Open it to "
+#~ "start building your card."
+#~ msgstr ""
+#~ "Enviámos um link de confirmação para <strong>%(user_email)s</strong>. Abra-o"
+#~ " para começar a criar o seu cartão."
+
+#~ msgid "No email after a few minutes? Check your spam or promotions folder."
+#~ msgstr ""
+#~ "Sem e-mail ao fim de alguns minutos? Verifique a pasta de spam ou promoções."
+
+#~ msgid "Send the link again"
+#~ msgstr "Reenviar o link"
+
+#~ msgid "Use a different account"
+#~ msgstr "Usar outra conta"
+
+#~ msgid "Please confirm your email address to start building your card:"
+#~ msgstr "Confirme o seu endereço de e-mail para começar a criar o seu cartão:"
+
+#~ msgid ""
+#~ "The link works for 48 hours. If you did not create an account, you can "
+#~ "ignore this email."
+#~ msgstr ""
+#~ "O link funciona durante 48 horas. Se não criou uma conta, pode ignorar este "
+#~ "e-mail."
+
+#~ msgid "Confirm your email (check the other message we sent)."
+#~ msgstr "Confirme o seu e-mail (veja a outra mensagem que enviámos)."
+
+#, python-format
+#~ msgid ""
+#~ "Your card is live and your first year is active. We sent a link to %(email)s"
+#~ " so you can confirm your address when you are ready."
+#~ msgstr ""
+#~ "O seu cartão está ativo e o primeiro ano já está em curso. Enviámos um link "
+#~ "para %(email)s para que possa confirmar o seu endereço quando lhe for "
+#~ "conveniente."
+
+#~ msgid ""
+#~ "<strong>Confirm your email address.</strong> You will need it to recover "
+#~ "your account and to receive your receipts."
+#~ msgstr ""
+#~ "<strong>Confirme o seu endereço de e-mail.</strong> Vai precisar dele para "
+#~ "recuperar a sua conta e receber os seus recibos."
+
+#~ msgid "Send me the link"
+#~ msgstr "Enviar-me o link"
 
 #~ msgid "This temporary password has expired. Ask support for a new one."
 #~ msgstr "Esta palavra-passe temporária expirou. Peça uma nova ao apoio."

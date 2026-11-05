@@ -24,23 +24,22 @@ from .helpers import BaseTest
 
 
 class AccountFlowTests(BaseTest):
-    def test_register_verify_build(self):
-        """AC-01 / Figure 2A."""
+    def test_register_then_build(self):
+        """AC-01 / Figure 2A: no confirmation email; the new customer goes straight to building the card."""
         response = self.client.post("/auth/register", {
             "full_name": "Efua Owusu", "email": "efua@example.com", "phone": "024 412 3456",
             "password": "Card-maker-2026", "accept_terms": "on",
         })
-        self.assertRedirects(response, "/auth/verify", fetch_redirect_response=False)
+        self.assertRedirects(response, "/dashboard/card/", fetch_redirect_response=False)
         user = User.objects.get(email="efua@example.com")
         self.assertEqual(user.phone, "+233244123456")
         self.assertEqual(user.cards.get().slug, "efua-owusu")
-        # Dashboard is blocked until the email is confirmed.
-        self.assertRedirects(self.client.get("/dashboard/"), "/auth/verify", fetch_redirect_response=False)
-        link = re.search(r"http://[^\s]+/auth/verify/[^\s]+", mail.outbox[0].body).group(0)
-        self.client.get(link.replace("http://127.0.0.1:8000", ""))
-        user.refresh_from_db()
-        self.assertTrue(user.is_email_verified)
-        self.assertEqual(self.client.get("/dashboard/card/").status_code, 200)
+        self.assertEqual(self.client.get("/dashboard/").status_code, 200)
+        self.assertEqual([m.subject for m in mail.outbox], ["Welcome to AD Smart Business Cards"])
+
+    def test_old_confirmation_links_land_on_the_dashboard(self):
+        for path in ("/auth/verify", "/auth/verify/some-old-token"):
+            self.assertRedirects(self.client.get(path), "/dashboard/", fetch_redirect_response=False)
 
     @override_settings(GOOGLE_CLIENT_ID="test-client", GOOGLE_CLIENT_SECRET="test-secret")
     def test_register_page_offers_google(self):
@@ -63,7 +62,6 @@ class AccountFlowTests(BaseTest):
         self.assertRedirects(response, "/dashboard/settings/", fetch_redirect_response=False)
         user = User.objects.get(email="abena@example.com")
         self.assertEqual(user.google_sub, "google-123")
-        self.assertTrue(user.is_email_verified)
         self.assertIsNotNone(user.accepted_terms_at)
         self.assertEqual(user.cards.get().slug, "abena-mensah")
         self.assertTrue(any("Welcome" in m.subject for m in mail.outbox))
@@ -556,7 +554,6 @@ class EmailRetryTests(BaseTest):
 
     def test_codes_and_self_retrying_emails_are_left_alone(self):
         self.failed("password_reset_code", "Your password reset code: 123456")
-        self.failed("verify_email")
         self.failed("renewal_7")
         self.failed("admin:admin_nfc_order")
         self.failed("support_reply", "Re: your question")

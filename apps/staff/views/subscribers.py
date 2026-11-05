@@ -18,7 +18,7 @@ from apps.core.emails import send_email, subject_text
 from apps.core.models import AuditLog, SiteSettings
 from apps.core.utils import ghs_to_minor, safe_next
 
-from ..forms import CustomerPasswordResetForm, ManualActivationForm, ReasonForm
+from ..forms import CustomerEmailChangeForm, CustomerPasswordResetForm, ManualActivationForm, ReasonForm
 from ..permissions import can, staff_required
 
 
@@ -71,6 +71,7 @@ def subscriber(request, pk):
         "activation_form": ManualActivationForm(),
         "reason_form": ReasonForm(),
         "reset_form": CustomerPasswordResetForm(auto_id="reset_%s"),
+        "email_form": CustomerEmailChangeForm(auto_id="email_%s"),
         "emails": customer.emaillog_set.all()[:15],
     }
     if can(request.user, "view_payments"):
@@ -154,6 +155,28 @@ def reset_customer_password(request, pk):
     )
     response["Cache-Control"] = "no-store"
     return response
+
+
+@staff_required("change_customer_email")
+@require_POST
+def change_customer_email(request, pk):
+    """A customer who cannot reach their old email: staff put in the new one after checking who is calling."""
+    customer = get_object_or_404(_customers(), pk=pk)
+    if customer.anonymised_at:
+        messages.error(request, "This account was deleted, so there is nothing to change.")
+        return redirect("staff:subscriber", pk=pk)
+    form = CustomerEmailChangeForm(request.POST, auto_id="email_%s")
+    if not form.is_valid():
+        messages.error(request, "Enter a valid new email, tick all three checks and give a reason. Nothing was changed.")
+        return redirect("staff:subscriber", pk=pk)
+    new = form.cleaned_data["new_email"].strip().lower()
+    problem = account_services.email_problem(new, customer)
+    if problem:
+        messages.error(request, f"{problem} Nothing was changed.")
+        return redirect("staff:subscriber", pk=pk)
+    account_services.staff_change_email(request.user, customer, new, form.cleaned_data["reason"])
+    messages.success(request, f"Email changed to {new}. The old address was sent a notice.")
+    return redirect("staff:subscriber", pk=pk)
 
 
 @staff_required("suspend")

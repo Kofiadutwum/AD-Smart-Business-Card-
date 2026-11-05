@@ -18,12 +18,10 @@ class BaseTest(TestCase):
         cls.pro = Plan.objects.get(code="professional")
         cls.business = Plan.objects.get(code="business")
 
-    def make_user(self, email="kwame@example.com", password="Str0ng-pass-123", verified=True, **extra):
-        user = User.objects.create_user(
-            email=email, password=password, full_name=extra.pop("full_name", "Kwame Mensah"),
-            email_verified_at=timezone.now() if verified else None, **extra,
+    def make_user(self, email="kwame@example.com", password="Str0ng-pass-123", **extra):
+        return User.objects.create_user(
+            email=email, password=password, full_name=extra.pop("full_name", "Kwame Mensah"), **extra,
         )
-        return user
 
     def make_card(self, user, name="Kwame Mensah", **fields):
         return create_card(user, name, **fields)

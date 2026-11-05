@@ -1,0 +1,8 @@
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
+
+{% blocktrans trimmed with new=new %}The email address on your AD Smart account was changed to {{ new }}.{% endblocktrans %}
+
+{% blocktrans trimmed %}If you did not ask for this, reply to this email or message us on WhatsApp straight away.{% endblocktrans %}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

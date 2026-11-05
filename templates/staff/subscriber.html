@@ -112,6 +112,18 @@
     </section>
     {% endif %}
 
+    {% if staff_perms.change_customer_email %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Change email</h2>
+      <p class="muted text-sm mt-2">For a customer who can no longer reach their email. Check who is calling first. The new address replaces the old one straight away and the old one is sent a notice. They keep their password.</p>
+      <form method="post" action="{% url 'staff:change_customer_email' customer.pk %}" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" with form=email_form %}
+        <button class="btn btn--danger" type="submit">Change email</button>
+      </form>
+    </section>
+    {% endif %}
+
     {% if staff_perms.suspend %}
     <section class="panel">
       <h2 style="font-size: var(--text-lg)">{% if customer.is_suspended %}Reinstate account{% else %}Suspend account{% endif %}</h2>

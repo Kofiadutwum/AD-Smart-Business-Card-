@@ -1,25 +1,31 @@
-"""Registration, email verification, sign-in, recovery and Google sign-in (Figures 2A, 3A, 3B)."""
+"""Registration, sign-in, recovery, email change and Google sign-in (Figures 2A, 3A, 3B)."""
 
 import secrets
+from datetime import timedelta
 
 from django.contrib import messages
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.db import transaction
+from django.db import IntegrityError, transaction
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
-from django.views.decorators.http import require_POST
+from django.utils.formats import date_format
+from django.views.decorators.http import require_GET, require_POST
 
 from apps.cards.services import create_card
 from apps.core.emails import send_email, subject_text
+from apps.core.models import AuditLog
 from apps.core.utils import clear_rate_limit, client_ip, rate_limited, safe_next
 
 from . import services
+from .decorators import customer_required
 from .forms import (
-    LoginForm, OneTimePasswordForm, PasswordChangeForm, RecoveryRequestForm, RecoveryVerifyForm, RegisterForm,
+    EmailChangeForm, LoginForm, OneTimePasswordForm, PasswordChangeForm, RecoveryRequestForm, RecoveryVerifyForm,
+    RegisterForm,
 )
-from .models import OneTimeCode, User
+from .models import EMAIL_FIX_WINDOW, OneTimeCode, User
 from django.utils.translation import gettext as _, ngettext
 
 BACKEND = "django.contrib.auth.backends.ModelBackend"
@@ -33,7 +39,7 @@ def _after_login(request, user):
 
 
 # --------------------------------------------------------------------------
-# Registration and verification (REG-01, REG-02, REG-09)
+# Registration (REG-01, REG-09)
 # --------------------------------------------------------------------------
 
 
@@ -60,45 +66,13 @@ def register(request):
                 )
                 create_card(user, data["full_name"].strip(), email=data["email"])
             login(request, user, backend=BACKEND)
-            services.send_verification_email(user)
             send_email(
                 to=user.email, subject=subject_text("Welcome to AD Smart Business Cards"), template="welcome",
                 context={"user": user}, user=user, kind="welcome", dedupe_key=f"welcome:{user.pk}",
             )
-            return redirect("accounts:verify_pending")
+            messages.success(request, _("Your account is ready. Build your card, preview it, then choose a plan."))
+            return redirect("dashboard:editor")
     return render(request, "accounts/register.html", {"form": form, "google_enabled": services.google_configured()})
-
-
-@login_required
-def verify_pending(request):
-    if request.user.is_email_verified:
-        return redirect("dashboard:home")
-    if request.method == "POST":
-        if rate_limited(f"verify-resend:{request.user.pk}", 5, 3600):
-            messages.error(request, _("You have asked for several emails already. Check your spam folder, or try again later."))
-        else:
-            services.send_verification_email(request.user)
-            messages.success(request, _("We sent a new link to %(email)s.") % {"email": request.user.email})
-        # Someone who was let straight in goes back to their dashboard; the rest wait on this page.
-        return redirect("dashboard:home" if request.user.can_use_account else "accounts:verify_pending")
-    if request.user.can_use_account:
-        return redirect("dashboard:home")
-    return render(request, "accounts/verify_pending.html")
-
-
-def verify_email(request, token):
-    data = services.read_verification_token(token)
-    user = User.objects.filter(pk=(data or {}).get("uid")).first() if data else None
-    if user is None or user.email != data.get("email"):
-        messages.error(request, _("That link has expired or was already used. Sign in and ask for a new one."))
-        return redirect("accounts:login")
-    if not user.email_verified_at:
-        user.email_verified_at = timezone.now()
-        user.save(update_fields=["email_verified_at"])
-    if not request.user.is_authenticated:
-        login(request, user, backend=BACKEND)
-    messages.success(request, _("Email confirmed. Build your card, preview it, then choose a plan."))
-    return redirect("dashboard:editor")
 
 
 # --------------------------------------------------------------------------
@@ -233,6 +207,67 @@ def change_password(request):
     return render(request, "accounts/change_password.html", {"form": form})
 
 
+@require_GET
+def check_email(request):
+    """The live check beside every email box: one short answer per pause in typing."""
+    if rate_limited(f"emailcheck:{client_ip(request)}", 120, 3600):
+        return JsonResponse({"status": "none", "message": ""}, status=429)
+    email = request.GET.get("email", "")
+    user = request.user if request.user.is_authenticated else None
+    problem = services.email_problem(email, user)
+    if problem:
+        data = {"status": "error", "message": problem}
+    elif suggestion := services.email_suggestion(email):
+        data = {
+            "status": "warn", "message": _("Did you mean %(email)s?") % {"email": suggestion},
+            "suggestion": suggestion, "use": _("Use it"),
+        }
+    else:
+        data = {"status": "ok", "message": _("This address looks good.")}
+    response = JsonResponse(data)
+    response["Cache-Control"] = "no-store"
+    return response
+
+
+@customer_required
+def change_email(request):
+    """A customer changes the email they sign in with: password required, old address told, other devices signed out."""
+    user = request.user
+    form = EmailChangeForm(user, request.POST or None)
+    if request.method == "POST":
+        if not user.can_change_email:
+            messages.error(
+                request,
+                _("You changed your email recently. You can change it again on %(date)s. Contact support if you cannot wait.")
+                % {"date": date_format(user.next_email_change, "j F Y")},
+            )
+        elif rate_limited(f"email-change:{user.pk}", 5, 3600):
+            messages.error(request, _("Too many attempts. Try again in an hour."))
+        elif form.is_valid():
+            old, new = user.email, form.cleaned_data["email"]
+            # A correction inside the first 24 hours keeps the original time, so it cannot be chained into endless changes.
+            fixing_a_slip = bool(user.email_changed_at) and timezone.now() - user.email_changed_at < timedelta(hours=EMAIL_FIX_WINDOW)
+            try:
+                with transaction.atomic():
+                    user.email = new
+                    if not fixing_a_slip:
+                        user.email_changed_at = timezone.now()
+                    user.set_password(form.cleaned_data["current_password"])  # a new salt signs out every other device
+                    user.save(update_fields=["email", "email_changed_at", "password"])
+                    AuditLog.record(user, "email_changed", user, old=old, new=new)
+            except IntegrityError:
+                form.add_error("email", _("That email belongs to another account."))
+            else:
+                update_session_auth_hash(request, user)
+                send_email(
+                    to=old, subject=subject_text("The email on your AD Smart account was changed"), template="email_changed",
+                    context={"user": user, "new": new}, user=user, kind="email_changed",
+                )
+                messages.success(request, _("Your email is now %(email)s. Use it the next time you log in.") % {"email": new})
+                return redirect("dashboard:settings")
+    return render(request, "accounts/change_email.html", {"form": form})
+
+
 def one_time_password(request):
     """A customer who lost their email: phone number plus the one-time password support gave them, then a new password."""
     if request.user.is_authenticated:
@@ -305,8 +340,7 @@ def google_callback(request):
         user = User.objects.filter(email__iexact=profile["email"]).first()
         if user is not None:
             user.google_sub = profile["sub"]
-            user.email_verified_at = user.email_verified_at or timezone.now()
-            user.save(update_fields=["google_sub", "email_verified_at"])
+            user.save(update_fields=["google_sub"])
     if user is None:
         with transaction.atomic():
             user = User.objects.create_user(
@@ -314,7 +348,6 @@ def google_callback(request):
                 password=None,
                 full_name=profile["name"],
                 google_sub=profile["sub"],
-                email_verified_at=timezone.now(),
                 accepted_terms_at=timezone.now(),
             )
             create_card(user, profile["name"], email=profile["email"])

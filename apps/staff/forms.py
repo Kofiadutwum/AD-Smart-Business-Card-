@@ -48,6 +48,13 @@ class CustomerPasswordResetForm(ReasonForm):
     )
 
 
+class CustomerEmailChangeForm(CustomerPasswordResetForm):
+    """Support puts in a new email for a customer who cannot reach the old one: same three checks, plus a reason."""
+
+    new_email = forms.EmailField(label="New email address")
+    field_order = ["new_email", "checked_name", "checked_phone", "checked_activity", "reason"]
+
+
 class ManualActivationForm(ReasonForm):
     plan = forms.ModelChoiceField(queryset=Plan.objects.all(), empty_label=None)
     months = forms.IntegerField(min_value=1, max_value=36, initial=12)
