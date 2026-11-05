@@ -22,10 +22,11 @@ BUYER = {
 
 
 class PremadeBase(BaseTest):
-    def make_batch(self, quantity=3, plan=None, price=35000, months=12):
+    def make_batch(self, quantity=3, plan=None, price=35000, months=12, card_only=False):
         staff = User.objects.create_user(email="ops@example.com", password="x", is_staff=True, staff_role="ops")
         batch = premade.create_batch(
-            staff, name="Gold Classic", quantity=quantity, plan=plan or self.pro, price_minor=price, months=months
+            staff, name="Gold Classic", quantity=quantity, plan=plan or self.pro, price_minor=price, months=months,
+            card_only=card_only,
         )
         rows = premade.get_pack(batch)
         return batch, rows
@@ -371,6 +372,23 @@ class StaffPageTests(PremadeBase):
         batch = PremadeBatch.objects.get()
         self.assertEqual((batch.plan, batch.months, batch.price_minor), (self.basic, 36, 45000))
 
+    def test_card_only_option_has_no_plan_and_a_default_price_of_200(self):
+        from apps.cards.models import PremadeBatch
+
+        self.login_staff("ops")
+        response = self.client.post("/staff/premade-cards/", {"name": "Counter Card", "quantity": 2, "term": "cardonly"})
+        self.assertEqual(response.status_code, 302)
+        batch = PremadeBatch.objects.get()
+        self.assertEqual((batch.card_only, batch.plan, batch.months, batch.price_minor), (True, None, 0, 20000))
+        self.assertContains(self.client.get(f"/staff/premade-cards/{batch.pk}/"), "card only, plan paid online")
+
+    def test_a_year_card_with_no_price_gets_the_usual_450(self):
+        from apps.cards.models import PremadeBatch
+
+        self.login_staff("ops")
+        self.client.post("/staff/premade-cards/", {"name": "Gold", "quantity": 1, "term": "year", "plan": self.pro.pk})
+        self.assertEqual(PremadeBatch.objects.get().price_minor, 45000)
+
     def test_a_year_card_still_needs_a_plan(self):
         from apps.cards.models import PremadeBatch
 
@@ -426,3 +444,79 @@ class ThreeYearBasicTests(PremadeBase):
         batch, rows = self.make_batch(quantity=1)
         self.verify_pin(rows[0])
         self.assertContains(self.client.get(f"/c/{rows[0]['code']}/claim/setup"), "one year of the")
+
+
+class CardOnlyTests(PremadeBase):
+    """The shop sells the printed card alone; the buyer pays for a plan online to switch it on."""
+
+    def make_card_only(self):
+        return self.make_batch(quantity=1, price=20000, card_only=True)
+
+    def set_up_as_new_buyer(self, row):
+        self.verify_pin(row)
+        with self.captureOnCommitCallbacks(execute=True):
+            return self.client.post(f"/c/{row['code']}/claim/setup", BUYER)
+
+    def test_a_batch_has_no_plan_inside_it(self):
+        batch, rows = self.make_card_only()
+        self.assertTrue(batch.card_only)
+        self.assertEqual((batch.plan, batch.months), (None, 0))
+
+    def test_the_buyer_is_told_the_card_has_no_plan_yet(self):
+        batch, rows = self.make_card_only()
+        self.assertContains(self.client.get(f"/c/{rows[0]['code']}/claim"), "Step 1 of 3")
+        self.verify_pin(rows[0])
+        page = self.client.get(f"/c/{rows[0]['code']}/claim/setup")
+        self.assertContains(page, "Next you choose a plan and pay to switch your card on")
+        self.assertNotContains(page, "already paid")
+
+    def test_a_new_buyer_gets_the_card_and_is_sent_to_pay_with_it_still_off(self):
+        batch, rows = self.make_card_only()
+        response = self.set_up_as_new_buyer(rows[0])
+        self.assertRedirects(response, "/billing/", fetch_redirect_response=False)
+        user = User.objects.get(email="ama@example.com")
+        card = self.card_for(rows[0]).card
+        card.refresh_from_db()
+        self.assertEqual(card.owner, user)
+        self.assertIsNone(card.activated_at)
+        self.assertFalse(Subscription.objects.filter(user=user).exists())
+        shop = Payment.objects.get(user=user)
+        self.assertEqual((shop.purpose, shop.amount_minor, shop.plan, shop.months), (Payment.PURPOSE_PREMADE, 20000, None, 0))
+
+    def test_paying_for_a_plan_switches_the_card_on_and_starts_automatic_renewal(self):
+        batch, rows = self.make_card_only()
+        self.set_up_as_new_buyer(rows[0])
+        user = User.objects.get(email="ama@example.com")
+        response = self.client.post("/billing/", {"plan": "basic", "action": "pay", "accept_policy": "1"})
+        self.assertEqual(response.status_code, 302)
+        payment = Payment.objects.get(user=user, purpose=Payment.PURPOSE_SUBSCRIPTION)
+        self.assertTrue(payment.set_up_auto_renew)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.get(f"/billing/callback?reference={payment.reference}")
+        card = self.card_for(rows[0]).card
+        card.refresh_from_db()
+        self.assertTrue(card.is_live)
+        self.assertTrue(Subscription.objects.get(user=user).renews_automatically)
+
+    def test_an_existing_account_with_room_gets_the_card_live_at_once(self):
+        batch, rows = self.make_card_only()
+        user = self.make_user()
+        self.subscribe(user, self.pro)
+        self.client.force_login(user)
+        self.verify_pin(rows[0])
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach", follow=True)
+        self.assertIn(
+            "The card is now on your account and live on your current plan.", [str(m) for m in response.context["messages"]]
+        )
+        self.assertTrue(self.card_for(rows[0]).card.is_live)
+
+    def test_an_existing_account_with_no_plan_is_sent_to_choose_one(self):
+        batch, rows = self.make_card_only()
+        user = self.make_user()
+        self.client.force_login(user)
+        self.verify_pin(rows[0])
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach")
+        self.assertRedirects(response, "/billing/", fetch_redirect_response=False)
+        self.assertIsNone(self.card_for(rows[0]).card.activated_at)

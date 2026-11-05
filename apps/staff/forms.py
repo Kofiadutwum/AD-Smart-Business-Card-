@@ -287,16 +287,20 @@ class PremadeBatchForm(forms.Form):
     quantity = forms.IntegerField(label="How many cards", min_value=1, max_value=500, initial=100, help_text="Up to 500 at a time.")
     term = forms.ChoiceField(
         label="What the card includes",
-        choices=[("year", "A year of the plan chosen below"), ("basic3", "Basic for 3 years, then it renews as normal")],
+        choices=[
+            ("year", "A year of the plan chosen below"),
+            ("basic3", "Basic for 3 years, then it renews as normal"),
+            ("cardonly", "The card only: the buyer pays for a plan online to switch it on"),
+        ],
         initial="year",
-        help_text="The 3-year Basic card has only the Basic features; the plan below is ignored for it.",
+        help_text="The 3-year Basic card has only the Basic features, and the card-only set has no plan inside it; the plan below is ignored for both.",
     )
     plan = forms.ModelChoiceField(
         label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None, required=False
     )
     price = CedisField(
-        label="Price in the shop (GHS)", initial=450,
-        help_text="What the buyer pays the shop. It is counted as revenue from outside the website when the card is set up.",
+        label="Price in the shop (GHS)", required=False,
+        help_text="What the buyer pays the shop. Leave empty for the usual price: 450 with a plan inside, 200 for the card only. It is counted as revenue from outside the website when the card is set up.",
     )
     note = forms.CharField(label="Note (optional)", max_length=200, required=False)
 
@@ -311,7 +315,11 @@ class PremadeBatchForm(forms.Form):
     def clean(self):
         cleaned = super().clean()
         term = cleaned.get("term")
-        if term == "basic3":
+        if cleaned.get("price") is None:
+            cleaned["price"] = 200 if term == "cardonly" else 450
+        if term == "cardonly":
+            cleaned["plan"], cleaned["months"] = None, 0
+        elif term == "basic3":
             cleaned["plan"] = self.fields["plan"].queryset.filter(code="basic").first()
             cleaned["months"] = BASIC_TERM_MONTHS
             if not cleaned["plan"]:

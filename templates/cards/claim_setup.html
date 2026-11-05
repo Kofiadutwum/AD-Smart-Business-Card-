@@ -4,9 +4,11 @@
 {% block content %}
 <div class="auth-shell">
   <div class="auth-card">
-    <p class="eyebrow">{% trans "Step 2 of 2" %}</p>
+    <p class="eyebrow">{% if batch.card_only %}{% trans "Step 2 of 3" %}{% else %}{% trans "Step 2 of 2" %}{% endif %}</p>
     <h1 class="mt-2">{% trans "Your details" %}</h1>
-    {% if batch.months == 12 %}
+    {% if batch.card_only %}
+      <p class="lead">{% blocktrans trimmed %}Add your details and create your account. Next you choose a plan and pay to switch your card on. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+    {% elif batch.months == 12 %}
       <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card comes with one year of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
     {% else %}
       <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name batch_months=batch.months %}This card comes with {{ batch_months }} months of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
@@ -15,7 +17,7 @@
       {% csrf_token %}
       {% include "components/form_fields.html" %}
       <p class="text-xs muted">{% url 'marketing:terms' as url_1 %}{% url 'marketing:privacy' as url_2 %}{% blocktrans trimmed %}By creating an account you agree to our <a href="{{ url_1 }}" target="_blank">Terms of Service</a> and <a href="{{ url_2 }}" target="_blank">Privacy Policy</a>.{% endblocktrans %}</p>
-      {% hover_button _("Activate my card") variant="ink" css="ihb--block" %}
+      {% if batch.card_only %}{% hover_button _("Create my account") variant="ink" css="ihb--block" %}{% else %}{% hover_button _("Activate my card") variant="ink" css="ihb--block" %}{% endif %}
     </form>
     <p class="auth-alt">{% blocktrans trimmed %}Already have an account? <a href="{{ login_url }}">Log in to add this card to it</a>{% endblocktrans %}</p>
   </div>

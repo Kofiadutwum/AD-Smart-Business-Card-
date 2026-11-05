@@ -484,7 +484,7 @@ msgstr ""
 "Cet e-mail ou ce numéro vient d’être utilisé pour un autre compte. Vérifiez "
 "et réessayez."
 
-#: apps/cards/claim.py:131
+#: apps/cards/claim.py:144
 msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr ""
@@ -711,41 +711,41 @@ msgstr "Classé sans suite"
 msgid "Actioned"
 msgstr "Traité"
 
-#: apps/cards/premade.py:160
+#: apps/cards/premade.py:171
 msgid "This card has already been set up by its buyer."
 msgstr "Cette carte a déjà été configurée par son acheteur."
 
-#: apps/cards/premade.py:211 apps/cards/premade.py:324
+#: apps/cards/premade.py:222 apps/cards/premade.py:347
 msgid "This card has already been set up."
 msgstr "Cette carte a déjà été configurée."
 
-#: apps/cards/premade.py:213 apps/cards/premade.py:326
+#: apps/cards/premade.py:224 apps/cards/premade.py:349
 msgid ""
 "This card is no longer in use. Please contact the shop you bought it from."
 msgstr ""
 "Cette carte n’est plus utilisable. Veuillez contacter la boutique où vous "
 "l’avez achetée."
 
-#: apps/cards/premade.py:215
+#: apps/cards/premade.py:226
 msgid "Too many attempts from this connection. Please try again later."
 msgstr ""
 "Trop de tentatives depuis cette connexion. Veuillez réessayer plus tard."
 
-#: apps/cards/premade.py:222
+#: apps/cards/premade.py:233
 #, python-format
 msgid "Too many wrong PINs. Please try again in %(minutes)d minute."
 msgid_plural "Too many wrong PINs. Please try again in %(minutes)d minutes."
 msgstr[0] "Trop de codes PIN erronés. Réessayez dans %(minutes)d minute."
 msgstr[1] "Trop de codes PIN erronés. Réessayez dans %(minutes)d minutes."
 
-#: apps/cards/premade.py:236
+#: apps/cards/premade.py:247
 #, python-format
 msgid "That PIN is not right. This card is locked for %(minutes)d minutes."
 msgstr ""
 "Ce code PIN n’est pas le bon. Cette carte est verrouillée pendant "
 "%(minutes)d minutes."
 
-#: apps/cards/premade.py:240
+#: apps/cards/premade.py:251
 #, python-format
 msgid "That PIN is not right. %(left)d try left."
 msgid_plural "That PIN is not right. %(left)d tries left."
@@ -1874,7 +1874,7 @@ msgstr "Nouveau ici ? <a href=\"%(url_1)s\">Créez une carte</a>"
 msgid "Create your account · %(SITE_NAME)s"
 msgstr "Créez votre compte · %(SITE_NAME)s"
 
-#: templates/accounts/register.html:7
+#: templates/accounts/register.html:7 templates/cards/claim_pin.html:7
 msgid "Step 1 of 3"
 msgstr "Étape 1 sur 3"
 
@@ -1935,6 +1935,7 @@ msgid "Confirm your email · %(SITE_NAME)s"
 msgstr "Confirmez votre e-mail · %(SITE_NAME)s"
 
 #: templates/accounts/verify_pending.html:8
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
 msgid "Step 2 of 3"
 msgstr "Étape 2 sur 3"
 
@@ -2375,7 +2376,7 @@ msgstr "Ajoutez cette carte à votre compte"
 msgid "Go to my cards"
 msgstr "Aller à mes cartes"
 
-#: templates/cards/claim_attach.html:15
+#: templates/cards/claim_attach.html:17
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -2386,7 +2387,7 @@ msgstr ""
 "sera ajoutée à ce compte et un an de %(batch_plan_name)s sera ajouté à votre"
 " formule. Son lien et son code QR restent exactement tels qu’imprimés."
 
-#: templates/cards/claim_attach.html:19
+#: templates/cards/claim_attach.html:21
 #, python-format
 msgid ""
 "Your plan is currently %(subscription_plan_name)s, active until "
@@ -2395,7 +2396,7 @@ msgstr ""
 "Votre formule actuelle est %(subscription_plan_name)s, active jusqu’au "
 "%(subscription_expires_at_date)s."
 
-#: templates/cards/claim_attach.html:22
+#: templates/cards/claim_attach.html:24
 msgid "Add the card and the year"
 msgstr "Ajouter la carte et l’année"
 
@@ -2412,7 +2413,7 @@ msgstr "Étape 1 sur 2"
 msgid "Set up your card"
 msgstr "Configurez votre carte"
 
-#: templates/cards/claim_pin.html:9
+#: templates/cards/claim_pin.html:12
 msgid ""
 "Your card is ready and its first year is already paid for. Enter the PIN "
 "printed on the back of the card to begin."
@@ -2420,11 +2421,11 @@ msgstr ""
 "Votre carte est prête et sa première année est déjà payée. Saisissez le code"
 " PIN imprimé au dos de la carte pour commencer."
 
-#: templates/cards/claim_pin.html:13
+#: templates/cards/claim_pin.html:17
 msgid "Continue"
 msgstr "Continuer"
 
-#: templates/cards/claim_pin.html:15
+#: templates/cards/claim_pin.html:19
 msgid ""
 "Cannot find the PIN? It is printed on the back of the card. Ask the shop "
 "that sold it to you."
@@ -2436,7 +2437,7 @@ msgstr ""
 msgid "Your details"
 msgstr "Vos informations"
 
-#: templates/cards/claim_setup.html:10
+#: templates/cards/claim_setup.html:12
 #, python-format
 msgid ""
 "This card comes with one year of the %(batch_plan_name)s plan, already paid."
@@ -2447,7 +2448,7 @@ msgstr ""
 "vos informations et créez votre compte. Le lien et le code QR de votre carte"
 " restent exactement tels qu’imprimés."
 
-#: templates/accounts/register.html:17 templates/cards/claim_setup.html:17
+#: templates/accounts/register.html:17 templates/cards/claim_setup.html:19
 #, python-format
 msgid ""
 "By creating an account you agree to our <a href=\"%(url_1)s\" "
@@ -2458,11 +2459,11 @@ msgstr ""
 "target=\"_blank\">conditions d’utilisation</a> et notre <a "
 "href=\"%(url_2)s\" target=\"_blank\">politique de confidentialité</a>."
 
-#: templates/cards/claim_setup.html:18
+#: templates/cards/claim_setup.html:20
 msgid "Activate my card"
 msgstr "Activer ma carte"
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 #, python-format
 msgid ""
 "Already have an account? <a href=\"%(login_url)s\">Log in to add this card "
@@ -6214,7 +6215,7 @@ msgstr ""
 "la fin de l’année déjà payée. Renouveler à l’avance ajoute une année à votre"
 " date de fin actuelle."
 
-#: apps/cards/claim.py:102
+#: apps/cards/claim.py:108
 #, python-format
 msgid ""
 "Your card is live and your first year is active. We sent a link to %(email)s"
@@ -6552,7 +6553,7 @@ msgstr ""
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s a envoyé une demande via votre page entreprise :"
 
-#: apps/cards/claim.py:135
+#: apps/cards/claim.py:148
 #, python-format
 msgid ""
 "The card is now on your account and %(months)d months have been added to "
@@ -6561,7 +6562,7 @@ msgstr ""
 "La carte est maintenant sur votre compte et %(months)d mois ont été ajoutés "
 "à votre formule."
 
-#: templates/cards/claim_attach.html:17
+#: templates/cards/claim_attach.html:19
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -6573,11 +6574,11 @@ msgstr ""
 "seront ajoutés à votre formule. Son lien et son code QR restent exactement "
 "tels qu’imprimés."
 
-#: templates/cards/claim_attach.html:22
+#: templates/cards/claim_attach.html:24
 msgid "Add the card to my account"
 msgstr "Ajouter la carte à mon compte"
 
-#: templates/cards/claim_setup.html:12
+#: templates/cards/claim_setup.html:14
 #, python-format
 msgid ""
 "This card comes with %(batch_months)s months of the %(batch_plan_name)s "
@@ -6790,3 +6791,56 @@ msgstr ""
 "la case du formulaire. Sur une carte ou une page entreprise, ces "
 "informations vont au propriétaire de la carte, qui les voit dans ses "
 "contacts."
+
+#: apps/cards/claim.py:103
+msgid ""
+"Your account is ready. Choose a plan and pay to switch your card on. Its "
+"link and QR code stay exactly as printed."
+msgstr ""
+"Votre compte est prêt. Choisissez une formule et payez pour activer votre "
+"carte. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#: apps/cards/claim.py:139
+msgid "The card is now on your account and live on your current plan."
+msgstr ""
+"La carte est maintenant sur votre compte et active avec votre formule "
+"actuelle."
+
+#: apps/cards/claim.py:141
+msgid ""
+"The card is now on your account. Choose a plan and pay to switch it on."
+msgstr ""
+"La carte est maintenant sur votre compte. Choisissez une formule et payez "
+"pour l’activer."
+
+#: templates/cards/claim_attach.html:15
+#, python-format
+msgid ""
+"You are signed in as <strong>%(user_email)s</strong>. The card will be added"
+" to this account. If your plan has room it goes live at once; otherwise you "
+"choose a plan next. Its link and QR code stay exactly as printed."
+msgstr ""
+"Vous êtes connecté en tant que <strong>%(user_email)s</strong>. La carte "
+"sera ajoutée à ce compte. Si votre formule a de la place, elle est active "
+"tout de suite ; sinon, vous choisissez ensuite une formule. Son lien et son "
+"code QR restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_pin.html:10
+msgid ""
+"Your card is ready. Enter the PIN printed on the back of the card to begin."
+msgstr ""
+"Votre carte est prête. Saisissez le code PIN imprimé au dos de la carte pour"
+" commencer."
+
+#: templates/cards/claim_setup.html:10
+msgid ""
+"Add your details and create your account. Next you choose a plan and pay to "
+"switch your card on. Your card’s link and QR code stay exactly as printed."
+msgstr ""
+"Ajoutez vos coordonnées et créez votre compte. Vous choisirez ensuite une "
+"formule et paierez pour activer votre carte. Le lien et le code QR de votre "
+"carte restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_setup.html:20
+msgid "Create my account"
+msgstr "Créer mon compte"

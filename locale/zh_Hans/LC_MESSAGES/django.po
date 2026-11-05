@@ -449,7 +449,7 @@ msgid ""
 " again."
 msgstr "该邮箱或号码刚刚已被用于另一个账户。请检查后重试。"
 
-#: apps/cards/claim.py:131
+#: apps/cards/claim.py:144
 msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr "名片已添加到您的账户，并已为您的套餐增加一年。"
@@ -673,35 +673,35 @@ msgstr "已驳回"
 msgid "Actioned"
 msgstr "已处理"
 
-#: apps/cards/premade.py:160
+#: apps/cards/premade.py:171
 msgid "This card has already been set up by its buyer."
 msgstr "这张名片已由购买者设置完成。"
 
-#: apps/cards/premade.py:211 apps/cards/premade.py:324
+#: apps/cards/premade.py:222 apps/cards/premade.py:347
 msgid "This card has already been set up."
 msgstr "这张名片已设置完成。"
 
-#: apps/cards/premade.py:213 apps/cards/premade.py:326
+#: apps/cards/premade.py:224 apps/cards/premade.py:349
 msgid ""
 "This card is no longer in use. Please contact the shop you bought it from."
 msgstr "这张名片已停用。请联系您购买的门店。"
 
-#: apps/cards/premade.py:215
+#: apps/cards/premade.py:226
 msgid "Too many attempts from this connection. Please try again later."
 msgstr "此网络的尝试次数过多，请稍后再试。"
 
-#: apps/cards/premade.py:222
+#: apps/cards/premade.py:233
 #, python-format
 msgid "Too many wrong PINs. Please try again in %(minutes)d minute."
 msgid_plural "Too many wrong PINs. Please try again in %(minutes)d minutes."
 msgstr[0] "PIN 码错误次数过多，请 %(minutes)d 分钟后再试。"
 
-#: apps/cards/premade.py:236
+#: apps/cards/premade.py:247
 #, python-format
 msgid "That PIN is not right. This card is locked for %(minutes)d minutes."
 msgstr "PIN 码不正确。这张名片已被锁定 %(minutes)d 分钟。"
 
-#: apps/cards/premade.py:240
+#: apps/cards/premade.py:251
 #, python-format
 msgid "That PIN is not right. %(left)d try left."
 msgid_plural "That PIN is not right. %(left)d tries left."
@@ -1722,7 +1722,7 @@ msgstr "新用户？<a href=\"%(url_1)s\">创建名片</a>"
 msgid "Create your account · %(SITE_NAME)s"
 msgstr "创建账户 · %(SITE_NAME)s"
 
-#: templates/accounts/register.html:7
+#: templates/accounts/register.html:7 templates/cards/claim_pin.html:7
 msgid "Step 1 of 3"
 msgstr "第 1 步（共 3 步）"
 
@@ -1777,6 +1777,7 @@ msgid "Confirm your email · %(SITE_NAME)s"
 msgstr "确认邮箱 · %(SITE_NAME)s"
 
 #: templates/accounts/verify_pending.html:8
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
 msgid "Step 2 of 3"
 msgstr "第 2 步（共 3 步）"
 
@@ -2190,7 +2191,7 @@ msgstr "将此名片添加到您的账户"
 msgid "Go to my cards"
 msgstr "前往我的名片"
 
-#: templates/cards/claim_attach.html:15
+#: templates/cards/claim_attach.html:17
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -2200,7 +2201,7 @@ msgstr ""
 "您当前登录的账户为 <strong>%(user_email)s</strong>。名片将添加到此账户，并为您的套餐增加一年的 "
 "%(batch_plan_name)s。名片上的链接和二维码保持不变。"
 
-#: templates/cards/claim_attach.html:19
+#: templates/cards/claim_attach.html:21
 #, python-format
 msgid ""
 "Your plan is currently %(subscription_plan_name)s, active until "
@@ -2208,7 +2209,7 @@ msgid ""
 msgstr ""
 "您当前的套餐为 %(subscription_plan_name)s，有效期至 %(subscription_expires_at_date)s。"
 
-#: templates/cards/claim_attach.html:22
+#: templates/cards/claim_attach.html:24
 msgid "Add the card and the year"
 msgstr "添加名片并延长一年"
 
@@ -2225,17 +2226,17 @@ msgstr "第 1 步（共 2 步）"
 msgid "Set up your card"
 msgstr "设置您的名片"
 
-#: templates/cards/claim_pin.html:9
+#: templates/cards/claim_pin.html:12
 msgid ""
 "Your card is ready and its first year is already paid for. Enter the PIN "
 "printed on the back of the card to begin."
 msgstr "您的名片已准备就绪，首年费用已付清。请输入名片背面印刷的 PIN 码开始设置。"
 
-#: templates/cards/claim_pin.html:13
+#: templates/cards/claim_pin.html:17
 msgid "Continue"
 msgstr "继续"
 
-#: templates/cards/claim_pin.html:15
+#: templates/cards/claim_pin.html:19
 msgid ""
 "Cannot find the PIN? It is printed on the back of the card. Ask the shop "
 "that sold it to you."
@@ -2245,7 +2246,7 @@ msgstr "找不到 PIN 码？它印在名片背面。您也可以向售卖名片�
 msgid "Your details"
 msgstr "您的资料"
 
-#: templates/cards/claim_setup.html:10
+#: templates/cards/claim_setup.html:12
 #, python-format
 msgid ""
 "This card comes with one year of the %(batch_plan_name)s plan, already paid."
@@ -2253,7 +2254,7 @@ msgid ""
 " exactly as printed."
 msgstr "这张名片附带一年 %(batch_plan_name)s 套餐，费用已付清。请填写您的资料并创建账户，名片上的链接和二维码保持不变。"
 
-#: templates/accounts/register.html:17 templates/cards/claim_setup.html:17
+#: templates/accounts/register.html:17 templates/cards/claim_setup.html:19
 #, python-format
 msgid ""
 "By creating an account you agree to our <a href=\"%(url_1)s\" "
@@ -2263,11 +2264,11 @@ msgstr ""
 "创建账户即表示您同意我们的<a href=\"%(url_1)s\" target=\"_blank\">服务条款</a>和<a "
 "href=\"%(url_2)s\" target=\"_blank\">隐私政策</a>。"
 
-#: templates/cards/claim_setup.html:18
+#: templates/cards/claim_setup.html:20
 msgid "Activate my card"
 msgstr "激活我的名片"
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 #, python-format
 msgid ""
 "Already have an account? <a href=\"%(login_url)s\">Log in to add this card "
@@ -5618,7 +5619,7 @@ msgstr ""
 "付款的套餐需由您自行续订。通过银行卡付款的套餐每年自动续订：套餐到期当天，我们会按结账时显示的套餐价格从同一张银行卡扣款，并在约 7 "
 "天前发邮件提醒、扣款后发送收据，您可以随时在控制面板中关闭自动续订。关闭后，套餐会持续到已付费年度结束。提前续订会在当前到期日基础上增加一年。"
 
-#: apps/cards/claim.py:102
+#: apps/cards/claim.py:108
 #, python-format
 msgid ""
 "Your card is live and your first year is active. We sent a link to %(email)s"
@@ -5927,14 +5928,14 @@ msgstr "当有人在您的名片上点击“分享您的联系方式”，或通
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s 通过您的商家主页发送了一条咨询："
 
-#: apps/cards/claim.py:135
+#: apps/cards/claim.py:148
 #, python-format
 msgid ""
 "The card is now on your account and %(months)d months have been added to "
 "your plan."
 msgstr "名片已添加到您的账户，并已为您的套餐增加 %(months)d 个月。"
 
-#: templates/cards/claim_attach.html:17
+#: templates/cards/claim_attach.html:19
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -5944,11 +5945,11 @@ msgstr ""
 "您当前登录的账户为 <strong>%(user_email)s</strong>。名片将添加到此账户，并为您的套餐增加 "
 "%(batch_months)s 个月的 %(batch_plan_name)s。名片上的链接和二维码保持不变。"
 
-#: templates/cards/claim_attach.html:22
+#: templates/cards/claim_attach.html:24
 msgid "Add the card to my account"
 msgstr "将名片添加到我的账户"
 
-#: templates/cards/claim_setup.html:12
+#: templates/cards/claim_setup.html:14
 #, python-format
 msgid ""
 "This card comes with %(batch_months)s months of the %(batch_plan_name)s "
@@ -6135,3 +6136,43 @@ msgid ""
 "the card's owner, who sees them in their contacts."
 msgstr ""
 "<strong>访客提交的信息：</strong>当有人通过名片或商家主页分享自己的信息、发送咨询，或联系我们的客服团队时，他们填写的姓名、电话、邮箱和留言。他们通过勾选表单上的复选框表示同意。在名片或商家主页上，这些信息会发送给名片所有者，所有者可在其联系人中查看。"
+
+#: apps/cards/claim.py:103
+msgid ""
+"Your account is ready. Choose a plan and pay to switch your card on. Its "
+"link and QR code stay exactly as printed."
+msgstr "您的账户已就绪。请选择套餐并付款以激活您的名片。名片的链接和二维码与印刷的完全一致。"
+
+#: apps/cards/claim.py:139
+msgid "The card is now on your account and live on your current plan."
+msgstr "名片已添加到您的账户，并已按您当前的套餐激活。"
+
+#: apps/cards/claim.py:141
+msgid ""
+"The card is now on your account. Choose a plan and pay to switch it on."
+msgstr "名片已添加到您的账户。请选择套餐并付款以激活它。"
+
+#: templates/cards/claim_attach.html:15
+#, python-format
+msgid ""
+"You are signed in as <strong>%(user_email)s</strong>. The card will be added"
+" to this account. If your plan has room it goes live at once; otherwise you "
+"choose a plan next. Its link and QR code stay exactly as printed."
+msgstr ""
+"您当前登录的账户是 "
+"<strong>%(user_email)s</strong>。名片将添加到此账户。如果您的套餐还有名额，名片会立即生效；否则请在下一步选择套餐。名片的链接和二维码与印刷的完全一致。"
+
+#: templates/cards/claim_pin.html:10
+msgid ""
+"Your card is ready. Enter the PIN printed on the back of the card to begin."
+msgstr "您的名片已准备就绪。请输入名片背面印刷的 PIN 码开始设置。"
+
+#: templates/cards/claim_setup.html:10
+msgid ""
+"Add your details and create your account. Next you choose a plan and pay to "
+"switch your card on. Your card’s link and QR code stay exactly as printed."
+msgstr "填写您的信息并创建账户。接下来您选择套餐并付款，即可激活名片。名片的链接和二维码与印刷的完全一致。"
+
+#: templates/cards/claim_setup.html:20
+msgid "Create my account"
+msgstr "创建我的账户"

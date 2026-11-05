@@ -5,6 +5,11 @@ chip that both open ``/c/<code>``, and a PIN on the back. Until someone claims
 it, that link leads to a "set up your card" page. The buyer proves they hold the
 card with the PIN, fills in their details and gets an account; the same link
 then shows their card for good, and a year of the plan in the batch starts.
+
+A *card only* batch (GHS 200) sells the printed card with no plan. Setting it
+up gives the buyer an account and the card, still a draft; they then pay for
+any plan at the normal checkout, which switches the card on and, when they pay
+by card, starts automatic renewal.
 """
 
 import csv
@@ -109,13 +114,17 @@ def _pack_row(premade, pin):
 
 
 @transaction.atomic
-def create_batch(staff, *, name, quantity, plan, price_minor=45000, months=12, note=""):
+def create_batch(staff, *, name, quantity, plan=None, price_minor=45000, months=12, note="", card_only=False):
     if not 1 <= quantity <= MAX_BATCH:
         raise ValidationError(f"Make between 1 and {MAX_BATCH} cards at a time.")
+    if card_only:
+        plan, months = None, 0
+    elif plan is None:
+        raise ValidationError("Choose the plan that comes with the card.")
     code = f"B{Counter.next('premade-batch'):03d}"
     batch = PremadeBatch.objects.create(
         name=name.strip(), code=code, quantity=quantity, price_minor=price_minor, plan=plan, months=months,
-        note=note.strip(), created_by=staff if getattr(staff, "pk", None) else None,
+        card_only=card_only, note=note.strip(), created_by=staff if getattr(staff, "pk", None) else None,
     )
     slugs = _new_slugs(quantity)
     cards = Card.objects.bulk_create(
@@ -132,7 +141,9 @@ def create_batch(staff, *, name, quantity, plan, price_minor=45000, months=12, n
         premade.batch = batch
         rows.append(_pack_row(premade, pin))
     cache.set(pack_key(batch), rows, PACK_TTL_SECONDS)
-    AuditLog.record(staff, "premade_batch_created", batch, quantity=quantity, plan=plan.code, price_minor=price_minor)
+    AuditLog.record(
+        staff, "premade_batch_created", batch, quantity=quantity, plan=plan.code if plan else "card only", price_minor=price_minor
+    )
     return batch
 
 
@@ -257,7 +268,11 @@ def attach_problem(user, premade):
         return "This account cannot add a card at the moment. Please contact support."
     plan = premade.batch.plan
     subscription = user.subscription
-    if _running(subscription, timezone.now()) and subscription.yearly_price >= plan.price_minor:
+    if premade.batch.card_only:
+        if not _running(subscription, timezone.now()):
+            return None  # nothing is switched on yet, so there is no limit to hit
+        limit = subscription.card_limit
+    elif _running(subscription, timezone.now()) and subscription.yearly_price >= plan.price_minor:
         limit = subscription.card_limit
     else:
         limit = plan.team_size() if plan.is_team else plan.max_cards
@@ -275,12 +290,17 @@ def _receipt_number():
 
 
 def _finish(premade, user):
-    """Record the sale as revenue, start the year and hand the card over. Runs inside the caller's transaction."""
+    """Record the sale as revenue, start the year and hand the card over. Runs inside the caller's transaction.
+
+    A card-only sale starts no plan: the card goes live at once only if the buyer's own plan is running
+    and has room; otherwise it stays a draft until they pay for a plan.
+    """
     from apps.billing import fx, paystack
     from apps.billing.models import Payment
     from apps.billing.services import activate, activate_cards, send_receipt
 
     batch, plan, now = premade.batch, premade.batch.plan, timezone.now()
+    what = f"{batch.name} pre-made card (card only)" if batch.card_only else f"{batch.name} pre-made card with {plan.name}, {batch.months} months"
     rate = fx.latest_rate()
     payment = Payment.objects.create(
         user=user,
@@ -298,11 +318,14 @@ def _finish(premade, user):
         fx_rate_at=rate.fetched_at if rate else None,
         receipt_number=_receipt_number(),
         manual_reason=f"Pre-made card {premade.label} ({batch.name}), sold in a shop and set up by its buyer.",
-        line_items=[{"label": f"{batch.name} pre-made card with {plan.name}, {batch.months} months", "amount_minor": batch.price_minor}],
+        line_items=[{"label": what, "amount_minor": batch.price_minor}],
         gateway_response={"premade_card": premade.label, "batch": batch.code},
     )
     subscription = user.subscription
-    if _running(subscription, now) and subscription.yearly_price >= plan.price_minor:
+    if batch.card_only:
+        if _running(subscription, now):
+            activate_cards(user, subscription)
+    elif _running(subscription, now) and subscription.yearly_price >= plan.price_minor:
         # Already on an equal or better plan: add the year and keep the plan.
         subscription.extend(batch.months)
         subscription.save()

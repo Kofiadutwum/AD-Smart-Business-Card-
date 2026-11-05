@@ -481,7 +481,7 @@ msgstr ""
 "Dat e-mailadres of nummer is net voor een ander account gebruikt. Controleer"
 " het en probeer opnieuw."
 
-#: apps/cards/claim.py:131
+#: apps/cards/claim.py:144
 msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr ""
@@ -709,26 +709,26 @@ msgstr "Afgewezen"
 msgid "Actioned"
 msgstr "Afgehandeld"
 
-#: apps/cards/premade.py:160
+#: apps/cards/premade.py:171
 msgid "This card has already been set up by its buyer."
 msgstr "Deze kaart is al ingesteld door de koper."
 
-#: apps/cards/premade.py:211 apps/cards/premade.py:324
+#: apps/cards/premade.py:222 apps/cards/premade.py:347
 msgid "This card has already been set up."
 msgstr "Deze kaart is al ingesteld."
 
-#: apps/cards/premade.py:213 apps/cards/premade.py:326
+#: apps/cards/premade.py:224 apps/cards/premade.py:349
 msgid ""
 "This card is no longer in use. Please contact the shop you bought it from."
 msgstr ""
 "Deze kaart is niet meer in gebruik. Neem contact op met de winkel waar je "
 "hem hebt gekocht."
 
-#: apps/cards/premade.py:215
+#: apps/cards/premade.py:226
 msgid "Too many attempts from this connection. Please try again later."
 msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
 
-#: apps/cards/premade.py:222
+#: apps/cards/premade.py:233
 #, python-format
 msgid "Too many wrong PINs. Please try again in %(minutes)d minute."
 msgid_plural "Too many wrong PINs. Please try again in %(minutes)d minutes."
@@ -737,13 +737,13 @@ msgstr[0] ""
 msgstr[1] ""
 "Te veel foute pincodes. Probeer het over %(minutes)d minuten opnieuw."
 
-#: apps/cards/premade.py:236
+#: apps/cards/premade.py:247
 #, python-format
 msgid "That PIN is not right. This card is locked for %(minutes)d minutes."
 msgstr ""
 "Die pincode klopt niet. Deze kaart is %(minutes)d minuten geblokkeerd."
 
-#: apps/cards/premade.py:240
+#: apps/cards/premade.py:251
 #, python-format
 msgid "That PIN is not right. %(left)d try left."
 msgid_plural "That PIN is not right. %(left)d tries left."
@@ -1858,7 +1858,7 @@ msgstr "Nieuw hier? <a href=\"%(url_1)s\">Maak een kaart</a>"
 msgid "Create your account · %(SITE_NAME)s"
 msgstr "Maak je account aan · %(SITE_NAME)s"
 
-#: templates/accounts/register.html:7
+#: templates/accounts/register.html:7 templates/cards/claim_pin.html:7
 msgid "Step 1 of 3"
 msgstr "Stap 1 van 3"
 
@@ -1919,6 +1919,7 @@ msgid "Confirm your email · %(SITE_NAME)s"
 msgstr "Bevestig je e-mailadres · %(SITE_NAME)s"
 
 #: templates/accounts/verify_pending.html:8
+#: templates/cards/claim_attach.html:7 templates/cards/claim_setup.html:7
 msgid "Step 2 of 3"
 msgstr "Stap 2 van 3"
 
@@ -2355,7 +2356,7 @@ msgstr "Voeg deze kaart toe aan je account"
 msgid "Go to my cards"
 msgstr "Naar mijn kaarten"
 
-#: templates/cards/claim_attach.html:15
+#: templates/cards/claim_attach.html:17
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -2366,7 +2367,7 @@ msgstr ""
 " account toegevoegd en er wordt een jaar %(batch_plan_name)s aan je "
 "abonnement toegevoegd. De link en QR-code blijven precies zoals gedrukt."
 
-#: templates/cards/claim_attach.html:19
+#: templates/cards/claim_attach.html:21
 #, python-format
 msgid ""
 "Your plan is currently %(subscription_plan_name)s, active until "
@@ -2375,7 +2376,7 @@ msgstr ""
 "Je huidige abonnement is %(subscription_plan_name)s, actief tot "
 "%(subscription_expires_at_date)s."
 
-#: templates/cards/claim_attach.html:22
+#: templates/cards/claim_attach.html:24
 msgid "Add the card and the year"
 msgstr "Kaart en jaar toevoegen"
 
@@ -2392,7 +2393,7 @@ msgstr "Stap 1 van 2"
 msgid "Set up your card"
 msgstr "Stel je kaart in"
 
-#: templates/cards/claim_pin.html:9
+#: templates/cards/claim_pin.html:12
 msgid ""
 "Your card is ready and its first year is already paid for. Enter the PIN "
 "printed on the back of the card to begin."
@@ -2400,11 +2401,11 @@ msgstr ""
 "Je kaart is klaar en het eerste jaar is al betaald. Voer de pincode op de "
 "achterkant van de kaart in om te beginnen."
 
-#: templates/cards/claim_pin.html:13
+#: templates/cards/claim_pin.html:17
 msgid "Continue"
 msgstr "Doorgaan"
 
-#: templates/cards/claim_pin.html:15
+#: templates/cards/claim_pin.html:19
 msgid ""
 "Cannot find the PIN? It is printed on the back of the card. Ask the shop "
 "that sold it to you."
@@ -2416,7 +2417,7 @@ msgstr ""
 msgid "Your details"
 msgstr "Je gegevens"
 
-#: templates/cards/claim_setup.html:10
+#: templates/cards/claim_setup.html:12
 #, python-format
 msgid ""
 "This card comes with one year of the %(batch_plan_name)s plan, already paid."
@@ -2427,7 +2428,7 @@ msgstr ""
 "betaald. Vul je gegevens in en maak je account aan. De link en QR-code van "
 "je kaart blijven precies zoals gedrukt."
 
-#: templates/accounts/register.html:17 templates/cards/claim_setup.html:17
+#: templates/accounts/register.html:17 templates/cards/claim_setup.html:19
 #, python-format
 msgid ""
 "By creating an account you agree to our <a href=\"%(url_1)s\" "
@@ -2438,11 +2439,11 @@ msgstr ""
 "target=\"_blank\">Servicevoorwaarden</a> en ons <a href=\"%(url_2)s\" "
 "target=\"_blank\">Privacybeleid</a>."
 
-#: templates/cards/claim_setup.html:18
+#: templates/cards/claim_setup.html:20
 msgid "Activate my card"
 msgstr "Mijn kaart activeren"
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:22
 #, python-format
 msgid ""
 "Already have an account? <a href=\"%(login_url)s\">Log in to add this card "
@@ -6149,7 +6150,7 @@ msgstr ""
 "abonnement actief tot het einde van het al betaalde jaar. Eerder verlengen "
 "voegt een jaar toe aan je huidige einddatum."
 
-#: apps/cards/claim.py:102
+#: apps/cards/claim.py:108
 #, python-format
 msgid ""
 "Your card is live and your first year is active. We sent a link to %(email)s"
@@ -6486,7 +6487,7 @@ msgstr ""
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s heeft een vraag gestuurd via je bedrijfspagina:"
 
-#: apps/cards/claim.py:135
+#: apps/cards/claim.py:148
 #, python-format
 msgid ""
 "The card is now on your account and %(months)d months have been added to "
@@ -6495,7 +6496,7 @@ msgstr ""
 "De kaart staat nu op je account en er zijn %(months)d maanden aan je "
 "abonnement toegevoegd."
 
-#: templates/cards/claim_attach.html:17
+#: templates/cards/claim_attach.html:19
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -6507,11 +6508,11 @@ msgstr ""
 "%(batch_plan_name)s aan je abonnement toegevoegd. De link en QR-code blijven"
 " precies zoals gedrukt."
 
-#: templates/cards/claim_attach.html:22
+#: templates/cards/claim_attach.html:24
 msgid "Add the card to my account"
 msgstr "Kaart aan mijn account toevoegen"
 
-#: templates/cards/claim_setup.html:12
+#: templates/cards/claim_setup.html:14
 #, python-format
 msgid ""
 "This card comes with %(batch_months)s months of the %(batch_plan_name)s "
@@ -6725,3 +6726,55 @@ msgstr ""
 "bericht dat die persoon typt. Die persoon stemt hiermee in door het vakje in"
 " het formulier aan te vinken. Bij een kaart of bedrijfspagina gaan de "
 "gegevens naar de eigenaar van de kaart, die ze in zijn contacten ziet."
+
+#: apps/cards/claim.py:103
+msgid ""
+"Your account is ready. Choose a plan and pay to switch your card on. Its "
+"link and QR code stay exactly as printed."
+msgstr ""
+"Je account is klaar. Kies een abonnement en betaal om je kaart te activeren."
+" De link en QR-code blijven precies zoals afgedrukt."
+
+#: apps/cards/claim.py:139
+msgid "The card is now on your account and live on your current plan."
+msgstr ""
+"De kaart staat nu op je account en is actief met je huidige abonnement."
+
+#: apps/cards/claim.py:141
+msgid ""
+"The card is now on your account. Choose a plan and pay to switch it on."
+msgstr ""
+"De kaart staat nu op je account. Kies een abonnement en betaal om hem te "
+"activeren."
+
+#: templates/cards/claim_attach.html:15
+#, python-format
+msgid ""
+"You are signed in as <strong>%(user_email)s</strong>. The card will be added"
+" to this account. If your plan has room it goes live at once; otherwise you "
+"choose a plan next. Its link and QR code stay exactly as printed."
+msgstr ""
+"Je bent ingelogd als <strong>%(user_email)s</strong>. De kaart wordt aan dit"
+" account toegevoegd. Heeft je abonnement ruimte, dan is hij meteen actief; "
+"anders kies je daarna een abonnement. De link en QR-code blijven precies "
+"zoals afgedrukt."
+
+#: templates/cards/claim_pin.html:10
+msgid ""
+"Your card is ready. Enter the PIN printed on the back of the card to begin."
+msgstr ""
+"Je kaart is klaar. Voer de pincode op de achterkant van de kaart in om te "
+"beginnen."
+
+#: templates/cards/claim_setup.html:10
+msgid ""
+"Add your details and create your account. Next you choose a plan and pay to "
+"switch your card on. Your card’s link and QR code stay exactly as printed."
+msgstr ""
+"Vul je gegevens in en maak je account aan. Daarna kies je een abonnement en "
+"betaal je om je kaart te activeren. De link en QR-code van je kaart blijven "
+"precies zoals afgedrukt."
+
+#: templates/cards/claim_setup.html:20
+msgid "Create my account"
+msgstr "Mijn account aanmaken"

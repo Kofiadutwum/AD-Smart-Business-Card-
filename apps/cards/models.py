@@ -376,14 +376,19 @@ class PremadeBatch(models.Model):
     The price (GHS 450 by default) covers the printed card and the first year
     on ``plan``. The shop collects it; it is recorded as revenue from outside
     the website when the buyer sets the card up.
+
+    A ``card_only`` batch (GHS 200 by default) sells the printed card alone:
+    there is no ``plan``. The buyer sets the card up, then pays for a plan
+    on the website like anyone else, which switches the card on.
     """
 
     name = models.CharField(max_length=120, help_text="The design, for example Gold Classic.")
     code = models.CharField(max_length=8, unique=True)
     quantity = models.PositiveIntegerField()
     price_minor = models.PositiveIntegerField(default=45000, help_text="What the buyer pays the shop, in pesewas.")
-    plan = models.ForeignKey("billing.Plan", on_delete=models.PROTECT, related_name="+")
+    plan = models.ForeignKey("billing.Plan", null=True, blank=True, on_delete=models.PROTECT, related_name="+")
     months = models.PositiveSmallIntegerField(default=12)
+    card_only = models.BooleanField(default=False, help_text="The shop price covers the card only; no plan is included.")
     note = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
