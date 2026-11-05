@@ -108,7 +108,7 @@ msgstr ""
 "Demasiados registos a partir desta ligação. Tente novamente dentro de uma "
 "hora."
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:276 apps/cards/claim.py:97
+#: apps/accounts/views.py:63 apps/accounts/views.py:301 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Bem-vindo ao AD Smart Business Cards"
 
@@ -144,19 +144,19 @@ msgstr "Demasiadas tentativas. Aguarde 15 minutos ou reponha a palavra-passe."
 msgid "That email and password do not match."
 msgstr "Esse e-mail e palavra-passe não coincidem."
 
-#: apps/accounts/views.py:124 apps/accounts/views.py:280
+#: apps/accounts/views.py:127 apps/accounts/views.py:305
 msgid "This account is suspended. Contact support."
 msgstr "Esta conta está suspensa. Contacte o suporte."
 
-#: apps/accounts/views.py:143
+#: apps/accounts/views.py:146
 msgid "You are signed out."
 msgstr "Terminou a sessão."
 
-#: apps/accounts/views.py:159
+#: apps/accounts/views.py:162
 msgid "Too many requests. Try again in an hour."
 msgstr "Demasiados pedidos. Tente novamente dentro de uma hora."
 
-#: apps/accounts/views.py:163
+#: apps/accounts/views.py:166
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
@@ -164,51 +164,52 @@ msgstr ""
 "Foi enviado um código há menos de um minuto. Verifique a caixa de entrada "
 "antes de pedir outro."
 
-#: apps/accounts/views.py:177
+#: apps/accounts/views.py:180
 msgid "Too many attempts from this connection. Try again later."
 msgstr ""
 "Demasiadas tentativas a partir desta ligação. Tente novamente mais tarde."
 
-#: apps/accounts/views.py:184
+#: apps/accounts/views.py:187
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "Esse código expirou ou foi usado demasiadas vezes. Peça um novo."
 
-#: apps/accounts/views.py:192 apps/accounts/views.py:219
+#: apps/accounts/views.py:196 apps/accounts/views.py:224
+#: apps/accounts/views.py:244
 msgid "Your password was changed"
 msgstr "A sua palavra-passe foi alterada"
 
-#: apps/accounts/views.py:196
+#: apps/accounts/views.py:200
 msgid "Your password has been reset."
 msgstr "A sua palavra-passe foi reposta."
 
-#: apps/accounts/views.py:202
+#: apps/accounts/views.py:206
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Esse código não está correto. Resta %(left)d tentativa."
 msgstr[1] "Esse código não está correto. Restam %(left)d tentativas."
 
-#: apps/accounts/views.py:207
+#: apps/accounts/views.py:211
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Demasiados códigos errados. Peça um novo."
 
-#: apps/accounts/views.py:222
+#: apps/accounts/views.py:227
 msgid "Password updated."
 msgstr "Palavra-passe atualizada."
 
-#: apps/accounts/views.py:234
+#: apps/accounts/views.py:259
 msgid "Google sign-in is not available yet."
 msgstr "O início de sessão com o Google ainda não está disponível."
 
-#: apps/accounts/views.py:246
+#: apps/accounts/views.py:271
 msgid "Google sign-in was cancelled."
 msgstr "O início de sessão com o Google foi cancelado."
 
-#: apps/accounts/views.py:250
+#: apps/accounts/views.py:275
 msgid "Your Google sign-in session expired. Try again."
 msgstr "A sua sessão de início com o Google expirou. Tente novamente."
 
-#: apps/accounts/views.py:286
+#: apps/accounts/views.py:311
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 "Adicione o seu número de telemóvel para o podermos contactar sobre "
@@ -1714,20 +1715,20 @@ msgstr "Encomenda cancelada."
 msgid "An update on your order %(number)s"
 msgstr "Novidades sobre a sua encomenda %(number)s"
 
-#: apps/staff/views/subscribers.py:121
+#: apps/staff/views/subscribers.py:123
 msgid "Your AD Smart account has been suspended"
 msgstr "A sua conta AD Smart foi suspensa"
 
-#: apps/staff/views/subscribers.py:121
+#: apps/staff/views/subscribers.py:123
 msgid "Your AD Smart account is active again"
 msgstr "A sua conta AD Smart voltou a estar ativa"
 
-#: apps/staff/views/subscribers.py:145
+#: apps/staff/views/subscribers.py:168
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "O seu cartão /c/%(slug)s foi suspenso"
 
-#: apps/staff/views/subscribers.py:146
+#: apps/staff/views/subscribers.py:169
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "O seu cartão /c/%(slug)s foi reposto"
@@ -3303,6 +3304,7 @@ msgstr "Recebe esta mensagem por causa da sua conta ou encomenda connosco."
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
 #: templates/emails/password_changed.txt:1
+#: templates/emails/password_reset_by_staff.txt:1
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
@@ -3326,6 +3328,7 @@ msgstr "utilizador"
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
 #: templates/emails/password_changed.txt:1
+#: templates/emails/password_reset_by_staff.txt:1
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
@@ -6771,3 +6774,64 @@ msgstr ""
 #: templates/cards/claim_setup.html:20
 msgid "Create my account"
 msgstr "Criar a minha conta"
+
+#: apps/accounts/services.py:101
+msgid "Our support team reset your AD Smart password"
+msgstr "A nossa equipa de apoio repôs a sua palavra-passe da AD Smart"
+
+#: apps/accounts/views.py:124
+msgid "This temporary password has expired. Ask support for a new one."
+msgstr "Esta palavra-passe temporária expirou. Peça uma nova ao apoio."
+
+#: apps/accounts/views.py:247
+msgid "Your password is saved. Welcome back."
+msgstr "A sua palavra-passe foi guardada. Bem-vindo de volta."
+
+#: templates/accounts/choose_password.html:2
+#, python-format
+msgid "Choose your password · %(SITE_NAME)s"
+msgstr "Escolha a sua palavra-passe · %(SITE_NAME)s"
+
+#: templates/accounts/choose_password.html:7
+msgid "Choose your own password"
+msgstr "Escolha a sua própria palavra-passe"
+
+#: templates/accounts/choose_password.html:8
+msgid ""
+"You signed in with a temporary password from our support team. Enter it as "
+"your current password, then choose a password only you know."
+msgstr ""
+"Iniciou sessão com uma palavra-passe temporária da nossa equipa de apoio. "
+"Introduza-a como palavra-passe atual e escolha depois uma palavra-passe que "
+"só você conheça."
+
+#: templates/accounts/choose_password.html:12
+msgid "Save my password"
+msgstr "Guardar a minha palavra-passe"
+
+#: templates/emails/password_reset_by_staff.txt:3
+msgid ""
+"Our support team reset the password on your AD Smart account at your "
+"request."
+msgstr ""
+"A nossa equipa de apoio repôs a palavra-passe da sua conta AD Smart a seu "
+"pedido."
+
+#: templates/emails/password_reset_by_staff.txt:5
+#, python-format
+msgid ""
+"They gave you a temporary password by phone. It works for %(hours)s hours, "
+"and you will be asked to choose your own password the first time you sign "
+"in."
+msgstr ""
+"Deram-lhe uma palavra-passe temporária por telefone. Funciona durante "
+"%(hours)s horas e ser-lhe-á pedido que escolha a sua própria palavra-passe "
+"no primeiro início de sessão."
+
+#: templates/emails/password_reset_by_staff.txt:7
+msgid ""
+"If you did not ask for this, reply to this email or message us on WhatsApp "
+"straight away."
+msgstr ""
+"Se não pediu isto, responda a este e-mail ou envie-nos uma mensagem por "
+"WhatsApp de imediato."

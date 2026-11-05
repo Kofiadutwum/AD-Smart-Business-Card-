@@ -100,6 +100,18 @@
     </section>
     {% endif %}
 
+    {% if staff_perms.reset_customer_password %}
+    <section class="panel">
+      <h2 style="font-size: var(--text-lg)">Lost password and email</h2>
+      <p class="muted text-sm mt-2">For a customer who cannot use the emailed code. Check who is calling first. You get a temporary password and the email to sign in with, to read out. They choose their own at first sign-in and every device they were signed in on is signed out.</p>
+      <form method="post" action="{% url 'staff:reset_customer_password' customer.pk %}" class="form mt-4" novalidate>
+        {% csrf_token %}
+        {% include "components/form_fields.html" with form=reset_form %}
+        <button class="btn btn--danger" type="submit">Reset password</button>
+      </form>
+    </section>
+    {% endif %}
+
     {% if staff_perms.suspend %}
     <section class="panel">
       <h2 style="font-size: var(--text-lg)">{% if customer.is_suspended %}Reinstate account{% else %}Suspend account{% endif %}</h2>

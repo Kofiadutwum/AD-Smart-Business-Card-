@@ -120,6 +120,9 @@ def login_view(request):
             if user is None or not user.check_password(form.cleaned_data["password"]) or not user.is_active:
                 messages.error(request, _("That email and password do not match."))
                 status = 401
+            elif user.password_temp_until and user.password_temp_until < timezone.now():
+                messages.error(request, _("This temporary password has expired. Ask support for a new one."))
+                status = 403
             elif user.is_suspended:
                 messages.error(request, _("This account is suspended. Contact support."))
                 status = 403
@@ -186,7 +189,8 @@ def reset_password(request):
             otp.used_at = timezone.now()
             otp.save()
             user.set_password(form.cleaned_data["password"])
-            user.save(update_fields=["password"])
+            user.password_temp_until = None
+            user.save(update_fields=["password", "password_temp_until"])
             request.session.pop("reset_email", None)
             send_email(
                 to=user.email, subject=subject_text("Your password was changed"), template="password_changed",
@@ -213,7 +217,8 @@ def change_password(request):
     form = PasswordChangeForm(request.user, request.POST or None)
     if request.method == "POST" and form.is_valid():
         request.user.set_password(form.cleaned_data["password"])
-        request.user.save(update_fields=["password"])
+        request.user.password_temp_until = None
+        request.user.save(update_fields=["password", "password_temp_until"])
         update_session_auth_hash(request, request.user)
         send_email(
             to=request.user.email, subject=subject_text("Your password was changed"), template="password_changed",
@@ -222,6 +227,26 @@ def change_password(request):
         messages.success(request, _("Password updated."))
         return redirect("dashboard:settings")
     return render(request, "accounts/change_password.html", {"form": form})
+
+
+@login_required
+def choose_password(request):
+    """First sign-in with a temporary password from support: the customer picks their own before going on."""
+    if not request.user.password_temp_until:
+        return redirect("dashboard:home")
+    form = PasswordChangeForm(request.user, request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        request.user.set_password(form.cleaned_data["password"])
+        request.user.password_temp_until = None
+        request.user.save(update_fields=["password", "password_temp_until"])
+        update_session_auth_hash(request, request.user)
+        send_email(
+            to=request.user.email, subject=subject_text("Your password was changed"), template="password_changed",
+            context={"user": request.user}, user=request.user, kind="password_changed",
+        )
+        messages.success(request, _("Your password is saved. Welcome back."))
+        return redirect("dashboard:home")
+    return render(request, "accounts/choose_password.html", {"form": form})
 
 
 # --------------------------------------------------------------------------

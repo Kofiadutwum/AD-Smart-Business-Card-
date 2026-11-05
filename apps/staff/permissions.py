@@ -19,6 +19,7 @@ PERMISSIONS = {
     "view_payments": {SUPER, FINANCE, SUPPORT},
     "manual_activation": {SUPER, FINANCE, SUPPORT},
     "suspend": {SUPER, SUPPORT},
+    "reset_customer_password": {SUPER, SUPPORT},
     "finance": {SUPER, FINANCE},
     "refunds": {SUPER, FINANCE},
     "promo_codes": {SUPER, FINANCE},

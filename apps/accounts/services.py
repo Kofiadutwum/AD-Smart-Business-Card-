@@ -71,6 +71,42 @@ def issue_reset_code(user):
     return True
 
 
+TEMP_PASSWORD_HOURS = 48
+TEMP_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # no 0/O/1/I: staff read it out over the phone
+
+
+def staff_reset_password(staff, customer, reason):
+    """Give a customer who cannot use emailed recovery a temporary password, and return it for staff to read out once.
+
+    The customer must choose their own at first sign-in and the temporary one stops after 48 hours. Changing the
+    password signs out every session they have open, and any emailed reset code stops working. The email on file
+    gets a notice (never the password), so the real owner of that address can spot a hijack.
+    """
+    from django.db import transaction
+
+    from apps.core.models import AuditLog
+
+    raw = "".join(secrets.choice(TEMP_ALPHABET) for _ in range(10))
+    temporary = f"{raw[:5]}-{raw[5:]}"
+    with transaction.atomic():
+        customer.set_password(temporary)
+        customer.password_temp_until = timezone.now() + timedelta(hours=TEMP_PASSWORD_HOURS)
+        customer.save(update_fields=["password", "password_temp_until"])
+        customer.one_time_codes.filter(purpose=OneTimeCode.PURPOSE_PASSWORD_RESET, used_at__isnull=True).update(
+            used_at=timezone.now()
+        )
+        AuditLog.record(staff, "customer_password_reset", customer, reason=reason)
+    send_email(
+        to=customer.email,
+        subject=subject_text("Our support team reset your AD Smart password"),
+        template="password_reset_by_staff",
+        context={"user": customer, "hours": TEMP_PASSWORD_HOURS},
+        user=customer,
+        kind="password_reset_by_staff",
+    )
+    return temporary
+
+
 def anonymise_user(user, reason=""):
     """Remove personal data but keep financial records (PRV-04, EXP-06).
 

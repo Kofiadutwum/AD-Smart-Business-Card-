@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
+from apps.accounts import services as account_services
 from apps.accounts.models import User
 from apps.billing.services import manual_activation
 from apps.cards.models import Card
@@ -17,7 +18,7 @@ from apps.core.emails import send_email, subject_text
 from apps.core.models import AuditLog, SiteSettings
 from apps.core.utils import ghs_to_minor, safe_next
 
-from ..forms import ManualActivationForm, ReasonForm
+from ..forms import CustomerPasswordResetForm, ManualActivationForm, ReasonForm
 from ..permissions import can, staff_required
 
 
@@ -69,6 +70,7 @@ def subscriber(request, pk):
         "tickets": customer.support_requests.all()[:10],
         "activation_form": ManualActivationForm(),
         "reason_form": ReasonForm(),
+        "reset_form": CustomerPasswordResetForm(auto_id="reset_%s"),
         "emails": customer.emaillog_set.all()[:15],
     }
     if can(request.user, "view_payments"):
@@ -124,6 +126,27 @@ def suspend(request, pk):
     )
     messages.success(request, f"Account {'suspended' if customer.is_suspended else 'reinstated'}. The customer was emailed.")
     return redirect("staff:subscriber", pk=pk)
+
+
+@staff_required("reset_customer_password")
+@require_POST
+def reset_customer_password(request, pk):
+    """A customer who lost their password and cannot use their email: staff give a temporary password by phone."""
+    customer = get_object_or_404(_customers(), pk=pk)
+    if customer.anonymised_at:
+        messages.error(request, "This account was deleted, so there is nothing to reset.")
+        return redirect("staff:subscriber", pk=pk)
+    form = CustomerPasswordResetForm(request.POST)
+    if not form.is_valid():
+        messages.error(request, "Tick all three checks and give a reason. Nothing was changed.")
+        return redirect("staff:subscriber", pk=pk)
+    temporary = account_services.staff_reset_password(request.user, customer, form.cleaned_data["reason"])
+    response = render(
+        request, "staff/password_reset_done.html",
+        {"customer": customer, "temporary": temporary, "hours": account_services.TEMP_PASSWORD_HOURS},
+    )
+    response["Cache-Control"] = "no-store"
+    return response
 
 
 @staff_required("suspend")

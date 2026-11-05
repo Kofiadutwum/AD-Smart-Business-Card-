@@ -104,11 +104,15 @@ msgstr ""
 msgid "Your password reset code: %(code)s"
 msgstr ""
 
+#: apps/accounts/services.py:101
+msgid "Our support team reset your AD Smart password"
+msgstr ""
+
 #: apps/accounts/views.py:48
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr ""
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:276 apps/cards/claim.py:97
+#: apps/accounts/views.py:63 apps/accounts/views.py:301 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr ""
 
@@ -137,65 +141,73 @@ msgstr ""
 msgid "That email and password do not match."
 msgstr ""
 
-#: apps/accounts/views.py:124 apps/accounts/views.py:280
+#: apps/accounts/views.py:124
+msgid "This temporary password has expired. Ask support for a new one."
+msgstr ""
+
+#: apps/accounts/views.py:127 apps/accounts/views.py:305
 msgid "This account is suspended. Contact support."
 msgstr ""
 
-#: apps/accounts/views.py:143
+#: apps/accounts/views.py:146
 msgid "You are signed out."
 msgstr ""
 
-#: apps/accounts/views.py:159
+#: apps/accounts/views.py:162
 msgid "Too many requests. Try again in an hour."
 msgstr ""
 
-#: apps/accounts/views.py:163
+#: apps/accounts/views.py:166
 msgid "A code was sent less than a minute ago. Check your inbox before asking again."
 msgstr ""
 
-#: apps/accounts/views.py:177
+#: apps/accounts/views.py:180
 msgid "Too many attempts from this connection. Try again later."
 msgstr ""
 
-#: apps/accounts/views.py:184
+#: apps/accounts/views.py:187
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr ""
 
-#: apps/accounts/views.py:192 apps/accounts/views.py:219
+#: apps/accounts/views.py:196 apps/accounts/views.py:224 apps/accounts/views.py:244
 msgid "Your password was changed"
 msgstr ""
 
-#: apps/accounts/views.py:196
+#: apps/accounts/views.py:200
 msgid "Your password has been reset."
 msgstr ""
 
-#: apps/accounts/views.py:202
+#: apps/accounts/views.py:206
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr ""
 
-#: apps/accounts/views.py:207
+#: apps/accounts/views.py:211
 msgid "Too many wrong codes. Ask for a new one."
 msgstr ""
 
-#: apps/accounts/views.py:222
+#: apps/accounts/views.py:227
 msgid "Password updated."
 msgstr ""
 
-#: apps/accounts/views.py:234
+#: apps/accounts/views.py:247
+msgid "Your password is saved. Welcome back."
+msgstr ""
+
+#: apps/accounts/views.py:259
 msgid "Google sign-in is not available yet."
 msgstr ""
 
-#: apps/accounts/views.py:246
+#: apps/accounts/views.py:271
 msgid "Google sign-in was cancelled."
 msgstr ""
 
-#: apps/accounts/views.py:250
+#: apps/accounts/views.py:275
 msgid "Your Google sign-in session expired. Try again."
 msgstr ""
 
-#: apps/accounts/views.py:286
+#: apps/accounts/views.py:311
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 
@@ -2122,20 +2134,20 @@ msgstr ""
 msgid "An update on your order %(number)s"
 msgstr ""
 
-#: apps/staff/views/subscribers.py:121
+#: apps/staff/views/subscribers.py:123
 msgid "Your AD Smart account has been suspended"
 msgstr ""
 
-#: apps/staff/views/subscribers.py:121
+#: apps/staff/views/subscribers.py:123
 msgid "Your AD Smart account is active again"
 msgstr ""
 
-#: apps/staff/views/subscribers.py:145
+#: apps/staff/views/subscribers.py:168
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr ""
 
-#: apps/staff/views/subscribers.py:146
+#: apps/staff/views/subscribers.py:169
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr ""
@@ -2237,6 +2249,23 @@ msgstr ""
 
 #: templates/accounts/change_password.html:14
 msgid "Back to settings"
+msgstr ""
+
+#: templates/accounts/choose_password.html:2
+#, python-format
+msgid "Choose your password · %(SITE_NAME)s"
+msgstr ""
+
+#: templates/accounts/choose_password.html:7
+msgid "Choose your own password"
+msgstr ""
+
+#: templates/accounts/choose_password.html:8
+msgid "You signed in with a temporary password from our support team. Enter it as your current password, then choose a password only you know."
+msgstr ""
+
+#: templates/accounts/choose_password.html:12
+msgid "Save my password"
 msgstr ""
 
 #: templates/accounts/forgot_password.html:2
@@ -3504,7 +3533,7 @@ msgstr ""
 msgid "Dashboard · %(SITE_NAME)s"
 msgstr ""
 
-#: templates/dashboard/home.html:6 templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1 templates/emails/welcome.txt:1
+#: templates/dashboard/home.html:6 templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_by_staff.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/verify_email.txt:1 templates/emails/welcome.txt:1
 msgid "there"
 msgstr ""
 
@@ -3860,7 +3889,7 @@ msgstr ""
 msgid "You received this because of your account or order with us."
 msgstr ""
 
-#: templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/support_received.txt:1 templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
+#: templates/emails/account_reinstated.txt:1 templates/emails/account_suspended.txt:1 templates/emails/auto_renewal_cancelled.txt:1 templates/emails/auto_renewal_failed.txt:1 templates/emails/auto_renewal_notice.txt:1 templates/emails/card_inactive.txt:1 templates/emails/card_reinstated.txt:1 templates/emails/card_suspended.txt:1 templates/emails/data_deletion_warning.txt:1 templates/emails/deletion_requested.txt:1 templates/emails/grace_started.txt:1 templates/emails/new_enquiry.txt:1 templates/emails/new_lead.txt:1 templates/emails/nfc_order_confirmed.txt:1 templates/emails/nfc_proof_ready.txt:1 templates/emails/nfc_proof_reminder.txt:1 templates/emails/nfc_status_update.txt:1 templates/emails/password_changed.txt:1 templates/emails/password_reset_by_staff.txt:1 templates/emails/password_reset_code.txt:1 templates/emails/payment_receipt.txt:1 templates/emails/renewal_reminder.txt:1 templates/emails/staff_message.txt:1 templates/emails/support_received.txt:1 templates/emails/support_reply.txt:1 templates/emails/verify_email.txt:1
 #, python-format
 msgid "Hello %(name)s,"
 msgstr ""
@@ -4115,6 +4144,19 @@ msgstr ""
 #: templates/emails/password_changed.txt:5
 #, python-format
 msgid "If this was not you, reset your password now at %(link)s and contact us straight away."
+msgstr ""
+
+#: templates/emails/password_reset_by_staff.txt:3
+msgid "Our support team reset the password on your AD Smart account at your request."
+msgstr ""
+
+#: templates/emails/password_reset_by_staff.txt:5
+#, python-format
+msgid "They gave you a temporary password by phone. It works for %(hours)s hours, and you will be asked to choose your own password the first time you sign in."
+msgstr ""
+
+#: templates/emails/password_reset_by_staff.txt:7
+msgid "If you did not ask for this, reply to this email or message us on WhatsApp straight away."
 msgstr ""
 
 #: templates/emails/password_reset_code.txt:3

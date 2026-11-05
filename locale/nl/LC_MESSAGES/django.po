@@ -110,7 +110,7 @@ msgstr ""
 "Te veel registraties vanaf deze verbinding. Probeer het over een uur "
 "opnieuw."
 
-#: apps/accounts/views.py:63 apps/accounts/views.py:276 apps/cards/claim.py:97
+#: apps/accounts/views.py:63 apps/accounts/views.py:301 apps/cards/claim.py:97
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Welkom bij AD Smart Business Cards"
 
@@ -146,19 +146,19 @@ msgstr "Te veel pogingen. Wacht 15 minuten of herstel je wachtwoord."
 msgid "That email and password do not match."
 msgstr "Dat e-mailadres en wachtwoord komen niet overeen."
 
-#: apps/accounts/views.py:124 apps/accounts/views.py:280
+#: apps/accounts/views.py:127 apps/accounts/views.py:305
 msgid "This account is suspended. Contact support."
 msgstr "Dit account is geschorst. Neem contact op met de support."
 
-#: apps/accounts/views.py:143
+#: apps/accounts/views.py:146
 msgid "You are signed out."
 msgstr "Je bent uitgelogd."
 
-#: apps/accounts/views.py:159
+#: apps/accounts/views.py:162
 msgid "Too many requests. Try again in an hour."
 msgstr "Te veel verzoeken. Probeer het over een uur opnieuw."
 
-#: apps/accounts/views.py:163
+#: apps/accounts/views.py:166
 msgid ""
 "A code was sent less than a minute ago. Check your inbox before asking "
 "again."
@@ -166,50 +166,51 @@ msgstr ""
 "Er is minder dan een minuut geleden een code verstuurd. Controleer je inbox "
 "voordat je een nieuwe aanvraagt."
 
-#: apps/accounts/views.py:177
+#: apps/accounts/views.py:180
 msgid "Too many attempts from this connection. Try again later."
 msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
 
-#: apps/accounts/views.py:184
+#: apps/accounts/views.py:187
 msgid "That code has expired or was used too many times. Ask for a new one."
 msgstr "Die code is verlopen of te vaak gebruikt. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:192 apps/accounts/views.py:219
+#: apps/accounts/views.py:196 apps/accounts/views.py:224
+#: apps/accounts/views.py:244
 msgid "Your password was changed"
 msgstr "Je wachtwoord is gewijzigd"
 
-#: apps/accounts/views.py:196
+#: apps/accounts/views.py:200
 msgid "Your password has been reset."
 msgstr "Je wachtwoord is hersteld."
 
-#: apps/accounts/views.py:202
+#: apps/accounts/views.py:206
 #, python-format
 msgid "That code is not right. %(left)d attempt left."
 msgid_plural "That code is not right. %(left)d attempts left."
 msgstr[0] "Die code klopt niet. Nog %(left)d poging over."
 msgstr[1] "Die code klopt niet. Nog %(left)d pogingen over."
 
-#: apps/accounts/views.py:207
+#: apps/accounts/views.py:211
 msgid "Too many wrong codes. Ask for a new one."
 msgstr "Te veel foute codes. Vraag een nieuwe aan."
 
-#: apps/accounts/views.py:222
+#: apps/accounts/views.py:227
 msgid "Password updated."
 msgstr "Wachtwoord bijgewerkt."
 
-#: apps/accounts/views.py:234
+#: apps/accounts/views.py:259
 msgid "Google sign-in is not available yet."
 msgstr "Inloggen met Google is nog niet beschikbaar."
 
-#: apps/accounts/views.py:246
+#: apps/accounts/views.py:271
 msgid "Google sign-in was cancelled."
 msgstr "Inloggen met Google is geannuleerd."
 
-#: apps/accounts/views.py:250
+#: apps/accounts/views.py:275
 msgid "Your Google sign-in session expired. Try again."
 msgstr "Je Google-inlogsessie is verlopen. Probeer het opnieuw."
 
-#: apps/accounts/views.py:286
+#: apps/accounts/views.py:311
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr ""
 "Voeg je mobiele nummer toe zodat we contact met je kunnen opnemen over "
@@ -1724,20 +1725,20 @@ msgstr "Bestelling geannuleerd."
 msgid "An update on your order %(number)s"
 msgstr "Een update over je bestelling %(number)s"
 
-#: apps/staff/views/subscribers.py:121
+#: apps/staff/views/subscribers.py:123
 msgid "Your AD Smart account has been suspended"
 msgstr "Je AD Smart-account is geschorst"
 
-#: apps/staff/views/subscribers.py:121
+#: apps/staff/views/subscribers.py:123
 msgid "Your AD Smart account is active again"
 msgstr "Je AD Smart-account is weer actief"
 
-#: apps/staff/views/subscribers.py:145
+#: apps/staff/views/subscribers.py:168
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "Je kaart /c/%(slug)s is geschorst"
 
-#: apps/staff/views/subscribers.py:146
+#: apps/staff/views/subscribers.py:169
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "Je kaart /c/%(slug)s is hersteld"
@@ -3314,6 +3315,7 @@ msgstr "Je ontvangt dit omdat je een account of bestelling bij ons hebt."
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
 #: templates/emails/password_changed.txt:1
+#: templates/emails/password_reset_by_staff.txt:1
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
@@ -3337,6 +3339,7 @@ msgstr "daar"
 #: templates/emails/nfc_proof_reminder.txt:1
 #: templates/emails/nfc_status_update.txt:1
 #: templates/emails/password_changed.txt:1
+#: templates/emails/password_reset_by_staff.txt:1
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
@@ -6778,3 +6781,65 @@ msgstr ""
 #: templates/cards/claim_setup.html:20
 msgid "Create my account"
 msgstr "Mijn account aanmaken"
+
+#: apps/accounts/services.py:101
+msgid "Our support team reset your AD Smart password"
+msgstr "Ons supportteam heeft je AD Smart-wachtwoord opnieuw ingesteld"
+
+#: apps/accounts/views.py:124
+msgid "This temporary password has expired. Ask support for a new one."
+msgstr ""
+"Dit tijdelijke wachtwoord is verlopen. Vraag support om een nieuw "
+"wachtwoord."
+
+#: apps/accounts/views.py:247
+msgid "Your password is saved. Welcome back."
+msgstr "Je wachtwoord is opgeslagen. Welkom terug."
+
+#: templates/accounts/choose_password.html:2
+#, python-format
+msgid "Choose your password · %(SITE_NAME)s"
+msgstr "Kies je wachtwoord · %(SITE_NAME)s"
+
+#: templates/accounts/choose_password.html:7
+msgid "Choose your own password"
+msgstr "Kies je eigen wachtwoord"
+
+#: templates/accounts/choose_password.html:8
+msgid ""
+"You signed in with a temporary password from our support team. Enter it as "
+"your current password, then choose a password only you know."
+msgstr ""
+"Je bent ingelogd met een tijdelijk wachtwoord van ons supportteam. Vul het "
+"in als huidig wachtwoord en kies daarna een wachtwoord dat alleen jij kent."
+
+#: templates/accounts/choose_password.html:12
+msgid "Save my password"
+msgstr "Mijn wachtwoord opslaan"
+
+#: templates/emails/password_reset_by_staff.txt:3
+msgid ""
+"Our support team reset the password on your AD Smart account at your "
+"request."
+msgstr ""
+"Ons supportteam heeft op jouw verzoek het wachtwoord van je AD Smart-account"
+" opnieuw ingesteld."
+
+#: templates/emails/password_reset_by_staff.txt:5
+#, python-format
+msgid ""
+"They gave you a temporary password by phone. It works for %(hours)s hours, "
+"and you will be asked to choose your own password the first time you sign "
+"in."
+msgstr ""
+"Ze hebben je telefonisch een tijdelijk wachtwoord gegeven. Het werkt "
+"%(hours)s uur en je wordt gevraagd een eigen wachtwoord te kiezen bij je "
+"eerste keer inloggen."
+
+#: templates/emails/password_reset_by_staff.txt:7
+msgid ""
+"If you did not ask for this, reply to this email or message us on WhatsApp "
+"straight away."
+msgstr ""
+"Heb je dit niet aangevraagd? Beantwoord dan deze e-mail of stuur ons meteen "
+"een bericht via WhatsApp."

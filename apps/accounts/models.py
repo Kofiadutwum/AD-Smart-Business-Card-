@@ -64,6 +64,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     verification_waived_at = models.DateTimeField(null=True, blank=True)
     email_changed_at = models.DateTimeField(null=True, blank=True)
     accepted_terms_at = models.DateTimeField(null=True, blank=True)
+    # Set when support gives the customer a temporary password: they must choose their own before using the
+    # account, and the temporary one stops working at this time. Empty for everyone else.
+    password_temp_until = models.DateTimeField(null=True, blank=True)
 
     # Display preferences, remembered across devices (empty = follow the browser / dollars).
     currency = models.CharField(max_length=3, blank=True)

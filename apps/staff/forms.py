@@ -38,6 +38,16 @@ class ReasonForm(forms.Form):
     reason = forms.CharField(label="Reason (recorded in the audit log)", widget=forms.Textarea(attrs={"rows": 3}))
 
 
+class CustomerPasswordResetForm(ReasonForm):
+    """Support resets a customer's password by hand: three checks must be ticked, and a reason is kept."""
+
+    checked_name = forms.BooleanField(label="I checked the caller's full name matches the account")
+    checked_phone = forms.BooleanField(label="I checked the caller's phone number matches the number on the account")
+    checked_activity = forms.BooleanField(
+        label="I checked one recent payment, receipt or card link only the owner would know"
+    )
+
+
 class ManualActivationForm(ReasonForm):
     plan = forms.ModelChoiceField(queryset=Plan.objects.all(), empty_label=None)
     months = forms.IntegerField(min_value=1, max_value=36, initial=12)

@@ -21,6 +21,7 @@ urlpatterns = [
     path("subscribers/<int:pk>/", subscribers.subscriber, name="subscriber"),
     path("subscribers/<int:pk>/activate/", subscribers.activate, name="activate"),
     path("subscribers/<int:pk>/suspend/", subscribers.suspend, name="suspend"),
+    path("subscribers/<int:pk>/reset-password/", subscribers.reset_customer_password, name="reset_customer_password"),
     path("cards/<int:pk>/", subscribers.card_preview, name="card_preview"),
     path("cards/<int:pk>/suspend/", subscribers.suspend_card, name="suspend_card"),
     # finance
