@@ -14,6 +14,7 @@
       <form method="post" class="form" novalidate>
         {% csrf_token %}
         {% include "components/form_fields.html" %}
+        {% include "components/privacy_link.html" %}
         {% hover_button _("Send message") variant="ink" icon_name="send" %}
       </form>
     </div>

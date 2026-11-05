@@ -9,6 +9,11 @@ from django.utils.translation import gettext_lazy as _
 class LeadForm(forms.ModelForm):
     """What a card visitor sends back to the owner."""
 
+    consent = forms.BooleanField(
+        label=_("I agree to my details being shared with the owner of this card and handled under the Privacy Policy."),
+        error_messages={"required": _("Please tick the box to agree before sending your details.")},
+    )
+
     class Meta:
         model = Lead
         fields = ["name", "phone", "email", "organisation", "note"]

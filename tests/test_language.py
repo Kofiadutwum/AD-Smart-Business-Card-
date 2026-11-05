@@ -207,7 +207,7 @@ class LanguageTests(BaseTest):
         self.subscribe(user, self.pro)
         BusinessPage.objects.create(owner=user, is_on=True)
         self.client.post(
-            f"/b/{card.slug}/enquire", {"name": "Yaw", "email": "yaw@example.com", "note": "Do you ship to Kumasi?"},
+            f"/b/{card.slug}/enquire", {"name": "Yaw", "email": "yaw@example.com", "note": "Do you ship to Kumasi?", "consent": "1"},
             HTTP_ACCEPT_LANGUAGE="es",
         )
         message = mail.outbox[-1]

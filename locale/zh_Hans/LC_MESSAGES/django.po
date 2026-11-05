@@ -383,7 +383,7 @@ msgstr "无法连接支付网关，请稍后再试。"
 msgid "Malformed webhook payload."
 msgstr "Malformed webhook payload."
 
-#: apps/billing/services.py:447
+#: apps/billing/services.py:471
 #, python-format
 msgid "Your receipt %(number)s"
 msgstr "您的收据 %(number)s"
@@ -454,23 +454,23 @@ msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr "名片已添加到您的账户，并已为您的套餐增加一年。"
 
-#: apps/cards/forms.py:33
+#: apps/cards/forms.py:38
 msgid "Add a phone number or an email so they can reach you."
 msgstr "请填写电话号码或邮箱，以便对方联系您。"
 
-#: apps/cards/forms.py:65
+#: apps/cards/forms.py:70
 msgid "PIN on the back of your card"
 msgstr "名片背面的 PIN 码"
 
-#: apps/cards/forms.py:67
+#: apps/cards/forms.py:72
 msgid "Eight letters and numbers, for example K7M2-X9QA."
 msgstr "8 位字母和数字，例如 K7M2-X9QA。"
 
-#: apps/cards/forms.py:80
+#: apps/cards/forms.py:85
 msgid "Job title"
 msgstr "职位"
 
-#: apps/cards/forms.py:81
+#: apps/cards/forms.py:86
 msgid "Business or organisation"
 msgstr "公司或机构"
 
@@ -514,12 +514,12 @@ msgstr "图标行"
 msgid "Phone numbers"
 msgstr "电话号码"
 
-#: apps/cards/models.py:47 apps/cards/models.py:252
+#: apps/cards/models.py:47 apps/cards/models.py:255
 #: templates/cards/_contact.html:8 templates/cards/_contact.html:36
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:48 apps/cards/models.py:258 apps/dashboard/forms.py:55
+#: apps/cards/models.py:48 apps/cards/models.py:261 apps/dashboard/forms.py:55
 #: apps/nfc/forms.py:30 templates/cards/_contact.html:14
 #: templates/cards/_contact.html:48
 msgid "Website"
@@ -541,135 +541,135 @@ msgstr "地图位置"
 msgid "Short bio"
 msgstr "个人简介"
 
-#: apps/cards/models.py:242
+#: apps/cards/models.py:245
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: apps/cards/models.py:243
+#: apps/cards/models.py:246
 msgid "Instagram"
 msgstr "Instagram"
 
-#: apps/cards/models.py:244
+#: apps/cards/models.py:247
 msgid "Facebook"
 msgstr "Facebook"
 
-#: apps/cards/models.py:245
+#: apps/cards/models.py:248
 msgid "X"
 msgstr "X"
 
-#: apps/cards/models.py:246
+#: apps/cards/models.py:249
 msgid "TikTok"
 msgstr "TikTok"
 
-#: apps/cards/models.py:247
+#: apps/cards/models.py:250
 msgid "YouTube"
 msgstr "YouTube"
 
-#: apps/cards/models.py:248
+#: apps/cards/models.py:251
 msgid "Snapchat"
 msgstr "Snapchat"
 
-#: apps/cards/models.py:249
+#: apps/cards/models.py:252
 msgid "Threads"
 msgstr "Threads"
 
-#: apps/cards/models.py:250
+#: apps/cards/models.py:253
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: apps/cards/models.py:251
+#: apps/cards/models.py:254
 msgid "Telegram"
 msgstr "Telegram"
 
-#: apps/cards/models.py:253
+#: apps/cards/models.py:256
 msgid "GitHub"
 msgstr "GitHub"
 
-#: apps/cards/models.py:254
+#: apps/cards/models.py:257
 msgid "Behance"
 msgstr "Behance"
 
-#: apps/cards/models.py:255
+#: apps/cards/models.py:258
 msgid "ResearchGate"
 msgstr "ResearchGate"
 
-#: apps/cards/models.py:256
+#: apps/cards/models.py:259
 msgid "ORCID"
 msgstr "ORCID"
 
-#: apps/cards/models.py:257
+#: apps/cards/models.py:260
 msgid "Google Scholar"
 msgstr "Google Scholar"
 
-#: apps/cards/models.py:294
+#: apps/cards/models.py:297
 msgid "View"
 msgstr "浏览"
 
-#: apps/cards/models.py:295
+#: apps/cards/models.py:298
 msgid "Contact saved"
 msgstr "已保存联系人"
 
-#: apps/cards/models.py:296
+#: apps/cards/models.py:299
 msgid "Phone click"
 msgstr "点击电话"
 
-#: apps/cards/models.py:297
+#: apps/cards/models.py:300
 msgid "WhatsApp click"
 msgstr "点击 WhatsApp"
 
-#: apps/cards/models.py:298
+#: apps/cards/models.py:301
 msgid "Email click"
 msgstr "点击邮箱"
 
-#: apps/cards/models.py:299
+#: apps/cards/models.py:302
 msgid "Website click"
 msgstr "点击网站"
 
-#: apps/cards/models.py:300
+#: apps/cards/models.py:303
 msgid "Social click"
 msgstr "点击社交媒体"
 
-#: apps/cards/models.py:301
+#: apps/cards/models.py:304
 msgid "Location click"
 msgstr "点击位置"
 
-#: apps/cards/models.py:303 apps/dashboard/views.py:293
+#: apps/cards/models.py:306 apps/dashboard/views.py:293
 msgid "Direct link"
 msgstr "直接链接"
 
-#: apps/cards/models.py:303 templates/dashboard/share.html:32
+#: apps/cards/models.py:306 templates/dashboard/share.html:32
 msgid "QR code"
 msgstr "二维码"
 
-#: apps/cards/models.py:303
+#: apps/cards/models.py:306
 msgid "NFC tap"
 msgstr "NFC 轻触"
 
-#: apps/cards/models.py:341
+#: apps/cards/models.py:344
 msgid "Impersonation"
 msgstr "冒充他人"
 
-#: apps/cards/models.py:342
+#: apps/cards/models.py:345
 msgid "Fraud or scam"
 msgstr "欺诈或骗局"
 
-#: apps/cards/models.py:343
+#: apps/cards/models.py:346
 msgid "Offensive content"
 msgstr "冒犯性内容"
 
-#: apps/cards/models.py:344 apps/support/models.py:17
+#: apps/cards/models.py:347 apps/support/models.py:17
 msgid "Other"
 msgstr "其他"
 
-#: apps/cards/models.py:347 apps/support/models.py:23
+#: apps/cards/models.py:350 apps/support/models.py:23
 msgid "Open"
 msgstr "待处理"
 
-#: apps/cards/models.py:347
+#: apps/cards/models.py:350
 msgid "Dismissed"
 msgstr "已驳回"
 
-#: apps/cards/models.py:347
+#: apps/cards/models.py:350
 msgid "Actioned"
 msgstr "已处理"
 
@@ -707,11 +707,11 @@ msgid "That PIN is not right. %(left)d try left."
 msgid_plural "That PIN is not right. %(left)d tries left."
 msgstr[0] "PIN 码不正确，还可尝试 %(left)d 次。"
 
-#: apps/cards/services.py:94
+#: apps/cards/services.py:193
 msgid "This card's link is printed on NFC cards, so it can no longer change."
 msgstr "此名片的链接已印在 NFC 卡片上，因此无法再更改。"
 
-#: apps/cards/services.py:99
+#: apps/cards/services.py:198
 msgid "That link is already taken."
 msgstr "该链接已被占用。"
 
@@ -773,8 +773,8 @@ msgstr "每张 %(price)s"
 msgid "%(price)s per person a year"
 msgstr "每人每年 %(price)s"
 
-#: apps/accounts/forms.py:125 apps/cards/forms.py:16 apps/core/jsstrings.py:21
-#: apps/support/forms.py:14
+#: apps/accounts/forms.py:125 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/support/forms.py:18
 msgid "Your name"
 msgstr "您的姓名"
 
@@ -816,7 +816,7 @@ msgstr "免费"
 #: apps/core/jsstrings.py:30 apps/nfc/views.py:34
 #: templates/marketing/nfc.html:27 templates/nfc/detail.html:83
 #: templates/nfc/detail.html:98 templates/nfc/order.html:114
-#: templates/partials/site_footer.html:17
+#: templates/partials/site_footer.html:18
 msgid "Delivery"
 msgstr "配送"
 
@@ -1615,7 +1615,7 @@ msgstr "您的名片 /c/%(slug)s 已恢复"
 msgid "How can we help?"
 msgstr "我们能帮您什么？"
 
-#: apps/support/forms.py:25
+#: apps/support/forms.py:29
 msgid "Your reply"
 msgstr "您的回复"
 
@@ -1803,7 +1803,7 @@ msgstr "重新发送链接"
 msgid "Use a different account"
 msgstr "使用其他账户"
 
-#: templates/base.html:38
+#: templates/base.html:39
 msgid "Skip to main content"
 msgstr "跳到主要内容"
 
@@ -2115,14 +2115,14 @@ msgstr "分享这张名片"
 msgid "Contact %(first)s"
 msgstr "联系 %(first)s"
 
-#: templates/cards/_contact.html:5 templates/support/contact.html:22
+#: templates/cards/_contact.html:5 templates/support/contact.html:23
 msgid "Call"
 msgstr "拨打电话"
 
-#: apps/cards/forms.py:18 apps/dashboard/views.py:331 apps/support/forms.py:14
+#: apps/cards/forms.py:23 apps/dashboard/views.py:331 apps/support/forms.py:18
 #: templates/cards/_contact.html:11 templates/cards/_contact.html:42
 #: templates/dashboard/leads.html:15 templates/dashboard/share.html:23
-#: templates/support/contact.html:23
+#: templates/support/contact.html:24
 msgid "Email"
 msgstr "邮件"
 
@@ -2152,23 +2152,23 @@ msgstr "与 %(first)s 分享您的联系方式"
 msgid "Leave empty"
 msgstr "请留空"
 
-#: templates/cards/_card.html:60
+#: templates/cards/_card.html:61
 msgid "Send my details"
 msgstr "发送我的信息"
 
-#: templates/cards/_card.html:67
+#: templates/cards/_card.html:68
 msgid "Show QR code"
 msgstr "显示二维码"
 
-#: templates/cards/_card.html:68
+#: templates/cards/_card.html:69
 msgid "Let someone scan this to open the card."
 msgstr "让对方扫描此码即可打开名片。"
 
-#: templates/cards/_card.html:75 templates/cards/business.html:142
+#: templates/cards/_card.html:76 templates/cards/business.html:143
 msgid "Powered by AD Smart"
 msgstr "由 AD Smart 提供技术支持"
 
-#: templates/cards/_card.html:78 templates/cards/business.html:145
+#: templates/cards/_card.html:79 templates/cards/business.html:146
 #: templates/cards/report.html:7
 msgid "Report this card"
 msgstr "举报这张名片"
@@ -2404,7 +2404,7 @@ msgstr "订单与账单"
 #: templates/dashboard/nfc_orders.html:6
 #: templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6
 #: templates/nfc/order.html:6 templates/nfc/order.html:113
-#: templates/partials/site_footer.html:16
+#: templates/partials/site_footer.html:17
 #: templates/partials/site_header.html:14
 #: templates/partials/site_header.html:47
 msgid "NFC cards"
@@ -2819,12 +2819,12 @@ msgstr "收到的联系人"
 msgid "Name"
 msgstr "姓名"
 
-#: apps/cards/forms.py:17 apps/dashboard/views.py:331
+#: apps/cards/forms.py:22 apps/dashboard/views.py:331
 #: templates/dashboard/leads.html:15
 msgid "Phone"
 msgstr "电话"
 
-#: apps/cards/forms.py:19 apps/dashboard/views.py:331
+#: apps/cards/forms.py:24 apps/dashboard/views.py:331
 #: templates/dashboard/leads.html:15
 msgid "Company"
 msgstr "公司"
@@ -3554,7 +3554,7 @@ msgstr "上一个作品"
 msgid "Next design"
 msgstr "下一个作品"
 
-#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:32
+#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:33
 msgid "Policies"
 msgstr "政策"
 
@@ -3725,7 +3725,7 @@ msgstr ""
 msgid "Frequently asked questions · %(SITE_NAME)s"
 msgstr "常见问题 · %(SITE_NAME)s"
 
-#: templates/marketing/faq.html:6 templates/partials/site_footer.html:18
+#: templates/marketing/faq.html:6 templates/partials/site_footer.html:19
 #: templates/partials/site_header.html:15
 #: templates/partials/site_header.html:48
 msgid "FAQ"
@@ -3894,7 +3894,7 @@ msgid ""
 msgstr "制作您 NFC 卡片的正是这些设计师。点开幻灯片即可查看完整设计。"
 
 #: templates/marketing/home.html:177 templates/marketing/pricing.html:7
-#: templates/partials/site_footer.html:15
+#: templates/partials/site_footer.html:16
 #: templates/partials/site_header.html:13
 #: templates/partials/site_header.html:46
 msgid "Pricing"
@@ -3945,7 +3945,7 @@ msgid "Privacy Policy · %(SITE_NAME)s"
 msgstr "隐私政策 · %(SITE_NAME)s"
 
 #: templates/marketing/legal_privacy.html:3
-#: templates/partials/site_footer.html:35
+#: templates/partials/site_footer.html:36
 msgid "Privacy Policy"
 msgstr "隐私政策"
 
@@ -3987,27 +3987,27 @@ msgstr ""
 "<strong>名片访问：</strong>浏览和点击次数、来源（链接、二维码或 NFC），以及用于区分重复访问的单向编码。我们不会保存访客的 IP "
 "地址。"
 
-#: templates/marketing/legal_privacy.html:12
+#: templates/marketing/legal_privacy.html:13
 msgid ""
 "<strong>NFC orders:</strong> the design details, files and delivery address "
 "you give us."
 msgstr "<strong>NFC 订单：</strong>您提供给我们的设计要求、文件和收货地址。"
 
-#: templates/marketing/legal_privacy.html:14
+#: templates/marketing/legal_privacy.html:15
 msgid "Why we use it"
 msgstr "我们如何使用"
 
-#: templates/marketing/legal_privacy.html:15
+#: templates/marketing/legal_privacy.html:16
 msgid ""
 "To run your card, process orders and payments, send receipts and reminders, "
 "answer support requests and keep the service secure."
 msgstr "用于运营您的名片、处理订单和付款、发送收据和提醒、回复客服请求，以及保障服务安全。"
 
-#: templates/marketing/legal_privacy.html:16
+#: templates/marketing/legal_privacy.html:17
 msgid "Who we share it with"
 msgstr "我们与谁共享"
 
-#: templates/marketing/legal_privacy.html:17
+#: templates/marketing/legal_privacy.html:18
 msgid ""
 "Paystack (payments), our email provider (transactional email), Cloudinary "
 "(image storage) and our hosting provider. We do not sell your data or use "
@@ -4015,11 +4015,11 @@ msgid ""
 msgstr ""
 "Paystack（支付）、我们的邮件服务商（事务性邮件）、Cloudinary（图片存储）以及我们的托管服务商。我们不会出售您的数据，也不使用广告跟踪器。"
 
-#: templates/marketing/legal_privacy.html:18
+#: templates/marketing/legal_privacy.html:19
 msgid "Cookies"
 msgstr "Cookie"
 
-#: templates/marketing/legal_privacy.html:19
+#: templates/marketing/legal_privacy.html:20
 msgid ""
 "We use only essential cookies: one to keep you signed in and one to protect "
 "forms. Your light or dark theme choice is saved in your browser. No "
@@ -4027,11 +4027,11 @@ msgid ""
 msgstr ""
 "我们只使用必要的 Cookie：一个用于保持登录，一个用于保护表单。您选择的浅色或深色主题保存在浏览器中。不使用任何营销或跟踪类 Cookie。"
 
-#: templates/marketing/legal_privacy.html:20
+#: templates/marketing/legal_privacy.html:21
 msgid "How long we keep it"
 msgstr "保存期限"
 
-#: templates/marketing/legal_privacy.html:22
+#: templates/marketing/legal_privacy.html:23
 #, python-format
 msgid ""
 "Card data is kept for %(site_data_retention_months)s months after a card "
@@ -4040,19 +4040,19 @@ msgid ""
 msgstr ""
 "名片停用后，名片数据会保留 %(site_data_retention_months)s 个月，续订后即可恢复。删除前 30 天，我们会发邮件通知您。"
 
-#: templates/marketing/legal_privacy.html:23
+#: templates/marketing/legal_privacy.html:24
 msgid "Visit analytics are kept for 24 months."
 msgstr "访问统计数据保留 24 个月。"
 
-#: templates/marketing/legal_privacy.html:24
+#: templates/marketing/legal_privacy.html:25
 msgid "Financial records are kept as the law requires."
 msgstr "财务记录按法律要求保存。"
 
-#: templates/marketing/legal_privacy.html:26
+#: templates/marketing/legal_privacy.html:27
 msgid "Your choices"
 msgstr "您的选择"
 
-#: templates/marketing/legal_privacy.html:27
+#: templates/marketing/legal_privacy.html:28
 msgid ""
 "You can edit or hide any detail on your card, download your contacts, and "
 "ask us to delete your account from Settings. We remove personal data within "
@@ -4060,8 +4060,8 @@ msgid ""
 msgstr ""
 "您可以编辑或隐藏名片上的任何信息、下载联系人，并在“设置”中申请删除账户。我们会在 30 天内删除个人数据，但因会计需要必须保留的记录除外。"
 
-#: templates/marketing/legal_privacy.html:28
-#: templates/partials/site_footer.html:23
+#: templates/marketing/legal_privacy.html:29
+#: templates/partials/site_footer.html:24
 #: templates/partials/site_header.html:16
 #: templates/partials/site_header.html:49 templates/support/contact.html:6
 msgid "Contact"
@@ -4073,7 +4073,7 @@ msgid "Refund Policy · %(SITE_NAME)s"
 msgstr "退款政策 · %(SITE_NAME)s"
 
 #: templates/marketing/legal_refunds.html:3
-#: templates/partials/site_footer.html:36
+#: templates/partials/site_footer.html:37
 msgid "Refund Policy"
 msgstr "退款政策"
 
@@ -4142,7 +4142,7 @@ msgid "Terms of Service · %(SITE_NAME)s"
 msgstr "服务条款 · %(SITE_NAME)s"
 
 #: templates/marketing/legal_terms.html:3
-#: templates/partials/site_footer.html:34
+#: templates/partials/site_footer.html:35
 msgid "Terms of Service"
 msgstr "服务条款"
 
@@ -4674,11 +4674,11 @@ msgstr "AD Graphics 出品的电子名片与 NFC 名片，在加纳设计、印�
 msgid "Product"
 msgstr "产品"
 
-#: templates/partials/site_footer.html:19
+#: templates/partials/site_footer.html:20
 msgid "Create a card"
 msgstr "创建名片"
 
-#: templates/partials/site_footer.html:37
+#: templates/partials/site_footer.html:38
 msgid "Support"
 msgstr "客服支持"
 
@@ -4724,11 +4724,11 @@ msgid ""
 "customers within 4 working hours. For something quick, WhatsApp is fastest."
 msgstr "给我们留言，我们会在 1 个工作日内回复，Business 套餐客户为 4 个工作小时内。如有急事，WhatsApp 最快。"
 
-#: templates/support/contact.html:17
+#: templates/support/contact.html:18
 msgid "Send message"
 msgstr "发送留言"
 
-#: templates/support/contact.html:25
+#: templates/support/contact.html:26
 #, python-format
 msgid "Looking for answers? Try the <a href=\"%(url_1)s\">FAQ</a>."
 msgstr "想找答案？请看<a href=\"%(url_1)s\">常见问题</a>。"
@@ -4758,11 +4758,11 @@ msgstr "您的客服请求"
 msgid "Reference"
 msgstr "参考编号"
 
-#: apps/support/forms.py:15 templates/support/mine.html:12
+#: apps/support/forms.py:19 templates/support/mine.html:12
 msgid "Subject"
 msgstr "主题"
 
-#: apps/support/forms.py:15 templates/support/mine.html:12
+#: apps/support/forms.py:19 templates/support/mine.html:12
 msgid "Topic"
 msgstr "类别"
 
@@ -5003,12 +5003,12 @@ msgid ""
 "plans bought with the order are not refunded."
 msgstr "现在取消可退款：<strong>%(refund_amount)s</strong>。随订单购买的订阅套餐不予退款。"
 
-#: templates/partials/site_footer.html:42
+#: templates/partials/site_footer.html:43
 #, python-format
 msgid "© %(current_year)s AD Graphics. All rights reserved."
 msgstr "© %(current_year)s AD Graphics。保留所有权利。"
 
-#: templates/partials/site_footer.html:42
+#: templates/partials/site_footer.html:43
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "价格以加纳塞地计。由 Paystack 提供支付服务。"
 
@@ -5030,24 +5030,24 @@ msgstr "%(plan)s 套餐（%(people)d 人）"
 msgid "%(plan)s, 12 more months"
 msgstr "%(plan)s，再加 12 个月"
 
-#: apps/billing/services.py:159 apps/billing/services.py:533
+#: apps/billing/services.py:159 apps/billing/services.py:557
 #, python-format
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s，12 个月"
 
-#: apps/cards/forms.py:20 apps/dashboard/views.py:331
+#: apps/cards/forms.py:25 apps/dashboard/views.py:331
 msgid "Message"
 msgstr "留言"
 
-#: apps/cards/forms.py:54
+#: apps/cards/forms.py:59
 msgid "What is wrong with this card?"
 msgstr "这张名片有什么问题？"
 
-#: apps/cards/forms.py:55
+#: apps/cards/forms.py:60
 msgid "Details"
 msgstr "详情"
 
-#: apps/cards/forms.py:56
+#: apps/cards/forms.py:61
 msgid "Your email (optional, if you would like a reply)"
 msgstr "您的邮箱（选填，如需回复）"
 
@@ -5312,7 +5312,7 @@ msgstr[0] "%(count)d 张"
 msgid "%(min)d–%(max)d cards"
 msgstr "%(min)d–%(max)d 张"
 
-#: apps/support/forms.py:14
+#: apps/support/forms.py:18
 msgid "Phone (optional)"
 msgstr "电话（选填）"
 
@@ -5372,11 +5372,11 @@ msgstr "印刷用 SVG"
 msgid "Chat with us"
 msgstr "在线咨询"
 
-#: apps/cards/models.py:230
+#: apps/cards/models.py:233
 msgid "For example MTN, Telecel or Office."
 msgstr "例如 MTN、Telecel 或办公室。"
 
-#: apps/billing/services.py:608 apps/billing/views.py:219
+#: apps/billing/services.py:632 apps/billing/views.py:219
 #: apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "Y年n月j日"
@@ -5412,7 +5412,7 @@ msgid ""
 "time."
 msgstr "通过链接、二维码或 NFC 轻触分享的电子名片。对方一键即可存入手机，您也可以随时更新资料。"
 
-#: templates/base.html:31
+#: templates/base.html:32
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "通过链接、二维码或 NFC 轻触分享您的联系方式。"
 
@@ -5447,21 +5447,21 @@ msgstr "您的套餐将于 %(date)s 变更为 <strong style=\"display:inline\">%
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s 尾号 %(last4)s"
 
-#: apps/billing/services.py:445
+#: apps/billing/services.py:469
 #, python-format
 msgid "Your plan has renewed. Receipt %(number)s"
 msgstr "您的套餐已续订。收据 %(number)s"
 
-#: apps/billing/services.py:599
+#: apps/billing/services.py:623
 msgid "We could not renew your plan"
 msgstr "我们无法为您续订套餐"
 
-#: apps/billing/services.py:633
+#: apps/billing/services.py:657
 #, python-format
 msgid "Your plan renews on %(date)s"
 msgstr "您的套餐将于 %(date)s 续订"
 
-#: apps/billing/services.py:671 templates/billing/checkout.html:21
+#: apps/billing/services.py:695 templates/billing/checkout.html:21
 msgid "Automatic renewal is off"
 msgstr "自动续订已关闭"
 
@@ -5644,7 +5644,7 @@ msgstr "商家主页，最多展示 %(count)d 件产品"
 msgid "Business page for your products"
 msgstr "展示产品的商家主页"
 
-#: apps/cards/forms.py:42
+#: apps/cards/forms.py:47
 msgid "What would you like to know?"
 msgstr "您想了解什么？"
 
@@ -5788,7 +5788,7 @@ msgstr "只有您能看到此页面。请在控制台中开启，让所有人都
 msgid "Send an enquiry"
 msgstr "发送咨询"
 
-#: templates/cards/business.html:40 templates/cards/business.html:136
+#: templates/cards/business.html:40 templates/cards/business.html:137
 msgid "Contact card"
 msgstr "联系名片"
 
@@ -5817,7 +5817,7 @@ msgstr "客户评价"
 msgid "%(rating)s out of 5 stars"
 msgstr "5 星中的 %(rating)s 星"
 
-#: templates/cards/business.html:130
+#: templates/cards/business.html:131
 msgid "Send enquiry"
 msgstr "发送咨询"
 
@@ -5995,39 +5995,39 @@ msgid ""
 "from its own link, on any phone."
 msgstr "不需要。它只是一个普通网页，可通过名片上的按钮或它自己的链接在任何手机上打开。"
 
-#: apps/marketing/demo.py:82
+#: apps/marketing/demo.py:89
 msgid "Logos and brand identity"
 msgstr "标志与品牌形象设计"
 
-#: apps/marketing/demo.py:82
+#: apps/marketing/demo.py:89
 msgid "A mark and a look your customers remember."
 msgstr "让客户记住的标志与风格。"
 
-#: apps/marketing/demo.py:83
+#: apps/marketing/demo.py:90
 msgid "Flyers, posters and social media designs"
 msgstr "传单、海报与社交媒体设计"
 
-#: apps/marketing/demo.py:83
+#: apps/marketing/demo.py:90
 msgid "Ready for print and for your feed."
 msgstr "可用于印刷，也可用于社交媒体。"
 
-#: apps/marketing/demo.py:84
+#: apps/marketing/demo.py:91
 msgid "Printing and packaging"
 msgstr "印刷与包装"
 
-#: apps/marketing/demo.py:84
+#: apps/marketing/demo.py:91
 msgid "T-shirts, packaging and printed materials."
 msgstr "T 恤、包装及各类印刷品。"
 
-#: apps/marketing/demo.py:85
+#: apps/marketing/demo.py:92
 msgid "Digital and NFC business cards"
 msgstr "数字名片与 NFC 名片"
 
-#: apps/marketing/demo.py:85
+#: apps/marketing/demo.py:92
 msgid "Made, printed and tap-tested in our studio."
 msgstr "由我们工作室设计、印刷，并经过轻触测试。"
 
-#: apps/marketing/demo.py:90
+#: apps/marketing/demo.py:97
 msgid "Design and print studio in Cape Coast"
 msgstr "位于开普海岸的设计与印刷工作室"
 
@@ -6035,7 +6035,8 @@ msgstr "位于开普海岸的设计与印刷工作室"
 msgid "See a sample"
 msgstr "查看示例"
 
-#: templates/marketing/home.html:127 templates/partials/site_header.html:12
+#: templates/marketing/home.html:127 templates/partials/site_footer.html:15
+#: templates/partials/site_header.html:12
 #: templates/partials/site_header.html:45
 msgid "Business pages"
 msgstr "商家主页"
@@ -6100,3 +6101,37 @@ msgstr "AD Graphics 商家主页示例"
 msgid ""
 "Try it — scroll through the page. This is the business page of AD Graphics."
 msgstr "试一试：滚动浏览页面。这是 AD Graphics 的商家主页。"
+
+#: apps/cards/forms.py:13
+msgid ""
+"I agree to my details being shared with the owner of this card and handled "
+"under the Privacy Policy."
+msgstr "我同意将我的信息分享给此名片的所有者，并按照隐私政策进行处理。"
+
+#: apps/cards/forms.py:14
+msgid "Please tick the box to agree before sending your details."
+msgstr "发送信息前，请勾选复选框表示同意。"
+
+#: apps/support/forms.py:10
+msgid ""
+"I agree to AD Smart keeping my details to answer this request, as set out in"
+" the Privacy Policy."
+msgstr "我同意 AD Smart 按照隐私政策保留我的信息，以便回复此请求。"
+
+#: apps/support/forms.py:11
+msgid "Please tick the box to agree before sending your message."
+msgstr "发送消息前，请勾选复选框表示同意。"
+
+#: templates/components/privacy_link.html:1
+msgid "Read our Privacy Policy"
+msgstr "阅读我们的隐私政策"
+
+#: templates/marketing/legal_privacy.html:12
+msgid ""
+"<strong>Details visitors send:</strong> when someone shares their details or"
+" sends an enquiry from a card or business page, or writes to our support "
+"team, the name, phone, email and message they type. They agree to this by "
+"ticking the box on the form. On a card or business page the details go to "
+"the card's owner, who sees them in their contacts."
+msgstr ""
+"<strong>访客提交的信息：</strong>当有人通过名片或商家主页分享自己的信息、发送咨询，或联系我们的客服团队时，他们填写的姓名、电话、邮箱和留言。他们通过勾选表单上的复选框表示同意。在名片或商家主页上，这些信息会发送给名片所有者，所有者可在其联系人中查看。"

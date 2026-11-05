@@ -127,6 +127,7 @@
         {% csrf_token %}
         <div class="visually-hidden" aria-hidden="true"><label>{% trans "Leave empty" %} <input name="website_url" tabindex="-1" autocomplete="off"></label></div>
         {% include "components/form_fields.html" with form=enquiry_form %}
+        {% include "components/privacy_link.html" %}
         <button class="pcard__submit" type="submit">{% trans "Send enquiry" %}</button>
       </form>
     </details>

@@ -347,7 +347,7 @@ class EnquiryTests(BusinessBase):
         super().setUp()
         self.owner()
         self.url = f"/b/{self.card.slug}/enquire"
-        self.data = {"name": "Yaw", "phone": "0244123456", "email": "yaw@example.com", "note": "Do you ship to Kumasi?"}
+        self.data = {"name": "Yaw", "phone": "0244123456", "email": "yaw@example.com", "note": "Do you ship to Kumasi?", "consent": "1"}
 
     def test_an_enquiry_reaches_the_owner_by_email_and_in_their_contacts(self):
         response = self.client.post(self.url, self.data)
@@ -370,6 +370,12 @@ class EnquiryTests(BusinessBase):
         for bad in ({**self.data, "note": ""}, {**self.data, "phone": "", "email": ""}):
             response = self.client.post(self.url, bad)
             self.assertEqual(response.status_code, 400)
+        self.assertFalse(Lead.objects.exists())
+
+    def test_an_enquiry_needs_the_privacy_box_ticked(self):
+        data = {key: value for key, value in self.data.items() if key != "consent"}
+        response = self.client.post(self.url, data)
+        self.assertContains(response, "Please tick the box to agree before sending your details.", status_code=400)
         self.assertFalse(Lead.objects.exists())
 
     def test_robots_get_a_thank_you_and_nothing_is_saved(self):

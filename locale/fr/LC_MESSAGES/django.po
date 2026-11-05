@@ -408,7 +408,7 @@ msgstr ""
 msgid "Malformed webhook payload."
 msgstr "Malformed webhook payload."
 
-#: apps/billing/services.py:447
+#: apps/billing/services.py:471
 #, python-format
 msgid "Your receipt %(number)s"
 msgstr "Votre reçu %(number)s"
@@ -491,24 +491,24 @@ msgstr ""
 "La carte est maintenant sur votre compte et une année a été ajoutée à votre "
 "formule."
 
-#: apps/cards/forms.py:33
+#: apps/cards/forms.py:38
 msgid "Add a phone number or an email so they can reach you."
 msgstr ""
 "Ajoutez un numéro de téléphone ou un e-mail afin qu’on puisse vous joindre."
 
-#: apps/cards/forms.py:65
+#: apps/cards/forms.py:70
 msgid "PIN on the back of your card"
 msgstr "Code PIN au dos de votre carte"
 
-#: apps/cards/forms.py:67
+#: apps/cards/forms.py:72
 msgid "Eight letters and numbers, for example K7M2-X9QA."
 msgstr "Huit lettres et chiffres, par exemple K7M2-X9QA."
 
-#: apps/cards/forms.py:80
+#: apps/cards/forms.py:85
 msgid "Job title"
 msgstr "Fonction"
 
-#: apps/cards/forms.py:81
+#: apps/cards/forms.py:86
 msgid "Business or organisation"
 msgstr "Entreprise ou organisation"
 
@@ -552,12 +552,12 @@ msgstr "Rangée d’icônes"
 msgid "Phone numbers"
 msgstr "Numéros de téléphone"
 
-#: apps/cards/models.py:47 apps/cards/models.py:252
+#: apps/cards/models.py:47 apps/cards/models.py:255
 #: templates/cards/_contact.html:8 templates/cards/_contact.html:36
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:48 apps/cards/models.py:258 apps/dashboard/forms.py:55
+#: apps/cards/models.py:48 apps/cards/models.py:261 apps/dashboard/forms.py:55
 #: apps/nfc/forms.py:30 templates/cards/_contact.html:14
 #: templates/cards/_contact.html:48
 msgid "Website"
@@ -579,135 +579,135 @@ msgstr "Position sur la carte"
 msgid "Short bio"
 msgstr "Courte biographie"
 
-#: apps/cards/models.py:242
+#: apps/cards/models.py:245
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: apps/cards/models.py:243
+#: apps/cards/models.py:246
 msgid "Instagram"
 msgstr "Instagram"
 
-#: apps/cards/models.py:244
+#: apps/cards/models.py:247
 msgid "Facebook"
 msgstr "Facebook"
 
-#: apps/cards/models.py:245
+#: apps/cards/models.py:248
 msgid "X"
 msgstr "X"
 
-#: apps/cards/models.py:246
+#: apps/cards/models.py:249
 msgid "TikTok"
 msgstr "TikTok"
 
-#: apps/cards/models.py:247
+#: apps/cards/models.py:250
 msgid "YouTube"
 msgstr "YouTube"
 
-#: apps/cards/models.py:248
+#: apps/cards/models.py:251
 msgid "Snapchat"
 msgstr "Snapchat"
 
-#: apps/cards/models.py:249
+#: apps/cards/models.py:252
 msgid "Threads"
 msgstr "Threads"
 
-#: apps/cards/models.py:250
+#: apps/cards/models.py:253
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: apps/cards/models.py:251
+#: apps/cards/models.py:254
 msgid "Telegram"
 msgstr "Telegram"
 
-#: apps/cards/models.py:253
+#: apps/cards/models.py:256
 msgid "GitHub"
 msgstr "GitHub"
 
-#: apps/cards/models.py:254
+#: apps/cards/models.py:257
 msgid "Behance"
 msgstr "Behance"
 
-#: apps/cards/models.py:255
+#: apps/cards/models.py:258
 msgid "ResearchGate"
 msgstr "ResearchGate"
 
-#: apps/cards/models.py:256
+#: apps/cards/models.py:259
 msgid "ORCID"
 msgstr "ORCID"
 
-#: apps/cards/models.py:257
+#: apps/cards/models.py:260
 msgid "Google Scholar"
 msgstr "Google Scholar"
 
-#: apps/cards/models.py:294
+#: apps/cards/models.py:297
 msgid "View"
 msgstr "Consultation"
 
-#: apps/cards/models.py:295
+#: apps/cards/models.py:298
 msgid "Contact saved"
 msgstr "Contact enregistré"
 
-#: apps/cards/models.py:296
+#: apps/cards/models.py:299
 msgid "Phone click"
 msgstr "Clic sur le téléphone"
 
-#: apps/cards/models.py:297
+#: apps/cards/models.py:300
 msgid "WhatsApp click"
 msgstr "Clic sur WhatsApp"
 
-#: apps/cards/models.py:298
+#: apps/cards/models.py:301
 msgid "Email click"
 msgstr "Clic sur l’e-mail"
 
-#: apps/cards/models.py:299
+#: apps/cards/models.py:302
 msgid "Website click"
 msgstr "Clic sur le site web"
 
-#: apps/cards/models.py:300
+#: apps/cards/models.py:303
 msgid "Social click"
 msgstr "Clic sur un réseau social"
 
-#: apps/cards/models.py:301
+#: apps/cards/models.py:304
 msgid "Location click"
 msgstr "Clic sur la position"
 
-#: apps/cards/models.py:303 apps/dashboard/views.py:293
+#: apps/cards/models.py:306 apps/dashboard/views.py:293
 msgid "Direct link"
 msgstr "Lien direct"
 
-#: apps/cards/models.py:303 templates/dashboard/share.html:32
+#: apps/cards/models.py:306 templates/dashboard/share.html:32
 msgid "QR code"
 msgstr "Code QR"
 
-#: apps/cards/models.py:303
+#: apps/cards/models.py:306
 msgid "NFC tap"
 msgstr "Appui NFC"
 
-#: apps/cards/models.py:341
+#: apps/cards/models.py:344
 msgid "Impersonation"
 msgstr "Usurpation d’identité"
 
-#: apps/cards/models.py:342
+#: apps/cards/models.py:345
 msgid "Fraud or scam"
 msgstr "Fraude ou arnaque"
 
-#: apps/cards/models.py:343
+#: apps/cards/models.py:346
 msgid "Offensive content"
 msgstr "Contenu choquant"
 
-#: apps/cards/models.py:344 apps/support/models.py:17
+#: apps/cards/models.py:347 apps/support/models.py:17
 msgid "Other"
 msgstr "Autre"
 
-#: apps/cards/models.py:347 apps/support/models.py:23
+#: apps/cards/models.py:350 apps/support/models.py:23
 msgid "Open"
 msgstr "Ouvert"
 
-#: apps/cards/models.py:347
+#: apps/cards/models.py:350
 msgid "Dismissed"
 msgstr "Classé sans suite"
 
-#: apps/cards/models.py:347
+#: apps/cards/models.py:350
 msgid "Actioned"
 msgstr "Traité"
 
@@ -752,13 +752,13 @@ msgid_plural "That PIN is not right. %(left)d tries left."
 msgstr[0] "Ce code PIN n’est pas le bon. Il reste %(left)d essai."
 msgstr[1] "Ce code PIN n’est pas le bon. Il reste %(left)d essais."
 
-#: apps/cards/services.py:94
+#: apps/cards/services.py:193
 msgid "This card's link is printed on NFC cards, so it can no longer change."
 msgstr ""
 "Le lien de cette carte est imprimé sur des cartes NFC ; il ne peut donc plus"
 " changer."
 
-#: apps/cards/services.py:99
+#: apps/cards/services.py:198
 msgid "That link is already taken."
 msgstr "Ce lien est déjà pris."
 
@@ -820,8 +820,8 @@ msgstr "%(price)s chacune"
 msgid "%(price)s per person a year"
 msgstr "%(price)s par personne et par an"
 
-#: apps/accounts/forms.py:125 apps/cards/forms.py:16 apps/core/jsstrings.py:21
-#: apps/support/forms.py:14
+#: apps/accounts/forms.py:125 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/support/forms.py:18
 msgid "Your name"
 msgstr "Votre nom"
 
@@ -865,7 +865,7 @@ msgstr "Gratuit"
 #: apps/core/jsstrings.py:30 apps/nfc/views.py:34
 #: templates/marketing/nfc.html:27 templates/nfc/detail.html:83
 #: templates/nfc/detail.html:98 templates/nfc/order.html:114
-#: templates/partials/site_footer.html:17
+#: templates/partials/site_footer.html:18
 msgid "Delivery"
 msgstr "Livraison"
 
@@ -1760,7 +1760,7 @@ msgstr "Votre carte /c/%(slug)s a été rétablie"
 msgid "How can we help?"
 msgstr "Comment pouvons-nous vous aider ?"
 
-#: apps/support/forms.py:25
+#: apps/support/forms.py:29
 msgid "Your reply"
 msgstr "Votre réponse"
 
@@ -1965,7 +1965,7 @@ msgstr "Renvoyer le lien"
 msgid "Use a different account"
 msgstr "Utiliser un autre compte"
 
-#: templates/base.html:38
+#: templates/base.html:39
 msgid "Skip to main content"
 msgstr "Aller au contenu principal"
 
@@ -2300,14 +2300,14 @@ msgstr "Partager cette carte"
 msgid "Contact %(first)s"
 msgstr "Contacter %(first)s"
 
-#: templates/cards/_contact.html:5 templates/support/contact.html:22
+#: templates/cards/_contact.html:5 templates/support/contact.html:23
 msgid "Call"
 msgstr "Appeler"
 
-#: apps/cards/forms.py:18 apps/dashboard/views.py:331 apps/support/forms.py:14
+#: apps/cards/forms.py:23 apps/dashboard/views.py:331 apps/support/forms.py:18
 #: templates/cards/_contact.html:11 templates/cards/_contact.html:42
 #: templates/dashboard/leads.html:15 templates/dashboard/share.html:23
-#: templates/support/contact.html:23
+#: templates/support/contact.html:24
 msgid "Email"
 msgstr "E-mail"
 
@@ -2337,23 +2337,23 @@ msgstr "Partagez vos coordonnées avec %(first)s"
 msgid "Leave empty"
 msgstr "Laisser vide"
 
-#: templates/cards/_card.html:60
+#: templates/cards/_card.html:61
 msgid "Send my details"
 msgstr "Envoyer mes coordonnées"
 
-#: templates/cards/_card.html:67
+#: templates/cards/_card.html:68
 msgid "Show QR code"
 msgstr "Afficher le code QR"
 
-#: templates/cards/_card.html:68
+#: templates/cards/_card.html:69
 msgid "Let someone scan this to open the card."
 msgstr "Faites scanner ceci pour ouvrir la carte."
 
-#: templates/cards/_card.html:75 templates/cards/business.html:142
+#: templates/cards/_card.html:76 templates/cards/business.html:143
 msgid "Powered by AD Smart"
 msgstr "Propulsé par AD Smart"
 
-#: templates/cards/_card.html:78 templates/cards/business.html:145
+#: templates/cards/_card.html:79 templates/cards/business.html:146
 #: templates/cards/report.html:7
 msgid "Report this card"
 msgstr "Signaler cette carte"
@@ -2607,7 +2607,7 @@ msgstr "Commandes et facturation"
 #: templates/dashboard/nfc_orders.html:6
 #: templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6
 #: templates/nfc/order.html:6 templates/nfc/order.html:113
-#: templates/partials/site_footer.html:16
+#: templates/partials/site_footer.html:17
 #: templates/partials/site_header.html:14
 #: templates/partials/site_header.html:47
 msgid "NFC cards"
@@ -3057,12 +3057,12 @@ msgstr "Contacts reçus"
 msgid "Name"
 msgstr "Nom"
 
-#: apps/cards/forms.py:17 apps/dashboard/views.py:331
+#: apps/cards/forms.py:22 apps/dashboard/views.py:331
 #: templates/dashboard/leads.html:15
 msgid "Phone"
 msgstr "Téléphone"
 
-#: apps/cards/forms.py:19 apps/dashboard/views.py:331
+#: apps/cards/forms.py:24 apps/dashboard/views.py:331
 #: templates/dashboard/leads.html:15
 msgid "Company"
 msgstr "Entreprise"
@@ -3892,7 +3892,7 @@ msgstr "Création précédente"
 msgid "Next design"
 msgstr "Création suivante"
 
-#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:32
+#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:33
 msgid "Policies"
 msgstr "Politiques"
 
@@ -4084,7 +4084,7 @@ msgstr ""
 msgid "Frequently asked questions · %(SITE_NAME)s"
 msgstr "Questions fréquentes · %(SITE_NAME)s"
 
-#: templates/marketing/faq.html:6 templates/partials/site_footer.html:18
+#: templates/marketing/faq.html:6 templates/partials/site_footer.html:19
 #: templates/partials/site_header.html:15
 #: templates/partials/site_header.html:48
 msgid "FAQ"
@@ -4274,7 +4274,7 @@ msgstr ""
 "voir le design en entier."
 
 #: templates/marketing/home.html:177 templates/marketing/pricing.html:7
-#: templates/partials/site_footer.html:15
+#: templates/partials/site_footer.html:16
 #: templates/partials/site_header.html:13
 #: templates/partials/site_header.html:46
 msgid "Pricing"
@@ -4331,7 +4331,7 @@ msgid "Privacy Policy · %(SITE_NAME)s"
 msgstr "Politique de confidentialité · %(SITE_NAME)s"
 
 #: templates/marketing/legal_privacy.html:3
-#: templates/partials/site_footer.html:35
+#: templates/partials/site_footer.html:36
 msgid "Privacy Policy"
 msgstr "Politique de confidentialité"
 
@@ -4383,7 +4383,7 @@ msgstr ""
 "origine (lien, QR ou NFC) et un code à sens unique pour distinguer les "
 "visites répétées. Nous ne conservons pas les adresses IP des visiteurs."
 
-#: templates/marketing/legal_privacy.html:12
+#: templates/marketing/legal_privacy.html:13
 msgid ""
 "<strong>NFC orders:</strong> the design details, files and delivery address "
 "you give us."
@@ -4391,11 +4391,11 @@ msgstr ""
 "<strong>Commandes NFC :</strong> les détails du design, les fichiers et "
 "l’adresse de livraison que vous nous communiquez."
 
-#: templates/marketing/legal_privacy.html:14
+#: templates/marketing/legal_privacy.html:15
 msgid "Why we use it"
 msgstr "Pourquoi nous les utilisons"
 
-#: templates/marketing/legal_privacy.html:15
+#: templates/marketing/legal_privacy.html:16
 msgid ""
 "To run your card, process orders and payments, send receipts and reminders, "
 "answer support requests and keep the service secure."
@@ -4404,11 +4404,11 @@ msgstr ""
 "envoyer reçus et rappels, répondre aux demandes d’assistance et assurer la "
 "sécurité du service."
 
-#: templates/marketing/legal_privacy.html:16
+#: templates/marketing/legal_privacy.html:17
 msgid "Who we share it with"
 msgstr "Avec qui nous les partageons"
 
-#: templates/marketing/legal_privacy.html:17
+#: templates/marketing/legal_privacy.html:18
 msgid ""
 "Paystack (payments), our email provider (transactional email), Cloudinary "
 "(image storage) and our hosting provider. We do not sell your data or use "
@@ -4418,11 +4418,11 @@ msgstr ""
 "Cloudinary (stockage d’images) et notre hébergeur. Nous ne vendons pas vos "
 "données et n’utilisons pas de traceurs publicitaires."
 
-#: templates/marketing/legal_privacy.html:18
+#: templates/marketing/legal_privacy.html:19
 msgid "Cookies"
 msgstr "Cookies"
 
-#: templates/marketing/legal_privacy.html:19
+#: templates/marketing/legal_privacy.html:20
 msgid ""
 "We use only essential cookies: one to keep you signed in and one to protect "
 "forms. Your light or dark theme choice is saved in your browser. No "
@@ -4433,11 +4433,11 @@ msgstr ""
 "est enregistré dans votre navigateur. Aucun cookie marketing ou de suivi "
 "n’est utilisé."
 
-#: templates/marketing/legal_privacy.html:20
+#: templates/marketing/legal_privacy.html:21
 msgid "How long we keep it"
 msgstr "Combien de temps nous les conservons"
 
-#: templates/marketing/legal_privacy.html:22
+#: templates/marketing/legal_privacy.html:23
 #, python-format
 msgid ""
 "Card data is kept for %(site_data_retention_months)s months after a card "
@@ -4448,19 +4448,19 @@ msgstr ""
 "après son inactivité, de sorte qu’un renouvellement les rétablit. Nous vous "
 "écrivons 30 jours avant de les supprimer."
 
-#: templates/marketing/legal_privacy.html:23
+#: templates/marketing/legal_privacy.html:24
 msgid "Visit analytics are kept for 24 months."
 msgstr "Les statistiques de visite sont conservées 24 mois."
 
-#: templates/marketing/legal_privacy.html:24
+#: templates/marketing/legal_privacy.html:25
 msgid "Financial records are kept as the law requires."
 msgstr "Les documents financiers sont conservés conformément à la loi."
 
-#: templates/marketing/legal_privacy.html:26
+#: templates/marketing/legal_privacy.html:27
 msgid "Your choices"
 msgstr "Vos choix"
 
-#: templates/marketing/legal_privacy.html:27
+#: templates/marketing/legal_privacy.html:28
 msgid ""
 "You can edit or hide any detail on your card, download your contacts, and "
 "ask us to delete your account from Settings. We remove personal data within "
@@ -4471,8 +4471,8 @@ msgstr ""
 "les paramètres. Nous supprimons les données personnelles sous 30 jours, sauf"
 " les documents que nous devons conserver à des fins comptables."
 
-#: templates/marketing/legal_privacy.html:28
-#: templates/partials/site_footer.html:23
+#: templates/marketing/legal_privacy.html:29
+#: templates/partials/site_footer.html:24
 #: templates/partials/site_header.html:16
 #: templates/partials/site_header.html:49 templates/support/contact.html:6
 msgid "Contact"
@@ -4484,7 +4484,7 @@ msgid "Refund Policy · %(SITE_NAME)s"
 msgstr "Politique de remboursement · %(SITE_NAME)s"
 
 #: templates/marketing/legal_refunds.html:3
-#: templates/partials/site_footer.html:36
+#: templates/partials/site_footer.html:37
 msgid "Refund Policy"
 msgstr "Politique de remboursement"
 
@@ -4569,7 +4569,7 @@ msgid "Terms of Service · %(SITE_NAME)s"
 msgstr "Conditions d’utilisation · %(SITE_NAME)s"
 
 #: templates/marketing/legal_terms.html:3
-#: templates/partials/site_footer.html:34
+#: templates/partials/site_footer.html:35
 msgid "Terms of Service"
 msgstr "Conditions d’utilisation"
 
@@ -5172,11 +5172,11 @@ msgstr ""
 msgid "Product"
 msgstr "Produit"
 
-#: templates/partials/site_footer.html:19
+#: templates/partials/site_footer.html:20
 msgid "Create a card"
 msgstr "Créer une carte"
 
-#: templates/partials/site_footer.html:37
+#: templates/partials/site_footer.html:38
 msgid "Support"
 msgstr "Assistance"
 
@@ -5225,11 +5225,11 @@ msgstr ""
 "ouvrées pour les clients de la formule Business. Pour quelque chose de "
 "rapide, WhatsApp est le plus efficace."
 
-#: templates/support/contact.html:17
+#: templates/support/contact.html:18
 msgid "Send message"
 msgstr "Envoyer le message"
 
-#: templates/support/contact.html:25
+#: templates/support/contact.html:26
 #, python-format
 msgid "Looking for answers? Try the <a href=\"%(url_1)s\">FAQ</a>."
 msgstr "Vous cherchez des réponses ? Consultez la <a href=\"%(url_1)s\">FAQ</a>."
@@ -5259,11 +5259,11 @@ msgstr "Vos demandes d’assistance"
 msgid "Reference"
 msgstr "Référence"
 
-#: apps/support/forms.py:15 templates/support/mine.html:12
+#: apps/support/forms.py:19 templates/support/mine.html:12
 msgid "Subject"
 msgstr "Objet"
 
-#: apps/support/forms.py:15 templates/support/mine.html:12
+#: apps/support/forms.py:19 templates/support/mine.html:12
 msgid "Topic"
 msgstr "Sujet"
 
@@ -5546,12 +5546,12 @@ msgstr ""
 "<strong>%(refund_amount)s</strong>. Les formules d’abonnement achetées avec "
 "la commande ne sont pas remboursées."
 
-#: templates/partials/site_footer.html:42
+#: templates/partials/site_footer.html:43
 #, python-format
 msgid "© %(current_year)s AD Graphics. All rights reserved."
 msgstr "© %(current_year)s AD Graphics. Tous droits réservés."
 
-#: templates/partials/site_footer.html:42
+#: templates/partials/site_footer.html:43
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "Prix en cedis ghanéens. Paiements par Paystack."
 
@@ -5573,24 +5573,24 @@ msgstr "Formule %(plan)s pour %(people)d personnes"
 msgid "%(plan)s, 12 more months"
 msgstr "%(plan)s, 12 mois de plus"
 
-#: apps/billing/services.py:159 apps/billing/services.py:533
+#: apps/billing/services.py:159 apps/billing/services.py:557
 #, python-format
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s, 12 mois"
 
-#: apps/cards/forms.py:20 apps/dashboard/views.py:331
+#: apps/cards/forms.py:25 apps/dashboard/views.py:331
 msgid "Message"
 msgstr "Message"
 
-#: apps/cards/forms.py:54
+#: apps/cards/forms.py:59
 msgid "What is wrong with this card?"
 msgstr "Qu’est-ce qui ne va pas avec cette carte ?"
 
-#: apps/cards/forms.py:55
+#: apps/cards/forms.py:60
 msgid "Details"
 msgstr "Détails"
 
-#: apps/cards/forms.py:56
+#: apps/cards/forms.py:61
 msgid "Your email (optional, if you would like a reply)"
 msgstr "Votre e-mail (facultatif, si vous souhaitez une réponse)"
 
@@ -5863,7 +5863,7 @@ msgstr[1] "%(count)d cartes"
 msgid "%(min)d–%(max)d cards"
 msgstr "%(min)d–%(max)d cartes"
 
-#: apps/support/forms.py:14
+#: apps/support/forms.py:18
 msgid "Phone (optional)"
 msgstr "Téléphone (facultatif)"
 
@@ -5923,11 +5923,11 @@ msgstr "SVG pour l’impression"
 msgid "Chat with us"
 msgstr "Discutez avec nous"
 
-#: apps/cards/models.py:230
+#: apps/cards/models.py:233
 msgid "For example MTN, Telecel or Office."
 msgstr "Par exemple MTN, Telecel ou Bureau."
 
-#: apps/billing/services.py:608 apps/billing/views.py:219
+#: apps/billing/services.py:632 apps/billing/views.py:219
 #: apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "j F Y"
@@ -5966,7 +5966,7 @@ msgstr ""
 "contacts vous enregistrent dans leur téléphone en un geste, et vous pouvez "
 "mettre à jour vos informations à tout moment."
 
-#: templates/base.html:31
+#: templates/base.html:32
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "Partagez vos coordonnées par lien, code QR ou NFC."
 
@@ -6003,21 +6003,21 @@ msgstr ""
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s se terminant par %(last4)s"
 
-#: apps/billing/services.py:445
+#: apps/billing/services.py:469
 #, python-format
 msgid "Your plan has renewed. Receipt %(number)s"
 msgstr "Votre formule a été renouvelée. Reçu %(number)s"
 
-#: apps/billing/services.py:599
+#: apps/billing/services.py:623
 msgid "We could not renew your plan"
 msgstr "Nous n’avons pas pu renouveler votre formule"
 
-#: apps/billing/services.py:633
+#: apps/billing/services.py:657
 #, python-format
 msgid "Your plan renews on %(date)s"
 msgstr "Votre formule est renouvelée le %(date)s"
 
-#: apps/billing/services.py:671 templates/billing/checkout.html:21
+#: apps/billing/services.py:695 templates/billing/checkout.html:21
 msgid "Automatic renewal is off"
 msgstr "Le renouvellement automatique est désactivé"
 
@@ -6245,7 +6245,7 @@ msgstr "Page entreprise avec jusqu’à %(count)d produits"
 msgid "Business page for your products"
 msgstr "Page entreprise pour vos produits"
 
-#: apps/cards/forms.py:42
+#: apps/cards/forms.py:47
 msgid "What would you like to know?"
 msgstr "Que souhaitez-vous savoir ?"
 
@@ -6400,7 +6400,7 @@ msgstr ""
 msgid "Send an enquiry"
 msgstr "Envoyer une demande"
 
-#: templates/cards/business.html:40 templates/cards/business.html:136
+#: templates/cards/business.html:40 templates/cards/business.html:137
 msgid "Contact card"
 msgstr "Carte de contact"
 
@@ -6429,7 +6429,7 @@ msgstr "Ce que disent nos clients"
 msgid "%(rating)s out of 5 stars"
 msgstr "%(rating)s étoiles sur 5"
 
-#: templates/cards/business.html:130
+#: templates/cards/business.html:131
 msgid "Send enquiry"
 msgstr "Envoyer la demande"
 
@@ -6632,39 +6632,39 @@ msgstr ""
 "Non. C’est une page web ordinaire. Elle s’ouvre depuis le bouton de votre "
 "carte, ou depuis son propre lien, sur n’importe quel téléphone."
 
-#: apps/marketing/demo.py:82
+#: apps/marketing/demo.py:89
 msgid "Logos and brand identity"
 msgstr "Logos et identité de marque"
 
-#: apps/marketing/demo.py:82
+#: apps/marketing/demo.py:89
 msgid "A mark and a look your customers remember."
 msgstr "Un logo et une image que vos clients retiennent."
 
-#: apps/marketing/demo.py:83
+#: apps/marketing/demo.py:90
 msgid "Flyers, posters and social media designs"
 msgstr "Flyers, affiches et visuels pour les réseaux sociaux"
 
-#: apps/marketing/demo.py:83
+#: apps/marketing/demo.py:90
 msgid "Ready for print and for your feed."
 msgstr "Prêts pour l’impression et pour votre fil d’actualité."
 
-#: apps/marketing/demo.py:84
+#: apps/marketing/demo.py:91
 msgid "Printing and packaging"
 msgstr "Impression et emballages"
 
-#: apps/marketing/demo.py:84
+#: apps/marketing/demo.py:91
 msgid "T-shirts, packaging and printed materials."
 msgstr "T-shirts, emballages et supports imprimés."
 
-#: apps/marketing/demo.py:85
+#: apps/marketing/demo.py:92
 msgid "Digital and NFC business cards"
 msgstr "Cartes de visite numériques et NFC"
 
-#: apps/marketing/demo.py:85
+#: apps/marketing/demo.py:92
 msgid "Made, printed and tap-tested in our studio."
 msgstr "Conçues, imprimées et testées au contact dans notre studio."
 
-#: apps/marketing/demo.py:90
+#: apps/marketing/demo.py:97
 msgid "Design and print studio in Cape Coast"
 msgstr "Studio de design et d’impression à Cape Coast"
 
@@ -6672,7 +6672,8 @@ msgstr "Studio de design et d’impression à Cape Coast"
 msgid "See a sample"
 msgstr "Voir un exemple"
 
-#: templates/marketing/home.html:127 templates/partials/site_header.html:12
+#: templates/marketing/home.html:127 templates/partials/site_footer.html:15
+#: templates/partials/site_header.html:12
 #: templates/partials/site_header.html:45
 msgid "Business pages"
 msgstr "Pages entreprise"
@@ -6745,3 +6746,47 @@ msgid ""
 "Try it — scroll through the page. This is the business page of AD Graphics."
 msgstr ""
 "Essayez : faites défiler la page. C’est la page entreprise d’AD Graphics."
+
+#: apps/cards/forms.py:13
+msgid ""
+"I agree to my details being shared with the owner of this card and handled "
+"under the Privacy Policy."
+msgstr ""
+"J’accepte que mes coordonnées soient transmises au propriétaire de cette "
+"carte et traitées conformément à la politique de confidentialité."
+
+#: apps/cards/forms.py:14
+msgid "Please tick the box to agree before sending your details."
+msgstr "Cochez la case pour accepter avant d’envoyer vos coordonnées."
+
+#: apps/support/forms.py:10
+msgid ""
+"I agree to AD Smart keeping my details to answer this request, as set out in"
+" the Privacy Policy."
+msgstr ""
+"J’accepte qu’AD Smart conserve mes coordonnées pour répondre à cette "
+"demande, comme indiqué dans la politique de confidentialité."
+
+#: apps/support/forms.py:11
+msgid "Please tick the box to agree before sending your message."
+msgstr "Cochez la case pour accepter avant d’envoyer votre message."
+
+#: templates/components/privacy_link.html:1
+msgid "Read our Privacy Policy"
+msgstr "Lire notre politique de confidentialité"
+
+#: templates/marketing/legal_privacy.html:12
+msgid ""
+"<strong>Details visitors send:</strong> when someone shares their details or"
+" sends an enquiry from a card or business page, or writes to our support "
+"team, the name, phone, email and message they type. They agree to this by "
+"ticking the box on the form. On a card or business page the details go to "
+"the card's owner, who sees them in their contacts."
+msgstr ""
+"<strong>Informations envoyées par les visiteurs :</strong> lorsqu’une "
+"personne partage ses coordonnées ou envoie une demande depuis une carte ou "
+"une page entreprise, ou écrit à notre équipe d’assistance : le nom, le "
+"téléphone, l’e-mail et le message qu’elle saisit. Elle y consent en cochant "
+"la case du formulaire. Sur une carte ou une page entreprise, ces "
+"informations vont au propriétaire de la carte, qui les voit dans ses "
+"contacts."
