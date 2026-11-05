@@ -150,8 +150,11 @@ class AutoRenewTests(BaseTest):
 
     @override_settings(PAYMENT_SANDBOX_OUTCOME="failed")
     def test_failed_charge_is_retried_on_days_one_three_five_then_stops(self):
-        sub = self.card_subscription(days=0, expires_at=timezone.now() - timedelta(hours=1))
-        start = sub.expires_at + timedelta(hours=2)
+        # Retries follow Ghana calendar days, so pin the clock to 06:00 and 12:00 yesterday: a plan that ends
+        # within two hours of midnight would otherwise put "day 0" on the next calendar day.
+        end = timezone.localtime(timezone.now() - timedelta(days=1)).replace(hour=6, minute=0, second=0, microsecond=0)
+        sub = self.card_subscription(days=0, expires_at=end)
+        start = end + timedelta(hours=6)
         # day 0, 1, 3 and 5 after the end date: four tries, and nothing extra on the days in between
         days = (0, 0, 1, 2, 3, 5)
         outcomes = [services.attempt_renewal(sub.pk, now=start + timedelta(days=d)) for d in days]
