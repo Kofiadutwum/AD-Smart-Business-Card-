@@ -1,0 +1,103 @@
+{% extends "staff/_shell.html" %}
+{% load static %}
+{% block title %}Company card · {{ SITE_NAME }}{% endblock %}
+{% block staff_css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>Company card</h1>
+    <p>This is what visitors see in the two phones on the landing page. Save a change and the landing page shows it straight away.</p>
+  </div>
+  <div class="cluster">
+    <a class="btn" href="{% url 'marketing:home' %}" target="_blank" rel="noopener">{% icon "eye" 16 %}View landing page</a>
+    <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "external-link" 16 %}Open public card</a>
+  </div>
+</div>
+
+<div class="editor mt-6">
+  <div>
+    <h2 style="font-size: var(--text-lg)">Phone 1 · the card</h2>
+    <p class="muted text-sm mt-2">The sample card people can try: name, photo, contact buttons and social links.</p>
+    <div class="mt-4">{% include "staff/_card_forms.html" %}</div>
+
+    <h2 class="mt-6" style="font-size: var(--text-lg)">Phone 2 · the business page</h2>
+    <p class="muted text-sm mt-2">Your tagline, about text, products and services. It is also live at <span class="mono">{{ page_public_url }}</span>.</p>
+
+    <section class="panel mt-4">
+      <h3 style="font-size: var(--text-base)">Page details</h3>
+      <form method="post" class="form mt-4" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="form" value="page">
+        {% include "components/form_fields.html" with form=page_form %}
+        <button class="btn btn--primary" type="submit">{% icon "check" 16 %}Save page details</button>
+      </form>
+    </section>
+
+    <section class="panel mt-6">
+      <div class="cluster" style="justify-content:space-between">
+        <h3 style="font-size: var(--text-base)">Products</h3>
+        <span class="muted text-sm">{{ products|length }} of {{ max_products }} used</span>
+      </div>
+      <p class="muted text-sm mt-2">Every picture is shrunk to 50 KB or less so the page opens fast.</p>
+      {% if products %}
+        <ul class="stack mt-4" style="list-style:none;margin-inline:0;padding:0;--stack: var(--space-3)">
+          {% for item in products %}
+            <li class="cluster" style="justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom: var(--space-3)">
+              <span class="cluster" style="--cluster: var(--space-3); min-width:0">
+                <img src="{{ item.image.url }}" alt="" width="56" height="56" style="width:3.5rem;height:3.5rem;object-fit:cover;border-radius:0.5rem">
+                <span style="min-width:0"><strong>{{ item.title }}</strong>{% if item.price %}<br><span class="muted text-sm">{{ item.price }}</span>{% endif %}</span>
+              </span>
+              <span class="cluster" style="--cluster: var(--space-1)">
+                <a class="btn btn--ghost btn--icon" href="{% url 'staff:landing_edit' 'products' item.pk %}" aria-label="Edit {{ item.title }}">{% icon "pencil" 18 %}</a>
+                <form method="post" action="{% url 'staff:landing_delete' 'products' item.pk %}" class="inline-form" data-confirm="Remove this product?">{% csrf_token %}<button class="btn btn--ghost btn--icon" aria-label="Remove {{ item.title }}">{% icon "trash-2" 18 %}</button></form>
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <div class="mt-4">
+        {% if products|length >= max_products %}<p class="muted text-sm">All {{ max_products }} places are used. Remove one to add another.</p>
+        {% else %}<a class="btn btn--primary btn--sm" href="{% url 'staff:landing_add' 'products' %}">{% icon "plus" 16 %}Add a product</a>{% endif %}
+      </div>
+    </section>
+
+    <section class="panel mt-6">
+      <div class="cluster" style="justify-content:space-between">
+        <h3 style="font-size: var(--text-base)">Services</h3>
+        <span class="muted text-sm">{{ services|length }} of {{ max_services }} used</span>
+      </div>
+      {% if services %}
+        <ul class="stack mt-4" style="list-style:none;margin-inline:0;padding:0;--stack: var(--space-3)">
+          {% for item in services %}
+            <li class="cluster" style="justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom: var(--space-3)">
+              <span style="min-width:0"><strong>{{ item.title }}</strong></span>
+              <span class="cluster" style="--cluster: var(--space-1)">
+                <a class="btn btn--ghost btn--icon" href="{% url 'staff:landing_edit' 'services' item.pk %}" aria-label="Edit {{ item.title }}">{% icon "pencil" 18 %}</a>
+                <form method="post" action="{% url 'staff:landing_delete' 'services' item.pk %}" class="inline-form" data-confirm="Remove this service?">{% csrf_token %}<button class="btn btn--ghost btn--icon" aria-label="Remove {{ item.title }}">{% icon "trash-2" 18 %}</button></form>
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <div class="mt-4">
+        {% if services|length >= max_services %}<p class="muted text-sm">All {{ max_services }} places are used. Remove one to add another.</p>
+        {% else %}<a class="btn btn--primary btn--sm" href="{% url 'staff:landing_add' 'services' %}">{% icon "plus" 16 %}Add a service</a>{% endif %}
+      </div>
+    </section>
+  </div>
+
+  <aside class="editor__preview" aria-label="Preview" style="position:static">
+    <p class="label" style="margin-bottom: var(--space-3)">Phone 1</p>
+    <div class="phone" data-preview>
+      <div class="phone__screen">
+        {% include "cards/_card.html" with card=preview.card eff=preview.eff pal=preview.pal card_url=preview.card_url vcf_url=preview.vcf_url demo=True lead_form=None qr_svg=None %}
+      </div>
+    </div>
+    <p class="label mt-6" style="margin-bottom: var(--space-3)">Phone 2</p>
+    <div class="phone">
+      <div class="phone__screen"><iframe src="{% url 'marketing:demo_business' %}" title="Business page preview" loading="lazy"></iframe></div>
+    </div>
+    <p class="muted text-sm mt-4">Both phones show what is saved. Save a change and the page reloads with it.</p>
+  </aside>
+</div>
+{% endblock %}

@@ -4,15 +4,23 @@ import base64
 import io
 import re
 
+import logging
+
 import segno
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.staticfiles import finders
 from django.core.exceptions import ValidationError
+from django.core.files import File
 from django.db import transaction
 from django.utils import timezone
 
 from apps.core.utils import visitor_hash
 
-from .models import Card, CardEvent, CardSlug
+from .models import BusinessPage, BusinessService, Card, CardEvent, CardPhone, CardSlug, SocialLink
 from django.utils.translation import gettext as _
+
+logger = logging.getLogger(__name__)
 
 # --------------------------------------------------------------------------
 # Slugs (URL-02..06)
@@ -84,6 +92,97 @@ def create_card(owner, full_name, **fields):
     return card
 
 
+# --------------------------------------------------------------------------
+# Staff cards and the company card
+# --------------------------------------------------------------------------
+
+COMPANY_SLUG = "adgraphics"
+COMPANY_SERVICES = [
+    ("Logos and brand identity", "A mark and a look your customers remember."),
+    ("Flyers, posters and social media designs", "Ready for print and for your feed."),
+    ("Printing and packaging", "T-shirts, packaging and printed materials."),
+    ("Digital and NFC business cards", "Made, printed and tap-tested in our studio."),
+]
+
+
+def _link_to_website(card):
+    """Every staff card links to the website, and its owner cannot hide that link."""
+    hidden = [field for field in card.hidden_fields if field != "website"]
+    if card.website != settings.SITE_URL or hidden != card.hidden_fields or card.activated_at is None:
+        card.website = settings.SITE_URL
+        card.hidden_fields = hidden
+        card.activated_at = card.activated_at or timezone.now()
+        card.save(update_fields=["website", "hidden_fields", "activated_at", "updated_at"])
+
+
+@transaction.atomic
+def ensure_staff_card(user):
+    """An administrator's personal card, made automatically. It needs no plan and lives while they are active staff."""
+    card = user.cards.filter(is_company=False, deleted_at__isnull=True).first()
+    if card is None:
+        name = user.full_name or user.email.split("@")[0]
+        card = Card.objects.create(
+            owner=user, slug=suggest_slug(name), full_name=name, email=user.email,
+            website=settings.SITE_URL, activated_at=timezone.now(),
+        )
+        CardSlug.objects.create(slug=card.slug, card=card, is_current=True)
+    else:
+        _link_to_website(card)
+    return card
+
+
+def company_card():
+    """The business's own card, or None until the main admin first opens the company card page."""
+    return Card.objects.select_related("owner").filter(is_company=True, deleted_at__isnull=True).first()
+
+
+def _logo_as_photo(card):
+    path = finders.find("brand/logo-192.png")
+    if not path:
+        return
+    try:
+        with open(path, "rb") as handle:
+            card.avatar.save("ad-graphics-logo.png", File(handle), save=True)
+    except Exception:  # the card works with initials until a photo is uploaded
+        logger.warning("Could not store the AD logo on the company card", exc_info=True)
+
+
+@transaction.atomic
+def ensure_company_card():
+    """The company card and its business page, created from today's sample the first time they are needed.
+
+    Owned by the oldest active super admin. Returns None when there is no super admin to own it.
+    """
+    card = company_card()
+    if card:
+        _link_to_website(card)
+        return card
+    owner = get_user_model().objects.filter(is_superuser=True, is_active=True).order_by("date_joined", "pk").first()
+    if owner is None:
+        return None
+    from apps.core.models import SiteSettings
+
+    site = SiteSettings.load()
+    slug = COMPANY_SLUG if not slug_problem(COMPANY_SLUG) and not slug_taken(COMPANY_SLUG) else suggest_slug("AD Graphics")
+    bio = "Brand identity, print and digital design for businesses, churches, schools and events across Ghana."
+    card = Card.objects.create(
+        owner=owner, slug=slug, is_company=True, full_name="AD Graphics", business_name="AD Graphics",
+        job_title="Design and print studio", bio=bio, whatsapp=site.support_whatsapp, email=site.support_email,
+        website=settings.SITE_URL, accent="#0048A9", card_colour="#0A0E9C", hide_branding=True,
+        activated_at=timezone.now(),
+    )
+    CardSlug.objects.create(slug=card.slug, card=card, is_current=True)
+    CardPhone.objects.create(card=card, number=site.support_phone, label="Office")
+    SocialLink.objects.create(card=card, platform="instagram", url=site.instagram_link)
+    page, _created = BusinessPage.objects.get_or_create(owner=owner)
+    page.is_on, page.tagline, page.about = True, "Design and print studio in Cape Coast", bio
+    page.save()
+    for position, (title, text) in enumerate(COMPANY_SERVICES):
+        BusinessService.objects.create(page=page, title=title, description=text, position=position)
+    _logo_as_photo(card)
+    return card
+
+
 @transaction.atomic
 def change_slug(card, new_slug):
     """URL-04/05: allowed until an NFC card exists; the old slug redirects."""
@@ -130,6 +229,8 @@ def business_page_for(card, viewer=None):
     page = getattr(card.owner, "business_page", None)  # a missing page raises an AttributeError subclass
     if page is None or not plan_for_limits(card.owner).allow_business_page:
         return None
+    if card.owner.is_staff and not card.is_company:
+        return None  # an administrator's personal card has no business page of its own
     if not page.is_on and not (viewer is not None and viewer.is_authenticated and viewer.pk == card.owner_id):
         return None
     return page

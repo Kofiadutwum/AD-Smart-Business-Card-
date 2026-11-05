@@ -30,6 +30,7 @@ PERMISSIONS = {
     "reports": {SUPER, SUPPORT},
     "email_subscribers": {SUPER, SUPPORT},
     "gallery": {SUPER, SUPPORT, DESIGN},
+    "landing": {SUPER, DESIGN},  # the company card: both phones on the landing page
     "audit": {SUPER},
 }
 

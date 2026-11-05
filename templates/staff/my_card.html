@@ -1,0 +1,26 @@
+{% extends "staff/_shell.html" %}
+{% load static %}
+{% block title %}My card · {{ SITE_NAME }}{% endblock %}
+{% block staff_css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <h1>My card</h1>
+    <p>Your own card. It was made for you automatically, needs no plan and stays live for as long as you are on the team.</p>
+  </div>
+  <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "external-link" 16 %}Open public card</a>
+</div>
+
+<div class="editor mt-6">
+  <div>{% include "staff/_card_forms.html" %}</div>
+  <aside class="editor__preview" aria-label="Preview">
+    <p class="label" style="margin-bottom: var(--space-3)">Preview</p>
+    <div class="phone" data-preview>
+      <div class="phone__screen">
+        {% include "cards/_card.html" with card=preview.card eff=preview.eff pal=preview.pal card_url=preview.card_url vcf_url=preview.vcf_url demo=True lead_form=None qr_svg=None %}
+      </div>
+    </div>
+    <p class="mono text-sm mt-4" style="overflow-wrap:anywhere">{{ preview.card_url }}</p>
+  </aside>
+</div>
+{% endblock %}

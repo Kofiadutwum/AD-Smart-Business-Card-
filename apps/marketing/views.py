@@ -8,12 +8,14 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from apps.billing.fx import latest_rate
 from apps.billing.services import TEAM_MAX_SEATS, active_plans
+from apps.cards.services import business_page_for, company_card
+from apps.cards.views import business_context
 from apps.core.models import SiteSettings
 from apps.nfc import services as nfc
 from apps.nfc.models import DeliveryZone
 
 from .content import HOW_IT_WORKS, SHARING, faq
-from .demo import demo_business, demo_card, demo_vcard
+from .demo import company_demo, demo_business, demo_card, demo_vcard
 from .models import GalleryImage
 
 EXAMPLE_QUANTITIES = [1, 4, 5, 10, 20, 21, 30, 50]
@@ -38,8 +40,15 @@ def _pricing_context():
     }
 
 
+def _company():
+    """The company card when it exists and is live: the landing page's phones then show it, not the fixed sample."""
+    card = company_card()
+    return card if card and card.is_live else None
+
+
 def home(request):
     site = SiteSettings.load()
+    company = _company()
     context = _pricing_context()
     gallery = list(GalleryImage.objects.filter(is_published=True))
     context.update(
@@ -60,7 +69,7 @@ def home(request):
             "how_it_works": HOW_IT_WORKS,
             "sharing": SHARING,
             "faq": faq(site)[:6],
-            "demo": demo_card(site),
+            "demo": company_demo(company) if company else demo_card(site),
             "business_plans": [plan for plan in context["plans"] if plan.allow_business_page],
             "over_hero": True,
         }
@@ -70,6 +79,10 @@ def home(request):
 
 @xframe_options_sameorigin  # shown in a phone frame on the home page; the site otherwise refuses to be framed
 def demo_business_page(request):
+    company = _company()
+    page = business_page_for(company) if company else None
+    if page:
+        return render(request, "cards/business.html", business_context(page, demo=True, preview=False))
     gallery = GalleryImage.objects.filter(is_published=True)
     return render(request, "cards/business.html", demo_business(SiteSettings.load(), list(gallery)) | {"demo": True})
 

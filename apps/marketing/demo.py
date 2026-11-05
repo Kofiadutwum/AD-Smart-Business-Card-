@@ -64,6 +64,13 @@ def demo_card(site):
     }
 
 
+def company_demo(card):
+    """The company card as the landing page's phone shows it: the real card, in sample mode (no tracking, no forms)."""
+    from apps.cards.views import card_context
+
+    return card_context(card) | {"demo": True, "lead_form": None, "qr_svg": None, "business_url": ""}
+
+
 def demo_business(site, gallery):
     """AD Graphics' own business page, rendered by the real business-page template.
 

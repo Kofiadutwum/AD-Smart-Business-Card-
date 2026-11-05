@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import admin, auth, content, finance, nfc, overview, premade, subscribers
+from .views import admin, auth, content, finance, mycard, nfc, overview, premade, subscribers
 
 app_name = "staff"
 
@@ -9,6 +9,13 @@ urlpatterns = [
     path("2fa", auth.two_factor, name="two_factor"),
     path("logout", auth.staff_logout, name="logout"),
     path("", overview.home, name="home"),
+    # staff cards: everyone's own, and the company card behind the landing page's phones
+    path("my-card/", mycard.my_card, name="my_card"),
+    path("company-card/", mycard.landing, name="landing"),
+    path("company-card/<str:kind>/add/", mycard.landing_item, name="landing_add"),
+    path("company-card/<str:kind>/<int:pk>/edit/", mycard.landing_item, name="landing_edit"),
+    path("company-card/<str:kind>/<int:pk>/delete/", mycard.landing_item_delete, name="landing_delete"),
+    path("card-links/<int:link_id>/<str:action>/", mycard.social_action, name="social_action"),
     # subscribers
     path("subscribers/", subscribers.subscribers, name="subscribers"),
     path("subscribers/<int:pk>/", subscribers.subscriber, name="subscriber"),

@@ -86,6 +86,8 @@ class Card(models.Model):
     hide_branding = models.BooleanField(default=False)
     allow_indexing = models.BooleanField(default=False)  # SHR-12
     collect_leads = models.BooleanField(default=True)
+    # The business's own card, shown in the landing page's phones. At most one; owned by the main admin.
+    is_company = models.BooleanField(default=False)
 
     # Owner's own switch. A hidden card shows the inactive page.
     is_published = models.BooleanField(default=True)
@@ -154,9 +156,10 @@ class Card(models.Model):
         if self.activated_at is None:
             return self.STATE_DRAFT
         subscription = self.owner.subscription
+        # An administrator's card needs no plan: it lives while they are active staff.
+        staff_card = self.owner.is_staff and self.owner.is_active
         if (
-            subscription is None
-            or not subscription.is_live
+            (not staff_card and (subscription is None or not subscription.is_live))
             or not self.is_published
             or not self.is_enabled
         ):
@@ -465,7 +468,8 @@ class BusinessPage(models.Model):
     def primary_card(self):
         """The card whose contact details, colours and link the page uses."""
         cards = self.owner.cards.filter(deleted_at__isnull=True)
-        return cards.filter(is_enabled=True).first() or cards.first()
+        # The main admin also has a personal card; the business page belongs to the company card.
+        return cards.filter(is_company=True).first() or cards.filter(is_enabled=True).first() or cards.first()
 
     def get_absolute_url(self):
         card = self.primary_card()

@@ -1,0 +1,100 @@
+{% if form.errors or phones.non_form_errors %}
+  <div class="form-errors" role="alert" tabindex="-1" data-error-summary>
+    <strong>Some details need fixing:</strong>
+    <ul>
+      {% for field in form %}{% for error in field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ error }}</a></li>{% endfor %}{% endfor %}
+      {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+      {% for error in phones.non_form_errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  <input type="hidden" name="form" value="card">
+
+  <fieldset class="fieldset">
+    <legend>{% if company %}About the business{% else %}About you{% endif %}</legend>
+    <div class="form">
+      <div class="upload-row">
+        {% if card.avatar %}<img class="avatar-lg" src="{{ card.avatar.url }}" alt="Current photo">{% else %}<span class="avatar-lg avatar-sm" style="width:4.5rem;height:4.5rem;font-size:1.25rem">{{ card.initials }}</span>{% endif %}
+        <div class="stack" style="--stack: var(--space-2); flex:1">{% include "components/field.html" with field=form.avatar_upload %}</div>
+      </div>
+      {% if company %}
+        <div class="upload-row">
+          {% if card.logo %}<img class="logo-lg" src="{{ card.logo.url }}" alt="Current logo">{% endif %}
+          <div class="stack" style="--stack: var(--space-2); flex:1">{% include "components/field.html" with field=form.logo_upload %}</div>
+        </div>
+      {% endif %}
+      {% include "components/field.html" with field=form.full_name %}
+      <div class="form-row form-row--2">
+        {% include "components/field.html" with field=form.job_title %}
+        {% include "components/field.html" with field=form.business_name %}
+      </div>
+      {% include "components/field.html" with field=form.bio %}
+    </div>
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Phone numbers</legend>
+    <p class="field-help">Up to 5 numbers, each with a label such as MTN, Telecel or Office.</p>
+    {{ phones.management_form }}
+    <div class="form mt-4">
+      {% for pform in phones %}
+        <div class="phone-row">
+          {{ pform.id }}
+          {% include "components/field.html" with field=pform.number %}
+          {% include "components/field.html" with field=pform.label %}
+          {% if pform.instance.pk %}{% include "components/field.html" with field=pform.DELETE %}{% else %}<span></span>{% endif %}
+        </div>
+        {% for error in pform.non_field_errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      {% endfor %}
+    </div>
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Contact details</legend>
+    <div class="form">
+      <div class="form-row form-row--2">
+        {% include "components/field.html" with field=form.whatsapp %}
+        {% include "components/field.html" with field=form.email %}
+      </div>
+      <p class="field-help">Every staff card links to the website, {{ SITE_URL }}. That link is added for you and cannot be removed.</p>
+    </div>
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Search engines</legend>
+    <div class="form">{% include "components/field.html" with field=form.allow_indexing %}</div>
+  </fieldset>
+
+  <div class="sticky-save"><button class="btn btn--primary" type="submit">{% icon "check" 16 %}Save card</button></div>
+</form>
+
+<section class="panel mt-6">
+  <h2 style="font-size: var(--text-lg)">Social links</h2>
+  {% if links %}
+    <ul class="stack mt-4" style="list-style:none;margin:0;padding:0;--stack: var(--space-3)">
+      {% for link in links %}
+        <li class="cluster" style="justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom: var(--space-3)">
+          <span class="cluster" style="--cluster: var(--space-3); min-width:0">
+            <span class="pcard__ico" style="--pc-accent: var(--primary); --pc-link: var(--link)">{% if link.brand_icon %}{% brand_icon link.brand_icon 18 %}{% else %}{% icon "globe" 18 %}{% endif %}</span>
+            <span style="min-width:0"><strong>{{ link.label }}</strong><br><a class="text-sm" href="{{ link.url }}" target="_blank" rel="noopener" style="overflow-wrap:anywhere">{{ link.url|truncatechars:48 }}</a></span>
+          </span>
+          <span class="cluster" style="--cluster: var(--space-1)">
+            {% if not forloop.first %}<form method="post" action="{% url 'staff:social_action' link.pk 'up' %}" class="inline-form" data-no-lock>{% csrf_token %}<button class="btn btn--ghost btn--icon" aria-label="Move {{ link.label }} up">{% icon "arrow-up" 18 %}</button></form>{% endif %}
+            <form method="post" action="{% url 'staff:social_action' link.pk 'delete' %}" class="inline-form" data-confirm="Remove this link?">{% csrf_token %}<button class="btn btn--ghost btn--icon" aria-label="Remove {{ link.label }}">{% icon "trash-2" 18 %}</button></form>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted text-sm mt-4">No links yet. Add Instagram, Facebook, TikTok and more below. They appear as buttons on the card.</p>
+  {% endif %}
+  <form method="post" class="form mt-4" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="form" value="social">
+    {% include "components/form_fields.html" with form=link_form %}
+    <button class="btn btn--primary" type="submit">{% icon "plus" 16 %}Add link</button>
+  </form>
+</section>
