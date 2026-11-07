@@ -127,7 +127,7 @@ def admins(request):
             user=member, kind="staff_invite",
         )
         AuditLog.record(request.user, "admin_created", member, role=data["role"])
-        after = ", then enrol two-factor" if settings.STAFF_TWO_FACTOR_REQUIRED else ""
+        after = ", then sign in with a code we email them" if settings.STAFF_TWO_FACTOR_REQUIRED else ""
         messages.success(request, f"{member.email} was invited. They set a password with the code we emailed{after}.")
         return redirect("staff:admins")
     staff = User.objects.filter(is_staff=True).order_by("staff_role", "email")

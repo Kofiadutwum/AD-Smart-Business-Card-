@@ -1,8 +1,8 @@
-"""Staff sign-in (SEC-03, Figure 8A): email and password, plus an authenticator code when STAFF_TWO_FACTOR_REQUIRED is on."""
+"""Staff sign-in (SEC-03, Figure 8A): email and password, plus a 6-digit code emailed to the staff member when
+STAFF_TWO_FACTOR_REQUIRED is on."""
 
 import time
 
-import pyotp
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -10,12 +10,12 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
-from apps.accounts.models import User
-from apps.cards.services import qr_svg
+from apps.accounts.models import OneTimeCode, User
+from apps.accounts.services import STAFF_CODE_MINUTES, issue_staff_code
 from apps.core.models import AuditLog
 from apps.core.utils import clear_rate_limit, client_ip, rate_limited, safe_next
 
-from ..forms import StaffLoginForm, TotpForm
+from ..forms import StaffCodeForm, StaffLoginForm
 
 BACKEND = "django.contrib.auth.backends.ModelBackend"
 
@@ -67,35 +67,37 @@ def two_factor(request):
         if "staff_seen" not in request.session:
             _start_staff_session(request, user, two_factor_passed=False)
         return redirect(next_url)
-    enrolling = not user.has_totp
-    if enrolling:
-        secret = request.session.get("totp_enrol") or pyotp.random_base32()
-        request.session["totp_enrol"] = secret
-    else:
-        secret = user.totp_secret
+    if request.session.get("staff_2fa") == user.pk:
+        return redirect(next_url)
 
-    form = TotpForm(request.POST or None)
-    if request.method == "POST" and form.is_valid():
-        if rate_limited(f"totp:{user.pk}", 6, 10 * 60):
-            messages.error(request, "Too many codes tried. Wait 10 minutes.")
-        elif pyotp.TOTP(secret).verify(form.cleaned_data["code"].strip(), valid_window=1):
-            clear_rate_limit(f"totp:{user.pk}")
-            if enrolling:
-                user.totp_secret = secret
-                user.totp_confirmed_at = timezone.now()
-                user.save(update_fields=["totp_secret", "totp_confirmed_at"])
-                request.session.pop("totp_enrol", None)
-                AuditLog.record(user, "staff_2fa_enrolled", user)
-            _start_staff_session(request, user, two_factor_passed=True)
-            return redirect(next_url)
+    form = StaffCodeForm(request.POST or None)
+    if request.method == "POST" and request.POST.get("action") == "resend":
+        if issue_staff_code(user):
+            messages.info(request, "A new code is on its way.")
         else:
-            messages.error(request, "That code is not right. Check the time on your phone and try again.")
+            messages.info(request, "A code was sent a moment ago. Check your inbox, then try again in a minute.")
+        return redirect(request.get_full_path())
+    if request.method == "POST" and form.is_valid():
+        if rate_limited(f"staff-code:{user.pk}", 8, 10 * 60):
+            messages.error(request, "Too many codes tried. Wait 10 minutes.")
+        else:
+            otp = user.one_time_codes.filter(purpose=OneTimeCode.PURPOSE_STAFF_LOGIN, used_at__isnull=True).first()
+            ok = bool(otp and otp.check_code(form.cleaned_data["code"].strip()))
+            if otp:
+                otp.used_at = timezone.now() if ok else None
+                otp.save(update_fields=["attempts", "used_at"])  # a wrong try counts; five spend the code
+            if ok:
+                clear_rate_limit(f"staff-code:{user.pk}")
+                _start_staff_session(request, user, two_factor_passed=True)
+                return redirect(next_url)
+            messages.error(request, "That code is not right, or it has run out. You can ask for a new one below.")
+    elif request.method == "GET":
+        issue_staff_code(user)  # one email per minute at most, so a page refresh does not spam the inbox
 
-    context = {"form": form, "enrolling": enrolling}
-    if enrolling:
-        uri = pyotp.TOTP(secret).provisioning_uri(name=user.email, issuer_name="AD Smart Staff")
-        context.update({"qr": qr_svg(uri, scale=5, light="#ffffff"), "secret": secret})
-    return render(request, "staff/two_factor.html", context)
+    local, _at, domain = user.email.partition("@")
+    return render(request, "staff/two_factor.html", {
+        "form": form, "email_hint": f"{local[:1]}***@{domain}", "minutes": STAFF_CODE_MINUTES,
+    })
 
 
 @require_POST

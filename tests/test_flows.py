@@ -7,7 +7,6 @@ import re
 from datetime import timedelta
 from unittest import mock
 
-import pyotp
 from django.core import mail
 from django.core.management import call_command
 from django.test import override_settings
@@ -420,7 +419,7 @@ class StaffAccessTests(BaseTest):
     @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
     def test_the_sign_in_page_explains_the_next_step_when_the_code_is_switched_on(self):
         page = self.client.get("/staff/login")
-        self.assertContains(page, "You will confirm with your authenticator app next.")
+        self.assertContains(page, "We will email you a code to confirm it is you.")
         self.assertContains(page, '<span class="ihb__label">Continue</span>')
 
     def test_administrators_page_has_no_two_factor_column_while_it_is_off(self):
@@ -454,18 +453,93 @@ class StaffAccessTests(BaseTest):
         self.assertRedirects(response, "/staff/2fa?next=", fetch_redirect_response=False)
         self.assertRedirects(self.client.get("/staff/subscribers/"), "/staff/2fa?next=/staff/subscribers/", fetch_redirect_response=False)
 
-    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
-    def test_the_code_unlocks_the_staff_area_when_switched_on(self):
-        user = User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
-        secret = pyotp.random_base32()
-        user.totp_secret = secret
-        user.totp_confirmed_at = timezone.now()
-        user.save()
+    # ------------------------------------------------------------------ the emailed code
+    def sign_in_up_to_the_code(self, email="ops@example.com"):
+        user = User.objects.create_user(email=email, password="Staff-pass-2026", is_staff=True, staff_role="ops")
         self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
-        self.client.post("/staff/2fa", {"code": "000000"})
-        self.assertEqual(self.client.get("/staff/").status_code, 302)
-        self.client.post("/staff/2fa", {"code": pyotp.TOTP(secret).now()})
+        self.client.get("/staff/2fa")  # the page the sign-in sends them to: this is where the code is emailed
+        return user
+
+    def emailed_code(self, to="ops@example.com"):
+        sent = [m for m in mail.outbox if m.to == [to] and m.subject.startswith("Your staff sign-in code")]
+        return re.search(r"\b(\d{6})\b", sent[-1].body).group(1)
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_a_code_is_emailed_to_the_staff_member_and_unlocks_the_staff_area(self):
+        self.sign_in_up_to_the_code()
+        self.assertEqual(len([m for m in mail.outbox if m.subject.startswith("Your staff sign-in code")]), 1)
+        self.assertEqual(self.client.get("/staff/").status_code, 302)  # the password alone is not enough
+        response = self.client.post("/staff/2fa", {"code": self.emailed_code()})
+        self.assertRedirects(response, "/staff/", fetch_redirect_response=False)
         self.assertEqual(self.client.get("/staff/").status_code, 200)
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_the_page_shows_where_the_code_went_without_giving_the_address_away(self):
+        self.sign_in_up_to_the_code()
+        page = self.client.get("/staff/2fa")
+        self.assertContains(page, "o***@example.com")
+        self.assertNotContains(page, "ops@example.com")
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_a_wrong_code_does_not_unlock_and_five_wrong_tries_spend_the_code(self):
+        self.sign_in_up_to_the_code()
+        real = self.emailed_code()
+        wrong = "000000" if real != "000000" else "111111"
+        for _ in range(5):
+            self.client.post("/staff/2fa", {"code": wrong})
+        self.assertEqual(self.client.get("/staff/").status_code, 302)
+        self.client.post("/staff/2fa", {"code": real})  # too late: the code is spent
+        self.assertEqual(self.client.get("/staff/").status_code, 302)
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_a_code_works_once_and_stops_after_ten_minutes(self):
+        user = self.sign_in_up_to_the_code()
+        code = self.emailed_code()
+        otp = user.one_time_codes.get()
+        otp.expires_at = timezone.now() - timedelta(seconds=1)
+        otp.save()
+        self.client.post("/staff/2fa", {"code": code})
+        self.assertEqual(self.client.get("/staff/").status_code, 302)  # expired
+        self.client.post("/staff/logout")
+        self.client.post("/staff/login", {"email": user.email, "password": "Staff-pass-2026"})
+        self.client.get("/staff/2fa")
+        self.client.post("/staff/2fa", {"code": code})  # the old one never works again
+        self.assertEqual(self.client.get("/staff/").status_code, 302)
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_refreshing_does_not_email_again_but_asking_for_a_new_code_does_once_the_minute_is_up(self):
+        user = self.sign_in_up_to_the_code()
+        first = self.emailed_code()
+        self.client.get("/staff/2fa")
+        self.client.post("/staff/2fa", {"action": "resend"})
+        self.assertEqual(len([m for m in mail.outbox if m.subject.startswith("Your staff sign-in code")]), 1)
+        user.one_time_codes.update(created_at=timezone.now() - timedelta(minutes=2))
+        self.client.post("/staff/2fa", {"action": "resend"})
+        self.assertEqual(len([m for m in mail.outbox if m.subject.startswith("Your staff sign-in code")]), 2)
+        second = self.emailed_code()
+        self.client.post("/staff/2fa", {"code": first})  # the newest code is the only one that works
+        self.assertEqual(self.client.get("/staff/").status_code, 302)
+        self.client.post("/staff/2fa", {"code": second})
+        self.assertEqual(self.client.get("/staff/").status_code, 200)
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_staff_who_sign_in_through_the_ordinary_form_get_the_code_too(self):
+        User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
+        response = self.client.post("/auth/login", {"email": "ops@example.com", "password": "Staff-pass-2026"})
+        self.assertRedirects(response, "/staff/2fa", fetch_redirect_response=False)
+        self.client.get("/staff/2fa")
+        self.client.post("/staff/2fa", {"code": self.emailed_code()})
+        self.assertEqual(self.client.get("/staff/").status_code, 200)
+
+    @override_settings(STAFF_TWO_FACTOR_REQUIRED=True)
+    def test_a_customer_code_cannot_be_used_as_a_staff_code(self):
+        user = self.sign_in_up_to_the_code()
+        from apps.accounts.services import issue_reset_code
+
+        issue_reset_code(user)
+        reset = re.search(r"\b(\d{6})\b", [m for m in mail.outbox if "password reset" in m.subject][-1].body).group(1)
+        self.client.post("/staff/2fa", {"code": reset})
+        self.assertEqual(self.client.get("/staff/").status_code, 302)
 
     def test_switching_it_on_later_asks_people_already_signed_in_for_their_code(self):
         self.login_staff("super")

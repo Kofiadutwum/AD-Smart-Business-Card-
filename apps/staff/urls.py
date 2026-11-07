@@ -64,6 +64,5 @@ urlpatterns = [
     path("settings/pricing/", admin.pricing, name="pricing"),
     path("admins/", admin.admins, name="admins"),
     path("admins/<int:pk>/", admin.admin_update, name="admin_update"),
-    path("admins/<int:pk>/reset-2fa/", subscribers.reset_2fa, name="reset_2fa"),
     path("audit/", admin.audit, name="audit"),
 ]

@@ -1,0 +1,10 @@
+{% autoescape off %}Hello {{ user.first_name|default:"there" }},
+
+Your staff sign-in code is:
+
+    {{ code }}
+
+It works for {{ minutes }} minutes and can be used once. Someone just entered your password on the AD Smart staff sign-in page. If that was you, type the code there. If it was not, do not share the code: change your password now and tell the Main Admin.
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

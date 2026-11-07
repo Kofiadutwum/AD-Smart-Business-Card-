@@ -9,7 +9,10 @@ from apps.billing.models import Plan, Subscription
 from apps.cards.services import create_card
 
 
-@override_settings(PAYMENT_SANDBOX=True, EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
+@override_settings(
+    PAYMENT_SANDBOX=True, STAFF_TWO_FACTOR_REQUIRED=False,  # the code step has its own tests, which switch it on
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+)
 class BaseTest(TestCase):
     @classmethod
     def setUpTestData(cls):

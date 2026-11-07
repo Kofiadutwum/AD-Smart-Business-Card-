@@ -163,7 +163,8 @@ class OneTimeCode(models.Model):
     """
 
     PURPOSE_PASSWORD_RESET = "password_reset"
-    PURPOSES = [(PURPOSE_PASSWORD_RESET, "Password reset")]
+    PURPOSE_STAFF_LOGIN = "staff_login"
+    PURPOSES = [(PURPOSE_PASSWORD_RESET, "Password reset"), (PURPOSE_STAFF_LOGIN, "Staff sign-in")]
     MAX_ATTEMPTS = 5
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="one_time_codes")

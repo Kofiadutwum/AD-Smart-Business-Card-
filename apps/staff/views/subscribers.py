@@ -203,15 +203,3 @@ def suspend_card(request, pk):
     messages.success(request, f"Card {'suspended' if card.is_suspended else 'reinstated'}.")
     next_url = safe_next(request.POST.get("next"))
     return redirect(next_url) if next_url else redirect("staff:subscriber", pk=card.owner_id)
-
-
-@staff_required("manage_admins")
-@require_POST
-def reset_2fa(request, pk):
-    member = get_object_or_404(User, pk=pk, is_staff=True)
-    member.totp_secret = ""
-    member.totp_confirmed_at = None
-    member.save(update_fields=["totp_secret", "totp_confirmed_at"])
-    AuditLog.record(request.user, "staff_2fa_reset", member)
-    messages.success(request, f"{member.email} will set up two-factor again at their next sign-in.")
-    return redirect("staff:admins")

@@ -20,6 +20,7 @@ from .models import OneTimeCode
 
 RESET_CODE_MINUTES = 15  # REG-06
 RESET_COOLDOWN_SECONDS = 60
+STAFF_CODE_MINUTES = 10
 
 
 COMMON_MAIL_DOMAINS = (
@@ -93,32 +94,41 @@ def email_suggestion(raw):
     return f"{local}@{close[0]}" if close else None
 
 
-def issue_reset_code(user):
+def _issue_code(user, purpose, minutes, subject, template):
     """Create and email a 6-digit code. Returns False during the cooldown."""
-    latest = user.one_time_codes.filter(purpose=OneTimeCode.PURPOSE_PASSWORD_RESET).first()
+    latest = user.one_time_codes.filter(purpose=purpose).first()
     if latest and timezone.now() - latest.created_at < timedelta(seconds=RESET_COOLDOWN_SECONDS):
         return False
     # Only the newest code works.
-    user.one_time_codes.filter(purpose=OneTimeCode.PURPOSE_PASSWORD_RESET, used_at__isnull=True).update(
-        used_at=timezone.now()
-    )
+    user.one_time_codes.filter(purpose=purpose, used_at__isnull=True).update(used_at=timezone.now())
     code = f"{secrets.randbelow(1_000_000):06d}"
-    otp = OneTimeCode(
-        user=user,
-        purpose=OneTimeCode.PURPOSE_PASSWORD_RESET,
-        expires_at=timezone.now() + timedelta(minutes=RESET_CODE_MINUTES),
-    )
+    otp = OneTimeCode(user=user, purpose=purpose, expires_at=timezone.now() + timedelta(minutes=minutes))
     otp.set_code(code)
     otp.save()
     send_email(
         to=user.email,
-        subject=subject_text("Your password reset code: %(code)s", code=code),
-        template="password_reset_code",
-        context={"user": user, "code": code, "minutes": RESET_CODE_MINUTES},
+        subject=subject(code),
+        template=template,
+        context={"user": user, "code": code, "minutes": minutes},
         user=user,
-        kind="password_reset_code",
+        kind=template,
     )
     return True
+
+
+def issue_reset_code(user):
+    return _issue_code(
+        user, OneTimeCode.PURPOSE_PASSWORD_RESET, RESET_CODE_MINUTES,
+        lambda code: subject_text("Your password reset code: %(code)s", code=code), "password_reset_code",
+    )
+
+
+def issue_staff_code(user):
+    """The code a staff member types after their password. Staff mail is English, so no translated subject."""
+    return _issue_code(
+        user, OneTimeCode.PURPOSE_STAFF_LOGIN, STAFF_CODE_MINUTES, lambda code: f"Your staff sign-in code: {code}",
+        "staff_login_code",
+    )
 
 
 TEMP_PASSWORD_HOURS = 48

@@ -19,7 +19,7 @@ python manage.py runserver
 ```
 
 - Site: http://127.0.0.1:8000
-- Staff area: http://127.0.0.1:8000/staff/login (email and password; set `STAFF_TWO_FACTOR_REQUIRED=1` to also ask for an authenticator-app code)
+- Staff area: http://127.0.0.1:8000/staff/login (email and password, then a 6-digit code emailed to the staff member; locally the code prints in the terminal. Set `STAFF_TWO_FACTOR_REQUIRED=0` to switch the code step off)
 - Emails print to the console until `RESEND_API_KEY` or `GMAIL_REFRESH_TOKEN` is set.
 - Payments run in **sandbox** (no money moves) until a Paystack secret key is set and `PAYMENT_SANDBOX=0`.
 

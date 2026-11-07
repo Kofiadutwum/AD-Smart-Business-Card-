@@ -191,9 +191,10 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
 STAFF_IDLE_TIMEOUT_SECONDS = 30 * 60  # SEC-05
-# SEC-03. Off: staff sign in with email and password only. Set STAFF_TWO_FACTOR_REQUIRED=1 to ask for the
-# authenticator-app code as well (their saved setup is kept, so nobody enrols twice).
-STAFF_TWO_FACTOR_REQUIRED = env_bool("STAFF_TWO_FACTOR_REQUIRED", False)
+# SEC-03. On unless switched off: after their password, staff type a 6-digit code emailed to them. It defaults
+# to ON so a lost environment line cannot quietly turn it off. To get back in if email is down, set
+# STAFF_TWO_FACTOR_REQUIRED=0 in the server environment and restart.
+STAFF_TWO_FACTOR_REQUIRED = env_bool("STAFF_TWO_FACTOR_REQUIRED", True)
 
 GOOGLE_CLIENT_ID = env("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = env("GOOGLE_CLIENT_SECRET")

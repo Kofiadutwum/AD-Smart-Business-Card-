@@ -26,11 +26,11 @@ class StaffLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}))
 
 
-class TotpForm(forms.Form):
+class StaffCodeForm(forms.Form):
     code = forms.RegexField(
-        label="6-digit code from your authenticator app", regex=r"^\s*\d{6}\s*$",
+        label="6-digit code from your email", regex=r"^\s*\d{6}\s*$",
         widget=forms.TextInput(attrs={"inputmode": "numeric", "autocomplete": "one-time-code", "maxlength": 6}),
-        error_messages={"invalid": "Enter the 6 digits shown in the app."},
+        error_messages={"invalid": "Enter the 6 digits from the email."},
     )
 
 

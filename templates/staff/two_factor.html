@@ -6,22 +6,16 @@
 <div class="state-page" style="color: var(--ink); background: var(--night)">
   <div class="auth-card" style="text-align:left">
     <span class="staff-mark">STAFF</span>
-    {% if enrolling %}
-      <h1 class="mt-4">Set up two-factor sign-in</h1>
-      <p class="lead">Scan this with Google Authenticator, Microsoft Authenticator or any TOTP app, then enter the 6-digit code it shows.</p>
-      <div class="qr-box mt-6 center">{{ qr|safe }}</div>
-      <p class="text-sm muted mt-4">Can’t scan? Enter this key: <span class="mono" style="overflow-wrap:anywhere">{{ secret }}</span></p>
-    {% else %}
-      <h1 class="mt-4">Enter your code</h1>
-      <p class="lead">Open your authenticator app and enter the 6-digit code for AD Smart Staff.</p>
-    {% endif %}
+    <h1 class="mt-4">Enter your code</h1>
+    <p class="lead">We emailed a 6-digit code to {{ email_hint }}. It works for {{ minutes }} minutes.</p>
     <form method="post" class="form" novalidate>
       {% csrf_token %}
       {% include "components/form_fields.html" %}
       {% hover_button "Verify" variant="ink" css="ihb--block" icon_name="shield-check" %}
     </form>
+    <form method="post" class="mt-4">{% csrf_token %}<input type="hidden" name="action" value="resend"><button type="submit" class="link-btn text-sm">Send me a new code</button></form>
     <form method="post" action="{% url 'staff:logout' %}" class="mt-4">{% csrf_token %}<button type="submit" class="link-btn text-sm">Cancel and sign out</button></form>
-    <p class="text-xs muted mt-6">Lost your phone? Ask the Main Admin to reset your two-factor setup.</p>
+    <p class="text-xs muted mt-6">No email? Check your spam folder. Cannot get in? Ask the Main Admin.</p>
   </div>
 </div>
 {% endblock %}

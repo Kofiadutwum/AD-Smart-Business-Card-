@@ -7,7 +7,7 @@
   <div class="auth-card" style="text-align:left">
     <span class="staff-mark">STAFF</span>
     <h1 class="mt-4">Sign in</h1>
-    <p class="lead">For the AD Smart team only.{% if two_factor_required %} You will confirm with your authenticator app next.{% endif %}</p>
+    <p class="lead">For the AD Smart team only.{% if two_factor_required %} We will email you a code to confirm it is you.{% endif %}</p>
     <form method="post" class="form" novalidate>
       {% csrf_token %}
       {% include "components/form_fields.html" %}
