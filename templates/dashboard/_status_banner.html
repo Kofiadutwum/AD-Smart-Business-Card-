@@ -1,5 +1,7 @@
 {# Subscription state at the top of every dashboard page (Section 6.1). #}
-{% if not shell_subscription %}
+{# A pay-when-you-update card is live with no plan; the editor explains what changes cost. #}
+{% if not shell_subscription and shell_cards.0.is_update_card %}
+{% elif not shell_subscription %}
   <div class="banner banner--info">
     {% icon "sparkles" 22 %}
     <p>{% blocktrans trimmed %}<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to give it its permanent link and switch it on.{% endblocktrans %}</p>

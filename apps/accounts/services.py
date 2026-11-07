@@ -201,6 +201,8 @@ def anonymise_user(user, reason=""):
             card.whatsapp = card.email = card.website = card.address = card.ghana_post_gps = ""
             card.latitude = card.longitude = None
             card.avatar = card.logo = card.background = ""
+            card.update_authorization_code = card.update_authorization_email = ""
+            card.update_card_brand = card.update_card_last4 = card.update_card_expiry = ""
             card.deleted_at = card.deleted_at or timezone.now()
             card.save()
             card.phones.all().delete()

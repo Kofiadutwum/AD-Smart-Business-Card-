@@ -1,6 +1,6 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
-<div class="page-head"><div><h1>Pre-made cards</h1><p>Cards printed with their QR code and NFC link and sold in shops. The buyer sets up the card with the PIN on its back and gets the plan that comes with it: a year of any plan, or 3 years of Basic. A card-only set has no plan inside; the buyer pays for one online to switch the card on.</p></div></div>
+<div class="page-head"><div><h1>Pre-made cards</h1><p>Cards printed with their QR code and NFC link and sold in shops. The buyer sets up the card with the PIN on its back and gets the plan that comes with it: a year of any plan, or 3 years of Basic. A card-only set has no plan inside; the buyer pays for one online to switch the card on. A pay-when-updating set is live as soon as it is set up with no plan to pay for; the buyer pays the Update Price only to change their card, which opens changes for a year.</p></div></div>
 <div class="split">
   <div class="table-wrap">
     <table class="table">
@@ -10,7 +10,7 @@
         {% for b in batches %}
           <tr>
             <td><a href="{% url 'staff:premade_batch' b.pk %}"><strong>{{ b.code }}</strong> · {{ b.name }}</a>{% if b.note %}<br><span class="muted text-xs">{{ b.note }}</span>{% endif %}</td>
-            <td>{% if b.card_only %}Card only, plan paid online{% else %}{{ b.plan.name }}, {{ b.months }} months{% endif %}<br><span class="muted text-xs">{% money b.price_minor %}</span></td>
+            <td>{% if b.pay_to_update %}Pay when updating, {{ b.plan.name }} features{% elif b.card_only %}Card only, plan paid online{% else %}{{ b.plan.name }}, {{ b.months }} months{% endif %}<br><span class="muted text-xs">{% money b.price_minor %}{% if b.pay_to_update %} · Update Price {% money b.update_price_minor inline=True %}{% endif %}</span></td>
             <td class="num">{{ b.quantity }}</td>
             <td class="num">{{ b.counts.claimed }}</td>
             <td class="num">{{ b.counts.waiting }}</td>

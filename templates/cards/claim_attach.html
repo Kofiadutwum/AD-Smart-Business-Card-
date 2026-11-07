@@ -13,6 +13,10 @@
     {% else %}
       {% if batch.card_only %}
         <p class="lead">{% blocktrans trimmed with user_email=user.email %}You are signed in as <strong>{{ user_email }}</strong>. The card will be added to this account. If your plan has room it goes live at once; otherwise you choose a plan next. Its link and QR code stay exactly as printed.{% endblocktrans %}</p>
+      {% elif batch.pay_to_update %}
+        {% money batch.update_price_minor inline=True as update_price %}
+        <p class="lead">{% blocktrans trimmed with user_email=user.email batch_plan_name=batch.plan.name %}You are signed in as <strong>{{ user_email }}</strong>. The card will be added to this account and go live at once with the {{ batch_plan_name }} features. Its link and QR code stay exactly as printed.{% endblocktrans %}</p>
+        <p class="text-sm muted">{% blocktrans trimmed %}You only pay when you want to change its details later: {{ update_price }}, which keeps changes open for a year.{% endblocktrans %}</p>
       {% elif batch.months == 12 %}
         <p class="lead">{% blocktrans trimmed with user_email=user.email batch_plan_name=batch.plan.name %}You are signed in as <strong>{{ user_email }}</strong>. The card will be added to this account and one year of {{ batch_plan_name }} will be added to your plan. Its link and QR code stay exactly as printed.{% endblocktrans %}</p>
       {% else %}

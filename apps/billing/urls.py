@@ -12,6 +12,7 @@ urlpatterns = [
     path("webhook", views.webhook, name="webhook"),
     path("result/<str:reference>", views.result, name="result"),
     path("auto-renew/cancel", views.auto_renew_cancel, name="auto_renew_cancel"),
+    path("update-card/<int:pk>/stop", views.update_autopay_cancel, name="update_autopay_cancel"),
     path("receipts", views.receipts, name="receipts"),
     path("receipts/<str:reference>.pdf", views.receipt_pdf, name="receipt_pdf"),
 ]

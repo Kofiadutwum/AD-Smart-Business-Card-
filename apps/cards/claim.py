@@ -95,6 +95,12 @@ def claim_setup(request, slug):
                     to=user.email, subject=subject_text("Welcome to AD Smart Business Cards"), template="welcome",
                     context={"user": user}, user=user, kind="welcome", dedupe_key=f"welcome:{user.pk}",
                 )
+                if premade.batch.pay_to_update:
+                    messages.success(
+                        request,
+                        _("Your card is live. You only pay when you want to change its details, and then changes stay open for a year."),
+                    )
+                    return redirect("dashboard:home")
                 if premade.batch.card_only:
                     messages.success(
                         request,
@@ -130,6 +136,9 @@ def claim_attach(request, slug):
             messages.error(request, str(exc))
         else:
             _forget(request, card.slug)
+            if premade.batch.pay_to_update:
+                messages.success(request, _("The card is now on your account and live. You only pay when you want to change its details."))
+                return redirect("dashboard:cards")
             if premade.batch.card_only:
                 card.refresh_from_db()
                 if card.activated_at:

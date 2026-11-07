@@ -308,16 +308,21 @@ class PremadeBatchForm(forms.Form):
             ("year", "A year of the plan chosen below"),
             ("basic3", "Basic for 3 years, then it renews as normal"),
             ("cardonly", "The card only: the buyer pays for a plan online to switch it on"),
+            ("payupdate", "Pay when updating: live at once, the buyer pays only to change their details (Basic or Professional)"),
         ],
         initial="year",
-        help_text="The 3-year Basic card has only the Basic features, and the card-only set has no plan inside it; the plan below is ignored for both.",
+        help_text="The 3-year Basic card has only the Basic features, and the card-only set has no plan inside it; the plan below is ignored for both. For pay-when-updating, the plan below sets the features.",
     )
     plan = forms.ModelChoiceField(
         label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None, required=False
     )
     price = CedisField(
         label="Price in the shop (GHS)", required=False,
-        help_text="What the buyer pays the shop. Leave empty for the usual price: 450 with a plan inside, 200 for the card only. It is counted as revenue from outside the website when the card is set up.",
+        help_text="What the buyer pays the shop. Leave empty for the usual price: 450 with a plan inside, 200 for the card only or pay-when-updating. It is counted as revenue from outside the website when the card is set up.",
+    )
+    update_price = CedisField(
+        label="Update Price (GHS)", required=False,
+        help_text="Pay-when-updating cards only: what the buyer pays online to change their card. It opens changes for 12 months. Leave empty for 100.",
     )
     note = forms.CharField(label="Note (optional)", max_length=200, required=False)
 
@@ -333,8 +338,17 @@ class PremadeBatchForm(forms.Form):
         cleaned = super().clean()
         term = cleaned.get("term")
         if cleaned.get("price") is None:
-            cleaned["price"] = 200 if term == "cardonly" else 450
-        if term == "cardonly":
+            cleaned["price"] = 200 if term in ("cardonly", "payupdate") else 450
+        if cleaned.get("update_price") is None:
+            cleaned["update_price"] = 100
+        if term == "payupdate":
+            from apps.cards.premade import PAY_TO_UPDATE_PLANS
+
+            plan = cleaned.get("plan")
+            if not plan or plan.code not in PAY_TO_UPDATE_PLANS:
+                self.add_error("plan", "Choose the Basic or Professional plan for a pay-when-updating card.")
+            cleaned["months"] = 0
+        elif term == "cardonly":
             cleaned["plan"], cleaned["months"] = None, 0
         elif term == "basic3":
             cleaned["plan"] = self.fields["plan"].queryset.filter(code="basic").first()

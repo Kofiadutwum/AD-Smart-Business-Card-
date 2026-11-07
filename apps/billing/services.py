@@ -71,11 +71,20 @@ def plan_for_limits(user):
     subscription = getattr(user, "subscription", None)
     if subscription is not None:
         return subscription.plan
+    # Someone with a pay-when-you-update card and no plan of their own works with that card's plan.
+    update_card = user.cards.filter(deleted_at__isnull=True, update_plan__isnull=False).select_related("update_plan").first()
+    if update_card is not None:
+        return update_card.update_plan
     return Plan.objects.order_by("-price_minor").first() or Plan(
         code="preview", name="Preview", price_minor=0, max_cards=1, max_phones=3,
         all_templates=True, custom_colours=True, allow_logo=True, allow_advanced_style=True,
         full_analytics=True,
     )
+
+
+def plan_for_card(card):
+    """The allowances for one card: its own plan when it pays per update, else the owner's plan."""
+    return card.update_plan if card.update_plan_id else plan_for_limits(card.owner)
 
 
 # --------------------------------------------------------------------------
@@ -133,6 +142,11 @@ def build_quote(lines, promo=None):
     }
 
 
+def card_update_quote(card):
+    """The Update Price for a year of changes to one pay-when-you-update card."""
+    return build_quote([(lambda: gettext("Card updates for 12 months"), card.update_price_minor)])
+
+
 def upgrade_price(subscription, new_plan, seats=None):
     """PLN-01: the difference in yearly price, pro-rated by full months remaining.
 
@@ -179,7 +193,7 @@ def processing_fee(total_minor):
 
 def create_payment(
     *, user, purpose, quote, plan=None, months=0, nfc_order=None, seats=None,
-    set_up_auto_renew=False, is_auto_renewal=False,
+    set_up_auto_renew=False, is_auto_renewal=False, card=None,
 ):
     rate = fx.latest_rate()
     fee = processing_fee(quote["total_minor"])
@@ -191,6 +205,7 @@ def create_payment(
         months=months,
         seats=clamp_seats(plan, seats),
         nfc_order=nfc_order,
+        card=card,
         subtotal_minor=quote["subtotal_minor"],
         discount_minor=quote["discount_minor"],
         tax_minor=quote["tax_minor"],
@@ -348,6 +363,11 @@ def fulfil(payment, data, source="callback", actor=None):
             from apps.nfc.services import mark_paid
 
             mark_paid(locked.nfc_order, locked)
+        elif locked.purpose == Payment.PURPOSE_CARD_UPDATE:
+            from apps.dashboard.updates import unlock_and_apply
+
+            remember_update_card(locked, data)  # before the held changes are replayed on the card
+            unlock_and_apply(locked)
 
         AuditLog.record(
             actor, "payment_verified", locked, reason=f"Verified via {source}",
@@ -411,7 +431,8 @@ def activate_cards(user, subscription=None):
     if subscription is None:
         return
     limit = subscription.card_limit
-    cards = list(user.cards.filter(deleted_at__isnull=True).order_by("created_at"))
+    # Pay-when-you-update cards live on their own terms; a plan neither switches them on nor counts them.
+    cards = list(user.cards.filter(deleted_at__isnull=True, update_plan__isnull=True).order_by("created_at"))
     # Keep the owner's own choice while it fits the plan. If it no longer fits,
     # the oldest of the cards they had switched on stay live; a card they
     # switched off (say, for someone who left) is never switched back on.
@@ -506,6 +527,57 @@ RENEWAL_RETRY_DAYS = (0, 1, 3, 5)
 RENEWAL_NOTICE_DAYS = 7
 
 
+def _reusable_card(payment, data):
+    """The card Paystack says it can charge again: (code, email, brand, last4, expiry), or None."""
+    auth = data.get("authorization") or {}
+    code = auth.get("authorization_code")
+    if not code or not auth.get("reusable") or (auth.get("channel") or "card") != "card":
+        return None
+    expiry = ""
+    if auth.get("exp_month") and auth.get("exp_year"):
+        expiry = f"{auth['exp_month']}/{auth['exp_year']}"[:7]
+    return (
+        str(code)[:64],
+        str((data.get("customer") or {}).get("email") or payment.user.email)[:254],
+        str(auth.get("brand") or auth.get("card_type") or "").strip()[:24],
+        str(auth.get("last4") or "")[-4:],
+        expiry,
+    )
+
+
+def remember_update_card(payment, data):
+    """Keep the card an owner paid the Update Price with, so the first Save after the year can be charged
+    to it (after they confirm). Mobile money, and cards Paystack cannot charge again, keep nothing."""
+    if not payment.set_up_auto_renew or not payment.card_id:
+        return False
+    kept = _reusable_card(payment, data)
+    if kept is None:
+        return False
+    code, email, brand, last4, expiry = kept
+    type(payment.card).objects.filter(pk=payment.card_id).update(
+        update_authorization_code=code, update_authorization_email=email,
+        update_card_brand=brand, update_card_last4=last4, update_card_expiry=expiry,
+    )
+    return True
+
+
+def stop_update_autopay(card, actor=None):
+    """Owner turns off charging their card for changes. The kept token is deleted; changes already paid
+    for stay open until the date they were paid to."""
+    label = card.update_card_label
+    type(card).objects.filter(pk=card.pk).update(
+        update_authorization_code="", update_authorization_email="", update_card_brand="",
+        update_card_last4="", update_card_expiry="",
+    )
+    AuditLog.record(actor or card.owner, "update_autopay_stopped", card, card=label)
+    card.refresh_from_db()
+    send_email(
+        to=card.owner.email, subject=subject_text("Your card will no longer be charged for changes"),
+        template="update_autopay_stopped", context={"user": card.owner, "card_obj": card, "card": label},
+        user=card.owner, kind="update_autopay_stopped",
+    )
+
+
 def remember_card(payment, data):
     """Keep the card a customer paid with from the checkout page, so the plan renews itself.
 
@@ -517,21 +589,18 @@ def remember_card(payment, data):
         return False
     if not payment.set_up_auto_renew:
         return False
-    auth = data.get("authorization") or {}
-    code = auth.get("authorization_code")
-    if not code or not auth.get("reusable") or (auth.get("channel") or "card") != "card":
+    kept = _reusable_card(payment, data)
+    if kept is None:
         return False
     subscription = Subscription.objects.select_for_update().filter(user=payment.user).first()
     if subscription is None:
         return False
-    expiry = ""
-    if auth.get("exp_month") and auth.get("exp_year"):
-        expiry = f"{auth['exp_month']}/{auth['exp_year']}"[:7]
+    code, email, brand, last4, expiry = kept
     subscription.auto_renew = True
-    subscription.authorization_code = str(code)[:64]
-    subscription.authorization_email = str((data.get("customer") or {}).get("email") or payment.user.email)[:254]
-    subscription.card_brand = str(auth.get("brand") or auth.get("card_type") or "").strip()[:24]
-    subscription.card_last4 = str(auth.get("last4") or "")[-4:]
+    subscription.authorization_code = code
+    subscription.authorization_email = email
+    subscription.card_brand = brand
+    subscription.card_last4 = last4
     subscription.card_expiry = expiry
     subscription.renew_attempts = 0
     subscription.last_renew_attempt_at = None

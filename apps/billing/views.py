@@ -125,6 +125,7 @@ def checkout(request):
             "upgrade": upgrade,
             "promo_code": promo.code if promo else promo_code,
             "rate": fx.latest_rate(),
+            "autopay_cards": user.cards.filter(deleted_at__isnull=True, update_plan__isnull=False).exclude(update_authorization_code=""),
             "pending_downgrade": bool(
                 subscription and subscription.expires_at > timezone.now()
                 and plan.price_for(seats) < subscription.yearly_price
@@ -218,4 +219,17 @@ def auto_renew_cancel(request):
             _("Automatic renewal is off. Your plan stays active until %(date)s.")
             % {"date": date_format(timezone.localtime(subscription.expires_at), _("j F Y"))},
         )
+    return redirect("billing:checkout")
+
+
+@customer_required
+@require_POST
+def update_autopay_cancel(request, pk):
+    """Stop charging the kept card for changes to a pay-when-you-update card."""
+    card = get_object_or_404(request.user.cards, pk=pk, deleted_at__isnull=True)
+    if not card.pays_automatically:
+        messages.info(request, _("Automatic payment for changes is not on for this card."))
+    else:
+        services.stop_update_autopay(card, actor=request.user)
+        messages.success(request, _("Automatic payment for changes is off. You can still pay by hand whenever you change this card."))
     return redirect("billing:checkout")

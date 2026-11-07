@@ -95,6 +95,20 @@ class Card(models.Model):
     is_enabled = models.BooleanField(default=True)
     activated_at = models.DateTimeField(null=True, blank=True)  # null = Draft (ACT-01)
 
+    # "Pay when you update" pre-made cards: no subscription. The card is live from set-up with the
+    # features of ``update_plan``; changing what the public sees costs ``update_price_minor`` and
+    # unlocks changes until ``updates_paid_until``.
+    update_plan = models.ForeignKey("billing.Plan", null=True, blank=True, on_delete=models.PROTECT, related_name="+")
+    update_price_minor = models.PositiveIntegerField(default=0)
+    updates_paid_until = models.DateTimeField(null=True, blank=True)
+    # The card the owner paid the Update Price with, kept (as Paystack's reusable token, never the number)
+    # so the first Save after the year ends can be charged again once they confirm. Empty = pays by hand.
+    update_authorization_code = models.CharField(max_length=64, blank=True)
+    update_authorization_email = models.EmailField(blank=True)
+    update_card_brand = models.CharField(max_length=24, blank=True)
+    update_card_last4 = models.CharField(max_length=4, blank=True)
+    update_card_expiry = models.CharField(max_length=7, blank=True)
+
     is_suspended = models.BooleanField(default=False)
     suspension_reason = models.TextField(blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -157,9 +171,10 @@ class Card(models.Model):
             return self.STATE_DRAFT
         subscription = self.owner.subscription
         # An administrator's card needs no plan: it lives while they are active staff.
+        # A pay-when-you-update card needs none either: it stays live on what it was last saved with.
         staff_card = self.owner.is_staff and self.owner.is_active
         if (
-            (not staff_card and (subscription is None or not subscription.is_live))
+            (not staff_card and not self.is_update_card and (subscription is None or not subscription.is_live))
             or not self.is_published
             or not self.is_enabled
         ):
@@ -169,6 +184,41 @@ class Card(models.Model):
     @property
     def is_live(self):
         return self.public_state() == self.STATE_LIVE
+
+    # --- pay when you update --------------------------------------------------
+
+    @property
+    def is_update_card(self):
+        return self.update_plan_id is not None
+
+    @property
+    def edit_locked(self):
+        """True while changes to what the public sees need a payment first."""
+        if not self.is_update_card:
+            return False
+        return self.updates_paid_until is None or self.updates_paid_until <= timezone.now()
+
+    @property
+    def pays_automatically(self):
+        return bool(self.is_update_card and self.update_authorization_code)
+
+    @property
+    def update_card_expired(self):
+        """A kept card past its expiry month cannot be charged; the owner is sent to pay another way."""
+        try:
+            month, year = (int(part) for part in self.update_card_expiry.split("/"))
+        except ValueError:
+            return False
+        today = timezone.localdate()
+        return (year, month) < (today.year, today.month)
+
+    @property
+    def update_card_label(self):
+        """'Visa ending 4242', for showing the owner which card the next year is charged to."""
+        if not self.update_card_last4:
+            return ""
+        brand = (self.update_card_brand or "").strip().title() or _("Card")
+        return _("%(brand)s ending %(last4)s") % {"brand": brand, "last4": self.update_card_last4}
 
     # --- plan-aware rendering -------------------------------------------------
 
@@ -183,9 +233,9 @@ class Card(models.Model):
         Enforced at render time as well as in the editor, so a downgrade can
         never leave a Basic card showing Professional features (AC-10).
         """
-        from apps.billing.services import plan_for_limits
+        from apps.billing.services import plan_for_card
 
-        plan = plan_for_limits(self.owner)
+        plan = plan_for_card(self)
         accent = self.accent
         if not plan.custom_colours and accent not in ACCENT_PRESETS.values():
             accent = ACCENT_PRESETS["blue"]
@@ -389,6 +439,10 @@ class PremadeBatch(models.Model):
     plan = models.ForeignKey("billing.Plan", null=True, blank=True, on_delete=models.PROTECT, related_name="+")
     months = models.PositiveSmallIntegerField(default=12)
     card_only = models.BooleanField(default=False, help_text="The shop price covers the card only; no plan is included.")
+    # No plan is paid for up front: the card is live at once, with the features of ``plan``, and the
+    # buyer pays ``update_price_minor`` for a year of changes whenever they want to change something.
+    pay_to_update = models.BooleanField(default=False)
+    update_price_minor = models.PositiveIntegerField(default=10000, help_text="The Update Price, in pesewas.")
     note = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
@@ -442,6 +496,23 @@ class PremadeCard(models.Model):
         if self.voided_at:
             return self.STATUS_VOID
         return self.STATUS_UNCLAIMED
+
+
+class CardUpdate(models.Model):
+    """Editor changes held while the owner pays to unlock a pay-when-you-update card.
+
+    At most one per card: a new Save replaces the old one. ``data`` is the form post (field name to
+    list of values) and ``files`` the pictures chosen in the same Save, already in storage. Applied
+    when the payment clears; discarded (and its pictures deleted) after 48 hours.
+    """
+
+    card = models.OneToOneField(Card, on_delete=models.CASCADE, related_name="held_update")
+    data = models.JSONField(default=dict)
+    files = models.JSONField(default=dict)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Held changes for {self.card.slug}"
 
 
 # --------------------------------------------------------------------------

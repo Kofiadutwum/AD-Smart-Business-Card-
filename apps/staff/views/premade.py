@@ -34,7 +34,8 @@ def batches(request):
             batch = premade.create_batch(
                 request.user, name=data["name"], quantity=data["quantity"], plan=data["plan"],
                 price_minor=ghs_to_minor(data["price"]), months=data["months"], note=data["note"],
-                card_only=data["term"] == "cardonly",
+                card_only=data["term"] == "cardonly", pay_to_update=data["term"] == "payupdate",
+                update_price_minor=ghs_to_minor(data["update_price"]),
             )
         except ValidationError as exc:
             form.add_error(None, exc)

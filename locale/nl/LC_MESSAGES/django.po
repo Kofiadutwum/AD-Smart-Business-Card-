@@ -293,79 +293,79 @@ msgstr "Respijtperiode"
 msgid "Inactive"
 msgstr "Inactief"
 
-#: apps/billing/models.py:401 apps/billing/models.py:509
+#: apps/billing/models.py:402 apps/billing/models.py:517
 msgid "Subscription"
 msgstr "Abonnement"
 
-#: apps/billing/models.py:402 apps/billing/models.py:504
+#: apps/billing/models.py:403 apps/billing/models.py:512
 msgid "Plan upgrade"
 msgstr "Upgrade van abonnement"
 
-#: apps/billing/models.py:403 apps/billing/models.py:494
+#: apps/billing/models.py:404 apps/billing/models.py:498
 msgid "NFC order"
 msgstr "NFC-bestelling"
 
-#: apps/billing/models.py:404 apps/billing/models.py:500
+#: apps/billing/models.py:405 apps/billing/models.py:506
 msgid "Pre-made card (sold in a shop)"
 msgstr "Kant-en-klare kaart (verkocht in een winkel)"
 
-#: apps/billing/models.py:414 templates/billing/receipts.html:17
+#: apps/billing/models.py:416 templates/billing/receipts.html:17
 msgid "Pending"
 msgstr "In behandeling"
 
-#: apps/billing/models.py:415
+#: apps/billing/models.py:417
 msgid "Successful"
 msgstr "Geslaagd"
 
-#: apps/billing/models.py:416
+#: apps/billing/models.py:418
 msgid "Failed"
 msgstr "Mislukt"
 
-#: apps/billing/models.py:417
+#: apps/billing/models.py:419
 msgid "Abandoned"
 msgstr "Afgebroken"
 
-#: apps/billing/models.py:418 apps/nfc/models.py:109
+#: apps/billing/models.py:420 apps/nfc/models.py:109
 msgid "Refunded"
 msgstr "Terugbetaald"
 
-#: apps/billing/models.py:419
+#: apps/billing/models.py:421
 msgid "Partially refunded"
 msgstr "Gedeeltelijk terugbetaald"
 
-#: apps/billing/models.py:494
+#: apps/billing/models.py:498
 #, python-format
 msgid "NFC order %(number)s"
 msgstr "NFC-bestelling %(number)s"
 
-#: apps/billing/models.py:496 apps/billing/services.py:150
+#: apps/billing/models.py:500 apps/billing/services.py:164
 #, python-format
 msgid "%(plan)s plan"
 msgstr "%(plan)s-abonnement"
 
-#: apps/billing/models.py:501
+#: apps/billing/models.py:509
 #, python-format
 msgid "Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)"
 msgstr ""
 "Kant-en-klare kaart met %(plan)s-abonnement, %(count)d maanden (verkocht in "
 "een winkel)"
 
-#: apps/billing/models.py:506
+#: apps/billing/models.py:514
 #, python-format
 msgid "Upgrade to %(plan)s for %(count)d people"
 msgstr "Upgrade naar %(plan)s voor %(count)d personen"
 
-#: apps/billing/models.py:507
+#: apps/billing/models.py:515
 #, python-format
 msgid "Upgrade to %(plan)s"
 msgstr "Upgrade naar %(plan)s"
 
-#: apps/billing/models.py:511
+#: apps/billing/models.py:519
 #, python-format
 msgid "%(plan)s plan for %(people)d people, %(count)d months"
 msgstr "%(plan)s-abonnement voor %(people)d personen, %(count)d maanden"
 
-#: apps/billing/models.py:512
+#: apps/billing/models.py:520
 #, python-format
 msgid "%(plan)s plan, %(count)d months"
 msgstr "%(plan)s-abonnement, %(count)d maanden"
@@ -379,7 +379,7 @@ msgstr ""
 msgid "Malformed webhook payload."
 msgstr "Malformed webhook payload."
 
-#: apps/billing/services.py:471
+#: apps/billing/services.py:492
 #, python-format
 msgid "Your receipt %(number)s"
 msgstr "Je kwitantie %(number)s"
@@ -389,7 +389,7 @@ msgid "Plans are not set up yet. Please contact support."
 msgstr ""
 "De abonnementen zijn nog niet ingesteld. Neem contact op met de support."
 
-#: apps/billing/views.py:75
+#: apps/billing/views.py:75 apps/dashboard/views.py:190
 msgid ""
 "Please tick the box to accept the Terms and Refund Policy before paying."
 msgstr ""
@@ -419,7 +419,7 @@ msgstr[1] "%(added)d extra personen op %(plan)s voor %(months_left)s"
 msgid "Upgrade to %(plan)s for %(months_left)s"
 msgstr "Upgrade naar %(plan)s voor %(months_left)s"
 
-#: apps/billing/views.py:107 apps/nfc/views.py:256
+#: apps/billing/views.py:107 apps/dashboard/views.py:200 apps/nfc/views.py:256
 #, python-format
 msgid "%(reason)s You have not been charged."
 msgstr "%(reason)s Er is niets van je afgeschreven."
@@ -434,7 +434,7 @@ msgstr "Actiecode %(code)s toegepast: %(label)s."
 msgid "Pay %(amount)s"
 msgstr "Betaal %(amount)s"
 
-#: apps/billing/views.py:141
+#: apps/billing/views.py:142
 msgid ""
 "We could not find that payment. If money left your account, contact support "
 "with the reference."
@@ -455,7 +455,7 @@ msgstr ""
 "Dat e-mailadres of nummer is net voor een ander account gebruikt. Controleer"
 " het en probeer opnieuw."
 
-#: apps/cards/claim.py:141
+#: apps/cards/claim.py:150
 msgid ""
 "The card is now on your account and a year has been added to your plan."
 msgstr ""
@@ -520,16 +520,16 @@ msgstr "Raster"
 msgid "Icon row"
 msgstr "Pictogramrij"
 
-#: apps/cards/models.py:46 templates/dashboard/editor.html:48
+#: apps/cards/models.py:46 templates/dashboard/editor.html:71
 msgid "Phone numbers"
 msgstr "Telefoonnummers"
 
-#: apps/cards/models.py:47 apps/cards/models.py:255
+#: apps/cards/models.py:47 apps/cards/models.py:305
 #: templates/cards/_contact.html:8 templates/cards/_contact.html:36
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:48 apps/cards/models.py:261 apps/dashboard/forms.py:55
+#: apps/cards/models.py:48 apps/cards/models.py:311 apps/dashboard/forms.py:55
 #: apps/nfc/forms.py:30 templates/cards/_contact.html:14
 #: templates/cards/_contact.html:48
 msgid "Website"
@@ -551,158 +551,158 @@ msgstr "Locatie op de kaart"
 msgid "Short bio"
 msgstr "Korte bio"
 
-#: apps/cards/models.py:245
+#: apps/cards/models.py:295
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: apps/cards/models.py:246
+#: apps/cards/models.py:296
 msgid "Instagram"
 msgstr "Instagram"
 
-#: apps/cards/models.py:247
+#: apps/cards/models.py:297
 msgid "Facebook"
 msgstr "Facebook"
 
-#: apps/cards/models.py:248
+#: apps/cards/models.py:298
 msgid "X"
 msgstr "X"
 
-#: apps/cards/models.py:249
+#: apps/cards/models.py:299
 msgid "TikTok"
 msgstr "TikTok"
 
-#: apps/cards/models.py:250
+#: apps/cards/models.py:300
 msgid "YouTube"
 msgstr "YouTube"
 
-#: apps/cards/models.py:251
+#: apps/cards/models.py:301
 msgid "Snapchat"
 msgstr "Snapchat"
 
-#: apps/cards/models.py:252
+#: apps/cards/models.py:302
 msgid "Threads"
 msgstr "Threads"
 
-#: apps/cards/models.py:253
+#: apps/cards/models.py:303
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: apps/cards/models.py:254
+#: apps/cards/models.py:304
 msgid "Telegram"
 msgstr "Telegram"
 
-#: apps/cards/models.py:256
+#: apps/cards/models.py:306
 msgid "GitHub"
 msgstr "GitHub"
 
-#: apps/cards/models.py:257
+#: apps/cards/models.py:307
 msgid "Behance"
 msgstr "Behance"
 
-#: apps/cards/models.py:258
+#: apps/cards/models.py:308
 msgid "ResearchGate"
 msgstr "ResearchGate"
 
-#: apps/cards/models.py:259
+#: apps/cards/models.py:309
 msgid "ORCID"
 msgstr "ORCID"
 
-#: apps/cards/models.py:260
+#: apps/cards/models.py:310
 msgid "Google Scholar"
 msgstr "Google Scholar"
 
-#: apps/cards/models.py:297
+#: apps/cards/models.py:347
 msgid "View"
 msgstr "Weergave"
 
-#: apps/cards/models.py:298
+#: apps/cards/models.py:348
 msgid "Contact saved"
 msgstr "Contact opgeslagen"
 
-#: apps/cards/models.py:299
+#: apps/cards/models.py:349
 msgid "Phone click"
 msgstr "Klik op telefoon"
 
-#: apps/cards/models.py:300
+#: apps/cards/models.py:350
 msgid "WhatsApp click"
 msgstr "Klik op WhatsApp"
 
-#: apps/cards/models.py:301
+#: apps/cards/models.py:351
 msgid "Email click"
 msgstr "Klik op e-mail"
 
-#: apps/cards/models.py:302
+#: apps/cards/models.py:352
 msgid "Website click"
 msgstr "Klik op website"
 
-#: apps/cards/models.py:303
+#: apps/cards/models.py:353
 msgid "Social click"
 msgstr "Klik op sociale media"
 
-#: apps/cards/models.py:304
+#: apps/cards/models.py:354
 msgid "Location click"
 msgstr "Klik op locatie"
 
-#: apps/cards/models.py:306 apps/dashboard/views.py:293
+#: apps/cards/models.py:356 apps/dashboard/views.py:358
 msgid "Direct link"
 msgstr "Directe link"
 
-#: apps/cards/models.py:306 templates/dashboard/share.html:32
+#: apps/cards/models.py:356 templates/dashboard/share.html:32
 msgid "QR code"
 msgstr "QR-code"
 
-#: apps/cards/models.py:306
+#: apps/cards/models.py:356
 msgid "NFC tap"
 msgstr "NFC-tik"
 
-#: apps/cards/models.py:344
+#: apps/cards/models.py:394
 msgid "Impersonation"
 msgstr "Identiteitsfraude"
 
-#: apps/cards/models.py:345
+#: apps/cards/models.py:395
 msgid "Fraud or scam"
 msgstr "Fraude of oplichting"
 
-#: apps/cards/models.py:346
+#: apps/cards/models.py:396
 msgid "Offensive content"
 msgstr "Aanstootgevende inhoud"
 
-#: apps/cards/models.py:347 apps/support/models.py:17
+#: apps/cards/models.py:397 apps/support/models.py:17
 msgid "Other"
 msgstr "Overig"
 
-#: apps/cards/models.py:350 apps/support/models.py:23
+#: apps/cards/models.py:400 apps/support/models.py:23
 msgid "Open"
 msgstr "Open"
 
-#: apps/cards/models.py:350
+#: apps/cards/models.py:400
 msgid "Dismissed"
 msgstr "Afgewezen"
 
-#: apps/cards/models.py:350
+#: apps/cards/models.py:400
 msgid "Actioned"
 msgstr "Afgehandeld"
 
-#: apps/cards/premade.py:171
+#: apps/cards/premade.py:184
 msgid "This card has already been set up by its buyer."
 msgstr "Deze kaart is al ingesteld door de koper."
 
-#: apps/cards/premade.py:222 apps/cards/premade.py:347
+#: apps/cards/premade.py:235 apps/cards/premade.py:376
 msgid "This card has already been set up."
 msgstr "Deze kaart is al ingesteld."
 
-#: apps/cards/premade.py:224 apps/cards/premade.py:349
+#: apps/cards/premade.py:237 apps/cards/premade.py:378
 msgid ""
 "This card is no longer in use. Please contact the shop you bought it from."
 msgstr ""
 "Deze kaart is niet meer in gebruik. Neem contact op met de winkel waar je "
 "hem hebt gekocht."
 
-#: apps/cards/premade.py:226
+#: apps/cards/premade.py:239
 msgid "Too many attempts from this connection. Please try again later."
 msgstr "Te veel pogingen vanaf deze verbinding. Probeer het later opnieuw."
 
-#: apps/cards/premade.py:233
+#: apps/cards/premade.py:246
 #, python-format
 msgid "Too many wrong PINs. Please try again in %(minutes)d minute."
 msgid_plural "Too many wrong PINs. Please try again in %(minutes)d minutes."
@@ -711,13 +711,13 @@ msgstr[0] ""
 msgstr[1] ""
 "Te veel foute pincodes. Probeer het over %(minutes)d minuten opnieuw."
 
-#: apps/cards/premade.py:247
+#: apps/cards/premade.py:260
 #, python-format
 msgid "That PIN is not right. This card is locked for %(minutes)d minutes."
 msgstr ""
 "Die pincode klopt niet. Deze kaart is %(minutes)d minuten geblokkeerd."
 
-#: apps/cards/premade.py:251
+#: apps/cards/premade.py:264
 #, python-format
 msgid "That PIN is not right. %(left)d try left."
 msgid_plural "That PIN is not right. %(left)d tries left."
@@ -844,26 +844,26 @@ msgstr "Bezorging"
 msgid "Shipping and delivery"
 msgstr "Verzending en bezorging"
 
-#: apps/core/management/commands/run_daily_jobs.py:102
+#: apps/core/management/commands/run_daily_jobs.py:103
 msgid "Your card plan ends today"
 msgstr "Je kaartabonnement eindigt vandaag"
 
-#: apps/core/management/commands/run_daily_jobs.py:102
+#: apps/core/management/commands/run_daily_jobs.py:103
 #, python-format
 msgid "Your card plan ends in %(count)d day"
 msgid_plural "Your card plan ends in %(count)d days"
 msgstr[0] "Je kaartabonnement eindigt over %(count)d dag"
 msgstr[1] "Je kaartabonnement eindigt over %(count)d dagen"
 
-#: apps/core/management/commands/run_daily_jobs.py:124
+#: apps/core/management/commands/run_daily_jobs.py:125
 msgid "Your card is in its grace period"
 msgstr "Je kaart zit in de respijtperiode"
 
-#: apps/core/management/commands/run_daily_jobs.py:126
+#: apps/core/management/commands/run_daily_jobs.py:127
 msgid "Your card is now inactive"
 msgstr "Je kaart is nu inactief"
 
-#: apps/core/management/commands/run_daily_jobs.py:155
+#: apps/core/management/commands/run_daily_jobs.py:156
 msgid "Your card details will be deleted soon"
 msgstr "De gegevens van je kaart worden binnenkort verwijderd"
 
@@ -940,11 +940,11 @@ msgstr "Achtergrondafbeelding"
 msgid "Remove background"
 msgstr "Achtergrond verwijderen"
 
-#: apps/dashboard/forms.py:31 templates/dashboard/editor.html:93
+#: apps/dashboard/forms.py:31 templates/dashboard/editor.html:116
 msgid "Card colour"
 msgstr "Kaartkleur"
 
-#: apps/dashboard/forms.py:34 templates/dashboard/editor.html:98
+#: apps/dashboard/forms.py:34 templates/dashboard/editor.html:121
 msgid "Custom colour"
 msgstr "Eigen kleur"
 
@@ -964,7 +964,7 @@ msgstr "Gebruik de notatie GA-123-4567."
 msgid "Choose a colour."
 msgstr "Kies een kleur."
 
-#: apps/dashboard/forms.py:214 templates/dashboard/editor.html:185
+#: apps/dashboard/forms.py:214 templates/dashboard/editor.html:208
 #: templates/dashboard/home.html:32 templates/dashboard/share.html:17
 msgid "Your card link"
 msgstr "Je kaartlink"
@@ -981,20 +981,20 @@ msgstr "Volledige naam op de nieuwe kaart"
 msgid "Position"
 msgstr "Functie"
 
-#: apps/dashboard/views.py:135
+#: apps/dashboard/views.py:132
 msgid "Some details need fixing. Look for the messages in red."
 msgstr "Een paar gegevens moeten worden aangepast. Zoek de rode meldingen."
 
-#: apps/dashboard/views.py:171
+#: apps/dashboard/views.py:232
 #, python-format
 msgid "Your link is now /c/%(slug)s. The old link redirects here."
 msgstr "Je link is nu /c/%(slug)s. De oude link verwijst hierheen."
 
-#: apps/dashboard/views.py:175
+#: apps/dashboard/views.py:236
 msgid "Enter a link between 3 and 40 characters."
 msgstr "Voer een link in van 3 tot 40 tekens."
 
-#: apps/dashboard/views.py:193
+#: apps/dashboard/views.py:256
 #, python-format
 msgid ""
 "The %(plan)s plan includes %(limit)s social links. Upgrade for unlimited "
@@ -1003,20 +1003,20 @@ msgstr ""
 "Het %(plan)s-abonnement bevat %(limit)s links naar sociale media. Upgrade "
 "voor onbeperkt veel links."
 
-#: apps/dashboard/views.py:199
+#: apps/dashboard/views.py:262
 #, python-format
 msgid "%(label)s added."
 msgstr "%(label)s toegevoegd."
 
-#: apps/dashboard/views.py:215
+#: apps/dashboard/views.py:280
 msgid "Link removed."
 msgstr "Link verwijderd."
 
-#: apps/dashboard/views.py:344
+#: apps/dashboard/views.py:409
 msgid "Contact removed."
 msgstr "Contact verwijderd."
 
-#: apps/dashboard/views.py:367
+#: apps/dashboard/views.py:432
 #, python-format
 msgid ""
 "All %(limit)d place on your plan is in use. Switch off or delete a card you "
@@ -1033,31 +1033,31 @@ msgstr[1] ""
 "die je niet meer nodig hebt uit of verwijder die, of voeg personen aan je "
 "abonnement toe."
 
-#: apps/dashboard/views.py:375
+#: apps/dashboard/views.py:440
 msgid "New card created. Fill in the details."
 msgstr "Nieuwe kaart aangemaakt. Vul de gegevens in."
 
-#: apps/dashboard/views.py:389
+#: apps/dashboard/views.py:454
 msgid "Switch another card off first, or add people to your plan."
 msgstr ""
 "Schakel eerst een andere kaart uit of voeg personen aan je abonnement toe."
 
-#: apps/dashboard/views.py:395
+#: apps/dashboard/views.py:460
 #, python-format
 msgid "%(name)s is now live."
 msgstr "De kaart van %(name)s staat nu live."
 
-#: apps/dashboard/views.py:395
+#: apps/dashboard/views.py:460
 #, python-format
 msgid "%(name)s is now switched off."
 msgstr "De kaart van %(name)s is nu uitgeschakeld."
 
-#: apps/dashboard/views.py:405
+#: apps/dashboard/views.py:470
 msgid "You need at least one card. Edit this one instead."
 msgstr ""
 "Je hebt minstens één kaart nodig. Bewerk deze kaart in plaats daarvan."
 
-#: apps/dashboard/views.py:409
+#: apps/dashboard/views.py:474
 #, python-format
 msgid ""
 "%(name)s's card was deleted. Its link will show that the card no longer "
@@ -1066,19 +1066,19 @@ msgstr ""
 "De kaart van %(name)s is verwijderd. De link toont dat de kaart niet meer "
 "bestaat."
 
-#: apps/dashboard/views.py:527
+#: apps/dashboard/views.py:600
 msgid "Account details saved."
 msgstr "Accountgegevens opgeslagen."
 
-#: apps/dashboard/views.py:538
+#: apps/dashboard/views.py:611
 msgid "Type your email address exactly to confirm."
 msgstr "Typ je e-mailadres precies zo in om te bevestigen."
 
-#: apps/dashboard/views.py:546
+#: apps/dashboard/views.py:619
 msgid "We received your account deletion request"
 msgstr "We hebben je verzoek om je account te verwijderen ontvangen"
 
-#: apps/dashboard/views.py:550
+#: apps/dashboard/views.py:623
 msgid ""
 "Your deletion request is recorded. Your data will be removed within 30 days."
 msgstr ""
@@ -1450,7 +1450,7 @@ msgstr ""
 "NFC-kaarten openen je digitale kaart, en die heeft een actief abonnement "
 "nodig. Koop beide hier samen."
 
-#: apps/nfc/forms.py:68 templates/billing/checkout.html:53
+#: apps/nfc/forms.py:68 templates/billing/checkout.html:65
 msgid "Promo code"
 msgstr "Actiecode"
 
@@ -1965,29 +1965,29 @@ msgstr ""
 msgid "Your card goes live as soon as Paystack confirms your payment."
 msgstr "Je kaart gaat live zodra Paystack je betaling bevestigt."
 
-#: templates/billing/checkout.html:31 templates/dashboard/home.html:61
+#: templates/billing/checkout.html:43 templates/dashboard/home.html:61
 #: templates/dashboard/home.html:64
 msgid "Plan"
 msgstr "Abonnement"
 
-#: templates/billing/checkout.html:36 templates/marketing/_plans.html:7
+#: templates/billing/checkout.html:48 templates/marketing/_plans.html:7
 msgid "Most popular"
 msgstr "Meest gekozen"
 
-#: templates/billing/checkout.html:37 templates/marketing/_plans.html:12
+#: templates/billing/checkout.html:49 templates/marketing/_plans.html:12
 msgid "from"
 msgstr "vanaf"
 
-#: templates/billing/checkout.html:37
+#: templates/billing/checkout.html:49
 #, python-format
 msgid "for %(p_max_cards)s people"
 msgstr "voor %(p_max_cards)s personen"
 
-#: templates/billing/checkout.html:45
+#: templates/billing/checkout.html:57
 msgid "Team size"
 msgstr "Teamgrootte"
 
-#: templates/billing/checkout.html:46
+#: templates/billing/checkout.html:58
 #, python-format
 msgid ""
 "The %(plan_name)s price includes %(plan_max_cards)s people. Everyone after "
@@ -1998,7 +1998,7 @@ msgstr ""
 "daarna wordt per persoon berekend, en hoe groter het team, hoe minder elke "
 "persoon kost. Elke persoon krijgt een eigen kaart."
 
-#: templates/billing/checkout.html:48
+#: templates/billing/checkout.html:60
 #, python-format
 msgid ""
 "You pay for %(subscription_team_size)s people now. To add people before your"
@@ -2009,15 +2009,15 @@ msgstr ""
 "verlenging personen toe te voegen, kies je de nieuwe teamgrootte en betaal "
 "je het verschil voor de resterende maanden."
 
-#: templates/billing/checkout.html:55
+#: templates/billing/checkout.html:67
 msgid "Code (optional)"
 msgstr "Code (optioneel)"
 
-#: templates/billing/checkout.html:56
+#: templates/billing/checkout.html:68
 msgid "Apply"
 msgstr "Toepassen"
 
-#: templates/billing/checkout.html:61
+#: templates/billing/checkout.html:73
 #, python-format
 msgid ""
 "<strong>%(plan_name)s costs less than your current plan.</strong> It starts "
@@ -2028,20 +2028,21 @@ msgstr ""
 "gaat in als je huidige jaar eindigt op %(subscription_expires_at_date)s. Tot"
 " dan houd je alles van %(subscription_plan_name)s."
 
-#: templates/billing/checkout.html:66 templates/nfc/detail.html:80
+#: templates/billing/checkout.html:78 templates/nfc/detail.html:80
 msgid "Summary"
 msgstr "Overzicht"
 
-#: templates/billing/checkout.html:69
+#: templates/billing/checkout.html:81
 #, python-format
 msgid "Discount (%(quote_promo_code)s)"
 msgstr "Korting (%(quote_promo_code)s)"
 
-#: templates/billing/checkout.html:71
+#: templates/billing/checkout.html:83
+#: templates/dashboard/unlock_updates.html:29
 msgid "You pay"
 msgstr "Je betaalt"
 
-#: templates/billing/checkout.html:72
+#: templates/billing/checkout.html:84
 #, python-format
 msgid ""
 "The amount shown in %(currency)s is approximate. You will be charged "
@@ -2051,7 +2052,8 @@ msgstr ""
 "%(quote_total_minor_ghs)s van je afgeschreven. Je bank kan een eigen "
 "wisselkoers hanteren."
 
-#: templates/billing/checkout.html:74
+#: templates/billing/checkout.html:86
+#: templates/dashboard/unlock_updates.html:47
 #, python-format
 msgid ""
 "I accept the <a href=\"%(url_1)s\" target=\"_blank\">Terms of Service</a> "
@@ -2063,7 +2065,8 @@ msgstr ""
 "target=\"_blank\">Terugbetalingsbeleid</a>. Abonnementen kunnen niet worden "
 "terugbetaald zodra ze actief zijn."
 
-#: templates/billing/checkout.html:83
+#: templates/billing/checkout.html:95
+#: templates/dashboard/unlock_updates.html:63
 msgid ""
 "Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and "
 "Mastercard."
@@ -2071,7 +2074,8 @@ msgstr ""
 "Veilig betalen via Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa en "
 "Mastercard."
 
-#: templates/billing/checkout.html:83
+#: templates/billing/checkout.html:95
+#: templates/dashboard/unlock_updates.html:63
 msgid "Test mode — no real money moves."
 msgstr "Testmodus — er wordt geen echt geld verplaatst."
 
@@ -2098,7 +2102,7 @@ msgstr ""
 msgid "Your payments"
 msgstr "Je betalingen"
 
-#: apps/dashboard/views.py:331 templates/billing/receipts.html:11
+#: apps/dashboard/views.py:396 templates/billing/receipts.html:11
 msgid "Date"
 msgstr "Datum"
 
@@ -2150,19 +2154,19 @@ msgstr "Kwitantie %(payment_receipt_number)s is onderweg naar je inbox."
 msgid "Track your order"
 msgstr "Volg je bestelling"
 
-#: templates/billing/result.html:17 templates/dashboard/share.html:6
+#: templates/billing/result.html:19 templates/dashboard/share.html:6
 msgid "Share your card"
 msgstr "Deel je kaart"
 
-#: templates/billing/result.html:19
+#: templates/billing/result.html:21
 msgid "Download receipt"
 msgstr "Kwitantie downloaden"
 
-#: templates/billing/result.html:24
+#: templates/billing/result.html:26
 msgid "Confirming your payment…"
 msgstr "Je betaling wordt bevestigd…"
 
-#: templates/billing/result.html:25
+#: templates/billing/result.html:27
 msgid ""
 "Approve the prompt on your phone if you paid with Mobile Money. This page "
 "checks again every few seconds."
@@ -2170,20 +2174,20 @@ msgstr ""
 "Keur de melding op je telefoon goed als je met Mobile Money hebt betaald. "
 "Deze pagina controleert om de paar seconden opnieuw."
 
-#: templates/billing/result.html:26
+#: templates/billing/result.html:28
 #, python-format
 msgid "Reference <span class=\"mono\">%(payment_reference)s</span>"
 msgstr "Referentie <span class=\"mono\">%(payment_reference)s</span>"
 
-#: templates/billing/result.html:27
+#: templates/billing/result.html:29
 msgid "Check now"
 msgstr "Nu controleren"
 
-#: templates/billing/result.html:30
+#: templates/billing/result.html:32
 msgid "That payment did not go through"
 msgstr "Die betaling is niet gelukt"
 
-#: templates/billing/result.html:31
+#: templates/billing/result.html:33
 msgid ""
 "You have not been charged. You can try again, or use a different payment "
 "method."
@@ -2191,11 +2195,11 @@ msgstr ""
 "Er is niets van je afgeschreven. Je kunt het opnieuw proberen of een andere "
 "betaalmethode gebruiken."
 
-#: templates/billing/result.html:32
+#: templates/billing/result.html:34
 msgid "Try again"
 msgstr "Opnieuw proberen"
 
-#: templates/billing/result.html:34
+#: templates/billing/result.html:36
 msgid "Log in to see your account"
 msgstr "Log in om je account te zien"
 
@@ -2221,7 +2225,7 @@ msgstr "Neem contact op met %(first)s"
 msgid "Call"
 msgstr "Bellen"
 
-#: apps/cards/forms.py:23 apps/dashboard/views.py:331 apps/support/forms.py:18
+#: apps/cards/forms.py:23 apps/dashboard/views.py:396 apps/support/forms.py:18
 #: templates/cards/_contact.html:11 templates/cards/_contact.html:42
 #: templates/dashboard/leads.html:15 templates/dashboard/share.html:23
 #: templates/support/contact.html:24
@@ -2232,7 +2236,7 @@ msgstr "E-mail"
 msgid "Map"
 msgstr "Kaart"
 
-#: templates/cards/_contact.html:23 templates/dashboard/editor.html:65
+#: templates/cards/_contact.html:23 templates/dashboard/editor.html:88
 msgid "Contact details"
 msgstr "Contactgegevens"
 
@@ -2292,7 +2296,7 @@ msgstr "Voeg deze kaart toe aan je account"
 msgid "Go to my cards"
 msgstr "Naar mijn kaarten"
 
-#: templates/cards/claim_attach.html:17
+#: templates/cards/claim_attach.html:21
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -2303,7 +2307,7 @@ msgstr ""
 " account toegevoegd en er wordt een jaar %(batch_plan_name)s aan je "
 "abonnement toegevoegd. De link en QR-code blijven precies zoals gedrukt."
 
-#: templates/cards/claim_attach.html:21
+#: templates/cards/claim_attach.html:25
 #, python-format
 msgid ""
 "Your plan is currently %(subscription_plan_name)s, active until "
@@ -2312,7 +2316,7 @@ msgstr ""
 "Je huidige abonnement is %(subscription_plan_name)s, actief tot "
 "%(subscription_expires_at_date)s."
 
-#: templates/cards/claim_attach.html:24
+#: templates/cards/claim_attach.html:28
 msgid "Add the card and the year"
 msgstr "Kaart en jaar toevoegen"
 
@@ -2353,7 +2357,7 @@ msgstr ""
 msgid "Your details"
 msgstr "Je gegevens"
 
-#: templates/cards/claim_setup.html:14
+#: templates/cards/claim_setup.html:18
 #, python-format
 msgid ""
 "This card comes with one year of the %(batch_plan_name)s plan, already paid."
@@ -2364,7 +2368,7 @@ msgstr ""
 "betaald. Vul je gegevens in en maak je account aan. De link en QR-code van "
 "je kaart blijven precies zoals gedrukt."
 
-#: templates/accounts/register.html:19 templates/cards/claim_setup.html:21
+#: templates/accounts/register.html:19 templates/cards/claim_setup.html:25
 #, python-format
 msgid ""
 "By creating an account you agree to our <a href=\"%(url_1)s\" "
@@ -2375,11 +2379,11 @@ msgstr ""
 "target=\"_blank\">Servicevoorwaarden</a> en ons <a href=\"%(url_2)s\" "
 "target=\"_blank\">Privacybeleid</a>."
 
-#: templates/cards/claim_setup.html:22
+#: templates/cards/claim_setup.html:26
 msgid "Activate my card"
 msgstr "Mijn kaart activeren"
 
-#: templates/cards/claim_setup.html:24
+#: templates/cards/claim_setup.html:28
 #, python-format
 msgid ""
 "Already have an account? <a href=\"%(login_url)s\">Log in to add this card "
@@ -2554,7 +2558,7 @@ msgstr "Hulp en support"
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: templates/dashboard/_status_banner.html:5
+#: templates/dashboard/_status_banner.html:7
 msgid ""
 "<strong>Your card is a draft.</strong> Only you can see it. Choose a plan to"
 " give it its permanent link and switch it on."
@@ -2562,12 +2566,12 @@ msgstr ""
 "<strong>Je kaart is een concept.</strong> Alleen jij kunt hem zien. Kies een"
 " abonnement om hem zijn permanente link te geven en hem aan te zetten."
 
-#: templates/dashboard/_status_banner.html:6
-#: templates/dashboard/business.html:17 templates/dashboard/editor.html:162
+#: templates/dashboard/_status_banner.html:8
+#: templates/dashboard/business.html:17 templates/dashboard/editor.html:185
 msgid "Choose a plan"
 msgstr "Kies een abonnement"
 
-#: templates/dashboard/_status_banner.html:11
+#: templates/dashboard/_status_banner.html:13
 #, python-format
 msgid ""
 "<strong>Your plan ended on %(shell_subscription_expires_at_date)s.</strong> "
@@ -2579,12 +2583,12 @@ msgstr ""
 "%(shell_subscription_grace_ends_at_date)s. Verleng vóór die datum om hem "
 "live te houden."
 
-#: templates/dashboard/_status_banner.html:12
-#: templates/dashboard/_status_banner.html:18
+#: templates/dashboard/_status_banner.html:14
+#: templates/dashboard/_status_banner.html:20
 msgid "Renew now"
 msgstr "Nu verlengen"
 
-#: templates/dashboard/_status_banner.html:17
+#: templates/dashboard/_status_banner.html:19
 msgid ""
 "<strong>Your card is inactive.</strong> Visitors see a “card inactive” page."
 " Renew to bring back the same link, QR code and NFC cards."
@@ -2593,7 +2597,7 @@ msgstr ""
 "inactief’. Verleng om dezelfde link, QR-code en NFC-kaarten terug te "
 "krijgen."
 
-#: templates/dashboard/_status_banner.html:24
+#: templates/dashboard/_status_banner.html:26
 msgid "Renew"
 msgstr "Verlengen"
 
@@ -2666,8 +2670,8 @@ msgstr ""
 msgid "Your cards"
 msgstr "Je kaarten"
 
-#: apps/billing/models.py:225 apps/dashboard/views.py:331
-#: templates/dashboard/cards.html:17
+#: apps/billing/models.py:225 apps/cards/models.py:220
+#: apps/dashboard/views.py:396 templates/dashboard/cards.html:17
 msgid "Card"
 msgstr "Kaart"
 
@@ -2761,19 +2765,19 @@ msgstr ""
 msgid "Open public card"
 msgstr "Openbare kaart openen"
 
-#: templates/dashboard/editor.html:15
+#: templates/dashboard/editor.html:38
 msgid "Some details need fixing:"
 msgstr "Een paar gegevens moeten worden aangepast:"
 
-#: templates/dashboard/editor.html:29
+#: templates/dashboard/editor.html:52
 msgid "About you"
 msgstr "Over jou"
 
-#: templates/dashboard/editor.html:32
+#: templates/dashboard/editor.html:55
 msgid "Your current photo"
 msgstr "Je huidige foto"
 
-#: templates/dashboard/editor.html:49
+#: templates/dashboard/editor.html:72
 #, python-format
 msgid ""
 "Up to %(plan_max_phones)s numbers on your plan, each with a label such as "
@@ -2782,70 +2786,70 @@ msgstr ""
 "Maximaal %(plan_max_phones)s nummers in je abonnement, elk met een label "
 "zoals MTN, Telecel of Kantoor."
 
-#: templates/dashboard/editor.html:76
+#: templates/dashboard/editor.html:99
 msgid "Map pin"
 msgstr "Kaartpin"
 
-#: templates/dashboard/editor.html:78
+#: templates/dashboard/editor.html:101
 msgid "Use my current location"
 msgstr "Mijn huidige locatie gebruiken"
 
-#: templates/dashboard/editor.html:79
+#: templates/dashboard/editor.html:102
 msgid "Remove pin"
 msgstr "Pin verwijderen"
 
-#: templates/dashboard/editor.html:81
+#: templates/dashboard/editor.html:104
 #, python-format
 msgid "Pin set at %(card_latitude)s, %(card_longitude)s."
 msgstr "Pin geplaatst op %(card_latitude)s, %(card_longitude)s."
 
-#: templates/dashboard/editor.html:81
+#: templates/dashboard/editor.html:104
 msgid "Opens in Google Maps or Apple Maps."
 msgstr "Opent in Google Maps of Apple Maps."
 
-#: templates/dashboard/editor.html:89
+#: templates/dashboard/editor.html:112
 msgid "Look and feel"
 msgstr "Uiterlijk"
 
-#: templates/dashboard/editor.html:105 templates/dashboard/editor.html:109
-#: templates/dashboard/editor.html:114 templates/dashboard/editor.html:118
-#: templates/dashboard/editor.html:122 templates/dashboard/editor.html:129
-#: templates/dashboard/editor.html:138
+#: templates/dashboard/editor.html:128 templates/dashboard/editor.html:132
+#: templates/dashboard/editor.html:137 templates/dashboard/editor.html:141
+#: templates/dashboard/editor.html:145 templates/dashboard/editor.html:152
+#: templates/dashboard/editor.html:161
 msgid "Professional"
 msgstr "Professional"
 
-#: templates/dashboard/editor.html:126
+#: templates/dashboard/editor.html:149
 msgid "Your current logo"
 msgstr "Je huidige logo"
 
-#: templates/dashboard/editor.html:147
+#: templates/dashboard/editor.html:170
 msgid "Privacy"
 msgstr "Privacy"
 
-#: templates/dashboard/editor.html:152
+#: templates/dashboard/editor.html:175
 msgid ""
 "Untick anything you would rather not show. It stays saved, just hidden."
 msgstr ""
 "Vink uit wat je liever niet wilt tonen. Het blijft bewaard, alleen "
 "verborgen."
 
-#: templates/dashboard/editor.html:163
+#: templates/dashboard/editor.html:186
 msgid "Save card"
 msgstr "Kaart opslaan"
 
-#: templates/dashboard/editor.html:167 templates/dashboard/editor.html:168
+#: templates/dashboard/editor.html:190 templates/dashboard/editor.html:191
 msgid "Live preview"
 msgstr "Live voorbeeld"
 
-#: templates/dashboard/editor.html:177
+#: templates/dashboard/editor.html:200
 msgid "Card link"
 msgstr "Kaartlink"
 
-#: templates/dashboard/editor.html:179
+#: templates/dashboard/editor.html:202
 msgid "Your link is printed on NFC cards, so it can no longer change."
 msgstr "Je link staat op NFC-kaarten gedrukt en kan dus niet meer wijzigen."
 
-#: templates/dashboard/editor.html:182
+#: templates/dashboard/editor.html:205
 msgid ""
 "Changing your link breaks any QR codes you have already printed. The old "
 "link will redirect for anyone who has it. Continue?"
@@ -2853,14 +2857,14 @@ msgstr ""
 "Als je je link wijzigt, werken QR-codes die je al hebt gedrukt niet meer. De"
 " oude link verwijst door voor iedereen die hem heeft. Doorgaan?"
 
-#: templates/dashboard/editor.html:187
+#: templates/dashboard/editor.html:210
 msgid ""
 "Changing it breaks printed QR codes. Old links redirect to the new one."
 msgstr ""
 "Wijzigen maakt gedrukte QR-codes onbruikbaar. Oude links verwijzen door naar"
 " de nieuwe."
 
-#: templates/dashboard/editor.html:189
+#: templates/dashboard/editor.html:212
 msgid "Change link"
 msgstr "Link wijzigen"
 
@@ -2963,22 +2967,22 @@ msgstr "CSV exporteren"
 msgid "Contacts received"
 msgstr "Ontvangen contacten"
 
-#: apps/dashboard/forms.py:260 apps/dashboard/views.py:331
+#: apps/dashboard/forms.py:260 apps/dashboard/views.py:396
 #: templates/dashboard/leads.html:15
 msgid "Name"
 msgstr "Naam"
 
-#: apps/cards/forms.py:22 apps/dashboard/views.py:331
+#: apps/cards/forms.py:22 apps/dashboard/views.py:396
 #: templates/dashboard/leads.html:15
 msgid "Phone"
 msgstr "Telefoon"
 
-#: apps/cards/forms.py:24 apps/dashboard/views.py:331
+#: apps/cards/forms.py:24 apps/dashboard/views.py:396
 #: templates/dashboard/leads.html:15
 msgid "Company"
 msgstr "Bedrijf"
 
-#: apps/dashboard/views.py:331 templates/dashboard/leads.html:15
+#: apps/dashboard/views.py:396 templates/dashboard/leads.html:15
 msgid "Came via"
 msgstr "Via"
 
@@ -3255,7 +3259,9 @@ msgstr "Je ontvangt dit omdat je een account of bestelling bij ons hebt."
 #: templates/emails/password_reset_code.txt:1
 #: templates/emails/payment_receipt.txt:1
 #: templates/emails/renewal_reminder.txt:1
-#: templates/emails/staff_message.txt:1 templates/emails/welcome.txt:1
+#: templates/emails/staff_message.txt:1
+#: templates/emails/update_autopay_stopped.txt:1
+#: templates/emails/welcome.txt:1
 msgid "there"
 msgstr "daar"
 
@@ -3282,6 +3288,7 @@ msgstr "daar"
 #: templates/emails/staff_message.txt:1
 #: templates/emails/support_received.txt:1
 #: templates/emails/support_reply.txt:1
+#: templates/emails/update_autopay_stopped.txt:1
 #, python-format
 msgid "Hello %(name)s,"
 msgstr "Hallo %(name)s,"
@@ -3600,17 +3607,17 @@ msgstr "Bedrag: %(value)s"
 msgid "Date: %(value)s"
 msgstr "Datum: %(value)s"
 
-#: templates/emails/payment_receipt.txt:11
+#: templates/emails/payment_receipt.txt:14
 #, python-format
 msgid "Your %(plan)s plan is active until %(date)s."
 msgstr "Je %(plan)s-abonnement is actief tot %(date)s."
 
-#: templates/emails/payment_receipt.txt:12
+#: templates/emails/payment_receipt.txt:15
 #, python-format
 msgid "Track your NFC order: %(link)s"
 msgstr "Volg je NFC-bestelling: %(link)s"
 
-#: templates/emails/payment_receipt.txt:18
+#: templates/emails/payment_receipt.txt:21
 msgid ""
 "The PDF receipt is attached. You can also download it any time from your "
 "dashboard."
@@ -5171,14 +5178,14 @@ msgstr ""
 "<a href=\"%(url_1)s\" target=\"_blank\">Servicevoorwaarden</a> en ons <a "
 "href=\"%(url_2)s\" target=\"_blank\">Privacybeleid</a>."
 
-#: templates/billing/checkout.html:79
+#: templates/billing/checkout.html:91
 #, python-format
 msgid "%(counter)s month"
 msgid_plural "%(counter)s months"
 msgstr[0] "%(counter)s maand"
 msgstr[1] "%(counter)s maanden"
 
-#: templates/billing/checkout.html:79
+#: templates/billing/checkout.html:91
 #, python-format
 msgid ""
 "Or add %(counter)s person now for %(upgrade_amount)s, for the "
@@ -5193,7 +5200,7 @@ msgstr[1] ""
 "Of voeg nu %(counter)s personen toe voor %(upgrade_amount)s, voor de "
 "resterende %(months_left)s"
 
-#: templates/billing/checkout.html:79
+#: templates/billing/checkout.html:91
 #, python-format
 msgid "Or upgrade now for %(upgrade_amount)s, for the %(months_left)s left"
 msgstr ""
@@ -5235,7 +5242,7 @@ msgstr "Doorgaan met Google"
 msgid "or"
 msgstr "of"
 
-#: templates/dashboard/_status_banner.html:23
+#: templates/dashboard/_status_banner.html:25
 #, python-format
 msgid ""
 "<strong>Your plan ends in %(days_left)s day</strong> (%(expires)s). Renew "
@@ -5319,11 +5326,11 @@ msgstr[1] ""
 "Je abonnement bevat %(limit)s actieve kaarten. Het Business-abonnement geeft"
 " iedereen in je team een kaart."
 
-#: templates/dashboard/editor.html:168
+#: templates/dashboard/editor.html:191
 msgid "draft"
 msgstr "concept"
 
-#: templates/dashboard/editor.html:174
+#: templates/dashboard/editor.html:197
 #, python-format
 msgid ""
 "Features marked %(crown_icon)s are included with Professional and Business. "
@@ -5425,22 +5432,22 @@ msgstr "Bedrijfsnaam voor kwitanties"
 msgid "Company address for receipts"
 msgstr "Bedrijfsadres voor kwitanties"
 
-#: apps/billing/services.py:149
+#: apps/billing/services.py:163
 #, python-format
 msgid "%(plan)s plan for %(people)d people"
 msgstr "%(plan)s-abonnement voor %(people)d personen"
 
-#: apps/billing/services.py:159
+#: apps/billing/services.py:173
 #, python-format
 msgid "%(plan)s, 12 more months"
 msgstr "%(plan)s, 12 maanden extra"
 
-#: apps/billing/services.py:159 apps/billing/services.py:557
+#: apps/billing/services.py:173 apps/billing/services.py:626
 #, python-format
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s, 12 maanden"
 
-#: apps/cards/forms.py:25 apps/dashboard/views.py:331
+#: apps/cards/forms.py:25 apps/dashboard/views.py:396
 msgid "Message"
 msgstr "Bericht"
 
@@ -5669,11 +5676,11 @@ msgstr "MTN, Telecel, Kantoor…"
 msgid "Platform"
 msgstr "Platform"
 
-#: apps/dashboard/views.py:291
+#: apps/dashboard/views.py:356
 msgid "QR code scans"
 msgstr "QR-code-scans"
 
-#: apps/dashboard/views.py:292
+#: apps/dashboard/views.py:357
 msgid "NFC taps"
 msgstr "NFC-tikken"
 
@@ -5784,11 +5791,11 @@ msgstr "SVG voor drukwerk"
 msgid "Chat with us"
 msgstr "Chat met ons"
 
-#: apps/cards/models.py:233
+#: apps/cards/models.py:283
 msgid "For example MTN, Telecel or Office."
 msgstr "Bijvoorbeeld MTN, Telecel of Kantoor."
 
-#: apps/billing/services.py:632 apps/billing/views.py:219
+#: apps/billing/services.py:701 apps/billing/views.py:220
 #: apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "j F Y"
@@ -5809,11 +5816,11 @@ msgstr "j F Y, H:i"
 msgid "j M, H:i"
 msgstr "j M, H:i"
 
-#: apps/core/dynamic_strings.py:51 apps/dashboard/views.py:274
+#: apps/core/dynamic_strings.py:51 apps/dashboard/views.py:339
 msgid "d M"
 msgstr "d M"
 
-#: apps/core/dynamic_strings.py:52 apps/dashboard/views.py:278
+#: apps/core/dynamic_strings.py:52 apps/dashboard/views.py:343
 msgid "M Y"
 msgstr "M Y"
 
@@ -5831,7 +5838,7 @@ msgstr ""
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "Deel je contactgegevens via een link, QR-code of NFC-tik."
 
-#: templates/billing/checkout.html:37
+#: templates/billing/checkout.html:49
 #, python-format
 msgid "%(price)s/yr"
 msgstr "%(price)s/jr"
@@ -5841,7 +5848,7 @@ msgstr "%(price)s/jr"
 msgid "Photo of %(name)s"
 msgstr "Foto van %(name)s"
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:30
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s for %(seats)s"
@@ -5850,7 +5857,7 @@ msgstr ""
 "Je abonnement verandert op %(date)s naar <strong "
 "style=\"display:inline\">%(plan)s voor %(seats)s personen</strong>."
 
-#: templates/dashboard/_status_banner.html:28
+#: templates/dashboard/_status_banner.html:30
 #, python-format
 msgid ""
 "Your plan changes to <strong style=\"display:inline\">%(plan)s</strong> on "
@@ -5859,34 +5866,34 @@ msgstr ""
 "Je abonnement verandert op %(date)s naar <strong "
 "style=\"display:inline\">%(plan)s</strong>."
 
-#: apps/billing/models.py:226
+#: apps/billing/models.py:226 apps/cards/models.py:221
 #, python-format
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s eindigend op %(last4)s"
 
-#: apps/billing/services.py:469
+#: apps/billing/services.py:490
 #, python-format
 msgid "Your plan has renewed. Receipt %(number)s"
 msgstr "Je abonnement is verlengd. Kwitantie %(number)s"
 
-#: apps/billing/services.py:623
+#: apps/billing/services.py:692
 msgid "We could not renew your plan"
 msgstr "We konden je abonnement niet verlengen"
 
-#: apps/billing/services.py:657
+#: apps/billing/services.py:726
 #, python-format
 msgid "Your plan renews on %(date)s"
 msgstr "Je abonnement wordt verlengd op %(date)s"
 
-#: apps/billing/services.py:695 templates/billing/checkout.html:21
+#: apps/billing/services.py:764 templates/billing/checkout.html:21
 msgid "Automatic renewal is off"
 msgstr "Automatisch verlengen staat uit"
 
-#: apps/billing/views.py:213
+#: apps/billing/views.py:214
 msgid "Automatic renewal is not on for your plan."
 msgstr "Automatisch verlengen staat niet aan voor je abonnement."
 
-#: apps/billing/views.py:218
+#: apps/billing/views.py:219
 #, python-format
 msgid "Automatic renewal is off. Your plan stays active until %(date)s."
 msgstr ""
@@ -5943,7 +5950,8 @@ msgstr ""
 "Betaal hieronder met een kaart om het aan te zetten. Het jaar wordt aan het "
 "einde van je huidige abonnement toegevoegd, dus je verliest geen tijd."
 
-#: templates/billing/checkout.html:77 templates/billing/checkout.html:80
+#: templates/billing/checkout.html:89 templates/billing/checkout.html:92
+#: templates/dashboard/unlock_updates.html:50
 msgid "Don’t have a card? Pay with Mobile Money"
 msgstr "Geen kaart? Betaal met Mobile Money"
 
@@ -6024,7 +6032,7 @@ msgstr ""
 "Om automatisch verlengen uit te schakelen, of met een andere kaart te "
 "betalen, ga je naar: %(link)s"
 
-#: templates/emails/payment_receipt.txt:14
+#: templates/emails/payment_receipt.txt:17
 #, python-format
 msgid ""
 "This was your automatic yearly renewal. To turn off automatic renewal, go "
@@ -6033,7 +6041,7 @@ msgstr ""
 "Dit was je automatische jaarlijkse verlenging. Om automatisch verlengen uit "
 "te schakelen, ga je naar: %(link)s"
 
-#: templates/emails/payment_receipt.txt:16
+#: templates/emails/payment_receipt.txt:19
 #, python-format
 msgid ""
 "Your plan will renew automatically on %(date)s: we will charge your card "
@@ -6176,46 +6184,46 @@ msgstr "Wat de klant zei"
 msgid "Only add words your customer has agreed to share."
 msgstr "Voeg alleen woorden toe die je klant wil delen."
 
-#: apps/dashboard/views.py:442
+#: apps/dashboard/views.py:510
 msgid "Business page saved."
 msgstr "Bedrijfspagina opgeslagen."
 
-#: apps/dashboard/views.py:471
+#: apps/dashboard/views.py:542
 #, python-format
 msgid "You have used all %(limit)d places here. Remove one to add another."
 msgstr ""
 "Je hebt alle %(limit)d plaatsen hier gebruikt. Verwijder er een om een "
 "nieuwe toe te voegen."
 
-#: apps/dashboard/views.py:483
+#: apps/dashboard/views.py:554
 msgid "Saved."
 msgstr "Opgeslagen."
 
-#: apps/dashboard/views.py:486
+#: apps/dashboard/views.py:557
 msgid "Add a product"
 msgstr "Een product toevoegen"
 
-#: apps/dashboard/views.py:486
+#: apps/dashboard/views.py:557
 msgid "Edit product"
 msgstr "Product bewerken"
 
-#: apps/dashboard/views.py:487
+#: apps/dashboard/views.py:558
 msgid "Add a service"
 msgstr "Een dienst toevoegen"
 
-#: apps/dashboard/views.py:487
+#: apps/dashboard/views.py:558
 msgid "Edit service"
 msgstr "Dienst bewerken"
 
-#: apps/dashboard/views.py:488
+#: apps/dashboard/views.py:559
 msgid "Add a customer review"
 msgstr "Een klantbeoordeling toevoegen"
 
-#: apps/dashboard/views.py:488
+#: apps/dashboard/views.py:559
 msgid "Edit customer review"
 msgstr "Klantbeoordeling bewerken"
 
-#: apps/dashboard/views.py:507
+#: apps/dashboard/views.py:580
 msgid "Removed."
 msgstr "Verwijderd."
 
@@ -6387,7 +6395,7 @@ msgstr ""
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s heeft een vraag gestuurd via je bedrijfspagina:"
 
-#: apps/cards/claim.py:145
+#: apps/cards/claim.py:154
 #, python-format
 msgid ""
 "The card is now on your account and %(months)d months have been added to "
@@ -6396,7 +6404,7 @@ msgstr ""
 "De kaart staat nu op je account en er zijn %(months)d maanden aan je "
 "abonnement toegevoegd."
 
-#: templates/cards/claim_attach.html:19
+#: templates/cards/claim_attach.html:23
 #, python-format
 msgid ""
 "You are signed in as <strong>%(user_email)s</strong>. The card will be added"
@@ -6408,11 +6416,11 @@ msgstr ""
 "%(batch_plan_name)s aan je abonnement toegevoegd. De link en QR-code blijven"
 " precies zoals gedrukt."
 
-#: templates/cards/claim_attach.html:24
+#: templates/cards/claim_attach.html:28
 msgid "Add the card to my account"
 msgstr "Kaart aan mijn account toevoegen"
 
-#: templates/cards/claim_setup.html:16
+#: templates/cards/claim_setup.html:20
 #, python-format
 msgid ""
 "This card comes with %(batch_months)s months of the %(batch_plan_name)s "
@@ -6627,7 +6635,7 @@ msgstr ""
 " het formulier aan te vinken. Bij een kaart of bedrijfspagina gaan de "
 "gegevens naar de eigenaar van de kaart, die ze in zijn contacten ziet."
 
-#: apps/cards/claim.py:101
+#: apps/cards/claim.py:107
 msgid ""
 "Your account is ready. Choose a plan and pay to switch your card on. Its "
 "link and QR code stay exactly as printed."
@@ -6635,12 +6643,12 @@ msgstr ""
 "Je account is klaar. Kies een abonnement en betaal om je kaart te activeren."
 " De link en QR-code blijven precies zoals afgedrukt."
 
-#: apps/cards/claim.py:136
+#: apps/cards/claim.py:145
 msgid "The card is now on your account and live on your current plan."
 msgstr ""
 "De kaart staat nu op je account en is actief met je huidige abonnement."
 
-#: apps/cards/claim.py:138
+#: apps/cards/claim.py:147
 msgid ""
 "The card is now on your account. Choose a plan and pay to switch it on."
 msgstr ""
@@ -6675,7 +6683,7 @@ msgstr ""
 "betaal je om je kaart te activeren. De link en QR-code van je kaart blijven "
 "precies zoals afgedrukt."
 
-#: templates/cards/claim_setup.html:22
+#: templates/cards/claim_setup.html:26
 msgid "Create my account"
 msgstr "Mijn account aanmaken"
 
@@ -6863,7 +6871,7 @@ msgid "Your email is now %(email)s. Use it the next time you log in."
 msgstr ""
 "Je e-mailadres is nu %(email)s. Gebruik het de volgende keer dat je inlogt."
 
-#: apps/cards/claim.py:106
+#: apps/cards/claim.py:112
 msgid "Your card is live and your first year is active."
 msgstr "Je kaart staat online en je eerste jaar is actief."
 
@@ -6927,6 +6935,358 @@ msgstr "E-mailadres wijzigen"
 #, python-format
 msgid "The email address on your AD Smart account was changed to %(new)s."
 msgstr "Het e-mailadres van je AD Smart-account is gewijzigd in %(new)s."
+
+#: apps/billing/models.py:406 apps/billing/models.py:503
+msgid "Card updates for a year"
+msgstr "Kaartwijzigingen voor een jaar"
+
+#: apps/billing/models.py:508
+#, python-format
+msgid "Pre-made card, %(plan)s features, pay when you update (sold in a shop)"
+msgstr ""
+"Kant-en-klare kaart, functies van %(plan)s, betalen bij wijzigen (in de "
+"winkel verkocht)"
+
+#: apps/billing/services.py:147
+msgid "Card updates for 12 months"
+msgstr "Kaartwijzigingen voor 12 maanden"
+
+#: apps/cards/claim.py:101
+msgid ""
+"Your card is live. You only pay when you want to change its details, and "
+"then changes stay open for a year."
+msgstr ""
+"Je kaart staat online. Je betaalt alleen als je de gegevens wilt wijzigen, "
+"en daarna blijven wijzigingen een jaar open."
+
+#: apps/cards/claim.py:140
+msgid ""
+"The card is now on your account and live. You only pay when you want to "
+"change its details."
+msgstr ""
+"De kaart staat nu op je account en online. Je betaalt alleen als je de "
+"gegevens wilt wijzigen."
+
+#: apps/dashboard/views.py:216
+msgid "The changes that were waiting have been thrown away."
+msgstr "De wijzigingen die klaarstonden zijn weggegooid."
+
+#: templates/billing/result.html:17
+msgid "Back to my card"
+msgstr "Terug naar mijn kaart"
+
+#: templates/cards/claim_attach.html:18
+#, python-format
+msgid ""
+"You are signed in as <strong>%(user_email)s</strong>. The card will be added"
+" to this account and go live at once with the %(batch_plan_name)s features. "
+"Its link and QR code stay exactly as printed."
+msgstr ""
+"Je bent ingelogd als <strong>%(user_email)s</strong>. De kaart wordt aan dit"
+" account toegevoegd en gaat meteen online met de functies van "
+"%(batch_plan_name)s. De link en de QR-code blijven precies zoals gedrukt."
+
+#: templates/cards/claim_attach.html:19
+#, python-format
+msgid ""
+"You only pay when you want to change its details later: %(update_price)s, "
+"which keeps changes open for a year."
+msgstr ""
+"Je betaalt alleen als je de gegevens later wilt wijzigen: %(update_price)s, "
+"waarmee wijzigingen een jaar open blijven."
+
+#: templates/cards/claim_setup.html:15
+#, python-format
+msgid ""
+"This card goes live as soon as you finish, with the %(batch_plan_name)s "
+"features and no plan to pay for. Add your details and create your account. "
+"Your card’s link and QR code stay exactly as printed."
+msgstr ""
+"Deze kaart gaat online zodra je klaar bent, met de functies van "
+"%(batch_plan_name)s en zonder abonnement om te betalen. Vul je gegevens in "
+"en maak je account aan. De link en de QR-code van je kaart blijven precies "
+"zoals gedrukt."
+
+#: templates/cards/claim_setup.html:16
+#, python-format
+msgid ""
+"You only pay when you want to change your details later: %(update_price)s, "
+"which keeps changes open for a year."
+msgstr ""
+"Je betaalt alleen als je je gegevens later wilt wijzigen: %(update_price)s, "
+"waarmee wijzigingen een jaar open blijven."
+
+#: templates/dashboard/editor.html:18
+msgid ""
+"<strong>You have changes waiting for payment.</strong> They are not on your "
+"card yet. Pay to put them on your card, or save new changes to replace them."
+msgstr ""
+"<strong>Er staan wijzigingen klaar die nog betaald moeten worden.</strong> "
+"Ze staan nog niet op je kaart. Betaal om ze op je kaart te zetten, of sla "
+"nieuwe wijzigingen op om ze te vervangen."
+
+#: templates/dashboard/editor.html:19
+msgid "Pay and apply"
+msgstr "Betalen en toepassen"
+
+#: templates/dashboard/editor.html:25
+#, python-format
+msgid ""
+"<strong>Changing your card costs %(update_price)s.</strong> Edit and preview"
+" as much as you like. You pay when you press Save, and your changes go onto "
+"your card as soon as the payment clears. That opens changes for 12 months."
+msgstr ""
+"<strong>Je kaart wijzigen kost %(update_price)s.</strong> Bewerk en bekijk "
+"de voorbeeldweergave zo vaak je wilt. Je betaalt als je op Opslaan drukt, en"
+" je wijzigingen komen op je kaart zodra de betaling is bevestigd. Daarmee "
+"staan wijzigingen 12 maanden open."
+
+#: templates/dashboard/editor.html:31
+#, python-format
+msgid ""
+"<strong>Changes are open until %(until)s.</strong> Save as often as you "
+"like. After that, your card keeps working as it is, and the next change "
+"needs another payment."
+msgstr ""
+"<strong>Wijzigen kan tot %(until)s.</strong> Sla zo vaak op als je wilt. "
+"Daarna blijft je kaart werken zoals hij is, en voor de volgende wijziging is"
+" opnieuw een betaling nodig."
+
+#: templates/dashboard/home.html:7
+msgid "Your card is live. You pay only when you change it."
+msgstr "Je kaart staat online. Je betaalt alleen als je hem wijzigt."
+
+#: templates/dashboard/unlock_updates.html:2
+#, python-format
+msgid "Unlock changes · %(SITE_NAME)s"
+msgstr "Wijzigingen ontgrendelen · %(SITE_NAME)s"
+
+#: templates/dashboard/unlock_updates.html:10
+msgid "Unlock changes to your card"
+msgstr "Ontgrendel wijzigingen aan je kaart"
+
+#: templates/dashboard/unlock_updates.html:11
+msgid ""
+"Your card stays live whatever you decide. Paying opens changes to its "
+"details, links, web address and business page for 12 months."
+msgstr ""
+"Je kaart blijft online, wat je ook kiest. Met je betaling kun je 12 maanden "
+"lang de gegevens, links, webadres en bedrijfspagina wijzigen."
+
+#: templates/dashboard/unlock_updates.html:21
+msgid ""
+"<strong>Your changes are saved and waiting.</strong> They go onto your card "
+"as soon as the payment clears. If you do not pay within 48 hours they are "
+"thrown away."
+msgstr ""
+"<strong>Je wijzigingen zijn opgeslagen en wachten.</strong> Ze komen op je "
+"kaart zodra de betaling is bevestigd. Betaal je niet binnen 48 uur, dan "
+"worden ze weggegooid."
+
+#: templates/dashboard/unlock_updates.html:24
+msgid "What you pay"
+msgstr "Wat je betaalt"
+
+#: templates/dashboard/unlock_updates.html:28
+msgid "Payment processing fee"
+msgstr "Verwerkingskosten van de betaling"
+
+#: templates/dashboard/unlock_updates.html:31
+msgid ""
+"After the 12 months your card keeps working exactly as you last saved it. "
+"Changing it again then needs another payment, which opens changes for "
+"another year."
+msgstr ""
+"Na de 12 maanden blijft je kaart precies werken zoals je hem het laatst hebt"
+" opgeslagen. Wil je hem daarna opnieuw wijzigen, dan is een nieuwe betaling "
+"nodig, waarmee wijzigingen weer een jaar openstaan."
+
+#: templates/dashboard/unlock_updates.html:49
+msgid "Pay and unlock changes"
+msgstr "Betalen en wijzigingen ontgrendelen"
+
+#: templates/dashboard/unlock_updates.html:40
+#: templates/dashboard/unlock_updates.html:51
+msgid "Not now"
+msgstr "Nu niet"
+
+#: templates/dashboard/unlock_updates.html:57
+msgid "Throw away the changes you were holding?"
+msgstr "De wijzigingen die klaarstonden weggooien?"
+
+#: templates/dashboard/unlock_updates.html:60
+msgid "Throw away my changes"
+msgstr "Mijn wijzigingen weggooien"
+
+#: templates/dashboard/unlock_updates.html:66
+msgid "What stays free"
+msgstr "Wat gratis blijft"
+
+#: templates/dashboard/unlock_updates.html:68
+msgid "Your card stays live and keeps showing what you last saved."
+msgstr "Je kaart blijft online en toont wat je het laatst hebt opgeslagen."
+
+#: templates/dashboard/unlock_updates.html:69
+msgid "Sharing, your QR code and your analytics."
+msgstr "Delen, je QR-code en je statistieken."
+
+#: templates/dashboard/unlock_updates.html:70
+msgid "Your contacts and your account settings."
+msgstr "Je contacten en je accountinstellingen."
+
+#: templates/dashboard/unlock_updates.html:71
+msgid "Switching your card off, or deleting it."
+msgstr "Je kaart uitschakelen of verwijderen."
+
+#: templates/emails/payment_receipt.txt:11
+#, python-format
+msgid "Changes to your card are open until %(date)s."
+msgstr "Wijzigingen aan je kaart staan open tot %(date)s."
+
+#: apps/billing/services.py:575
+msgid "Your card will no longer be charged for changes"
+msgstr "Je kaart wordt niet meer belast voor wijzigingen"
+
+#: apps/billing/views.py:231
+msgid "Automatic payment for changes is not on for this card."
+msgstr "Automatisch betalen voor wijzigingen staat niet aan voor deze kaart."
+
+#: apps/billing/views.py:234
+msgid ""
+"Automatic payment for changes is off. You can still pay by hand whenever you"
+" change this card."
+msgstr ""
+"Automatisch betalen voor wijzigingen staat uit. Je kunt nog steeds zelf "
+"betalen wanneer je deze kaart wijzigt."
+
+#: apps/dashboard/views.py:183
+#, python-format
+msgid ""
+"Your card (%(card)s) was declined. You have not been charged. You can pay "
+"another way below."
+msgstr ""
+"Je kaart (%(card)s) is geweigerd. Er is niets afgeschreven. Je kunt "
+"hieronder op een andere manier betalen."
+
+#: templates/billing/checkout.html:29
+#, python-format
+msgid "Automatic payment for changes to %(name)s is on"
+msgstr "Automatisch betalen voor wijzigingen aan %(name)s staat aan"
+
+#: templates/billing/checkout.html:31
+#, python-format
+msgid ""
+"The next time you save a change, we ask you to confirm, then charge your "
+"card (%(card)s) %(price)s. Nothing is charged until you confirm."
+msgstr ""
+"De volgende keer dat je een wijziging opslaat, vragen we je te bevestigen en"
+" belasten we daarna je kaart (%(card)s) voor %(price)s. Er wordt niets "
+"afgeschreven voordat je bevestigt."
+
+#: templates/billing/checkout.html:31
+#, python-format
+msgid ""
+"Changes are open until %(date)s. After that, the first time you save a "
+"change, we ask you to confirm, then charge your card (%(card)s) %(price)s. "
+"Nothing is charged until you confirm."
+msgstr ""
+"Wijzigingen staan open tot %(date)s. Daarna, de eerste keer dat je een "
+"wijziging opslaat, vragen we je te bevestigen en belasten we daarna je kaart"
+" (%(card)s) voor %(price)s. Er wordt niets afgeschreven voordat je "
+"bevestigt."
+
+#: templates/billing/checkout.html:32
+#, python-format
+msgid ""
+"Turn off automatic payment for %(name)s? You can still pay by hand whenever "
+"you change it."
+msgstr ""
+"Automatisch betalen uitzetten voor %(name)s? Je kunt nog steeds zelf betalen"
+" wanneer je de kaart wijzigt."
+
+#: templates/billing/checkout.html:34
+msgid "Turn off automatic payment"
+msgstr "Automatisch betalen uitzetten"
+
+#: templates/dashboard/unlock_updates.html:7
+msgid "Confirm and unlock changes"
+msgstr "Bevestigen en wijzigingen ontgrendelen"
+
+#: templates/dashboard/unlock_updates.html:8
+msgid ""
+"Changes to your card are closed. Confirm to charge the card you paid with "
+"last time, and changes open again for 12 months."
+msgstr ""
+"Wijzigingen aan je kaart zijn gesloten. Bevestig om de kaart te belasten "
+"waarmee je de vorige keer betaalde, en wijzigingen staan weer 12 maanden "
+"open."
+
+#: templates/dashboard/unlock_updates.html:36
+#, python-format
+msgid "Your card (%(card)s) will be charged %(total_text)s."
+msgstr "Je kaart (%(card)s) wordt belast voor %(total_text)s."
+
+#: templates/dashboard/unlock_updates.html:38
+msgid "Confirm and charge my card"
+msgstr "Bevestigen en mijn kaart belasten"
+
+#: templates/dashboard/unlock_updates.html:39
+msgid "Pay another way"
+msgstr "Op een andere manier betalen"
+
+#: templates/dashboard/unlock_updates.html:42
+#, python-format
+msgid ""
+"By confirming you accept the <a href=\"%(url_1)s\" target=\"_blank\">Terms "
+"of Service</a> and <a href=\"%(url_2)s\" target=\"_blank\">Refund "
+"Policy</a>. To stop this card being charged, turn it off on your billing "
+"page."
+msgstr ""
+"Door te bevestigen ga je akkoord met de <a href=\"%(url_1)s\" "
+"target=\"_blank\">Servicevoorwaarden</a> en het <a href=\"%(url_2)s\" "
+"target=\"_blank\">Restitutiebeleid</a>. Wil je dat deze kaart niet meer "
+"wordt belast, zet het dan uit op de pagina Abonnement en verlenging."
+
+#: templates/dashboard/unlock_updates.html:53
+msgid ""
+"Paying by card keeps it for your next year of changes: when the 12 months "
+"end, the first time you save a change we ask you to confirm, then charge it."
+" You can turn this off any time on your billing page. Mobile Money is never "
+"kept."
+msgstr ""
+"Met een kaartbetaling bewaren we je kaart voor je volgende jaar wijzigingen:"
+" als de 12 maanden voorbij zijn, vragen we je de eerste keer dat je een "
+"wijziging opslaat te bevestigen en belasten we de kaart daarna. Je kunt dit "
+"altijd uitzetten op de pagina Abonnement en verlenging. Mobile Money wordt "
+"nooit bewaard."
+
+#: templates/emails/payment_receipt.txt:13
+#, python-format
+msgid ""
+"We kept your card (%(card)s). After that date, the first time you save a "
+"change we ask you to confirm, then charge it. To turn this off, go to: "
+"%(link)s"
+msgstr ""
+"We hebben je kaart (%(card)s) bewaard. Na die datum vragen we je de eerste "
+"keer dat je een wijziging opslaat te bevestigen en belasten we de kaart "
+"daarna. Zet het uit via: %(link)s"
+
+#: templates/emails/update_autopay_stopped.txt:3
+#, python-format
+msgid ""
+"We will no longer charge your card for changes to %(name)s, and we no longer"
+" keep your card details. Nothing else changes: your card stays live."
+msgstr ""
+"We belasten je kaart niet meer voor wijzigingen aan %(name)s en bewaren je "
+"kaartgegevens niet meer. Verder verandert er niets: je kaart blijft online."
+
+#: templates/emails/update_autopay_stopped.txt:5
+#, python-format
+msgid ""
+"Whenever you want to change it, you can pay by hand from your dashboard: "
+"%(link)s"
+msgstr ""
+"Wil je hem wijzigen, dan kun je zelf betalen vanuit je dashboard: %(link)s"
 
 #~ msgid "Confirm your email address"
 #~ msgstr "Bevestig je e-mailadres"

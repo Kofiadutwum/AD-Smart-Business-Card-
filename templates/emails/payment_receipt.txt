@@ -7,7 +7,10 @@
 {% blocktrans trimmed with value=payment.description %}For: {{ value }}{% endblocktrans %}
 {% blocktrans trimmed with value=payment.amount_minor|money_text:payment.usd_rate %}Amount: {{ value }}{% endblocktrans %}
 {% blocktrans trimmed with value=payment.paid_at|ldate:"j F Y, H:i" %}Date: {{ value }}{% endblocktrans %}
-{% if subscription and payment.purpose != "nfc_order" %}
+{% if payment.purpose == "card_update" and payment.card %}
+{% blocktrans trimmed with date=payment.card.updates_paid_until|ldate:"j F Y" %}Changes to your card are open until {{ date }}.{% endblocktrans %}{% if payment.set_up_auto_renew and payment.card.pays_automatically %}
+
+{% blocktrans trimmed with card=payment.card.update_card_label link=site_url|add:"/billing/" %}We kept your card ({{ card }}). After that date, the first time you save a change we ask you to confirm, then charge it. To turn this off, go to: {{ link }}{% endblocktrans %}{% endif %}{% elif subscription and payment.purpose != "nfc_order" %}
 {% blocktrans trimmed with plan=subscription.plan.name date=subscription.expires_at|ldate:"j F Y" %}Your {{ plan }} plan is active until {{ date }}.{% endblocktrans %}{% endif %}{% if payment.nfc_order %}
 {% blocktrans trimmed with link=site_url|add:"/nfc/orders/"|add:payment.nfc_order.order_number %}Track your NFC order: {{ link }}{% endblocktrans %}{% endif %}{% if payment.is_auto_renewal %}
 

@@ -10,6 +10,10 @@ A *card only* batch (GHS 200) sells the printed card with no plan. Setting it
 up gives the buyer an account and the card, still a draft; they then pay for
 any plan at the normal checkout, which switches the card on and, when they pay
 by card, starts automatic renewal.
+
+A *pay when you update* batch (Basic or Professional only) sells the card with the plan's features
+but no plan to pay for: setting it up puts it live at once and for good. Only changing what the public
+sees costs money, the batch's Update Price, which opens changes for 12 months (see ``apps.dashboard.updates``).
 """
 
 import csv
@@ -41,6 +45,7 @@ PIN_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
 SLUG_LENGTH = 8
 PIN_LENGTH = 8
 MAX_BATCH = 500
+PAY_TO_UPDATE_PLANS = ("basic", "professional")  # plan codes a pay-when-you-update batch may carry
 MAX_PIN_FAILURES = 5
 LOCK_MINUTES = 60
 PACK_TTL_SECONDS = 24 * 3600
@@ -114,17 +119,25 @@ def _pack_row(premade, pin):
 
 
 @transaction.atomic
-def create_batch(staff, *, name, quantity, plan=None, price_minor=45000, months=12, note="", card_only=False):
+def create_batch(
+    staff, *, name, quantity, plan=None, price_minor=45000, months=12, note="", card_only=False,
+    pay_to_update=False, update_price_minor=10000,
+):
     if not 1 <= quantity <= MAX_BATCH:
         raise ValidationError(f"Make between 1 and {MAX_BATCH} cards at a time.")
-    if card_only:
+    if pay_to_update:
+        if plan is None or plan.code not in PAY_TO_UPDATE_PLANS:
+            raise ValidationError("A pay-when-you-update card is for the Basic or Professional plan only.")
+        months, card_only = 0, False
+    elif card_only:
         plan, months = None, 0
     elif plan is None:
         raise ValidationError("Choose the plan that comes with the card.")
     code = f"B{Counter.next('premade-batch'):03d}"
     batch = PremadeBatch.objects.create(
         name=name.strip(), code=code, quantity=quantity, price_minor=price_minor, plan=plan, months=months,
-        card_only=card_only, note=note.strip(), created_by=staff if getattr(staff, "pk", None) else None,
+        card_only=card_only, pay_to_update=pay_to_update, update_price_minor=update_price_minor,
+        note=note.strip(), created_by=staff if getattr(staff, "pk", None) else None,
     )
     slugs = _new_slugs(quantity)
     cards = Card.objects.bulk_create(
@@ -255,7 +268,8 @@ def check_pin(premade, raw_pin, request):
 
 
 def _live_places(user):
-    return user.cards.filter(deleted_at__isnull=True, is_enabled=True).count()
+    # A pay-when-you-update card lives on its own terms and uses no place on the plan.
+    return user.cards.filter(deleted_at__isnull=True, is_enabled=True, update_plan__isnull=True).count()
 
 
 def _running(subscription, now):
@@ -268,6 +282,8 @@ def attach_problem(user, premade):
         return "This account cannot add a card at the moment. Please contact support."
     plan = premade.batch.plan
     subscription = user.subscription
+    if premade.batch.pay_to_update:
+        return None  # live on its own terms: no plan to start and no place to take
     if premade.batch.card_only:
         if not _running(subscription, timezone.now()):
             return None  # nothing is switched on yet, so there is no limit to hit
@@ -300,7 +316,12 @@ def _finish(premade, user):
     from apps.billing.services import activate, activate_cards, send_receipt
 
     batch, plan, now = premade.batch, premade.batch.plan, timezone.now()
-    what = f"{batch.name} pre-made card (card only)" if batch.card_only else f"{batch.name} pre-made card with {plan.name}, {batch.months} months"
+    if batch.pay_to_update:
+        what = f"{batch.name} pre-made card ({plan.name} features, pay when you update)"
+    elif batch.card_only:
+        what = f"{batch.name} pre-made card (card only)"
+    else:
+        what = f"{batch.name} pre-made card with {plan.name}, {batch.months} months"
     rate = fx.latest_rate()
     payment = Payment.objects.create(
         user=user,
@@ -322,7 +343,15 @@ def _finish(premade, user):
         gateway_response={"premade_card": premade.label, "batch": batch.code},
     )
     subscription = user.subscription
-    if batch.card_only:
+    if batch.pay_to_update:
+        # Live at once on the plan's features, with no subscription; changes are paid for when made.
+        card = premade.card
+        card.update_plan = plan
+        card.update_price_minor = batch.update_price_minor
+        card.activated_at = now
+        card.is_enabled = True
+        card.save(update_fields=["update_plan", "update_price_minor", "activated_at", "is_enabled", "updated_at"])
+    elif batch.card_only:
         if _running(subscription, now):
             activate_cards(user, subscription)
     elif _running(subscription, now) and subscription.yearly_price >= plan.price_minor:

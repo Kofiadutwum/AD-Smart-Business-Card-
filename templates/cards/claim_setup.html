@@ -10,6 +10,10 @@
     <h1 class="mt-2">{% trans "Your details" %}</h1>
     {% if batch.card_only %}
       <p class="lead">{% blocktrans trimmed %}Add your details and create your account. Next you choose a plan and pay to switch your card on. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+    {% elif batch.pay_to_update %}
+      {% money batch.update_price_minor inline=True as update_price %}
+      <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card goes live as soon as you finish, with the {{ batch_plan_name }} features and no plan to pay for. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+      <p class="text-sm muted">{% blocktrans trimmed %}You only pay when you want to change your details later: {{ update_price }}, which keeps changes open for a year.{% endblocktrans %}</p>
     {% elif batch.months == 12 %}
       <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card comes with one year of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
     {% else %}

@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>{% blocktrans trimmed with name=user.first_name|default:_("there") %}Hello, {{ name }}{% endblocktrans %}</h1>
-    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_state_label=subscription.state_label %}{{ subscription_plan_name }} plan · {{ subscription_state_label }}{% endblocktrans %}{% if subscription.is_live %} {% blocktrans trimmed with subscription_expires_at_date=subscription.expires_at|ldate:"j M Y" %}until {{ subscription_expires_at_date }}{% endblocktrans %}{% endif %}{% else %}{% trans "Your card is a draft until you choose a plan." %}{% endif %}</p>
+    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_state_label=subscription.state_label %}{{ subscription_plan_name }} plan · {{ subscription_state_label }}{% endblocktrans %}{% if subscription.is_live %} {% blocktrans trimmed with subscription_expires_at_date=subscription.expires_at|ldate:"j M Y" %}until {{ subscription_expires_at_date }}{% endblocktrans %}{% endif %}{% elif card.is_update_card %}{% trans "Your card is live. You pay only when you change it." %}{% else %}{% trans "Your card is a draft until you choose a plan." %}{% endif %}</p>
   </div>
   <div class="cluster">
     <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "eye" 16 %}{% trans "View card" %}</a>

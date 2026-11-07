@@ -10,6 +10,29 @@
   <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "external-link" 16 %}{% trans "Open public card" %}</a>
 </div>
 
+{% if card.is_update_card %}
+  {% if card.edit_locked %}
+    {% if held_update %}
+      <div class="banner banner--warning" role="status">
+        {% icon "clock" 22 %}
+        <p>{% blocktrans trimmed %}<strong>You have changes waiting for payment.</strong> They are not on your card yet. Pay to put them on your card, or save new changes to replace them.{% endblocktrans %}</p>
+        <a class="btn btn--sm" href="{% url 'dashboard:unlock_updates' card.pk %}">{% trans "Pay and apply" %}</a>
+      </div>
+    {% else %}
+      {% money card.update_price_minor inline=True as update_price %}
+      <div class="banner banner--info" role="status">
+        {% icon "info" 22 %}
+        <p>{% blocktrans trimmed %}<strong>Changing your card costs {{ update_price }}.</strong> Edit and preview as much as you like. You pay when you press Save, and your changes go onto your card as soon as the payment clears. That opens changes for 12 months.{% endblocktrans %}</p>
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="banner banner--success" role="status">
+      {% icon "circle-check" 22 %}
+      <p>{% blocktrans trimmed with until=card.updates_paid_until|ldate:"j F Y" %}<strong>Changes are open until {{ until }}.</strong> Save as often as you like. After that, your card keeps working as it is, and the next change needs another payment.{% endblocktrans %}</p>
+    </div>
+  {% endif %}
+{% endif %}
+
 {% if form.errors or phones.non_form_errors %}
   <div class="form-errors" role="alert" tabindex="-1" data-error-summary>
     <strong>{% trans "Some details need fixing:" %}</strong>

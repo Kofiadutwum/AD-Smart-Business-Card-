@@ -397,11 +397,13 @@ class Payment(models.Model):
     PURPOSE_UPGRADE = "upgrade"
     PURPOSE_NFC = "nfc_order"
     PURPOSE_PREMADE = "premade_card"
+    PURPOSE_CARD_UPDATE = "card_update"
     PURPOSES = [
         (PURPOSE_SUBSCRIPTION, _("Subscription")),
         (PURPOSE_UPGRADE, _("Plan upgrade")),
         (PURPOSE_NFC, _("NFC order")),
         (PURPOSE_PREMADE, _("Pre-made card (sold in a shop)")),
+        (PURPOSE_CARD_UPDATE, _("Card updates for a year")),
     ]
 
     PENDING = "pending"
@@ -430,6 +432,8 @@ class Payment(models.Model):
     nfc_order = models.ForeignKey(
         "nfc.NFCOrder", null=True, blank=True, on_delete=models.PROTECT, related_name="payments"
     )
+    # The pay-when-you-update card this payment unlocks (purpose card_update).
+    card = models.ForeignKey("cards.Card", null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
 
     subtotal_minor = models.PositiveIntegerField(default=0)
     discount_minor = models.PositiveIntegerField(default=0)
@@ -495,9 +499,13 @@ class Payment(models.Model):
             if self.plan_id:
                 parts.append(_("%(plan)s plan") % {"plan": self.plan.name})
             return " + ".join(str(part) for part in parts)
+        if self.purpose == self.PURPOSE_CARD_UPDATE:
+            return _("Card updates for a year") + (f" ({self.card.full_name})" if self.card_id else "")
         if self.purpose == self.PURPOSE_PREMADE:
             if not self.plan_id:
                 return _("Pre-made card (sold in a shop)")
+            if not self.months:
+                return _("Pre-made card, %(plan)s features, pay when you update (sold in a shop)") % {"plan": self.plan.name}
             return _("Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)") % {"plan": self.plan.name, "count": self.months}
         if self.purpose == self.PURPOSE_UPGRADE:
             if not self.plan:

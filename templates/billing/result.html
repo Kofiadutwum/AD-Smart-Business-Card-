@@ -13,6 +13,8 @@
         <div class="stack mt-8" style="--stack: var(--space-3)">
           {% if payment.purpose == "nfc_order" and payment.nfc_order %}
             {% url 'nfc:detail' payment.nfc_order.order_number as next_url %}{% hover_button _("Track your order") href=next_url variant="ink" css="ihb--block" %}
+          {% elif payment.purpose == "card_update" and payment.card %}
+            {% url 'dashboard:editor_card' payment.card.pk as next_url %}{% hover_button _("Back to my card") href=next_url variant="ink" css="ihb--block" %}
           {% else %}
             {% url 'dashboard:share' as next_url %}{% hover_button _("Share your card") href=next_url variant="ink" css="ihb--block" %}
           {% endif %}
@@ -29,7 +31,7 @@
       <span class="step__icon" style="margin: 0 auto var(--space-6); width:3.5rem; height:3.5rem; background: var(--danger-soft); color: var(--danger)">{% icon "circle-x" 28 %}</span>
       <h1>{% trans "That payment did not go through" %}</h1>
       <p class="lead">{% trans "You have not been charged. You can try again, or use a different payment method." %}</p>
-      {% if owner %}<div class="mt-8">{% if payment.purpose == "nfc_order" and payment.nfc_order %}{% url 'nfc:detail' payment.nfc_order.order_number as retry_url %}{% else %}{% url 'billing:checkout' as retry_url %}{% endif %}{% hover_button _("Try again") href=retry_url variant="ink" css="ihb--block" %}</div>{% endif %}
+      {% if owner %}<div class="mt-8">{% if payment.purpose == "nfc_order" and payment.nfc_order %}{% url 'nfc:detail' payment.nfc_order.order_number as retry_url %}{% elif payment.purpose == "card_update" and payment.card %}{% url 'dashboard:unlock_updates' payment.card.pk as retry_url %}{% else %}{% url 'billing:checkout' as retry_url %}{% endif %}{% hover_button _("Try again") href=retry_url variant="ink" css="ihb--block" %}</div>{% endif %}
     {% endif %}
     {% if not owner %}<p class="auth-alt"><a href="{% url 'accounts:login' %}">{% trans "Log in to see your account" %}</a></p>{% endif %}
   </div>

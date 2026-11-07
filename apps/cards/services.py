@@ -224,10 +224,10 @@ def business_page_for(card, viewer=None):
 
     The owner (``viewer``) can also open it while it is still off, to preview it.
     """
-    from apps.billing.services import plan_for_limits
+    from apps.billing.services import plan_for_card
 
     page = getattr(card.owner, "business_page", None)  # a missing page raises an AttributeError subclass
-    if page is None or not plan_for_limits(card.owner).allow_business_page:
+    if page is None or not plan_for_card(card).allow_business_page:
         return None
     if card.owner.is_staff and not card.is_company:
         return None  # an administrator's personal card has no business page of its own

@@ -1,7 +1,7 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="crumbs"><a href="{% url 'staff:premade' %}">Pre-made cards</a><span>/</span><span>{{ batch.code }}</span></div>
-<div class="page-head"><div><h1>{{ batch.code }} · {{ batch.name }}</h1><p>{{ batch.quantity }} cards · {% if batch.card_only %}card only, plan paid online{% else %}{{ batch.plan.name }}, {{ batch.months }} months{% endif %} · sold for {% money batch.price_minor %}{% if batch.note %} · {{ batch.note }}{% endif %}</p></div></div>
+<div class="page-head"><div><h1>{{ batch.code }} · {{ batch.name }}</h1><p>{{ batch.quantity }} cards · {% if batch.pay_to_update %}pay when updating, {{ batch.plan.name }} features, Update Price {% money batch.update_price_minor inline=True %}{% elif batch.card_only %}card only, plan paid online{% else %}{{ batch.plan.name }}, {{ batch.months }} months{% endif %} · sold for {% money batch.price_minor %}{% if batch.note %} · {{ batch.note }}{% endif %}</p></div></div>
 
 <div class="panel">
   <h2 style="font-size: var(--text-lg)">Print pack</h2>

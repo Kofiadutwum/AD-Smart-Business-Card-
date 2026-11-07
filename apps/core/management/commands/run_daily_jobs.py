@@ -41,6 +41,7 @@ class Command(BaseCommand):
             ("deletions", self.deletions),
             ("nfc_followups", self.nfc_followups),
             ("payments", self.payments),
+            ("held_updates", self.held_updates),
             ("email_retries", self.email_retries),
             ("analytics_retention", self.analytics_retention),
         ]
@@ -184,6 +185,12 @@ class Command(BaseCommand):
 
     def payments(self):
         return f"{expire_stale_pending()} stale payment(s) settled"
+
+    def held_updates(self):
+        """Pay-when-you-update cards: throw away held changes nobody paid for within 48 hours."""
+        from apps.dashboard.updates import discard_stale
+
+        return f"{discard_stale()} unpaid held change(s) thrown away"
 
     def email_retries(self):
         """Re-send emails that failed in the last 3 days (e.g. the provider's daily

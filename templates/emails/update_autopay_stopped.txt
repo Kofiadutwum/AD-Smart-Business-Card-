@@ -1,0 +1,8 @@
+{% autoescape off %}{% blocktrans with name=user.first_name|default:_("there") %}Hello {{ name }},{% endblocktrans %}
+
+{% blocktrans trimmed with name=card_obj.full_name %}We will no longer charge your card for changes to {{ name }}, and we no longer keep your card details. Nothing else changes: your card stays live.{% endblocktrans %}
+
+{% blocktrans trimmed with link=site_url|add:"/dashboard/" %}Whenever you want to change it, you can pay by hand from your dashboard: {{ link }}{% endblocktrans %}
+
+AD Smart Business Cards
+{{ site.support_email }} · WhatsApp {{ site.support_whatsapp }}{% endautoescape %}

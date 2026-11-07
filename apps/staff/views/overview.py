@@ -43,7 +43,7 @@ def home(request):
         month_start = timezone.localtime(now).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
         # Dollars at each payment's own rate, added up (never today's rate on old money).
         paid_list = list(paid.only("amount_minor", "processing_fee_minor", "purpose", "fx_rate", "paid_at", "created_at"))
-        subscription_kinds = {Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE}
+        subscription_kinds = {Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE, Payment.PURPOSE_CARD_UPDATE}
         # Revenue is the price; the processing fee the customer paid on top goes straight to Paystack.
         context.update(
             {
@@ -58,7 +58,7 @@ def home(request):
                 "show_money": True,
                 "pending_payments": Payment.objects.filter(status=Payment.PENDING).count(),
                 "successful_payments": paid.count(),
-                "subscription_revenue": paid.filter(purpose__in=[Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE]).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
+                "subscription_revenue": paid.filter(purpose__in=[Payment.PURPOSE_SUBSCRIPTION, Payment.PURPOSE_UPGRADE, Payment.PURPOSE_CARD_UPDATE]).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
                 "nfc_revenue": paid.filter(purpose=Payment.PURPOSE_NFC).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
                 "premade_revenue": paid.filter(purpose=Payment.PURPOSE_PREMADE).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,
                 "month_revenue": paid.filter(paid_at__gte=month_start).aggregate(s=Sum(F("amount_minor") - F("processing_fee_minor")))["s"] or 0,

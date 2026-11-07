@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.core.exceptions import ValidationError
 from django.db.models import Count
-from django.forms import inlineformset_factory
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import dateformat, timezone
@@ -16,20 +15,24 @@ from django.views.decorators.http import require_POST
 
 from apps.accounts.decorators import customer_required
 from apps.accounts.forms import AccountForm
-from apps.billing.services import activate_cards, card_limit, plan_for_limits
+from apps.billing import paystack
+from apps.billing.models import Payment
+from apps.billing.services import (
+    activate_cards, card_limit, card_update_quote, checkout_url, create_payment, plan_for_card, plan_for_limits,
+    processing_fee,
+)
 from apps.cards import services as card_services
 from apps.cards.colors import palette
 from apps.cards.models import (
     ACCENT_PRESETS, MAX_REVIEWS, MAX_SERVICES, BusinessPage, BusinessProduct, BusinessReview, BusinessService, Card,
-    CardEvent, CardPhone, Lead, SocialLink,
+    CardEvent, CardPhone, CardUpdate, Lead, SocialLink,
 )
 from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import AuditLog
 from apps.nfc.models import NFCOrder
 
-from .forms import (
-    BusinessPageForm, CardForm, NewCardForm, PhoneForm, ProductForm, ReviewForm, ServiceForm, SlugForm, SocialLinkForm,
-)
+from . import updates
+from .forms import BusinessPageForm, NewCardForm, ProductForm, ReviewForm, ServiceForm, SlugForm, SocialLinkForm
 from django.utils.translation import gettext as _, ngettext
 
 
@@ -116,20 +119,14 @@ def _daily(queryset, days):
 @customer_required
 def editor(request, pk=None):
     card = _card(request, pk)
-    plan = plan_for_limits(request.user)
-    Phones = inlineformset_factory(
-        Card, CardPhone, form=PhoneForm, extra=1 if card.phones.count() < plan.max_phones else 0,
-        max_num=plan.max_phones, validate_max=True, can_delete=True,
-    )
-    form = CardForm(request.POST or None, request.FILES or None, instance=card, plan=plan)
-    phones = Phones(request.POST or None, instance=card, prefix="phones")
+    form, phones = updates.editor_forms(card, request.POST or None, request.FILES or None)
     if request.method == "POST":
         if form.is_valid() and phones.is_valid():
-            form.save()
-            phones.save()
-            for position, phone in enumerate(card.phones.all()):
-                if phone.position != position:
-                    CardPhone.objects.filter(pk=phone.pk).update(position=position)
+            if card.edit_locked:
+                # A pay-when-you-update card: keep this Save until the Update Price is paid.
+                updates.hold(card, request.POST, request.FILES)
+                return redirect("dashboard:unlock_updates", pk=card.pk)
+            updates.save_editor(card, form, phones)
             messages.success(request, "Card saved." + ("" if card.activated_at else " Preview it, then choose a plan to make it live."))
             return redirect(request.path)
         messages.error(request, _("Some details need fixing. Look for the messages in red."))
@@ -154,14 +151,78 @@ def editor(request, pk=None):
             },
             presets=ACCENT_PRESETS,
             is_draft=card.activated_at is None,
+            held_update=CardUpdate.objects.filter(card=card).first() if card.edit_locked else None,
+        ),
+    )
+
+
+def _pay_first(card):
+    """Small screens never hold changes: a locked pay-when-you-update card goes to pay first."""
+    if card.edit_locked:
+        return redirect("dashboard:unlock_updates", pk=card.pk)
+    return None
+
+
+@customer_required
+def unlock_updates(request, pk):
+    """Pay the Update Price: changes to this card are then open for 12 months."""
+    card = _card(request, pk)
+    if not card.edit_locked:
+        return redirect("dashboard:editor_card", pk=card.pk)
+    quote = card_update_quote(card)
+    fee = processing_fee(quote["total_minor"])
+    # The card paid with last time is charged after a confirm, unless the owner picks "pay another way".
+    can_charge = card.pays_automatically and not card.update_card_expired
+    action = request.POST.get("action") or ""
+    if request.method == "POST" and action == "confirm" and can_charge:
+        payment = updates.charge_kept_card(card)
+        if payment.status != Payment.FAILED:
+            return redirect("billing:result", reference=payment.reference)
+        messages.error(
+            request,
+            _("Your card (%(card)s) was declined. You have not been charged. You can pay another way below.")
+            % {"card": card.update_card_label},
+        )
+        return redirect(f"{request.path}?other=1")
+    if request.method == "POST":
+        method = "momo" if action == "pay_momo" else "card"  # the small "Don't have a card?" button
+        if not request.POST.get("accept_policy"):
+            messages.error(request, _("Please tick the box to accept the Terms and Refund Policy before paying."))
+        else:
+            payment = create_payment(
+                user=request.user, purpose=Payment.PURPOSE_CARD_UPDATE, quote=quote, months=updates.UNLOCK_MONTHS,
+                card=card, set_up_auto_renew=method == "card",
+            )
+            try:
+                return redirect(checkout_url(payment, request, method=method))
+            except paystack.PaymentError as exc:
+                Payment.objects.filter(pk=payment.pk).update(status=Payment.FAILED)
+                messages.error(request, _("%(reason)s You have not been charged.") % {"reason": exc})
+    return render(
+        request, "dashboard/unlock_updates.html",
+        _base(
+            request, "editor", card=card, quote=quote, fee=fee, total=quote["total_minor"] + fee,
+            held_update=CardUpdate.objects.filter(card=card).first(),
+            confirm_kept_card=can_charge and not request.GET.get("other"),
         ),
     )
 
 
 @customer_required
 @require_POST
+def discard_update(request, pk):
+    card = _card(request, pk)
+    updates.discard(card)
+    messages.info(request, _("The changes that were waiting have been thrown away."))
+    return redirect("dashboard:editor_card", pk=card.pk)
+
+
+@customer_required
+@require_POST
 def change_slug(request, pk):
     card = _card(request, pk)
+    if blocked := _pay_first(card):
+        return blocked
     form = SlugForm(request.POST)
     if form.is_valid():
         try:
@@ -184,7 +245,9 @@ def change_slug(request, pk):
 @customer_required
 def links(request, pk=None):
     card = _card(request, pk)
-    plan = plan_for_limits(request.user)
+    if blocked := _pay_first(card):
+        return blocked
+    plan = plan_for_card(card)
     form = SocialLinkForm(request.POST or None)
     count = card.social_links.count()
     limit = plan.max_social_links
@@ -210,6 +273,8 @@ def links(request, pk=None):
 def link_action(request, link_id, action):
     link = get_object_or_404(SocialLink, pk=link_id, card__owner=request.user)
     card = link.card
+    if blocked := _pay_first(card):
+        return blocked
     if action == "delete":
         link.delete()
         messages.info(request, _("Link removed."))
@@ -258,7 +323,7 @@ PERIODS = {"7": 7, "30": 30, "90": 90, "365": 365}
 @customer_required
 def analytics(request, pk=None):
     card = _card(request, pk)
-    plan = plan_for_limits(request.user)
+    plan = plan_for_card(card)
     period = request.GET.get("days", "30")
     days = PERIODS.get(period, 30)
     since = timezone.now() - timedelta(days=days)
@@ -359,7 +424,7 @@ def cards_list(request):
     limit = card_limit(user)
     form = NewCardForm(request.POST or None)
     cards = list(_cards(user))
-    enabled = [c for c in cards if c.is_enabled]
+    enabled = [c for c in cards if c.is_enabled and not c.is_update_card]  # pay-when-you-update cards use no place
     if request.method == "POST" and form.is_valid():
         if len(enabled) >= limit:
             messages.warning(
@@ -384,8 +449,8 @@ def cards_list(request):
 @require_POST
 def card_toggle(request, pk):
     card = _card(request, pk)
-    enabled = _cards(request.user).filter(is_enabled=True).count()
-    if not card.is_enabled and enabled >= card_limit(request.user):
+    enabled = _cards(request.user).filter(is_enabled=True, update_plan__isnull=True).count()
+    if not card.is_enabled and not card.is_update_card and enabled >= card_limit(request.user):
         messages.warning(request, _("Switch another card off first, or add people to your plan."))
     else:
         card.is_enabled = not card.is_enabled
@@ -424,9 +489,9 @@ BUSINESS_ITEMS = {
 
 def _business_page(request):
     """The owner's business page, or None when their plan does not include one."""
-    if not plan_for_limits(request.user).allow_business_page:
+    card = _card(request)  # the page borrows the first card's link, colours and contact details
+    if not plan_for_card(card).allow_business_page:
         return None
-    _card(request)  # the page borrows the first card's link, colours and contact details
     return BusinessPage.objects.get_or_create(owner=request.user)[0]
 
 
@@ -435,7 +500,10 @@ def business(request):
     page = _business_page(request)
     if page is None:
         return render(request, "dashboard/business.html", _base(request, "business", locked=True))
-    plan = plan_for_limits(request.user)
+    card = _card(request)
+    if blocked := _pay_first(card):
+        return blocked
+    plan = plan_for_card(card)
     form = BusinessPageForm(request.POST or None, instance=page)
     if request.method == "POST" and form.is_valid():
         form.save()
@@ -464,9 +532,12 @@ def business_item(request, kind, pk=None):
     page = _business_page(request)
     if page is None or kind not in BUSINESS_ITEMS:
         raise Http404
+    card = _card(request)
+    if blocked := _pay_first(card):
+        return blocked
     model, form_class, limit_for = BUSINESS_ITEMS[kind]
     item = get_object_or_404(model, pk=pk, page=page) if pk else None
-    limit = limit_for(plan_for_limits(request.user))
+    limit = limit_for(plan_for_card(card))
     if item is None and getattr(page, kind).count() >= limit:
         messages.warning(request, _("You have used all %(limit)d places here. Remove one to add another.") % {"limit": limit})
         return redirect("dashboard:business")
@@ -500,6 +571,8 @@ def business_item_delete(request, kind, pk):
     page = _business_page(request)
     if page is None or kind not in BUSINESS_ITEMS:
         raise Http404
+    if blocked := _pay_first(_card(request)):
+        return blocked
     item = get_object_or_404(BUSINESS_ITEMS[kind][0], pk=pk, page=page)
     if kind == "products":
         item.image.delete(save=False)
