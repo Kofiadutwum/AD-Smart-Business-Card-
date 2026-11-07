@@ -225,6 +225,33 @@ class WebhookTests(BaseTest):
         self.assertEqual(AuditLog.objects.filter(action="payment_verified").count(), 1)
 
 
+class WebhookSandboxGuardTests(BaseTest):
+    def test_unsigned_webhook_is_rejected_even_in_sandbox_when_a_key_is_set(self):
+        user = self.make_user()
+        self.make_card(user)
+        payment = billing.create_payment(
+            user=user, purpose=Payment.PURPOSE_SUBSCRIPTION, quote=billing.subscription_quote(user, self.pro),
+            plan=self.pro, months=12,
+        )
+        body = json.dumps({"event": "charge.success", "data": {"reference": payment.reference}})
+        with override_settings(PAYMENT_SANDBOX=True, PAYSTACK_SECRET_KEY="sk_test_secret"):
+            response = self.client.post("/billing/webhook", data=body, content_type="application/json")
+        self.assertEqual(response.status_code, 401)
+        payment.refresh_from_db()
+        self.assertEqual(payment.status, Payment.PENDING)
+
+    def test_a_live_key_can_never_run_the_sandbox(self):
+        from config.settings import payment_sandbox_on
+
+        for wanted in (True, False):
+            self.assertFalse(payment_sandbox_on("sk_live_abc", wanted), wanted)
+        self.assertFalse(payment_sandbox_on("  SK_LIVE_abc ", True))  # stray spaces or capitals do not get around it
+        self.assertTrue(payment_sandbox_on("sk_test_abc", True))
+        self.assertFalse(payment_sandbox_on("sk_test_abc", False))
+        self.assertTrue(payment_sandbox_on("", False))  # no key: always sandbox, as before
+        self.assertTrue(payment_sandbox_on(None, True))
+
+
 class NFCFlowTests(BaseTest):
     def setUp(self):
         self.user = self.make_user()

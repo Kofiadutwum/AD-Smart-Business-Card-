@@ -293,9 +293,17 @@ PAYSTACK_BASE_URL = "https://api.paystack.co"
 # The customer covers Paystack's fee: it is added to the amount sent to Paystack and never shown on
 # our own pages. Percent of what Paystack receives; 0 turns it off.
 PAYSTACK_FEE_PERCENT = Decimal(env("PAYSTACK_FEE_PERCENT", "1.95"))
-# Sandbox simulates the gateway end to end. It is forced on whenever no
-# secret key is configured, so a fresh clone can never reach a live gateway.
-PAYMENT_SANDBOX = env_bool("PAYMENT_SANDBOX", True) or not PAYSTACK_SECRET_KEY
+
+def payment_sandbox_on(secret_key, wanted):
+    """Sandbox simulates the gateway end to end (no money, no signatures). It is forced on whenever no
+    secret key is configured, so a fresh clone can never reach a live gateway, and forced OFF whenever
+    the key is a live one, so a lost or mistyped PAYMENT_SANDBOX line can never open the live site to
+    free "payments"."""
+    secret_key = (secret_key or "").strip().lower()
+    return (wanted or not secret_key) and not secret_key.startswith("sk_live")
+
+
+PAYMENT_SANDBOX = payment_sandbox_on(PAYSTACK_SECRET_KEY, env_bool("PAYMENT_SANDBOX", True))
 PAYMENT_SANDBOX_OUTCOME = env("PAYMENT_SANDBOX_OUTCOME", "success")
 
 # Lets a scheduler run the daily job over HTTPS (POST /internal/daily-jobs)

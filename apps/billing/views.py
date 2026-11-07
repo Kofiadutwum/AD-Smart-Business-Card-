@@ -165,7 +165,8 @@ def webhook(request):
     event is re-verified with the Verify API before anything changes.
     """
     raw = request.body
-    if not settings.PAYMENT_SANDBOX and not paystack.signature_is_valid(raw, request.headers.get("x-paystack-signature", "")):
+    # Only a site with no secret key at all (a fresh clone) skips the signature: sandbox mode never does.
+    if settings.PAYSTACK_SECRET_KEY and not paystack.signature_is_valid(raw, request.headers.get("x-paystack-signature", "")):
         logger.warning("Rejected webhook with a bad signature")
         notify_admins(
             "Unverified Paystack webhook rejected", "admin_webhook_rejected",
