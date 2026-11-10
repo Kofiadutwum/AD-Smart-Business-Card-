@@ -248,17 +248,17 @@ kbd,
 
 .section-head {
   max-width: 44rem;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-6);
 }
 .section-head--center {
   margin-inline: auto;
   text-align: center;
 }
 .section-head h2 {
-  margin-top: var(--space-3);
+  margin-top: var(--space-2);
 }
 .section-head .lead {
-  margin-top: var(--space-4);
+  margin-top: var(--space-2);
 }
 .lead {
   font-size: var(--text-lg);

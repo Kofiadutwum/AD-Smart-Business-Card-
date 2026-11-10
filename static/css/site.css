@@ -337,7 +337,7 @@
   }
   .hero__inner {
     padding-top: var(--space-2);
-    padding-bottom: var(--space-16);
+    padding-bottom: var(--space-8);
   }
   .hero__copy {
     max-width: 40rem;
@@ -378,7 +378,7 @@
     display: grid;
     grid-template-columns: 1fr minmax(0, 1.05fr);
     padding-top: 7rem;
-    padding-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
   }
   .hero__copy {
     grid-column: 2;
@@ -406,20 +406,20 @@
 .about {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-12);
+  gap: var(--space-8);
   align-items: center;
 }
 @media (min-width: 64rem) {
   .about {
     grid-template-columns: 1.1fr 1fr;
-    gap: var(--space-16);
+    gap: var(--space-8);
   }
 }
 .about__sign {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  margin-top: var(--space-8);
+  margin-top: var(--space-4);
 }
 .about__sign .brand__mark {
   width: 3.25rem;
@@ -451,7 +451,7 @@
   color: rgb(255 255 255 / 0.82);
 }
 .about-stat__value {
-  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem);
+  font-size: clamp(1.3rem, 0.9rem + 1.7vw, 2.25rem);
   overflow-wrap: anywhere;
   hyphens: manual;
   font-weight: 650;
@@ -599,14 +599,14 @@
 .share-showcase {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-12);
+  gap: var(--space-8);
   align-items: center;
-  margin-top: var(--space-20);
+  margin-top: var(--space-8);
 }
 @media (min-width: 64rem) {
   .share-showcase {
     grid-template-columns: 1fr 1.15fr;
-    gap: var(--space-16);
+    gap: var(--space-8);
   }
 }
 .share-list {
@@ -888,13 +888,13 @@
 .nfc {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-12);
+  gap: var(--space-8);
   align-items: start;
 }
 @media (min-width: 64rem) {
   .nfc {
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
+    gap: var(--space-8);
   }
 }
 .tier-table {
@@ -1113,7 +1113,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(3rem, 2rem + 5vw, 5.5rem) var(--gutter);
+  padding: clamp(1.75rem, 1.25rem + 2.5vw, 2.75rem) var(--gutter);
   border-radius: var(--radius-xl);
   background: var(--night);
   color: #ffffff;
@@ -1139,7 +1139,7 @@
 }
 .cta-band .cluster {
   justify-content: center;
-  margin-top: var(--space-8);
+  margin-top: var(--space-6);
 }
 
 /* ==========================================================================
@@ -1148,7 +1148,7 @@
 
 .site-footer {
   margin-top: 0;
-  padding: var(--space-16) 0 var(--space-8);
+  padding: var(--space-8) 0 var(--space-6);
   border-top: 1px solid var(--border);
   background: var(--surface);
   font-size: var(--text-sm);
