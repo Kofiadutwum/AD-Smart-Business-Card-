@@ -6,19 +6,9 @@
       <span class="brand__text"><strong>AD Smart</strong><span>Business Cards</span></span>
     </a>
 
-    {% trans "Main" as t_2 %}<nav class="site-nav" aria-label="{{ t_2 }}">
-      <ul>
-        <li><a href="{% url 'marketing:home' %}#how-it-works">{% trans "How it works" %}</a></li>
-        <li><a href="{% url 'marketing:shops' %}" {% nav_current 'marketing:shops' %}>{% trans "Shops" %}</a></li>
-        <li><a href="{% url 'marketing:pricing' %}" {% nav_current 'marketing:pricing' %}>{% trans "Pricing" %}</a></li>
-        <li><a href="{% url 'marketing:nfc' %}" {% nav_current 'marketing:nfc' %}>{% trans "NFC cards" %}</a></li>
-        <li><a href="{% url 'marketing:faq' %}" {% nav_current 'marketing:faq' %}>{% trans "FAQ" %}</a></li>
-        <li><a href="{% url 'support:contact' %}" {% nav_current 'support:contact' %}>{% trans "Contact" %}</a></li>
-      </ul>
-    </nav>
-
     <div class="site-header__actions">
       <span class="hide-mobile">{% include "partials/prefs.html" with idp="h" %}</span>
+      <a class="shops-link" href="{% url 'marketing:shops' %}" {% nav_current 'marketing:shops' %}>{% icon "store" 20 %}<span class="shops-link__label">{% trans "Shops" %}</span></a>
       {% trans "Change theme" as t_3 %}<button type="button" class="theme-toggle" data-theme-toggle data-mode="system" aria-label="{{ t_3 }}">
         <span data-theme-icon="system">{% icon "monitor" 20 %}</span>
         <span data-theme-icon="light">{% icon "sun" 20 %}</span>
@@ -32,31 +22,32 @@
         <a class="btn btn--ghost hide-mobile" href="{% url 'accounts:login' %}">{% trans "Log in" %}</a>
         <span class="hide-mobile">{% url 'accounts:register' as register_url %}{% hover_button _("Get started") href=register_url variant=cta_variant css="ihb--sm" %}</span>
       {% endif %}
-      {% trans "Menu" as t_4 %}<button type="button" class="menu-toggle" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="{{ t_4 }}">
-        {% icon "menu" 22 %}
-      </button>
-    </div>
-  </div>
-
-  <div class="mobile-menu" id="mobile-menu">
-    {% trans "Main" as t_5 %}<nav aria-label="{{ t_5 }}">
-      <ul>
-        <li><a href="{% url 'marketing:home' %}#how-it-works">{% trans "How it works" %}</a></li>
-        <li><a href="{% url 'marketing:shops' %}">{% trans "Shops" %}</a></li>
-        <li><a href="{% url 'marketing:pricing' %}">{% trans "Pricing" %}</a></li>
-        <li><a href="{% url 'marketing:nfc' %}">{% trans "NFC cards" %}</a></li>
-        <li><a href="{% url 'marketing:faq' %}">{% trans "FAQ" %}</a></li>
-        <li><a href="{% url 'support:contact' %}">{% trans "Contact" %}</a></li>
-      </ul>
-    </nav>
-    <div class="mobile-menu__actions">
-      {% include "partials/prefs.html" with idp="m" %}
-      {% if user.is_authenticated %}
-        {% if user.is_staff %}{% url 'staff:home' as staff_url %}{% hover_button _("Staff area") href=staff_url variant="ink" css="ihb--block" %}{% else %}{% url 'dashboard:home' as dash_url %}{% hover_button _("Go to dashboard") href=dash_url variant="ink" css="ihb--block" %}{% endif %}
-      {% else %}
-        {% url 'accounts:register' as register_url %}{% hover_button _("Create my card") href=register_url variant="ink" css="ihb--block" %}
-        <a class="btn" href="{% url 'accounts:login' %}">{% trans "Log in" %}</a>
-      {% endif %}
+      {# One menu on every screen: a dropdown on a laptop, a full-width panel on a phone. #}
+      <div class="menu-wrap">
+        {% trans "Menu" as t_4 %}<button type="button" class="menu-toggle" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="{{ t_4 }}">
+          {% icon "menu" 22 %}
+        </button>
+        <div class="mobile-menu" id="mobile-menu">
+          {% trans "Main" as t_5 %}<nav aria-label="{{ t_5 }}">
+            <ul>
+              <li><a href="{% url 'marketing:home' %}#how-it-works">{% trans "How it works" %}</a></li>
+              <li><a href="{% url 'marketing:pricing' %}" {% nav_current 'marketing:pricing' %}>{% trans "Pricing" %}</a></li>
+              <li><a href="{% url 'marketing:nfc' %}" {% nav_current 'marketing:nfc' %}>{% trans "NFC cards" %}</a></li>
+              <li><a href="{% url 'marketing:faq' %}" {% nav_current 'marketing:faq' %}>{% trans "FAQ" %}</a></li>
+              <li><a href="{% url 'support:contact' %}" {% nav_current 'support:contact' %}>{% trans "Contact" %}</a></li>
+            </ul>
+          </nav>
+          <div class="mobile-menu__actions">
+            {% include "partials/prefs.html" with idp="m" %}
+            {% if user.is_authenticated %}
+              {% if user.is_staff %}{% url 'staff:home' as staff_url %}{% hover_button _("Staff area") href=staff_url variant="ink" css="ihb--block" %}{% else %}{% url 'dashboard:home' as dash_url %}{% hover_button _("Go to dashboard") href=dash_url variant="ink" css="ihb--block" %}{% endif %}
+            {% else %}
+              {% url 'accounts:register' as register_url %}{% hover_button _("Create my card") href=register_url variant="ink" css="ihb--block" %}
+              <a class="btn" href="{% url 'accounts:login' %}">{% trans "Log in" %}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>

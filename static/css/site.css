@@ -61,19 +61,12 @@
   color: var(--muted);
 }
 
-.site-nav {
-  margin-left: auto;
-}
-.site-nav ul {
-  display: flex;
-  gap: var(--space-1);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.site-nav a {
+/* Shops sits in the bar beside the theme switch: a word on a laptop, just
+   the shop-front icon on a phone. */
+.shops-link {
   display: inline-flex;
   align-items: center;
+  gap: var(--space-2);
   min-height: 2.75rem;
   padding: 0 var(--space-3);
   border-radius: var(--radius-pill);
@@ -83,18 +76,12 @@
   text-decoration: none;
   transition: color var(--dur-fast), background var(--dur-fast);
 }
-/* The sixth link only fits beside the language, currency and sign-in controls on wide screens;
-   the footer and the mobile menu carry it everywhere else. */
-@media (max-width: 83.99rem) {
-  .site-nav__wide {
-    display: none;
-  }
-}
-.site-nav a:hover {
+.shops-link:hover {
   color: var(--ink);
   background: var(--bg-alt);
+  text-decoration: none;
 }
-.site-nav a[aria-current="page"] {
+.shops-link[aria-current="page"] {
   color: var(--ink);
   font-weight: 650;
 }
@@ -102,6 +89,10 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  margin-left: auto;
+}
+.menu-wrap {
+  position: relative;
 }
 .theme-toggle,
 .menu-toggle {
@@ -130,57 +121,101 @@
 .menu-toggle {
   display: none;
 }
+.site-header .menu-toggle {
+  display: grid;
+}
 
+/* The one menu. On a laptop it drops down under its button; on a phone it
+   becomes the full-width panel below the bar (see the media query). */
 .mobile-menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  width: 15rem;
+  padding: var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-0.5rem);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), visibility var(--dur);
+}
+.mobile-menu.is-open {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+.mobile-menu li a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius);
+  font-weight: 550;
+  color: var(--ink);
+  text-decoration: none;
+}
+.mobile-menu li a:hover {
+  background: var(--bg-alt);
+}
+.mobile-menu li a[aria-current="page"] {
+  font-weight: 650;
+  color: var(--link);
+}
+/* The language, currency and account buttons sit in the bar on a laptop. */
+.mobile-menu__actions {
   display: none;
 }
 
 @media (max-width: 55.99rem) {
-  .site-nav,
   .site-header__actions .hide-mobile {
     display: none;
   }
-  .menu-toggle {
-    display: grid;
+  .shops-link {
+    justify-content: center;
+    width: 2.75rem;
+    padding: 0;
+    border-radius: 50%;
   }
-  .site-header__actions {
-    margin-left: auto;
+  .shops-link__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .menu-wrap {
+    position: static;
   }
   .mobile-menu {
-    display: block;
     position: fixed;
     inset: 4.25rem 0 auto 0;
+    width: auto;
     max-height: calc(100dvh - 4.25rem);
     overflow-y: auto;
     padding: var(--space-4) var(--gutter) var(--space-8);
-    background: var(--surface);
+    border: 0;
     border-bottom: 1px solid var(--border);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-0.5rem);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), visibility var(--dur);
-  }
-  .mobile-menu.is-open {
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-  }
-  .mobile-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
+    border-radius: 0;
   }
   .mobile-menu li a {
-    display: flex;
-    align-items: center;
     min-height: 3.25rem;
+    padding: 0;
+    border-radius: 0;
     font-size: var(--text-lg);
-    font-weight: 550;
-    color: var(--ink);
-    text-decoration: none;
     border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu li a:hover {
+    background: transparent;
   }
   .mobile-menu__actions {
     display: grid;
@@ -200,7 +235,7 @@
   transition: background var(--dur), border-color var(--dur), backdrop-filter var(--dur);
 }
 .site-header--hero .brand,
-.site-header--hero .site-nav a,
+.site-header--hero .shops-link,
 .site-header--hero .theme-toggle,
 .site-header--hero .menu-toggle {
   color: #ffffff;
@@ -208,7 +243,7 @@
 .site-header--hero .brand__text span {
   color: rgb(255 255 255 / 0.72);
 }
-.site-header--hero .site-nav a:hover,
+.site-header--hero .shops-link:hover,
 .site-header--hero .theme-toggle:hover,
 .site-header--hero .menu-toggle:hover {
   background: rgb(255 255 255 / 0.1);

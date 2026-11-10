@@ -82,6 +82,10 @@
     menu.addEventListener("click", function (event) {
       if (event.target.closest("a")) setMenu(false);
     });
+    // A click anywhere else closes it, as a dropdown should.
+    document.addEventListener("click", function (event) {
+      if (menu.classList.contains("is-open") && !menu.contains(event.target) && !menuBtn.contains(event.target)) setMenu(false);
+    });
   }
 
   /* --- toasts: auto-dismiss after 5s, paused while hovered or focused ------ */
