@@ -18,18 +18,18 @@ from apps.nfc.models import DeliveryZone, PriceTier
 PLANS = [
     # Prices from October 2026 and the 5.2 feature matrix.
     dict(code="basic", name="Basic", price_minor=20000, sort_order=1, max_cards=1, max_phones=2,
-         max_social_links=5, all_templates=False, custom_colours=False, allow_logo=False,
+         max_social_links=None, all_templates=False, custom_colours=False, allow_logo=False,
          allow_advanced_style=False, branding_footer="shown", full_analytics=False, priority_support=False,
          blurb="Everything you need to share one card."),
     dict(code="professional", name="Professional", price_minor=35000, sort_order=2, max_cards=1, max_phones=3,
          max_social_links=None, all_templates=True, custom_colours=True, allow_logo=True,
-         allow_business_page=True, max_products=10,
+         allow_business_page=True, max_products=50,
          allow_advanced_style=True, branding_footer="small", full_analytics=True, priority_support=False,
          is_featured=True, blurb="Your brand, your colours, and full analytics."),
     # The Business price covers 5 people; bigger teams add BUSINESS_BANDS.
     dict(code="business", name="Business", price_minor=70000, sort_order=3, max_cards=5, max_phones=3,
          max_social_links=None, all_templates=True, custom_colours=True, shared_brand_theme=True, allow_logo=True,
-         allow_business_page=True, max_products=30,
+         allow_business_page=True, max_products=None,
          allow_advanced_style=True, branding_footer="removable", full_analytics=True, priority_support=True,
          blurb="Your whole team under one brand. The bigger the team, the less each person costs."),
 ]

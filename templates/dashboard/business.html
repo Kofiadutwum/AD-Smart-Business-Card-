@@ -13,7 +13,7 @@
   <section class="panel empty">
     {% icon "store" 40 %}
     <h3>{% trans "Business pages come with Professional and Business" %}</h3>
-    <p>{% trans "Show up to 10 products on Professional and up to 30 on Business, with your services, customer reviews and an enquiry form. An “Explore Business” button appears on your card." %}</p>
+    <p>{% trans "Show up to 50 products on Professional and any number on Business, with your services, customer reviews and an enquiry form. An “Explore Business” button appears on your card." %}</p>
     <div class="mt-4">{% url 'billing:checkout' as checkout_url %}{% hover_button _("Choose a plan") href=checkout_url css="ihb--sm" %}</div>
   </section>
 {% else %}
@@ -45,10 +45,10 @@
     <section class="panel mt-6">
       <div class="cluster" style="justify-content:space-between">
         <h2 style="font-size: var(--text-lg)">{% if kind == "products" %}{% trans "Products" %}{% elif kind == "services" %}{% trans "Services" %}{% else %}{% trans "Customer reviews" %}{% endif %}</h2>
-        <span class="muted text-sm">{% blocktrans trimmed with used=items|length %}{{ used }} of {{ limit }} used{% endblocktrans %}</span>
+        <span class="muted text-sm">{% if limit is None %}{% blocktrans trimmed with used=items|length %}{{ used }} added, no limit{% endblocktrans %}{% else %}{% blocktrans trimmed with used=items|length %}{{ used }} of {{ limit }} used{% endblocktrans %}{% endif %}</span>
       </div>
       {% if kind == "products" %}<p class="muted text-sm mt-2">{% trans "Every picture is shrunk to 30 KB or less so your page opens fast. Each product can have up to 5 pictures." %}</p>{% endif %}
-      {% if kind == "products" and items|length > limit %}
+      {% if kind == "products" and limit is not None and items|length > limit %}
         <p class="mt-2 text-sm">{% blocktrans trimmed %}Your plan shows the first {{ limit }} products on your page.{% endblocktrans %}</p>
       {% endif %}
       {% if items %}
@@ -73,7 +73,7 @@
         </ul>
       {% endif %}
       <div class="mt-4">
-        {% if items|length >= limit %}
+        {% if limit is not None and items|length >= limit %}
           <p class="muted text-sm">{% blocktrans trimmed %}You have used all {{ limit }} places here. Remove one to add another.{% endblocktrans %}</p>
         {% else %}
           {% url 'dashboard:business_add' kind as add_url %}{% hover_button _("Add") href=add_url variant="ink" icon_name="plus" css="ihb--sm" %}

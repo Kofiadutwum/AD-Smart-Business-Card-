@@ -14,7 +14,7 @@
           <td class="num">{{ p.max_phones }}</td>
           <td>{{ p.social_limit_label }}</td>
           <td>{% if p.allow_logo %}Yes{% else %}No{% endif %}</td>
-          <td>{% if p.allow_business_page %}Up to {{ p.max_products }} products{% else %}No{% endif %}</td>
+          <td>{% if p.allow_business_page %}{% if p.max_products is None %}Unlimited products{% else %}Up to {{ p.max_products }} products{% endif %}{% else %}No{% endif %}</td>
           <td>{% if p.full_analytics %}Full{% else %}Views only{% endif %}</td>
           <td>{% if p.is_active %}<span class="badge badge--success">On sale</span>{% else %}<span class="badge">Hidden</span>{% endif %}</td>
         </tr>

@@ -545,7 +545,7 @@ def business_item(request, kind, pk=None):
     model, form_class, limit_for = BUSINESS_ITEMS[kind]
     item = get_object_or_404(model, pk=pk, page=page) if pk else None
     limit = limit_for(plan_for_card(card))
-    if item is None and getattr(page, kind).count() >= limit:
+    if item is None and limit is not None and getattr(page, kind).count() >= limit:  # no limit = unlimited
         messages.warning(request, _("You have used all %(limit)d places here. Remove one to add another.") % {"limit": limit})
         return redirect("dashboard:business")
     old_picture = item.image.name if kind == "products" and item else ""  # the form swaps it before we can look

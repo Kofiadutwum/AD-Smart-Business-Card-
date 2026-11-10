@@ -289,7 +289,7 @@ class TeamPricingTests(BaseTest):
 
     def test_new_plan_prices(self):
         self.assertEqual(self.basic.price_minor, 20000)
-        self.assertEqual(self.basic.max_social_links, 5)
+        self.assertIsNone(self.basic.max_social_links)  # unlimited, like the other plans
         self.assertEqual(self.pro.price_minor, 35000)
         self.assertEqual(self.business.price_minor, 70000)
         self.assertTrue(self.business.is_team)

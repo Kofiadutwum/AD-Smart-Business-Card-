@@ -12,6 +12,7 @@ from apps.cards.models import (
     MAX_REVIEWS, MAX_SERVICES, PRODUCT_IMAGE_BYTES, BusinessPage, BusinessProduct, BusinessReview, BusinessService, Lead,
     ProductPhoto,
 )
+from apps.billing.models import Plan
 from apps.core.models import SiteSettings
 from apps.core.utils import process_image
 from apps.marketing.models import GalleryImage
@@ -91,15 +92,15 @@ class ImageSquashTests(BusinessBase):
 
 
 class PlanAllowanceTests(BusinessBase):
-    def test_professional_gets_ten_products_business_gets_thirty_basic_none(self):
-        self.assertEqual((self.pro.allow_business_page, self.pro.max_products), (True, 10))
-        self.assertEqual((self.business.allow_business_page, self.business.max_products), (True, 30))
+    def test_professional_gets_fifty_products_business_unlimited_basic_none(self):
+        self.assertEqual((self.pro.allow_business_page, self.pro.max_products), (True, 50))
+        self.assertEqual((self.business.allow_business_page, self.business.max_products), (True, None))
         self.assertFalse(self.basic.allow_business_page)
 
     def test_pricing_lists_the_business_page(self):
         rows = dict((text, on) for on, text in self.pro.feature_rows())
-        self.assertTrue(rows["Business page with up to 10 products"])
-        self.assertIn("Business page with up to 30 products", [t for _, t in self.business.feature_rows()])
+        self.assertTrue(rows["Business page with up to 50 products"])
+        self.assertIn("Business page with unlimited products", [t for _, t in self.business.feature_rows()])
         self.assertFalse(dict((text, on) for on, text in self.basic.feature_rows())["Business page for your products"])
 
     def test_basic_sees_an_upgrade_message_and_cannot_add_anything(self):
@@ -111,6 +112,17 @@ class PlanAllowanceTests(BusinessBase):
         self.assertContains(page, "Business pages come with Professional and Business")
         self.assertEqual(self.client.get("/dashboard/business/products/add/").status_code, 404)
         self.assertFalse(BusinessPage.objects.exists())
+
+    def test_basic_can_add_any_number_of_social_links(self):
+        user = self.make_user()
+        card = self.make_card(user)
+        self.subscribe(user, self.basic)
+        card.refresh_from_db()
+        self.client.force_login(user)
+        for n in range(8):  # Basic used to stop at five
+            self.client.post("/dashboard/links/", {"platform": "instagram", "url": f"https://instagram.com/ama{n}"})
+        self.assertEqual(card.social_links.count(), 8)
+        self.assertNotContains(self.client.get("/dashboard/links/"), "Upgrade for unlimited")
 
     def test_the_menu_has_a_business_page_link(self):
         self.client.force_login(self.owner())
@@ -150,22 +162,25 @@ class DashboardTests(BusinessBase):
         self.add_product(price="", description="")
         self.assertEqual(BusinessProduct.objects.get().price, "")
 
-    def test_professional_stops_at_ten_products(self):
-        self.add_products(10)
+    def test_professional_stops_at_fifty_products(self):
+        self.add_products(50)
         response = self.add_product(title="One too many")
         self.assertRedirects(response, "/dashboard/business/", fetch_redirect_response=False)
-        self.assertEqual(BusinessProduct.objects.count(), 10)
-        self.assertContains(self.client.get("/dashboard/business/"), "You have used all 10 places here.")
+        self.assertEqual(BusinessProduct.objects.count(), 50)
+        self.assertContains(self.client.get("/dashboard/business/"), "You have used all 50 places here.")
 
-    def test_business_stops_at_thirty_products(self):
+    def test_business_has_no_limit_on_products(self):
         subscription = self.user.subscription
         subscription.plan = self.business
         subscription.save()
-        self.add_products(29)
-        self.add_product(title="Number thirty")
-        self.assertEqual(BusinessProduct.objects.count(), 30)
-        self.add_product(title="Number thirty-one")
-        self.assertEqual(BusinessProduct.objects.count(), 30)
+        self.add_products(60)  # more than Professional allows
+        response = self.add_product(title="Number sixty-one")
+        self.assertRedirects(response, "/dashboard/business/", fetch_redirect_response=False)
+        self.assertEqual(BusinessProduct.objects.count(), 61)
+        page = self.client.get("/dashboard/business/")
+        self.assertContains(page, "61 added, no limit")
+        self.assertNotContains(page, "You have used all")
+        self.assertEqual(len(self.client.get(f"/b/{self.card.slug}").context["products"]), 61)
 
     def test_editing_without_a_new_picture_keeps_the_old_one_and_a_new_one_replaces_it(self):
         self.add_product()
@@ -319,10 +334,17 @@ class PublicPageTests(BusinessBase):
 
     def test_only_as_many_products_as_the_plan_allows_are_shown(self):
         self.owner()
+        Plan.objects.filter(pk=self.pro.pk).update(max_products=10)  # staff can set any number
         self.add_products(12)
         page = self.client.get(f"/b/{self.card.slug}")
         self.assertContains(page, "Item 9<")
         self.assertNotContains(page, "Item 10<")
+
+    def test_a_plan_with_no_product_limit_shows_every_product(self):
+        self.owner(plan=self.business)
+        self.add_products(12)
+        page = self.client.get(f"/b/{self.card.slug}")
+        self.assertContains(page, "Item 11<")
 
     def test_the_logo_comes_from_the_card_and_falls_back_to_the_photo(self):
         self.owner()
@@ -512,7 +534,7 @@ class LandingPageTests(BusinessBase):
     def test_the_faq_explains_business_pages_and_names_the_plans(self):
         page = self.client.get("/faq")
         self.assertContains(page, "What is a business page?")
-        self.assertContains(page, "A business page comes with Professional (up to 10 products), Business (up to 30 products).")
+        self.assertContains(page, "A business page comes with Professional (up to 50 products), Business (unlimited products).")
         self.assertNotContains(self.client.get("/nfc-cards"), "What is a business page?")
 
     def test_the_plan_cards_point_out_the_business_page_and_link_to_the_sample(self):

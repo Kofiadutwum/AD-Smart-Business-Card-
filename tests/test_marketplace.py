@@ -217,9 +217,9 @@ class MarketplaceTests(MarketBase):
         self.assertEqual([p["title"] for p in next(s for s in listed if s["name"] == "Some Shop")["shown"]], ["Kept"])
 
     def test_only_the_products_the_plan_allows_are_listed(self):
-        self.shop("ama@example.com", "Ama Fabrics", products=tuple(f"Item {n}" for n in range(12)))
+        self.shop("ama@example.com", "Ama Fabrics", products=tuple(f"Item {n}" for n in range(55)))
         shop = self.client.get("/shops").context["shops"][0]
-        self.assertEqual(len(shop["products"]), 10)  # Professional: up to 10
+        self.assertEqual(len(shop["products"]), 50)  # Professional: up to 50
         self.assertEqual(len(shop["shown"]), marketplace.SHOP_PREVIEW)
 
     def test_busier_shops_come_first(self):

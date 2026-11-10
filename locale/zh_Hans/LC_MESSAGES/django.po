@@ -176,179 +176,179 @@ msgstr "您的 Google 登录会话已过期，请重试。"
 msgid "Add your mobile number so we can reach you about orders and delivery."
 msgstr "请添加您的手机号码，以便我们就订单和配送与您联系。"
 
-#: apps/billing/models.py:63
+#: apps/billing/models.py:65
 msgid "Unlimited"
 msgstr "不限"
 
-#: apps/billing/models.py:63
+#: apps/billing/models.py:65
 #, python-format
 msgid "Up to %(count)d"
 msgstr "最多 %(count)d"
 
-#: apps/billing/models.py:116
+#: apps/billing/models.py:120
 #, python-format
 msgid ""
 "Cards for your whole team: %(count)d people included, then priced per person"
 msgstr "全团队名片：包含 %(count)d 人，超出部分按人计价"
 
-#: apps/billing/models.py:118
+#: apps/billing/models.py:122
 msgid "1 digital card"
 msgstr "1 张电子名片"
 
-#: apps/billing/models.py:120
+#: apps/billing/models.py:124
 #, python-format
 msgid "Up to %(count)d digital cards"
 msgstr "最多 %(count)d 张电子名片"
 
-#: apps/billing/models.py:122
+#: apps/billing/models.py:126
 msgid "Unlimited social media links"
 msgstr "不限数量的社交媒体链接"
 
-#: apps/billing/models.py:124
+#: apps/billing/models.py:128
 #, python-format
 msgid "Up to %(count)d social media links"
 msgstr "最多 %(count)d 个社交媒体链接"
 
-#: apps/billing/models.py:126
+#: apps/billing/models.py:130
 msgid "Any colour + shared brand theme"
 msgstr "任意颜色 + 共享品牌主题"
 
-#: apps/billing/models.py:128
+#: apps/billing/models.py:132
 msgid "Any card colour"
 msgstr "任意名片颜色"
 
-#: apps/billing/models.py:130
+#: apps/billing/models.py:134
 msgid "Preset colours"
 msgstr "预设颜色"
 
-#: apps/billing/models.py:133
+#: apps/billing/models.py:137
 msgid "Permanent link, QR code and .vcf contact"
 msgstr "永久链接、二维码和 .vcf 联系人文件"
 
-#: apps/billing/models.py:134
+#: apps/billing/models.py:138
 #, python-format
 msgid "Up to %(count)d phone numbers per card"
 msgstr "每张名片最多 %(count)d 个电话号码"
 
-#: apps/billing/models.py:136
+#: apps/billing/models.py:140
 msgid "All templates"
 msgstr "全部模板"
 
-#: apps/billing/models.py:136
+#: apps/billing/models.py:140
 msgid "1 standard template"
 msgstr "1 个标准模板"
 
-#: apps/billing/models.py:138
+#: apps/billing/models.py:142
 msgid "Business logo on card"
 msgstr "名片上显示企业标志"
 
-#: apps/billing/models.py:140
+#: apps/billing/models.py:144
 msgid "Background image, button style, icon layout"
 msgstr "背景图片、按钮样式、图标布局"
 
-#: apps/billing/models.py:141 apps/dashboard/forms.py:61
+#: apps/billing/models.py:145 apps/dashboard/forms.py:61
 msgid "Remove “Powered by AD Smart”"
 msgstr "移除“由 AD Smart 提供技术支持”"
 
-#: apps/billing/models.py:142 templates/dashboard/home.html:24
+#: apps/billing/models.py:146 templates/dashboard/home.html:24
 msgid "Full analytics"
 msgstr "完整数据分析"
 
-#: apps/billing/models.py:142
+#: apps/billing/models.py:146
 msgid "Total views"
 msgstr "总浏览量"
 
-#: apps/billing/models.py:143
+#: apps/billing/models.py:147
 msgid "Priority support (4 working hours)"
 msgstr "优先客服支持（4 个工作小时内）"
 
-#: apps/billing/models.py:178
+#: apps/billing/models.py:182
 msgid "Active"
 msgstr "有效"
 
-#: apps/billing/models.py:179
+#: apps/billing/models.py:183
 msgid "Expiring soon"
 msgstr "即将到期"
 
-#: apps/billing/models.py:180
+#: apps/billing/models.py:184
 msgid "Grace period"
 msgstr "宽限期"
 
-#: apps/billing/models.py:181
+#: apps/billing/models.py:185
 msgid "Inactive"
 msgstr "未激活"
 
-#: apps/billing/models.py:402 apps/billing/models.py:517
+#: apps/billing/models.py:406 apps/billing/models.py:521
 msgid "Subscription"
 msgstr "订阅"
 
-#: apps/billing/models.py:403 apps/billing/models.py:512
+#: apps/billing/models.py:407 apps/billing/models.py:516
 msgid "Plan upgrade"
 msgstr "套餐升级"
 
-#: apps/billing/models.py:404 apps/billing/models.py:498
+#: apps/billing/models.py:408 apps/billing/models.py:502
 msgid "NFC order"
 msgstr "NFC 订单"
 
-#: apps/billing/models.py:405 apps/billing/models.py:506
+#: apps/billing/models.py:409 apps/billing/models.py:510
 msgid "Pre-made card (sold in a shop)"
 msgstr "预制名片（门店售出）"
 
-#: apps/billing/models.py:416 templates/billing/receipts.html:17
+#: apps/billing/models.py:420 templates/billing/receipts.html:17
 msgid "Pending"
 msgstr "待处理"
 
-#: apps/billing/models.py:417
+#: apps/billing/models.py:421
 msgid "Successful"
 msgstr "成功"
 
-#: apps/billing/models.py:418
+#: apps/billing/models.py:422
 msgid "Failed"
 msgstr "失败"
 
-#: apps/billing/models.py:419
+#: apps/billing/models.py:423
 msgid "Abandoned"
 msgstr "已放弃"
 
-#: apps/billing/models.py:420 apps/nfc/models.py:109
+#: apps/billing/models.py:424 apps/nfc/models.py:109
 msgid "Refunded"
 msgstr "已退款"
 
-#: apps/billing/models.py:421
+#: apps/billing/models.py:425
 msgid "Partially refunded"
 msgstr "部分退款"
 
-#: apps/billing/models.py:498
+#: apps/billing/models.py:502
 #, python-format
 msgid "NFC order %(number)s"
 msgstr "NFC 订单 %(number)s"
 
-#: apps/billing/models.py:500 apps/billing/services.py:164
+#: apps/billing/models.py:504 apps/billing/services.py:164
 #, python-format
 msgid "%(plan)s plan"
 msgstr "%(plan)s 套餐"
 
-#: apps/billing/models.py:509
+#: apps/billing/models.py:513
 #, python-format
 msgid "Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)"
 msgstr "预制名片，含 %(plan)s 套餐 %(count)d 个月（门店售出）"
 
-#: apps/billing/models.py:514
+#: apps/billing/models.py:518
 #, python-format
 msgid "Upgrade to %(plan)s for %(count)d people"
 msgstr "升级至 %(plan)s（%(count)d 人）"
 
-#: apps/billing/models.py:515
+#: apps/billing/models.py:519
 #, python-format
 msgid "Upgrade to %(plan)s"
 msgstr "升级至 %(plan)s"
 
-#: apps/billing/models.py:519
+#: apps/billing/models.py:523
 #, python-format
 msgid "%(plan)s plan for %(people)d people, %(count)d months"
 msgstr "%(plan)s 套餐，%(people)d 人，%(count)d 个月"
 
-#: apps/billing/models.py:520
+#: apps/billing/models.py:524
 #, python-format
 msgid "%(plan)s plan, %(count)d months"
 msgstr "%(plan)s 套餐，%(count)d 个月"
@@ -1644,8 +1644,8 @@ msgstr "欢迎回来"
 msgid "Log in to edit your card, see who viewed it and track NFC orders."
 msgstr "登录后可编辑名片、查看访客并跟踪 NFC 订单。"
 
-#: templates/accounts/login.html:16 templates/partials/site_header.html:32
-#: templates/partials/site_header.html:58
+#: templates/accounts/login.html:16 templates/partials/site_header.html:22
+#: templates/partials/site_header.html:46
 msgid "Log in"
 msgstr "登录"
 
@@ -2260,12 +2260,12 @@ msgid "Open menu"
 msgstr "打开菜单"
 
 #: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65
-#: templates/dashboard/settings.html:31 templates/partials/site_header.html:22
+#: templates/dashboard/settings.html:31 templates/partials/site_header.html:12
 msgid "Change theme"
 msgstr "切换主题"
 
 #: templates/dashboard/_shell.html:23 templates/dashboard/_shell.html:28
-#: templates/partials/site_header.html:29
+#: templates/partials/site_header.html:19
 msgid "Dashboard"
 msgstr "控制面板"
 
@@ -2312,8 +2312,7 @@ msgstr "订单与账单"
 #: templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6
 #: templates/nfc/order.html:6 templates/nfc/order.html:113
 #: templates/partials/site_footer.html:16
-#: templates/partials/site_header.html:14
-#: templates/partials/site_header.html:47
+#: templates/partials/site_header.html:35
 msgid "NFC cards"
 msgstr "NFC 卡片"
 
@@ -2441,7 +2440,7 @@ msgstr "<strong>已开启的名片数量超出了您的套餐额度。</strong>�
 msgid "Your cards"
 msgstr "您的名片"
 
-#: apps/billing/models.py:225 apps/cards/models.py:220
+#: apps/billing/models.py:229 apps/cards/models.py:220
 #: apps/dashboard/views.py:397 templates/dashboard/cards.html:17
 msgid "Card"
 msgstr "名片"
@@ -3624,8 +3623,7 @@ msgid "Frequently asked questions · %(SITE_NAME)s"
 msgstr "常见问题 · %(SITE_NAME)s"
 
 #: templates/marketing/faq.html:6 templates/partials/site_footer.html:18
-#: templates/partials/site_header.html:15
-#: templates/partials/site_header.html:48
+#: templates/partials/site_header.html:36
 msgid "FAQ"
 msgstr "常见问题"
 
@@ -3657,7 +3655,7 @@ msgid "Your business card, <span class=\"glow\">one tap away.</span>"
 msgstr "您的名片，<span class=\"glow\">轻触即达。</span>"
 
 #: templates/marketing/home.html:28 templates/marketing/home.html:193
-#: templates/partials/site_header.html:57
+#: templates/partials/site_header.html:45
 msgid "Create my card"
 msgstr "创建我的名片"
 
@@ -3717,8 +3715,7 @@ msgstr "全球"
 msgid "delivery across Ghana, shipping abroad, or free pickup"
 msgstr "加纳全境配送、国际邮寄或免费自取"
 
-#: templates/marketing/home.html:81 templates/partials/site_header.html:11
-#: templates/partials/site_header.html:44
+#: templates/marketing/home.html:81 templates/partials/site_header.html:33
 msgid "How it works"
 msgstr "使用流程"
 
@@ -3741,8 +3738,7 @@ msgstr "AD Graphics 工作室的近期设计。"
 
 #: templates/marketing/home.html:161 templates/marketing/pricing.html:7
 #: templates/partials/site_footer.html:15
-#: templates/partials/site_header.html:13
-#: templates/partials/site_header.html:46
+#: templates/partials/site_header.html:34
 msgid "Pricing"
 msgstr "价格"
 
@@ -3896,8 +3892,7 @@ msgstr ""
 
 #: templates/cards/business.html:120 templates/marketing/legal_privacy.html:29
 #: templates/partials/site_footer.html:23
-#: templates/partials/site_header.html:16
-#: templates/partials/site_header.html:49 templates/support/contact.html:6
+#: templates/partials/site_header.html:37 templates/support/contact.html:6
 msgid "Contact"
 msgstr "联系我们"
 
@@ -4521,25 +4516,24 @@ msgstr "客服支持"
 msgid "%(SITE_NAME)s, home"
 msgstr "%(SITE_NAME)s，首页"
 
-#: templates/partials/site_header.html:9
-#: templates/partials/site_header.html:42
+#: templates/partials/site_header.html:31
 msgid "Main"
 msgstr "主导航"
 
-#: templates/partials/site_header.html:33
+#: templates/partials/site_header.html:23
 msgid "Get started"
 msgstr "开始使用"
 
-#: templates/partials/site_header.html:35
+#: templates/partials/site_header.html:27
 msgid "Menu"
 msgstr "菜单"
 
-#: templates/partials/site_header.html:29
-#: templates/partials/site_header.html:55
+#: templates/partials/site_header.html:19
+#: templates/partials/site_header.html:43
 msgid "Staff area"
 msgstr "员工后台"
 
-#: templates/partials/site_header.html:55
+#: templates/partials/site_header.html:43
 msgid "Go to dashboard"
 msgstr "前往控制面板"
 
@@ -5276,7 +5270,7 @@ msgid ""
 "%(date)s."
 msgstr "您的套餐将于 %(date)s 变更为 <strong style=\"display:inline\">%(plan)s</strong>。"
 
-#: apps/billing/models.py:226 apps/cards/models.py:221
+#: apps/billing/models.py:230 apps/cards/models.py:221
 #, python-format
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s 尾号 %(last4)s"
@@ -5453,12 +5447,12 @@ msgstr ""
 "付款的套餐需由您自行续订。通过银行卡付款的套餐每年自动续订：套餐到期当天，我们会按结账时显示的套餐价格从同一张银行卡扣款，并在约 7 "
 "天前发邮件提醒、扣款后发送收据，您可以随时在控制面板中关闭自动续订。关闭后，套餐会持续到已付费年度结束。提前续订会在当前到期日基础上增加一年。"
 
-#: apps/billing/models.py:110
+#: apps/billing/models.py:114
 #, python-format
 msgid "Business page with up to %(count)d products"
 msgstr "商家主页，最多展示 %(count)d 件产品"
 
-#: apps/billing/models.py:111
+#: apps/billing/models.py:115
 msgid "Business page for your products"
 msgstr "展示产品的商家主页"
 
@@ -5660,15 +5654,6 @@ msgstr "预览页面"
 msgid "Business pages come with Professional and Business"
 msgstr "Professional 和 Business 套餐包含商家主页"
 
-#: templates/dashboard/business.html:16
-msgid ""
-"Show up to 10 products on Professional and up to 30 on Business, with your "
-"services, customer reviews and an enquiry form. An “Explore Business” button"
-" appears on your card."
-msgstr ""
-"Professional 最多展示 10 件产品，Business 最多展示 30 "
-"件，还可添加服务、客户评价和咨询表单。您的名片上会出现“了解业务”按钮。"
-
 #: templates/dashboard/business.html:22
 msgid "Page details"
 msgstr "页面详情"
@@ -5781,25 +5766,25 @@ msgid ""
 msgstr ""
 "一个属于您企业的专属页面，与您的名片相连。它展示您的产品（含图片和价格）、服务、营业时间和客户评价，访客还可以向您发送咨询。您可以在控制面板中开启或关闭它。"
 
-#: apps/marketing/content.py:127
+#: apps/marketing/content.py:129
 #, python-format
 msgid "%(name)s (up to %(count)d products)"
 msgstr "%(name)s（最多 %(count)d 件产品）"
 
-#: apps/marketing/content.py:132
+#: apps/marketing/content.py:134
 msgid "Which plans include a business page?"
 msgstr "哪些套餐包含商家主页？"
 
-#: apps/marketing/content.py:133
+#: apps/marketing/content.py:135
 #, python-format
 msgid "A business page comes with %(plans)s."
 msgstr "%(plans)s 包含商家主页。"
 
-#: apps/marketing/content.py:134
+#: apps/marketing/content.py:136
 msgid "Do my customers need an app or an account to see my business page?"
 msgstr "我的客户需要安装应用或注册账户才能查看我的商家主页吗？"
 
-#: apps/marketing/content.py:135
+#: apps/marketing/content.py:137
 msgid ""
 "No. It is an ordinary web page. It opens from the button on your card, or "
 "from its own link, on any phone."
@@ -6132,11 +6117,11 @@ msgstr "更改电子邮箱"
 msgid "The email address on your AD Smart account was changed to %(new)s."
 msgstr "您的 AD Smart 账户的电子邮箱已更改为 %(new)s。"
 
-#: apps/billing/models.py:406 apps/billing/models.py:503
+#: apps/billing/models.py:410 apps/billing/models.py:507
 msgid "Card updates for a year"
 msgstr "名片一年内的更新"
 
-#: apps/billing/models.py:508
+#: apps/billing/models.py:512
 #, python-format
 msgid "Pre-made card, %(plan)s features, pay when you update (sold in a shop)"
 msgstr "预制名片，%(plan)s套餐功能，更新时付费（门店售出）"
@@ -6612,8 +6597,7 @@ msgstr "第 %(number)s 页，共 %(total)s 页"
 msgid "Next"
 msgstr "下一页"
 
-#: templates/partials/site_header.html:12
-#: templates/partials/site_header.html:45
+#: templates/partials/site_header.html:11
 msgid "Shops"
 msgstr "店铺"
 
@@ -6760,6 +6744,36 @@ msgid ""
 "The products shoppers opened most this month. Tap one to see it in its shop,"
 " then message the seller on WhatsApp."
 msgstr "本月买家打开最多的商品。点击任意一件即可在其店铺中查看，然后通过 WhatsApp 联系卖家。"
+
+#: apps/billing/models.py:113
+msgid "Business page with unlimited products"
+msgstr "商家主页，产品数量不限"
+
+#: apps/marketing/content.py:127
+#, python-format
+msgid "%(name)s (unlimited products)"
+msgstr "%(name)s（产品数量不限）"
+
+#: templates/dashboard/business.html:16
+msgid ""
+"Show up to 50 products on Professional and any number on Business, with your"
+" services, customer reviews and an enquiry form. An “Explore Business” "
+"button appears on your card."
+msgstr ""
+"Professional 最多展示 50 件产品，Business 不限数量，还可添加服务、客户评价和咨询表单。您的名片上会出现“了解业务”按钮。"
+
+#: templates/dashboard/business.html:48
+#, python-format
+msgid "%(used)s added, no limit"
+msgstr "已添加 %(used)s 件，不限数量"
+
+#~ msgid ""
+#~ "Show up to 10 products on Professional and up to 30 on Business, with your "
+#~ "services, customer reviews and an enquiry form. An “Explore Business” button"
+#~ " appears on your card."
+#~ msgstr ""
+#~ "Professional 最多展示 10 件产品，Business 最多展示 30 "
+#~ "件，还可添加服务、客户评价和咨询表单。您的名片上会出现“了解业务”按钮。"
 
 #~ msgid "Popular right now."
 #~ msgstr "近期热门。"

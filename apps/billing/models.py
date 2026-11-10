@@ -36,7 +36,9 @@ class Plan(models.Model):
     shared_brand_theme = models.BooleanField(default=False)
     allow_logo = models.BooleanField(default=False)
     allow_business_page = models.BooleanField(default=False, help_text="A landing page for the business, linked from the card.")
-    max_products = models.PositiveSmallIntegerField(default=0, help_text="Pictures of products on the business page.")
+    max_products = models.PositiveSmallIntegerField(
+        null=True, blank=True, default=0, help_text="Products on the business page. Leave empty for unlimited."
+    )
     allow_advanced_style = models.BooleanField(
         default=False, help_text="Background image, button style and icon arrangement."
     )
@@ -107,6 +109,8 @@ class Plan(models.Model):
 
     def business_page_text(self):
         if self.allow_business_page:
+            if self.max_products is None:
+                return _("Business page with unlimited products")
             return _("Business page with up to %(count)d products") % {"count": self.max_products}
         return _("Business page for your products")
 

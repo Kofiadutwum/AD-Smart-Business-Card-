@@ -179,7 +179,7 @@ def landing_item(request, kind, pk=None):
     model, form_class = LANDING_ITEMS[kind]
     item = get_object_or_404(model, pk=pk, page=page) if pk else None
     limit = plan_for_limits(page.owner).max_products if kind == "products" else MAX_SERVICES
-    if item is None and getattr(page, kind).count() >= limit:
+    if item is None and limit is not None and getattr(page, kind).count() >= limit:  # no limit = unlimited
         messages.warning(request, f"You have used all {limit} places here. Remove one to add another.")
         return redirect("staff:landing")
     old_picture = item.image.name if kind == "products" and item else ""  # the form swaps it before we can look

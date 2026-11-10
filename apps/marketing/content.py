@@ -124,7 +124,9 @@ def faq(site, plans=None, tiers=None):
         },
     ]
     with_page = ", ".join(
-        _("%(name)s (up to %(count)d products)") % {"name": plan.name, "count": plan.max_products}
+        _("%(name)s (unlimited products)") % {"name": plan.name}
+        if plan.max_products is None
+        else _("%(name)s (up to %(count)d products)") % {"name": plan.name, "count": plan.max_products}
         for plan in (plans if plans is not None else active_plans())
         if plan.allow_business_page
     )

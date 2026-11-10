@@ -36,7 +36,7 @@
     <section class="panel mt-6">
       <div class="cluster" style="justify-content:space-between">
         <h3 style="font-size: var(--text-base)">Products</h3>
-        <span class="muted text-sm">{{ products|length }} of {{ max_products }} used</span>
+        <span class="muted text-sm">{% if max_products is None %}{{ products|length }} added, no limit{% else %}{{ products|length }} of {{ max_products }} used{% endif %}</span>
       </div>
       <p class="muted text-sm mt-2">Every picture is shrunk to 30 KB or less so the page opens fast.</p>
       {% if products %}
@@ -56,7 +56,7 @@
         </ul>
       {% endif %}
       <div class="mt-4">
-        {% if products|length >= max_products %}<p class="muted text-sm">All {{ max_products }} places are used. Remove one to add another.</p>
+        {% if max_products is not None and products|length >= max_products %}<p class="muted text-sm">All {{ max_products }} places are used. Remove one to add another.</p>
         {% else %}<a class="btn btn--primary btn--sm" href="{% url 'staff:landing_add' 'products' %}">{% icon "plus" 16 %}Add a product</a>{% endif %}
       </div>
     </section>
