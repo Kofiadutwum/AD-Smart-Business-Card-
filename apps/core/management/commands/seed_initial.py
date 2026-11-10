@@ -18,7 +18,7 @@ from apps.nfc.models import DeliveryZone, PriceTier
 PLANS = [
     # Prices from October 2026 and the 5.2 feature matrix.
     dict(code="basic", name="Basic", price_minor=20000, sort_order=1, max_cards=1, max_phones=2,
-         max_social_links=None, all_templates=False, custom_colours=False, allow_logo=False,
+         max_social_links=None, all_templates=False, custom_colours=False, allow_logo=True,
          allow_advanced_style=False, branding_footer="shown", full_analytics=False, priority_support=False,
          blurb="Everything you need to share one card."),
     dict(code="professional", name="Professional", price_minor=35000, sort_order=2, max_cards=1, max_phones=3,

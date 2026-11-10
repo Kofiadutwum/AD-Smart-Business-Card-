@@ -179,7 +179,7 @@ class SubscriptionTests(BaseTest):
         self.assertEqual(amount, (35000 - 20000) * 6 // 12)
 
     def test_plan_features_enforced_on_render(self):
-        """AC-10: a Basic card cannot show a logo or a custom colour."""
+        """AC-10: a Basic card shows its logo but not a custom colour or a template of its own."""
         user = self.make_user()
         card = self.make_card(user)
         self.subscribe(user, plan=self.basic)
@@ -187,7 +187,11 @@ class SubscriptionTests(BaseTest):
         card.logo = "logos/x.webp"
         card.save()
         eff = card.effective()
-        self.assertIsNone(eff["logo"])
+        self.assertEqual(eff["logo"].name, "logos/x.webp")
+        self.client.force_login(user)  # and the editor lets a Basic owner upload one
+        locked = self.client.get("/dashboard/card/").context["form"].locked
+        self.assertNotIn("logo_upload", locked)
+        self.assertIn("background_upload", locked)  # the advanced style stays on Professional and up
         self.assertNotEqual(eff["accent"], "#123456")
         self.assertEqual(eff["template"], "classic")
 
