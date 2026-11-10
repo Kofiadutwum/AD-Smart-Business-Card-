@@ -558,6 +558,8 @@ def business_item(request, kind, pk=None):
         saved.save()
         if old_picture and saved.image.name != old_picture:
             saved.image.storage.delete(old_picture)
+        if kind == "products":
+            form.save_more(saved)
         messages.success(request, _("Saved."))
         return redirect("dashboard:business")
     titles = {
@@ -582,10 +584,45 @@ def business_item_delete(request, kind, pk):
         return blocked
     item = get_object_or_404(BUSINESS_ITEMS[kind][0], pk=pk, page=page)
     if kind == "products":
+        for photo in item.photos.all():
+            photo.image.delete(save=False)
         item.image.delete(save=False)
     item.delete()
     messages.info(request, _("Removed."))
     return redirect("dashboard:business")
+
+
+@customer_required
+@require_POST
+def product_picture(request, pk, which, action):
+    """Make one of a product's pictures the cover, or remove it. ``which`` is "cover" or an extra picture's id."""
+    page = _business_page(request)
+    if page is None:
+        raise Http404
+    if blocked := _pay_first(_card(request)):
+        return blocked
+    product = get_object_or_404(BusinessProduct, pk=pk, page=page)
+    if which == "cover":
+        photo = product.photos.first()
+        if action != "remove" or photo is None:
+            raise Http404
+        product.image.delete(save=False)  # the first extra picture steps up to be the cover
+        product.image = photo.image.name
+        product.save(update_fields=["image"])
+        photo.delete()  # the row only: its file is the cover now
+    else:
+        photo = get_object_or_404(product.photos, pk=which if which.isdigit() else 0)
+        if action == "remove":
+            photo.image.delete(save=False)
+            photo.delete()
+        elif action == "cover":
+            product.image.name, photo.image.name = photo.image.name, product.image.name
+            product.save(update_fields=["image"])
+            photo.save(update_fields=["image"])
+        else:
+            raise Http404
+    messages.success(request, _("Saved."))
+    return redirect("dashboard:business_edit", "products", pk)
 
 
 # --------------------------------------------------------------------------

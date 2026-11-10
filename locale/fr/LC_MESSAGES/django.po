@@ -667,7 +667,7 @@ msgstr "Fraude ou arnaque"
 msgid "Offensive content"
 msgstr "Contenu choquant"
 
-#: apps/cards/models.py:397 apps/dashboard/forms.py:275
+#: apps/cards/models.py:397 apps/dashboard/forms.py:298
 #: apps/support/models.py:17 templates/cards/business.html:66
 #: templates/marketing/shops.html:33
 msgid "Other"
@@ -750,11 +750,11 @@ msgstr "Vous avez déjà envoyé vos coordonnées. Réessayez dans une heure."
 msgid "%(name)s shared their details with you"
 msgstr "%(name)s a partagé ses coordonnées avec vous"
 
-#: apps/cards/views.py:305
+#: apps/cards/views.py:307
 msgid "You have sent several reports already. Try again later."
 msgstr "Vous avez déjà envoyé plusieurs signalements. Réessayez plus tard."
 
-#: apps/cards/views.py:315
+#: apps/cards/views.py:317
 msgid "Thank you. Our support team will review this card."
 msgstr "Merci. Notre équipe d’assistance examinera cette carte."
 
@@ -839,7 +839,7 @@ msgstr "Gratuit"
 #: apps/core/jsstrings.py:30 apps/nfc/views.py:34
 #: templates/marketing/nfc.html:27 templates/nfc/detail.html:83
 #: templates/nfc/detail.html:98 templates/nfc/order.html:114
-#: templates/partials/site_footer.html:18
+#: templates/partials/site_footer.html:17
 msgid "Delivery"
 msgstr "Livraison"
 
@@ -1072,19 +1072,19 @@ msgstr ""
 "La carte de %(name)s a été supprimée. Son lien indiquera que la carte "
 "n’existe plus."
 
-#: apps/dashboard/views.py:607
+#: apps/dashboard/views.py:644
 msgid "Account details saved."
 msgstr "Informations du compte enregistrées."
 
-#: apps/dashboard/views.py:618
+#: apps/dashboard/views.py:655
 msgid "Type your email address exactly to confirm."
 msgstr "Saisissez exactement votre adresse e-mail pour confirmer."
 
-#: apps/dashboard/views.py:626
+#: apps/dashboard/views.py:663
 msgid "We received your account deletion request"
 msgstr "Nous avons bien reçu votre demande de suppression de compte"
 
-#: apps/dashboard/views.py:630
+#: apps/dashboard/views.py:667
 msgid ""
 "Your deletion request is recorded. Your data will be removed within 30 days."
 msgstr ""
@@ -1095,93 +1095,33 @@ msgstr ""
 msgid "Create your account"
 msgstr "Créez votre compte"
 
-#: apps/marketing/content.py:17
-msgid "Sign up with your email and confirm it. It takes a minute."
-msgstr ""
-"Inscrivez-vous avec votre e-mail et confirmez-le. Cela prend une minute."
-
 #: apps/marketing/content.py:21
 msgid "Build and preview your card"
 msgstr "Créez et prévisualisez votre carte"
-
-#: apps/marketing/content.py:22
-msgid ""
-"Add your photo, numbers, WhatsApp, socials and location. Watch it update as "
-"you type."
-msgstr ""
-"Ajoutez votre photo, vos numéros, WhatsApp, vos réseaux sociaux et votre "
-"position. Voyez la carte se mettre à jour en direct."
 
 #: apps/marketing/content.py:26
 msgid "Choose a yearly plan"
 msgstr "Choisissez une formule annuelle"
 
-#: apps/marketing/content.py:27
-msgid ""
-"Pay with Mobile Money or a Visa or Mastercard card through Paystack's secure"
-" checkout."
-msgstr ""
-"Payez par Mobile Money ou par carte Visa ou Mastercard via la page de "
-"paiement sécurisée de Paystack."
-
 #: apps/marketing/content.py:31
 msgid "Share it everywhere"
 msgstr "Partagez-la partout"
-
-#: apps/marketing/content.py:32
-msgid ""
-"Your permanent link, QR code and NFC card all open the same card, which you "
-"can update any time."
-msgstr ""
-"Votre lien permanent, votre code QR et votre carte NFC ouvrent la même "
-"carte, que vous pouvez modifier à tout moment."
 
 #: apps/marketing/content.py:37
 msgid "A link that never changes"
 msgstr "Un lien qui ne change jamais"
 
-#: apps/marketing/content.py:37
-msgid ""
-"Paste it into WhatsApp, email signatures and bios. Edit your details and the"
-" link still works."
-msgstr ""
-"Collez-le dans WhatsApp, vos signatures d’e-mail et vos biographies. "
-"Modifiez vos informations : le lien continue de fonctionner."
-
 #: apps/marketing/content.py:38
 msgid "A QR code for print"
 msgstr "Un code QR pour l’impression"
-
-#: apps/marketing/content.py:38
-msgid ""
-"Download it as PNG or SVG for flyers, banners, shopfronts and name tags."
-msgstr ""
-"Téléchargez-le en PNG ou SVG pour vos flyers, banderoles, vitrines et "
-"badges."
 
 #: apps/marketing/content.py:39
 msgid "An NFC card that taps"
 msgstr "Une carte NFC à approcher"
 
-#: apps/marketing/content.py:39
-msgid ""
-"A printed card with a chip. Tap it on a phone and your card opens — no app "
-"needed."
-msgstr ""
-"Une carte imprimée avec une puce. Approchez-la d’un téléphone et votre carte"
-" s’ouvre, sans application."
-
 #: apps/marketing/content.py:40
 msgid "Save contact in one tap"
 msgstr "Enregistrer le contact en un geste"
-
-#: apps/marketing/content.py:40
-msgid ""
-"Recipients save your photo, numbers and email straight into their phone's "
-"contacts."
-msgstr ""
-"Vos interlocuteurs enregistrent votre photo, vos numéros et votre e-mail "
-"directement dans les contacts de leur téléphone."
 
 #: apps/marketing/content.py:49
 msgid "How does an NFC card work?"
@@ -1835,8 +1775,8 @@ msgstr ""
 "Connectez-vous pour modifier votre carte, voir qui l’a consultée et suivre "
 "vos commandes NFC."
 
-#: templates/accounts/login.html:16 templates/partials/site_header.html:33
-#: templates/partials/site_header.html:60
+#: templates/accounts/login.html:16 templates/partials/site_header.html:32
+#: templates/partials/site_header.html:58
 msgid "Log in"
 msgstr "Se connecter"
 
@@ -2264,7 +2204,7 @@ msgstr "Coordonnées"
 msgid "About %(first)s"
 msgstr "À propos de %(first)s"
 
-#: templates/cards/_card.html:41 templates/cards/business.html:157
+#: templates/cards/_card.html:41 templates/cards/business.html:162
 msgid "Social media"
 msgstr "Réseaux sociaux"
 
@@ -2273,7 +2213,7 @@ msgstr "Réseaux sociaux"
 msgid "Share your details with %(first)s"
 msgstr "Partagez vos coordonnées avec %(first)s"
 
-#: templates/cards/_card.html:58 templates/cards/business.html:174
+#: templates/cards/_card.html:58 templates/cards/business.html:179
 msgid "Leave empty"
 msgstr "Laisser vide"
 
@@ -2289,11 +2229,11 @@ msgstr "Afficher le code QR"
 msgid "Let someone scan this to open the card."
 msgstr "Faites scanner ceci pour ouvrir la carte."
 
-#: templates/cards/_card.html:76 templates/cards/business.html:189
+#: templates/cards/_card.html:76 templates/cards/business.html:194
 msgid "Powered by AD Smart"
 msgstr "Propulsé par AD Smart"
 
-#: templates/cards/_card.html:79 templates/cards/business.html:192
+#: templates/cards/_card.html:79 templates/cards/business.html:197
 #: templates/cards/report.html:7
 msgid "Report this card"
 msgstr "Signaler cette carte"
@@ -2496,12 +2436,12 @@ msgid "Open menu"
 msgstr "Ouvrir le menu"
 
 #: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65
-#: templates/dashboard/settings.html:31 templates/partials/site_header.html:23
+#: templates/dashboard/settings.html:31 templates/partials/site_header.html:22
 msgid "Change theme"
 msgstr "Changer de thème"
 
 #: templates/dashboard/_shell.html:23 templates/dashboard/_shell.html:28
-#: templates/partials/site_header.html:30
+#: templates/partials/site_header.html:29
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -2547,9 +2487,9 @@ msgstr "Commandes et facturation"
 #: templates/dashboard/nfc_orders.html:6
 #: templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6
 #: templates/nfc/order.html:6 templates/nfc/order.html:113
-#: templates/partials/site_footer.html:17
-#: templates/partials/site_header.html:15
-#: templates/partials/site_header.html:49
+#: templates/partials/site_footer.html:16
+#: templates/partials/site_header.html:14
+#: templates/partials/site_header.html:47
 msgid "NFC cards"
 msgstr "Cartes NFC"
 
@@ -2992,7 +2932,7 @@ msgstr "Exporter en CSV"
 msgid "Contacts received"
 msgstr "Contacts reçus"
 
-#: apps/dashboard/forms.py:262 apps/dashboard/views.py:397
+#: apps/dashboard/forms.py:285 apps/dashboard/views.py:397
 #: templates/dashboard/leads.html:15
 msgid "Name"
 msgstr "Nom"
@@ -3820,7 +3760,7 @@ msgstr "Création précédente"
 msgid "Next design"
 msgstr "Création suivante"
 
-#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:33
+#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:32
 msgid "Policies"
 msgstr "Politiques"
 
@@ -3937,7 +3877,7 @@ msgstr ""
 "<strong>Puces verrouillées</strong> pour que personne ne puisse écraser "
 "votre lien."
 
-#: templates/marketing/_nfc_section.html:69
+#: templates/marketing/_nfc_section.html:70
 msgid ""
 "<strong>Faulty chip?</strong> Report it within 30 days of delivery for a "
 "free replacement."
@@ -3945,7 +3885,7 @@ msgstr ""
 "<strong>Puce défectueuse ?</strong> Signalez-le sous 30 jours après la "
 "livraison pour un remplacement gratuit."
 
-#: templates/marketing/_nfc_section.html:70
+#: templates/marketing/_nfc_section.html:71
 msgid ""
 "<strong>Delivered in Ghana or shipped abroad.</strong> Outside Ghana you pay"
 " the shipping and delivery fee for your region."
@@ -3991,7 +3931,6 @@ msgid "Choose %(name)s"
 msgstr "Choisir %(name)s"
 
 #: templates/marketing/_plans.html:36 templates/marketing/_plans.html:36
-#: templates/marketing/home.html:166
 #, python-format
 msgid "Start with %(name)s"
 msgstr "Commencer avec %(name)s"
@@ -4012,9 +3951,9 @@ msgstr ""
 msgid "Frequently asked questions · %(SITE_NAME)s"
 msgstr "Questions fréquentes · %(SITE_NAME)s"
 
-#: templates/marketing/faq.html:6 templates/partials/site_footer.html:19
-#: templates/partials/site_header.html:16
-#: templates/partials/site_header.html:50
+#: templates/marketing/faq.html:6 templates/partials/site_footer.html:18
+#: templates/partials/site_header.html:15
+#: templates/partials/site_header.html:48
 msgid "FAQ"
 msgstr "FAQ"
 
@@ -4049,23 +3988,12 @@ msgstr ""
 msgid "Your business card, <span class=\"glow\">one tap away.</span>"
 msgstr "Votre carte de visite, <span class=\"glow\">à portée de main.</span>"
 
-#: templates/marketing/home.html:26
-msgid ""
-"Share your details by link, QR code or a tap of an NFC card. People save you"
-" to their phone in one tap — and you can change your details any time "
-"without reprinting."
-msgstr ""
-"Partagez vos coordonnées par lien, code QR ou d’un geste avec une carte NFC."
-" Vos contacts vous enregistrent dans leur téléphone en un geste, et vous "
-"pouvez modifier vos informations à tout moment sans rien réimprimer."
-
-#: templates/marketing/home.html:28 templates/marketing/home.html:235
-#: templates/partials/site_header.html:59
+#: templates/marketing/home.html:28 templates/marketing/home.html:193
+#: templates/partials/site_header.html:57
 msgid "Create my card"
 msgstr "Créer ma carte"
 
-#: templates/marketing/home.html:29 templates/marketing/home.html:167
-#: templates/marketing/shops.html:75
+#: templates/marketing/home.html:29 templates/marketing/shops.html:75
 msgid "See plans and prices"
 msgstr "Voir les formules et les prix"
 
@@ -4093,143 +4021,79 @@ msgstr "À propos d’AD"
 msgid "Made by a design studio that lives in print."
 msgstr "Conçu par un studio de design qui vit pour l’imprimé."
 
-#: templates/marketing/home.html:46
-msgid ""
-"AD Smart Business Cards is a service of AD Graphics, a Ghanaian design "
-"studio behind more than 2,500 designs — logos, flyers, brand kits and print "
-"for businesses, churches, schools and events."
-msgstr ""
-"AD Smart Business Cards est un service d’AD Graphics, un studio de design "
-"ghanéen à l’origine de plus de 2 500 créations : logos, flyers, kits de "
-"marque et impression pour des entreprises, des églises, des écoles et des "
-"événements."
-
-#: templates/marketing/home.html:47
-msgid ""
-"We built AD Smart so your contact details work as hard as your brand does: "
-"always up to date, easy to share, and saved in one tap. Every NFC card is "
-"designed by our team, printed, encoded with your permanent link and tap-"
-"tested on both Android and iPhone before it leaves the studio."
-msgstr ""
-"Nous avons créé AD Smart pour que vos coordonnées travaillent aussi dur que "
-"votre marque : toujours à jour, faciles à partager et enregistrées en un "
-"geste. Chaque carte NFC est conçue par notre équipe, imprimée, encodée avec "
-"votre lien permanent et testée sur Android et iPhone avant de quitter le "
-"studio."
-
-#: templates/marketing/home.html:57
+#: templates/marketing/home.html:56
 msgid "designs delivered by the AD Graphics studio"
 msgstr "créations livrées par le studio AD Graphics"
 
-#: templates/marketing/home.html:61
+#: templates/marketing/home.html:60
 msgid "In-house"
 msgstr "En interne"
 
-#: templates/marketing/home.html:62
+#: templates/marketing/home.html:61
 msgid "design, printing and NFC encoding"
 msgstr "design, impression et encodage NFC"
 
-#: templates/marketing/home.html:66
+#: templates/marketing/home.html:65
 msgid "3 days"
 msgstr "3 jours"
 
-#: templates/marketing/home.html:67
+#: templates/marketing/home.html:66
 msgid "to your first NFC design proof"
 msgstr "pour votre première maquette NFC"
 
-#: templates/marketing/home.html:71
+#: templates/marketing/home.html:70
 msgid "Worldwide"
 msgstr "Dans le monde entier"
 
-#: templates/marketing/home.html:72
+#: templates/marketing/home.html:71
 msgid "delivery across Ghana, shipping abroad, or free pickup"
 msgstr ""
 "livraison partout au Ghana, expédition à l’étranger ou retrait gratuit"
 
-#: templates/marketing/home.html:82 templates/partials/site_header.html:11
-#: templates/partials/site_header.html:45
+#: templates/marketing/home.html:81 templates/partials/site_header.html:11
+#: templates/partials/site_header.html:44
 msgid "How it works"
 msgstr "Comment ça marche"
 
-#: templates/marketing/home.html:83
+#: templates/marketing/home.html:82
 msgid "From sign-up to shared in four steps."
 msgstr "De l’inscription au partage en quatre étapes."
 
-#: templates/marketing/home.html:84
-msgid ""
-"Build your card for free and preview it first. You only pay when you are "
-"happy with how it looks."
-msgstr ""
-"Créez votre carte gratuitement et prévisualisez-la d’abord. Vous ne payez "
-"que lorsque le résultat vous plaît."
-
-#: templates/marketing/home.html:99
-msgid "One card, three ways to share"
-msgstr "Une carte, trois façons de partager"
-
-#: templates/marketing/home.html:100
-msgid "Whatever they have in their hand, they can reach you."
-msgstr "Quoi qu’ils aient en main, ils peuvent vous joindre."
-
-#: templates/marketing/home.html:112
+#: templates/marketing/home.html:110
 msgid ""
 "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work."
 msgstr ""
 "Exemple de carte numérique de Kofi Adutwum, PDG d’AD Graphics. Les boutons "
 "fonctionnent."
 
-#: templates/marketing/home.html:117
-msgid ""
-"Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the "
-"contact."
-msgstr ""
-"Essayez : touchez Appeler, WhatsApp ou E-mail pour joindre AD Graphics, ou "
-"enregistrez le contact."
-
-#: templates/marketing/home.html:188
+#: templates/marketing/home.html:149
 msgid "Our work"
 msgstr "Nos réalisations"
 
-#: templates/marketing/home.html:189
+#: templates/marketing/home.html:150
 msgid "Recent designs from the AD Graphics studio."
 msgstr "Créations récentes du studio AD Graphics."
 
-#: templates/marketing/home.html:190
-msgid ""
-"The same designers who make your NFC card. Open a slide to see the full "
-"design."
-msgstr ""
-"Les mêmes designers qui créent votre carte NFC. Ouvrez une diapositive pour "
-"voir le design en entier."
-
-#: templates/marketing/home.html:201 templates/marketing/pricing.html:7
-#: templates/partials/site_footer.html:16
-#: templates/partials/site_header.html:14
-#: templates/partials/site_header.html:48
+#: templates/marketing/home.html:161 templates/marketing/pricing.html:7
+#: templates/partials/site_footer.html:15
+#: templates/partials/site_header.html:13
+#: templates/partials/site_header.html:46
 msgid "Pricing"
 msgstr "Tarifs"
 
-#: templates/marketing/home.html:202 templates/marketing/pricing.html:8
+#: templates/marketing/home.html:162 templates/marketing/pricing.html:8
 msgid "One simple yearly price."
 msgstr "Un seul tarif annuel, simple."
 
-#: templates/marketing/home.html:203
-msgid ""
-"Every plan includes your permanent link, QR code and save-contact file. "
-"Build and preview for free."
-msgstr ""
-"Chaque formule inclut votre lien permanent, votre code QR et votre fichier "
-"d’enregistrement du contact. Création et aperçu gratuits."
-
-#: templates/marketing/home.html:220
+#: templates/marketing/home.html:179
 msgid "Questions"
 msgstr "Questions"
 
-#: templates/marketing/home.html:221
+#: templates/marketing/home.html:180
 msgid "Good to know."
 msgstr "Bon à savoir."
 
-#: templates/marketing/home.html:224
+#: templates/marketing/home.html:183
 #, python-format
 msgid ""
 "<a href=\"%(url_3)s\">Read all questions</a> or <a href=\"%(url_4)s\">ask us"
@@ -4238,19 +4102,11 @@ msgstr ""
 "<a href=\"%(url_3)s\">Lisez toutes les questions</a> ou <a "
 "href=\"%(url_4)s\">posez-nous la vôtre directement</a>."
 
-#: templates/marketing/home.html:232
+#: templates/marketing/home.html:191
 msgid "Your next introduction deserves better than paper."
 msgstr "Votre prochaine présentation mérite mieux que du papier."
 
-#: templates/marketing/home.html:233
-msgid ""
-"Create your card in minutes. Preview it free, then choose a plan when you "
-"are ready."
-msgstr ""
-"Créez votre carte en quelques minutes. Prévisualisez-la gratuitement, puis "
-"choisissez une formule quand vous êtes prêt."
-
-#: templates/marketing/home.html:236
+#: templates/marketing/home.html:194
 msgid "Talk to us on WhatsApp"
 msgstr "Écrivez-nous sur WhatsApp"
 
@@ -4260,7 +4116,7 @@ msgid "Privacy Policy · %(SITE_NAME)s"
 msgstr "Politique de confidentialité · %(SITE_NAME)s"
 
 #: templates/marketing/legal_privacy.html:3
-#: templates/partials/site_footer.html:36
+#: templates/partials/site_footer.html:35
 msgid "Privacy Policy"
 msgstr "Politique de confidentialité"
 
@@ -4400,10 +4256,10 @@ msgstr ""
 "les paramètres. Nous supprimons les données personnelles sous 30 jours, sauf"
 " les documents que nous devons conserver à des fins comptables."
 
-#: templates/cards/business.html:115 templates/marketing/legal_privacy.html:29
-#: templates/partials/site_footer.html:24
-#: templates/partials/site_header.html:17
-#: templates/partials/site_header.html:51 templates/support/contact.html:6
+#: templates/cards/business.html:120 templates/marketing/legal_privacy.html:29
+#: templates/partials/site_footer.html:23
+#: templates/partials/site_header.html:16
+#: templates/partials/site_header.html:49 templates/support/contact.html:6
 msgid "Contact"
 msgstr "Contact"
 
@@ -4413,7 +4269,7 @@ msgid "Refund Policy · %(SITE_NAME)s"
 msgstr "Politique de remboursement · %(SITE_NAME)s"
 
 #: templates/marketing/legal_refunds.html:3
-#: templates/partials/site_footer.html:37
+#: templates/partials/site_footer.html:36
 msgid "Refund Policy"
 msgstr "Politique de remboursement"
 
@@ -4498,7 +4354,7 @@ msgid "Terms of Service · %(SITE_NAME)s"
 msgstr "Conditions d’utilisation · %(SITE_NAME)s"
 
 #: templates/marketing/legal_terms.html:3
-#: templates/partials/site_footer.html:35
+#: templates/partials/site_footer.html:34
 msgid "Terms of Service"
 msgstr "Conditions d’utilisation"
 
@@ -5023,7 +4879,7 @@ msgstr ""
 msgid "5. Your digital card plan"
 msgstr "5. Votre formule de carte numérique"
 
-#: templates/cards/business.html:201 templates/nfc/order.html:111
+#: templates/cards/business.html:206 templates/nfc/order.html:111
 msgid "Your order"
 msgstr "Votre commande"
 
@@ -5076,7 +4932,7 @@ msgid "Language"
 msgstr "Langue"
 
 #: templates/dashboard/business.html:26
-#: templates/dashboard/business_item.html:17
+#: templates/dashboard/business_item.html:30
 #: templates/partials/lang_switch.html:9 templates/partials/prefs.html:13
 msgid "Save"
 msgstr "Enregistrer"
@@ -5101,11 +4957,11 @@ msgstr ""
 msgid "Product"
 msgstr "Produit"
 
-#: templates/partials/site_footer.html:20
+#: templates/partials/site_footer.html:19
 msgid "Create a card"
 msgstr "Créer une carte"
 
-#: templates/partials/site_footer.html:38
+#: templates/partials/site_footer.html:37
 msgid "Support"
 msgstr "Assistance"
 
@@ -5115,24 +4971,24 @@ msgid "%(SITE_NAME)s, home"
 msgstr "%(SITE_NAME)s, accueil"
 
 #: templates/partials/site_header.html:9
-#: templates/partials/site_header.html:43
+#: templates/partials/site_header.html:42
 msgid "Main"
 msgstr "Principal"
 
-#: templates/partials/site_header.html:34
+#: templates/partials/site_header.html:33
 msgid "Get started"
 msgstr "Commencer"
 
-#: templates/partials/site_header.html:36
+#: templates/partials/site_header.html:35
 msgid "Menu"
 msgstr "Menu"
 
-#: templates/partials/site_header.html:30
-#: templates/partials/site_header.html:57
+#: templates/partials/site_header.html:29
+#: templates/partials/site_header.html:55
 msgid "Staff area"
 msgstr "Espace équipe"
 
-#: templates/partials/site_header.html:57
+#: templates/partials/site_header.html:55
 msgid "Go to dashboard"
 msgstr "Aller au tableau de bord"
 
@@ -5437,7 +5293,7 @@ msgstr ""
 msgid "Digital + NFC business cards, made in Ghana"
 msgstr "Cartes de visite numériques et NFC, conçues au Ghana"
 
-#: templates/marketing/home.html:50
+#: templates/marketing/home.html:49
 msgid "CEO, AD Graphics"
 msgstr "PDG, AD Graphics"
 
@@ -5475,12 +5331,12 @@ msgstr ""
 "<strong>%(refund_amount)s</strong>. Les formules d’abonnement achetées avec "
 "la commande ne sont pas remboursées."
 
-#: templates/partials/site_footer.html:43
+#: templates/partials/site_footer.html:42
 #, python-format
 msgid "© %(current_year)s AD Graphics. All rights reserved."
 msgstr "© %(current_year)s AD Graphics. Tous droits réservés."
 
-#: templates/partials/site_footer.html:43
+#: templates/partials/site_footer.html:42
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "Prix en cedis ghanéens. Paiements par Paystack."
 
@@ -6157,16 +6013,16 @@ msgstr "Page entreprise pour vos produits"
 msgid "What would you like to know?"
 msgstr "Que souhaitez-vous savoir ?"
 
-#: apps/cards/views.py:247
+#: apps/cards/views.py:249
 #, python-format
 msgid "Thank you. %(name)s has your enquiry."
 msgstr "Merci. %(name)s a bien reçu votre demande."
 
-#: apps/cards/views.py:256
+#: apps/cards/views.py:258
 msgid "You have already sent an enquiry. Try again in an hour."
 msgstr "Vous avez déjà envoyé une demande. Réessayez dans une heure."
 
-#: apps/cards/views.py:266
+#: apps/cards/views.py:268
 #, python-format
 msgid "New enquiry from %(name)s"
 msgstr "Nouvelle demande de %(name)s"
@@ -6183,7 +6039,7 @@ msgstr "Slogan"
 msgid "About your business"
 msgstr "À propos de votre entreprise"
 
-#: apps/dashboard/forms.py:246 templates/cards/business.html:121
+#: apps/dashboard/forms.py:246 templates/cards/business.html:126
 msgid "Opening hours"
 msgstr "Horaires d’ouverture"
 
@@ -6202,50 +6058,42 @@ msgid "One line for each day or group of days, for example Mon–Fri 8am–6pm."
 msgstr ""
 "Une ligne par jour ou groupe de jours, par exemple lun.–ven. 8 h–18 h."
 
-#: apps/dashboard/forms.py:262
+#: apps/dashboard/forms.py:285
 msgid "Picture"
 msgstr "Photo"
 
-#: apps/dashboard/forms.py:262
+#: apps/dashboard/forms.py:285
 msgid "Price (optional)"
 msgstr "Prix (facultatif)"
 
-#: apps/dashboard/forms.py:263 apps/dashboard/forms.py:290
+#: apps/dashboard/forms.py:286 apps/dashboard/forms.py:328
 msgid "Description (optional)"
 msgstr "Description (facultative)"
 
-#: apps/dashboard/forms.py:266
-msgid ""
-"JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page "
-"opens fast."
-msgstr ""
-"JPG, PNG ou WebP. Nous réduisons chaque image à 50 Ko ou moins pour que "
-"votre page s’ouvre vite."
-
-#: apps/dashboard/forms.py:267
+#: apps/dashboard/forms.py:290
 msgid ""
 "Write it the way you want it shown, for example GHS 120 or From GHS 50."
 msgstr ""
 "Écrivez-le tel que vous voulez l’afficher, par exemple GHS 120 ou À partir "
 "de GHS 50."
 
-#: apps/dashboard/forms.py:290
+#: apps/dashboard/forms.py:328
 msgid "Service"
 msgstr "Service"
 
-#: apps/dashboard/forms.py:296
+#: apps/dashboard/forms.py:334
 msgid "Stars (optional)"
 msgstr "Étoiles (facultatives)"
 
-#: apps/dashboard/forms.py:303
+#: apps/dashboard/forms.py:341
 msgid "Customer name"
 msgstr "Nom du client"
 
-#: apps/dashboard/forms.py:303
+#: apps/dashboard/forms.py:341
 msgid "What they said"
 msgstr "Ce que le client a dit"
 
-#: apps/dashboard/forms.py:304
+#: apps/dashboard/forms.py:342
 msgid "Only add words your customer has agreed to share."
 msgstr "N’ajoutez que des mots que votre client a accepté de partager."
 
@@ -6260,35 +6108,35 @@ msgstr ""
 "Vous avez utilisé les %(limit)d places disponibles ici. Supprimez-en une "
 "pour en ajouter une autre."
 
-#: apps/dashboard/views.py:561
+#: apps/dashboard/views.py:563 apps/dashboard/views.py:624
 msgid "Saved."
 msgstr "Enregistré."
 
-#: apps/dashboard/views.py:564
+#: apps/dashboard/views.py:566
 msgid "Add a product"
 msgstr "Ajouter un produit"
 
-#: apps/dashboard/views.py:564
+#: apps/dashboard/views.py:566
 msgid "Edit product"
 msgstr "Modifier le produit"
 
-#: apps/dashboard/views.py:565
+#: apps/dashboard/views.py:567
 msgid "Add a service"
 msgstr "Ajouter un service"
 
-#: apps/dashboard/views.py:565
+#: apps/dashboard/views.py:567
 msgid "Edit service"
 msgstr "Modifier le service"
 
-#: apps/dashboard/views.py:566
+#: apps/dashboard/views.py:568
 msgid "Add a customer review"
 msgstr "Ajouter un avis client"
 
-#: apps/dashboard/views.py:566
+#: apps/dashboard/views.py:568
 msgid "Edit customer review"
 msgstr "Modifier l’avis client"
 
-#: apps/dashboard/views.py:587
+#: apps/dashboard/views.py:591
 msgid "Removed."
 msgstr "Supprimé."
 
@@ -6304,11 +6152,11 @@ msgstr ""
 "Vous seul pouvez voir cette page. Activez-la dans votre tableau de bord pour"
 " la montrer à tout le monde."
 
-#: templates/cards/business.html:43 templates/cards/business.html:171
+#: templates/cards/business.html:43 templates/cards/business.html:176
 msgid "Send an enquiry"
 msgstr "Envoyer une demande"
 
-#: templates/cards/business.html:45 templates/cards/business.html:183
+#: templates/cards/business.html:45 templates/cards/business.html:188
 msgid "Contact card"
 msgstr "Carte de contact"
 
@@ -6316,7 +6164,7 @@ msgstr "Carte de contact"
 msgid "Share this page"
 msgstr "Partager cette page"
 
-#: templates/cards/business.html:109
+#: templates/cards/business.html:114
 msgid "About us"
 msgstr "À propos de nous"
 
@@ -6324,20 +6172,20 @@ msgstr "À propos de nous"
 msgid "Products"
 msgstr "Produits"
 
-#: templates/cards/business.html:128 templates/dashboard/business.html:47
+#: templates/cards/business.html:133 templates/dashboard/business.html:47
 msgid "Services"
 msgstr "Services"
 
-#: templates/cards/business.html:142 templates/marketing/home.html:157
+#: templates/cards/business.html:147
 msgid "What customers say"
 msgstr "Ce que disent nos clients"
 
-#: templates/cards/business.html:146
+#: templates/cards/business.html:151
 #, python-format
 msgid "%(rating)s out of 5 stars"
 msgstr "%(rating)s étoiles sur 5"
 
-#: templates/cards/business.html:177
+#: templates/cards/business.html:182
 msgid "Send enquiry"
 msgstr "Envoyer la demande"
 
@@ -6405,11 +6253,6 @@ msgstr "Avis clients"
 msgid "%(used)s of %(limit)s used"
 msgstr "%(used)s sur %(limit)s utilisés"
 
-#: templates/dashboard/business.html:50
-msgid "Every picture is shrunk to 50 KB or less so your page opens fast."
-msgstr ""
-"Chaque image est réduite à 50 Ko ou moins pour que votre page s’ouvre vite."
-
 #: templates/dashboard/business.html:52
 #, python-format
 msgid "Your plan shows the first %(limit)s products on your page."
@@ -6420,6 +6263,8 @@ msgid "Remove this?"
 msgstr "Supprimer cet élément ?"
 
 #: templates/dashboard/business.html:69
+#: templates/dashboard/business_item.html:16
+#: templates/dashboard/business_item.html:22
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -6430,7 +6275,7 @@ msgstr ""
 "Vous avez utilisé les %(limit)s places disponibles ici. Supprimez-en une "
 "pour en ajouter une autre."
 
-#: templates/cards/business.html:198 templates/dashboard/business.html:79
+#: templates/cards/business.html:203 templates/dashboard/business.html:79
 msgid "Add"
 msgstr "Ajouter"
 
@@ -6579,81 +6424,6 @@ msgstr "Studio de design et d’impression à Cape Coast"
 #: templates/marketing/_plans.html:24
 msgid "See a sample"
 msgstr "Voir un exemple"
-
-#: templates/marketing/home.html:151 templates/partials/site_footer.html:15
-#: templates/partials/site_header.html:13
-#: templates/partials/site_header.html:47
-msgid "Business pages"
-msgstr "Pages entreprise"
-
-#: templates/marketing/home.html:152
-msgid "Show what you sell, not just who you are."
-msgstr "Montrez ce que vous vendez, pas seulement qui vous êtes."
-
-#: templates/marketing/home.html:153
-msgid ""
-"Your card shares your contact details. A business page goes further: your "
-"own page where customers see your products and services, read what other "
-"customers say, and send you an enquiry. It is linked from your card, in the "
-"same colours."
-msgstr ""
-"Votre carte partage vos coordonnées. Une page entreprise va plus loin : "
-"votre propre page où vos clients voient vos produits et vos services, lisent"
-" ce que d’autres clients en disent et vous envoient une demande. Elle est "
-"reliée à votre carte, dans les mêmes couleurs."
-
-#: templates/marketing/home.html:155
-msgid "Your products, with pictures"
-msgstr "Vos produits, en images"
-
-#: templates/marketing/home.html:155
-msgid ""
-"Add photos, names, prices and short descriptions. Every picture is made "
-"light enough to load quickly on a phone."
-msgstr ""
-"Ajoutez des photos, des noms, des prix et de courtes descriptions. Chaque "
-"image est allégée pour se charger vite sur un téléphone."
-
-#: templates/marketing/home.html:156
-msgid "The services you offer"
-msgstr "Les services que vous proposez"
-
-#: templates/marketing/home.html:156
-msgid "List what you do, so people know what to ask you for."
-msgstr "Listez ce que vous faites, pour que l’on sache quoi vous demander."
-
-#: templates/marketing/home.html:157
-msgid "Add kind words from your customers, with a star rating."
-msgstr "Ajoutez les mots aimables de vos clients, avec une note en étoiles."
-
-#: templates/marketing/home.html:158
-msgid "Enquiries in your inbox"
-msgstr "Les demandes dans votre boîte mail"
-
-#: templates/marketing/home.html:158
-msgid "Visitors send an enquiry from the page, and we email it to you."
-msgstr ""
-"Les visiteurs vous envoient une demande depuis la page, et nous vous la "
-"transmettons par e-mail."
-
-#: templates/marketing/home.html:161
-msgid "Included with these plans"
-msgstr "Incluse avec ces formules"
-
-#: templates/marketing/home.html:163
-#, python-format
-msgid "up to %(count)s products"
-msgstr "jusqu’à %(count)s produits"
-
-#: templates/marketing/home.html:174
-msgid "Sample business page of AD Graphics"
-msgstr "Exemple de page entreprise d’AD Graphics"
-
-#: templates/marketing/home.html:177
-msgid ""
-"Try it — scroll through the page. This is the business page of AD Graphics."
-msgstr ""
-"Essayez : faites défiler la page. C’est la page entreprise d’AD Graphics."
 
 #: apps/cards/forms.py:13
 msgid ""
@@ -7394,11 +7164,11 @@ msgstr ""
 "sur notre page d’accueil, et vous écrire sur WhatsApp. Décochez pour ne pas "
 "y figurer."
 
-#: apps/dashboard/forms.py:262
+#: apps/dashboard/forms.py:285
 msgid "Category"
 msgstr "Catégorie"
 
-#: apps/dashboard/forms.py:268
+#: apps/dashboard/forms.py:291
 msgid "Where shoppers find it in the marketplace."
 msgstr "Où les acheteurs le trouvent dans la place de marché."
 
@@ -7445,27 +7215,15 @@ msgstr "%(views)s ouvertures, %(buys)s clics WhatsApp en 30 jours"
 msgid "Hidden by our team"
 msgstr "Masqué par notre équipe"
 
-#: templates/marketing/home.html:128
+#: templates/marketing/home.html:126
 msgid "Shop window"
 msgstr "Vitrine"
 
-#: templates/marketing/home.html:129
-msgid "Popular right now from businesses on AD Smart."
-msgstr "Populaires en ce moment parmi les entreprises d’AD Smart."
-
 #: templates/marketing/home.html:130
-msgid ""
-"The products shoppers opened most this month. Tap one to see it in its shop,"
-" then message the seller on WhatsApp."
-msgstr ""
-"Les produits les plus ouverts ce mois-ci par les acheteurs. Touchez-en un "
-"pour le voir dans sa boutique, puis écrivez au vendeur sur WhatsApp."
-
-#: templates/marketing/home.html:132
 msgid "Popular products"
 msgstr "Produits populaires"
 
-#: templates/marketing/home.html:140
+#: templates/marketing/home.html:138
 msgid "View businesses"
 msgstr "Voir les entreprises"
 
@@ -7578,7 +7336,7 @@ msgid "Next"
 msgstr "Suivant"
 
 #: templates/partials/site_header.html:12
-#: templates/partials/site_header.html:46
+#: templates/partials/site_header.html:45
 msgid "Shops"
 msgstr "Boutiques"
 
@@ -7603,21 +7361,367 @@ msgstr "Tout"
 msgid "No products match your search."
 msgstr "Aucun produit ne correspond à votre recherche."
 
-#: templates/cards/business.html:198
+#: templates/cards/business.html:203
 msgid "One less"
 msgstr "Un de moins"
 
-#: templates/cards/business.html:198
+#: templates/cards/business.html:203
 msgid "One more"
 msgstr "Un de plus"
 
-#: templates/cards/business.html:202
+#: templates/cards/business.html:207
 msgid "Clear"
 msgstr "Vider"
 
-#: templates/cards/business.html:203
+#: templates/cards/business.html:208
 msgid "Send order"
 msgstr "Envoyer la commande"
+
+#: apps/dashboard/forms.py:277
+msgid "More pictures (optional)"
+msgstr "Autres photos (facultatif)"
+
+#: apps/dashboard/forms.py:278
+msgid ""
+"A product can have up to 5 pictures. Shoppers see the others with arrows "
+"when they open the product."
+msgstr ""
+"Un produit peut avoir jusqu’à 5 photos. Les acheteurs voient les autres avec"
+" des flèches quand ils ouvrent le produit."
+
+#: apps/dashboard/forms.py:289
+msgid ""
+"JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page "
+"opens fast. This one is the cover."
+msgstr ""
+"JPG, PNG ou WebP. Nous réduisons chaque photo à 30 Ko ou moins pour que "
+"votre page s’ouvre vite. Celle-ci est la photo de couverture."
+
+#: apps/dashboard/forms.py:313
+#, python-format
+msgid "A product can have %(max)d pictures. You can add %(room)d more here."
+msgstr ""
+"Un produit peut avoir %(max)d photos. Vous pouvez en ajouter %(room)d de "
+"plus ici."
+
+#: templates/cards/business.html:98
+msgid "Previous picture"
+msgstr "Photo précédente"
+
+#: templates/cards/business.html:99
+msgid "Next picture"
+msgstr "Photo suivante"
+
+#: templates/dashboard/business.html:50
+msgid ""
+"Every picture is shrunk to 30 KB or less so your page opens fast. Each "
+"product can have up to 5 pictures."
+msgstr ""
+"Chaque photo est réduite à 30 Ko ou moins pour que votre page s’ouvre vite. "
+"Chaque produit peut avoir jusqu’à 5 photos."
+
+#: templates/dashboard/business_item.html:15
+msgid "Cover"
+msgstr "Couverture"
+
+#: templates/dashboard/business_item.html:21
+msgid "Make cover"
+msgstr "Mettre en couverture"
+
+#: apps/marketing/content.py:17
+msgid "Sign up with your email."
+msgstr "Inscrivez-vous avec votre e-mail."
+
+#: apps/marketing/content.py:22
+msgid "Add your details and watch the preview update."
+msgstr "Ajoutez vos informations et suivez l’aperçu."
+
+#: apps/marketing/content.py:27
+msgid "Pay by Mobile Money or card."
+msgstr "Payez par Mobile Money ou par carte."
+
+#: apps/marketing/content.py:32
+msgid "Link, QR code or NFC card. Update it any time."
+msgstr "Lien, QR code ou carte NFC. Modifiez-la à tout moment."
+
+#: apps/marketing/content.py:37
+msgid "Paste it anywhere. It always shows your latest details."
+msgstr ""
+"Collez-le où vous voulez. Il affiche toujours vos dernières informations."
+
+#: apps/marketing/content.py:38
+msgid "Download it as PNG or SVG for print."
+msgstr "Téléchargez-le en PNG ou SVG pour l’impression."
+
+#: apps/marketing/content.py:39
+msgid "Tap it on a phone. No app needed."
+msgstr "Approchez-la d’un téléphone. Aucune application requise."
+
+#: apps/marketing/content.py:40
+msgid "Saved straight to their phone's contacts."
+msgstr "Enregistré directement dans les contacts du téléphone."
+
+#: templates/marketing/home.html:26
+msgid "Share by link, QR code or NFC tap. Update your details any time."
+msgstr ""
+"Partagez par lien, QR code ou contact NFC. Mettez vos informations à jour à "
+"tout moment."
+
+#: templates/marketing/home.html:46
+msgid ""
+"A service of AD Graphics, a Ghanaian design studio with over 2,500 designs "
+"delivered."
+msgstr ""
+"Un service d’AD Graphics, un studio de design ghanéen avec plus de 2 500 "
+"créations livrées."
+
+#: templates/marketing/home.html:83
+msgid "Build and preview for free. Pay only when you are happy."
+msgstr ""
+"Créez et prévisualisez gratuitement. Ne payez que lorsque vous êtes "
+"satisfait."
+
+#: templates/marketing/home.html:98
+msgid "Share it any way you like."
+msgstr "Partagez-la comme vous voulez."
+
+#: templates/marketing/home.html:115
+msgid "Try it. The buttons work."
+msgstr "Essayez : les boutons fonctionnent."
+
+#: templates/marketing/home.html:127
+msgid "Popular right now from businesses on AD Smart."
+msgstr "Populaires en ce moment parmi les entreprises d’AD Smart."
+
+#: templates/marketing/home.html:128
+msgid ""
+"The products shoppers opened most this month. Tap one to see it in its shop,"
+" then message the seller on WhatsApp."
+msgstr ""
+"Les produits les plus ouverts ce mois-ci par les acheteurs. Touchez-en un "
+"pour le voir dans sa boutique, puis écrivez au vendeur sur WhatsApp."
+
+#~ msgid "Popular right now."
+#~ msgstr "Populaires en ce moment."
+
+#~ msgid "Sign up with your email and confirm it. It takes a minute."
+#~ msgstr ""
+#~ "Inscrivez-vous avec votre e-mail et confirmez-le. Cela prend une minute."
+
+#~ msgid ""
+#~ "Add your photo, numbers, WhatsApp, socials and location. Watch it update as "
+#~ "you type."
+#~ msgstr ""
+#~ "Ajoutez votre photo, vos numéros, WhatsApp, vos réseaux sociaux et votre "
+#~ "position. Voyez la carte se mettre à jour en direct."
+
+#~ msgid ""
+#~ "Pay with Mobile Money or a Visa or Mastercard card through Paystack's secure"
+#~ " checkout."
+#~ msgstr ""
+#~ "Payez par Mobile Money ou par carte Visa ou Mastercard via la page de "
+#~ "paiement sécurisée de Paystack."
+
+#~ msgid ""
+#~ "Your permanent link, QR code and NFC card all open the same card, which you "
+#~ "can update any time."
+#~ msgstr ""
+#~ "Votre lien permanent, votre code QR et votre carte NFC ouvrent la même "
+#~ "carte, que vous pouvez modifier à tout moment."
+
+#~ msgid ""
+#~ "Paste it into WhatsApp, email signatures and bios. Edit your details and the"
+#~ " link still works."
+#~ msgstr ""
+#~ "Collez-le dans WhatsApp, vos signatures d’e-mail et vos biographies. "
+#~ "Modifiez vos informations : le lien continue de fonctionner."
+
+#~ msgid ""
+#~ "Download it as PNG or SVG for flyers, banners, shopfronts and name tags."
+#~ msgstr ""
+#~ "Téléchargez-le en PNG ou SVG pour vos flyers, banderoles, vitrines et "
+#~ "badges."
+
+#~ msgid ""
+#~ "A printed card with a chip. Tap it on a phone and your card opens — no app "
+#~ "needed."
+#~ msgstr ""
+#~ "Une carte imprimée avec une puce. Approchez-la d’un téléphone et votre carte"
+#~ " s’ouvre, sans application."
+
+#~ msgid ""
+#~ "Recipients save your photo, numbers and email straight into their phone's "
+#~ "contacts."
+#~ msgstr ""
+#~ "Vos interlocuteurs enregistrent votre photo, vos numéros et votre e-mail "
+#~ "directement dans les contacts de leur téléphone."
+
+#~ msgid ""
+#~ "Share your details by link, QR code or a tap of an NFC card. People save you"
+#~ " to their phone in one tap — and you can change your details any time "
+#~ "without reprinting."
+#~ msgstr ""
+#~ "Partagez vos coordonnées par lien, code QR ou d’un geste avec une carte NFC."
+#~ " Vos contacts vous enregistrent dans leur téléphone en un geste, et vous "
+#~ "pouvez modifier vos informations à tout moment sans rien réimprimer."
+
+#~ msgid ""
+#~ "AD Smart Business Cards is a service of AD Graphics, a Ghanaian design "
+#~ "studio behind more than 2,500 designs — logos, flyers, brand kits and print "
+#~ "for businesses, churches, schools and events."
+#~ msgstr ""
+#~ "AD Smart Business Cards est un service d’AD Graphics, un studio de design "
+#~ "ghanéen à l’origine de plus de 2 500 créations : logos, flyers, kits de "
+#~ "marque et impression pour des entreprises, des églises, des écoles et des "
+#~ "événements."
+
+#~ msgid ""
+#~ "We built AD Smart so your contact details work as hard as your brand does: "
+#~ "always up to date, easy to share, and saved in one tap. Every NFC card is "
+#~ "designed by our team, printed, encoded with your permanent link and tap-"
+#~ "tested on both Android and iPhone before it leaves the studio."
+#~ msgstr ""
+#~ "Nous avons créé AD Smart pour que vos coordonnées travaillent aussi dur que "
+#~ "votre marque : toujours à jour, faciles à partager et enregistrées en un "
+#~ "geste. Chaque carte NFC est conçue par notre équipe, imprimée, encodée avec "
+#~ "votre lien permanent et testée sur Android et iPhone avant de quitter le "
+#~ "studio."
+
+#~ msgid ""
+#~ "Build your card for free and preview it first. You only pay when you are "
+#~ "happy with how it looks."
+#~ msgstr ""
+#~ "Créez votre carte gratuitement et prévisualisez-la d’abord. Vous ne payez "
+#~ "que lorsque le résultat vous plaît."
+
+#~ msgid "One card, three ways to share"
+#~ msgstr "Une carte, trois façons de partager"
+
+#~ msgid "Whatever they have in their hand, they can reach you."
+#~ msgstr "Quoi qu’ils aient en main, ils peuvent vous joindre."
+
+#~ msgid ""
+#~ "Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the "
+#~ "contact."
+#~ msgstr ""
+#~ "Essayez : touchez Appeler, WhatsApp ou E-mail pour joindre AD Graphics, ou "
+#~ "enregistrez le contact."
+
+#~ msgid ""
+#~ "The same designers who make your NFC card. Open a slide to see the full "
+#~ "design."
+#~ msgstr ""
+#~ "Les mêmes designers qui créent votre carte NFC. Ouvrez une diapositive pour "
+#~ "voir le design en entier."
+
+#~ msgid ""
+#~ "Every plan includes your permanent link, QR code and save-contact file. "
+#~ "Build and preview for free."
+#~ msgstr ""
+#~ "Chaque formule inclut votre lien permanent, votre code QR et votre fichier "
+#~ "d’enregistrement du contact. Création et aperçu gratuits."
+
+#~ msgid ""
+#~ "Create your card in minutes. Preview it free, then choose a plan when you "
+#~ "are ready."
+#~ msgstr ""
+#~ "Créez votre carte en quelques minutes. Prévisualisez-la gratuitement, puis "
+#~ "choisissez une formule quand vous êtes prêt."
+
+#~ msgid "Business pages"
+#~ msgstr "Pages entreprise"
+
+#~ msgid "Show what you sell, not just who you are."
+#~ msgstr "Montrez ce que vous vendez, pas seulement qui vous êtes."
+
+#~ msgid ""
+#~ "Your card shares your contact details. A business page goes further: your "
+#~ "own page where customers see your products and services, read what other "
+#~ "customers say, and send you an enquiry. It is linked from your card, in the "
+#~ "same colours."
+#~ msgstr ""
+#~ "Votre carte partage vos coordonnées. Une page entreprise va plus loin : "
+#~ "votre propre page où vos clients voient vos produits et vos services, lisent"
+#~ " ce que d’autres clients en disent et vous envoient une demande. Elle est "
+#~ "reliée à votre carte, dans les mêmes couleurs."
+
+#~ msgid "Your products, with pictures"
+#~ msgstr "Vos produits, en images"
+
+#~ msgid ""
+#~ "Add photos, names, prices and short descriptions. Every picture is made "
+#~ "light enough to load quickly on a phone."
+#~ msgstr ""
+#~ "Ajoutez des photos, des noms, des prix et de courtes descriptions. Chaque "
+#~ "image est allégée pour se charger vite sur un téléphone."
+
+#~ msgid "The services you offer"
+#~ msgstr "Les services que vous proposez"
+
+#~ msgid "List what you do, so people know what to ask you for."
+#~ msgstr "Listez ce que vous faites, pour que l’on sache quoi vous demander."
+
+#~ msgid "Add kind words from your customers, with a star rating."
+#~ msgstr "Ajoutez les mots aimables de vos clients, avec une note en étoiles."
+
+#~ msgid "Enquiries in your inbox"
+#~ msgstr "Les demandes dans votre boîte mail"
+
+#~ msgid "Visitors send an enquiry from the page, and we email it to you."
+#~ msgstr ""
+#~ "Les visiteurs vous envoient une demande depuis la page, et nous vous la "
+#~ "transmettons par e-mail."
+
+#~ msgid "Included with these plans"
+#~ msgstr "Incluse avec ces formules"
+
+#, python-format
+#~ msgid "up to %(count)s products"
+#~ msgstr "jusqu’à %(count)s produits"
+
+#~ msgid "Popular right now from businesses on AD Smart."
+#~ msgstr "Populaires en ce moment parmi les entreprises d’AD Smart."
+
+#~ msgid ""
+#~ "The products shoppers opened most this month. Tap one to see it in its shop,"
+#~ " then message the seller on WhatsApp."
+#~ msgstr ""
+#~ "Les produits les plus ouverts ce mois-ci par les acheteurs. Touchez-en un "
+#~ "pour le voir dans sa boutique, puis écrivez au vendeur sur WhatsApp."
+
+#~ msgid "Products from our shops"
+#~ msgstr "Produits de nos boutiques"
+
+#~ msgid "Previous product"
+#~ msgstr "Produit précédent"
+
+#~ msgid "Next product"
+#~ msgstr "Produit suivant"
+
+#~ msgid "See it in its shop"
+#~ msgstr "Voir dans sa boutique"
+
+#~ msgid "Tap a picture to see the product in its shop."
+#~ msgstr "Touchez une photo pour voir le produit dans sa boutique."
+
+#~ msgid ""
+#~ "JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page "
+#~ "opens fast."
+#~ msgstr ""
+#~ "JPG, PNG ou WebP. Nous réduisons chaque image à 50 Ko ou moins pour que "
+#~ "votre page s’ouvre vite."
+
+#~ msgid "Every picture is shrunk to 50 KB or less so your page opens fast."
+#~ msgstr ""
+#~ "Chaque image est réduite à 50 Ko ou moins pour que votre page s’ouvre vite."
+
+#~ msgid "Sample business page of AD Graphics"
+#~ msgstr "Exemple de page entreprise d’AD Graphics"
+
+#~ msgid ""
+#~ "Try it — scroll through the page. This is the business page of AD Graphics."
+#~ msgstr ""
+#~ "Essayez : faites défiler la page. C’est la page entreprise d’AD Graphics."
 
 #~ msgid "Buy on WhatsApp"
 #~ msgstr "Acheter sur WhatsApp"

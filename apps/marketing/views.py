@@ -72,9 +72,8 @@ def home(request):
             ],
             "how_it_works": HOW_IT_WORKS,
             "sharing": SHARING,
-            "faq": faq(site)[:6],
+            "faq": faq(site)[:4],
             "demo": company_demo(company) if company else demo_card(site),
-            "business_plans": [plan for plan in context["plans"] if plan.allow_business_page],
             "market_slides": marketplace.slider(),
             "over_hero": True,
         }

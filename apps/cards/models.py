@@ -519,7 +519,8 @@ class CardUpdate(models.Model):
 # Business page: a landing page for the owner's business, linked from the card
 # --------------------------------------------------------------------------
 
-PRODUCT_IMAGE_BYTES = 50 * 1024  # every product picture is squeezed down to this
+PRODUCT_IMAGE_BYTES = 30 * 1024  # every product picture is squeezed down to this
+MAX_PRODUCT_PICTURES = 5  # the cover (BusinessProduct.image) plus up to four more (ProductPhoto)
 MAX_SERVICES = 12
 MAX_REVIEWS = 20
 
@@ -589,6 +590,17 @@ class BusinessProduct(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ProductPhoto(models.Model):
+    """The pictures of a product after its cover. Shoppers see them with the arrows in the big view."""
+
+    product = models.ForeignKey(BusinessProduct, on_delete=models.CASCADE, related_name="photos")
+    image = models.ImageField(upload_to=keep_name)
+    position = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["position", "id"]
 
 
 class BusinessEvent(models.Model):

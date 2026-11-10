@@ -280,7 +280,6 @@ class SliderTests(MarketBase):
         self.assertEqual(len(slides), 9)  # three products, repeated until a run is wider than 1500 px
         self.assertEqual({s["title"] for s in slides}, {"Thing 0", "Thing 1", "Thing 2"})  # the unviewed one is left out
         self.assertEqual([s["dup"] for s in slides], [False] * 3 + [True] * 6)
-        self.assertContains(response, 'id="business-pages"')  # the sales pitch stays below it
 
     def test_a_hidden_shop_leaves_the_window_at_once(self):
         self.viewed(3)

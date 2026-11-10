@@ -667,7 +667,7 @@ msgstr "Fraude of oplichting"
 msgid "Offensive content"
 msgstr "Aanstootgevende inhoud"
 
-#: apps/cards/models.py:397 apps/dashboard/forms.py:275
+#: apps/cards/models.py:397 apps/dashboard/forms.py:298
 #: apps/support/models.py:17 templates/cards/business.html:66
 #: templates/marketing/shops.html:33
 msgid "Other"
@@ -750,11 +750,11 @@ msgstr "Je hebt je gegevens al verstuurd. Probeer het over een uur opnieuw."
 msgid "%(name)s shared their details with you"
 msgstr "%(name)s heeft zijn of haar gegevens met je gedeeld"
 
-#: apps/cards/views.py:305
+#: apps/cards/views.py:307
 msgid "You have sent several reports already. Try again later."
 msgstr "Je hebt al meerdere meldingen verstuurd. Probeer het later opnieuw."
 
-#: apps/cards/views.py:315
+#: apps/cards/views.py:317
 msgid "Thank you. Our support team will review this card."
 msgstr "Bedankt. Ons supportteam bekijkt deze kaart."
 
@@ -838,7 +838,7 @@ msgstr "Gratis"
 #: apps/core/jsstrings.py:30 apps/nfc/views.py:34
 #: templates/marketing/nfc.html:27 templates/nfc/detail.html:83
 #: templates/nfc/detail.html:98 templates/nfc/order.html:114
-#: templates/partials/site_footer.html:18
+#: templates/partials/site_footer.html:17
 msgid "Delivery"
 msgstr "Bezorging"
 
@@ -1068,19 +1068,19 @@ msgstr ""
 "De kaart van %(name)s is verwijderd. De link toont dat de kaart niet meer "
 "bestaat."
 
-#: apps/dashboard/views.py:607
+#: apps/dashboard/views.py:644
 msgid "Account details saved."
 msgstr "Accountgegevens opgeslagen."
 
-#: apps/dashboard/views.py:618
+#: apps/dashboard/views.py:655
 msgid "Type your email address exactly to confirm."
 msgstr "Typ je e-mailadres precies zo in om te bevestigen."
 
-#: apps/dashboard/views.py:626
+#: apps/dashboard/views.py:663
 msgid "We received your account deletion request"
 msgstr "We hebben je verzoek om je account te verwijderen ontvangen"
 
-#: apps/dashboard/views.py:630
+#: apps/dashboard/views.py:667
 msgid ""
 "Your deletion request is recorded. Your data will be removed within 30 days."
 msgstr ""
@@ -1091,93 +1091,33 @@ msgstr ""
 msgid "Create your account"
 msgstr "Maak je account aan"
 
-#: apps/marketing/content.py:17
-msgid "Sign up with your email and confirm it. It takes a minute."
-msgstr ""
-"Registreer met je e-mailadres en bevestig het. Het duurt een minuutje."
-
 #: apps/marketing/content.py:21
 msgid "Build and preview your card"
 msgstr "Maak je kaart en bekijk een voorbeeld"
-
-#: apps/marketing/content.py:22
-msgid ""
-"Add your photo, numbers, WhatsApp, socials and location. Watch it update as "
-"you type."
-msgstr ""
-"Voeg je foto, nummers, WhatsApp, sociale media en locatie toe. Zie hoe de "
-"kaart meteen meebeweegt."
 
 #: apps/marketing/content.py:26
 msgid "Choose a yearly plan"
 msgstr "Kies een jaarabonnement"
 
-#: apps/marketing/content.py:27
-msgid ""
-"Pay with Mobile Money or a Visa or Mastercard card through Paystack's secure"
-" checkout."
-msgstr ""
-"Betaal met Mobile Money of een Visa- of Mastercard-kaart via de beveiligde "
-"betaalpagina van Paystack."
-
 #: apps/marketing/content.py:31
 msgid "Share it everywhere"
 msgstr "Deel hem overal"
-
-#: apps/marketing/content.py:32
-msgid ""
-"Your permanent link, QR code and NFC card all open the same card, which you "
-"can update any time."
-msgstr ""
-"Je permanente link, QR-code en NFC-kaart openen dezelfde kaart, die je op "
-"elk moment kunt bijwerken."
 
 #: apps/marketing/content.py:37
 msgid "A link that never changes"
 msgstr "Een link die nooit verandert"
 
-#: apps/marketing/content.py:37
-msgid ""
-"Paste it into WhatsApp, email signatures and bios. Edit your details and the"
-" link still works."
-msgstr ""
-"Plak hem in WhatsApp, e-mailhandtekeningen en bio’s. Pas je gegevens aan en "
-"de link blijft werken."
-
 #: apps/marketing/content.py:38
 msgid "A QR code for print"
 msgstr "Een QR-code om te printen"
-
-#: apps/marketing/content.py:38
-msgid ""
-"Download it as PNG or SVG for flyers, banners, shopfronts and name tags."
-msgstr ""
-"Download hem als PNG of SVG voor flyers, banners, winkelpuien en "
-"naamkaartjes."
 
 #: apps/marketing/content.py:39
 msgid "An NFC card that taps"
 msgstr "Een NFC-kaart om aan te tikken"
 
-#: apps/marketing/content.py:39
-msgid ""
-"A printed card with a chip. Tap it on a phone and your card opens — no app "
-"needed."
-msgstr ""
-"Een gedrukte kaart met een chip. Tik hem aan op een telefoon en je kaart "
-"opent, zonder app."
-
 #: apps/marketing/content.py:40
 msgid "Save contact in one tap"
 msgstr "Contact opslaan met één tik"
-
-#: apps/marketing/content.py:40
-msgid ""
-"Recipients save your photo, numbers and email straight into their phone's "
-"contacts."
-msgstr ""
-"Ontvangers slaan je foto, nummers en e-mailadres direct op in de contacten "
-"van hun telefoon."
 
 #: apps/marketing/content.py:49
 msgid "How does an NFC card work?"
@@ -1821,8 +1761,8 @@ msgstr ""
 "Log in om je kaart te bewerken, te zien wie hem heeft bekeken en je NFC-"
 "bestellingen te volgen."
 
-#: templates/accounts/login.html:16 templates/partials/site_header.html:33
-#: templates/partials/site_header.html:60
+#: templates/accounts/login.html:16 templates/partials/site_header.html:32
+#: templates/partials/site_header.html:58
 msgid "Log in"
 msgstr "Inloggen"
 
@@ -2247,7 +2187,7 @@ msgstr "Contactgegevens"
 msgid "About %(first)s"
 msgstr "Over %(first)s"
 
-#: templates/cards/_card.html:41 templates/cards/business.html:157
+#: templates/cards/_card.html:41 templates/cards/business.html:162
 msgid "Social media"
 msgstr "Sociale media"
 
@@ -2256,7 +2196,7 @@ msgstr "Sociale media"
 msgid "Share your details with %(first)s"
 msgstr "Deel je gegevens met %(first)s"
 
-#: templates/cards/_card.html:58 templates/cards/business.html:174
+#: templates/cards/_card.html:58 templates/cards/business.html:179
 msgid "Leave empty"
 msgstr "Leeg laten"
 
@@ -2272,11 +2212,11 @@ msgstr "QR-code tonen"
 msgid "Let someone scan this to open the card."
 msgstr "Laat iemand dit scannen om de kaart te openen."
 
-#: templates/cards/_card.html:76 templates/cards/business.html:189
+#: templates/cards/_card.html:76 templates/cards/business.html:194
 msgid "Powered by AD Smart"
 msgstr "Mogelijk gemaakt door AD Smart"
 
-#: templates/cards/_card.html:79 templates/cards/business.html:192
+#: templates/cards/_card.html:79 templates/cards/business.html:197
 #: templates/cards/report.html:7
 msgid "Report this card"
 msgstr "Deze kaart melden"
@@ -2479,12 +2419,12 @@ msgid "Open menu"
 msgstr "Menu openen"
 
 #: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65
-#: templates/dashboard/settings.html:31 templates/partials/site_header.html:23
+#: templates/dashboard/settings.html:31 templates/partials/site_header.html:22
 msgid "Change theme"
 msgstr "Thema wijzigen"
 
 #: templates/dashboard/_shell.html:23 templates/dashboard/_shell.html:28
-#: templates/partials/site_header.html:30
+#: templates/partials/site_header.html:29
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -2530,9 +2470,9 @@ msgstr "Bestellingen en facturatie"
 #: templates/dashboard/nfc_orders.html:6
 #: templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6
 #: templates/nfc/order.html:6 templates/nfc/order.html:113
-#: templates/partials/site_footer.html:17
-#: templates/partials/site_header.html:15
-#: templates/partials/site_header.html:49
+#: templates/partials/site_footer.html:16
+#: templates/partials/site_header.html:14
+#: templates/partials/site_header.html:47
 msgid "NFC cards"
 msgstr "NFC-kaarten"
 
@@ -2969,7 +2909,7 @@ msgstr "CSV exporteren"
 msgid "Contacts received"
 msgstr "Ontvangen contacten"
 
-#: apps/dashboard/forms.py:262 apps/dashboard/views.py:397
+#: apps/dashboard/forms.py:285 apps/dashboard/views.py:397
 #: templates/dashboard/leads.html:15
 msgid "Name"
 msgstr "Naam"
@@ -3778,7 +3718,7 @@ msgstr "Vorig ontwerp"
 msgid "Next design"
 msgstr "Volgend ontwerp"
 
-#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:33
+#: templates/marketing/_legal.html:5 templates/partials/site_footer.html:32
 msgid "Policies"
 msgstr "Beleid"
 
@@ -3893,7 +3833,7 @@ msgid "<strong>Locked chips</strong> so nobody can overwrite your link."
 msgstr ""
 "<strong>Vergrendelde chips</strong> zodat niemand je link kan overschrijven."
 
-#: templates/marketing/_nfc_section.html:69
+#: templates/marketing/_nfc_section.html:70
 msgid ""
 "<strong>Faulty chip?</strong> Report it within 30 days of delivery for a "
 "free replacement."
@@ -3901,7 +3841,7 @@ msgstr ""
 "<strong>Defecte chip?</strong> Meld het binnen 30 dagen na bezorging voor "
 "een gratis vervanging."
 
-#: templates/marketing/_nfc_section.html:70
+#: templates/marketing/_nfc_section.html:71
 msgid ""
 "<strong>Delivered in Ghana or shipped abroad.</strong> Outside Ghana you pay"
 " the shipping and delivery fee for your region."
@@ -3947,7 +3887,6 @@ msgid "Choose %(name)s"
 msgstr "Kies %(name)s"
 
 #: templates/marketing/_plans.html:36 templates/marketing/_plans.html:36
-#: templates/marketing/home.html:166
 #, python-format
 msgid "Start with %(name)s"
 msgstr "Begin met %(name)s"
@@ -3968,9 +3907,9 @@ msgstr ""
 msgid "Frequently asked questions · %(SITE_NAME)s"
 msgstr "Veelgestelde vragen · %(SITE_NAME)s"
 
-#: templates/marketing/faq.html:6 templates/partials/site_footer.html:19
-#: templates/partials/site_header.html:16
-#: templates/partials/site_header.html:50
+#: templates/marketing/faq.html:6 templates/partials/site_footer.html:18
+#: templates/partials/site_header.html:15
+#: templates/partials/site_header.html:48
 msgid "FAQ"
 msgstr "FAQ"
 
@@ -4005,23 +3944,12 @@ msgstr ""
 msgid "Your business card, <span class=\"glow\">one tap away.</span>"
 msgstr "Je visitekaartje, <span class=\"glow\">één tik verwijderd.</span>"
 
-#: templates/marketing/home.html:26
-msgid ""
-"Share your details by link, QR code or a tap of an NFC card. People save you"
-" to their phone in one tap — and you can change your details any time "
-"without reprinting."
-msgstr ""
-"Deel je gegevens via een link, QR-code of een tik met een NFC-kaart. Mensen "
-"slaan je met één tik op in hun telefoon, en je kunt je gegevens op elk "
-"moment wijzigen zonder opnieuw te drukken."
-
-#: templates/marketing/home.html:28 templates/marketing/home.html:235
-#: templates/partials/site_header.html:59
+#: templates/marketing/home.html:28 templates/marketing/home.html:193
+#: templates/partials/site_header.html:57
 msgid "Create my card"
 msgstr "Mijn kaart maken"
 
-#: templates/marketing/home.html:29 templates/marketing/home.html:167
-#: templates/marketing/shops.html:75
+#: templates/marketing/home.html:29 templates/marketing/shops.html:75
 msgid "See plans and prices"
 msgstr "Abonnementen en prijzen bekijken"
 
@@ -4049,142 +3977,79 @@ msgstr "Over AD"
 msgid "Made by a design studio that lives in print."
 msgstr "Gemaakt door een ontwerpstudio die leeft voor print."
 
-#: templates/marketing/home.html:46
-msgid ""
-"AD Smart Business Cards is a service of AD Graphics, a Ghanaian design "
-"studio behind more than 2,500 designs — logos, flyers, brand kits and print "
-"for businesses, churches, schools and events."
-msgstr ""
-"AD Smart Business Cards is een dienst van AD Graphics, een Ghanese "
-"ontwerpstudio met meer dan 2.500 ontwerpen op zijn naam: logo’s, flyers, "
-"huisstijlpakketten en drukwerk voor bedrijven, kerken, scholen en "
-"evenementen."
-
-#: templates/marketing/home.html:47
-msgid ""
-"We built AD Smart so your contact details work as hard as your brand does: "
-"always up to date, easy to share, and saved in one tap. Every NFC card is "
-"designed by our team, printed, encoded with your permanent link and tap-"
-"tested on both Android and iPhone before it leaves the studio."
-msgstr ""
-"We bouwden AD Smart zodat je contactgegevens net zo hard werken als je merk:"
-" altijd actueel, makkelijk te delen en met één tik opgeslagen. Elke NFC-"
-"kaart wordt door ons team ontworpen, gedrukt, gecodeerd met je permanente "
-"link en getest op Android en iPhone voordat hij de studio verlaat."
-
-#: templates/marketing/home.html:57
+#: templates/marketing/home.html:56
 msgid "designs delivered by the AD Graphics studio"
 msgstr "ontwerpen opgeleverd door studio AD Graphics"
 
-#: templates/marketing/home.html:61
+#: templates/marketing/home.html:60
 msgid "In-house"
 msgstr "Alles in eigen huis"
 
-#: templates/marketing/home.html:62
+#: templates/marketing/home.html:61
 msgid "design, printing and NFC encoding"
 msgstr "ontwerp, drukwerk en NFC-codering"
 
-#: templates/marketing/home.html:66
+#: templates/marketing/home.html:65
 msgid "3 days"
 msgstr "3 dagen"
 
-#: templates/marketing/home.html:67
+#: templates/marketing/home.html:66
 msgid "to your first NFC design proof"
 msgstr "tot je eerste NFC-ontwerpvoorstel"
 
-#: templates/marketing/home.html:71
+#: templates/marketing/home.html:70
 msgid "Worldwide"
 msgstr "Wereldwijd"
 
-#: templates/marketing/home.html:72
+#: templates/marketing/home.html:71
 msgid "delivery across Ghana, shipping abroad, or free pickup"
 msgstr ""
 "bezorging in heel Ghana, verzending naar het buitenland of gratis afhalen"
 
-#: templates/marketing/home.html:82 templates/partials/site_header.html:11
-#: templates/partials/site_header.html:45
+#: templates/marketing/home.html:81 templates/partials/site_header.html:11
+#: templates/partials/site_header.html:44
 msgid "How it works"
 msgstr "Hoe het werkt"
 
-#: templates/marketing/home.html:83
+#: templates/marketing/home.html:82
 msgid "From sign-up to shared in four steps."
 msgstr "Van aanmelden tot delen in vier stappen."
 
-#: templates/marketing/home.html:84
-msgid ""
-"Build your card for free and preview it first. You only pay when you are "
-"happy with how it looks."
-msgstr ""
-"Maak je kaart gratis en bekijk eerst een voorbeeld. Je betaalt pas als je "
-"tevreden bent met het resultaat."
-
-#: templates/marketing/home.html:99
-msgid "One card, three ways to share"
-msgstr "Eén kaart, drie manieren om te delen"
-
-#: templates/marketing/home.html:100
-msgid "Whatever they have in their hand, they can reach you."
-msgstr "Wat ze ook in hun hand hebben, ze kunnen je bereiken."
-
-#: templates/marketing/home.html:112
+#: templates/marketing/home.html:110
 msgid ""
 "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work."
 msgstr ""
 "Voorbeeld van een digitale kaart van Kofi Adutwum, CEO van AD Graphics. De "
 "knoppen werken."
 
-#: templates/marketing/home.html:117
-msgid ""
-"Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the "
-"contact."
-msgstr ""
-"Probeer het: tik op Bellen, WhatsApp of E-mail om AD Graphics te bereiken, "
-"of sla het contact op."
-
-#: templates/marketing/home.html:188
+#: templates/marketing/home.html:149
 msgid "Our work"
 msgstr "Ons werk"
 
-#: templates/marketing/home.html:189
+#: templates/marketing/home.html:150
 msgid "Recent designs from the AD Graphics studio."
 msgstr "Recente ontwerpen van studio AD Graphics."
 
-#: templates/marketing/home.html:190
-msgid ""
-"The same designers who make your NFC card. Open a slide to see the full "
-"design."
-msgstr ""
-"Dezelfde ontwerpers die je NFC-kaart maken. Open een dia om het volledige "
-"ontwerp te zien."
-
-#: templates/marketing/home.html:201 templates/marketing/pricing.html:7
-#: templates/partials/site_footer.html:16
-#: templates/partials/site_header.html:14
-#: templates/partials/site_header.html:48
+#: templates/marketing/home.html:161 templates/marketing/pricing.html:7
+#: templates/partials/site_footer.html:15
+#: templates/partials/site_header.html:13
+#: templates/partials/site_header.html:46
 msgid "Pricing"
 msgstr "Prijzen"
 
-#: templates/marketing/home.html:202 templates/marketing/pricing.html:8
+#: templates/marketing/home.html:162 templates/marketing/pricing.html:8
 msgid "One simple yearly price."
 msgstr "Eén eenvoudige jaarprijs."
 
-#: templates/marketing/home.html:203
-msgid ""
-"Every plan includes your permanent link, QR code and save-contact file. "
-"Build and preview for free."
-msgstr ""
-"Elk abonnement bevat je permanente link, QR-code en contactbestand. Maak en "
-"bekijk gratis een voorbeeld."
-
-#: templates/marketing/home.html:220
+#: templates/marketing/home.html:179
 msgid "Questions"
 msgstr "Vragen"
 
-#: templates/marketing/home.html:221
+#: templates/marketing/home.html:180
 msgid "Good to know."
 msgstr "Goed om te weten."
 
-#: templates/marketing/home.html:224
+#: templates/marketing/home.html:183
 #, python-format
 msgid ""
 "<a href=\"%(url_3)s\">Read all questions</a> or <a href=\"%(url_4)s\">ask us"
@@ -4193,19 +4058,11 @@ msgstr ""
 "<a href=\"%(url_3)s\">Lees alle vragen</a> of <a href=\"%(url_4)s\">stel je "
 "vraag direct aan ons</a>."
 
-#: templates/marketing/home.html:232
+#: templates/marketing/home.html:191
 msgid "Your next introduction deserves better than paper."
 msgstr "Je volgende kennismaking verdient beter dan papier."
 
-#: templates/marketing/home.html:233
-msgid ""
-"Create your card in minutes. Preview it free, then choose a plan when you "
-"are ready."
-msgstr ""
-"Maak je kaart in een paar minuten. Bekijk gratis een voorbeeld en kies een "
-"abonnement wanneer je er klaar voor bent."
-
-#: templates/marketing/home.html:236
+#: templates/marketing/home.html:194
 msgid "Talk to us on WhatsApp"
 msgstr "Chat met ons via WhatsApp"
 
@@ -4215,7 +4072,7 @@ msgid "Privacy Policy · %(SITE_NAME)s"
 msgstr "Privacybeleid · %(SITE_NAME)s"
 
 #: templates/marketing/legal_privacy.html:3
-#: templates/partials/site_footer.html:36
+#: templates/partials/site_footer.html:35
 msgid "Privacy Policy"
 msgstr "Privacybeleid"
 
@@ -4353,10 +4210,10 @@ msgstr ""
 "verwijderen persoonsgegevens binnen 30 dagen, behalve gegevens die we voor "
 "de boekhouding moeten bewaren."
 
-#: templates/cards/business.html:115 templates/marketing/legal_privacy.html:29
-#: templates/partials/site_footer.html:24
-#: templates/partials/site_header.html:17
-#: templates/partials/site_header.html:51 templates/support/contact.html:6
+#: templates/cards/business.html:120 templates/marketing/legal_privacy.html:29
+#: templates/partials/site_footer.html:23
+#: templates/partials/site_header.html:16
+#: templates/partials/site_header.html:49 templates/support/contact.html:6
 msgid "Contact"
 msgstr "Contact"
 
@@ -4366,7 +4223,7 @@ msgid "Refund Policy · %(SITE_NAME)s"
 msgstr "Terugbetalingsbeleid · %(SITE_NAME)s"
 
 #: templates/marketing/legal_refunds.html:3
-#: templates/partials/site_footer.html:37
+#: templates/partials/site_footer.html:36
 msgid "Refund Policy"
 msgstr "Terugbetalingsbeleid"
 
@@ -4450,7 +4307,7 @@ msgid "Terms of Service · %(SITE_NAME)s"
 msgstr "Servicevoorwaarden · %(SITE_NAME)s"
 
 #: templates/marketing/legal_terms.html:3
-#: templates/partials/site_footer.html:35
+#: templates/partials/site_footer.html:34
 msgid "Terms of Service"
 msgstr "Servicevoorwaarden"
 
@@ -4968,7 +4825,7 @@ msgstr ""
 msgid "5. Your digital card plan"
 msgstr "5. Je abonnement voor de digitale kaart"
 
-#: templates/cards/business.html:201 templates/nfc/order.html:111
+#: templates/cards/business.html:206 templates/nfc/order.html:111
 msgid "Your order"
 msgstr "Je bestelling"
 
@@ -5021,7 +4878,7 @@ msgid "Language"
 msgstr "Taal"
 
 #: templates/dashboard/business.html:26
-#: templates/dashboard/business_item.html:17
+#: templates/dashboard/business_item.html:30
 #: templates/partials/lang_switch.html:9 templates/partials/prefs.html:13
 msgid "Save"
 msgstr "Opslaan"
@@ -5046,11 +4903,11 @@ msgstr ""
 msgid "Product"
 msgstr "Product"
 
-#: templates/partials/site_footer.html:20
+#: templates/partials/site_footer.html:19
 msgid "Create a card"
 msgstr "Een kaart maken"
 
-#: templates/partials/site_footer.html:38
+#: templates/partials/site_footer.html:37
 msgid "Support"
 msgstr "Support"
 
@@ -5060,24 +4917,24 @@ msgid "%(SITE_NAME)s, home"
 msgstr "%(SITE_NAME)s, startpagina"
 
 #: templates/partials/site_header.html:9
-#: templates/partials/site_header.html:43
+#: templates/partials/site_header.html:42
 msgid "Main"
 msgstr "Hoofd"
 
-#: templates/partials/site_header.html:34
+#: templates/partials/site_header.html:33
 msgid "Get started"
 msgstr "Aan de slag"
 
-#: templates/partials/site_header.html:36
+#: templates/partials/site_header.html:35
 msgid "Menu"
 msgstr "Menu"
 
-#: templates/partials/site_header.html:30
-#: templates/partials/site_header.html:57
+#: templates/partials/site_header.html:29
+#: templates/partials/site_header.html:55
 msgid "Staff area"
 msgstr "Medewerkersgedeelte"
 
-#: templates/partials/site_header.html:57
+#: templates/partials/site_header.html:55
 msgid "Go to dashboard"
 msgstr "Naar het dashboard"
 
@@ -5381,7 +5238,7 @@ msgstr ""
 msgid "Digital + NFC business cards, made in Ghana"
 msgstr "Digitale + NFC-visitekaartjes, gemaakt in Ghana"
 
-#: templates/marketing/home.html:50
+#: templates/marketing/home.html:49
 msgid "CEO, AD Graphics"
 msgstr "CEO, AD Graphics"
 
@@ -5418,12 +5275,12 @@ msgstr ""
 "Terugbetaling als je nu annuleert: <strong>%(refund_amount)s</strong>. "
 "Abonnementen die bij de bestelling zijn gekocht, worden niet terugbetaald."
 
-#: templates/partials/site_footer.html:43
+#: templates/partials/site_footer.html:42
 #, python-format
 msgid "© %(current_year)s AD Graphics. All rights reserved."
 msgstr "© %(current_year)s AD Graphics. Alle rechten voorbehouden."
 
-#: templates/partials/site_footer.html:43
+#: templates/partials/site_footer.html:42
 msgid "Prices in Ghana cedis. Payments by Paystack."
 msgstr "Prijzen in Ghanese cedi. Betalingen via Paystack."
 
@@ -6096,16 +5953,16 @@ msgstr "Bedrijfspagina voor je producten"
 msgid "What would you like to know?"
 msgstr "Wat wil je weten?"
 
-#: apps/cards/views.py:247
+#: apps/cards/views.py:249
 #, python-format
 msgid "Thank you. %(name)s has your enquiry."
 msgstr "Bedankt. %(name)s heeft je vraag ontvangen."
 
-#: apps/cards/views.py:256
+#: apps/cards/views.py:258
 msgid "You have already sent an enquiry. Try again in an hour."
 msgstr "Je hebt al een vraag gestuurd. Probeer het over een uur opnieuw."
 
-#: apps/cards/views.py:266
+#: apps/cards/views.py:268
 #, python-format
 msgid "New enquiry from %(name)s"
 msgstr "Nieuwe vraag van %(name)s"
@@ -6122,7 +5979,7 @@ msgstr "Slogan"
 msgid "About your business"
 msgstr "Over je bedrijf"
 
-#: apps/dashboard/forms.py:246 templates/cards/business.html:121
+#: apps/dashboard/forms.py:246 templates/cards/business.html:126
 msgid "Opening hours"
 msgstr "Openingstijden"
 
@@ -6140,50 +5997,42 @@ msgstr "Eén korte regel onder de naam van je bedrijf."
 msgid "One line for each day or group of days, for example Mon–Fri 8am–6pm."
 msgstr "Eén regel per dag of groep dagen, bijvoorbeeld ma–vr 8.00–18.00 uur."
 
-#: apps/dashboard/forms.py:262
+#: apps/dashboard/forms.py:285
 msgid "Picture"
 msgstr "Afbeelding"
 
-#: apps/dashboard/forms.py:262
+#: apps/dashboard/forms.py:285
 msgid "Price (optional)"
 msgstr "Prijs (optioneel)"
 
-#: apps/dashboard/forms.py:263 apps/dashboard/forms.py:290
+#: apps/dashboard/forms.py:286 apps/dashboard/forms.py:328
 msgid "Description (optional)"
 msgstr "Beschrijving (optioneel)"
 
-#: apps/dashboard/forms.py:266
-msgid ""
-"JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page "
-"opens fast."
-msgstr ""
-"JPG, PNG of WebP. We verkleinen elke afbeelding tot maximaal 50 KB, zodat je"
-" pagina snel opent."
-
-#: apps/dashboard/forms.py:267
+#: apps/dashboard/forms.py:290
 msgid ""
 "Write it the way you want it shown, for example GHS 120 or From GHS 50."
 msgstr ""
 "Schrijf het zoals je het getoond wilt hebben, bijvoorbeeld GHS 120 of Vanaf "
 "GHS 50."
 
-#: apps/dashboard/forms.py:290
+#: apps/dashboard/forms.py:328
 msgid "Service"
 msgstr "Dienst"
 
-#: apps/dashboard/forms.py:296
+#: apps/dashboard/forms.py:334
 msgid "Stars (optional)"
 msgstr "Sterren (optioneel)"
 
-#: apps/dashboard/forms.py:303
+#: apps/dashboard/forms.py:341
 msgid "Customer name"
 msgstr "Naam van de klant"
 
-#: apps/dashboard/forms.py:303
+#: apps/dashboard/forms.py:341
 msgid "What they said"
 msgstr "Wat de klant zei"
 
-#: apps/dashboard/forms.py:304
+#: apps/dashboard/forms.py:342
 msgid "Only add words your customer has agreed to share."
 msgstr "Voeg alleen woorden toe die je klant wil delen."
 
@@ -6198,35 +6047,35 @@ msgstr ""
 "Je hebt alle %(limit)d plaatsen hier gebruikt. Verwijder er een om een "
 "nieuwe toe te voegen."
 
-#: apps/dashboard/views.py:561
+#: apps/dashboard/views.py:563 apps/dashboard/views.py:624
 msgid "Saved."
 msgstr "Opgeslagen."
 
-#: apps/dashboard/views.py:564
+#: apps/dashboard/views.py:566
 msgid "Add a product"
 msgstr "Een product toevoegen"
 
-#: apps/dashboard/views.py:564
+#: apps/dashboard/views.py:566
 msgid "Edit product"
 msgstr "Product bewerken"
 
-#: apps/dashboard/views.py:565
+#: apps/dashboard/views.py:567
 msgid "Add a service"
 msgstr "Een dienst toevoegen"
 
-#: apps/dashboard/views.py:565
+#: apps/dashboard/views.py:567
 msgid "Edit service"
 msgstr "Dienst bewerken"
 
-#: apps/dashboard/views.py:566
+#: apps/dashboard/views.py:568
 msgid "Add a customer review"
 msgstr "Een klantbeoordeling toevoegen"
 
-#: apps/dashboard/views.py:566
+#: apps/dashboard/views.py:568
 msgid "Edit customer review"
 msgstr "Klantbeoordeling bewerken"
 
-#: apps/dashboard/views.py:587
+#: apps/dashboard/views.py:591
 msgid "Removed."
 msgstr "Verwijderd."
 
@@ -6242,11 +6091,11 @@ msgstr ""
 "Alleen jij ziet deze pagina. Zet hem aan in je dashboard om hem aan iedereen"
 " te tonen."
 
-#: templates/cards/business.html:43 templates/cards/business.html:171
+#: templates/cards/business.html:43 templates/cards/business.html:176
 msgid "Send an enquiry"
 msgstr "Een vraag sturen"
 
-#: templates/cards/business.html:45 templates/cards/business.html:183
+#: templates/cards/business.html:45 templates/cards/business.html:188
 msgid "Contact card"
 msgstr "Contactkaart"
 
@@ -6254,7 +6103,7 @@ msgstr "Contactkaart"
 msgid "Share this page"
 msgstr "Deze pagina delen"
 
-#: templates/cards/business.html:109
+#: templates/cards/business.html:114
 msgid "About us"
 msgstr "Over ons"
 
@@ -6262,20 +6111,20 @@ msgstr "Over ons"
 msgid "Products"
 msgstr "Producten"
 
-#: templates/cards/business.html:128 templates/dashboard/business.html:47
+#: templates/cards/business.html:133 templates/dashboard/business.html:47
 msgid "Services"
 msgstr "Diensten"
 
-#: templates/cards/business.html:142 templates/marketing/home.html:157
+#: templates/cards/business.html:147
 msgid "What customers say"
 msgstr "Wat klanten zeggen"
 
-#: templates/cards/business.html:146
+#: templates/cards/business.html:151
 #, python-format
 msgid "%(rating)s out of 5 stars"
 msgstr "%(rating)s van de 5 sterren"
 
-#: templates/cards/business.html:177
+#: templates/cards/business.html:182
 msgid "Send enquiry"
 msgstr "Vraag versturen"
 
@@ -6343,12 +6192,6 @@ msgstr "Klantbeoordelingen"
 msgid "%(used)s of %(limit)s used"
 msgstr "%(used)s van %(limit)s gebruikt"
 
-#: templates/dashboard/business.html:50
-msgid "Every picture is shrunk to 50 KB or less so your page opens fast."
-msgstr ""
-"Elke afbeelding wordt verkleind tot maximaal 50 KB, zodat je pagina snel "
-"opent."
-
 #: templates/dashboard/business.html:52
 #, python-format
 msgid "Your plan shows the first %(limit)s products on your page."
@@ -6359,6 +6202,8 @@ msgid "Remove this?"
 msgstr "Dit verwijderen?"
 
 #: templates/dashboard/business.html:69
+#: templates/dashboard/business_item.html:16
+#: templates/dashboard/business_item.html:22
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -6369,7 +6214,7 @@ msgstr ""
 "Je hebt alle %(limit)s plaatsen hier gebruikt. Verwijder er een om een "
 "nieuwe toe te voegen."
 
-#: templates/cards/business.html:198 templates/dashboard/business.html:79
+#: templates/cards/business.html:203 templates/dashboard/business.html:79
 msgid "Add"
 msgstr "Toevoegen"
 
@@ -6516,82 +6361,6 @@ msgstr "Ontwerp- en drukstudio in Cape Coast"
 #: templates/marketing/_plans.html:24
 msgid "See a sample"
 msgstr "Bekijk een voorbeeld"
-
-#: templates/marketing/home.html:151 templates/partials/site_footer.html:15
-#: templates/partials/site_header.html:13
-#: templates/partials/site_header.html:47
-msgid "Business pages"
-msgstr "Bedrijfspagina’s"
-
-#: templates/marketing/home.html:152
-msgid "Show what you sell, not just who you are."
-msgstr "Laat zien wat je verkoopt, niet alleen wie je bent."
-
-#: templates/marketing/home.html:153
-msgid ""
-"Your card shares your contact details. A business page goes further: your "
-"own page where customers see your products and services, read what other "
-"customers say, and send you an enquiry. It is linked from your card, in the "
-"same colours."
-msgstr ""
-"Je kaart deelt je contactgegevens. Een bedrijfspagina gaat verder: een eigen"
-" pagina waar klanten je producten en diensten zien, lezen wat andere klanten"
-" zeggen en je een vraag sturen. Ze is gekoppeld aan je kaart, in dezelfde "
-"kleuren."
-
-#: templates/marketing/home.html:155
-msgid "Your products, with pictures"
-msgstr "Je producten, met foto’s"
-
-#: templates/marketing/home.html:155
-msgid ""
-"Add photos, names, prices and short descriptions. Every picture is made "
-"light enough to load quickly on a phone."
-msgstr ""
-"Voeg foto’s, namen, prijzen en korte beschrijvingen toe. Elke afbeelding "
-"wordt verkleind, zodat ze snel laadt op een telefoon."
-
-#: templates/marketing/home.html:156
-msgid "The services you offer"
-msgstr "De diensten die je aanbiedt"
-
-#: templates/marketing/home.html:156
-msgid "List what you do, so people know what to ask you for."
-msgstr "Zet erin wat je doet, zodat mensen weten waar ze je om kunnen vragen."
-
-#: templates/marketing/home.html:157
-msgid "Add kind words from your customers, with a star rating."
-msgstr ""
-"Voeg vriendelijke woorden van je klanten toe, met een sterrenbeoordeling."
-
-#: templates/marketing/home.html:158
-msgid "Enquiries in your inbox"
-msgstr "Vragen in je inbox"
-
-#: templates/marketing/home.html:158
-msgid "Visitors send an enquiry from the page, and we email it to you."
-msgstr ""
-"Bezoekers sturen een vraag vanaf de pagina en wij mailen die naar jou."
-
-#: templates/marketing/home.html:161
-msgid "Included with these plans"
-msgstr "Inbegrepen bij deze abonnementen"
-
-#: templates/marketing/home.html:163
-#, python-format
-msgid "up to %(count)s products"
-msgstr "maximaal %(count)s producten"
-
-#: templates/marketing/home.html:174
-msgid "Sample business page of AD Graphics"
-msgstr "Voorbeeld van de bedrijfspagina van AD Graphics"
-
-#: templates/marketing/home.html:177
-msgid ""
-"Try it — scroll through the page. This is the business page of AD Graphics."
-msgstr ""
-"Probeer het: scroll door de pagina. Dit is de bedrijfspagina van AD "
-"Graphics."
 
 #: apps/cards/forms.py:13
 msgid ""
@@ -7313,11 +7082,11 @@ msgstr ""
 "Kopers vinden je producten op onze winkelpagina en onze startpagina en "
 "kunnen je via WhatsApp een bericht sturen. Vink uit om er niet bij te staan."
 
-#: apps/dashboard/forms.py:262
+#: apps/dashboard/forms.py:285
 msgid "Category"
 msgstr "Categorie"
 
-#: apps/dashboard/forms.py:268
+#: apps/dashboard/forms.py:291
 msgid "Where shoppers find it in the marketplace."
 msgstr "Waar kopers het in de marktplaats vinden."
 
@@ -7363,28 +7132,15 @@ msgstr "%(views)s keer geopend, %(buys)s WhatsApp-tikken in 30 dagen"
 msgid "Hidden by our team"
 msgstr "Verborgen door ons team"
 
-#: templates/marketing/home.html:128
+#: templates/marketing/home.html:126
 msgid "Shop window"
 msgstr "Etalage"
 
-#: templates/marketing/home.html:129
-msgid "Popular right now from businesses on AD Smart."
-msgstr "Nu populair bij bedrijven op AD Smart."
-
 #: templates/marketing/home.html:130
-msgid ""
-"The products shoppers opened most this month. Tap one to see it in its shop,"
-" then message the seller on WhatsApp."
-msgstr ""
-"De producten die kopers deze maand het vaakst openden. Tik op een product om"
-" het in de winkel te zien en stuur de verkoper daarna een bericht via "
-"WhatsApp."
-
-#: templates/marketing/home.html:132
 msgid "Popular products"
 msgstr "Populaire producten"
 
-#: templates/marketing/home.html:140
+#: templates/marketing/home.html:138
 msgid "View businesses"
 msgstr "Bekijk bedrijven"
 
@@ -7498,7 +7254,7 @@ msgid "Next"
 msgstr "Volgende"
 
 #: templates/partials/site_header.html:12
-#: templates/partials/site_header.html:46
+#: templates/partials/site_header.html:45
 msgid "Shops"
 msgstr "Winkels"
 
@@ -7523,21 +7279,364 @@ msgstr "Alles"
 msgid "No products match your search."
 msgstr "Geen producten gevonden voor je zoekopdracht."
 
-#: templates/cards/business.html:198
+#: templates/cards/business.html:203
 msgid "One less"
 msgstr "Eén minder"
 
-#: templates/cards/business.html:198
+#: templates/cards/business.html:203
 msgid "One more"
 msgstr "Eén meer"
 
-#: templates/cards/business.html:202
+#: templates/cards/business.html:207
 msgid "Clear"
 msgstr "Leegmaken"
 
-#: templates/cards/business.html:203
+#: templates/cards/business.html:208
 msgid "Send order"
 msgstr "Bestelling versturen"
+
+#: apps/dashboard/forms.py:277
+msgid "More pictures (optional)"
+msgstr "Meer foto’s (optioneel)"
+
+#: apps/dashboard/forms.py:278
+msgid ""
+"A product can have up to 5 pictures. Shoppers see the others with arrows "
+"when they open the product."
+msgstr ""
+"Een product kan tot 5 foto’s hebben. Kopers zien de andere met pijlen als ze"
+" het product openen."
+
+#: apps/dashboard/forms.py:289
+msgid ""
+"JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page "
+"opens fast. This one is the cover."
+msgstr ""
+"JPG, PNG of WebP. We verkleinen elke foto tot 30 KB of minder zodat je "
+"pagina snel opent. Deze is de omslagfoto."
+
+#: apps/dashboard/forms.py:313
+#, python-format
+msgid "A product can have %(max)d pictures. You can add %(room)d more here."
+msgstr ""
+"Een product kan %(max)d foto’s hebben. Je kunt hier nog %(room)d toevoegen."
+
+#: templates/cards/business.html:98
+msgid "Previous picture"
+msgstr "Vorige foto"
+
+#: templates/cards/business.html:99
+msgid "Next picture"
+msgstr "Volgende foto"
+
+#: templates/dashboard/business.html:50
+msgid ""
+"Every picture is shrunk to 30 KB or less so your page opens fast. Each "
+"product can have up to 5 pictures."
+msgstr ""
+"Elke foto wordt verkleind tot 30 KB of minder zodat je pagina snel opent. "
+"Elk product kan tot 5 foto’s hebben."
+
+#: templates/dashboard/business_item.html:15
+msgid "Cover"
+msgstr "Omslag"
+
+#: templates/dashboard/business_item.html:21
+msgid "Make cover"
+msgstr "Als omslag instellen"
+
+#: apps/marketing/content.py:17
+msgid "Sign up with your email."
+msgstr "Meld je aan met je e-mailadres."
+
+#: apps/marketing/content.py:22
+msgid "Add your details and watch the preview update."
+msgstr "Voeg je gegevens toe en zie het voorbeeld meebewegen."
+
+#: apps/marketing/content.py:27
+msgid "Pay by Mobile Money or card."
+msgstr "Betaal met Mobile Money of kaart."
+
+#: apps/marketing/content.py:32
+msgid "Link, QR code or NFC card. Update it any time."
+msgstr "Link, QR-code of NFC-kaart. Pas hem altijd aan."
+
+#: apps/marketing/content.py:37
+msgid "Paste it anywhere. It always shows your latest details."
+msgstr "Plak hem overal. Hij toont altijd je nieuwste gegevens."
+
+#: apps/marketing/content.py:38
+msgid "Download it as PNG or SVG for print."
+msgstr "Download hem als PNG of SVG voor drukwerk."
+
+#: apps/marketing/content.py:39
+msgid "Tap it on a phone. No app needed."
+msgstr "Houd hem tegen een telefoon. Geen app nodig."
+
+#: apps/marketing/content.py:40
+msgid "Saved straight to their phone's contacts."
+msgstr "Direct opgeslagen in de contacten van de telefoon."
+
+#: templates/marketing/home.html:26
+msgid "Share by link, QR code or NFC tap. Update your details any time."
+msgstr "Deel via link, QR-code of NFC-tik. Werk je gegevens altijd bij."
+
+#: templates/marketing/home.html:46
+msgid ""
+"A service of AD Graphics, a Ghanaian design studio with over 2,500 designs "
+"delivered."
+msgstr ""
+"Een dienst van AD Graphics, een Ghanese ontwerpstudio met meer dan 2.500 "
+"geleverde ontwerpen."
+
+#: templates/marketing/home.html:83
+msgid "Build and preview for free. Pay only when you are happy."
+msgstr "Bouw en bekijk gratis een voorbeeld. Betaal pas als je tevreden bent."
+
+#: templates/marketing/home.html:98
+msgid "Share it any way you like."
+msgstr "Deel het zoals je wilt."
+
+#: templates/marketing/home.html:115
+msgid "Try it. The buttons work."
+msgstr "Probeer het. De knoppen werken."
+
+#: templates/marketing/home.html:127
+msgid "Popular right now from businesses on AD Smart."
+msgstr "Nu populair bij bedrijven op AD Smart."
+
+#: templates/marketing/home.html:128
+msgid ""
+"The products shoppers opened most this month. Tap one to see it in its shop,"
+" then message the seller on WhatsApp."
+msgstr ""
+"De producten die kopers deze maand het vaakst openden. Tik op een product om"
+" het in de winkel te zien en stuur de verkoper daarna een bericht via "
+"WhatsApp."
+
+#~ msgid "Popular right now."
+#~ msgstr "Nu populair."
+
+#~ msgid "Sign up with your email and confirm it. It takes a minute."
+#~ msgstr ""
+#~ "Registreer met je e-mailadres en bevestig het. Het duurt een minuutje."
+
+#~ msgid ""
+#~ "Add your photo, numbers, WhatsApp, socials and location. Watch it update as "
+#~ "you type."
+#~ msgstr ""
+#~ "Voeg je foto, nummers, WhatsApp, sociale media en locatie toe. Zie hoe de "
+#~ "kaart meteen meebeweegt."
+
+#~ msgid ""
+#~ "Pay with Mobile Money or a Visa or Mastercard card through Paystack's secure"
+#~ " checkout."
+#~ msgstr ""
+#~ "Betaal met Mobile Money of een Visa- of Mastercard-kaart via de beveiligde "
+#~ "betaalpagina van Paystack."
+
+#~ msgid ""
+#~ "Your permanent link, QR code and NFC card all open the same card, which you "
+#~ "can update any time."
+#~ msgstr ""
+#~ "Je permanente link, QR-code en NFC-kaart openen dezelfde kaart, die je op "
+#~ "elk moment kunt bijwerken."
+
+#~ msgid ""
+#~ "Paste it into WhatsApp, email signatures and bios. Edit your details and the"
+#~ " link still works."
+#~ msgstr ""
+#~ "Plak hem in WhatsApp, e-mailhandtekeningen en bio’s. Pas je gegevens aan en "
+#~ "de link blijft werken."
+
+#~ msgid ""
+#~ "Download it as PNG or SVG for flyers, banners, shopfronts and name tags."
+#~ msgstr ""
+#~ "Download hem als PNG of SVG voor flyers, banners, winkelpuien en "
+#~ "naamkaartjes."
+
+#~ msgid ""
+#~ "A printed card with a chip. Tap it on a phone and your card opens — no app "
+#~ "needed."
+#~ msgstr ""
+#~ "Een gedrukte kaart met een chip. Tik hem aan op een telefoon en je kaart "
+#~ "opent, zonder app."
+
+#~ msgid ""
+#~ "Recipients save your photo, numbers and email straight into their phone's "
+#~ "contacts."
+#~ msgstr ""
+#~ "Ontvangers slaan je foto, nummers en e-mailadres direct op in de contacten "
+#~ "van hun telefoon."
+
+#~ msgid ""
+#~ "Share your details by link, QR code or a tap of an NFC card. People save you"
+#~ " to their phone in one tap — and you can change your details any time "
+#~ "without reprinting."
+#~ msgstr ""
+#~ "Deel je gegevens via een link, QR-code of een tik met een NFC-kaart. Mensen "
+#~ "slaan je met één tik op in hun telefoon, en je kunt je gegevens op elk "
+#~ "moment wijzigen zonder opnieuw te drukken."
+
+#~ msgid ""
+#~ "AD Smart Business Cards is a service of AD Graphics, a Ghanaian design "
+#~ "studio behind more than 2,500 designs — logos, flyers, brand kits and print "
+#~ "for businesses, churches, schools and events."
+#~ msgstr ""
+#~ "AD Smart Business Cards is een dienst van AD Graphics, een Ghanese "
+#~ "ontwerpstudio met meer dan 2.500 ontwerpen op zijn naam: logo’s, flyers, "
+#~ "huisstijlpakketten en drukwerk voor bedrijven, kerken, scholen en "
+#~ "evenementen."
+
+#~ msgid ""
+#~ "We built AD Smart so your contact details work as hard as your brand does: "
+#~ "always up to date, easy to share, and saved in one tap. Every NFC card is "
+#~ "designed by our team, printed, encoded with your permanent link and tap-"
+#~ "tested on both Android and iPhone before it leaves the studio."
+#~ msgstr ""
+#~ "We bouwden AD Smart zodat je contactgegevens net zo hard werken als je merk:"
+#~ " altijd actueel, makkelijk te delen en met één tik opgeslagen. Elke NFC-"
+#~ "kaart wordt door ons team ontworpen, gedrukt, gecodeerd met je permanente "
+#~ "link en getest op Android en iPhone voordat hij de studio verlaat."
+
+#~ msgid ""
+#~ "Build your card for free and preview it first. You only pay when you are "
+#~ "happy with how it looks."
+#~ msgstr ""
+#~ "Maak je kaart gratis en bekijk eerst een voorbeeld. Je betaalt pas als je "
+#~ "tevreden bent met het resultaat."
+
+#~ msgid "One card, three ways to share"
+#~ msgstr "Eén kaart, drie manieren om te delen"
+
+#~ msgid "Whatever they have in their hand, they can reach you."
+#~ msgstr "Wat ze ook in hun hand hebben, ze kunnen je bereiken."
+
+#~ msgid ""
+#~ "Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the "
+#~ "contact."
+#~ msgstr ""
+#~ "Probeer het: tik op Bellen, WhatsApp of E-mail om AD Graphics te bereiken, "
+#~ "of sla het contact op."
+
+#~ msgid ""
+#~ "The same designers who make your NFC card. Open a slide to see the full "
+#~ "design."
+#~ msgstr ""
+#~ "Dezelfde ontwerpers die je NFC-kaart maken. Open een dia om het volledige "
+#~ "ontwerp te zien."
+
+#~ msgid ""
+#~ "Every plan includes your permanent link, QR code and save-contact file. "
+#~ "Build and preview for free."
+#~ msgstr ""
+#~ "Elk abonnement bevat je permanente link, QR-code en contactbestand. Maak en "
+#~ "bekijk gratis een voorbeeld."
+
+#~ msgid ""
+#~ "Create your card in minutes. Preview it free, then choose a plan when you "
+#~ "are ready."
+#~ msgstr ""
+#~ "Maak je kaart in een paar minuten. Bekijk gratis een voorbeeld en kies een "
+#~ "abonnement wanneer je er klaar voor bent."
+
+#~ msgid "Business pages"
+#~ msgstr "Bedrijfspagina’s"
+
+#~ msgid "Show what you sell, not just who you are."
+#~ msgstr "Laat zien wat je verkoopt, niet alleen wie je bent."
+
+#~ msgid ""
+#~ "Your card shares your contact details. A business page goes further: your "
+#~ "own page where customers see your products and services, read what other "
+#~ "customers say, and send you an enquiry. It is linked from your card, in the "
+#~ "same colours."
+#~ msgstr ""
+#~ "Je kaart deelt je contactgegevens. Een bedrijfspagina gaat verder: een eigen"
+#~ " pagina waar klanten je producten en diensten zien, lezen wat andere klanten"
+#~ " zeggen en je een vraag sturen. Ze is gekoppeld aan je kaart, in dezelfde "
+#~ "kleuren."
+
+#~ msgid "Your products, with pictures"
+#~ msgstr "Je producten, met foto’s"
+
+#~ msgid ""
+#~ "Add photos, names, prices and short descriptions. Every picture is made "
+#~ "light enough to load quickly on a phone."
+#~ msgstr ""
+#~ "Voeg foto’s, namen, prijzen en korte beschrijvingen toe. Elke afbeelding "
+#~ "wordt verkleind, zodat ze snel laadt op een telefoon."
+
+#~ msgid "The services you offer"
+#~ msgstr "De diensten die je aanbiedt"
+
+#~ msgid "List what you do, so people know what to ask you for."
+#~ msgstr "Zet erin wat je doet, zodat mensen weten waar ze je om kunnen vragen."
+
+#~ msgid "Add kind words from your customers, with a star rating."
+#~ msgstr ""
+#~ "Voeg vriendelijke woorden van je klanten toe, met een sterrenbeoordeling."
+
+#~ msgid "Enquiries in your inbox"
+#~ msgstr "Vragen in je inbox"
+
+#~ msgid "Visitors send an enquiry from the page, and we email it to you."
+#~ msgstr ""
+#~ "Bezoekers sturen een vraag vanaf de pagina en wij mailen die naar jou."
+
+#~ msgid "Included with these plans"
+#~ msgstr "Inbegrepen bij deze abonnementen"
+
+#, python-format
+#~ msgid "up to %(count)s products"
+#~ msgstr "maximaal %(count)s producten"
+
+#~ msgid "Popular right now from businesses on AD Smart."
+#~ msgstr "Nu populair bij bedrijven op AD Smart."
+
+#~ msgid ""
+#~ "The products shoppers opened most this month. Tap one to see it in its shop,"
+#~ " then message the seller on WhatsApp."
+#~ msgstr ""
+#~ "De producten die kopers deze maand het vaakst openden. Tik op een product om"
+#~ " het in de winkel te zien en stuur de verkoper daarna een bericht via "
+#~ "WhatsApp."
+
+#~ msgid "Products from our shops"
+#~ msgstr "Producten uit onze winkels"
+
+#~ msgid "Previous product"
+#~ msgstr "Vorig product"
+
+#~ msgid "Next product"
+#~ msgstr "Volgend product"
+
+#~ msgid "See it in its shop"
+#~ msgstr "Bekijk het in de winkel"
+
+#~ msgid "Tap a picture to see the product in its shop."
+#~ msgstr "Tik op een foto om het product in zijn winkel te zien."
+
+#~ msgid ""
+#~ "JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page "
+#~ "opens fast."
+#~ msgstr ""
+#~ "JPG, PNG of WebP. We verkleinen elke afbeelding tot maximaal 50 KB, zodat je"
+#~ " pagina snel opent."
+
+#~ msgid "Every picture is shrunk to 50 KB or less so your page opens fast."
+#~ msgstr ""
+#~ "Elke afbeelding wordt verkleind tot maximaal 50 KB, zodat je pagina snel "
+#~ "opent."
+
+#~ msgid "Sample business page of AD Graphics"
+#~ msgstr "Voorbeeld van de bedrijfspagina van AD Graphics"
+
+#~ msgid ""
+#~ "Try it — scroll through the page. This is the business page of AD Graphics."
+#~ msgstr ""
+#~ "Probeer het: scroll door de pagina. Dit is de bedrijfspagina van AD "
+#~ "Graphics."
 
 #~ msgid "Buy on WhatsApp"
 #~ msgstr "Koop via WhatsApp"

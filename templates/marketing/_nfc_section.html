@@ -3,7 +3,7 @@
   <div>
     <p class="eyebrow">{% trans "NFC cards" %}</p>
     <h2 id="{{ heading_id|default:'nfc-heading' }}" class="mt-4">{% trans "A printed card that opens your digital one." %}</h2>
-    <p class="lead mt-4">{% trans "We design it with you, print it, write your permanent link to the chip, lock it and test every card on Android and iPhone. Order as many as you need — the more you order, the less each costs." %}</p>
+    {% if not compact %}<p class="lead mt-4">{% trans "We design it with you, print it, write your permanent link to the chip, lock it and test every card on Android and iPhone. Order as many as you need — the more you order, the less each costs." %}</p>{% endif %}
 
     <div class="table-wrap tier-table">
       <table class="table">
@@ -38,7 +38,7 @@
         </div>
       </div>
       <p class="alert alert--success calc__hint" data-hint hidden>{% icon "sparkles" 18 %}<span>{% blocktrans trimmed %}<strong>Add 1 more card for no extra cost.</strong> The next card is free at this quantity.{% endblocktrans %}</span></p>
-      <p class="text-sm muted mt-4">{% trans "Delivery in Ghana, or shipping abroad, is added at checkout. Pickup from our office is free." %}</p>
+      {% if not compact %}<p class="text-sm muted mt-4">{% trans "Delivery in Ghana, or shipping abroad, is added at checkout. Pickup from our office is free." %}</p>{% endif %}
     </div>
 
     <div class="cluster mt-8">
@@ -66,8 +66,10 @@
       <li>{% icon "circle-check" 18 %}<span>{% blocktrans trimmed with site_free_revision_rounds=site.free_revision_rounds %}<strong>First design proof in 3 working days,</strong> with {{ site_free_revision_rounds }} free rounds of changes.{% endblocktrans %}</span></li>
       <li>{% icon "circle-check" 18 %}<span>{% blocktrans trimmed %}<strong>Printed and encoded within 5 working days</strong> of your approval.{% endblocktrans %}</span></li>
       <li>{% icon "circle-check" 18 %}<span>{% blocktrans trimmed %}<strong>Locked chips</strong> so nobody can overwrite your link.{% endblocktrans %}</span></li>
+      {% if not compact %}
       <li>{% icon "circle-check" 18 %}<span>{% blocktrans trimmed %}<strong>Faulty chip?</strong> Report it within 30 days of delivery for a free replacement.{% endblocktrans %}</span></li>
       <li>{% icon "circle-check" 18 %}<span>{% blocktrans trimmed %}<strong>Delivered in Ghana or shipped abroad.</strong> Outside Ghana you pay the shipping and delivery fee for your region.{% endblocktrans %}</span></li>
+      {% endif %}
     </ul>
   </div>
 </div>

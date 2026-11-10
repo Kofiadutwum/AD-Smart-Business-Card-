@@ -28,6 +28,7 @@ urlpatterns = [
     path("business/<str:kind>/add/", views.business_item, name="business_add"),
     path("business/<str:kind>/<int:pk>/edit/", views.business_item, name="business_edit"),
     path("business/<str:kind>/<int:pk>/delete/", views.business_item_delete, name="business_delete"),
+    path("business/products/<int:pk>/pictures/<str:which>/<str:action>/", views.product_picture, name="product_picture"),
     path("nfc/", views.nfc_orders, name="nfc"),
     path("settings/", views.settings_view, name="settings"),
     path("settings/delete-account/", views.request_deletion, name="request_deletion"),

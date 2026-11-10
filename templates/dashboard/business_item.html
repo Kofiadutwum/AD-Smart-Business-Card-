@@ -9,7 +9,20 @@
 </div>
 <section class="panel" style="max-width:36rem">
   {% if kind == "products" and item %}
-    <p><img src="{{ item.image.url }}" alt="" width="120" height="120" style="width:7.5rem;height:7.5rem;object-fit:cover;border-radius:0.75rem"></p>
+    <ul style="display:flex;flex-wrap:wrap;gap:0.75rem;list-style:none;margin:0;padding:0">
+      <li style="display:grid;gap:0.375rem;justify-items:start">
+        <img src="{{ item.image.url }}" alt="" width="120" height="120" style="width:7.5rem;height:7.5rem;object-fit:cover;border-radius:0.75rem">
+        <span class="badge">{% trans "Cover" %}</span>
+        {% if item.photos.all %}<form method="post" action="{% url 'dashboard:product_picture' item.pk 'cover' 'remove' %}">{% csrf_token %}<button type="submit" class="btn btn--sm">{% trans "Remove" %}</button></form>{% endif %}
+      </li>
+      {% for photo in item.photos.all %}
+        <li style="display:grid;gap:0.375rem;justify-items:start">
+          <img src="{{ photo.image.url }}" alt="" width="120" height="120" style="width:7.5rem;height:7.5rem;object-fit:cover;border-radius:0.75rem">
+          <form method="post" action="{% url 'dashboard:product_picture' item.pk photo.pk 'cover' %}">{% csrf_token %}<button type="submit" class="btn btn--sm">{% trans "Make cover" %}</button></form>
+          <form method="post" action="{% url 'dashboard:product_picture' item.pk photo.pk 'remove' %}">{% csrf_token %}<button type="submit" class="btn btn--sm">{% trans "Remove" %}</button></form>
+        </li>
+      {% endfor %}
+    </ul>
   {% endif %}
   <form method="post" enctype="multipart/form-data" class="form mt-4" novalidate>
     {% csrf_token %}

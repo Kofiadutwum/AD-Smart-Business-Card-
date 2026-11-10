@@ -167,7 +167,7 @@ def business_context(page, form=None, **extra):
     page_url = page.public_url()
     # Products staff hid are gone for the public. Each shown one carries its "Buy" (WhatsApp) link: the card's
     # WhatsApp number, else a WhatsApp link the owner pasted, with the product and price already typed in.
-    products = [p for p in page.products.select_related("category") if not p.is_hidden][: eff["plan"].max_products]
+    products = [p for p in page.products.select_related("category").prefetch_related("photos") if not p.is_hidden][: eff["plan"].max_products]
     target = marketplace.whatsapp_target(card)
     name = card.business_name or card.full_name
     named = {}  # the active categories these products use, for the filter chips
@@ -177,6 +177,8 @@ def business_context(page, form=None, **extra):
         category = product.category if product.category and product.category.is_active else None
         product.cat = category.slug if category else marketplace.OTHER
         product.search_text = f"{product.title} {product.description} {category.name if category else ''}"
+        # The other pictures, for the arrows in the big view; empty (so no attribute) for a one-picture product.
+        product.more = json.dumps([photo.image.url for photo in product.photos.all()]) if product.photos.all() else ""
         if category:
             named[category.slug] = category
     chips = [{"slug": c.slug, "name": c.name} for c in sorted(named.values(), key=lambda c: (c.position, c.name))]

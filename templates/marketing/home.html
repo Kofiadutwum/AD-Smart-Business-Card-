@@ -23,7 +23,7 @@
     <div class="hero__copy">
       <p class="hero__eyebrow"><span class="pulse" aria-hidden="true"></span>{% trans "Digital + NFC business cards, made in Ghana" %}</p>
       <h1 id="hero-title">{% blocktrans trimmed %}Your business card, <span class="glow">one tap away.</span>{% endblocktrans %}</h1>
-      <p class="hero__lead">{% trans "Share your details by link, QR code or a tap of an NFC card. People save you to their phone in one tap — and you can change your details any time without reprinting." %}</p>
+      <p class="hero__lead">{% trans "Share by link, QR code or NFC tap. Update your details any time." %}</p>
       <div class="cluster hero__ctas">
         {% url 'accounts:register' as register_url %}{% hover_button _("Create my card") href=register_url variant="light" %}
         <a class="btn btn--on-dark" href="#pricing">{% trans "See plans and prices" %}</a>
@@ -43,8 +43,7 @@
     <div>
       <p class="eyebrow">{% trans "About AD" %}</p>
       <h2 id="about-title" class="mt-4">{% trans "Made by a design studio that lives in print." %}</h2>
-      <p class="lead mt-6">{% trans "AD Smart Business Cards is a service of AD Graphics, a Ghanaian design studio behind more than 2,500 designs — logos, flyers, brand kits and print for businesses, churches, schools and events." %}</p>
-      <p class="muted mt-4">{% trans "We built AD Smart so your contact details work as hard as your brand does: always up to date, easy to share, and saved in one tap. Every NFC card is designed by our team, printed, encoded with your permanent link and tap-tested on both Android and iPhone before it leaves the studio." %}</p>
+      <p class="lead mt-6">{% trans "A service of AD Graphics, a Ghanaian design studio with over 2,500 designs delivered." %}</p>
       <div class="about__sign">
         <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
         <div><strong>Kofi Adutwum</strong><span class="muted text-sm">{% trans "CEO, AD Graphics" %}</span></div>
@@ -81,7 +80,7 @@
     <div class="section-head">
       <p class="eyebrow">{% trans "How it works" %}</p>
       <h2 id="how-title">{% trans "From sign-up to shared in four steps." %}</h2>
-      <p class="lead">{% trans "Build your card for free and preview it first. You only pay when you are happy with how it looks." %}</p>
+      <p class="lead">{% trans "Build and preview for free. Pay only when you are happy." %}</p>
     </div>
     <ol class="steps" data-slider>
       {% for s in how_it_works %}
@@ -96,8 +95,7 @@
 
     <div class="share-showcase">
       <div>
-        <p class="eyebrow">{% trans "One card, three ways to share" %}</p>
-        <h2 class="mt-4">{% trans "Whatever they have in their hand, they can reach you." %}</h2>
+        <h2>{% trans "Share it any way you like." %}</h2>
         <ul class="share-list">
           {% for s in sharing %}
           <li>
@@ -114,7 +112,7 @@
             {% include "cards/_card.html" with card=demo.card eff=demo.eff pal=demo.pal card_url=demo.card_url vcf_url=demo.vcf_url demo=True lead_form=None qr_svg=None %}
           </div>
         </div>
-        <p class="phone-hint">{% icon "hand" 16 %}{% trans "Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the contact." %}</p>
+        <p class="phone-hint">{% icon "hand" 16 %}{% trans "Try it. The buttons work." %}</p>
       </div>
     </div>
   </div>
@@ -143,43 +141,6 @@
 </section>
 {% endif %}
 
-{# ========================== BUSINESS PAGES ========================== #}
-<section class="section" id="business-pages" aria-labelledby="biz-title">
-  <div class="container">
-    <div class="share-showcase biz-promo">
-      <div>
-        <p class="eyebrow">{% trans "Business pages" %}</p>
-        <h2 id="biz-title" class="mt-4">{% trans "Show what you sell, not just who you are." %}</h2>
-        <p class="lead mt-6">{% trans "Your card shares your contact details. A business page goes further: your own page where customers see your products and services, read what other customers say, and send you an enquiry. It is linked from your card, in the same colours." %}</p>
-        <ul class="share-list">
-          <li><span class="icon-tile">{% icon "image" 20 %}</span><h3>{% trans "Your products, with pictures" %}</h3><p>{% trans "Add photos, names, prices and short descriptions. Every picture is made light enough to load quickly on a phone." %}</p></li>
-          <li><span class="icon-tile">{% icon "briefcase" 20 %}</span><h3>{% trans "The services you offer" %}</h3><p>{% trans "List what you do, so people know what to ask you for." %}</p></li>
-          <li><span class="icon-tile">{% icon "star" 20 %}</span><h3>{% trans "What customers say" %}</h3><p>{% trans "Add kind words from your customers, with a star rating." %}</p></li>
-          <li><span class="icon-tile">{% icon "send" 20 %}</span><h3>{% trans "Enquiries in your inbox" %}</h3><p>{% trans "Visitors send an enquiry from the page, and we email it to you." %}</p></li>
-        </ul>
-        {% if business_plans %}
-        <p class="biz-plans-title">{% trans "Included with these plans" %}</p>
-        <ul class="biz-plans">
-          {% for plan in business_plans %}<li>{% icon "badge-check" 18 %}<span><strong>{{ plan.name }}</strong> · {% blocktrans trimmed with count=plan.max_products %}up to {{ count }} products{% endblocktrans %}</span></li>{% endfor %}
-        </ul>
-        <div class="cluster mt-8">
-          {% with plan=business_plans.0 %}{% url 'accounts:register' as plan_url %}{% blocktrans trimmed asvar start_label with name=plan.name %}Start with {{ name }}{% endblocktrans %}{% hover_button start_label href=plan_url|add:"?plan="|add:plan.code variant="primary" %}{% endwith %}
-          <a class="btn" href="#pricing">{% trans "See plans and prices" %}</a>
-        </div>
-        {% endif %}
-      </div>
-      <div class="share-visual">
-        <div class="phone">
-          <div class="phone__screen">
-            {% trans "Sample business page of AD Graphics" as t_biz %}<iframe src="{% url 'marketing:demo_business' %}" title="{{ t_biz }}" loading="lazy"></iframe>
-          </div>
-        </div>
-        <p class="phone-hint">{% icon "hand" 16 %}{% trans "Try it — scroll through the page. This is the business page of AD Graphics." %}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 {# ============================== GALLERY ============================ #}
 {% if gallery %}
 <section class="section" id="work" aria-labelledby="work-title">
@@ -187,7 +148,6 @@
     <div class="section-head">
       <p class="eyebrow">{% trans "Our work" %}</p>
       <h2 id="work-title">{% trans "Recent designs from the AD Graphics studio." %}</h2>
-      <p class="lead">{% trans "The same designers who make your NFC card. Open a slide to see the full design." %}</p>
     </div>
     {% include "marketing/_gallery.html" %}
   </div>
@@ -200,7 +160,6 @@
     <div class="section-head section-head--center">
       <p class="eyebrow">{% trans "Pricing" %}</p>
       <h2 id="pricing-title">{% trans "One simple yearly price." %}</h2>
-      <p class="lead">{% trans "Every plan includes your permanent link, QR code and save-contact file. Build and preview for free." %}</p>
     </div>
     {% include "marketing/_plans.html" %}
   </div>
@@ -209,7 +168,7 @@
 {# ================================ NFC =============================== #}
 <section class="section" id="nfc" aria-labelledby="nfc-title">
   <div class="container">
-    {% include "marketing/_nfc_section.html" with heading_id="nfc-title" %}
+    {% include "marketing/_nfc_section.html" with heading_id="nfc-title" compact=True %}
   </div>
 </section>
 
@@ -230,7 +189,6 @@
   <div class="container">
     <div class="cta-band">
       <h2>{% trans "Your next introduction deserves better than paper." %}</h2>
-      <p>{% trans "Create your card in minutes. Preview it free, then choose a plan when you are ready." %}</p>
       <div class="cluster">
         {% url 'accounts:register' as register_url %}{% hover_button _("Create my card") href=register_url variant="light" %}
         <a class="btn btn--on-dark" href="{{ site.whatsapp_link }}" target="_blank" rel="noopener">{% brand_icon "whatsapp" 18 %} {% trans "Talk to us on WhatsApp" %}</a>

@@ -193,6 +193,39 @@
   var dialog = shop.querySelector("[data-dialog]");
   if (!dialog || typeof dialog.showModal !== "function") return; // an old browser keeps the plain grid
 
+  var pictures = [];
+  var shown = 0;
+  var prev = dialog.querySelector("[data-d-prev]");
+  var next = dialog.querySelector("[data-d-next]");
+  var count = dialog.querySelector("[data-d-count]");
+
+  function showPicture(n) {
+    shown = (n + pictures.length) % pictures.length;
+    dialog.querySelector("[data-d-img]").src = pictures[shown];
+    var several = pictures.length > 1;
+    prev.hidden = next.hidden = count.hidden = !several;
+    count.textContent = (shown + 1) + " / " + pictures.length;
+  }
+
+  prev.addEventListener("click", function () { showPicture(shown - 1); });
+  next.addEventListener("click", function () { showPicture(shown + 1); });
+  dialog.addEventListener("keydown", function (event) {
+    if (pictures.length < 2 || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
+    event.preventDefault();
+    showPicture(shown + (event.key === "ArrowRight" ? 1 : -1));
+  });
+  var swipe = null;
+  var pic = dialog.querySelector("[data-d-pic]");
+  pic.addEventListener("pointerdown", function (event) {
+    swipe = event.pointerType === "mouse" ? null : event.clientX;
+  });
+  pic.addEventListener("pointerup", function (event) {
+    if (swipe === null || pictures.length < 2) return;
+    var dx = event.clientX - swipe;
+    swipe = null;
+    if (Math.abs(dx) > 40) showPicture(shown + (dx < 0 ? 1 : -1));
+  });
+
   function openItem(li) {
     var picture = li.querySelector("img");
     var id = li.getAttribute("data-product");
@@ -204,8 +237,12 @@
     var slot = li.querySelector("[data-cart-slot]");
 
     var img = dialog.querySelector("[data-d-img]");
-    img.src = picture.getAttribute("src");
     img.alt = picture.alt;
+    var more = [];
+    try { more = JSON.parse(li.getAttribute("data-more") || "[]"); } catch (e) { /* one picture only */ }
+    pictures = [picture.getAttribute("src")].concat(more);
+    more.forEach(function (url) { new Image().src = url; }); // fetch the others now, so an arrow tap shows at once
+    showPicture(0);
     dialog.querySelector("[data-d-title]").textContent = li.getAttribute("data-title");
     var priceEl = dialog.querySelector("[data-d-price]");
     priceEl.textContent = price;

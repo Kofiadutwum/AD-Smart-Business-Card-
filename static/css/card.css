@@ -873,6 +873,46 @@
   object-fit: cover;
   background: var(--bg-alt);
 }
+/* Several pictures: arrows, a "2 / 5" counter and a sideways swipe. */
+.shop-dialog__pic {
+  position: relative;
+  touch-action: pan-y;
+}
+.shop-dialog__nav {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+}
+.shop-dialog__nav[hidden],
+.shop-dialog__count[hidden] {
+  display: none;
+}
+.shop-dialog__nav--prev {
+  left: 0.75rem;
+}
+.shop-dialog__nav--next {
+  right: 0.75rem;
+}
+.shop-dialog__count {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  translate: -50% 0;
+  margin: 0;
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.6);
+  color: #fff;
+  font-size: 0.8125rem;
+}
 .shop-dialog__body {
   align-self: center;
   display: grid;

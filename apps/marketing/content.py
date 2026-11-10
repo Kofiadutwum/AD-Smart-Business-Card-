@@ -14,30 +14,30 @@ HOW_IT_WORKS = [
     {
         "icon": "user-plus",
         "title": gettext_lazy("Create your account"),
-        "text": gettext_lazy("Sign up with your email and confirm it. It takes a minute."),
+        "text": gettext_lazy("Sign up with your email."),
     },
     {
         "icon": "square-pen",
         "title": gettext_lazy("Build and preview your card"),
-        "text": gettext_lazy("Add your photo, numbers, WhatsApp, socials and location. Watch it update as you type."),
+        "text": gettext_lazy("Add your details and watch the preview update."),
     },
     {
         "icon": "credit-card",
         "title": gettext_lazy("Choose a yearly plan"),
-        "text": gettext_lazy("Pay with Mobile Money or a Visa or Mastercard card through Paystack's secure checkout."),
+        "text": gettext_lazy("Pay by Mobile Money or card."),
     },
     {
         "icon": "share-2",
         "title": gettext_lazy("Share it everywhere"),
-        "text": gettext_lazy("Your permanent link, QR code and NFC card all open the same card, which you can update any time."),
+        "text": gettext_lazy("Link, QR code or NFC card. Update it any time."),
     },
 ]
 
 SHARING = [
-    {"icon": "link", "title": gettext_lazy("A link that never changes"), "text": gettext_lazy("Paste it into WhatsApp, email signatures and bios. Edit your details and the link still works.")},
-    {"icon": "qr-code", "title": gettext_lazy("A QR code for print"), "text": gettext_lazy("Download it as PNG or SVG for flyers, banners, shopfronts and name tags.")},
-    {"icon": "nfc", "title": gettext_lazy("An NFC card that taps"), "text": gettext_lazy("A printed card with a chip. Tap it on a phone and your card opens \u2014 no app needed.")},
-    {"icon": "contact", "title": gettext_lazy("Save contact in one tap"), "text": gettext_lazy("Recipients save your photo, numbers and email straight into their phone's contacts.")},
+    {"icon": "link", "title": gettext_lazy("A link that never changes"), "text": gettext_lazy("Paste it anywhere. It always shows your latest details.")},
+    {"icon": "qr-code", "title": gettext_lazy("A QR code for print"), "text": gettext_lazy("Download it as PNG or SVG for print.")},
+    {"icon": "nfc", "title": gettext_lazy("An NFC card that taps"), "text": gettext_lazy("Tap it on a phone. No app needed.")},
+    {"icon": "contact", "title": gettext_lazy("Save contact in one tap"), "text": gettext_lazy("Saved straight to their phone's contacts.")},
 ]
 
 

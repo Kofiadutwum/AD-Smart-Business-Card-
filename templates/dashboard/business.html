@@ -47,7 +47,7 @@
         <h2 style="font-size: var(--text-lg)">{% if kind == "products" %}{% trans "Products" %}{% elif kind == "services" %}{% trans "Services" %}{% else %}{% trans "Customer reviews" %}{% endif %}</h2>
         <span class="muted text-sm">{% blocktrans trimmed with used=items|length %}{{ used }} of {{ limit }} used{% endblocktrans %}</span>
       </div>
-      {% if kind == "products" %}<p class="muted text-sm mt-2">{% trans "Every picture is shrunk to 50 KB or less so your page opens fast." %}</p>{% endif %}
+      {% if kind == "products" %}<p class="muted text-sm mt-2">{% trans "Every picture is shrunk to 30 KB or less so your page opens fast. Each product can have up to 5 pictures." %}</p>{% endif %}
       {% if kind == "products" and items|length > limit %}
         <p class="mt-2 text-sm">{% blocktrans trimmed %}Your plan shows the first {{ limit }} products on your page.{% endblocktrans %}</p>
       {% endif %}

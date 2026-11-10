@@ -70,7 +70,7 @@
 
       <ul class="biz-grid" data-grid>
         {% for product in products %}
-          <li class="biz-item{% if picked and product.pk == picked %} biz-item--picked{% endif %}" id="p-{{ product.pk }}" data-product="{{ product.pk }}" data-title="{{ product.title }}" data-price="{{ product.price }}" data-cat="{{ product.cat }}" data-search="{{ product.search_text }}">
+          <li class="biz-item{% if picked and product.pk == picked %} biz-item--picked{% endif %}" id="p-{{ product.pk }}" data-product="{{ product.pk }}" data-title="{{ product.title }}" data-price="{{ product.price }}" data-cat="{{ product.cat }}" data-search="{{ product.search_text }}"{% if product.more %} data-more="{{ product.more }}"{% endif %}>
             <a class="biz-item__link" href="#p-{{ product.pk }}" data-open>
               <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy" decoding="async">
               <div class="biz-item__body">
@@ -93,7 +93,12 @@
 
     {% trans "Close" as t_close %}<dialog class="shop-dialog" data-dialog aria-labelledby="shop-dialog-title">
       <button type="button" class="shop-dialog__close" data-close aria-label="{{ t_close }}">{% icon "x" 20 %}</button>
-      <img class="shop-dialog__img" data-d-img alt="" width="600" height="600">
+      <div class="shop-dialog__pic" data-d-pic>
+        <img class="shop-dialog__img" data-d-img alt="" width="600" height="600">
+        {% trans "Previous picture" as t_prev %}<button type="button" class="shop-dialog__nav shop-dialog__nav--prev" data-d-prev aria-label="{{ t_prev }}" hidden>{% icon "chevron-left" 22 %}</button>
+        {% trans "Next picture" as t_next %}<button type="button" class="shop-dialog__nav shop-dialog__nav--next" data-d-next aria-label="{{ t_next }}" hidden>{% icon "chevron-right" 22 %}</button>
+        <p class="shop-dialog__count" data-d-count aria-live="polite" hidden></p>
+      </div>
       <div class="shop-dialog__body">
         <h2 id="shop-dialog-title" data-d-title></h2>
         <p class="shop-dialog__price" data-d-price></p>

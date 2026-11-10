@@ -9,8 +9,8 @@ from django.forms import inlineformset_factory
 
 from apps.cards.colors import valid_hex
 from apps.cards.models import (
-    ACCENT_PRESETS, HIDEABLE_FIELDS, PRODUCT_IMAGE_BYTES, BusinessPage, BusinessProduct, BusinessReview,
-    BusinessService, Card, CardPhone, ProductCategory, SocialLink, accent_choices,
+    ACCENT_PRESETS, HIDEABLE_FIELDS, MAX_PRODUCT_PICTURES, PRODUCT_IMAGE_BYTES, BusinessPage, BusinessProduct,
+    BusinessReview, BusinessService, Card, CardPhone, ProductCategory, ProductPhoto, SocialLink, accent_choices,
 )
 from apps.core.utils import normalise_phone, process_image
 from django.utils.translation import gettext_lazy as _
@@ -254,7 +254,30 @@ class BusinessPageForm(forms.ModelForm):
         widgets = {"about": forms.Textarea(attrs={"rows": 6}), "hours": forms.Textarea(attrs={"rows": 4})}
 
 
+class MultipleFileInput(forms.FileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(forms.FileField):
+    """Several files from one input; ``clean`` gives a list (empty when none were chosen)."""
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput(attrs={"accept": "image/jpeg,image/png,image/webp"}))
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        clean_one = super().clean
+        if isinstance(data, (list, tuple)):
+            return [clean_one(item, initial) for item in data if item]
+        return [clean_one(data, initial)] if data else []
+
+
 class ProductForm(forms.ModelForm):
+    more = MultipleFileField(
+        label=_("More pictures (optional)"), required=False,
+        help_text=_("A product can have up to 5 pictures. Shoppers see the others with arrows when they open the product."),
+    )
+
     class Meta:
         model = BusinessProduct
         fields = ["image", "title", "price", "category", "description"]
@@ -263,7 +286,7 @@ class ProductForm(forms.ModelForm):
             "description": _("Description (optional)"),
         }
         help_texts = {
-            "image": _("JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page opens fast."),
+            "image": _("JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page opens fast. This one is the cover."),
             "price": _("Write it the way you want it shown, for example GHS 120 or From GHS 50."),
             "category": _("Where shoppers find it in the marketplace."),
         }
@@ -281,6 +304,21 @@ class ProductForm(forms.ModelForm):
         if isinstance(upload, UploadedFile):
             return process_image(upload, folder="products", max_px=1000, target_bytes=PRODUCT_IMAGE_BYTES)
         return upload
+
+    def clean_more(self):
+        uploads = self.cleaned_data.get("more") or []
+        room = MAX_PRODUCT_PICTURES - 1 - (self.instance.photos.count() if self.instance.pk else 0)  # the cover is one
+        if len(uploads) > max(room, 0):
+            raise ValidationError(
+                _("A product can have %(max)d pictures. You can add %(room)d more here.") % {"max": MAX_PRODUCT_PICTURES, "room": max(room, 0)}
+            )
+        return [process_image(upload, folder="products", max_px=1000, target_bytes=PRODUCT_IMAGE_BYTES) for upload in uploads]
+
+    def save_more(self, product):
+        """Keep the extra pictures chosen in this Save, after the ones the product already has."""
+        start = product.photos.count()
+        for place, picture in enumerate(self.cleaned_data.get("more") or [], start):
+            ProductPhoto.objects.create(product=product, image=picture, position=place)
 
 
 class ServiceForm(forms.ModelForm):

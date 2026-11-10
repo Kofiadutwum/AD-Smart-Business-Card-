@@ -21,7 +21,7 @@
     <ul class="plan__features">
       {% with page_text=plan.business_page_text %}
       {% for on, text in plan.feature_rows %}
-        <li{% if not on %} class="is-off"{% elif text == page_text %} class="is-highlight"{% endif %}>{% if on %}{% icon "check" 18 %}{% else %}{% icon "minus" 18 %}<span class="visually-hidden">{% trans "Not included:" %}</span>{% endif %}<span>{{ text }}{% if on and text == page_text %} <a href="{% url 'marketing:home' %}#business-pages">{% trans "See a sample" %}</a>{% endif %}</span></li>
+        <li{% if not on %} class="is-off"{% elif text == page_text %} class="is-highlight"{% endif %}>{% if on %}{% icon "check" 18 %}{% else %}{% icon "minus" 18 %}<span class="visually-hidden">{% trans "Not included:" %}</span>{% endif %}<span>{{ text }}{% if on and text == page_text %} <a href="{% url 'marketing:demo_business' %}">{% trans "See a sample" %}</a>{% endif %}</span></li>
       {% endfor %}
       {% endwith %}
     </ul>

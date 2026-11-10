@@ -1,4 +1,4 @@
-"""The business page: product pictures squeezed to 50 KB, plan limits, the card button, enquiries."""
+"""The business page: product pictures squeezed to 30 KB, up to five per product, plan limits, the card button, enquiries."""
 
 import io
 import tempfile
@@ -10,6 +10,7 @@ from PIL import Image
 
 from apps.cards.models import (
     MAX_REVIEWS, MAX_SERVICES, PRODUCT_IMAGE_BYTES, BusinessPage, BusinessProduct, BusinessReview, BusinessService, Lead,
+    ProductPhoto,
 )
 from apps.core.models import SiteSettings
 from apps.core.utils import process_image
@@ -58,11 +59,12 @@ class BusinessBase(BaseTest):
 
 
 class ImageSquashTests(BusinessBase):
-    def test_a_big_noisy_picture_ends_up_at_50_kb_or_less(self):
+    def test_a_big_noisy_picture_ends_up_at_30_kb_or_less(self):
         upload = picture((1400, 1000))
         self.assertGreater(upload.size, 500_000)
         result = process_image(upload, folder="products", max_px=1000, target_bytes=PRODUCT_IMAGE_BYTES)
-        self.assertLessEqual(result.size, 50 * 1024)
+        self.assertEqual(PRODUCT_IMAGE_BYTES, 30 * 1024)
+        self.assertLessEqual(result.size, 30 * 1024)
         image = Image.open(io.BytesIO(result.read()))
         self.assertEqual(image.format, "WEBP")
         self.assertLessEqual(max(image.size), 1000)
@@ -73,7 +75,7 @@ class ImageSquashTests(BusinessBase):
         result = process_image(
             SimpleUploadedFile("p.png", out.getvalue(), "image/png"), folder="products", max_px=1000, target_bytes=PRODUCT_IMAGE_BYTES
         )
-        self.assertLessEqual(result.size, 50 * 1024)
+        self.assertLessEqual(result.size, 30 * 1024)
         self.assertEqual(Image.open(io.BytesIO(result.read())).size, (400, 300))
 
     def test_other_uploads_are_not_squeezed(self):
@@ -126,12 +128,12 @@ class DashboardTests(BusinessBase):
         fields.update(data)
         return self.client.post("/dashboard/business/products/add/", fields)
 
-    def test_a_product_picture_is_saved_at_50_kb_or_less(self):
+    def test_a_product_picture_is_saved_at_30_kb_or_less(self):
         response = self.add_product()
         self.assertRedirects(response, "/dashboard/business/", fetch_redirect_response=False)
         product = BusinessProduct.objects.get()
         self.assertEqual((product.title, product.price), ("Kente stole", "GHS 120"))
-        self.assertLessEqual(product.image.size, 50 * 1024)
+        self.assertLessEqual(product.image.size, 30 * 1024)
         self.assertTrue(product.image.name.endswith(".webp"))
 
     def test_a_picture_is_needed_for_a_new_product(self):
@@ -177,15 +179,65 @@ class DashboardTests(BusinessBase):
         product.refresh_from_db()
         self.assertNotEqual(product.image.name, old)
         self.assertFalse(product.image.storage.exists(old))
-        self.assertLessEqual(product.image.size, 50 * 1024)
+        self.assertLessEqual(product.image.size, 30 * 1024)
 
-    def test_removing_a_product_deletes_its_picture(self):
-        self.add_product()
+    def test_removing_a_product_deletes_all_its_pictures(self):
+        self.add_product(more=[picture((300, 300))])
         product = BusinessProduct.objects.get()
-        name = product.image.name
+        names = [product.image.name, product.photos.get().image.name]
         self.client.post(f"/dashboard/business/products/{product.pk}/delete/")
         self.assertFalse(BusinessProduct.objects.exists())
-        self.assertFalse(product.image.storage.exists(name))
+        self.assertFalse(ProductPhoto.objects.exists())
+        for name in names:
+            self.assertFalse(product.image.storage.exists(name))
+
+    def test_a_product_takes_more_pictures_each_at_30_kb_or_less(self):
+        self.add_product(more=[picture((400, 400)), picture((400, 400)), picture((400, 400))])
+        product = BusinessProduct.objects.get()
+        self.assertEqual(product.photos.count(), 3)
+        for photo in product.photos.all():
+            self.assertLessEqual(photo.image.size, 30 * 1024)
+            self.assertTrue(photo.image.name.endswith(".webp"))
+
+    def test_five_pictures_is_the_most_a_product_can_have(self):
+        response = self.add_product(more=[picture((200, 200)) for _ in range(5)])
+        self.assertContains(response, "A product can have 5 pictures. You can add 4 more here.")
+        self.assertFalse(BusinessProduct.objects.exists())
+        self.add_product(more=[picture((200, 200)) for _ in range(4)])
+        product = BusinessProduct.objects.get()
+        self.assertEqual(product.photos.count(), 4)
+        url = f"/dashboard/business/products/{product.pk}/edit/"
+        response = self.client.post(url, {"title": "Kente stole", "price": "", "description": "", "more": [picture((200, 200))]})
+        self.assertContains(response, "You can add 0 more here.")
+        self.assertEqual(product.photos.count(), 4)
+
+    def test_make_cover_swaps_the_pictures_and_removing_the_cover_promotes_the_next(self):
+        self.add_product(more=[picture((200, 200)), picture((200, 200))])
+        product = BusinessProduct.objects.get()
+        first, second = product.photos.all()
+        cover, first_name, second_name = product.image.name, first.image.name, second.image.name
+        base = f"/dashboard/business/products/{product.pk}/pictures"
+        self.client.post(f"{base}/{first.pk}/cover/")
+        product.refresh_from_db()
+        first.refresh_from_db()
+        self.assertEqual((product.image.name, first.image.name), (first_name, cover))
+        self.client.post(f"{base}/cover/remove/")  # the first extra picture, now holding the old cover, steps up
+        product.refresh_from_db()
+        self.assertEqual(product.image.name, cover)
+        self.assertFalse(product.image.storage.exists(first_name))
+        self.assertEqual([p.image.name for p in product.photos.all()], [second_name])
+        self.client.post(f"{base}/{second.pk}/remove/")
+        self.assertFalse(product.photos.exists())
+        self.assertFalse(product.image.storage.exists(second_name))
+        self.assertEqual(self.client.post(f"{base}/cover/remove/").status_code, 404)  # the only picture cannot go
+
+    def test_another_owners_product_pictures_cannot_be_touched(self):
+        self.add_product(more=[picture((200, 200))])
+        product = BusinessProduct.objects.get()
+        photo = product.photos.get()
+        self.client.force_login(self.make_user(email="other@example.com"))
+        self.assertEqual(self.client.post(f"/dashboard/business/products/{product.pk}/pictures/{photo.pk}/remove/").status_code, 404)
+        self.assertTrue(ProductPhoto.objects.filter(pk=photo.pk).exists())
 
     def test_services_and_reviews(self):
         self.client.post("/dashboard/business/services/add/", {"title": "Tailoring", "description": "Made to measure."})
@@ -246,6 +298,18 @@ class PublicPageTests(BusinessBase):
             self.assertContains(page, text)
         self.assertContains(page, "/media/products/a.webp")
         self.assertContains(page, "Send an enquiry")
+
+    def test_a_product_with_more_pictures_lists_them_for_the_arrows_and_a_one_picture_product_does_not(self):
+        self.owner()
+        many = BusinessProduct.objects.create(page=self.page, image="products/a.webp", title="Kente stole")
+        ProductPhoto.objects.create(product=many, image="products/b.webp", position=0)
+        ProductPhoto.objects.create(product=many, image="products/c.webp", position=1)
+        BusinessProduct.objects.create(page=self.page, image="products/d.webp", title="Plain cloth")
+        page = self.client.get(f"/b/{self.card.slug}")
+        self.assertContains(page, "data-more=", count=1)
+        self.assertContains(page, "&quot;/media/products/b.webp&quot;,")
+        self.assertContains(page, "&quot;/media/products/c.webp&quot;")
+        self.assertContains(page, "data-d-prev")
 
     def test_empty_sections_are_left_out(self):
         self.owner()
@@ -408,16 +472,22 @@ class EnquiryTests(BusinessBase):
 
 
 class LandingPageTests(BusinessBase):
-    """The home page tells visitors about business pages, with AD Graphics' own page as the sample."""
+    """The home page keeps to short text and has no Business pages section; the sample page is linked from the plans."""
 
-    def test_the_home_page_has_a_business_pages_section_with_the_plans_that_include_it(self):
+    def test_the_home_page_has_no_business_pages_section_or_menu_link(self):
         page = self.client.get("/")
-        self.assertContains(page, 'id="business-pages"')
-        self.assertContains(page, "Show what you sell, not just who you are.")
-        self.assertContains(page, "up to 10 products")
-        self.assertContains(page, "up to 30 products")
-        self.assertContains(page, 'src="/demo/business"')
-        self.assertContains(page, '<a href="/#business-pages">Business pages</a>', count=3)  # desktop menu, mobile menu, footer
+        self.assertNotContains(page, 'id="business-pages"')
+        self.assertNotContains(page, "Show what you sell")
+        self.assertNotContains(page, 'src="/demo/business"')
+        self.assertNotContains(page, "#business-pages")  # the menus and the plan cards no longer point at it
+        self.assertContains(self.client.get("/pricing"), 'href="/demo/business">See a sample</a>', count=2)
+
+    def test_the_home_page_text_is_short(self):
+        page = self.client.get("/")
+        for gone in ("Whatever they have in their hand", "You only pay when you are happy with how it looks",
+                     "Every plan includes your permanent link", "Create your card in minutes. Preview it free"):
+            self.assertNotContains(page, gone)
+        self.assertContains(page, "Share by link, QR code or NFC tap. Update your details any time.")
 
     def test_the_sample_page_is_the_real_template_with_no_made_up_prices_or_reviews(self):
         GalleryImage.objects.create(image="gallery/flyer.jpg", title="Flyer design", description="A flyer", is_published=True)
