@@ -2,7 +2,7 @@
 <div class="sq" data-squeeze-root>
   {{ gallery_json|json_script:"gallery-slides" }}
 
-  {% trans "Recent designs" as t_1 %}<div class="sq__inner" data-duration="1000" data-hover-grow="true" data-autoplay="false" data-interval="6000" data-label="{{ t_1 }}">
+  {% trans "Recent designs" as t_1 %}<div class="sq__inner" data-duration="1000" data-hover-grow="true" data-autoplay="false" data-drift="true" data-interval="6000" data-label="{{ t_1 }}">
     <div class="sq__controls">
       {% trans "Previous design" as t_2 %}<button type="button" class="sq__arrow" data-sq-prev aria-label="{{ t_2 }}">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M9.6 2.6 5.1 7.1h9.1v1.8H5.1l4.5 4.5-1.2 1.2-6-6L1.8 8l.6-.6 6-6 1.2 1.2Z"/></svg>

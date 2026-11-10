@@ -489,6 +489,11 @@ class LandingPageTests(BusinessBase):
             self.assertNotContains(page, gone)
         self.assertContains(page, "Share by link, QR code or NFC tap. Update your details any time.")
 
+    def test_the_landing_gallery_drifts_on_its_own_one_design_every_six_seconds(self):
+        GalleryImage.objects.create(image="gallery/flyer.jpg", title="Flyer design", description="A flyer", is_published=True)
+        page = self.client.get("/")
+        self.assertContains(page, 'data-drift="true" data-interval="6000"')
+
     def test_the_sample_page_is_the_real_template_with_no_made_up_prices_or_reviews(self):
         GalleryImage.objects.create(image="gallery/flyer.jpg", title="Flyer design", description="A flyer", is_published=True)
         page = self.client.get("/demo/business")

@@ -96,7 +96,7 @@
   cursor: pointer;
   background: var(--bg-alt);
   transition-property: width, margin-left;
-  transition-timing-function: var(--sq-ease);
+  transition-timing-function: var(--sq-move-ease, var(--sq-ease));
   -webkit-tap-highlight-color: transparent;
 }
 .sq__card:focus-visible {
