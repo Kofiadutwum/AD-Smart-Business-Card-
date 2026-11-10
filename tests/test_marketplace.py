@@ -86,6 +86,55 @@ class BuyLinkTests(MarketBase):
         self.assertContains(self.client.get(f"/b/{card.slug}"), 'href="https://wa.me/233244123456?text=')
 
 
+class StorefrontTests(MarketBase):
+    """The business page as a shop front: search, category chips, the big product view and the order cart."""
+
+    def test_the_page_carries_the_search_the_big_view_and_the_cart_for_a_shop_with_a_whatsapp_number(self):
+        shop, card, items = self.shop("ama@example.com", "Ama Fabrics", products=("Red dress", "Blue scarf"))
+        page = self.client.get(f"/b/{card.slug}")
+        self.assertContains(page, "data-tools")
+        self.assertContains(page, "<dialog")
+        self.assertContains(page, 'data-cart-url="https://wa.me/233244123456?text="')
+        self.assertContains(page, 'data-cart-intro="Hi Ama Fabrics, I would like to order:"')
+        self.assertContains(page, "data-cart-slot", count=2)
+        self.assertContains(page, f'data-title="Blue scarf" data-price="GHS 120" data-cat="other" data-search="Blue scarf ')
+
+    def test_no_chat_number_means_no_cart_and_so_does_a_link_that_cannot_carry_a_message(self):
+        shop, card, _ = self.shop("ama@example.com", "Ama Fabrics", whatsapp="")
+        self.assertNotContains(self.client.get(f"/b/{card.slug}"), "data-cart")
+        SocialLink.objects.create(card=card, platform="whatsapp", url="https://chat.whatsapp.com/ABC")
+        page = self.client.get(f"/b/{card.slug}")
+        self.assertContains(page, "biz-buy")  # Buy still opens the group as the owner wrote it
+        self.assertNotContains(page, "data-cart")
+
+    def test_category_chips_need_two_groups_and_name_the_ones_without_a_category_other(self):
+        shop, card, items = self.shop("ama@example.com", "Ama Fabrics", products=("Red dress", "Blue scarf"))
+        self.assertNotContains(self.client.get(f"/b/{card.slug}"), 'class="shop-chip"')
+        category, _ = ProductCategory.objects.get_or_create(slug="fashion", defaults={"name": "Fashion and clothing"})
+        items[0].category = category
+        items[0].save()
+        page = self.client.get(f"/b/{card.slug}")
+        self.assertContains(page, 'class="shop-chip"', count=3)  # All, the category, Other
+        self.assertContains(page, 'data-cat="fashion"')
+        self.assertContains(page, 'data-cat="other"')
+
+    def test_a_link_with_a_product_in_it_marks_that_product_and_the_sample_never_does(self):
+        shop, card, items = self.shop("ama@example.com", "Ama Fabrics", products=("Red dress", "Blue scarf"))
+        page = self.client.get(f"/b/{card.slug}?p={items[1].pk}")
+        self.assertContains(page, f'class="biz-item biz-item--picked" id="p-{items[1].pk}"')
+        self.assertContains(page, "biz-item--picked", count=1)
+        sample = self.client.get("/demo/business")
+        self.assertNotContains(sample, "biz-item--picked")
+        self.assertNotContains(sample, "data-cart")
+
+    def test_contact_details_sit_under_their_own_heading_and_the_quick_buttons_stay_at_the_top(self):
+        shop, card, _ = self.shop("ama@example.com", "Ama Fabrics")
+        page = self.client.get(f"/b/{card.slug}")
+        self.assertContains(page, ">Contact<", count=1)
+        self.assertContains(page, 'aria-label="Contact details"', count=1)
+        self.assertContains(page, 'class="pcard__quick"', count=1)
+
+
 class TrackingTests(MarketBase):
     def setUp(self):
         super().setUp()

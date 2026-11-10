@@ -76,6 +76,11 @@ def buy_text(shop_name, title, price, link):
     return _("Hi %(shop)s, I would like to buy %(product)s. %(link)s") % values
 
 
+def cart_intro(shop_name):
+    """The first line of a cart message. The page adds one line per product and the shop's link after it."""
+    return _("Hi %(shop)s, I would like to order:") % {"shop": shop_name}
+
+
 def with_buy_links(shop):
     """A copy of the shop whose shown products carry their WhatsApp link, in the visitor's language."""
     shown = [

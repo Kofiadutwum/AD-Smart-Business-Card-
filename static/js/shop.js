@@ -12,6 +12,8 @@
     }
   }
 
+  window.shopBeacon = send; // the shop page's cart reports its Buy taps the same way
+
   var opened = {};
   document.addEventListener("click", function (event) {
     var shop = event.target.closest("[data-events-url]");

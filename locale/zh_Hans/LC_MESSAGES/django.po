@@ -493,13 +493,13 @@ msgid "Phone numbers"
 msgstr "电话号码"
 
 #: apps/cards/models.py:47 apps/cards/models.py:305
-#: templates/cards/_contact.html:8 templates/cards/_contact.html:36
+#: templates/cards/_contact.html:9 templates/cards/_contact.html:39
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
 #: apps/cards/models.py:48 apps/cards/models.py:311 apps/dashboard/forms.py:55
-#: apps/nfc/forms.py:30 templates/cards/_contact.html:14
-#: templates/cards/_contact.html:48
+#: apps/nfc/forms.py:30 templates/cards/_contact.html:15
+#: templates/cards/_contact.html:51
 msgid "Website"
 msgstr "网站"
 
@@ -507,7 +507,7 @@ msgstr "网站"
 msgid "Physical address"
 msgstr "地址"
 
-#: apps/cards/models.py:50 templates/cards/_contact.html:60
+#: apps/cards/models.py:50 templates/cards/_contact.html:63
 msgid "Ghana Post GPS"
 msgstr "Ghana Post GPS"
 
@@ -636,7 +636,8 @@ msgid "Offensive content"
 msgstr "冒犯性内容"
 
 #: apps/cards/models.py:397 apps/dashboard/forms.py:275
-#: apps/support/models.py:17 templates/marketing/shops.html:33
+#: apps/support/models.py:17 templates/cards/business.html:66
+#: templates/marketing/shops.html:33
 msgid "Other"
 msgstr "其他"
 
@@ -708,11 +709,11 @@ msgstr "您已发送过信息，请一小时后再试。"
 msgid "%(name)s shared their details with you"
 msgstr "%(name)s 与您分享了联系方式"
 
-#: apps/cards/views.py:291
+#: apps/cards/views.py:305
 msgid "You have sent several reports already. Try again later."
 msgstr "您已多次提交举报，请稍后再试。"
 
-#: apps/cards/views.py:301
+#: apps/cards/views.py:315
 msgid "Thank you. Our support team will review this card."
 msgstr "谢谢。我们的客服团队会审核这张名片。"
 
@@ -2061,27 +2062,27 @@ msgstr "保存联系人"
 msgid "Share this card"
 msgstr "分享这张名片"
 
-#: templates/cards/_contact.html:3
+#: templates/cards/_contact.html:4
 #, python-format
 msgid "Contact %(first)s"
 msgstr "联系 %(first)s"
 
-#: templates/cards/_contact.html:5 templates/support/contact.html:23
+#: templates/cards/_contact.html:6 templates/support/contact.html:23
 msgid "Call"
 msgstr "拨打电话"
 
 #: apps/cards/forms.py:23 apps/dashboard/views.py:397 apps/support/forms.py:18
-#: templates/cards/_contact.html:11 templates/cards/_contact.html:42
+#: templates/cards/_contact.html:12 templates/cards/_contact.html:45
 #: templates/dashboard/leads.html:15 templates/dashboard/share.html:23
 #: templates/support/contact.html:24
 msgid "Email"
 msgstr "邮件"
 
-#: templates/cards/_contact.html:17 templates/cards/_contact.html:19
+#: templates/cards/_contact.html:18 templates/cards/_contact.html:20
 msgid "Map"
 msgstr "地图"
 
-#: templates/cards/_contact.html:23 templates/dashboard/editor.html:88
+#: templates/cards/_contact.html:26 templates/dashboard/editor.html:88
 msgid "Contact details"
 msgstr "联系方式"
 
@@ -2090,7 +2091,7 @@ msgstr "联系方式"
 msgid "About %(first)s"
 msgstr "关于 %(first)s"
 
-#: templates/cards/_card.html:41 templates/cards/business.html:113
+#: templates/cards/_card.html:41 templates/cards/business.html:157
 msgid "Social media"
 msgstr "社交媒体"
 
@@ -2099,7 +2100,7 @@ msgstr "社交媒体"
 msgid "Share your details with %(first)s"
 msgstr "与 %(first)s 分享您的联系方式"
 
-#: templates/cards/_card.html:58 templates/cards/business.html:130
+#: templates/cards/_card.html:58 templates/cards/business.html:174
 msgid "Leave empty"
 msgstr "请留空"
 
@@ -2115,11 +2116,11 @@ msgstr "显示二维码"
 msgid "Let someone scan this to open the card."
 msgstr "让对方扫描此码即可打开名片。"
 
-#: templates/cards/_card.html:76 templates/cards/business.html:145
+#: templates/cards/_card.html:76 templates/cards/business.html:189
 msgid "Powered by AD Smart"
 msgstr "由 AD Smart 提供技术支持"
 
-#: templates/cards/_card.html:79 templates/cards/business.html:148
+#: templates/cards/_card.html:79 templates/cards/business.html:192
 #: templates/cards/report.html:7
 msgid "Report this card"
 msgstr "举报这张名片"
@@ -3515,7 +3516,7 @@ msgstr ""
 "需求文档中的业务规则撰写。上线前请由律师审阅，并确认您对数据保护委员会（Data Protection Commission）的合规义务（SRS "
 "PRV-03）。"
 
-#: templates/marketing/_lightbox.html:5
+#: templates/cards/business.html:94 templates/marketing/_lightbox.html:5
 msgid "Close"
 msgstr "关闭"
 
@@ -4004,7 +4005,7 @@ msgid ""
 msgstr ""
 "您可以编辑或隐藏名片上的任何信息、下载联系人，并在“设置”中申请删除账户。我们会在 30 天内删除个人数据，但因会计需要必须保留的记录除外。"
 
-#: templates/marketing/legal_privacy.html:29
+#: templates/cards/business.html:115 templates/marketing/legal_privacy.html:29
 #: templates/partials/site_footer.html:24
 #: templates/partials/site_header.html:17
 #: templates/partials/site_header.html:51 templates/support/contact.html:6
@@ -4548,7 +4549,7 @@ msgstr ""
 msgid "5. Your digital card plan"
 msgstr "5. 您的电子名片套餐"
 
-#: templates/nfc/order.html:111
+#: templates/cards/business.html:201 templates/nfc/order.html:111
 msgid "Your order"
 msgstr "您的订单"
 
@@ -4766,11 +4767,11 @@ msgstr[0] "或立即增加 %(counter)s 人，%(upgrade_amount)s，涵盖剩余 %
 msgid "Or upgrade now for %(upgrade_amount)s, for the %(months_left)s left"
 msgstr "或立即升级，%(upgrade_amount)s，涵盖剩余 %(months_left)s"
 
-#: templates/cards/_contact.html:29
+#: templates/cards/_contact.html:32
 msgid "Mobile"
 msgstr "手机"
 
-#: templates/cards/_contact.html:54
+#: templates/cards/_contact.html:57
 msgid "Address"
 msgstr "地址"
 
@@ -5576,16 +5577,16 @@ msgstr "展示产品的商家主页"
 msgid "What would you like to know?"
 msgstr "您想了解什么？"
 
-#: apps/cards/views.py:233
+#: apps/cards/views.py:247
 #, python-format
 msgid "Thank you. %(name)s has your enquiry."
 msgstr "谢谢。%(name)s 已收到您的咨询。"
 
-#: apps/cards/views.py:242
+#: apps/cards/views.py:256
 msgid "You have already sent an enquiry. Try again in an hour."
 msgstr "您已经发送过咨询了。请一小时后再试。"
 
-#: apps/cards/views.py:252
+#: apps/cards/views.py:266
 #, python-format
 msgid "New enquiry from %(name)s"
 msgstr "来自 %(name)s 的新咨询"
@@ -5602,7 +5603,7 @@ msgstr "宣传语"
 msgid "About your business"
 msgstr "关于您的业务"
 
-#: apps/dashboard/forms.py:246 templates/cards/business.html:107
+#: apps/dashboard/forms.py:246 templates/cards/business.html:121
 msgid "Opening hours"
 msgstr "营业时间"
 
@@ -5712,40 +5713,40 @@ msgid ""
 "everyone."
 msgstr "只有您能看到此页面。请在控制台中开启，让所有人都能看到。"
 
-#: templates/cards/business.html:39 templates/cards/business.html:127
+#: templates/cards/business.html:43 templates/cards/business.html:171
 msgid "Send an enquiry"
 msgstr "发送咨询"
 
-#: templates/cards/business.html:41 templates/cards/business.html:139
+#: templates/cards/business.html:45 templates/cards/business.html:183
 msgid "Contact card"
 msgstr "联系名片"
 
-#: templates/cards/business.html:43
+#: templates/cards/business.html:47
 msgid "Share this page"
 msgstr "分享此页面"
 
-#: templates/cards/business.html:52
+#: templates/cards/business.html:109
 msgid "About us"
 msgstr "关于我们"
 
-#: templates/cards/business.html:59 templates/dashboard/business.html:47
+#: templates/cards/business.html:57 templates/dashboard/business.html:47
 msgid "Products"
 msgstr "产品"
 
-#: templates/cards/business.html:78 templates/dashboard/business.html:47
+#: templates/cards/business.html:128 templates/dashboard/business.html:47
 msgid "Services"
 msgstr "服务"
 
-#: templates/cards/business.html:92 templates/marketing/home.html:157
+#: templates/cards/business.html:142 templates/marketing/home.html:157
 msgid "What customers say"
 msgstr "客户评价"
 
-#: templates/cards/business.html:96
+#: templates/cards/business.html:146
 #, python-format
 msgid "%(rating)s out of 5 stars"
 msgstr "5 星中的 %(rating)s 星"
 
-#: templates/cards/business.html:133
+#: templates/cards/business.html:177
 msgid "Send enquiry"
 msgstr "发送咨询"
 
@@ -5830,7 +5831,7 @@ msgstr "删除"
 msgid "You have used all %(limit)s places here. Remove one to add another."
 msgstr "这里的 %(limit)s 个名额已全部用完。请先删除一个再添加新的。"
 
-#: templates/dashboard/business.html:79
+#: templates/cards/business.html:198 templates/dashboard/business.html:79
 msgid "Add"
 msgstr "添加"
 
@@ -6750,7 +6751,8 @@ msgid ""
 "directly, so check the product and agree the price before you pay."
 msgstr "AD Smart 不代收款项，也不负责配送。您直接与卖家交易，请在付款前核实商品并商定价格。"
 
-#: templates/marketing/shops.html:26 templates/marketing/shops.html:28
+#: templates/cards/business.html:64 templates/marketing/shops.html:26
+#: templates/marketing/shops.html:28
 msgid "Categories"
 msgstr "分类"
 
@@ -6811,9 +6813,42 @@ msgstr "下一页"
 msgid "Shops"
 msgstr "店铺"
 
-#: templates/cards/business.html:68 templates/marketing/shops.html:57
+#: templates/cards/business.html:84 templates/marketing/shops.html:57
 msgid "Buy"
 msgstr "购买"
+
+#: apps/cards/marketplace.py:81
+#, python-format
+msgid "Hi %(shop)s, I would like to order:"
+msgstr "您好 %(shop)s，我想订购："
+
+#: templates/cards/business.html:58
+msgid "Search this shop"
+msgstr "在本店中搜索"
+
+#: templates/cards/business.html:65
+msgid "All"
+msgstr "全部"
+
+#: templates/cards/business.html:91
+msgid "No products match your search."
+msgstr "没有符合您搜索的商品。"
+
+#: templates/cards/business.html:198
+msgid "One less"
+msgstr "减少一件"
+
+#: templates/cards/business.html:198
+msgid "One more"
+msgstr "增加一件"
+
+#: templates/cards/business.html:202
+msgid "Clear"
+msgstr "清空"
+
+#: templates/cards/business.html:203
+msgid "Send order"
+msgstr "发送订单"
 
 #~ msgid "Buy on WhatsApp"
 #~ msgstr "通过 WhatsApp 购买"

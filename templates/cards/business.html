@@ -17,100 +17,144 @@
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block floating %}{% endblock %}
-{% block scripts %}<script src="{% static 'js/shop.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
+{% block scripts %}<script src="{% static 'js/shop.js' %}{{ ASSET_Q }}" defer></script><script src="{% static 'js/storefront.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
 {% block content %}
 {% with name=card.business_name|default:card.full_name %}
-<article class="pcard biz pcard--{{ eff.template }} pcard--btn-{{ eff.button_style }}"{% if not demo and not preview %} data-shop="{{ card.slug }}" data-events-url="{% url 'cards:business_event' card.slug %}"{% endif %}
+<article class="pcard biz shop pcard--{{ eff.template }} pcard--btn-{{ eff.button_style }}"{% if not demo and not preview %} data-shop="{{ card.slug }}" data-events-url="{% url 'cards:business_event' card.slug %}"{% endif %}{% if cart_url %} data-cart-key="{{ card.slug }}" data-cart-url="{{ cart_url }}" data-cart-intro="{{ cart_intro }}" data-page-url="{{ page_url }}"{% endif %}
   style="--pc-accent:{{ pal.accent }};--pc-on-accent:{{ pal.on_accent }};--pc-accent-text:{{ pal.accent_text_light }};--pc-accent-text-dark:{{ pal.accent_text_dark }};--pc-band:{{ pal.band }};--pc-on-band:{{ pal.on_band }};">
 
   {% if preview %}<p class="biz-preview">{% icon "eye" 16 %} <span>{% trans "Only you can see this page. Switch it on in your dashboard to show it to everyone." %}</span></p>{% endif %}
   <div class="pcard__band"{% if eff.background %} style="background-image:url('{{ eff.background.url }}')"{% endif %}></div>
 
-  <header class="pcard__head">
-    <div class="pcard__avatar{% if eff.logo %} pcard__avatar--logo{% endif %}">
-      {% if logo %}<img src="{{ logo.url }}" alt="{{ name }}" width="120" height="120">{% else %}<span aria-hidden="true">{{ name|slice:":2"|upper }}</span>{% endif %}
-    </div>
-    <h1 class="pcard__name">{{ name }}</h1>
-    {% if page.tagline %}<p class="pcard__role">{{ page.tagline }}</p>{% endif %}
-  </header>
+  <div class="shop-top">
+    <header class="pcard__head">
+      <div class="pcard__avatar{% if eff.logo %} pcard__avatar--logo{% endif %}">
+        {% if logo %}<img src="{{ logo.url }}" alt="{{ name }}" width="120" height="120">{% else %}<span aria-hidden="true">{{ name|slice:":2"|upper }}</span>{% endif %}
+      </div>
+      <div class="shop-top__text">
+        <h1 class="pcard__name">{{ name }}</h1>
+        {% if page.tagline %}<p class="pcard__role">{{ page.tagline }}</p>{% endif %}
+      </div>
+    </header>
 
-  <div class="pcard__primary">
-    {% if enquiry_form %}
-      <a class="pcard__save" href="#enquire">{% icon "send" 20 %}<span>{% trans "Send an enquiry" %}</span></a>
-    {% else %}
-      <a class="pcard__save" href="{{ card_url }}">{% icon "user-plus" 20 %}<span>{% trans "Contact card" %}</span></a>
-    {% endif %}
-    {% trans "Share this page" as t_share %}<button type="button" class="pcard__share" data-share="{{ page_url }}" data-share-title="{{ name }}" aria-label="{{ t_share }}">
-      {% icon "share-2" 20 %}
-    </button>
+    <div class="shop-top__actions">
+      <div class="pcard__primary">
+        {% if enquiry_form %}
+          <a class="pcard__save" href="#enquire">{% icon "send" 20 %}<span>{% trans "Send an enquiry" %}</span></a>
+        {% else %}
+          <a class="pcard__save" href="{{ card_url }}">{% icon "user-plus" 20 %}<span>{% trans "Contact card" %}</span></a>
+        {% endif %}
+        {% trans "Share this page" as t_share %}<button type="button" class="pcard__share" data-share="{{ page_url }}" data-share-title="{{ name }}" aria-label="{{ t_share }}">
+          {% icon "share-2" 20 %}
+        </button>
+      </div>
+      {% include "cards/_contact.html" with first=name part="quick" %}
+    </div>
   </div>
 
-  {% include "cards/_contact.html" with first=name %}
-
-  {% if page.about %}
-    <section class="biz-section" aria-labelledby="biz-about">
-      <h2 id="biz-about">{% trans "About us" %}</h2>
-      <p class="biz-text">{{ page.about|linebreaksbr }}</p>
-    </section>
-  {% endif %}
-
   {% if products %}
-    <section class="biz-section" aria-labelledby="biz-products">
-      <h2 id="biz-products">{% trans "Products" %}</h2>
-      <ul class="biz-grid">
+    <section class="shop-products" aria-labelledby="biz-products">
+      <h2 id="biz-products" class="visually-hidden">{% trans "Products" %}</h2>
+      {% trans "Search this shop" as t_search %}
+      <div class="shop-tools" data-tools hidden>
+        <div class="shop-search" role="search">
+          {% icon "search" 18 %}<input type="search" data-search placeholder="{{ t_search }}" aria-label="{{ t_search }}" autocomplete="off" enterkeyhint="search">
+        </div>
+        {% if shop_cats %}
+          {% trans "Categories" as t_cats %}<div class="shop-chips" role="group" aria-label="{{ t_cats }}">
+            <button type="button" class="shop-chip" data-cat="" aria-pressed="true">{% trans "All" %}</button>
+            {% for c in shop_cats %}<button type="button" class="shop-chip" data-cat="{{ c.slug }}" aria-pressed="false">{% if c.slug == "other" %}{% trans "Other" %}{% else %}{{ c.name }}{% endif %}</button>{% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <ul class="biz-grid" data-grid>
         {% for product in products %}
-          <li class="biz-item{% if product.pk == picked %} biz-item--picked{% endif %}" id="p-{{ product.pk }}" data-product="{{ product.pk }}">
-            <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy" decoding="async">
-            <div class="biz-item__body">
-              <h3>{{ product.title }}</h3>
-              {% if product.price %}<p class="biz-price">{{ product.price }}</p>{% endif %}
-              {% if product.description %}<p class="biz-text">{{ product.description|linebreaksbr }}</p>{% endif %}
-              {% if product.buy_url %}<a class="biz-buy" href="{{ product.buy_url }}" target="_blank" rel="noopener" data-buy="{{ product.pk }}"><span>{% trans "Buy" %}</span></a>{% endif %}
-            </div>
+          <li class="biz-item{% if picked and product.pk == picked %} biz-item--picked{% endif %}" id="p-{{ product.pk }}" data-product="{{ product.pk }}" data-title="{{ product.title }}" data-price="{{ product.price }}" data-cat="{{ product.cat }}" data-search="{{ product.search_text }}">
+            <a class="biz-item__link" href="#p-{{ product.pk }}" data-open>
+              <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy" decoding="async">
+              <div class="biz-item__body">
+                <h3>{{ product.title }}</h3>
+                {% if product.price %}<p class="biz-price">{{ product.price }}</p>{% endif %}
+                {% if product.description %}<p class="biz-text biz-clamp">{{ product.description|linebreaksbr }}</p>{% endif %}
+              </div>
+            </a>
+            {% if product.buy_url or cart_url %}
+              <div class="biz-item__actions">
+                {% if product.buy_url %}<a class="biz-buy" href="{{ product.buy_url }}" target="_blank" rel="noopener" data-buy="{{ product.pk }}"><span>{% trans "Buy" %}</span></a>{% endif %}
+                {% if cart_url %}<span class="biz-cart" data-cart-slot></span>{% endif %}
+              </div>
+            {% endif %}
           </li>
         {% endfor %}
       </ul>
+      <p class="shop-empty" data-empty hidden>{% trans "No products match your search." %}</p>
     </section>
+
+    {% trans "Close" as t_close %}<dialog class="shop-dialog" data-dialog aria-labelledby="shop-dialog-title">
+      <button type="button" class="shop-dialog__close" data-close aria-label="{{ t_close }}">{% icon "x" 20 %}</button>
+      <img class="shop-dialog__img" data-d-img alt="" width="600" height="600">
+      <div class="shop-dialog__body">
+        <h2 id="shop-dialog-title" data-d-title></h2>
+        <p class="shop-dialog__price" data-d-price></p>
+        <div class="biz-text" data-d-text></div>
+        <div class="biz-item__actions" data-d-actions></div>
+      </div>
+    </dialog>
   {% endif %}
 
-  {% if services %}
-    <section class="biz-section" aria-labelledby="biz-services">
-      <h2 id="biz-services">{% trans "Services" %}</h2>
-      <ul class="biz-list">
-        {% for service in services %}
-          <li>
-            <span class="pcard__ico">{% icon "briefcase" 18 %}</span>
-            <span><strong>{{ service.title }}</strong>{% if service.description %}<span class="biz-text">{{ service.description|linebreaksbr }}</span>{% endif %}</span>
-          </li>
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
+  <div class="shop-info">
+    {% if page.about %}
+      <section class="biz-section" aria-labelledby="biz-about">
+        <h2 id="biz-about">{% trans "About us" %}</h2>
+        <p class="biz-text">{{ page.about|linebreaksbr }}</p>
+      </section>
+    {% endif %}
 
-  {% if reviews %}
-    <section class="biz-section" aria-labelledby="biz-reviews">
-      <h2 id="biz-reviews">{% trans "What customers say" %}</h2>
-      <ul class="biz-reviews">
-        {% for review in reviews %}
-          <li>
-            {% if review.rating %}{% blocktrans trimmed with rating=review.rating asvar t_stars %}{{ rating }} out of 5 stars{% endblocktrans %}<p class="biz-stars" role="img" aria-label="{{ t_stars }}">{{ review.stars }}</p>{% endif %}
-            <blockquote>{{ review.text|linebreaksbr }}</blockquote>
-            <p class="biz-author">{{ review.author }}</p>
-          </li>
-        {% endfor %}
-      </ul>
+    <section class="biz-section" aria-labelledby="biz-contact">
+      <h2 id="biz-contact">{% trans "Contact" %}</h2>
+      {% include "cards/_contact.html" with first=name part="details" %}
     </section>
-  {% endif %}
 
-  {% if page.hours %}
-    <section class="biz-section" aria-labelledby="biz-hours">
-      <h2 id="biz-hours">{% trans "Opening hours" %}</h2>
-      <p class="biz-text">{{ page.hours|linebreaksbr }}</p>
-    </section>
-  {% endif %}
+    {% if page.hours %}
+      <section class="biz-section" aria-labelledby="biz-hours">
+        <h2 id="biz-hours">{% trans "Opening hours" %}</h2>
+        <p class="biz-text">{{ page.hours|linebreaksbr }}</p>
+      </section>
+    {% endif %}
+
+    {% if services %}
+      <section class="biz-section" aria-labelledby="biz-services">
+        <h2 id="biz-services">{% trans "Services" %}</h2>
+        <ul class="biz-list">
+          {% for service in services %}
+            <li>
+              <span class="pcard__ico">{% icon "briefcase" 18 %}</span>
+              <span><strong>{{ service.title }}</strong>{% if service.description %}<span class="biz-text">{{ service.description|linebreaksbr }}</span>{% endif %}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+    {% if reviews %}
+      <section class="biz-section biz-section--wide" aria-labelledby="biz-reviews">
+        <h2 id="biz-reviews">{% trans "What customers say" %}</h2>
+        <ul class="biz-reviews">
+          {% for review in reviews %}
+            <li>
+              {% if review.rating %}{% blocktrans trimmed with rating=review.rating asvar t_stars %}{{ rating }} out of 5 stars{% endblocktrans %}<p class="biz-stars" role="img" aria-label="{{ t_stars }}">{{ review.stars }}</p>{% endif %}
+              <blockquote>{{ review.text|linebreaksbr }}</blockquote>
+              <p class="biz-author">{{ review.author }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  </div>
 
   {% if eff.social_links %}
-    {% trans "Social media" as t_social %}<section class="pcard__social pcard__social--{{ eff.icon_layout }}" aria-label="{{ t_social }}">
+    {% trans "Social media" as t_social %}<section class="pcard__social pcard__social--{{ eff.icon_layout }} shop-narrow" aria-label="{{ t_social }}">
       <ul>
         {% for link in eff.social_links %}
           <li><a href="{{ link.url }}" target="_blank" rel="noopener"{% if eff.icon_layout == "row" %} aria-label="{{ link.label }}"{% endif %}>
@@ -123,7 +167,7 @@
   {% endif %}
 
   {% if enquiry_form %}
-    <details class="pcard__panel" id="enquire"{% if open_enquiry %} open{% endif %}>
+    <details class="pcard__panel shop-narrow" id="enquire"{% if open_enquiry %} open{% endif %}>
       <summary>{% icon "send" 18 %}<span>{% trans "Send an enquiry" %}</span>{% icon "chevron-down" 18 "pcard__chev" %}</summary>
       <form method="post" action="{% url 'cards:enquire' card.slug %}" class="form pcard__form" novalidate>
         {% csrf_token %}
@@ -135,7 +179,7 @@
     </details>
   {% endif %}
 
-  <div class="pcard__primary">
+  <div class="pcard__primary shop-narrow">
     <a class="pcard__explore" href="{{ card_url }}">{% icon "user-plus" 20 %}<span>{% trans "Contact card" %}</span>{% icon "arrow-right" 18 %}</a>
   </div>
 
@@ -149,5 +193,16 @@
     {% include "partials/lang_switch.html" %}{% endif %}
   </footer>
 </article>
+
+{% if cart_url %}
+  {% trans "Add" as t_add %}{% trans "One less" as t_less %}{% trans "One more" as t_more %}
+  <div class="shop-cart" data-cart hidden data-t-add="{{ t_add }}" data-t-less="{{ t_less }}" data-t-more="{{ t_more }}">
+    <div class="shop-cart__in">
+      <p class="shop-cart__sum">{% trans "Your order" %}: <b data-cart-count aria-live="polite">0</b></p>
+      <button type="button" class="shop-cart__clear" data-cart-clear>{% trans "Clear" %}</button>
+      <a class="shop-cart__send" data-cart-send href="{{ cart_url }}" target="_blank" rel="noopener">{% trans "Send order" %}</a>
+    </div>
+  </div>
+{% endif %}
 {% endwith %}
 {% endblock %}

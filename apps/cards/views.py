@@ -167,13 +167,27 @@ def business_context(page, form=None, **extra):
     page_url = page.public_url()
     # Products staff hid are gone for the public. Each shown one carries its "Buy" (WhatsApp) link: the card's
     # WhatsApp number, else a WhatsApp link the owner pasted, with the product and price already typed in.
-    products = [p for p in page.products.all() if not p.is_hidden][: eff["plan"].max_products]
+    products = [p for p in page.products.select_related("category") if not p.is_hidden][: eff["plan"].max_products]
     target = marketplace.whatsapp_target(card)
     name = card.business_name or card.full_name
+    named = {}  # the active categories these products use, for the filter chips
     for product in products:
         link = f"{page_url}?p={product.pk}"
         product.buy_url = marketplace.buy_url(target, marketplace.buy_text(name, product.title, product.price, link))
+        category = product.category if product.category and product.category.is_active else None
+        product.cat = category.slug if category else marketplace.OTHER
+        product.search_text = f"{product.title} {product.description} {category.name if category else ''}"
+        if category:
+            named[category.slug] = category
+    chips = [{"slug": c.slug, "name": c.name} for c in sorted(named.values(), key=lambda c: (c.position, c.name))]
+    if chips and any(p.cat == marketplace.OTHER for p in products):
+        chips.append({"slug": marketplace.OTHER, "name": ""})  # named in the template, so it is translated
+    # The cart sends one message to the same chat as Buy, so it needs a chat link that can carry a typed message.
+    cart_url = marketplace.buy_url(target, "")
     context = {
+        "shop_cats": chips if len({p.cat for p in products}) > 1 else [],
+        "cart_url": cart_url if "text=" in cart_url and products else "",
+        "cart_intro": marketplace.cart_intro(name),
         "page": page,
         "preview": not page.is_on,  # only the owner gets here while the page is off
         "card": card,

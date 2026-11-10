@@ -1,5 +1,6 @@
 {% load l10n %}{# Quick contact buttons and the contact details list, shared by the card and the business page. #}
   {% with phones=eff.phones %}
+  {% if part != "details" %}
   {% blocktrans trimmed asvar t_3 %}Contact {{ first }}{% endblocktrans %}<nav class="pcard__quick" aria-label="{{ t_3 }}">
     {% if phones and card|card_shows:"phones" %}
       <a href="tel:{{ phones.0.number }}" data-track="call">{% icon "phone" 20 %}<span>{% trans "Call" %}</span></a>
@@ -19,7 +20,9 @@
       <a href="https://www.google.com/maps/search/?api=1&amp;query={{ card.address|urlencode }}" target="_blank" rel="noopener" data-track="location">{% icon "map-pin" 20 %}<span>{% trans "Map" %}</span></a>
     {% endif %}
   </nav>
+  {% endif %}
 
+  {% if part != "quick" %}
   {% trans "Contact details" as t_4 %}<section class="pcard__details" aria-label="{{ t_4 }}">
     <ul>
       {% if card|card_shows:"phones" %}
@@ -62,4 +65,5 @@
       {% endif %}
     </ul>
   </section>
+  {% endif %}
   {% endwith %}

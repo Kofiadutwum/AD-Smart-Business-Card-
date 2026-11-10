@@ -642,7 +642,7 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: apps/cards/forms.py:23 apps/dashboard/views.py:397 apps/support/forms.py:18 templates/cards/_contact.html:11 templates/cards/_contact.html:42 templates/dashboard/leads.html:15 templates/dashboard/share.html:23 templates/support/contact.html:24
+#: apps/cards/forms.py:23 apps/dashboard/views.py:397 apps/support/forms.py:18 templates/cards/_contact.html:12 templates/cards/_contact.html:45 templates/dashboard/leads.html:15 templates/dashboard/share.html:23 templates/support/contact.html:24
 msgid "Email"
 msgstr ""
 
@@ -698,6 +698,11 @@ msgstr ""
 #: apps/cards/marketplace.py:76
 #, python-format
 msgid "Hi %(shop)s, I would like to buy %(product)s. %(link)s"
+msgstr ""
+
+#: apps/cards/marketplace.py:81
+#, python-format
+msgid "Hi %(shop)s, I would like to order:"
 msgstr ""
 
 #: apps/cards/models.py:26
@@ -764,11 +769,11 @@ msgstr ""
 msgid "Phone numbers"
 msgstr ""
 
-#: apps/cards/models.py:47 apps/cards/models.py:305 templates/cards/_contact.html:8 templates/cards/_contact.html:36
+#: apps/cards/models.py:47 apps/cards/models.py:305 templates/cards/_contact.html:9 templates/cards/_contact.html:39
 msgid "WhatsApp"
 msgstr ""
 
-#: apps/cards/models.py:48 apps/cards/models.py:311 apps/dashboard/forms.py:55 apps/nfc/forms.py:30 templates/cards/_contact.html:14 templates/cards/_contact.html:48
+#: apps/cards/models.py:48 apps/cards/models.py:311 apps/dashboard/forms.py:55 apps/nfc/forms.py:30 templates/cards/_contact.html:15 templates/cards/_contact.html:51
 msgid "Website"
 msgstr ""
 
@@ -776,7 +781,7 @@ msgstr ""
 msgid "Physical address"
 msgstr ""
 
-#: apps/cards/models.py:50 templates/cards/_contact.html:60
+#: apps/cards/models.py:50 templates/cards/_contact.html:63
 msgid "Ghana Post GPS"
 msgstr ""
 
@@ -908,7 +913,7 @@ msgstr ""
 msgid "Offensive content"
 msgstr ""
 
-#: apps/cards/models.py:397 apps/dashboard/forms.py:275 apps/support/models.py:17 templates/marketing/shops.html:33
+#: apps/cards/models.py:397 apps/dashboard/forms.py:275 apps/support/models.py:17 templates/cards/business.html:66 templates/marketing/shops.html:33
 msgid "Other"
 msgstr ""
 
@@ -979,25 +984,25 @@ msgstr ""
 msgid "%(name)s shared their details with you"
 msgstr ""
 
-#: apps/cards/views.py:233
+#: apps/cards/views.py:247
 #, python-format
 msgid "Thank you. %(name)s has your enquiry."
 msgstr ""
 
-#: apps/cards/views.py:242
+#: apps/cards/views.py:256
 msgid "You have already sent an enquiry. Try again in an hour."
 msgstr ""
 
-#: apps/cards/views.py:252
+#: apps/cards/views.py:266
 #, python-format
 msgid "New enquiry from %(name)s"
 msgstr ""
 
-#: apps/cards/views.py:291
+#: apps/cards/views.py:305
 msgid "You have sent several reports already. Try again later."
 msgstr ""
 
-#: apps/cards/views.py:301
+#: apps/cards/views.py:315
 msgid "Thank you. Our support team will review this card."
 msgstr ""
 
@@ -1450,7 +1455,7 @@ msgstr ""
 msgid "About your business"
 msgstr ""
 
-#: apps/dashboard/forms.py:246 templates/cards/business.html:107
+#: apps/dashboard/forms.py:246 templates/cards/business.html:121
 msgid "Opening hours"
 msgstr ""
 
@@ -2901,7 +2906,7 @@ msgstr ""
 msgid "About %(first)s"
 msgstr ""
 
-#: templates/cards/_card.html:41 templates/cards/business.html:113
+#: templates/cards/_card.html:41 templates/cards/business.html:157
 msgid "Social media"
 msgstr ""
 
@@ -2910,7 +2915,7 @@ msgstr ""
 msgid "Share your details with %(first)s"
 msgstr ""
 
-#: templates/cards/_card.html:58 templates/cards/business.html:130
+#: templates/cards/_card.html:58 templates/cards/business.html:174
 msgid "Leave empty"
 msgstr ""
 
@@ -2926,36 +2931,36 @@ msgstr ""
 msgid "Let someone scan this to open the card."
 msgstr ""
 
-#: templates/cards/_card.html:76 templates/cards/business.html:145
+#: templates/cards/_card.html:76 templates/cards/business.html:189
 msgid "Powered by AD Smart"
 msgstr ""
 
-#: templates/cards/_card.html:79 templates/cards/business.html:148 templates/cards/report.html:7
+#: templates/cards/_card.html:79 templates/cards/business.html:192 templates/cards/report.html:7
 msgid "Report this card"
 msgstr ""
 
-#: templates/cards/_contact.html:3
+#: templates/cards/_contact.html:4
 #, python-format
 msgid "Contact %(first)s"
 msgstr ""
 
-#: templates/cards/_contact.html:5 templates/support/contact.html:23
+#: templates/cards/_contact.html:6 templates/support/contact.html:23
 msgid "Call"
 msgstr ""
 
-#: templates/cards/_contact.html:17 templates/cards/_contact.html:19
+#: templates/cards/_contact.html:18 templates/cards/_contact.html:20
 msgid "Map"
 msgstr ""
 
-#: templates/cards/_contact.html:23 templates/dashboard/editor.html:88
+#: templates/cards/_contact.html:26 templates/dashboard/editor.html:88
 msgid "Contact details"
 msgstr ""
 
-#: templates/cards/_contact.html:29
+#: templates/cards/_contact.html:32
 msgid "Mobile"
 msgstr ""
 
-#: templates/cards/_contact.html:54
+#: templates/cards/_contact.html:57
 msgid "Address"
 msgstr ""
 
@@ -2963,45 +2968,93 @@ msgstr ""
 msgid "Only you can see this page. Switch it on in your dashboard to show it to everyone."
 msgstr ""
 
-#: templates/cards/business.html:39 templates/cards/business.html:127
+#: templates/cards/business.html:43 templates/cards/business.html:171
 msgid "Send an enquiry"
 msgstr ""
 
-#: templates/cards/business.html:41 templates/cards/business.html:139
+#: templates/cards/business.html:45 templates/cards/business.html:183
 msgid "Contact card"
 msgstr ""
 
-#: templates/cards/business.html:43
+#: templates/cards/business.html:47
 msgid "Share this page"
 msgstr ""
 
-#: templates/cards/business.html:52
-msgid "About us"
-msgstr ""
-
-#: templates/cards/business.html:59 templates/dashboard/business.html:47
+#: templates/cards/business.html:57 templates/dashboard/business.html:47
 msgid "Products"
 msgstr ""
 
-#: templates/cards/business.html:68 templates/marketing/shops.html:57
+#: templates/cards/business.html:58
+msgid "Search this shop"
+msgstr ""
+
+#: templates/cards/business.html:64 templates/marketing/shops.html:26 templates/marketing/shops.html:28
+msgid "Categories"
+msgstr ""
+
+#: templates/cards/business.html:65
+msgid "All"
+msgstr ""
+
+#: templates/cards/business.html:84 templates/marketing/shops.html:57
 msgid "Buy"
 msgstr ""
 
-#: templates/cards/business.html:78 templates/dashboard/business.html:47
+#: templates/cards/business.html:91
+msgid "No products match your search."
+msgstr ""
+
+#: templates/cards/business.html:94 templates/marketing/_lightbox.html:5
+msgid "Close"
+msgstr ""
+
+#: templates/cards/business.html:109
+msgid "About us"
+msgstr ""
+
+#: templates/cards/business.html:115 templates/marketing/legal_privacy.html:29 templates/partials/site_footer.html:24 templates/partials/site_header.html:17 templates/partials/site_header.html:51 templates/support/contact.html:6
+msgid "Contact"
+msgstr ""
+
+#: templates/cards/business.html:128 templates/dashboard/business.html:47
 msgid "Services"
 msgstr ""
 
-#: templates/cards/business.html:92 templates/marketing/home.html:157
+#: templates/cards/business.html:142 templates/marketing/home.html:157
 msgid "What customers say"
 msgstr ""
 
-#: templates/cards/business.html:96
+#: templates/cards/business.html:146
 #, python-format
 msgid "%(rating)s out of 5 stars"
 msgstr ""
 
-#: templates/cards/business.html:133
+#: templates/cards/business.html:177
 msgid "Send enquiry"
+msgstr ""
+
+#: templates/cards/business.html:198 templates/dashboard/business.html:79
+msgid "Add"
+msgstr ""
+
+#: templates/cards/business.html:198
+msgid "One less"
+msgstr ""
+
+#: templates/cards/business.html:198
+msgid "One more"
+msgstr ""
+
+#: templates/cards/business.html:201 templates/nfc/order.html:111
+msgid "Your order"
+msgstr ""
+
+#: templates/cards/business.html:202
+msgid "Clear"
+msgstr ""
+
+#: templates/cards/business.html:203
+msgid "Send order"
 msgstr ""
 
 #: templates/cards/claim_attach.html:2
@@ -3547,10 +3600,6 @@ msgstr ""
 #: templates/dashboard/business.html:77
 #, python-format
 msgid "You have used all %(limit)s places here. Remove one to add another."
-msgstr ""
-
-#: templates/dashboard/business.html:79
-msgid "Add"
 msgstr ""
 
 #: templates/dashboard/business_item.html:7
@@ -4720,10 +4769,6 @@ msgstr ""
 msgid "<strong>Draft for review.</strong> This text follows the business rules in the AD Smart requirements. Have it reviewed by a lawyer before launch, and confirm your Data Protection Commission obligations (SRS PRV-03)."
 msgstr ""
 
-#: templates/marketing/_lightbox.html:5
-msgid "Close"
-msgstr ""
-
 #: templates/marketing/_nfc_section.html:5
 msgid "A printed card that opens your digital one."
 msgstr ""
@@ -5203,10 +5248,6 @@ msgstr ""
 msgid "You can edit or hide any detail on your card, download your contacts, and ask us to delete your account from Settings. We remove personal data within 30 days, except records we must keep for accounting."
 msgstr ""
 
-#: templates/marketing/legal_privacy.html:29 templates/partials/site_footer.html:24 templates/partials/site_header.html:17 templates/partials/site_header.html:51 templates/support/contact.html:6
-msgid "Contact"
-msgstr ""
-
 #: templates/marketing/legal_refunds.html:2
 #, python-format
 msgid "Refund Policy · %(SITE_NAME)s"
@@ -5488,10 +5529,6 @@ msgstr ""
 
 #: templates/marketing/shops.html:22
 msgid "AD Smart does not take payment or deliver. You deal with the seller directly, so check the product and agree the price before you pay."
-msgstr ""
-
-#: templates/marketing/shops.html:26 templates/marketing/shops.html:28
-msgid "Categories"
 msgstr ""
 
 #: templates/marketing/shops.html:31
@@ -5785,10 +5822,6 @@ msgstr ""
 
 #: templates/nfc/order.html:102
 msgid "5. Your digital card plan"
-msgstr ""
-
-#: templates/nfc/order.html:111
-msgid "Your order"
 msgstr ""
 
 #: templates/nfc/order.html:118
