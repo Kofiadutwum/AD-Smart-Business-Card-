@@ -44,7 +44,7 @@ msgstr "我接受服务条款和隐私政策"
 msgid "You need to accept the terms to create an account."
 msgstr "您需要接受条款才能创建账户。"
 
-#: apps/accounts/services.py:80
+#: apps/accounts/services.py:81
 msgid "That email already has an account. Sign in instead."
 msgstr "该邮箱已有账户，请直接登录。"
 
@@ -89,7 +89,7 @@ msgstr "这不是您当前的密码。"
 msgid "That number is linked to another account."
 msgstr "该号码已关联到另一个账户。"
 
-#: apps/accounts/services.py:115
+#: apps/accounts/services.py:122
 #, python-format
 msgid "Your password reset code: %(code)s"
 msgstr "您的密码重置验证码：%(code)s"
@@ -370,7 +370,7 @@ msgstr "您的收据 %(number)s"
 msgid "Plans are not set up yet. Please contact support."
 msgstr "套餐尚未设置，请联系客服。"
 
-#: apps/billing/views.py:75 apps/dashboard/views.py:190
+#: apps/billing/views.py:75 apps/dashboard/views.py:191
 msgid ""
 "Please tick the box to accept the Terms and Refund Policy before paying."
 msgstr "付款前，请勾选复选框以接受条款和退款政策。"
@@ -396,7 +396,7 @@ msgstr[0] "在 %(plan)s 增加 %(added)d 人，%(months_left)s"
 msgid "Upgrade to %(plan)s for %(months_left)s"
 msgstr "升级至 %(plan)s，%(months_left)s"
 
-#: apps/billing/views.py:107 apps/dashboard/views.py:200 apps/nfc/views.py:256
+#: apps/billing/views.py:107 apps/dashboard/views.py:201 apps/nfc/views.py:256
 #, python-format
 msgid "%(reason)s You have not been charged."
 msgstr "%(reason)s 您未被扣费。"
@@ -611,7 +611,7 @@ msgstr "点击社交媒体"
 msgid "Location click"
 msgstr "点击位置"
 
-#: apps/cards/models.py:356 apps/dashboard/views.py:358
+#: apps/cards/models.py:356 apps/dashboard/views.py:359
 msgid "Direct link"
 msgstr "直接链接"
 
@@ -635,7 +635,8 @@ msgstr "欺诈或骗局"
 msgid "Offensive content"
 msgstr "冒犯性内容"
 
-#: apps/cards/models.py:397 apps/support/models.py:17
+#: apps/cards/models.py:397 apps/dashboard/forms.py:275
+#: apps/support/models.py:17 templates/marketing/shops.html:33
 msgid "Other"
 msgstr "其他"
 
@@ -707,11 +708,11 @@ msgstr "您已发送过信息，请一小时后再试。"
 msgid "%(name)s shared their details with you"
 msgstr "%(name)s 与您分享了联系方式"
 
-#: apps/cards/views.py:251
+#: apps/cards/views.py:291
 msgid "You have sent several reports already. Try again later."
 msgstr "您已多次提交举报，请稍后再试。"
 
-#: apps/cards/views.py:261
+#: apps/cards/views.py:301
 msgid "Thank you. Our support team will review this card."
 msgstr "谢谢。我们的客服团队会审核这张名片。"
 
@@ -936,40 +937,40 @@ msgstr "新名片上的姓名"
 msgid "Position"
 msgstr "职位"
 
-#: apps/dashboard/views.py:132
+#: apps/dashboard/views.py:133
 msgid "Some details need fixing. Look for the messages in red."
 msgstr "部分信息需要修改，请查看红色提示。"
 
-#: apps/dashboard/views.py:232
+#: apps/dashboard/views.py:233
 #, python-format
 msgid "Your link is now /c/%(slug)s. The old link redirects here."
 msgstr "您的链接现为 /c/%(slug)s，旧链接会自动跳转到这里。"
 
-#: apps/dashboard/views.py:236
+#: apps/dashboard/views.py:237
 msgid "Enter a link between 3 and 40 characters."
 msgstr "请输入 3 到 40 个字符的链接。"
 
-#: apps/dashboard/views.py:256
+#: apps/dashboard/views.py:257
 #, python-format
 msgid ""
 "The %(plan)s plan includes %(limit)s social links. Upgrade for unlimited "
 "links."
 msgstr "%(plan)s 套餐包含 %(limit)s 个社交媒体链接。升级即可使用不限数量的链接。"
 
-#: apps/dashboard/views.py:262
+#: apps/dashboard/views.py:263
 #, python-format
 msgid "%(label)s added."
 msgstr "已添加 %(label)s。"
 
-#: apps/dashboard/views.py:280
+#: apps/dashboard/views.py:281
 msgid "Link removed."
 msgstr "已删除链接。"
 
-#: apps/dashboard/views.py:409
+#: apps/dashboard/views.py:410
 msgid "Contact removed."
 msgstr "已删除联系人。"
 
-#: apps/dashboard/views.py:432
+#: apps/dashboard/views.py:433
 #, python-format
 msgid ""
 "All %(limit)d place on your plan is in use. Switch off or delete a card you "
@@ -979,48 +980,48 @@ msgid_plural ""
 "you no longer need, or add people to your plan."
 msgstr[0] "您套餐中的 %(limit)d 个名额均已用完。请关闭或删除不再需要的名片，或为套餐增加人数。"
 
-#: apps/dashboard/views.py:440
+#: apps/dashboard/views.py:441
 msgid "New card created. Fill in the details."
 msgstr "已创建新名片，请填写信息。"
 
-#: apps/dashboard/views.py:454
+#: apps/dashboard/views.py:455
 msgid "Switch another card off first, or add people to your plan."
 msgstr "请先关闭另一张名片，或为套餐增加人数。"
 
-#: apps/dashboard/views.py:460
+#: apps/dashboard/views.py:461
 #, python-format
 msgid "%(name)s is now live."
 msgstr "%(name)s 的名片现已上线。"
 
-#: apps/dashboard/views.py:460
+#: apps/dashboard/views.py:461
 #, python-format
 msgid "%(name)s is now switched off."
 msgstr "%(name)s 的名片已关闭。"
 
-#: apps/dashboard/views.py:470
+#: apps/dashboard/views.py:471
 msgid "You need at least one card. Edit this one instead."
 msgstr "至少需要保留一张名片，请改为编辑这张。"
 
-#: apps/dashboard/views.py:474
+#: apps/dashboard/views.py:475
 #, python-format
 msgid ""
 "%(name)s's card was deleted. Its link will show that the card no longer "
 "exists."
 msgstr "已删除 %(name)s 的名片。其链接将显示该名片已不存在。"
 
-#: apps/dashboard/views.py:600
+#: apps/dashboard/views.py:607
 msgid "Account details saved."
 msgstr "账户信息已保存。"
 
-#: apps/dashboard/views.py:611
+#: apps/dashboard/views.py:618
 msgid "Type your email address exactly to confirm."
 msgstr "请准确输入您的邮箱地址以确认。"
 
-#: apps/dashboard/views.py:619
+#: apps/dashboard/views.py:626
 msgid "We received your account deletion request"
 msgstr "我们已收到您的账户删除申请"
 
-#: apps/dashboard/views.py:623
+#: apps/dashboard/views.py:630
 msgid ""
 "Your deletion request is recorded. Your data will be removed within 30 days."
 msgstr "已记录您的删除申请，您的数据将在 30 天内删除。"
@@ -1687,8 +1688,8 @@ msgstr "欢迎回来"
 msgid "Log in to edit your card, see who viewed it and track NFC orders."
 msgstr "登录后可编辑名片、查看访客并跟踪 NFC 订单。"
 
-#: templates/accounts/login.html:16 templates/partials/site_header.html:32
-#: templates/partials/site_header.html:58
+#: templates/accounts/login.html:16 templates/partials/site_header.html:33
+#: templates/partials/site_header.html:60
 msgid "Log in"
 msgstr "登录"
 
@@ -1950,7 +1951,7 @@ msgstr "您的所有付款记录，每笔成功付款均可下载 PDF 收据。�
 msgid "Your payments"
 msgstr "您的付款"
 
-#: apps/dashboard/views.py:396 templates/billing/receipts.html:11
+#: apps/dashboard/views.py:397 templates/billing/receipts.html:11
 msgid "Date"
 msgstr "日期"
 
@@ -2069,7 +2070,7 @@ msgstr "联系 %(first)s"
 msgid "Call"
 msgstr "拨打电话"
 
-#: apps/cards/forms.py:23 apps/dashboard/views.py:396 apps/support/forms.py:18
+#: apps/cards/forms.py:23 apps/dashboard/views.py:397 apps/support/forms.py:18
 #: templates/cards/_contact.html:11 templates/cards/_contact.html:42
 #: templates/dashboard/leads.html:15 templates/dashboard/share.html:23
 #: templates/support/contact.html:24
@@ -2089,7 +2090,7 @@ msgstr "联系方式"
 msgid "About %(first)s"
 msgstr "关于 %(first)s"
 
-#: templates/cards/_card.html:41 templates/cards/business.html:111
+#: templates/cards/_card.html:41 templates/cards/business.html:113
 msgid "Social media"
 msgstr "社交媒体"
 
@@ -2098,7 +2099,7 @@ msgstr "社交媒体"
 msgid "Share your details with %(first)s"
 msgstr "与 %(first)s 分享您的联系方式"
 
-#: templates/cards/_card.html:58 templates/cards/business.html:128
+#: templates/cards/_card.html:58 templates/cards/business.html:130
 msgid "Leave empty"
 msgstr "请留空"
 
@@ -2114,11 +2115,11 @@ msgstr "显示二维码"
 msgid "Let someone scan this to open the card."
 msgstr "让对方扫描此码即可打开名片。"
 
-#: templates/cards/_card.html:76 templates/cards/business.html:143
+#: templates/cards/_card.html:76 templates/cards/business.html:145
 msgid "Powered by AD Smart"
 msgstr "由 AD Smart 提供技术支持"
 
-#: templates/cards/_card.html:79 templates/cards/business.html:146
+#: templates/cards/_card.html:79 templates/cards/business.html:148
 #: templates/cards/report.html:7
 msgid "Report this card"
 msgstr "举报这张名片"
@@ -2303,12 +2304,12 @@ msgid "Open menu"
 msgstr "打开菜单"
 
 #: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65
-#: templates/dashboard/settings.html:31 templates/partials/site_header.html:22
+#: templates/dashboard/settings.html:31 templates/partials/site_header.html:23
 msgid "Change theme"
 msgstr "切换主题"
 
 #: templates/dashboard/_shell.html:23 templates/dashboard/_shell.html:28
-#: templates/partials/site_header.html:29
+#: templates/partials/site_header.html:30
 msgid "Dashboard"
 msgstr "控制面板"
 
@@ -2355,8 +2356,8 @@ msgstr "订单与账单"
 #: templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6
 #: templates/nfc/order.html:6 templates/nfc/order.html:113
 #: templates/partials/site_footer.html:17
-#: templates/partials/site_header.html:14
-#: templates/partials/site_header.html:47
+#: templates/partials/site_header.html:15
+#: templates/partials/site_header.html:49
 msgid "NFC cards"
 msgstr "NFC 卡片"
 
@@ -2485,7 +2486,7 @@ msgid "Your cards"
 msgstr "您的名片"
 
 #: apps/billing/models.py:225 apps/cards/models.py:220
-#: apps/dashboard/views.py:396 templates/dashboard/cards.html:17
+#: apps/dashboard/views.py:397 templates/dashboard/cards.html:17
 msgid "Card"
 msgstr "名片"
 
@@ -2507,7 +2508,7 @@ msgstr "开"
 msgid "Off"
 msgstr "关"
 
-#: templates/dashboard/business.html:60 templates/dashboard/cards.html:25
+#: templates/dashboard/business.html:68 templates/dashboard/cards.html:25
 msgid "Edit"
 msgstr "编辑"
 
@@ -2764,22 +2765,22 @@ msgstr "导出 CSV"
 msgid "Contacts received"
 msgstr "收到的联系人"
 
-#: apps/dashboard/forms.py:260 apps/dashboard/views.py:396
+#: apps/dashboard/forms.py:262 apps/dashboard/views.py:397
 #: templates/dashboard/leads.html:15
 msgid "Name"
 msgstr "姓名"
 
-#: apps/cards/forms.py:22 apps/dashboard/views.py:396
+#: apps/cards/forms.py:22 apps/dashboard/views.py:397
 #: templates/dashboard/leads.html:15
 msgid "Phone"
 msgstr "电话"
 
-#: apps/cards/forms.py:24 apps/dashboard/views.py:396
+#: apps/cards/forms.py:24 apps/dashboard/views.py:397
 #: templates/dashboard/leads.html:15
 msgid "Company"
 msgstr "公司"
 
-#: apps/dashboard/views.py:396 templates/dashboard/leads.html:15
+#: apps/dashboard/views.py:397 templates/dashboard/leads.html:15
 msgid "Came via"
 msgstr "来源"
 
@@ -3647,7 +3648,7 @@ msgid "Choose %(name)s"
 msgstr "选择 %(name)s"
 
 #: templates/marketing/_plans.html:36 templates/marketing/_plans.html:36
-#: templates/marketing/home.html:142
+#: templates/marketing/home.html:166
 #, python-format
 msgid "Start with %(name)s"
 msgstr "从 %(name)s 开始"
@@ -3668,8 +3669,8 @@ msgid "Frequently asked questions · %(SITE_NAME)s"
 msgstr "常见问题 · %(SITE_NAME)s"
 
 #: templates/marketing/faq.html:6 templates/partials/site_footer.html:19
-#: templates/partials/site_header.html:15
-#: templates/partials/site_header.html:48
+#: templates/partials/site_header.html:16
+#: templates/partials/site_header.html:50
 msgid "FAQ"
 msgstr "常见问题"
 
@@ -3689,58 +3690,59 @@ msgstr "NFC 的工作原理、iPhone 与安卓、续订、配送和退款。没�
 msgid "%(SITE_NAME)s — your business card, one tap away"
 msgstr "%(SITE_NAME)s —— 您的名片，轻触即达"
 
-#: templates/marketing/home.html:18
+#: templates/marketing/home.html:19
 msgid ""
 "A hand holding an AD Graphics business card showing the AD logo, Kofi "
 "Adutwum’s name, WhatsApp, Instagram, phone and email"
 msgstr ""
 "一只手拿着 AD Graphics 名片，上面有 AD 标志、Kofi Adutwum 的姓名、WhatsApp、Instagram、电话和邮箱"
 
-#: templates/marketing/home.html:24
+#: templates/marketing/home.html:25
 msgid "Your business card, <span class=\"glow\">one tap away.</span>"
 msgstr "您的名片，<span class=\"glow\">轻触即达。</span>"
 
-#: templates/marketing/home.html:25
+#: templates/marketing/home.html:26
 msgid ""
 "Share your details by link, QR code or a tap of an NFC card. People save you"
 " to their phone in one tap — and you can change your details any time "
 "without reprinting."
 msgstr "通过链接、二维码或轻触 NFC 卡片分享您的联系方式。对方一键即可存入手机，您也可以随时修改资料，无需重新印刷。"
 
-#: templates/marketing/home.html:27 templates/marketing/home.html:211
-#: templates/partials/site_header.html:57
+#: templates/marketing/home.html:28 templates/marketing/home.html:235
+#: templates/partials/site_header.html:59
 msgid "Create my card"
 msgstr "创建我的名片"
 
-#: templates/marketing/home.html:28 templates/marketing/home.html:143
+#: templates/marketing/home.html:29 templates/marketing/home.html:167
+#: templates/marketing/shops.html:75
 msgid "See plans and prices"
 msgstr "查看套餐与价格"
 
-#: templates/marketing/home.html:31
+#: templates/marketing/home.html:32
 msgid "From"
 msgstr "起价"
 
-#: templates/marketing/home.html:31
+#: templates/marketing/home.html:32
 msgid "a year"
 msgstr "每年"
 
-#: templates/marketing/home.html:32
+#: templates/marketing/home.html:33
 msgid "MoMo and cards via Paystack"
 msgstr "通过 Paystack 支持 MoMo 和银行卡"
 
-#: templates/marketing/home.html:33
+#: templates/marketing/home.html:34
 msgid "Works on iPhone and Android"
 msgstr "支持 iPhone 和安卓"
 
-#: templates/marketing/home.html:43
+#: templates/marketing/home.html:44
 msgid "About AD"
 msgstr "关于 AD"
 
-#: templates/marketing/home.html:44
+#: templates/marketing/home.html:45
 msgid "Made by a design studio that lives in print."
 msgstr "出自一家深耕印刷设计的工作室。"
 
-#: templates/marketing/home.html:45
+#: templates/marketing/home.html:46
 msgid ""
 "AD Smart Business Cards is a service of AD Graphics, a Ghanaian design "
 "studio behind more than 2,500 designs — logos, flyers, brand kits and print "
@@ -3749,7 +3751,7 @@ msgstr ""
 "AD Smart Business Cards 是 AD Graphics 旗下的服务。AD Graphics 是一家加纳设计工作室，已完成 2,500"
 " 多项设计，涵盖企业、教堂、学校和活动所需的标志、传单、品牌套件和印刷品。"
 
-#: templates/marketing/home.html:46
+#: templates/marketing/home.html:47
 msgid ""
 "We built AD Smart so your contact details work as hard as your brand does: "
 "always up to date, easy to share, and saved in one tap. Every NFC card is "
@@ -3759,125 +3761,125 @@ msgstr ""
 "我们打造 AD Smart，是为了让您的联系方式像品牌一样发挥作用：始终最新、便于分享、一键保存。每张 NFC "
 "卡片都由我们的团队设计、印刷、写入您的永久链接，并在出厂前于安卓和 iPhone 上完成实测。"
 
-#: templates/marketing/home.html:56
+#: templates/marketing/home.html:57
 msgid "designs delivered by the AD Graphics studio"
 msgstr "项设计由 AD Graphics 工作室交付"
 
-#: templates/marketing/home.html:60
+#: templates/marketing/home.html:61
 msgid "In-house"
 msgstr "自有团队"
 
-#: templates/marketing/home.html:61
+#: templates/marketing/home.html:62
 msgid "design, printing and NFC encoding"
 msgstr "设计、印刷与 NFC 写入"
 
-#: templates/marketing/home.html:65
+#: templates/marketing/home.html:66
 msgid "3 days"
 msgstr "3 天"
 
-#: templates/marketing/home.html:66
+#: templates/marketing/home.html:67
 msgid "to your first NFC design proof"
 msgstr "收到第一版 NFC 设计稿"
 
-#: templates/marketing/home.html:70
+#: templates/marketing/home.html:71
 msgid "Worldwide"
 msgstr "全球"
 
-#: templates/marketing/home.html:71
+#: templates/marketing/home.html:72
 msgid "delivery across Ghana, shipping abroad, or free pickup"
 msgstr "加纳全境配送、国际邮寄或免费自取"
 
-#: templates/marketing/home.html:81 templates/partials/site_header.html:11
-#: templates/partials/site_header.html:44
+#: templates/marketing/home.html:82 templates/partials/site_header.html:11
+#: templates/partials/site_header.html:45
 msgid "How it works"
 msgstr "使用流程"
 
-#: templates/marketing/home.html:82
+#: templates/marketing/home.html:83
 msgid "From sign-up to shared in four steps."
 msgstr "从注册到分享，只需四步。"
 
-#: templates/marketing/home.html:83
+#: templates/marketing/home.html:84
 msgid ""
 "Build your card for free and preview it first. You only pay when you are "
 "happy with how it looks."
 msgstr "免费制作并先行预览名片，满意之后再付款。"
 
-#: templates/marketing/home.html:98
+#: templates/marketing/home.html:99
 msgid "One card, three ways to share"
 msgstr "一张名片，三种分享方式"
 
-#: templates/marketing/home.html:99
+#: templates/marketing/home.html:100
 msgid "Whatever they have in their hand, they can reach you."
 msgstr "无论对方手里拿着什么，都能联系到您。"
 
-#: templates/marketing/home.html:111
+#: templates/marketing/home.html:112
 msgid ""
 "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work."
 msgstr "示例电子名片：AD Graphics 首席执行官 Kofi Adutwum。按钮均可使用。"
 
-#: templates/marketing/home.html:116
+#: templates/marketing/home.html:117
 msgid ""
 "Try it — tap Call, WhatsApp or Email to reach AD Graphics, or save the "
 "contact."
 msgstr "试试看：点击“拨打电话”、WhatsApp 或“邮件”即可联系 AD Graphics，也可以保存联系人。"
 
-#: templates/marketing/home.html:164
+#: templates/marketing/home.html:188
 msgid "Our work"
 msgstr "我们的作品"
 
-#: templates/marketing/home.html:165
+#: templates/marketing/home.html:189
 msgid "Recent designs from the AD Graphics studio."
 msgstr "AD Graphics 工作室的近期设计。"
 
-#: templates/marketing/home.html:166
+#: templates/marketing/home.html:190
 msgid ""
 "The same designers who make your NFC card. Open a slide to see the full "
 "design."
 msgstr "制作您 NFC 卡片的正是这些设计师。点开幻灯片即可查看完整设计。"
 
-#: templates/marketing/home.html:177 templates/marketing/pricing.html:7
+#: templates/marketing/home.html:201 templates/marketing/pricing.html:7
 #: templates/partials/site_footer.html:16
-#: templates/partials/site_header.html:13
-#: templates/partials/site_header.html:46
+#: templates/partials/site_header.html:14
+#: templates/partials/site_header.html:48
 msgid "Pricing"
 msgstr "价格"
 
-#: templates/marketing/home.html:178 templates/marketing/pricing.html:8
+#: templates/marketing/home.html:202 templates/marketing/pricing.html:8
 msgid "One simple yearly price."
 msgstr "简单明了的年费。"
 
-#: templates/marketing/home.html:179
+#: templates/marketing/home.html:203
 msgid ""
 "Every plan includes your permanent link, QR code and save-contact file. "
 "Build and preview for free."
 msgstr "每个套餐都包含永久链接、二维码和保存联系人文件。可免费制作与预览。"
 
-#: templates/marketing/home.html:196
+#: templates/marketing/home.html:220
 msgid "Questions"
 msgstr "常见疑问"
 
-#: templates/marketing/home.html:197
+#: templates/marketing/home.html:221
 msgid "Good to know."
 msgstr "了解一下。"
 
-#: templates/marketing/home.html:200
+#: templates/marketing/home.html:224
 #, python-format
 msgid ""
 "<a href=\"%(url_3)s\">Read all questions</a> or <a href=\"%(url_4)s\">ask us"
 " directly</a>."
 msgstr "<a href=\"%(url_3)s\">查看全部问题</a>，或<a href=\"%(url_4)s\">直接向我们提问</a>。"
 
-#: templates/marketing/home.html:208
+#: templates/marketing/home.html:232
 msgid "Your next introduction deserves better than paper."
 msgstr "您的下一次自我介绍，值得比纸张更好的方式。"
 
-#: templates/marketing/home.html:209
+#: templates/marketing/home.html:233
 msgid ""
 "Create your card in minutes. Preview it free, then choose a plan when you "
 "are ready."
 msgstr "几分钟即可创建名片。先免费预览，准备好后再选择套餐。"
 
-#: templates/marketing/home.html:212
+#: templates/marketing/home.html:236
 msgid "Talk to us on WhatsApp"
 msgstr "通过 WhatsApp 联系我们"
 
@@ -4004,8 +4006,8 @@ msgstr ""
 
 #: templates/marketing/legal_privacy.html:29
 #: templates/partials/site_footer.html:24
-#: templates/partials/site_header.html:16
-#: templates/partials/site_header.html:49 templates/support/contact.html:6
+#: templates/partials/site_header.html:17
+#: templates/partials/site_header.html:51 templates/support/contact.html:6
 msgid "Contact"
 msgstr "联系我们"
 
@@ -4630,24 +4632,24 @@ msgid "%(SITE_NAME)s, home"
 msgstr "%(SITE_NAME)s，首页"
 
 #: templates/partials/site_header.html:9
-#: templates/partials/site_header.html:42
+#: templates/partials/site_header.html:43
 msgid "Main"
 msgstr "主导航"
 
-#: templates/partials/site_header.html:33
+#: templates/partials/site_header.html:34
 msgid "Get started"
 msgstr "开始使用"
 
-#: templates/partials/site_header.html:35
+#: templates/partials/site_header.html:36
 msgid "Menu"
 msgstr "菜单"
 
-#: templates/partials/site_header.html:29
-#: templates/partials/site_header.html:55
+#: templates/partials/site_header.html:30
+#: templates/partials/site_header.html:57
 msgid "Staff area"
 msgstr "员工后台"
 
-#: templates/partials/site_header.html:55
+#: templates/partials/site_header.html:57
 msgid "Go to dashboard"
 msgstr "前往控制面板"
 
@@ -4911,11 +4913,11 @@ msgid ""
 "version differ, the English version applies."
 msgstr "本页面已翻译，仅供参考。如译文与英文版本不一致，以英文版本为准。"
 
-#: templates/marketing/home.html:23
+#: templates/marketing/home.html:24
 msgid "Digital + NFC business cards, made in Ghana"
 msgstr "加纳制造的电子名片 + NFC 名片"
 
-#: templates/marketing/home.html:49
+#: templates/marketing/home.html:50
 msgid "CEO, AD Graphics"
 msgstr "首席执行官，AD Graphics"
 
@@ -4977,7 +4979,7 @@ msgstr "%(plan)s，再加 12 个月"
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s，12 个月"
 
-#: apps/cards/forms.py:25 apps/dashboard/views.py:396
+#: apps/cards/forms.py:25 apps/dashboard/views.py:397
 msgid "Message"
 msgstr "留言"
 
@@ -5203,11 +5205,11 @@ msgstr "MTN、Telecel、办公室…"
 msgid "Platform"
 msgstr "平台"
 
-#: apps/dashboard/views.py:356
+#: apps/dashboard/views.py:357
 msgid "QR code scans"
 msgstr "二维码扫描"
 
-#: apps/dashboard/views.py:357
+#: apps/dashboard/views.py:358
 msgid "NFC taps"
 msgstr "NFC 轻触"
 
@@ -5318,7 +5320,7 @@ msgstr "在线咨询"
 msgid "For example MTN, Telecel or Office."
 msgstr "例如 MTN、Telecel 或办公室。"
 
-#: apps/billing/services.py:701 apps/billing/views.py:220
+#: apps/billing/services.py:701 apps/billing/views.py:221
 #: apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "Y年n月j日"
@@ -5339,11 +5341,11 @@ msgstr "Y年n月j日 H:i"
 msgid "j M, H:i"
 msgstr "n月j日 H:i"
 
-#: apps/core/dynamic_strings.py:51 apps/dashboard/views.py:339
+#: apps/core/dynamic_strings.py:51 apps/dashboard/views.py:340
 msgid "d M"
 msgstr "n月j日"
 
-#: apps/core/dynamic_strings.py:52 apps/dashboard/views.py:343
+#: apps/core/dynamic_strings.py:52 apps/dashboard/views.py:344
 msgid "M Y"
 msgstr "Y年n月"
 
@@ -5407,11 +5409,11 @@ msgstr "您的套餐将于 %(date)s 续订"
 msgid "Automatic renewal is off"
 msgstr "自动续订已关闭"
 
-#: apps/billing/views.py:214
+#: apps/billing/views.py:215
 msgid "Automatic renewal is not on for your plan."
 msgstr "您的套餐未开启自动续订。"
 
-#: apps/billing/views.py:219
+#: apps/billing/views.py:220
 #, python-format
 msgid "Automatic renewal is off. Your plan stays active until %(date)s."
 msgstr "自动续订已关闭。您的套餐在 %(date)s 前仍然有效。"
@@ -5574,16 +5576,16 @@ msgstr "展示产品的商家主页"
 msgid "What would you like to know?"
 msgstr "您想了解什么？"
 
-#: apps/cards/views.py:216
+#: apps/cards/views.py:233
 #, python-format
 msgid "Thank you. %(name)s has your enquiry."
 msgstr "谢谢。%(name)s 已收到您的咨询。"
 
-#: apps/cards/views.py:225
+#: apps/cards/views.py:242
 msgid "You have already sent an enquiry. Try again in an hour."
 msgstr "您已经发送过咨询了。请一小时后再试。"
 
-#: apps/cards/views.py:234
+#: apps/cards/views.py:252
 #, python-format
 msgid "New enquiry from %(name)s"
 msgstr "来自 %(name)s 的新咨询"
@@ -5592,111 +5594,111 @@ msgstr "来自 %(name)s 的新咨询"
 msgid "Show my business page to everyone"
 msgstr "向所有人展示我的商家主页"
 
-#: apps/dashboard/forms.py:243
+#: apps/dashboard/forms.py:244
 msgid "Tagline"
 msgstr "宣传语"
 
-#: apps/dashboard/forms.py:244
+#: apps/dashboard/forms.py:245
 msgid "About your business"
 msgstr "关于您的业务"
 
-#: apps/dashboard/forms.py:245 templates/cards/business.html:105
+#: apps/dashboard/forms.py:246 templates/cards/business.html:107
 msgid "Opening hours"
 msgstr "营业时间"
 
-#: apps/dashboard/forms.py:248
+#: apps/dashboard/forms.py:249
 msgid "When it is on, an “Explore Business” button appears on your card."
 msgstr "开启后，您的名片上会出现“了解业务”按钮。"
 
-#: apps/dashboard/forms.py:249
+#: apps/dashboard/forms.py:251
 msgid "One short line under your business name."
 msgstr "显示在业务名称下方的一句简短介绍。"
 
-#: apps/dashboard/forms.py:250
+#: apps/dashboard/forms.py:252
 msgid "One line for each day or group of days, for example Mon–Fri 8am–6pm."
 msgstr "每天或每组日期写一行，例如：周一至周五 8:00–18:00。"
 
-#: apps/dashboard/forms.py:260
+#: apps/dashboard/forms.py:262
 msgid "Picture"
 msgstr "图片"
 
-#: apps/dashboard/forms.py:260
+#: apps/dashboard/forms.py:262
 msgid "Price (optional)"
 msgstr "价格（选填）"
 
-#: apps/dashboard/forms.py:260 apps/dashboard/forms.py:284
+#: apps/dashboard/forms.py:263 apps/dashboard/forms.py:290
 msgid "Description (optional)"
 msgstr "描述（选填）"
 
-#: apps/dashboard/forms.py:263
+#: apps/dashboard/forms.py:266
 msgid ""
 "JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page "
 "opens fast."
 msgstr "JPG、PNG 或 WebP。我们会把每张图片压缩到 50 KB 以内，让您的页面打开更快。"
 
-#: apps/dashboard/forms.py:264
+#: apps/dashboard/forms.py:267
 msgid ""
 "Write it the way you want it shown, for example GHS 120 or From GHS 50."
 msgstr "按您希望显示的方式填写，例如“GHS 120”或“GHS 50 起”。"
 
-#: apps/dashboard/forms.py:284
+#: apps/dashboard/forms.py:290
 msgid "Service"
 msgstr "服务"
 
-#: apps/dashboard/forms.py:290
+#: apps/dashboard/forms.py:296
 msgid "Stars (optional)"
 msgstr "星级（选填）"
 
-#: apps/dashboard/forms.py:297
+#: apps/dashboard/forms.py:303
 msgid "Customer name"
 msgstr "客户姓名"
 
-#: apps/dashboard/forms.py:297
+#: apps/dashboard/forms.py:303
 msgid "What they said"
 msgstr "客户的评价"
 
-#: apps/dashboard/forms.py:298
+#: apps/dashboard/forms.py:304
 msgid "Only add words your customer has agreed to share."
 msgstr "只添加客户同意分享的评价。"
 
-#: apps/dashboard/views.py:510
+#: apps/dashboard/views.py:511
 msgid "Business page saved."
 msgstr "商家主页已保存。"
 
-#: apps/dashboard/views.py:542
+#: apps/dashboard/views.py:549
 #, python-format
 msgid "You have used all %(limit)d places here. Remove one to add another."
 msgstr "这里的 %(limit)d 个名额已全部用完。请先删除一个再添加新的。"
 
-#: apps/dashboard/views.py:554
+#: apps/dashboard/views.py:561
 msgid "Saved."
 msgstr "已保存。"
 
-#: apps/dashboard/views.py:557
+#: apps/dashboard/views.py:564
 msgid "Add a product"
 msgstr "添加产品"
 
-#: apps/dashboard/views.py:557
+#: apps/dashboard/views.py:564
 msgid "Edit product"
 msgstr "编辑产品"
 
-#: apps/dashboard/views.py:558
+#: apps/dashboard/views.py:565
 msgid "Add a service"
 msgstr "添加服务"
 
-#: apps/dashboard/views.py:558
+#: apps/dashboard/views.py:565
 msgid "Edit service"
 msgstr "编辑服务"
 
-#: apps/dashboard/views.py:559
+#: apps/dashboard/views.py:566
 msgid "Add a customer review"
 msgstr "添加客户评价"
 
-#: apps/dashboard/views.py:559
+#: apps/dashboard/views.py:566
 msgid "Edit customer review"
 msgstr "编辑客户评价"
 
-#: apps/dashboard/views.py:580
+#: apps/dashboard/views.py:587
 msgid "Removed."
 msgstr "已删除。"
 
@@ -5704,46 +5706,46 @@ msgstr "已删除。"
 msgid "Explore Business"
 msgstr "了解业务"
 
-#: templates/cards/business.html:25
+#: templates/cards/business.html:26
 msgid ""
 "Only you can see this page. Switch it on in your dashboard to show it to "
 "everyone."
 msgstr "只有您能看到此页面。请在控制台中开启，让所有人都能看到。"
 
-#: templates/cards/business.html:38 templates/cards/business.html:125
+#: templates/cards/business.html:39 templates/cards/business.html:127
 msgid "Send an enquiry"
 msgstr "发送咨询"
 
-#: templates/cards/business.html:40 templates/cards/business.html:137
+#: templates/cards/business.html:41 templates/cards/business.html:139
 msgid "Contact card"
 msgstr "联系名片"
 
-#: templates/cards/business.html:42
+#: templates/cards/business.html:43
 msgid "Share this page"
 msgstr "分享此页面"
 
-#: templates/cards/business.html:51
+#: templates/cards/business.html:52
 msgid "About us"
 msgstr "关于我们"
 
-#: templates/cards/business.html:58 templates/dashboard/business.html:40
+#: templates/cards/business.html:59 templates/dashboard/business.html:47
 msgid "Products"
 msgstr "产品"
 
-#: templates/cards/business.html:76 templates/dashboard/business.html:40
+#: templates/cards/business.html:78 templates/dashboard/business.html:47
 msgid "Services"
 msgstr "服务"
 
-#: templates/cards/business.html:90 templates/marketing/home.html:133
+#: templates/cards/business.html:92 templates/marketing/home.html:157
 msgid "What customers say"
 msgstr "客户评价"
 
-#: templates/cards/business.html:94
+#: templates/cards/business.html:96
 #, python-format
 msgid "%(rating)s out of 5 stars"
 msgstr "5 星中的 %(rating)s 星"
 
-#: templates/cards/business.html:131
+#: templates/cards/business.html:133
 msgid "Send enquiry"
 msgstr "发送咨询"
 
@@ -5791,44 +5793,44 @@ msgstr "页面详情"
 msgid "Your page link"
 msgstr "您的页面链接"
 
-#: templates/dashboard/business.html:33
+#: templates/dashboard/business.html:40
 msgid ""
 "Your page uses the logo from your card, or your photo if you have no logo. "
 "Change it under Edit card."
 msgstr "您的页面会使用名片上的标志；如果没有标志，则使用您的照片。可在“编辑名片”中更改。"
 
-#: templates/dashboard/business.html:40
+#: templates/dashboard/business.html:47
 msgid "Customer reviews"
 msgstr "客户评价"
 
-#: templates/dashboard/business.html:41
+#: templates/dashboard/business.html:48
 #, python-format
 msgid "%(used)s of %(limit)s used"
 msgstr "已用 %(used)s / %(limit)s"
 
-#: templates/dashboard/business.html:43
+#: templates/dashboard/business.html:50
 msgid "Every picture is shrunk to 50 KB or less so your page opens fast."
 msgstr "每张图片都会压缩到 50 KB 以内，让您的页面打开更快。"
 
-#: templates/dashboard/business.html:45
+#: templates/dashboard/business.html:52
 #, python-format
 msgid "Your plan shows the first %(limit)s products on your page."
 msgstr "您的套餐在页面上展示前 %(limit)s 件产品。"
 
-#: templates/dashboard/business.html:61
+#: templates/dashboard/business.html:69
 msgid "Remove this?"
 msgstr "要删除吗？"
 
-#: templates/dashboard/business.html:61
+#: templates/dashboard/business.html:69
 msgid "Remove"
 msgstr "删除"
 
-#: templates/dashboard/business.html:69
+#: templates/dashboard/business.html:77
 #, python-format
 msgid "You have used all %(limit)s places here. Remove one to add another."
 msgstr "这里的 %(limit)s 个名额已全部用完。请先删除一个再添加新的。"
 
-#: templates/dashboard/business.html:71
+#: templates/dashboard/business.html:79
 msgid "Add"
 msgstr "添加"
 
@@ -5961,17 +5963,17 @@ msgstr "位于开普海岸的设计与印刷工作室"
 msgid "See a sample"
 msgstr "查看示例"
 
-#: templates/marketing/home.html:127 templates/partials/site_footer.html:15
-#: templates/partials/site_header.html:12
-#: templates/partials/site_header.html:45
+#: templates/marketing/home.html:151 templates/partials/site_footer.html:15
+#: templates/partials/site_header.html:13
+#: templates/partials/site_header.html:47
 msgid "Business pages"
 msgstr "商家主页"
 
-#: templates/marketing/home.html:128
+#: templates/marketing/home.html:152
 msgid "Show what you sell, not just who you are."
 msgstr "展示您卖的东西，而不只是您是谁。"
 
-#: templates/marketing/home.html:129
+#: templates/marketing/home.html:153
 msgid ""
 "Your card shares your contact details. A business page goes further: your "
 "own page where customers see your products and services, read what other "
@@ -5980,50 +5982,50 @@ msgid ""
 msgstr ""
 "名片分享您的联系方式；商家主页则更进一步：一个属于您自己的页面，客户可以在这里查看您的产品和服务、阅读其他客户的评价，并向您发送咨询。它与您的名片相连，配色一致。"
 
-#: templates/marketing/home.html:131
+#: templates/marketing/home.html:155
 msgid "Your products, with pictures"
 msgstr "带图片的产品"
 
-#: templates/marketing/home.html:131
+#: templates/marketing/home.html:155
 msgid ""
 "Add photos, names, prices and short descriptions. Every picture is made "
 "light enough to load quickly on a phone."
 msgstr "添加照片、名称、价格和简短说明。每张图片都会被压缩，在手机上快速加载。"
 
-#: templates/marketing/home.html:132
+#: templates/marketing/home.html:156
 msgid "The services you offer"
 msgstr "您提供的服务"
 
-#: templates/marketing/home.html:132
+#: templates/marketing/home.html:156
 msgid "List what you do, so people know what to ask you for."
 msgstr "列出您做的事情，让人们知道该向您咨询什么。"
 
-#: templates/marketing/home.html:133
+#: templates/marketing/home.html:157
 msgid "Add kind words from your customers, with a star rating."
 msgstr "添加客户的好评，并附上星级评分。"
 
-#: templates/marketing/home.html:134
+#: templates/marketing/home.html:158
 msgid "Enquiries in your inbox"
 msgstr "咨询直达您的收件箱"
 
-#: templates/marketing/home.html:134
+#: templates/marketing/home.html:158
 msgid "Visitors send an enquiry from the page, and we email it to you."
 msgstr "访客在页面上发送咨询，我们会通过电子邮件转发给您。"
 
-#: templates/marketing/home.html:137
+#: templates/marketing/home.html:161
 msgid "Included with these plans"
 msgstr "以下套餐包含此功能"
 
-#: templates/marketing/home.html:139
+#: templates/marketing/home.html:163
 #, python-format
 msgid "up to %(count)s products"
 msgstr "最多 %(count)s 件产品"
 
-#: templates/marketing/home.html:150
+#: templates/marketing/home.html:174
 msgid "Sample business page of AD Graphics"
 msgstr "AD Graphics 商家主页示例"
 
-#: templates/marketing/home.html:153
+#: templates/marketing/home.html:177
 msgid ""
 "Try it — scroll through the page. This is the business page of AD Graphics."
 msgstr "试一试：滚动浏览页面。这是 AD Graphics 的商家主页。"
@@ -6102,7 +6104,7 @@ msgstr "填写您的信息并创建账户。接下来您选择套餐并付款，
 msgid "Create my account"
 msgstr "创建我的账户"
 
-#: apps/accounts/services.py:151
+#: apps/accounts/services.py:161
 msgid "Our support team reset your AD Smart password"
 msgstr "我们的客服团队已重置您的 AD Smart 密码"
 
@@ -6203,26 +6205,26 @@ msgstr ""
 msgid "New email address"
 msgstr "新的电子邮箱地址"
 
-#: apps/accounts/services.py:73
+#: apps/accounts/services.py:74
 msgid "That does not look like an email address."
 msgstr "这看起来不像电子邮箱地址。"
 
-#: apps/accounts/services.py:75
+#: apps/accounts/services.py:76
 msgid "That is already your email address."
 msgstr "这已经是您的电子邮箱地址了。"
 
-#: apps/accounts/services.py:80 apps/accounts/views.py:259
+#: apps/accounts/services.py:81 apps/accounts/views.py:259
 msgid "That email belongs to another account."
 msgstr "该电子邮箱属于另一个账户。"
 
-#: apps/accounts/services.py:83
+#: apps/accounts/services.py:84
 #, python-format
 msgid ""
 "We could not find a mail server for %(domain)s. Check the spelling after the"
 " @."
 msgstr "我们找不到 %(domain)s 的邮件服务器。请检查 @ 后面的拼写。"
 
-#: apps/accounts/services.py:175 apps/accounts/views.py:263
+#: apps/accounts/services.py:185 apps/accounts/views.py:263
 msgid "The email on your AD Smart account was changed"
 msgstr "您的 AD Smart 账户的电子邮箱已更改"
 
@@ -6340,7 +6342,7 @@ msgid ""
 "change its details."
 msgstr "这张名片已加入您的账户并已上线。只有在您想修改资料时才需要付费。"
 
-#: apps/dashboard/views.py:216
+#: apps/dashboard/views.py:217
 msgid "The changes that were waiting have been thrown away."
 msgstr "等待中的修改已被丢弃。"
 
@@ -6499,17 +6501,17 @@ msgstr "名片修改权限开放至 %(date)s。"
 msgid "Your card will no longer be charged for changes"
 msgstr "不会再就修改向您的银行卡扣款"
 
-#: apps/billing/views.py:231
+#: apps/billing/views.py:232
 msgid "Automatic payment for changes is not on for this card."
 msgstr "此卡未开启修改自动付款。"
 
-#: apps/billing/views.py:234
+#: apps/billing/views.py:235
 msgid ""
 "Automatic payment for changes is off. You can still pay by hand whenever you"
 " change this card."
 msgstr "修改自动付款已关闭。每次修改此卡时，您仍可自行付款。"
 
-#: apps/dashboard/views.py:183
+#: apps/dashboard/views.py:184
 #, python-format
 msgid ""
 "Your card (%(card)s) was declined. You have not been charged. You can pay "
@@ -6614,6 +6616,207 @@ msgid ""
 "Whenever you want to change it, you can pay by hand from your dashboard: "
 "%(link)s"
 msgstr "想修改时，您可以在控制面板中自行付款：%(link)s"
+
+#: apps/cards/marketplace.py:75
+#, python-format
+msgid "Hi %(shop)s, I would like to buy %(product)s (%(price)s). %(link)s"
+msgstr "您好 %(shop)s，我想购买 %(product)s（%(price)s）。%(link)s"
+
+#: apps/cards/marketplace.py:76
+#, python-format
+msgid "Hi %(shop)s, I would like to buy %(product)s. %(link)s"
+msgstr "您好 %(shop)s，我想购买 %(product)s。%(link)s"
+
+#: apps/dashboard/forms.py:243
+msgid "List my shop in the AD Smart marketplace"
+msgstr "在 AD Smart 商城展示我的店铺"
+
+#: apps/dashboard/forms.py:250
+msgid ""
+"Shoppers can find your products on our shops page and our home page, and "
+"message you on WhatsApp. Untick it to stay out."
+msgstr "买家可以在我们的店铺页和首页找到您的商品，并通过 WhatsApp 联系您。取消勾选即可不参与。"
+
+#: apps/dashboard/forms.py:262
+msgid "Category"
+msgstr "分类"
+
+#: apps/dashboard/forms.py:268
+msgid "Where shoppers find it in the marketplace."
+msgstr "买家在商城中找到它的位置。"
+
+#: templates/dashboard/business.html:34
+msgid ""
+"Our team has hidden your shop from the marketplace. Contact support if you "
+"think this is a mistake."
+msgstr "我们的团队已将您的店铺从商城中隐藏。如果您认为这是误操作，请联系客服。"
+
+#: templates/dashboard/business.html:35
+msgid "Listed in the marketplace"
+msgstr "已在商城展示"
+
+#: templates/dashboard/business.html:35
+msgid "View the marketplace"
+msgstr "查看商城"
+
+#: templates/dashboard/business.html:36
+msgid "Your shop joins the marketplace as soon as your page is on."
+msgstr "您的页面开启后，店铺会立即加入商城。"
+
+#: templates/dashboard/business.html:37
+msgid "Not in the marketplace"
+msgstr "未加入商城"
+
+#: templates/dashboard/business.html:39
+#, python-format
+msgid ""
+"Last 30 days: %(views)s page visits, %(products)s products opened, %(buys)s "
+"WhatsApp buy taps, %(enquiries)s enquiries."
+msgstr ""
+"最近 30 天：页面访问 %(views)s 次，商品被打开 %(products)s 次，“购买”被点击 %(buys)s 次，咨询 "
+"%(enquiries)s 条。"
+
+#: templates/dashboard/business.html:63
+#, python-format
+msgid "%(views)s opened, %(buys)s WhatsApp taps in 30 days"
+msgstr "30 天内被打开 %(views)s 次，WhatsApp 点击 %(buys)s 次"
+
+#: templates/dashboard/business.html:63
+msgid "Hidden by our team"
+msgstr "已被我们的团队隐藏"
+
+#: templates/marketing/home.html:128
+msgid "Shop window"
+msgstr "橱窗"
+
+#: templates/marketing/home.html:129
+msgid "Popular right now from businesses on AD Smart."
+msgstr "AD Smart 商家的当前热门商品。"
+
+#: templates/marketing/home.html:130
+msgid ""
+"The products shoppers opened most this month. Tap one to see it in its shop,"
+" then message the seller on WhatsApp."
+msgstr "本月买家打开最多的商品。点击任意一件即可在其店铺中查看，然后通过 WhatsApp 联系卖家。"
+
+#: templates/marketing/home.html:132
+msgid "Popular products"
+msgstr "热门商品"
+
+#: templates/marketing/home.html:140
+msgid "View businesses"
+msgstr "查看商家"
+
+#: templates/marketing/shops.html:3
+#, python-format
+msgid "Shops on %(SITE_NAME)s"
+msgstr "%(SITE_NAME)s 上的店铺"
+
+#: templates/marketing/shops.html:4
+msgid ""
+"Browse what businesses on AD Smart sell, and message the seller on WhatsApp "
+"to buy and agree the price."
+msgstr "浏览 AD Smart 商家出售的商品，并通过 WhatsApp 联系卖家购买并商定价格。"
+
+#: templates/marketing/shops.html:12
+msgid "Marketplace"
+msgstr "商城"
+
+#: templates/marketing/shops.html:13
+msgid "Shop from businesses on AD Smart"
+msgstr "向 AD Smart 的商家购物"
+
+#: templates/marketing/shops.html:14
+msgid ""
+"Browse what our customers sell. Message the seller on WhatsApp to buy and "
+"agree the price."
+msgstr "浏览我们客户出售的商品。通过 WhatsApp 联系卖家购买并商定价格。"
+
+#: templates/marketing/shops.html:15
+msgid "Search shops and products"
+msgstr "搜索店铺和商品"
+
+#: templates/marketing/shops.html:18 templates/marketing/shops.html:19
+msgid "Search a business or a product"
+msgstr "搜索商家或商品"
+
+#: templates/marketing/shops.html:20
+msgid "Search"
+msgstr "搜索"
+
+#: templates/marketing/shops.html:22
+msgid ""
+"AD Smart does not take payment or deliver. You deal with the seller "
+"directly, so check the product and agree the price before you pay."
+msgstr "AD Smart 不代收款项，也不负责配送。您直接与卖家交易，请在付款前核实商品并商定价格。"
+
+#: templates/marketing/shops.html:26 templates/marketing/shops.html:28
+msgid "Categories"
+msgstr "分类"
+
+#: templates/marketing/shops.html:31
+msgid "All products"
+msgstr "全部商品"
+
+#: templates/marketing/shops.html:47
+msgid "Visit shop"
+msgstr "访问店铺"
+
+#: templates/marketing/shops.html:62
+#, python-format
+msgid "See all %(count)s products"
+msgstr "查看全部 %(count)s 件商品"
+
+#: templates/marketing/shops.html:63
+msgid "Report this shop"
+msgstr "举报此店铺"
+
+#: templates/marketing/shops.html:70
+msgid "No shops match your search."
+msgstr "没有符合搜索条件的店铺。"
+
+#: templates/marketing/shops.html:71
+msgid "Show all shops"
+msgstr "显示全部店铺"
+
+#: templates/marketing/shops.html:73
+msgid "No shops are listed yet."
+msgstr "暂无上架的店铺。"
+
+#: templates/marketing/shops.html:74
+msgid ""
+"Businesses on a Professional or Business plan appear here once their page is"
+" on."
+msgstr "使用 Professional 或 Business 套餐的商家，页面开启后会显示在这里。"
+
+#: templates/marketing/shops.html:81
+msgid "Pages"
+msgstr "页码"
+
+#: templates/marketing/shops.html:83
+msgid "Previous"
+msgstr "上一页"
+
+#: templates/marketing/shops.html:84
+#, python-format
+msgid "Page %(number)s of %(total)s"
+msgstr "第 %(number)s 页，共 %(total)s 页"
+
+#: templates/marketing/shops.html:85
+msgid "Next"
+msgstr "下一页"
+
+#: templates/partials/site_header.html:12
+#: templates/partials/site_header.html:46
+msgid "Shops"
+msgstr "店铺"
+
+#: templates/cards/business.html:68 templates/marketing/shops.html:57
+msgid "Buy"
+msgstr "购买"
+
+#~ msgid "Buy on WhatsApp"
+#~ msgstr "通过 WhatsApp 购买"
 
 #~ msgid "Confirm your email address"
 #~ msgstr "请确认您的邮箱地址"

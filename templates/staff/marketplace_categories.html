@@ -1,0 +1,31 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><div class="crumbs"><a href="{% url 'staff:marketplace' %}">Marketplace</a></div><h1>Shop categories</h1>
+  <p>The sidebar of the shops page. Each shop owner picks one for every product; products with none appear under “Other”. To retire a category, switch it off rather than deleting it.</p></div></div>
+<div class="split">
+  <div class="table-wrap">
+    <table class="table">
+      <caption class="visually-hidden">Categories</caption>
+      <thead><tr><th>Category</th><th class="num">Order</th><th class="num">Products</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for c in categories %}
+          <tr>
+            <td><a href="{% url 'staff:marketplace_category' c.pk %}">{{ c.name }}</a></td>
+            <td class="num">{{ c.position }}</td>
+            <td class="num">{{ c.product_count }}</td>
+            <td>{% if c.is_active %}<span class="badge badge--success">In use</span>{% else %}<span class="badge">Switched off</span>{% endif %}</td>
+          </tr>
+        {% empty %}<tr><td colspan="4" class="muted">No categories yet.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">New category</h2>
+    <form method="post" class="form mt-4" novalidate>
+      {% csrf_token %}
+      {% include "components/form_fields.html" %}
+      <button class="btn btn--primary" type="submit">{% icon "plus" 16 %}Add category</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

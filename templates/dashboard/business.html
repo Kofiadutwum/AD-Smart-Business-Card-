@@ -30,6 +30,13 @@
       <h2 style="font-size: var(--text-lg)">{% trans "Your page link" %}</h2>
       <p class="mono mt-4" style="overflow-wrap:anywhere">{{ page_url }}</p>
       <p class="mt-2">{% if page.is_on %}<span class="badge badge--success">{% trans "On" %}</span>{% else %}<span class="badge">{% trans "Off" %}</span>{% endif %}</p>
+      <p class="mt-4 text-sm">
+        {% if page.marketplace_hidden %}{% trans "Our team has hidden your shop from the marketplace. Contact support if you think this is a mistake." %}
+        {% elif page.is_on and page.in_marketplace %}<span class="badge badge--success">{% trans "Listed in the marketplace" %}</span> <a href="{% url 'marketing:shops' %}" target="_blank" rel="noopener">{% trans "View the marketplace" %}</a>
+        {% elif page.in_marketplace %}{% trans "Your shop joins the marketplace as soon as your page is on." %}
+        {% else %}<span class="badge">{% trans "Not in the marketplace" %}</span>{% endif %}
+      </p>
+      <p class="muted text-sm mt-2">{% blocktrans trimmed with views=totals.view products=totals.product buys=totals.buy enquiries=totals.enquiry %}Last 30 days: {{ views }} page visits, {{ products }} products opened, {{ buys }} WhatsApp buy taps, {{ enquiries }} enquiries.{% endblocktrans %}</p>
       <p class="muted text-sm mt-4">{% trans "Your page uses the logo from your card, or your photo if you have no logo. Change it under Edit card." %}</p>
     </section>
   </div>
@@ -53,6 +60,7 @@
                 <span style="min-width:0">
                   <strong>{% if kind == "reviews" %}{{ item.author }}{% else %}{{ item.title }}{% endif %}</strong>
                   {% if kind == "products" and item.price %}<br><span class="muted text-sm">{{ item.price }}</span>{% endif %}
+                  {% if kind == "products" %}<br><span class="muted text-sm">{% blocktrans trimmed with views=item.views buys=item.buys %}{{ views }} opened, {{ buys }} WhatsApp taps in 30 days{% endblocktrans %}{% if item.is_hidden %} · <strong>{% trans "Hidden by our team" %}</strong>{% endif %}</span>{% endif %}
                   {% if kind == "reviews" %}<br><span class="muted text-sm">{{ item.text|truncatechars:70 }}</span>{% endif %}
                 </span>
               </span>

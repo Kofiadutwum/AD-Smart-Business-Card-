@@ -17,7 +17,7 @@ from django.utils import timezone
 
 from apps.core.utils import visitor_hash
 
-from .models import BusinessPage, BusinessService, Card, CardEvent, CardPhone, CardSlug, SocialLink
+from .models import BusinessEvent, BusinessPage, BusinessService, Card, CardEvent, CardPhone, CardSlug, SocialLink
 from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -405,4 +405,20 @@ def record(request, card, kind, detail="", source=None):
             visitor_hash=visitor_hash(request),
         )
     except Exception:  # analytics must never break a card
+        pass
+
+
+def record_business(request, card, page, kind, product=None):
+    """A shop page or product opened, a WhatsApp buy tapped, an enquiry sent. One a day per visitor, kind and product."""
+    if not should_count(request, card):
+        return
+    visitor = visitor_hash(request)
+    today = timezone.localtime().replace(hour=0, minute=0, second=0, microsecond=0)
+    try:
+        seen = BusinessEvent.objects.filter(
+            page=page, product=product, kind=kind, visitor_hash=visitor, occurred_at__gte=today
+        ).exists()
+        if not seen:
+            BusinessEvent.objects.create(page=page, product=product, kind=kind, visitor_hash=visitor)
+    except Exception:  # analytics must never break a shop page
         pass

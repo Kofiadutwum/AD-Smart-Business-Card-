@@ -1,0 +1,47 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head"><div><div class="crumbs"><a href="{% url 'staff:marketplace' %}">Marketplace</a></div><h1>{{ name }}</h1>
+  <p>Owner: <a href="{% url 'staff:subscriber' page.owner_id %}">{{ page.owner.display_name }}</a> · {{ status }}</p></div>
+  {% if card %}<a class="btn" href="{{ page.get_absolute_url }}" target="_blank" rel="noopener">{% icon "eye" 16 %}View shop page</a>{% endif %}
+</div>
+
+<div class="split">
+  <section class="panel">
+    <h2 style="font-size: var(--text-lg)">{% if page.marketplace_hidden %}Hidden from the marketplace{% else %}Listed in the marketplace{% endif %}</h2>
+    <p class="muted text-sm mt-2">Last 30 days: {{ totals.view }} page visits, {{ totals.product }} products opened, {{ totals.buy }} WhatsApp buy taps, {{ totals.enquiry }} enquiries.</p>
+    <form method="post" action="{% url 'staff:marketplace_hide_shop' page.pk %}" class="form mt-4">
+      {% csrf_token %}
+      <div class="field"><label for="shop-reason">Reason (kept in the audit log)</label><textarea id="shop-reason" name="reason" rows="3" required></textarea></div>
+      <button class="btn {% if not page.marketplace_hidden %}btn--danger{% endif %}" type="submit">{% if page.marketplace_hidden %}List this shop again{% else %}Hide this shop from the marketplace{% endif %}</button>
+    </form>
+    <p class="muted text-xs mt-4">Hiding a shop removes it and its products from the shops page and the home page slider. Its own page and card keep working. To switch off the whole card, suspend it from the subscriber page.</p>
+  </section>
+</div>
+
+<section class="panel mt-6">
+  <h2 style="font-size: var(--text-lg)">Products</h2>
+  <div class="table-wrap mt-4">
+    <table class="table">
+      <caption class="visually-hidden">Products</caption>
+      <thead><tr><th>Product</th><th>Category</th><th class="num">Opened</th><th class="num">WhatsApp taps</th><th>Hide or show</th></tr></thead>
+      <tbody>
+        {% for product in products %}
+          <tr>
+            <td><span class="cluster" style="--cluster: var(--space-3)"><img src="{{ product.image.url }}" alt="" width="48" height="48" style="width:3rem;height:3rem;object-fit:cover;border-radius:0.5rem"><span><strong>{{ product.title }}</strong>{% if product.price %}<br><span class="muted text-xs">{{ product.price }}</span>{% endif %}{% if product.is_hidden %}<br><span class="badge badge--danger">Hidden</span>{% endif %}</span></span></td>
+            <td>{{ product.category.name|default:"Other" }}</td>
+            <td class="num">{{ product.views }}</td>
+            <td class="num">{{ product.buys }}</td>
+            <td>
+              <form method="post" action="{% url 'staff:marketplace_hide_product' product.pk %}" class="cluster" style="--cluster: var(--space-2)">
+                {% csrf_token %}
+                <input name="reason" required placeholder="Reason" aria-label="Reason for {{ product.title }}" style="min-width:10rem">
+                <button class="btn btn--sm" type="submit">{% if product.is_hidden %}Show{% else %}Hide{% endif %}</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

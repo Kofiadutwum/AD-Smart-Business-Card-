@@ -1,0 +1,7 @@
+<div class="slide"{% if dup or p.dup %} aria-hidden="true"{% endif %}>
+  <a href="{{ p.url }}"{% if dup or p.dup %} tabindex="-1"{% endif %}>
+    <img src="{{ p.image }}" alt="" width="196" height="140" loading="lazy" decoding="async">
+    <span class="slide__title">{{ p.title }}</span>
+    <span class="slide__meta">{% if p.price %}<b>{{ p.price }}</b> · {% endif %}{{ p.shop }}</span>
+  </a>
+</div>

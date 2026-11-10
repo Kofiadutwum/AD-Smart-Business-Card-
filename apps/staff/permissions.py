@@ -32,6 +32,7 @@ PERMISSIONS = {
     "reports": {SUPER, SUPPORT},
     "email_subscribers": {SUPER, SUPPORT},
     "gallery": {SUPER, SUPPORT, DESIGN},
+    "marketplace": {SUPER, SUPPORT},  # hide a shop or product, keep the shop categories
     "landing": {SUPER, DESIGN},  # the company card: both phones on the landing page
     "audit": {SUPER},
 }

@@ -4,6 +4,7 @@
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">
   <link rel="stylesheet" href="{% static 'css/carousel.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/marketplace.css' %}{{ ASSET_Q }}">
   <link rel="preload" as="image" href="{% static 'brand/hero-1920.webp' %}" media="(min-width: 60rem)" imagesrcset="{% static 'brand/hero-1280.webp' %} 1280w, {% static 'brand/hero-1920.webp' %} 1920w" imagesizes="100vw">
 {% endblock %}
 {% block body_class %}page-home{% endblock %}
@@ -118,6 +119,29 @@
     </div>
   </div>
 </section>
+
+{# ========================== SHOP WINDOW ========================== #}
+{% if market_slides %}
+<section class="section" id="shop-window" aria-labelledby="shop-window-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{% trans "Shop window" %}</p>
+      <h2 id="shop-window-title">{% trans "Popular right now from businesses on AD Smart." %}</h2>
+      <p class="lead">{% trans "The products shoppers opened most this month. Tap one to see it in its shop, then message the seller on WhatsApp." %}</p>
+    </div>
+    {% trans "Popular products" as t_popular %}
+    <div class="slider" role="region" aria-label="{{ t_popular }}" style="--n: {{ market_slides|length }}">
+      <div class="slide-track">
+        {% for p in market_slides %}{% include "marketing/_slide.html" %}{% endfor %}
+        {% for p in market_slides %}{% include "marketing/_slide.html" with dup=True %}{% endfor %}
+      </div>
+    </div>
+    <div class="cluster mt-8">
+      {% url 'marketing:shops' as shops_url %}{% hover_button _("View businesses") href=shops_url variant="primary" %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
 {# ========================== BUSINESS PAGES ========================== #}
 <section class="section" id="business-pages" aria-labelledby="biz-title">

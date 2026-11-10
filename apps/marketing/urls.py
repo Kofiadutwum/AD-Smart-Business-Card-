@@ -7,6 +7,8 @@ app_name = "marketing"
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("shops", views.shops, name="shops"),
+    path("shops/", RedirectView.as_view(url="/shops", permanent=True, query_string=True)),
     path("pricing", views.pricing, name="pricing"),
     path("nfc-cards", views.nfc_cards, name="nfc"),
     path("delivery", RedirectView.as_view(url="/nfc-cards#delivery", permanent=False), name="delivery"),

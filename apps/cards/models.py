@@ -536,6 +536,9 @@ class BusinessPage(models.Model):
     tagline = models.CharField(max_length=120, blank=True)
     about = models.TextField(max_length=1500, blank=True)
     hours = models.TextField(max_length=300, blank=True)
+    # The marketplace at /shops/: on by default, the owner can leave; staff can hide a shop that breaks the rules.
+    in_marketplace = models.BooleanField(default=True)
+    marketplace_hidden = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -555,12 +558,30 @@ class BusinessPage(models.Model):
         return settings.SITE_URL + self.get_absolute_url()
 
 
+class ProductCategory(models.Model):
+    """The marketplace's sidebar. Staff keep the list; each owner picks one per product."""
+
+    name = models.CharField(max_length=60)
+    slug = models.SlugField(max_length=70, unique=True)
+    position = models.PositiveSmallIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["position", "name"]
+        verbose_name_plural = "product categories"
+
+    def __str__(self):
+        return self.name
+
+
 class BusinessProduct(models.Model):
     page = models.ForeignKey(BusinessPage, on_delete=models.CASCADE, related_name="products")
     image = models.ImageField(upload_to=keep_name)
     title = models.CharField(max_length=120)
     description = models.TextField(max_length=500, blank=True)
     price = models.CharField(max_length=40, blank=True)  # free text, so any currency or "from" works
+    category = models.ForeignKey(ProductCategory, null=True, blank=True, on_delete=models.SET_NULL, related_name="products")
+    is_hidden = models.BooleanField(default=False)  # hidden by staff: gone from the shop page and the marketplace
     position = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
@@ -568,6 +589,32 @@ class BusinessProduct(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BusinessEvent(models.Model):
+    """A product opened, a WhatsApp buy tapped or an enquiry sent. Ranks shops and the landing slider.
+
+    No personal data: ``visitor_hash`` is the same salted digest the card analytics use. One row per
+    visitor, kind and product a day, so refreshing the page does not push a shop up.
+    """
+
+    VIEW = "view"  # the shop page was opened
+    PRODUCT = "product"  # a product was opened (from the slider, the marketplace or a tap on the shop page)
+    BUY = "buy"  # the "Buy" button (opens WhatsApp) was tapped
+    ENQUIRY = "enquiry"
+    KINDS = [(VIEW, "Shop view"), (PRODUCT, "Product view"), (BUY, "Buy tap"), (ENQUIRY, "Enquiry")]
+
+    page = models.ForeignKey(BusinessPage, on_delete=models.CASCADE, related_name="events")
+    product = models.ForeignKey(BusinessProduct, null=True, blank=True, on_delete=models.CASCADE, related_name="events")
+    kind = models.CharField(max_length=8, choices=KINDS)
+    visitor_hash = models.CharField(max_length=64, blank=True)
+    occurred_at = models.DateTimeField(default=timezone.now, db_index=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["page", "kind", "occurred_at"]),
+            models.Index(fields=["product", "kind", "occurred_at"]),
+        ]
 
 
 class BusinessService(models.Model):

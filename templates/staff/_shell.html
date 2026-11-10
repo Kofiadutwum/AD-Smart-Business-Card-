@@ -40,7 +40,7 @@
         </ul>
       </div>
       {% endif %}
-      {% if staff_perms.support or staff_perms.gallery or staff_perms.email_subscribers %}
+      {% if staff_perms.support or staff_perms.gallery or staff_perms.email_subscribers or staff_perms.marketplace %}
       <div class="app-nav__group">
         <p>Customers and content</p>
         <ul>
@@ -48,6 +48,8 @@
           {% if staff_perms.reports %}<li><a href="{% url 'staff:reports' %}" {% nav_current 'staff:reports' True %}>{% icon "flag" 18 %}Card reports</a></li>{% endif %}
           {% if staff_perms.email_subscribers %}<li><a href="{% url 'staff:email' %}" {% nav_current 'staff:email' %}>{% icon "send" 18 %}Email subscribers</a></li>{% endif %}
           {% if staff_perms.gallery %}<li><a href="{% url 'staff:gallery' %}" {% nav_current 'staff:gallery' True %}>{% icon "image" 18 %}Homepage gallery</a></li>{% endif %}
+          {% if staff_perms.marketplace %}<li><a href="{% url 'staff:marketplace' %}" {% nav_current 'staff:marketplace' True %}>{% icon "store" 18 %}Marketplace</a></li>
+          <li><a href="{% url 'staff:marketplace_categories' %}" {% nav_current 'staff:marketplace_categories' True %}>{% icon "list" 18 %}Shop categories</a></li>{% endif %}
         </ul>
       </div>
       {% endif %}

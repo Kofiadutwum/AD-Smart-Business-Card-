@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% blocktrans trimmed %}Shops on {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
+{% block description %}{% trans "Browse what businesses on AD Smart sell, and message the seller on WhatsApp to buy and agree the price." %}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/marketplace.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block scripts %}<script src="{% static 'js/shop.js' %}{{ ASSET_Q }}" defer></script><script src="{% static 'js/marketplace.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
+
+{% block content %}
+<section class="section shops">
+  <div class="container">
+    <header class="shops-head">
+      <p class="eyebrow">{% trans "Marketplace" %}</p>
+      <h1>{% trans "Shop from businesses on AD Smart" %}</h1>
+      <p class="lead">{% trans "Browse what our customers sell. Message the seller on WhatsApp to buy and agree the price." %}</p>
+      {% trans "Search shops and products" as t_search %}
+      <form class="shops-search" role="search" method="get" action="{% url 'marketing:shops' %}" aria-label="{{ t_search }}">
+        {% if category %}<input type="hidden" name="c" value="{{ category }}">{% endif %}
+        <label class="visually-hidden" for="shop-q">{% trans "Search a business or a product" %}</label>
+        <input id="shop-q" type="search" name="q" value="{{ query }}" maxlength="80" autocomplete="off" placeholder="{% trans 'Search a business or a product' %}">
+        <button class="btn" type="submit">{% icon "search" 18 %}<span>{% trans "Search" %}</span></button>
+      </form>
+      <p class="shops-notice">{% icon "info" 16 %}<span>{% trans "AD Smart does not take payment or deliver. You deal with the seller directly, so check the product and agree the price before you pay." %}</span></p>
+    </header>
+
+    <div class="shops-layout" data-shops>
+      <button type="button" class="shops-toggle" data-cat-toggle aria-controls="cat-panel" aria-expanded="true">{% icon "list" 18 %}<span>{% trans "Categories" %}</span></button>
+      <div class="shops-scrim" data-cat-scrim></div>
+      {% trans "Categories" as t_cats %}
+      <aside class="shops-cats" id="cat-panel" aria-label="{{ t_cats }}">
+        <ul>
+          <li><a href="{% url 'marketing:shops' %}{% if query %}?q={{ query|urlencode }}{% endif %}"{% if not category %} aria-current="true"{% endif %}><span>{% trans "All products" %}</span><b>{{ all_count }}</b></a></li>
+          {% for c in categories %}
+            <li><a href="?c={{ c.slug|urlencode }}{% if query %}&amp;q={{ query|urlencode }}{% endif %}"{% if category == c.slug %} aria-current="true"{% endif %}><span>{% if c.slug == "other" %}{% trans "Other" %}{% else %}{{ c.name }}{% endif %}</span><b>{{ c.count }}</b></a></li>
+          {% endfor %}
+        </ul>
+      </aside>
+
+      <div class="shops-list">
+        {% for shop in shops %}
+          <section class="shop-card" style="--shop-accent: {{ shop.accent }}" data-events-url="{% url 'cards:business_event' shop.slug %}" aria-labelledby="shop-{{ shop.id }}">
+            <header class="shop-card__head">
+              {% if shop.logo %}<img class="shop-card__logo" src="{{ shop.logo }}" alt="" width="48" height="48" loading="lazy" decoding="async">{% else %}<span class="shop-card__logo shop-card__logo--text" aria-hidden="true">{{ shop.name|slice:":2"|upper }}</span>{% endif %}
+              <div class="shop-card__name">
+                <h2 id="shop-{{ shop.id }}"><a href="{{ shop.url }}">{{ shop.name }}</a></h2>
+                {% if shop.tagline %}<p>{{ shop.tagline }}</p>{% endif %}
+              </div>
+              <a class="btn btn--sm" href="{{ shop.url }}">{% trans "Visit shop" %}</a>
+            </header>
+            <ul class="shop-products">
+              {% for p in shop.shown %}
+                <li class="shop-product">
+                  <a class="shop-product__link" href="{{ p.url }}">
+                    <img src="{{ p.image }}" alt="" width="200" height="200" loading="lazy" decoding="async">
+                    <span class="shop-product__title">{{ p.title }}</span>
+                    {% if p.price %}<span class="shop-product__price">{{ p.price }}</span>{% endif %}
+                  </a>
+                  {% if p.buy %}<a class="shop-buy" href="{{ p.buy }}" target="_blank" rel="noopener" data-buy="{{ p.id }}"><span>{% trans "Buy" %}</span></a>{% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+            <footer class="shop-card__foot">
+              {% if shop.products|length > shop.shown|length %}<a href="{{ shop.url }}">{% blocktrans trimmed with count=shop.products|length %}See all {{ count }} products{% endblocktrans %}</a>{% else %}<span></span>{% endif %}
+              <a class="shop-card__report" href="{% url 'cards:report' shop.slug %}">{% icon "flag" 14 %}{% trans "Report this shop" %}</a>
+            </footer>
+          </section>
+        {% empty %}
+          <div class="shops-empty">
+            {% icon "store" 40 %}
+            {% if query or category %}
+              <h2>{% trans "No shops match your search." %}</h2>
+              <p><a class="btn" href="{% url 'marketing:shops' %}">{% trans "Show all shops" %}</a></p>
+            {% else %}
+              <h2>{% trans "No shops are listed yet." %}</h2>
+              <p>{% trans "Businesses on a Professional or Business plan appear here once their page is on." %}</p>
+              <p><a class="btn" href="{% url 'marketing:pricing' %}">{% trans "See plans and prices" %}</a></p>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        {% if page.paginator.num_pages > 1 %}
+          {% trans "Pages" as t_pages %}
+          <nav class="shops-pages" aria-label="{{ t_pages }}">
+            {% if page.has_previous %}<a class="btn" href="?{% if keep %}{{ keep }}&amp;{% endif %}page={{ page.previous_page_number }}">{% trans "Previous" %}</a>{% else %}<span></span>{% endif %}
+            <span>{% blocktrans trimmed with number=page.number total=page.paginator.num_pages %}Page {{ number }} of {{ total }}{% endblocktrans %}</span>
+            {% if page.has_next %}<a class="btn" href="?{% if keep %}{{ keep }}&amp;{% endif %}page={{ page.next_page_number }}">{% trans "Next" %}</a>{% else %}<span></span>{% endif %}
+          </nav>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

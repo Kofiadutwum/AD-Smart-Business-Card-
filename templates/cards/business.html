@@ -17,9 +17,10 @@
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block floating %}{% endblock %}
+{% block scripts %}<script src="{% static 'js/shop.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
 {% block content %}
 {% with name=card.business_name|default:card.full_name %}
-<article class="pcard biz pcard--{{ eff.template }} pcard--btn-{{ eff.button_style }}"
+<article class="pcard biz pcard--{{ eff.template }} pcard--btn-{{ eff.button_style }}"{% if not demo and not preview %} data-shop="{{ card.slug }}" data-events-url="{% url 'cards:business_event' card.slug %}"{% endif %}
   style="--pc-accent:{{ pal.accent }};--pc-on-accent:{{ pal.on_accent }};--pc-accent-text:{{ pal.accent_text_light }};--pc-accent-text-dark:{{ pal.accent_text_dark }};--pc-band:{{ pal.band }};--pc-on-band:{{ pal.on_band }};">
 
   {% if preview %}<p class="biz-preview">{% icon "eye" 16 %} <span>{% trans "Only you can see this page. Switch it on in your dashboard to show it to everyone." %}</span></p>{% endif %}
@@ -58,12 +59,13 @@
       <h2 id="biz-products">{% trans "Products" %}</h2>
       <ul class="biz-grid">
         {% for product in products %}
-          <li class="biz-item">
+          <li class="biz-item{% if product.pk == picked %} biz-item--picked{% endif %}" id="p-{{ product.pk }}" data-product="{{ product.pk }}">
             <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy" decoding="async">
             <div class="biz-item__body">
               <h3>{{ product.title }}</h3>
               {% if product.price %}<p class="biz-price">{{ product.price }}</p>{% endif %}
               {% if product.description %}<p class="biz-text">{{ product.description|linebreaksbr }}</p>{% endif %}
+              {% if product.buy_url %}<a class="biz-buy" href="{{ product.buy_url }}" target="_blank" rel="noopener" data-buy="{{ product.pk }}"><span>{% trans "Buy" %}</span></a>{% endif %}
             </div>
           </li>
         {% endfor %}

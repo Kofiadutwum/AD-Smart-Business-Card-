@@ -1,6 +1,9 @@
 """Public marketing pages (Section 26)."""
 
+from urllib.parse import urlencode
+
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
@@ -8,6 +11,7 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from apps.billing.fx import latest_rate
 from apps.billing.services import TEAM_MAX_SEATS, active_plans
+from apps.cards import marketplace
 from apps.cards.services import business_page_for, company_card
 from apps.cards.views import business_context
 from apps.core.models import SiteSettings
@@ -71,10 +75,33 @@ def home(request):
             "faq": faq(site)[:6],
             "demo": company_demo(company) if company else demo_card(site),
             "business_plans": [plan for plan in context["plans"] if plan.allow_business_page],
+            "market_slides": marketplace.slider(),
             "over_hero": True,
         }
     )
     return render(request, "marketing/home.html", context)
+
+
+SHOPS_PER_PAGE = 8
+
+
+def shops(request):
+    """The marketplace: every listed shop with its products, the busiest shops first, with search and categories."""
+    data = marketplace.get_data()
+    query = request.GET.get("q", "").strip()[:80]
+    category = request.GET.get("c", "")[:70]
+    found = marketplace.search(data["shops"], query, category)
+    page = Paginator(found, SHOPS_PER_PAGE).get_page(request.GET.get("page"))
+    context = {
+        "page": page,
+        "shops": [marketplace.with_buy_links(shop) for shop in page],
+        "query": query,
+        "category": category,
+        "categories": data["categories"],
+        "all_count": sum(len(shop["products"]) for shop in data["shops"]),
+        "keep": urlencode({k: v for k, v in (("q", query), ("c", category)) if v}),
+    }
+    return render(request, "marketing/shops.html", context)
 
 
 @xframe_options_sameorigin  # shown in a phone frame on the home page; the site otherwise refuses to be framed
@@ -105,7 +132,7 @@ def legal(request, page):
     return render(request, f"marketing/legal_{page}.html", {"page": page})
 
 
-SITEMAP_PAGES = ["marketing:home", "marketing:pricing", "marketing:nfc", "marketing:faq", "marketing:terms",
+SITEMAP_PAGES = ["marketing:home", "marketing:shops", "marketing:pricing", "marketing:nfc", "marketing:faq", "marketing:terms",
                  "marketing:privacy", "marketing:refunds"]
 # Everything behind a sign-in, a payment or a staff login, which search engines have no use for.
 ROBOTS_DISALLOW = ["/dashboard/", "/staff/", "/auth/", "/billing/", "/nfc/", "/internal/", "/prefs/"]

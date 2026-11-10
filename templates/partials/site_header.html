@@ -9,6 +9,7 @@
     {% trans "Main" as t_2 %}<nav class="site-nav" aria-label="{{ t_2 }}">
       <ul>
         <li><a href="{% url 'marketing:home' %}#how-it-works">{% trans "How it works" %}</a></li>
+        <li><a href="{% url 'marketing:shops' %}" {% nav_current 'marketing:shops' %}>{% trans "Shops" %}</a></li>
         <li class="site-nav__wide"><a href="{% url 'marketing:home' %}#business-pages">{% trans "Business pages" %}</a></li>
         <li><a href="{% url 'marketing:pricing' %}" {% nav_current 'marketing:pricing' %}>{% trans "Pricing" %}</a></li>
         <li><a href="{% url 'marketing:nfc' %}" {% nav_current 'marketing:nfc' %}>{% trans "NFC cards" %}</a></li>
@@ -42,6 +43,7 @@
     {% trans "Main" as t_5 %}<nav aria-label="{{ t_5 }}">
       <ul>
         <li><a href="{% url 'marketing:home' %}#how-it-works">{% trans "How it works" %}</a></li>
+        <li><a href="{% url 'marketing:shops' %}">{% trans "Shops" %}</a></li>
         <li><a href="{% url 'marketing:home' %}#business-pages">{% trans "Business pages" %}</a></li>
         <li><a href="{% url 'marketing:pricing' %}">{% trans "Pricing" %}</a></li>
         <li><a href="{% url 'marketing:nfc' %}">{% trans "NFC cards" %}</a></li>

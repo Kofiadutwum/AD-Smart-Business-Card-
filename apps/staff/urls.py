@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import admin, auth, content, finance, mycard, nfc, overview, premade, subscribers
+from .views import admin, auth, content, finance, marketplace, mycard, nfc, overview, premade, subscribers
 
 app_name = "staff"
 
@@ -57,6 +57,13 @@ urlpatterns = [
     path("gallery/<int:pk>/", content.gallery_edit, name="gallery_edit"),
     path("gallery/<int:pk>/action/", content.gallery_action, name="gallery_action"),
     path("email/", content.email_subscribers, name="email"),
+    # the shop marketplace
+    path("marketplace/", marketplace.shops, name="marketplace"),
+    path("marketplace/<int:pk>/", marketplace.shop, name="marketplace_shop"),
+    path("marketplace/<int:pk>/hide/", marketplace.hide_shop, name="marketplace_hide_shop"),
+    path("marketplace/products/<int:pk>/hide/", marketplace.hide_product, name="marketplace_hide_product"),
+    path("marketplace/categories/", marketplace.categories, name="marketplace_categories"),
+    path("marketplace/categories/<int:pk>/", marketplace.category_edit, name="marketplace_category"),
     # main admin
     path("settings/", admin.settings_view, name="settings"),
     path("settings/plans/", admin.plans, name="plans"),

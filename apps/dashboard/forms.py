@@ -10,7 +10,7 @@ from django.forms import inlineformset_factory
 from apps.cards.colors import valid_hex
 from apps.cards.models import (
     ACCENT_PRESETS, HIDEABLE_FIELDS, PRODUCT_IMAGE_BYTES, BusinessPage, BusinessProduct, BusinessReview,
-    BusinessService, Card, CardPhone, SocialLink, accent_choices,
+    BusinessService, Card, CardPhone, ProductCategory, SocialLink, accent_choices,
 )
 from apps.core.utils import normalise_phone, process_image
 from django.utils.translation import gettext_lazy as _
@@ -237,15 +237,17 @@ class NewCardForm(forms.Form):
 class BusinessPageForm(forms.ModelForm):
     class Meta:
         model = BusinessPage
-        fields = ["is_on", "tagline", "about", "hours"]
+        fields = ["is_on", "in_marketplace", "tagline", "about", "hours"]
         labels = {
             "is_on": _("Show my business page to everyone"),
+            "in_marketplace": _("List my shop in the AD Smart marketplace"),
             "tagline": _("Tagline"),
             "about": _("About your business"),
             "hours": _("Opening hours"),
         }
         help_texts = {
             "is_on": _("When it is on, an “Explore Business” button appears on your card."),
+            "in_marketplace": _("Shoppers can find your products on our shops page and our home page, and message you on WhatsApp. Untick it to stay out."),
             "tagline": _("One short line under your business name."),
             "hours": _("One line for each day or group of days, for example Mon–Fri 8am–6pm."),
         }
@@ -255,18 +257,22 @@ class BusinessPageForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = BusinessProduct
-        fields = ["image", "title", "price", "description"]
+        fields = ["image", "title", "price", "category", "description"]
         labels = {
-            "image": _("Picture"), "title": _("Name"), "price": _("Price (optional)"), "description": _("Description (optional)"),
+            "image": _("Picture"), "title": _("Name"), "price": _("Price (optional)"), "category": _("Category"),
+            "description": _("Description (optional)"),
         }
         help_texts = {
             "image": _("JPG, PNG or WebP. We shrink every picture to 50 KB or less so your page opens fast."),
             "price": _("Write it the way you want it shown, for example GHS 120 or From GHS 50."),
+            "category": _("Where shoppers find it in the marketplace."),
         }
         widgets = {"description": forms.Textarea(attrs={"rows": 3})}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["category"].queryset = ProductCategory.objects.filter(is_active=True)
+        self.fields["category"].empty_label = _("Other")
         if self.instance.pk:
             self.fields["image"].required = False  # keep the current picture unless a new one is chosen
 

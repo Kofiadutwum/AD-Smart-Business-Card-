@@ -21,6 +21,7 @@ from apps.billing.services import (
     activate_cards, card_limit, card_update_quote, checkout_url, create_payment, plan_for_card, plan_for_limits,
     processing_fee,
 )
+from apps.cards import marketplace
 from apps.cards import services as card_services
 from apps.cards.colors import palette
 from apps.cards.models import (
@@ -509,6 +510,11 @@ def business(request):
         form.save()
         messages.success(request, _("Business page saved."))
         return redirect("dashboard:business")
+    stats = marketplace.shop_stats(page)  # the last 30 days, shown next to each product
+    products = list(page.products.all())
+    for product in products:
+        seen = stats["products"].get(product.pk, {})
+        product.views, product.buys = seen.get("product", 0), seen.get("buy", 0)
     return render(
         request,
         "dashboard/business.html",
@@ -518,8 +524,9 @@ def business(request):
             page=page,
             form=form,
             page_url=page.public_url(),
+            totals=stats["totals"],
             sections=[
-                ("products", page.products.all(), plan.max_products),
+                ("products", products, plan.max_products),
                 ("services", page.services.all(), MAX_SERVICES),
                 ("reviews", page.reviews.all(), MAX_REVIEWS),
             ],

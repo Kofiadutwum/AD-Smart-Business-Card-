@@ -13,10 +13,10 @@ from apps.core.emails import notify_admins, send_email, subject_text
 from apps.core.models import SiteSettings
 from apps.core.utils import rate_limited, visitor_hash
 
-from . import services
+from . import marketplace, services
 from .colors import palette
 from .forms import EnquiryForm, LeadForm, ReportForm
-from .models import CardEvent
+from .models import BusinessEvent, CardEvent
 from django.utils.translation import gettext as _
 
 
@@ -164,6 +164,15 @@ def business_context(page, form=None, **extra):
     """The owner's business page: the primary card's colours and contact details, the plan's product limit."""
     card = page.primary_card()
     eff = card.effective()
+    page_url = page.public_url()
+    # Products staff hid are gone for the public. Each shown one carries its "Buy" (WhatsApp) link: the card's
+    # WhatsApp number, else a WhatsApp link the owner pasted, with the product and price already typed in.
+    products = [p for p in page.products.all() if not p.is_hidden][: eff["plan"].max_products]
+    target = marketplace.whatsapp_target(card)
+    name = card.business_name or card.full_name
+    for product in products:
+        link = f"{page_url}?p={product.pk}"
+        product.buy_url = marketplace.buy_url(target, marketplace.buy_text(name, product.title, product.price, link))
     context = {
         "page": page,
         "preview": not page.is_on,  # only the owner gets here while the page is off
@@ -171,9 +180,9 @@ def business_context(page, form=None, **extra):
         "eff": eff,
         "pal": palette(eff["accent"], eff["card_colour"]),
         "logo": eff["logo"] or card.avatar or None,  # the page never asks for a second logo
-        "page_url": page.public_url(),
+        "page_url": page_url,
         "card_url": card.public_url(),
-        "products": list(page.products.all()[: eff["plan"].max_products]),
+        "products": products,
         "services": list(page.services.all()),
         "reviews": list(page.reviews.all()),
         "enquiry_form": form,
@@ -201,7 +210,15 @@ def business(request, slug):
     if response:
         return response
     form = EnquiryForm(auto_id="enq_%s") if SiteSettings.load().leads_enabled else None
-    return render(request, "cards/business.html", business_context(page, form))
+    context = business_context(page, form)
+    if page.is_on:  # an owner previewing a page that is still off is not a visitor
+        services.record_business(request, context["card"], page, BusinessEvent.VIEW)
+        wanted = request.GET.get("p", "")  # arriving from the slider, the marketplace or a WhatsApp message
+        product = next((p for p in context["products"] if wanted.isdigit() and p.pk == int(wanted)), None)
+        if product:
+            services.record_business(request, context["card"], page, BusinessEvent.PRODUCT, product)
+            context["picked"] = product.pk
+    return render(request, "cards/business.html", context)
 
 
 @require_POST
@@ -229,6 +246,7 @@ def enquire(request, slug):
     lead.source = "business"
     lead.visitor_hash = fingerprint
     lead.save()
+    services.record_business(request, card, page, BusinessEvent.ENQUIRY)
     send_email(
         to=page.owner.email,
         subject=subject_text("New enquiry from %(name)s", name=lead.name),
@@ -239,6 +257,28 @@ def enquire(request, slug):
     )
     messages.success(request, thanks)
     return redirect(page.get_absolute_url())
+
+
+@csrf_exempt
+@require_POST
+def business_event(request, slug):
+    """Beacon from a shop page or the marketplace: a product was opened, or "Buy" was tapped."""
+    card, response = _lookup(request, slug, "/e", prefix="b")
+    if card is None or card.public_state() != card.STATE_LIVE:
+        return HttpResponse(status=204)
+    page = services.business_page_for(card)  # no viewer: a page that is still off counts nothing
+    try:
+        data = json.loads(request.body or b"{}")
+        product_id = int(data.get("product"))
+    except (ValueError, TypeError, AttributeError):
+        return HttpResponseBadRequest()
+    kind = data.get("kind")
+    if page is None or kind not in {BusinessEvent.PRODUCT, BusinessEvent.BUY}:
+        return HttpResponse(status=204)
+    product = page.products.filter(pk=product_id, is_hidden=False).first()
+    if product and not rate_limited(f"bevt:{page.pk}:{visitor_hash(request)}", 120, 600):
+        services.record_business(request, card, page, kind, product)
+    return HttpResponse(status=204)
 
 
 def report(request, slug):

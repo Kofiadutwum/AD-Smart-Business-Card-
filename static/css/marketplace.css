@@ -1,0 +1,420 @@
+/* marketplace.css — the landing page's shop window and the /shops marketplace. */
+
+/* ---- Shop window: the endless slider (the supplied SCSS, written as plain CSS) ----
+   --n is the number of slides in one run, set on the element; the track holds two runs and slides
+   by exactly one, so the loop has no seam. Keep --slide-w in step with SLIDE_PX in apps/cards/marketplace.py. */
+.slider {
+  --slide-w: 220px;
+  --slide-h: 244px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 20px -5px rgb(0 0 0 / 0.125);
+  height: var(--slide-h);
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.slider::before,
+.slider::after {
+  content: "";
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: clamp(2.5rem, 12vw, 12.5rem);
+  z-index: 2;
+}
+.slider::before {
+  background: linear-gradient(to right, var(--surface) 0%, transparent 100%);
+  left: 0;
+}
+.slider::after {
+  background: linear-gradient(to left, var(--surface) 0%, transparent 100%);
+  right: 0;
+}
+.slide-track {
+  animation: slider-scroll calc(var(--n) * 5s) linear infinite;
+  display: flex;
+  width: calc(var(--slide-w) * var(--n) * 2);
+}
+.slide {
+  flex: none;
+  height: var(--slide-h);
+  padding: 0.75rem;
+  width: var(--slide-w);
+}
+.slide a {
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  height: 100%;
+  text-decoration: none;
+}
+.slide img {
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  height: 8.75rem;
+  object-fit: cover;
+  width: 100%;
+}
+.slide__title {
+  font-weight: 650;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.slide__meta {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.slide__meta b {
+  color: var(--ink);
+}
+.slide a:hover .slide__title,
+.slide a:focus-visible .slide__title {
+  text-decoration: underline;
+}
+@keyframes slider-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(var(--slide-w) * var(--n) * -1)); }
+}
+.slider:hover .slide-track,
+.slider:focus-within .slide-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide-track {
+    animation: none;
+    width: max-content;
+  }
+  .slider {
+    overflow-x: auto;
+  }
+  .slider::before,
+  .slider::after,
+  .slide[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* ---- Marketplace page ---- */
+.shops-head {
+  max-width: 44rem;
+}
+.shops-head h1 {
+  margin-top: var(--space-3);
+}
+.shops-search {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  max-width: 36rem;
+}
+.shops-search input {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--ink);
+  flex: 1;
+  font: inherit;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+}
+.shops-notice {
+  align-items: flex-start;
+  color: var(--muted);
+  display: flex;
+  font-size: var(--text-sm);
+  gap: 0.5rem;
+  margin-top: var(--space-4);
+  max-width: 40rem;
+}
+.shops-notice .icon {
+  flex: none;
+  margin-top: 0.15rem;
+}
+
+.shops-layout {
+  display: grid;
+  gap: var(--space-4) var(--space-8);
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: var(--space-8);
+}
+.shops-toggle {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  cursor: pointer;
+  display: none; /* only when the script is running; without it the categories simply sit above the shops */
+  font: inherit;
+  font-weight: 600;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0.5rem 0.875rem;
+}
+.shops-layout[data-cats] .shops-toggle {
+  display: inline-flex;
+}
+.shops-scrim {
+  display: none;
+}
+.shops-cats ul {
+  display: grid;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.shops-cats a {
+  border-radius: var(--radius-sm);
+  color: var(--ink-soft);
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+}
+.shops-cats a:hover {
+  background: var(--bg-alt);
+}
+.shops-cats a[aria-current="true"] {
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-weight: 650;
+}
+.shops-cats b {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* Phone: the categories slide in from the left over the page. */
+@media (max-width: 59.99rem) {
+  .shops-layout[data-cats] .shops-cats {
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+    inset-block: 0;
+    inset-inline-start: 0;
+    overflow-y: auto;
+    padding: var(--space-8) var(--space-4);
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+    visibility: hidden;
+    width: min(20rem, 85vw);
+    z-index: 60;
+  }
+  .shops-layout[data-cats="open"] .shops-cats {
+    transform: none;
+    transition-delay: 0s;
+    visibility: visible;
+  }
+  .shops-layout[data-cats="open"] .shops-scrim {
+    background: rgb(0 0 0 / 0.4);
+    display: block;
+    inset: 0;
+    position: fixed;
+    z-index: 55;
+  }
+}
+
+/* Desktop: the categories sit on the left and the toggle pulls them in and out. */
+@media (min-width: 60rem) {
+  .shops-layout {
+    grid-template-columns: 15rem minmax(0, 1fr);
+    transition: grid-template-columns 0.25s ease, column-gap 0.25s ease;
+  }
+  .shops-layout[data-cats="closed"] {
+    column-gap: 0;
+    grid-template-columns: 0 minmax(0, 1fr);
+  }
+  .shops-toggle {
+    grid-column: 1 / -1;
+  }
+  .shops-cats {
+    align-self: start;
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+    overflow: hidden;
+    position: sticky;
+    top: 5.5rem;
+  }
+  .shops-layout[data-cats="closed"] .shops-cats {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .shops-list {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+.shops-list {
+  align-content: start;
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: minmax(0, 1fr); /* an auto column grows to the widest nowrap tagline and pushes the card off a phone */
+  min-width: 0;
+}
+.shop-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  border-top: 4px solid var(--shop-accent, var(--accent));
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+}
+.shop-card__head {
+  align-items: center;
+  display: flex;
+  gap: var(--space-3);
+}
+.shop-card__logo {
+  background: var(--bg-alt);
+  border-radius: 50%;
+  flex: none;
+  height: 3rem;
+  object-fit: cover;
+  width: 3rem;
+}
+.shop-card__logo--text {
+  color: var(--ink-soft);
+  display: grid;
+  font-weight: 700;
+  place-items: center;
+}
+.shop-card__name {
+  flex: 1;
+  min-width: 0;
+}
+.shop-card__name h2 {
+  font-size: var(--text-lg);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.shop-card__name h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+.shop-card__name h2 a:hover {
+  text-decoration: underline;
+}
+.shop-card__name p {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shop-products {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+}
+@media (min-width: 40rem) {
+  .shop-products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 72rem) {
+  .shop-products {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.shop-product {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.shop-product__link {
+  color: inherit;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  text-decoration: none;
+}
+.shop-product img {
+  aspect-ratio: 1;
+  background: var(--bg-alt);
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+.shop-product__title {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  padding: 0.625rem 0.75rem 0;
+}
+.shop-product__price {
+  color: var(--accent);
+  font-weight: 650;
+  padding: 0.125rem 0.75rem 0.5rem;
+}
+.shop-product__link:hover .shop-product__title,
+.shop-product__link:focus-visible .shop-product__title {
+  text-decoration: underline;
+}
+.shop-buy {
+  align-items: center;
+  background: #0b7a3e; /* WhatsApp green, dark enough for white text (5.6:1) */
+  border-radius: var(--radius-sm);
+  color: #fff;
+  display: flex;
+  font-size: var(--text-sm);
+  font-weight: 650;
+  gap: 0.375rem;
+  justify-content: center;
+  margin: 0.25rem 0.625rem 0.625rem;
+  padding: 0.5rem;
+  text-decoration: none;
+}
+.shop-buy:hover,
+.shop-buy:focus-visible {
+  background: #095f31;
+}
+.shop-card__foot {
+  align-items: center;
+  display: flex;
+  font-size: var(--text-sm);
+  gap: var(--space-3);
+  justify-content: space-between;
+  margin-top: var(--space-4);
+}
+.shop-card__report {
+  align-items: center;
+  color: var(--muted);
+  display: inline-flex;
+  gap: 0.25rem;
+}
+.shops-empty {
+  color: var(--muted);
+  padding: var(--space-16) var(--space-4);
+  text-align: center;
+}
+.shops-empty h2 {
+  color: var(--ink);
+  margin: var(--space-4) 0 var(--space-2);
+}
+.shops-pages {
+  align-items: center;
+  display: flex;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
