@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="{% static 'css/site.css' %}{{ ASSET_Q }}">
   {% block css %}{% endblock %}
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'brand/favicon-32.png' %}">
-  <link rel="apple-touch-icon" href="{% static 'brand/apple-touch-icon.png' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'brand/apple-touch-icon.png' %}">
   <meta name="theme-color" content="#1f1f1f">
   {# Lets a phone, Mac or PC install the site as an app (see apps/marketing/views.py: manifest, service_worker). #}
   <link rel="manifest" href="{% url 'marketing:manifest' %}">

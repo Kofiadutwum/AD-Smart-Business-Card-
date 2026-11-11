@@ -57,6 +57,14 @@ class InstallableAppTests(BaseTest):
         self.assertContains(response, 'name="apple-mobile-web-app-capable"')
         self.assertContains(response, "data-install-item hidden")  # shown by site.js only where the browser can install
 
+    def test_home_screen_icon_is_served_at_the_root_paths_an_iphone_asks_for(self):
+        for path in ("/apple-touch-icon.png", "/apple-touch-icon-precomposed.png"):
+            response = self.client.get(path)
+            self.assertEqual(response.status_code, 200, path)
+            self.assertEqual(response["Content-Type"], "image/png", path)
+            self.assertEqual(response.getvalue()[:8], b"\x89PNG\r\n\x1a\n", path)
+        self.assertContains(self.client.get("/"), 'rel="apple-touch-icon" sizes="180x180"')
+
     def test_install_text_is_translated(self):
         response = self.client.get("/", HTTP_ACCEPT_LANGUAGE="fr")
         self.assertContains(response, "Installer l")

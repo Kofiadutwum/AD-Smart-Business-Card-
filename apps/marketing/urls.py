@@ -16,6 +16,8 @@ urlpatterns = [
     path("manifest.webmanifest", views.manifest, name="manifest"),
     path("sw.js", views.service_worker, name="service_worker"),
     path("offline", views.offline, name="offline"),
+    path("apple-touch-icon.png", views.touch_icon, name="touch_icon"),
+    path("apple-touch-icon-precomposed.png", views.touch_icon),
     path("robots.txt", views.robots_txt, name="robots"),
     path("sitemap.xml", views.sitemap_xml, name="sitemap"),
     path("demo/kofi-adutwum.vcf", views.demo_vcf, name="demo_vcf"),

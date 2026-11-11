@@ -6,7 +6,8 @@ from urllib.parse import urlencode
 
 from django.conf import settings
 from django.core.paginator import Paginator
-from django.http import HttpResponse, JsonResponse
+from django.contrib.staticfiles import finders
+from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.templatetags.static import static
 from django.template.loader import render_to_string
@@ -178,6 +179,14 @@ def manifest(request):
 
 def offline(request):
     return render(request, "pwa/offline.html")
+
+
+def touch_icon(request):
+    """An iPhone asks for its home-screen icon at the site root as well as at the link in the page; answer both with the logo."""
+    path = finders.find("brand/apple-touch-icon.png")
+    if not path:
+        raise Http404
+    return FileResponse(open(path, "rb"), content_type="image/png", headers={"Cache-Control": "public, max-age=86400"})
 
 
 def service_worker(request):
