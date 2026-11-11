@@ -1,12 +1,17 @@
 """Public marketing pages (Section 26)."""
 
+import hashlib
+import json
 from urllib.parse import urlencode
 
 from django.conf import settings
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.templatetags.static import static
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.translation import get_language, gettext
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from apps.billing.fx import latest_rate
@@ -140,6 +145,56 @@ ROBOTS_DISALLOW = ["/dashboard/", "/staff/", "/auth/", "/billing/", "/nfc/", "/i
 def robots_txt(request):
     lines = ["User-agent: *", *(f"Disallow: {path}" for path in ROBOTS_DISALLOW), "", f"Sitemap: {settings.SITE_URL}/sitemap.xml", ""]
     return HttpResponse("\n".join(lines), content_type="text/plain; charset=utf-8")
+
+
+# --- the installable app (PWA) -------------------------------------------------
+# The browser installs the site as an app from these three: the manifest says what
+# the app is called and looks like, the service worker lets it open without a
+# connection, and the offline page is what it shows then.
+
+
+def manifest(request):
+    icons = [
+        {"src": static("brand/icon-192.png"), "sizes": "192x192", "type": "image/png", "purpose": "any"},
+        {"src": static("brand/icon-512.png"), "sizes": "512x512", "type": "image/png", "purpose": "any"},
+        {"src": static("brand/icon-maskable-512.png"), "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+    ]
+    data = {
+        "id": "/",
+        "name": settings.SITE_NAME,
+        "short_name": "AD Smart",
+        "description": gettext("Share your contact details by link, QR code or NFC tap."),
+        "lang": get_language(),
+        "start_url": "/dashboard/?source=app",  # owners land on their dashboard; anyone else is asked to log in
+        "scope": "/",
+        "display": "standalone",
+        "background_color": "#1f1f1f",
+        "theme_color": "#1f1f1f",
+        "categories": ["business", "productivity"],
+        "icons": icons,
+    }
+    return JsonResponse(data, content_type="application/manifest+json")
+
+
+def offline(request):
+    return render(request, "pwa/offline.html")
+
+
+def service_worker(request):
+    """Served from the site root so it can cover every page. The cache name changes whenever the
+    offline page or a static file it keeps changes, so a deploy replaces the old cache by itself."""
+    page = render_to_string("pwa/offline.html", request=request)
+    keep = [static("brand/logo-96.webp")]
+    version = hashlib.sha1((page + "".join(keep)).encode()).hexdigest()[:10]
+    response = render(
+        request,
+        "pwa/sw.js",
+        {"cache_name": f"adsmart-{version}", "keep_json": json.dumps(["/offline", *keep]), "debug": settings.DEBUG},
+        content_type="application/javascript; charset=utf-8",
+    )
+    response["Cache-Control"] = "no-cache"  # the browser re-checks it on every visit, so updates arrive
+    response["Service-Worker-Allowed"] = "/"
+    return response
 
 
 def sitemap_xml(request):

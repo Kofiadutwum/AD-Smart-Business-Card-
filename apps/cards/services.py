@@ -32,7 +32,7 @@ RESERVED = {
     "dashboard", "billing", "staff", "support", "help", "static", "media", "www", "mail",
     "nfc", "card", "cards", "pricing", "about", "contact", "terms", "privacy", "refunds",
     "faq", "settings", "account", "root", "system", "adsmart", "ad-smart", "official",
-    "paystack", "payment", "payments", "checkout", "null", "undefined", "test",
+    "paystack", "payment", "payments", "checkout", "null", "undefined", "test", "offline", "shops",
 }
 OFFENSIVE = {"fuck", "shit", "bitch", "cunt", "nigger", "nigga", "porn", "sex", "whore", "slut", "rape"}
 

@@ -80,7 +80,7 @@
       }
     });
     menu.addEventListener("click", function (event) {
-      if (event.target.closest("a")) setMenu(false);
+      if (event.target.closest("a, [data-install]")) setMenu(false);
     });
     // A click anywhere else closes it, as a dropdown should.
     document.addEventListener("click", function (event) {
@@ -383,6 +383,49 @@
     notice.querySelector("button").addEventListener("click", function () {
       store("cookie-ok", "1");
       notice.hidden = true;
+    });
+  }
+
+  /* --- installable app (PWA) ---------------------------------------------------------------- */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(function () {});
+    });
+  }
+
+  var installItem = document.querySelector("[data-install-item]");
+  var alreadyApp = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  if (installItem && !alreadyApp) {
+    var installBtn = installItem.querySelector("[data-install]");
+    var reveal = function (el) {
+      installItem.hidden = false;
+      el.hidden = false;
+    };
+    var agent = navigator.userAgent;
+    var onIos = /iPhone|iPad|iPod/.test(agent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    // Safari offers no install event: show where to tap instead. (Mac Safari 17+ has File > Add to Dock.)
+    if (onIos) {
+      reveal(installItem.querySelector("[data-install-ios]"));
+    } else if (/Macintosh/.test(agent) && /Safari/.test(agent) && !/Chrome|Chromium|Edg|OPR|Firefox/.test(agent)) {
+      reveal(installItem.querySelector("[data-install-safari]"));
+    }
+
+    // Chrome, Edge and Android: the browser hands over an install prompt once the site qualifies.
+    var offer = null;
+    window.addEventListener("beforeinstallprompt", function (event) {
+      event.preventDefault();
+      offer = event;
+      reveal(installBtn);
+    });
+    installBtn.addEventListener("click", function () {
+      if (!offer) return;
+      var prompt = offer;
+      offer = null;
+      installItem.hidden = true;
+      prompt.prompt();
+    });
+    window.addEventListener("appinstalled", function () {
+      installItem.hidden = true;
     });
   }
 })();

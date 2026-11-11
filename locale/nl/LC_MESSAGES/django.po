@@ -1762,7 +1762,7 @@ msgstr ""
 "bestellingen te volgen."
 
 #: templates/accounts/login.html:16 templates/partials/site_header.html:22
-#: templates/partials/site_header.html:46
+#: templates/partials/site_header.html:52
 msgid "Log in"
 msgstr "Inloggen"
 
@@ -1827,7 +1827,7 @@ msgstr "Nieuwe code sturen"
 msgid "Step 2 of 3"
 msgstr "Stap 2 van 3"
 
-#: templates/base.html:39
+#: templates/base.html:45
 msgid "Skip to main content"
 msgstr "Naar de hoofdinhoud"
 
@@ -2137,7 +2137,7 @@ msgstr ""
 "Er is niets van je afgeschreven. Je kunt het opnieuw proberen of een andere "
 "betaalmethode gebruiken."
 
-#: templates/billing/result.html:34
+#: templates/billing/result.html:34 templates/pwa/offline.html:29
 msgid "Try again"
 msgstr "Opnieuw proberen"
 
@@ -3943,7 +3943,7 @@ msgid "Your business card, <span class=\"glow\">one tap away.</span>"
 msgstr "Je visitekaartje, <span class=\"glow\">één tik verwijderd.</span>"
 
 #: templates/marketing/home.html:28 templates/marketing/home.html:193
-#: templates/partials/site_header.html:45
+#: templates/partials/site_header.html:51
 msgid "Create my card"
 msgstr "Mijn kaart maken"
 
@@ -4924,11 +4924,11 @@ msgid "Menu"
 msgstr "Menu"
 
 #: templates/partials/site_header.html:19
-#: templates/partials/site_header.html:43
+#: templates/partials/site_header.html:49
 msgid "Staff area"
 msgstr "Medewerkersgedeelte"
 
-#: templates/partials/site_header.html:43
+#: templates/partials/site_header.html:49
 msgid "Go to dashboard"
 msgstr "Naar het dashboard"
 
@@ -5688,7 +5688,7 @@ msgstr ""
 "Ontvangers slaan je met één tik op in hun telefoon en je kunt je gegevens op"
 " elk moment bijwerken."
 
-#: templates/base.html:32
+#: apps/marketing/views.py:166 templates/base.html:38
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "Deel je contactgegevens via een link, QR-code of NFC-tik."
 
@@ -7420,6 +7420,26 @@ msgstr ""
 #, python-format
 msgid "%(used)s added, no limit"
 msgstr "%(used)s toegevoegd, geen limiet"
+
+#: templates/partials/site_header.html:40
+msgid "Install app"
+msgstr "App installeren"
+
+#: templates/partials/site_header.html:41
+msgid "On iPhone or iPad, tap Share, then Add to Home Screen."
+msgstr "Tik op iPhone of iPad op Deel en kies daarna ‘Zet op beginscherm’."
+
+#: templates/partials/site_header.html:42
+msgid "In Safari, choose File, then Add to Dock."
+msgstr "Kies in Safari Archief en daarna ‘Voeg toe aan Dock’."
+
+#: templates/pwa/offline.html:8 templates/pwa/offline.html:27
+msgid "You are offline"
+msgstr "Je bent offline"
+
+#: templates/pwa/offline.html:28
+msgid "Check your connection, then try again."
+msgstr "Controleer je verbinding en probeer het opnieuw."
 
 #~ msgid ""
 #~ "Show up to 10 products on Professional and up to 30 on Business, with your "

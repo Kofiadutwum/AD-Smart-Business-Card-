@@ -24,6 +24,12 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{% static 'brand/favicon-32.png' %}">
   <link rel="apple-touch-icon" href="{% static 'brand/apple-touch-icon.png' %}">
   <meta name="theme-color" content="#1f1f1f">
+  {# Lets a phone, Mac or PC install the site as an app (see apps/marketing/views.py: manifest, service_worker). #}
+  <link rel="manifest" href="{% url 'marketing:manifest' %}">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="AD Smart">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   {% block meta %}
   <link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
   <meta property="og:site_name" content="{{ SITE_NAME }}">

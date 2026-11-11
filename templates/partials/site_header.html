@@ -35,6 +35,12 @@
               <li><a href="{% url 'marketing:nfc' %}" {% nav_current 'marketing:nfc' %}>{% trans "NFC cards" %}</a></li>
               <li><a href="{% url 'marketing:faq' %}" {% nav_current 'marketing:faq' %}>{% trans "FAQ" %}</a></li>
               <li><a href="{% url 'support:contact' %}" {% nav_current 'support:contact' %}>{% trans "Contact" %}</a></li>
+              {# Hidden until site.js knows the browser can install the app: a button where it can, a hint where the browser has no install button (iPhone, Mac Safari). #}
+              <li data-install-item hidden>
+                <button type="button" class="menu-install" data-install hidden>{% icon "download" 20 %}<span>{% trans "Install app" %}</span></button>
+                <p class="menu-install__hint" data-install-ios hidden>{% trans "On iPhone or iPad, tap Share, then Add to Home Screen." %}</p>
+                <p class="menu-install__hint" data-install-safari hidden>{% trans "In Safari, choose File, then Add to Dock." %}</p>
+              </li>
             </ul>
           </nav>
           <div class="mobile-menu__actions">

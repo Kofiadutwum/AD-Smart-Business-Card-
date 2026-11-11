@@ -1747,7 +1747,7 @@ msgstr ""
 "pedidos NFC."
 
 #: templates/accounts/login.html:16 templates/partials/site_header.html:22
-#: templates/partials/site_header.html:46
+#: templates/partials/site_header.html:52
 msgid "Log in"
 msgstr "Iniciar sesión"
 
@@ -1812,7 +1812,7 @@ msgstr "Enviar un código nuevo"
 msgid "Step 2 of 3"
 msgstr "Paso 2 de 3"
 
-#: templates/base.html:39
+#: templates/base.html:45
 msgid "Skip to main content"
 msgstr "Saltar al contenido principal"
 
@@ -2119,7 +2119,7 @@ msgstr ""
 "No se te ha cobrado nada. Puedes intentarlo de nuevo o usar otro método de "
 "pago."
 
-#: templates/billing/result.html:34
+#: templates/billing/result.html:34 templates/pwa/offline.html:29
 msgid "Try again"
 msgstr "Intentar de nuevo"
 
@@ -3928,7 +3928,7 @@ msgid "Your business card, <span class=\"glow\">one tap away.</span>"
 msgstr "Tu tarjeta de presentación, <span class=\"glow\">a un toque.</span>"
 
 #: templates/marketing/home.html:28 templates/marketing/home.html:193
-#: templates/partials/site_header.html:45
+#: templates/partials/site_header.html:51
 msgid "Create my card"
 msgstr "Crear mi tarjeta"
 
@@ -4906,11 +4906,11 @@ msgid "Menu"
 msgstr "Menú"
 
 #: templates/partials/site_header.html:19
-#: templates/partials/site_header.html:43
+#: templates/partials/site_header.html:49
 msgid "Staff area"
 msgstr "Área del equipo"
 
-#: templates/partials/site_header.html:43
+#: templates/partials/site_header.html:49
 msgid "Go to dashboard"
 msgstr "Ir al panel"
 
@@ -5669,7 +5669,7 @@ msgstr ""
 " o un toque NFC. La gente te guarda en su teléfono con un toque y puedes "
 "actualizar tus datos cuando quieras."
 
-#: templates/base.html:32
+#: apps/marketing/views.py:166 templates/base.html:38
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr ""
 "Comparte tus datos de contacto con un enlace, un código QR o un toque NFC."
@@ -7394,6 +7394,27 @@ msgstr ""
 #, python-format
 msgid "%(used)s added, no limit"
 msgstr "%(used)s añadidos, sin límite"
+
+#: templates/partials/site_header.html:40
+msgid "Install app"
+msgstr "Instalar la app"
+
+#: templates/partials/site_header.html:41
+msgid "On iPhone or iPad, tap Share, then Add to Home Screen."
+msgstr ""
+"En iPhone o iPad, toca Compartir y luego «Añadir a pantalla de inicio»."
+
+#: templates/partials/site_header.html:42
+msgid "In Safari, choose File, then Add to Dock."
+msgstr "En Safari, elige Archivo y luego «Añadir al Dock»."
+
+#: templates/pwa/offline.html:8 templates/pwa/offline.html:27
+msgid "You are offline"
+msgstr "Estás sin conexión"
+
+#: templates/pwa/offline.html:28
+msgid "Check your connection, then try again."
+msgstr "Comprueba tu conexión e inténtalo de nuevo."
 
 #~ msgid ""
 #~ "Show up to 10 products on Professional and up to 30 on Business, with your "

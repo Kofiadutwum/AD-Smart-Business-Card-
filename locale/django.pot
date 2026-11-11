@@ -1939,6 +1939,10 @@ msgstr ""
 msgid "Design and print studio in Cape Coast"
 msgstr ""
 
+#: apps/marketing/views.py:166 templates/base.html:38
+msgid "Share your contact details by link, QR code or NFC tap."
+msgstr ""
+
 #: apps/nfc/forms.py:18
 msgid "shipping and delivery"
 msgstr ""
@@ -2474,7 +2478,7 @@ msgstr ""
 msgid "Have a one-time password from support? <a href=\"%(url_1)s\">Use it here</a>."
 msgstr ""
 
-#: templates/accounts/login.html:16 templates/partials/site_header.html:22 templates/partials/site_header.html:46
+#: templates/accounts/login.html:16 templates/partials/site_header.html:22 templates/partials/site_header.html:52
 msgid "Log in"
 msgstr ""
 
@@ -2570,11 +2574,7 @@ msgstr ""
 msgid "Digital business cards you share by link, QR code or NFC tap. Recipients save you to their phone in one tap, and you can update your details any time."
 msgstr ""
 
-#: templates/base.html:32
-msgid "Share your contact details by link, QR code or NFC tap."
-msgstr ""
-
-#: templates/base.html:39
+#: templates/base.html:45
 msgid "Skip to main content"
 msgstr ""
 
@@ -2893,7 +2893,7 @@ msgstr ""
 msgid "You have not been charged. You can try again, or use a different payment method."
 msgstr ""
 
-#: templates/billing/result.html:34
+#: templates/billing/result.html:34 templates/pwa/offline.html:29
 msgid "Try again"
 msgstr ""
 
@@ -4975,7 +4975,7 @@ msgstr ""
 msgid "Share by link, QR code or NFC tap. Update your details any time."
 msgstr ""
 
-#: templates/marketing/home.html:28 templates/marketing/home.html:193 templates/partials/site_header.html:45
+#: templates/marketing/home.html:28 templates/marketing/home.html:193 templates/partials/site_header.html:51
 msgid "Create my card"
 msgstr ""
 
@@ -5862,7 +5862,7 @@ msgstr ""
 msgid "Shops"
 msgstr ""
 
-#: templates/partials/site_header.html:19 templates/partials/site_header.html:43
+#: templates/partials/site_header.html:19 templates/partials/site_header.html:49
 msgid "Staff area"
 msgstr ""
 
@@ -5878,7 +5878,19 @@ msgstr ""
 msgid "Main"
 msgstr ""
 
-#: templates/partials/site_header.html:43
+#: templates/partials/site_header.html:40
+msgid "Install app"
+msgstr ""
+
+#: templates/partials/site_header.html:41
+msgid "On iPhone or iPad, tap Share, then Add to Home Screen."
+msgstr ""
+
+#: templates/partials/site_header.html:42
+msgid "In Safari, choose File, then Add to Dock."
+msgstr ""
+
+#: templates/partials/site_header.html:49
 msgid "Go to dashboard"
 msgstr ""
 
@@ -5888,6 +5900,14 @@ msgstr ""
 
 #: templates/partials/whatsapp_float.html:2
 msgid "Chat with us"
+msgstr ""
+
+#: templates/pwa/offline.html:8 templates/pwa/offline.html:27
+msgid "You are offline"
+msgstr ""
+
+#: templates/pwa/offline.html:28
+msgid "Check your connection, then try again."
 msgstr ""
 
 #: templates/support/contact.html:2
