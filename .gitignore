@@ -7,3 +7,5 @@ media/
 staticfiles/
 .pytest_cache/
 .claude/
+claude-flow/
+graphify-out/

@@ -42,7 +42,7 @@ TAG = re.compile(r"</?\s*([a-zA-Z][a-zA-Z0-9]*)")
 # The helpers that do the translating take the sentence as a variable; that is not a missed sentence.
 HELPER_FILES = {"apps/core/emails.py", "apps/core/templatetags/ui.py"}
 
-SKIP_DIRS = {"migrations", "__pycache__", "node_modules", ".venv", "graphify-out", "claude-flow"}
+SKIP_DIRS = {"migrations", "__pycache__", "node_modules", ".venv"}
 
 
 def _literal(node):
