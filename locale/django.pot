@@ -694,17 +694,17 @@ msgstr ""
 msgid "Business or organisation"
 msgstr ""
 
-#: apps/cards/marketplace.py:75
+#: apps/cards/marketplace.py:76
 #, python-format
 msgid "Hi %(shop)s, I would like to buy %(product)s (%(price)s). %(link)s"
 msgstr ""
 
-#: apps/cards/marketplace.py:76
+#: apps/cards/marketplace.py:77
 #, python-format
 msgid "Hi %(shop)s, I would like to buy %(product)s. %(link)s"
 msgstr ""
 
-#: apps/cards/marketplace.py:81
+#: apps/cards/marketplace.py:82
 #, python-format
 msgid "Hi %(shop)s, I would like to order:"
 msgstr ""
@@ -1939,7 +1939,7 @@ msgstr ""
 msgid "Design and print studio in Cape Coast"
 msgstr ""
 
-#: apps/marketing/views.py:166 templates/base.html:38
+#: apps/marketing/views.py:167 templates/base.html:38
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr ""
 
@@ -3018,7 +3018,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: templates/cards/business.html:84 templates/marketing/shops.html:57
+#: templates/cards/business.html:84 templates/marketing/shops.html:62
 msgid "Buy"
 msgstr ""
 
@@ -4979,7 +4979,7 @@ msgstr ""
 msgid "Create my card"
 msgstr ""
 
-#: templates/marketing/home.html:29 templates/marketing/shops.html:75
+#: templates/marketing/home.html:29 templates/marketing/shops.html:83
 msgid "See plans and prices"
 msgstr ""
 
@@ -5501,49 +5501,57 @@ msgstr ""
 msgid "All products"
 msgstr ""
 
-#: templates/marketing/shops.html:47
+#: templates/marketing/shops.html:39
+msgid "Previous products"
+msgstr ""
+
+#: templates/marketing/shops.html:39
+msgid "Next products"
+msgstr ""
+
+#: templates/marketing/shops.html:48
 msgid "Visit shop"
 msgstr ""
 
-#: templates/marketing/shops.html:62
-#, python-format
-msgid "See all %(count)s products"
-msgstr ""
-
-#: templates/marketing/shops.html:63
-msgid "Report this shop"
-msgstr ""
-
 #: templates/marketing/shops.html:70
-msgid "No shops match your search."
+#, python-format
+msgid "See all %(name)s products"
 msgstr ""
 
 #: templates/marketing/shops.html:71
+msgid "Report this shop"
+msgstr ""
+
+#: templates/marketing/shops.html:78
+msgid "No shops match your search."
+msgstr ""
+
+#: templates/marketing/shops.html:79
 msgid "Show all shops"
 msgstr ""
 
-#: templates/marketing/shops.html:73
+#: templates/marketing/shops.html:81
 msgid "No shops are listed yet."
 msgstr ""
 
-#: templates/marketing/shops.html:74
+#: templates/marketing/shops.html:82
 msgid "Businesses on a Professional or Business plan appear here once their page is on."
 msgstr ""
 
-#: templates/marketing/shops.html:81
+#: templates/marketing/shops.html:89
 msgid "Pages"
 msgstr ""
 
-#: templates/marketing/shops.html:83
+#: templates/marketing/shops.html:91
 msgid "Previous"
 msgstr ""
 
-#: templates/marketing/shops.html:84
+#: templates/marketing/shops.html:92
 #, python-format
 msgid "Page %(number)s of %(total)s"
 msgstr ""
 
-#: templates/marketing/shops.html:85
+#: templates/marketing/shops.html:93
 msgid "Next"
 msgstr ""
 

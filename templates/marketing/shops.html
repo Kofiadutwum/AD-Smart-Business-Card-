@@ -36,6 +36,7 @@
       </aside>
 
       <div class="shops-list">
+        {% trans "Previous products" as t_prev %}{% trans "Next products" as t_next %}
         {% for shop in shops %}
           <section class="shop-card" style="--shop-accent: {{ shop.accent }}" data-events-url="{% url 'cards:business_event' shop.slug %}" aria-labelledby="shop-{{ shop.id }}">
             <header class="shop-card__head">
@@ -46,20 +47,27 @@
               </div>
               <a class="btn btn--sm" href="{{ shop.url }}">{% trans "Visit shop" %}</a>
             </header>
-            <ul class="shop-products">
-              {% for p in shop.shown %}
-                <li class="shop-product">
-                  <a class="shop-product__link" href="{{ p.url }}">
-                    <img src="{{ p.image }}" alt="" width="200" height="200" loading="lazy" decoding="async">
-                    <span class="shop-product__title">{{ p.title }}</span>
-                    {% if p.price %}<span class="shop-product__price">{{ p.price }}</span>{% endif %}
-                  </a>
-                  {% if p.buy %}<a class="shop-buy" href="{{ p.buy }}" target="_blank" rel="noopener" data-buy="{{ p.id }}"><span>{% trans "Buy" %}</span></a>{% endif %}
-                </li>
-              {% endfor %}
-            </ul>
+            {# Each row scrolls sideways on its own: swipe on a phone, arrows (shown by marketplace.js) everywhere. #}
+            {% for row in shop.rows %}
+              <div class="shop-row" data-row>
+                <button type="button" class="shop-row__arrow shop-row__arrow--prev" data-row-prev aria-label="{{ t_prev }}" hidden>{% icon "chevron-left" 22 %}</button>
+                <ul class="shop-products" data-row-track tabindex="0" aria-labelledby="shop-{{ shop.id }}">
+                  {% for p in row %}
+                    <li class="shop-product">
+                      <a class="shop-product__link" href="{{ p.url }}">
+                        <img src="{{ p.image }}" alt="" width="200" height="200" loading="lazy" decoding="async">
+                        <span class="shop-product__title">{{ p.title }}</span>
+                        {% if p.price %}<span class="shop-product__price">{{ p.price }}</span>{% endif %}
+                      </a>
+                      {% if p.buy %}<a class="shop-buy" href="{{ p.buy }}" target="_blank" rel="noopener" data-buy="{{ p.id }}"><span>{% trans "Buy" %}</span></a>{% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+                <button type="button" class="shop-row__arrow shop-row__arrow--next" data-row-next aria-label="{{ t_next }}" hidden>{% icon "chevron-right" 22 %}</button>
+              </div>
+            {% endfor %}
             <footer class="shop-card__foot">
-              {% if shop.products|length > shop.shown|length %}<a href="{{ shop.url }}">{% blocktrans trimmed with count=shop.products|length %}See all {{ count }} products{% endblocktrans %}</a>{% else %}<span></span>{% endif %}
+              {% if shop.products|length > shop.shown|length %}<a href="{{ shop.url }}">{% blocktrans trimmed with name=shop.name %}See all {{ name }} products{% endblocktrans %}</a>{% else %}<span></span>{% endif %}
               <a class="shop-card__report" href="{% url 'cards:report' shop.slug %}">{% icon "flag" 14 %}{% trans "Report this shop" %}</a>
             </footer>
           </section>

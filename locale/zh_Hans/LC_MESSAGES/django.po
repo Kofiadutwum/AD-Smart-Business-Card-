@@ -3659,7 +3659,7 @@ msgstr "您的名片，<span class=\"glow\">轻触即达。</span>"
 msgid "Create my card"
 msgstr "创建我的名片"
 
-#: templates/marketing/home.html:29 templates/marketing/shops.html:75
+#: templates/marketing/home.html:29 templates/marketing/shops.html:83
 msgid "See plans and prices"
 msgstr "查看套餐与价格"
 
@@ -5240,7 +5240,7 @@ msgid ""
 "time."
 msgstr "通过链接、二维码或 NFC 轻触分享的电子名片。对方一键即可存入手机，您也可以随时更新资料。"
 
-#: apps/marketing/views.py:166 templates/base.html:38
+#: apps/marketing/views.py:167 templates/base.html:38
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "通过链接、二维码或 NFC 轻触分享您的联系方式。"
 
@@ -6417,12 +6417,12 @@ msgid ""
 "%(link)s"
 msgstr "想修改时，您可以在控制面板中自行付款：%(link)s"
 
-#: apps/cards/marketplace.py:75
+#: apps/cards/marketplace.py:76
 #, python-format
 msgid "Hi %(shop)s, I would like to buy %(product)s (%(price)s). %(link)s"
 msgstr "您好 %(shop)s，我想购买 %(product)s（%(price)s）。%(link)s"
 
-#: apps/cards/marketplace.py:76
+#: apps/cards/marketplace.py:77
 #, python-format
 msgid "Hi %(shop)s, I would like to buy %(product)s. %(link)s"
 msgstr "您好 %(shop)s，我想购买 %(product)s。%(link)s"
@@ -6549,51 +6549,46 @@ msgstr "分类"
 msgid "All products"
 msgstr "全部商品"
 
-#: templates/marketing/shops.html:47
+#: templates/marketing/shops.html:48
 msgid "Visit shop"
 msgstr "访问店铺"
 
-#: templates/marketing/shops.html:62
-#, python-format
-msgid "See all %(count)s products"
-msgstr "查看全部 %(count)s 件商品"
-
-#: templates/marketing/shops.html:63
+#: templates/marketing/shops.html:71
 msgid "Report this shop"
 msgstr "举报此店铺"
 
-#: templates/marketing/shops.html:70
+#: templates/marketing/shops.html:78
 msgid "No shops match your search."
 msgstr "没有符合搜索条件的店铺。"
 
-#: templates/marketing/shops.html:71
+#: templates/marketing/shops.html:79
 msgid "Show all shops"
 msgstr "显示全部店铺"
 
-#: templates/marketing/shops.html:73
+#: templates/marketing/shops.html:81
 msgid "No shops are listed yet."
 msgstr "暂无上架的店铺。"
 
-#: templates/marketing/shops.html:74
+#: templates/marketing/shops.html:82
 msgid ""
 "Businesses on a Professional or Business plan appear here once their page is"
 " on."
 msgstr "使用 Professional 或 Business 套餐的商家，页面开启后会显示在这里。"
 
-#: templates/marketing/shops.html:81
+#: templates/marketing/shops.html:89
 msgid "Pages"
 msgstr "页码"
 
-#: templates/marketing/shops.html:83
+#: templates/marketing/shops.html:91
 msgid "Previous"
 msgstr "上一页"
 
-#: templates/marketing/shops.html:84
+#: templates/marketing/shops.html:92
 #, python-format
 msgid "Page %(number)s of %(total)s"
 msgstr "第 %(number)s 页，共 %(total)s 页"
 
-#: templates/marketing/shops.html:85
+#: templates/marketing/shops.html:93
 msgid "Next"
 msgstr "下一页"
 
@@ -6601,11 +6596,11 @@ msgstr "下一页"
 msgid "Shops"
 msgstr "店铺"
 
-#: templates/cards/business.html:84 templates/marketing/shops.html:57
+#: templates/cards/business.html:84 templates/marketing/shops.html:62
 msgid "Buy"
 msgstr "购买"
 
-#: apps/cards/marketplace.py:81
+#: apps/cards/marketplace.py:82
 #, python-format
 msgid "Hi %(shop)s, I would like to order:"
 msgstr "您好 %(shop)s，我想订购："
@@ -6786,6 +6781,23 @@ msgstr "您已离线"
 #: templates/pwa/offline.html:28
 msgid "Check your connection, then try again."
 msgstr "请检查网络连接，然后重试。"
+
+#: templates/marketing/shops.html:39
+msgid "Previous products"
+msgstr "上一组产品"
+
+#: templates/marketing/shops.html:39
+msgid "Next products"
+msgstr "下一组产品"
+
+#: templates/marketing/shops.html:70
+#, python-format
+msgid "See all %(name)s products"
+msgstr "查看 %(name)s 的全部产品"
+
+#, python-format
+#~ msgid "See all %(count)s products"
+#~ msgstr "查看全部 %(count)s 件商品"
 
 #~ msgid ""
 #~ "Show up to 10 products on Professional and up to 30 on Business, with your "

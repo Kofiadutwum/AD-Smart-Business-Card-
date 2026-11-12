@@ -36,7 +36,8 @@ SLIDER_SIZE = 10
 SLIDER_MIN = 3  # fewer than this and the landing page shows no slider
 SLIDE_PX = 220  # keep in step with --slide-w in marketplace.css
 RUN_PX = 1500  # one run of slides must be wider than any screen
-SHOP_PREVIEW = 8  # products shown per shop on /shops/; the rest are one tap away on the shop's own page
+ROW_MAX = 10  # products in one row on /shops
+SHOP_PREVIEW = 2 * ROW_MAX  # products shown per shop on /shops; the rest are one tap away on the shop's own page
 OTHER = "other"
 FUZZY = 0.75
 
@@ -81,13 +82,21 @@ def cart_intro(shop_name):
     return _("Hi %(shop)s, I would like to order:") % {"shop": shop_name}
 
 
+def split_rows(products):
+    """One row for up to 10 products; more than that, two rows of equal length (the first may hold one more)."""
+    if len(products) <= ROW_MAX:
+        return [products] if products else []
+    half = (len(products) + 1) // 2
+    return [products[:half], products[half:]]
+
+
 def with_buy_links(shop):
-    """A copy of the shop whose shown products carry their WhatsApp link, in the visitor's language."""
+    """A copy of the shop whose shown products carry their WhatsApp link, in the visitor's language, and sit in rows."""
     shown = [
         {**p, "buy": buy_url(shop["wa"], buy_text(shop["name"], p["title"], p["price"], p["link"]))}
         for p in shop.get("shown", shop["products"])
     ]
-    return {**shop, "shown": shown}
+    return {**shop, "shown": shown, "rows": split_rows(shown)}
 
 
 # --------------------------------------------------------------------------

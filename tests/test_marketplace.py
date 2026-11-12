@@ -222,6 +222,22 @@ class MarketplaceTests(MarketBase):
         self.assertEqual(len(shop["products"]), 50)  # Professional: up to 50
         self.assertEqual(len(shop["shown"]), marketplace.SHOP_PREVIEW)
 
+    def test_products_sit_in_one_row_up_to_ten_and_two_even_rows_up_to_twenty(self):
+        for count, lengths in ((0, []), (1, [1]), (10, [10]), (11, [6, 5]), (13, [7, 6]), (20, [10, 10])):
+            rows = marketplace.split_rows(list(range(count)))
+            self.assertEqual([len(row) for row in rows], lengths, count)
+
+    def test_a_shop_card_shows_rows_with_arrows_and_a_link_named_after_the_shop(self):
+        self.shop("ama@example.com", "Ama Fabrics", products=tuple(f"Item {n}" for n in range(25)))
+        self.shop("kofi@example.com", "Kofi Cars", products=("Spare tyre", "Wipers"))
+        response = self.client.get("/shops")
+        by_name = {s["name"]: s for s in response.context["shops"]}
+        self.assertEqual([len(row) for row in by_name["Ama Fabrics"]["rows"]], [10, 10])  # past 20, only the first 20 show
+        self.assertEqual([len(row) for row in by_name["Kofi Cars"]["rows"]], [2])
+        self.assertContains(response, "data-row-prev", count=3)  # one pair of arrows per row: two rows and one row
+        self.assertContains(response, "See all Ama Fabrics products")
+        self.assertNotContains(response, "See all Kofi Cars products")
+
     def test_busier_shops_come_first(self):
         quiet, _, (q_item,) = self.shop("q@example.com", "Quiet Shop")
         busy, _, (b_item,) = self.shop("b@example.com", "Busy Shop")

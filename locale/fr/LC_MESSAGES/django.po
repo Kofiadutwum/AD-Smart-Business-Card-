@@ -3991,7 +3991,7 @@ msgstr "Votre carte de visite, <span class=\"glow\">à portée de main.</span>"
 msgid "Create my card"
 msgstr "Créer ma carte"
 
-#: templates/marketing/home.html:29 templates/marketing/shops.html:75
+#: templates/marketing/home.html:29 templates/marketing/shops.html:83
 msgid "See plans and prices"
 msgstr "Voir les formules et les prix"
 
@@ -5745,7 +5745,7 @@ msgstr ""
 "contacts vous enregistrent dans leur téléphone en un geste, et vous pouvez "
 "mettre à jour vos informations à tout moment."
 
-#: apps/marketing/views.py:166 templates/base.html:38
+#: apps/marketing/views.py:167 templates/base.html:38
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "Partagez vos coordonnées par lien, code QR ou NFC."
 
@@ -7124,13 +7124,13 @@ msgstr ""
 "Quand vous voudrez la modifier, vous pourrez payer vous-même depuis votre "
 "tableau de bord : %(link)s"
 
-#: apps/cards/marketplace.py:75
+#: apps/cards/marketplace.py:76
 #, python-format
 msgid "Hi %(shop)s, I would like to buy %(product)s (%(price)s). %(link)s"
 msgstr ""
 "Bonjour %(shop)s, je voudrais acheter %(product)s (%(price)s). %(link)s"
 
-#: apps/cards/marketplace.py:76
+#: apps/cards/marketplace.py:77
 #, python-format
 msgid "Hi %(shop)s, I would like to buy %(product)s. %(link)s"
 msgstr "Bonjour %(shop)s, je voudrais acheter %(product)s. %(link)s"
@@ -7269,32 +7269,27 @@ msgstr "Catégories"
 msgid "All products"
 msgstr "Tous les produits"
 
-#: templates/marketing/shops.html:47
+#: templates/marketing/shops.html:48
 msgid "Visit shop"
 msgstr "Voir la boutique"
 
-#: templates/marketing/shops.html:62
-#, python-format
-msgid "See all %(count)s products"
-msgstr "Voir les %(count)s produits"
-
-#: templates/marketing/shops.html:63
+#: templates/marketing/shops.html:71
 msgid "Report this shop"
 msgstr "Signaler cette boutique"
 
-#: templates/marketing/shops.html:70
+#: templates/marketing/shops.html:78
 msgid "No shops match your search."
 msgstr "Aucune boutique ne correspond à votre recherche."
 
-#: templates/marketing/shops.html:71
+#: templates/marketing/shops.html:79
 msgid "Show all shops"
 msgstr "Voir toutes les boutiques"
 
-#: templates/marketing/shops.html:73
+#: templates/marketing/shops.html:81
 msgid "No shops are listed yet."
 msgstr "Aucune boutique n’est encore listée."
 
-#: templates/marketing/shops.html:74
+#: templates/marketing/shops.html:82
 msgid ""
 "Businesses on a Professional or Business plan appear here once their page is"
 " on."
@@ -7302,20 +7297,20 @@ msgstr ""
 "Les entreprises ayant une formule Professional ou Business apparaissent ici "
 "dès que leur page est activée."
 
-#: templates/marketing/shops.html:81
+#: templates/marketing/shops.html:89
 msgid "Pages"
 msgstr "Pages"
 
-#: templates/marketing/shops.html:83
+#: templates/marketing/shops.html:91
 msgid "Previous"
 msgstr "Précédent"
 
-#: templates/marketing/shops.html:84
+#: templates/marketing/shops.html:92
 #, python-format
 msgid "Page %(number)s of %(total)s"
 msgstr "Page %(number)s sur %(total)s"
 
-#: templates/marketing/shops.html:85
+#: templates/marketing/shops.html:93
 msgid "Next"
 msgstr "Suivant"
 
@@ -7323,11 +7318,11 @@ msgstr "Suivant"
 msgid "Shops"
 msgstr "Boutiques"
 
-#: templates/cards/business.html:84 templates/marketing/shops.html:57
+#: templates/cards/business.html:84 templates/marketing/shops.html:62
 msgid "Buy"
 msgstr "Acheter"
 
-#: apps/cards/marketplace.py:81
+#: apps/cards/marketplace.py:82
 #, python-format
 msgid "Hi %(shop)s, I would like to order:"
 msgstr "Bonjour %(shop)s, je voudrais commander :"
@@ -7527,6 +7522,23 @@ msgstr "Vous êtes hors connexion"
 #: templates/pwa/offline.html:28
 msgid "Check your connection, then try again."
 msgstr "Vérifiez votre connexion, puis réessayez."
+
+#: templates/marketing/shops.html:39
+msgid "Previous products"
+msgstr "Produits précédents"
+
+#: templates/marketing/shops.html:39
+msgid "Next products"
+msgstr "Produits suivants"
+
+#: templates/marketing/shops.html:70
+#, python-format
+msgid "See all %(name)s products"
+msgstr "Voir tous les produits de %(name)s"
+
+#, python-format
+#~ msgid "See all %(count)s products"
+#~ msgstr "Voir les %(count)s produits"
 
 #~ msgid ""
 #~ "Show up to 10 products on Professional and up to 30 on Business, with your "
