@@ -646,3 +646,27 @@ class StaffViewTests(PayToUpdateBase):
         detail = self.client.get(f"/staff/premade-cards/{batch.pk}/")
         self.assertContains(detail, "pay when updating")
         self.assertContains(detail, "Update Price")
+
+    def staff_in(self):
+        User.objects.create_user(email="boss@example.com", password="Staff-pass-2026", is_staff=True, staff_role="super")
+        self.client.post("/staff/login", {"email": "boss@example.com", "password": "Staff-pass-2026"})
+
+    def test_an_owner_of_a_pay_when_updating_card_is_live_not_a_draft(self):
+        self.set_up(free_year=True)
+        self.staff_in()
+        row = self.client.get("/staff/subscribers/?q=ama@example.com")
+        self.assertContains(row, "Live · pay when updating")
+        self.assertContains(row, "changes open until")
+        self.assertNotContains(row, '<span class="badge">Draft</span>')
+        self.assertContains(self.client.get("/staff/subscribers/?state=update"), "ama@example.com")
+        self.assertNotContains(self.client.get("/staff/subscribers/?state=draft"), "ama@example.com")
+        detail = self.client.get(f"/staff/subscribers/{self.user.pk}/")
+        self.assertContains(detail, "Pay when updating, Professional features")
+        self.assertContains(detail, "Free first year until")
+        self.assertNotContains(detail, "No plan yet (draft)")
+
+    def test_the_staff_home_does_not_count_that_owner_as_inactive_or_draft(self):
+        self.set_up(free_year=True)
+        self.staff_in()
+        others = User.objects.filter(is_staff=False, subscription_record__isnull=True).exclude(pk=self.user.pk).count()
+        self.assertEqual(self.client.get("/staff/").context["inactive"], others)

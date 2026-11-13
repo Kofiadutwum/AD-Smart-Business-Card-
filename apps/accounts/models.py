@@ -155,6 +155,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def subscription(self):
         return getattr(self, "subscription_record", None)
 
+    @property
+    def update_card(self):
+        """This customer's pay-when-you-update card, if any: live with no plan of its own to pay for."""
+        return next((card for card in self.cards.all() if card.update_plan_id and not card.deleted_at), None)
+
 
 class OneTimeCode(models.Model):
     """A 6-digit code sent by email, for password recovery (REG-06, REG-07).

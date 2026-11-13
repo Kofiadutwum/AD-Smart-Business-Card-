@@ -15,6 +15,7 @@ from apps.nfc.models import NFCOrder
 from apps.support.models import SupportRequest
 
 from ..permissions import can, staff_required
+from .subscribers import update_owners
 
 
 @staff_required()
@@ -29,7 +30,7 @@ def home(request):
         "subscribers": customers.count(),
         "active": active,
         "in_grace": in_grace,
-        "inactive": customers.count() - active - in_grace,
+        "inactive": customers.count() - active - in_grace - customers.filter(subscription_record__isnull=True, pk__in=update_owners()).count(),
         "pending_orders": NFCOrder.objects.filter(status__in=[NFCOrder.PAYMENT_CONFIRMED, NFCOrder.DESIGN_PENDING]).count(),
         "waiting_orders": NFCOrder.objects.filter(status__in=[NFCOrder.AWAITING_APPROVAL, NFCOrder.ON_HOLD, NFCOrder.REVISION_REQUESTED]).count(),
         "open_support": SupportRequest.objects.filter(status__in=[SupportRequest.OPEN, SupportRequest.IN_PROGRESS]).count(),

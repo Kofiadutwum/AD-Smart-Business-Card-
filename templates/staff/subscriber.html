@@ -85,6 +85,18 @@
           <dt>Grace ends</dt><dd>{{ subscription.grace_ends_at|date:"j F Y" }}</dd>
           {% if subscription.pending_plan %}<dt>Changes to</dt><dd>{{ subscription.pending_plan.name }}{% if subscription.pending_seats %} for {{ subscription.pending_seats }} people{% endif %} on {{ subscription.pending_plan_from|date:"j M Y" }}</dd>{% endif %}
         </dl>
+      {% elif customer.update_card %}
+        {% with uc=customer.update_card %}
+        <dl class="dl mt-4">
+          <dt>Kind</dt><dd>Pay when updating, {{ uc.update_plan.name }} features</dd>
+          <dt>Card</dt><dd>Live, no plan to renew</dd>
+          <dt>Update Price</dt><dd>{% money uc.update_price_minor inline=True %}</dd>
+          <dt>Free first year until</dt><dd>{{ uc.updates_free_until|date:"j F Y" }}</dd>
+          {% if uc.updates_paid_until %}<dt>Paid changes until</dt><dd>{{ uc.updates_paid_until|date:"j F Y" }}</dd>{% endif %}
+          <dt>Details and links</dt><dd>{% if uc.edit_locked %}Locked: the owner pays to change them{% else %}Open until {{ uc.updates_open_until|date:"j F Y" }}{% endif %}</dd>
+          <dt>Business page</dt><dd>Always free</dd>
+        </dl>
+        {% endwith %}
       {% else %}<p class="muted mt-2">No plan yet (draft).</p>{% endif %}
     </section>
 

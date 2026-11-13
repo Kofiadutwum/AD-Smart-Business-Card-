@@ -4,7 +4,7 @@ from datetime import timedelta
 
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
@@ -23,7 +23,14 @@ from ..permissions import can, staff_required
 
 
 def _customers():
-    return User.objects.filter(is_staff=False).select_related("subscription_record__plan")
+    return User.objects.filter(is_staff=False).select_related("subscription_record__plan").prefetch_related(
+        Prefetch("cards", queryset=Card.objects.select_related("update_plan"))
+    )
+
+
+def update_owners():
+    """Customers with a pay-when-you-update card. They are live with no plan, so they are never drafts."""
+    return Card.objects.filter(update_plan__isnull=False, deleted_at__isnull=True, owner__isnull=False).values("owner")
 
 
 @staff_required("view_subscribers")
@@ -52,7 +59,9 @@ def subscribers(request):
     elif state == "inactive":
         qs = qs.filter(subscription_record__expires_at__lt=now - grace)
     elif state == "draft":
-        qs = qs.filter(subscription_record__isnull=True)
+        qs = qs.filter(subscription_record__isnull=True).exclude(pk__in=update_owners())
+    elif state == "update":
+        qs = qs.filter(pk__in=update_owners())
     elif state == "suspended":
         qs = qs.filter(is_suspended=True)
     page = Paginator(qs, 30).get_page(request.GET.get("page"))
