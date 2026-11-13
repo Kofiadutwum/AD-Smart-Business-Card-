@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 
 from apps.accounts.models import User
 from apps.billing.models import Plan, PromoCode, SeatBand
+from apps.core.fields import PictureField
 from apps.core.models import SiteSettings
 from apps.core.utils import ghs_to_minor, process_image, validate_design_file
 from apps.marketing.models import GalleryImage
@@ -139,7 +140,7 @@ class NoteForm(forms.Form):
 
 
 class GalleryForm(forms.ModelForm):
-    upload = forms.ImageField(label="Picture", required=False, help_text="JPG, PNG or WebP up to 5 MB. Landscape pictures fill the slides best.")
+    upload = PictureField(label="Picture", required=False, help_text="JPG, PNG, HEIC, WebP and more, up to 10 MB. Landscape pictures fill the slides best.")
 
     class Meta:
         model = GalleryImage

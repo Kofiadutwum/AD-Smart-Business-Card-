@@ -12,6 +12,7 @@ from apps.billing.services import plan_for_limits
 from apps.cards import services
 from apps.cards.colors import palette
 from apps.cards.models import MAX_SERVICES, BusinessProduct, BusinessService, Card, CardPhone, SocialLink
+from apps.core.fields import PictureField
 from apps.core.utils import normalise_phone, process_image
 from apps.dashboard.forms import BusinessPageForm, PhoneForm, ProductForm, ServiceForm, SocialLinkForm
 
@@ -23,8 +24,8 @@ PHONE_MAX = 5
 class StaffCardForm(forms.ModelForm):
     """Only what the card shows: no plans, colours or layouts to choose."""
 
-    avatar_upload = forms.ImageField(label="Photo", required=False, help_text="JPG, PNG or WebP. It is resized for fast loading.")
-    logo_upload = forms.ImageField(label="Logo", required=False, help_text="Shown in the top band of the card.")
+    avatar_upload = PictureField(label="Photo", required=False, help_text="JPG, PNG, HEIC, WebP and more. It is resized for fast loading.")
+    logo_upload = PictureField(label="Logo", required=False, help_text="Shown in the top band of the card.")
 
     class Meta:
         model = Card

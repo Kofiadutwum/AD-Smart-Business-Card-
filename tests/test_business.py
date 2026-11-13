@@ -1,6 +1,7 @@
 """The business page: product pictures squeezed to 30 KB, up to five per product, plan limits, the card button, enquiries."""
 
 import io
+import os
 import tempfile
 
 from django.core import mail
@@ -30,6 +31,27 @@ def picture(size=(900, 700), name="photo.png"):
     out = io.BytesIO()
     Image.effect_noise(size, 90).convert("RGB").save(out, format="PNG")
     return SimpleUploadedFile(name, out.getvalue(), content_type="image/png")
+
+
+def picture_as(fmt, name, content_type, size=(300, 200)):
+    """A noisy picture saved as ``fmt`` (HEIF is an iPhone's HEIC)."""
+    out = io.BytesIO()
+    Image.effect_noise(size, 60).convert("RGB").save(out, format=fmt)
+    return SimpleUploadedFile(name, out.getvalue(), content_type=content_type)
+
+
+def raw_bmp(width, height, name="big.bmp"):
+    """An uncompressed picture of known size: width * height * 3 bytes."""
+    out = io.BytesIO()
+    Image.frombytes("RGB", (width, height), os.urandom(width * height * 3)).save(out, format="BMP")
+    return SimpleUploadedFile(name, out.getvalue(), content_type="image/bmp")
+
+
+PICTURE_TYPES = [
+    ("HEIF", "IMG_0001.HEIC", "image/heic"), ("AVIF", "a.avif", "image/avif"), ("GIF", "a.gif", "image/gif"),
+    ("BMP", "a.bmp", "image/bmp"), ("TIFF", "a.tif", "image/tiff"), ("JPEG", "a.jpeg", "image/jpeg"),
+    ("PNG", "a.png", "image/png"), ("WEBP", "a.webp", "image/webp"),
+]
 
 
 class BusinessBase(BaseTest):
@@ -90,6 +112,26 @@ class ImageSquashTests(BusinessBase):
         with self.assertRaises(ValidationError):
             process_image(fake, folder="products", target_bytes=PRODUCT_IMAGE_BYTES)
 
+    def test_every_common_picture_type_is_accepted_and_saved_as_webp_within_the_limit(self):
+        for fmt, name, content_type in PICTURE_TYPES:
+            with self.subTest(fmt):
+                result = process_image(
+                    picture_as(fmt, name, content_type), folder="products", max_px=1000, target_bytes=PRODUCT_IMAGE_BYTES
+                )
+                self.assertLessEqual(result.size, 30 * 1024)
+                self.assertEqual(Image.open(io.BytesIO(result.read())).format, "WEBP")
+
+    def test_a_picture_is_judged_by_what_is_in_it_not_by_its_name(self):
+        result = process_image(picture_as("HEIF", "holiday.jpg", "image/jpeg"), folder="products")
+        self.assertEqual(Image.open(io.BytesIO(result.read())).format, "WEBP")
+
+    def test_the_picture_field_takes_heic_and_the_file_picker_offers_it(self):
+        from apps.core.fields import PictureField
+
+        field = PictureField()
+        field.clean(picture_as("HEIF", "IMG_0001.HEIC", "image/heic"))
+        self.assertEqual(field.widget.attrs["accept"], "image/*,.heic,.heif,.avif")
+
 
 class PlanAllowanceTests(BusinessBase):
     def test_professional_gets_fifty_products_business_unlimited_basic_none(self):
@@ -147,6 +189,33 @@ class DashboardTests(BusinessBase):
         self.assertEqual((product.title, product.price), ("Kente stole", "GHS 120"))
         self.assertLessEqual(product.image.size, 30 * 1024)
         self.assertTrue(product.image.name.endswith(".webp"))
+
+    def test_an_iphone_photo_and_other_types_are_accepted_for_the_cover_and_the_extra_pictures(self):
+        self.add_product(
+            image=picture_as("HEIF", "IMG_0001.HEIC", "image/heic"),
+            more=[picture_as("GIF", "a.gif", "image/gif"), picture_as("AVIF", "a.avif", "image/avif")],
+        )
+        product = BusinessProduct.objects.get()
+        self.assertTrue(product.image.name.endswith(".webp"))
+        self.assertLessEqual(product.image.size, 30 * 1024)
+        self.assertEqual(product.photos.count(), 2)
+
+    def test_a_phone_sized_photo_over_5_mb_is_accepted_and_one_over_10_mb_is_refused(self):
+        big = raw_bmp(1500, 1300)
+        self.assertGreater(big.size, 5 * 1024 * 1024)
+        self.assertRedirects(self.add_product(image=big), "/dashboard/business/", fetch_redirect_response=False)
+        huge = raw_bmp(1900, 1900)
+        self.assertGreater(huge.size, 10 * 1024 * 1024)
+        self.assertContains(self.add_product(title="Too big", image=huge), "That image is larger than 10 MB.")
+        self.assertEqual(BusinessProduct.objects.count(), 1)
+
+    def test_the_30_kb_sentence_is_gone_and_the_picker_offers_every_picture(self):
+        for url in ("/dashboard/business/", "/dashboard/business/products/add/"):
+            page = self.client.get(url)
+            self.assertNotContains(page, "30 KB")
+        self.assertContains(self.client.get("/dashboard/business/"), "Each product can have up to 5 pictures.")
+        add = self.client.get("/dashboard/business/products/add/")
+        self.assertContains(add, 'accept="image/*,.heic,.heif,.avif"', count=2)  # the cover and the extra pictures
 
     def test_a_picture_is_needed_for_a_new_product(self):
         response = self.add_product(image="")

@@ -9,13 +9,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps/accounts/forms.py:17 apps/dashboard/forms.py:49
+#: apps/accounts/forms.py:17 apps/dashboard/forms.py:50
 msgid "Full name"
 msgstr "姓名"
 
 #: apps/accounts/forms.py:18 apps/accounts/forms.py:60
 #: apps/accounts/forms.py:66 apps/cards/models.py:46
-#: apps/dashboard/forms.py:54 templates/dashboard/settings.html:16
+#: apps/dashboard/forms.py:55 templates/dashboard/settings.html:16
 msgid "Email address"
 msgstr "电子邮箱"
 
@@ -246,7 +246,7 @@ msgstr "名片上显示企业标志"
 msgid "Background image, button style, icon layout"
 msgstr "背景图片、按钮样式、图标布局"
 
-#: apps/billing/models.py:145 apps/dashboard/forms.py:61
+#: apps/billing/models.py:145 apps/dashboard/forms.py:62
 msgid "Remove “Powered by AD Smart”"
 msgstr "移除“由 AD Smart 提供技术支持”"
 
@@ -497,13 +497,13 @@ msgstr "电话号码"
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:49 apps/cards/models.py:323 apps/dashboard/forms.py:55
+#: apps/cards/models.py:49 apps/cards/models.py:323 apps/dashboard/forms.py:56
 #: apps/nfc/forms.py:30 templates/cards/_contact.html:15
 #: templates/cards/_contact.html:51
 msgid "Website"
 msgstr "网站"
 
-#: apps/cards/models.py:50 apps/dashboard/forms.py:56
+#: apps/cards/models.py:50 apps/dashboard/forms.py:57
 msgid "Physical address"
 msgstr "地址"
 
@@ -515,7 +515,7 @@ msgstr "Ghana Post GPS"
 msgid "Map location"
 msgstr "地图位置"
 
-#: apps/cards/models.py:53 apps/dashboard/forms.py:52
+#: apps/cards/models.py:53 apps/dashboard/forms.py:53
 msgid "Short bio"
 msgstr "个人简介"
 
@@ -635,7 +635,7 @@ msgstr "欺诈或骗局"
 msgid "Offensive content"
 msgstr "冒犯性内容"
 
-#: apps/cards/models.py:409 apps/dashboard/forms.py:298
+#: apps/cards/models.py:409 apps/dashboard/forms.py:299
 #: apps/support/models.py:17 templates/cards/business.html:66
 #: templates/marketing/shops.html:33
 msgid "Other"
@@ -826,115 +826,107 @@ msgstr "您的名片已停用"
 msgid "Your card details will be deleted soon"
 msgstr "您的名片信息即将被删除"
 
-#: apps/core/utils.py:103
+#: apps/core/utils.py:104
 msgid "Enter a phone number."
 msgstr "请输入电话号码。"
 
-#: apps/core/utils.py:113
+#: apps/core/utils.py:114
 msgid "A Ghanaian number has 10 digits, for example 024 412 3456."
 msgstr "加纳号码为 10 位数字，例如 024 412 3456。"
 
-#: apps/core/utils.py:118
+#: apps/core/utils.py:119
 msgid ""
 "Enter a Ghanaian number such as 024 412 3456, or an international number "
 "starting with +."
 msgstr "请输入加纳号码（如 024 412 3456），或以 + 开头的国际号码。"
 
-#: apps/core/utils.py:170
+#: apps/core/utils.py:178
 #, python-format
 msgid "That image is larger than %(mb)d MB."
 msgstr "该图片超过 %(mb)d MB。"
 
-#: apps/core/utils.py:176 apps/core/utils.py:178
-msgid "Upload a JPG, PNG or WebP image."
-msgstr "请上传 JPG、PNG 或 WebP 图片。"
-
-#: apps/core/utils.py:208
+#: apps/core/utils.py:216
 msgid "That SVG file could not be read."
 msgstr "无法读取该 SVG 文件。"
 
-#: apps/core/utils.py:214
+#: apps/core/utils.py:222
 msgid "That file is not an SVG image."
 msgstr "该文件不是 SVG 图片。"
 
-#: apps/core/utils.py:242
+#: apps/core/utils.py:250
 msgid "Design files can be up to 10 MB."
 msgstr "设计文件最大 10 MB。"
 
-#: apps/core/utils.py:254 apps/core/utils.py:256
+#: apps/core/utils.py:262 apps/core/utils.py:264
 msgid "Upload a JPG, PNG, WebP, SVG or PDF file."
 msgstr "请上传 JPG、PNG、WebP、SVG 或 PDF 文件。"
 
-#: apps/dashboard/forms.py:23
+#: apps/dashboard/forms.py:24
 msgid "Profile photo"
 msgstr "头像"
 
-#: apps/dashboard/forms.py:23
-msgid "JPG, PNG or WebP up to 5 MB. We resize it for fast loading."
-msgstr "JPG、PNG 或 WebP，最大 5 MB。我们会调整尺寸以加快加载。"
-
-#: apps/dashboard/forms.py:25
+#: apps/dashboard/forms.py:26
 msgid "Remove photo"
 msgstr "移除照片"
 
-#: apps/dashboard/forms.py:26
+#: apps/dashboard/forms.py:27
 msgid "Business logo"
 msgstr "企业标志"
 
-#: apps/dashboard/forms.py:26
+#: apps/dashboard/forms.py:27
 msgid "PNG with a transparent background works best."
 msgstr "背景透明的 PNG 效果最佳。"
 
-#: apps/dashboard/forms.py:27
+#: apps/dashboard/forms.py:28
 msgid "Remove logo"
 msgstr "移除标志"
 
-#: apps/dashboard/forms.py:28
+#: apps/dashboard/forms.py:29
 msgid "Background image"
 msgstr "背景图片"
 
-#: apps/dashboard/forms.py:29
+#: apps/dashboard/forms.py:30
 msgid "Remove background"
 msgstr "移除背景"
 
-#: apps/dashboard/forms.py:31 templates/dashboard/editor.html:116
+#: apps/dashboard/forms.py:32 templates/dashboard/editor.html:116
 msgid "Card colour"
 msgstr "名片颜色"
 
-#: apps/dashboard/forms.py:34 templates/dashboard/editor.html:121
+#: apps/dashboard/forms.py:35 templates/dashboard/editor.html:121
 msgid "Custom colour"
 msgstr "自定义颜色"
 
-#: apps/dashboard/forms.py:35
+#: apps/dashboard/forms.py:36
 msgid "Band colour"
 msgstr "色带颜色"
 
-#: apps/dashboard/forms.py:37
+#: apps/dashboard/forms.py:38
 msgid "Show on my public card"
 msgstr "显示在我的公开名片上"
 
-#: apps/dashboard/forms.py:124
+#: apps/dashboard/forms.py:125
 msgid "Use the format GA-123-4567."
 msgstr "请使用 GA-123-4567 格式。"
 
-#: apps/dashboard/forms.py:130 apps/dashboard/forms.py:136
+#: apps/dashboard/forms.py:131 apps/dashboard/forms.py:137
 msgid "Choose a colour."
 msgstr "请选择颜色。"
 
-#: apps/dashboard/forms.py:214 templates/dashboard/editor.html:208
+#: apps/dashboard/forms.py:215 templates/dashboard/editor.html:208
 #: templates/dashboard/home.html:32 templates/dashboard/share.html:17
 msgid "Your card link"
 msgstr "您的名片链接"
 
-#: apps/dashboard/forms.py:215
+#: apps/dashboard/forms.py:216
 msgid "3 to 40 lowercase letters, numbers and hyphens."
 msgstr "3 到 40 个小写字母、数字或连字符。"
 
-#: apps/dashboard/forms.py:228
+#: apps/dashboard/forms.py:229
 msgid "Full name on the new card"
 msgstr "新名片上的姓名"
 
-#: apps/dashboard/forms.py:229
+#: apps/dashboard/forms.py:230
 msgid "Position"
 msgstr "职位"
 
@@ -1203,11 +1195,11 @@ msgstr ""
 msgid "Name on the card"
 msgstr "名片上的姓名"
 
-#: apps/dashboard/forms.py:51 apps/nfc/forms.py:26
+#: apps/dashboard/forms.py:52 apps/nfc/forms.py:26
 msgid "Business name"
 msgstr "公司名称"
 
-#: apps/dashboard/forms.py:50 apps/nfc/forms.py:27
+#: apps/dashboard/forms.py:51 apps/nfc/forms.py:27
 msgid "Position / job title"
 msgstr "职位 / 头衔"
 
@@ -1528,20 +1520,20 @@ msgstr "订单已取消。"
 msgid "An update on your order %(number)s"
 msgstr "订单 %(number)s 的最新进展"
 
-#: apps/staff/views/subscribers.py:124
+#: apps/staff/views/subscribers.py:133
 msgid "Your AD Smart account has been suspended"
 msgstr "您的 AD Smart 账户已被暂停"
 
-#: apps/staff/views/subscribers.py:124
+#: apps/staff/views/subscribers.py:133
 msgid "Your AD Smart account is active again"
 msgstr "您的 AD Smart 账户已恢复"
 
-#: apps/staff/views/subscribers.py:198
+#: apps/staff/views/subscribers.py:207
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "您的名片 /c/%(slug)s 已被暂停"
 
-#: apps/staff/views/subscribers.py:199
+#: apps/staff/views/subscribers.py:208
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "您的名片 /c/%(slug)s 已恢复"
@@ -2281,7 +2273,7 @@ msgstr "概览"
 msgid "Edit card"
 msgstr "编辑名片"
 
-#: apps/dashboard/forms.py:60 templates/dashboard/_shell.html:34
+#: apps/dashboard/forms.py:61 templates/dashboard/_shell.html:34
 #: templates/dashboard/analytics.html:63 templates/dashboard/links.html:6
 msgid "Social links"
 msgstr "社交链接"
@@ -2445,7 +2437,7 @@ msgstr "您的名片"
 msgid "Card"
 msgstr "名片"
 
-#: apps/dashboard/forms.py:223 templates/dashboard/cards.html:17
+#: apps/dashboard/forms.py:224 templates/dashboard/cards.html:17
 msgid "Link"
 msgstr "链接"
 
@@ -2720,7 +2712,7 @@ msgstr "导出 CSV"
 msgid "Contacts received"
 msgstr "收到的联系人"
 
-#: apps/dashboard/forms.py:285 apps/dashboard/views.py:397
+#: apps/dashboard/forms.py:287 apps/dashboard/views.py:397
 #: templates/dashboard/leads.html:15
 msgid "Name"
 msgstr "姓名"
@@ -5025,67 +5017,67 @@ msgstr "国际快递至其他任何地区。"
 msgid "5–12 working days after dispatch"
 msgstr "发货后 5–12 个工作日"
 
-#: apps/dashboard/forms.py:31
+#: apps/dashboard/forms.py:32
 msgid "Custom"
 msgstr "自定义"
 
-#: apps/dashboard/forms.py:53
+#: apps/dashboard/forms.py:54
 msgid "WhatsApp number"
 msgstr "WhatsApp 号码"
 
-#: apps/dashboard/forms.py:57
+#: apps/dashboard/forms.py:58
 msgid "Ghana Post GPS address"
 msgstr "Ghana Post GPS 地址"
 
-#: apps/dashboard/forms.py:58
+#: apps/dashboard/forms.py:59
 msgid "Layout"
 msgstr "版式"
 
-#: apps/dashboard/forms.py:59
+#: apps/dashboard/forms.py:60
 msgid "Button style"
 msgstr "按钮样式"
 
-#: apps/dashboard/forms.py:62
+#: apps/dashboard/forms.py:63
 msgid "Let search engines show my card"
 msgstr "允许搜索引擎显示我的名片"
 
-#: apps/dashboard/forms.py:63
+#: apps/dashboard/forms.py:64
 msgid "Let visitors send me their details"
 msgstr "允许访客向我发送他们的联系方式"
 
-#: apps/dashboard/forms.py:64
+#: apps/dashboard/forms.py:65
 msgid "Card is visible to the public"
 msgstr "名片对公众可见"
 
-#: apps/dashboard/forms.py:67
+#: apps/dashboard/forms.py:68
 msgid "Up to 300 characters."
 msgstr "最多 300 个字符。"
 
-#: apps/dashboard/forms.py:68
+#: apps/dashboard/forms.py:69
 msgid "Can differ from your call number."
 msgstr "可以与您的通话号码不同。"
 
-#: apps/dashboard/forms.py:69
+#: apps/dashboard/forms.py:70
 msgid "For example GA-123-4567."
 msgstr "例如 GA-123-4567。"
 
-#: apps/dashboard/forms.py:70
+#: apps/dashboard/forms.py:71
 msgid "Off by default, so your card only reaches people you share it with."
 msgstr "默认关闭，这样您的名片只会被您分享给的人看到。"
 
-#: apps/dashboard/forms.py:196
+#: apps/dashboard/forms.py:197
 msgid "Phone number"
 msgstr "电话号码"
 
-#: apps/dashboard/forms.py:196
+#: apps/dashboard/forms.py:197
 msgid "Label"
 msgstr "标签"
 
-#: apps/dashboard/forms.py:199
+#: apps/dashboard/forms.py:200
 msgid "MTN, Telecel, Office…"
 msgstr "MTN、Telecel、办公室…"
 
-#: apps/dashboard/forms.py:223
+#: apps/dashboard/forms.py:224
 msgid "Platform"
 msgstr "平台"
 
@@ -5474,68 +5466,68 @@ msgstr "您已经发送过咨询了。请一小时后再试。"
 msgid "New enquiry from %(name)s"
 msgstr "来自 %(name)s 的新咨询"
 
-#: apps/dashboard/forms.py:242
+#: apps/dashboard/forms.py:243
 msgid "Show my business page to everyone"
 msgstr "向所有人展示我的商家主页"
 
-#: apps/dashboard/forms.py:244
+#: apps/dashboard/forms.py:245
 msgid "Tagline"
 msgstr "宣传语"
 
-#: apps/dashboard/forms.py:245
+#: apps/dashboard/forms.py:246
 msgid "About your business"
 msgstr "关于您的业务"
 
-#: apps/dashboard/forms.py:246 templates/cards/business.html:126
+#: apps/dashboard/forms.py:247 templates/cards/business.html:126
 msgid "Opening hours"
 msgstr "营业时间"
 
-#: apps/dashboard/forms.py:249
+#: apps/dashboard/forms.py:250
 msgid "When it is on, an “Explore Business” button appears on your card."
 msgstr "开启后，您的名片上会出现“了解业务”按钮。"
 
-#: apps/dashboard/forms.py:251
+#: apps/dashboard/forms.py:252
 msgid "One short line under your business name."
 msgstr "显示在业务名称下方的一句简短介绍。"
 
-#: apps/dashboard/forms.py:252
+#: apps/dashboard/forms.py:253
 msgid "One line for each day or group of days, for example Mon–Fri 8am–6pm."
 msgstr "每天或每组日期写一行，例如：周一至周五 8:00–18:00。"
 
-#: apps/dashboard/forms.py:285
+#: apps/dashboard/forms.py:277
 msgid "Picture"
 msgstr "图片"
 
-#: apps/dashboard/forms.py:285
+#: apps/dashboard/forms.py:287
 msgid "Price (optional)"
 msgstr "价格（选填）"
 
-#: apps/dashboard/forms.py:286 apps/dashboard/forms.py:328
+#: apps/dashboard/forms.py:288 apps/dashboard/forms.py:329
 msgid "Description (optional)"
 msgstr "描述（选填）"
 
-#: apps/dashboard/forms.py:290
+#: apps/dashboard/forms.py:291
 msgid ""
 "Write it the way you want it shown, for example GHS 120 or From GHS 50."
 msgstr "按您希望显示的方式填写，例如“GHS 120”或“GHS 50 起”。"
 
-#: apps/dashboard/forms.py:328
+#: apps/dashboard/forms.py:329
 msgid "Service"
 msgstr "服务"
 
-#: apps/dashboard/forms.py:334
+#: apps/dashboard/forms.py:335
 msgid "Stars (optional)"
 msgstr "星级（选填）"
 
-#: apps/dashboard/forms.py:341
+#: apps/dashboard/forms.py:342
 msgid "Customer name"
 msgstr "客户姓名"
 
-#: apps/dashboard/forms.py:341
+#: apps/dashboard/forms.py:342
 msgid "What they said"
 msgstr "客户的评价"
 
-#: apps/dashboard/forms.py:342
+#: apps/dashboard/forms.py:343
 msgid "Only add words your customer has agreed to share."
 msgstr "只添加客户同意分享的评价。"
 
@@ -6371,21 +6363,21 @@ msgstr "您好 %(shop)s，我想购买 %(product)s（%(price)s）。%(link)s"
 msgid "Hi %(shop)s, I would like to buy %(product)s. %(link)s"
 msgstr "您好 %(shop)s，我想购买 %(product)s。%(link)s"
 
-#: apps/dashboard/forms.py:243
+#: apps/dashboard/forms.py:244
 msgid "List my shop in the AD Smart marketplace"
 msgstr "在 AD Smart 商城展示我的店铺"
 
-#: apps/dashboard/forms.py:250
+#: apps/dashboard/forms.py:251
 msgid ""
 "Shoppers can find your products on our shops page and our home page, and "
 "message you on WhatsApp. Untick it to stay out."
 msgstr "买家可以在我们的店铺页和首页找到您的商品，并通过 WhatsApp 联系您。取消勾选即可不参与。"
 
-#: apps/dashboard/forms.py:285
+#: apps/dashboard/forms.py:287
 msgid "Category"
 msgstr "分类"
 
-#: apps/dashboard/forms.py:291
+#: apps/dashboard/forms.py:292
 msgid "Where shoppers find it in the marketplace."
 msgstr "买家在商城中找到它的位置。"
 
@@ -6577,23 +6569,17 @@ msgstr "清空"
 msgid "Send order"
 msgstr "发送订单"
 
-#: apps/dashboard/forms.py:277
+#: apps/dashboard/forms.py:279
 msgid "More pictures (optional)"
 msgstr "更多图片（可选）"
 
-#: apps/dashboard/forms.py:278
+#: apps/dashboard/forms.py:280
 msgid ""
 "A product can have up to 5 pictures. Shoppers see the others with arrows "
 "when they open the product."
 msgstr "每件商品最多可有 5 张图片。买家打开商品后可用箭头查看其他图片。"
 
-#: apps/dashboard/forms.py:289
-msgid ""
-"JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page "
-"opens fast. This one is the cover."
-msgstr "JPG、PNG 或 WebP。我们会把每张图片压缩到 30 KB 或更小，让您的页面打开更快。这一张是封面。"
-
-#: apps/dashboard/forms.py:313
+#: apps/dashboard/forms.py:314
 #, python-format
 msgid "A product can have %(max)d pictures. You can add %(room)d more here."
 msgstr "每件商品最多可有 %(max)d 张图片。您在这里还可以添加 %(room)d 张。"
@@ -6605,12 +6591,6 @@ msgstr "上一张图片"
 #: templates/cards/business.html:99
 msgid "Next picture"
 msgstr "下一张图片"
-
-#: templates/dashboard/business.html:50
-msgid ""
-"Every picture is shrunk to 30 KB or less so your page opens fast. Each "
-"product can have up to 5 pictures."
-msgstr "每张图片都会压缩到 30 KB 或更小，让您的页面打开更快。每件商品最多可有 5 张图片。"
 
 #: templates/dashboard/business_item.html:15
 msgid "Cover"
@@ -6806,6 +6786,39 @@ msgid ""
 "details, links and web address for 12 months. Your business page is always "
 "free."
 msgstr "无论您如何决定，名片都会保持上线。付款后，其资料、链接和网址的修改将开放 12 个月。您的商家主页始终免费。"
+
+#: apps/core/utils.py:184 apps/core/utils.py:186
+msgid "Upload a picture such as a JPG, PNG, HEIC or WebP file."
+msgstr "请上传图片，例如 JPG、PNG、HEIC 或 WebP 文件。"
+
+#: apps/dashboard/forms.py:24
+msgid ""
+"JPG, PNG, HEIC, WebP and more, up to 10 MB. We resize it for fast loading."
+msgstr "支持 JPG、PNG、HEIC、WebP 等格式，最大 10 MB。我们会调整其大小以加快加载。"
+
+#: apps/dashboard/forms.py:277
+msgid "JPG, PNG, HEIC, WebP and more. This one is the cover."
+msgstr "支持 JPG、PNG、HEIC、WebP 等格式。这张是封面图。"
+
+#: templates/dashboard/business.html:50
+msgid "Each product can have up to 5 pictures."
+msgstr "每个商品最多可有 5 张图片。"
+
+#~ msgid "Upload a JPG, PNG or WebP image."
+#~ msgstr "请上传 JPG、PNG 或 WebP 图片。"
+
+#~ msgid "JPG, PNG or WebP up to 5 MB. We resize it for fast loading."
+#~ msgstr "JPG、PNG 或 WebP，最大 5 MB。我们会调整尺寸以加快加载。"
+
+#~ msgid ""
+#~ "JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page "
+#~ "opens fast. This one is the cover."
+#~ msgstr "JPG、PNG 或 WebP。我们会把每张图片压缩到 30 KB 或更小，让您的页面打开更快。这一张是封面。"
+
+#~ msgid ""
+#~ "Every picture is shrunk to 30 KB or less so your page opens fast. Each "
+#~ "product can have up to 5 pictures."
+#~ msgstr "每张图片都会压缩到 30 KB 或更小，让您的页面打开更快。每件商品最多可有 5 张图片。"
 
 #~ msgid ""
 #~ "Your card is live. You only pay when you want to change its details, and "

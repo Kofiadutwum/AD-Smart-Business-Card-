@@ -9,13 +9,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/accounts/forms.py:17 apps/dashboard/forms.py:49
+#: apps/accounts/forms.py:17 apps/dashboard/forms.py:50
 msgid "Full name"
 msgstr "Nome completo"
 
 #: apps/accounts/forms.py:18 apps/accounts/forms.py:60
 #: apps/accounts/forms.py:66 apps/cards/models.py:46
-#: apps/dashboard/forms.py:54 templates/dashboard/settings.html:16
+#: apps/dashboard/forms.py:55 templates/dashboard/settings.html:16
 msgid "Email address"
 msgstr "Endereço de e-mail"
 
@@ -260,7 +260,7 @@ msgstr "Logótipo da empresa no cartão"
 msgid "Background image, button style, icon layout"
 msgstr "Imagem de fundo, estilo dos botões, disposição dos ícones"
 
-#: apps/billing/models.py:145 apps/dashboard/forms.py:61
+#: apps/billing/models.py:145 apps/dashboard/forms.py:62
 msgid "Remove “Powered by AD Smart”"
 msgstr "Remover «Com tecnologia AD Smart»"
 
@@ -524,13 +524,13 @@ msgstr "Números de telefone"
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:49 apps/cards/models.py:323 apps/dashboard/forms.py:55
+#: apps/cards/models.py:49 apps/cards/models.py:323 apps/dashboard/forms.py:56
 #: apps/nfc/forms.py:30 templates/cards/_contact.html:15
 #: templates/cards/_contact.html:51
 msgid "Website"
 msgstr "Website"
 
-#: apps/cards/models.py:50 apps/dashboard/forms.py:56
+#: apps/cards/models.py:50 apps/dashboard/forms.py:57
 msgid "Physical address"
 msgstr "Morada"
 
@@ -542,7 +542,7 @@ msgstr "Ghana Post GPS"
 msgid "Map location"
 msgstr "Localização no mapa"
 
-#: apps/cards/models.py:53 apps/dashboard/forms.py:52
+#: apps/cards/models.py:53 apps/dashboard/forms.py:53
 msgid "Short bio"
 msgstr "Biografia curta"
 
@@ -662,7 +662,7 @@ msgstr "Fraude ou burla"
 msgid "Offensive content"
 msgstr "Conteúdo ofensivo"
 
-#: apps/cards/models.py:409 apps/dashboard/forms.py:298
+#: apps/cards/models.py:409 apps/dashboard/forms.py:299
 #: apps/support/models.py:17 templates/cards/business.html:66
 #: templates/marketing/shops.html:33
 msgid "Other"
@@ -865,15 +865,15 @@ msgstr "O seu cartão está agora inativo"
 msgid "Your card details will be deleted soon"
 msgstr "Os dados do seu cartão serão em breve eliminados"
 
-#: apps/core/utils.py:103
+#: apps/core/utils.py:104
 msgid "Enter a phone number."
 msgstr "Introduza um número de telefone."
 
-#: apps/core/utils.py:113
+#: apps/core/utils.py:114
 msgid "A Ghanaian number has 10 digits, for example 024 412 3456."
 msgstr "Um número do Gana tem 10 dígitos, por exemplo 024 412 3456."
 
-#: apps/core/utils.py:118
+#: apps/core/utils.py:119
 msgid ""
 "Enter a Ghanaian number such as 024 412 3456, or an international number "
 "starting with +."
@@ -881,102 +881,93 @@ msgstr ""
 "Introduza um número do Gana, como 024 412 3456, ou um número internacional "
 "que comece por +."
 
-#: apps/core/utils.py:170
+#: apps/core/utils.py:178
 #, python-format
 msgid "That image is larger than %(mb)d MB."
 msgstr "Essa imagem é maior do que %(mb)d MB."
 
-#: apps/core/utils.py:176 apps/core/utils.py:178
-msgid "Upload a JPG, PNG or WebP image."
-msgstr "Carregue uma imagem JPG, PNG ou WebP."
-
-#: apps/core/utils.py:208
+#: apps/core/utils.py:216
 msgid "That SVG file could not be read."
 msgstr "Não foi possível ler esse ficheiro SVG."
 
-#: apps/core/utils.py:214
+#: apps/core/utils.py:222
 msgid "That file is not an SVG image."
 msgstr "Esse ficheiro não é uma imagem SVG."
 
-#: apps/core/utils.py:242
+#: apps/core/utils.py:250
 msgid "Design files can be up to 10 MB."
 msgstr "Os ficheiros de design podem ter até 10 MB."
 
-#: apps/core/utils.py:254 apps/core/utils.py:256
+#: apps/core/utils.py:262 apps/core/utils.py:264
 msgid "Upload a JPG, PNG, WebP, SVG or PDF file."
 msgstr "Carregue um ficheiro JPG, PNG, WebP, SVG ou PDF."
 
-#: apps/dashboard/forms.py:23
+#: apps/dashboard/forms.py:24
 msgid "Profile photo"
 msgstr "Fotografia de perfil"
 
-#: apps/dashboard/forms.py:23
-msgid "JPG, PNG or WebP up to 5 MB. We resize it for fast loading."
-msgstr ""
-"JPG, PNG ou WebP até 5 MB. Redimensionamos para um carregamento rápido."
-
-#: apps/dashboard/forms.py:25
+#: apps/dashboard/forms.py:26
 msgid "Remove photo"
 msgstr "Remover fotografia"
 
-#: apps/dashboard/forms.py:26
+#: apps/dashboard/forms.py:27
 msgid "Business logo"
 msgstr "Logótipo da empresa"
 
-#: apps/dashboard/forms.py:26
+#: apps/dashboard/forms.py:27
 msgid "PNG with a transparent background works best."
 msgstr "Um PNG com fundo transparente dá o melhor resultado."
 
-#: apps/dashboard/forms.py:27
+#: apps/dashboard/forms.py:28
 msgid "Remove logo"
 msgstr "Remover logótipo"
 
-#: apps/dashboard/forms.py:28
+#: apps/dashboard/forms.py:29
 msgid "Background image"
 msgstr "Imagem de fundo"
 
-#: apps/dashboard/forms.py:29
+#: apps/dashboard/forms.py:30
 msgid "Remove background"
 msgstr "Remover fundo"
 
-#: apps/dashboard/forms.py:31 templates/dashboard/editor.html:116
+#: apps/dashboard/forms.py:32 templates/dashboard/editor.html:116
 msgid "Card colour"
 msgstr "Cor do cartão"
 
-#: apps/dashboard/forms.py:34 templates/dashboard/editor.html:121
+#: apps/dashboard/forms.py:35 templates/dashboard/editor.html:121
 msgid "Custom colour"
 msgstr "Cor personalizada"
 
-#: apps/dashboard/forms.py:35
+#: apps/dashboard/forms.py:36
 msgid "Band colour"
 msgstr "Cor da faixa"
 
-#: apps/dashboard/forms.py:37
+#: apps/dashboard/forms.py:38
 msgid "Show on my public card"
 msgstr "Mostrar no meu cartão público"
 
-#: apps/dashboard/forms.py:124
+#: apps/dashboard/forms.py:125
 msgid "Use the format GA-123-4567."
 msgstr "Utilize o formato GA-123-4567."
 
-#: apps/dashboard/forms.py:130 apps/dashboard/forms.py:136
+#: apps/dashboard/forms.py:131 apps/dashboard/forms.py:137
 msgid "Choose a colour."
 msgstr "Escolha uma cor."
 
-#: apps/dashboard/forms.py:214 templates/dashboard/editor.html:208
+#: apps/dashboard/forms.py:215 templates/dashboard/editor.html:208
 #: templates/dashboard/home.html:32 templates/dashboard/share.html:17
 msgid "Your card link"
 msgstr "O link do seu cartão"
 
-#: apps/dashboard/forms.py:215
+#: apps/dashboard/forms.py:216
 msgid "3 to 40 lowercase letters, numbers and hyphens."
 msgstr "De 3 a 40 letras minúsculas, números e hífenes."
 
-#: apps/dashboard/forms.py:228
+#: apps/dashboard/forms.py:229
 msgid "Full name on the new card"
 msgstr "Nome completo no novo cartão"
 
-#: apps/dashboard/forms.py:229
+#: apps/dashboard/forms.py:230
 msgid "Position"
 msgstr "Cargo"
 
@@ -1286,11 +1277,11 @@ msgstr ""
 msgid "Name on the card"
 msgstr "Nome no cartão"
 
-#: apps/dashboard/forms.py:51 apps/nfc/forms.py:26
+#: apps/dashboard/forms.py:52 apps/nfc/forms.py:26
 msgid "Business name"
 msgstr "Nome da empresa"
 
-#: apps/dashboard/forms.py:50 apps/nfc/forms.py:27
+#: apps/dashboard/forms.py:51 apps/nfc/forms.py:27
 msgid "Position / job title"
 msgstr "Cargo / função"
 
@@ -1633,20 +1624,20 @@ msgstr "Encomenda cancelada."
 msgid "An update on your order %(number)s"
 msgstr "Novidades sobre a sua encomenda %(number)s"
 
-#: apps/staff/views/subscribers.py:124
+#: apps/staff/views/subscribers.py:133
 msgid "Your AD Smart account has been suspended"
 msgstr "A sua conta AD Smart foi suspensa"
 
-#: apps/staff/views/subscribers.py:124
+#: apps/staff/views/subscribers.py:133
 msgid "Your AD Smart account is active again"
 msgstr "A sua conta AD Smart voltou a estar ativa"
 
-#: apps/staff/views/subscribers.py:198
+#: apps/staff/views/subscribers.py:207
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "O seu cartão /c/%(slug)s foi suspenso"
 
-#: apps/staff/views/subscribers.py:199
+#: apps/staff/views/subscribers.py:208
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "O seu cartão /c/%(slug)s foi reposto"
@@ -2433,7 +2424,7 @@ msgstr "Visão geral"
 msgid "Edit card"
 msgstr "Editar cartão"
 
-#: apps/dashboard/forms.py:60 templates/dashboard/_shell.html:34
+#: apps/dashboard/forms.py:61 templates/dashboard/_shell.html:34
 #: templates/dashboard/analytics.html:63 templates/dashboard/links.html:6
 msgid "Social links"
 msgstr "Links sociais"
@@ -2609,7 +2600,7 @@ msgstr "Os seus cartões"
 msgid "Card"
 msgstr "Cartão"
 
-#: apps/dashboard/forms.py:223 templates/dashboard/cards.html:17
+#: apps/dashboard/forms.py:224 templates/dashboard/cards.html:17
 msgid "Link"
 msgstr "Link"
 
@@ -2899,7 +2890,7 @@ msgstr "Exportar CSV"
 msgid "Contacts received"
 msgstr "Contactos recebidos"
 
-#: apps/dashboard/forms.py:285 apps/dashboard/views.py:397
+#: apps/dashboard/forms.py:287 apps/dashboard/views.py:397
 #: templates/dashboard/leads.html:15
 msgid "Name"
 msgstr "Nome"
@@ -5467,69 +5458,69 @@ msgstr "Estafeta internacional para qualquer outro destino."
 msgid "5–12 working days after dispatch"
 msgstr "5–12 dias úteis após a expedição"
 
-#: apps/dashboard/forms.py:31
+#: apps/dashboard/forms.py:32
 msgid "Custom"
 msgstr "Personalizada"
 
-#: apps/dashboard/forms.py:53
+#: apps/dashboard/forms.py:54
 msgid "WhatsApp number"
 msgstr "Número de WhatsApp"
 
-#: apps/dashboard/forms.py:57
+#: apps/dashboard/forms.py:58
 msgid "Ghana Post GPS address"
 msgstr "Endereço Ghana Post GPS"
 
-#: apps/dashboard/forms.py:58
+#: apps/dashboard/forms.py:59
 msgid "Layout"
 msgstr "Disposição"
 
-#: apps/dashboard/forms.py:59
+#: apps/dashboard/forms.py:60
 msgid "Button style"
 msgstr "Estilo dos botões"
 
-#: apps/dashboard/forms.py:62
+#: apps/dashboard/forms.py:63
 msgid "Let search engines show my card"
 msgstr "Permitir que os motores de pesquisa mostrem o meu cartão"
 
-#: apps/dashboard/forms.py:63
+#: apps/dashboard/forms.py:64
 msgid "Let visitors send me their details"
 msgstr "Permitir que os visitantes me enviem os seus dados"
 
-#: apps/dashboard/forms.py:64
+#: apps/dashboard/forms.py:65
 msgid "Card is visible to the public"
 msgstr "O cartão é visível ao público"
 
-#: apps/dashboard/forms.py:67
+#: apps/dashboard/forms.py:68
 msgid "Up to 300 characters."
 msgstr "Até 300 caracteres."
 
-#: apps/dashboard/forms.py:68
+#: apps/dashboard/forms.py:69
 msgid "Can differ from your call number."
 msgstr "Pode ser diferente do seu número de chamadas."
 
-#: apps/dashboard/forms.py:69
+#: apps/dashboard/forms.py:70
 msgid "For example GA-123-4567."
 msgstr "Por exemplo GA-123-4567."
 
-#: apps/dashboard/forms.py:70
+#: apps/dashboard/forms.py:71
 msgid "Off by default, so your card only reaches people you share it with."
 msgstr ""
 "Desativado por defeito, para que o seu cartão só chegue às pessoas com quem "
 "o partilha."
 
-#: apps/dashboard/forms.py:196
+#: apps/dashboard/forms.py:197
 msgid "Phone number"
 msgstr "Número de telefone"
 
-#: apps/dashboard/forms.py:196
+#: apps/dashboard/forms.py:197
 msgid "Label"
 msgstr "Etiqueta"
 
-#: apps/dashboard/forms.py:199
+#: apps/dashboard/forms.py:200
 msgid "MTN, Telecel, Office…"
 msgstr "MTN, Telecel, Escritório…"
 
-#: apps/dashboard/forms.py:223
+#: apps/dashboard/forms.py:224
 msgid "Platform"
 msgstr "Plataforma"
 
@@ -5962,70 +5953,70 @@ msgstr "Já enviou um pedido. Tente novamente dentro de uma hora."
 msgid "New enquiry from %(name)s"
 msgstr "Novo pedido de %(name)s"
 
-#: apps/dashboard/forms.py:242
+#: apps/dashboard/forms.py:243
 msgid "Show my business page to everyone"
 msgstr "Mostrar a minha página da empresa a todos"
 
-#: apps/dashboard/forms.py:244
+#: apps/dashboard/forms.py:245
 msgid "Tagline"
 msgstr "Slogan"
 
-#: apps/dashboard/forms.py:245
+#: apps/dashboard/forms.py:246
 msgid "About your business"
 msgstr "Sobre a sua empresa"
 
-#: apps/dashboard/forms.py:246 templates/cards/business.html:126
+#: apps/dashboard/forms.py:247 templates/cards/business.html:126
 msgid "Opening hours"
 msgstr "Horário de funcionamento"
 
-#: apps/dashboard/forms.py:249
+#: apps/dashboard/forms.py:250
 msgid "When it is on, an “Explore Business” button appears on your card."
 msgstr ""
 "Quando está ativada, aparece um botão «Explorar a empresa» no seu cartão."
 
-#: apps/dashboard/forms.py:251
+#: apps/dashboard/forms.py:252
 msgid "One short line under your business name."
 msgstr "Uma frase curta por baixo do nome da sua empresa."
 
-#: apps/dashboard/forms.py:252
+#: apps/dashboard/forms.py:253
 msgid "One line for each day or group of days, for example Mon–Fri 8am–6pm."
 msgstr "Uma linha por cada dia ou grupo de dias, por exemplo seg–sex 8h–18h."
 
-#: apps/dashboard/forms.py:285
+#: apps/dashboard/forms.py:277
 msgid "Picture"
 msgstr "Imagem"
 
-#: apps/dashboard/forms.py:285
+#: apps/dashboard/forms.py:287
 msgid "Price (optional)"
 msgstr "Preço (opcional)"
 
-#: apps/dashboard/forms.py:286 apps/dashboard/forms.py:328
+#: apps/dashboard/forms.py:288 apps/dashboard/forms.py:329
 msgid "Description (optional)"
 msgstr "Descrição (opcional)"
 
-#: apps/dashboard/forms.py:290
+#: apps/dashboard/forms.py:291
 msgid ""
 "Write it the way you want it shown, for example GHS 120 or From GHS 50."
 msgstr ""
 "Escreva-o como o quer mostrar, por exemplo GHS 120 ou A partir de GHS 50."
 
-#: apps/dashboard/forms.py:328
+#: apps/dashboard/forms.py:329
 msgid "Service"
 msgstr "Serviço"
 
-#: apps/dashboard/forms.py:334
+#: apps/dashboard/forms.py:335
 msgid "Stars (optional)"
 msgstr "Estrelas (opcional)"
 
-#: apps/dashboard/forms.py:341
+#: apps/dashboard/forms.py:342
 msgid "Customer name"
 msgstr "Nome do cliente"
 
-#: apps/dashboard/forms.py:341
+#: apps/dashboard/forms.py:342
 msgid "What they said"
 msgstr "O que o cliente disse"
 
-#: apps/dashboard/forms.py:342
+#: apps/dashboard/forms.py:343
 msgid "Only add words your customer has agreed to share."
 msgstr "Adicione apenas palavras que o seu cliente tenha aceitado partilhar."
 
@@ -6982,11 +6973,11 @@ msgstr "Olá %(shop)s, gostaria de comprar %(product)s (%(price)s). %(link)s"
 msgid "Hi %(shop)s, I would like to buy %(product)s. %(link)s"
 msgstr "Olá %(shop)s, gostaria de comprar %(product)s. %(link)s"
 
-#: apps/dashboard/forms.py:243
+#: apps/dashboard/forms.py:244
 msgid "List my shop in the AD Smart marketplace"
 msgstr "Mostrar a minha loja no mercado AD Smart"
 
-#: apps/dashboard/forms.py:250
+#: apps/dashboard/forms.py:251
 msgid ""
 "Shoppers can find your products on our shops page and our home page, and "
 "message you on WhatsApp. Untick it to stay out."
@@ -6995,11 +6986,11 @@ msgstr ""
 "na página inicial, e enviar-lhe mensagem no WhatsApp. Desmarque para não "
 "aparecer."
 
-#: apps/dashboard/forms.py:285
+#: apps/dashboard/forms.py:287
 msgid "Category"
 msgstr "Categoria"
 
-#: apps/dashboard/forms.py:291
+#: apps/dashboard/forms.py:292
 msgid "Where shoppers find it in the marketplace."
 msgstr "Onde os compradores o encontram no mercado."
 
@@ -7201,11 +7192,11 @@ msgstr "Esvaziar"
 msgid "Send order"
 msgstr "Enviar encomenda"
 
-#: apps/dashboard/forms.py:277
+#: apps/dashboard/forms.py:279
 msgid "More pictures (optional)"
 msgstr "Mais fotografias (opcional)"
 
-#: apps/dashboard/forms.py:278
+#: apps/dashboard/forms.py:280
 msgid ""
 "A product can have up to 5 pictures. Shoppers see the others with arrows "
 "when they open the product."
@@ -7213,15 +7204,7 @@ msgstr ""
 "Um produto pode ter até 5 fotografias. Os compradores veem as outras com "
 "setas quando abrem o produto."
 
-#: apps/dashboard/forms.py:289
-msgid ""
-"JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page "
-"opens fast. This one is the cover."
-msgstr ""
-"JPG, PNG ou WebP. Reduzimos cada fotografia para 30 KB ou menos para que a "
-"sua página abra depressa. Esta é a capa."
-
-#: apps/dashboard/forms.py:313
+#: apps/dashboard/forms.py:314
 #, python-format
 msgid "A product can have %(max)d pictures. You can add %(room)d more here."
 msgstr ""
@@ -7234,14 +7217,6 @@ msgstr "Fotografia anterior"
 #: templates/cards/business.html:99
 msgid "Next picture"
 msgstr "Fotografia seguinte"
-
-#: templates/dashboard/business.html:50
-msgid ""
-"Every picture is shrunk to 30 KB or less so your page opens fast. Each "
-"product can have up to 5 pictures."
-msgstr ""
-"Cada fotografia é reduzida para 30 KB ou menos para que a sua página abra "
-"depressa. Cada produto pode ter até 5 fotografias."
 
 #: templates/dashboard/business_item.html:15
 msgid "Cover"
@@ -7466,6 +7441,46 @@ msgstr ""
 "O seu cartão continua ativo, qualquer que seja a sua decisão. Pagar abre as "
 "alterações aos dados, links e endereço web durante 12 meses. A página da sua"
 " empresa é sempre gratuita."
+
+#: apps/core/utils.py:184 apps/core/utils.py:186
+msgid "Upload a picture such as a JPG, PNG, HEIC or WebP file."
+msgstr "Envie uma foto, por exemplo um ficheiro JPG, PNG, HEIC ou WebP."
+
+#: apps/dashboard/forms.py:24
+msgid ""
+"JPG, PNG, HEIC, WebP and more, up to 10 MB. We resize it for fast loading."
+msgstr ""
+"JPG, PNG, HEIC, WebP e mais, até 10 MB. Redimensionamos a foto para carregar"
+" depressa."
+
+#: apps/dashboard/forms.py:277
+msgid "JPG, PNG, HEIC, WebP and more. This one is the cover."
+msgstr "JPG, PNG, HEIC, WebP e mais. Esta é a capa."
+
+#: templates/dashboard/business.html:50
+msgid "Each product can have up to 5 pictures."
+msgstr "Cada produto pode ter até 5 fotos."
+
+#~ msgid "Upload a JPG, PNG or WebP image."
+#~ msgstr "Carregue uma imagem JPG, PNG ou WebP."
+
+#~ msgid "JPG, PNG or WebP up to 5 MB. We resize it for fast loading."
+#~ msgstr ""
+#~ "JPG, PNG ou WebP até 5 MB. Redimensionamos para um carregamento rápido."
+
+#~ msgid ""
+#~ "JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page "
+#~ "opens fast. This one is the cover."
+#~ msgstr ""
+#~ "JPG, PNG ou WebP. Reduzimos cada fotografia para 30 KB ou menos para que a "
+#~ "sua página abra depressa. Esta é a capa."
+
+#~ msgid ""
+#~ "Every picture is shrunk to 30 KB or less so your page opens fast. Each "
+#~ "product can have up to 5 pictures."
+#~ msgstr ""
+#~ "Cada fotografia é reduzida para 30 KB ou menos para que a sua página abra "
+#~ "depressa. Cada produto pode ter até 5 fotografias."
 
 #~ msgid ""
 #~ "Your card is live. You only pay when you want to change its details, and "

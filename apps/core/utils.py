@@ -11,6 +11,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from PIL import Image, ImageOps, UnidentifiedImageError
+from pillow_heif import register_heif_opener
 from django.utils.translation import gettext as _
 
 # --------------------------------------------------------------------------
@@ -140,7 +141,14 @@ def keep_name(instance, filename):
 # Uploads (SEC-07, NFR-02)
 # --------------------------------------------------------------------------
 
+register_heif_opener()  # iPhone HEIC and AVIF pictures then open like any other
+Image.MAX_IMAGE_PIXELS = 40_000_000  # Pillow warns past this and refuses at twice this, so a small file cannot fill the memory
+
+# Print files are kept exactly as sent, so only types a printer reads (see validate_design_file).
 RASTER_TYPES = {"JPEG": "jpg", "PNG": "png", "WEBP": "webp"}
+# Pictures are always saved again as WebP, so any type Pillow can read is fine. MPO is a phone's JPEG.
+PICTURE_FORMATS = {"JPEG", "MPO", "PNG", "WEBP", "HEIF", "AVIF", "GIF", "BMP", "TIFF"}
+PICTURE_ACCEPT = "image/*,.heic,.heif,.avif"  # what the file picker offers
 
 
 def _webp_within(image, limit):
@@ -161,7 +169,7 @@ def _webp_within(image, limit):
 def process_image(upload, *, folder, max_px=800, max_bytes=None, target_bytes=None):
     """Validate an uploaded picture and return a resized WebP ContentFile.
 
-    Pillow must be able to decode it as JPEG, PNG or WebP; the file name and
+    Pillow must be able to decode it (JPEG, PNG, WebP, HEIC, AVIF, GIF, BMP or TIFF); the file name and
     the browser's content type are not trusted. ``max_bytes`` limits the upload;
     ``target_bytes`` squeezes the saved picture down to that size.
     """
@@ -172,10 +180,10 @@ def process_image(upload, *, folder, max_px=800, max_bytes=None, target_bytes=No
         image = Image.open(upload)
         image_format = image.format
         image.load()
-    except (UnidentifiedImageError, OSError, ValueError):
-        raise ValidationError(_("Upload a JPG, PNG or WebP image."))
-    if image_format not in RASTER_TYPES:
-        raise ValidationError(_("Upload a JPG, PNG or WebP image."))
+    except (UnidentifiedImageError, OSError, ValueError, Image.DecompressionBombError):
+        raise ValidationError(_("Upload a picture such as a JPG, PNG, HEIC or WebP file."))
+    if image_format not in PICTURE_FORMATS:
+        raise ValidationError(_("Upload a picture such as a JPG, PNG, HEIC or WebP file."))
 
     image = ImageOps.exif_transpose(image)
     if image.mode not in ("RGB", "RGBA"):

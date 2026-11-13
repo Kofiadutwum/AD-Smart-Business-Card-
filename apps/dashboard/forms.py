@@ -12,20 +12,21 @@ from apps.cards.models import (
     ACCENT_PRESETS, HIDEABLE_FIELDS, MAX_PRODUCT_PICTURES, PRODUCT_IMAGE_BYTES, BusinessPage, BusinessProduct,
     BusinessReview, BusinessService, Card, CardPhone, ProductCategory, ProductPhoto, SocialLink, accent_choices,
 )
-from apps.core.utils import normalise_phone, process_image
+from apps.core.fields import PictureField
+from apps.core.utils import PICTURE_ACCEPT, normalise_phone, process_image
 from django.utils.translation import gettext_lazy as _
 
 GPS_RE = re.compile(r"^[A-Z]{2}-\d{1,4}-\d{3,4}$")
 
 
 class CardForm(forms.ModelForm):
-    avatar_upload = forms.ImageField(
-        label=_("Profile photo"), required=False, help_text=_("JPG, PNG or WebP up to 5 MB. We resize it for fast loading.")
+    avatar_upload = PictureField(
+        label=_("Profile photo"), required=False, help_text=_("JPG, PNG, HEIC, WebP and more, up to 10 MB. We resize it for fast loading.")
     )
     remove_avatar = forms.BooleanField(label=_("Remove photo"), required=False)
-    logo_upload = forms.ImageField(label=_("Business logo"), required=False, help_text=_("PNG with a transparent background works best."))
+    logo_upload = PictureField(label=_("Business logo"), required=False, help_text=_("PNG with a transparent background works best."))
     remove_logo = forms.BooleanField(label=_("Remove logo"), required=False)
-    background_upload = forms.ImageField(label=_("Background image"), required=False)
+    background_upload = PictureField(label=_("Background image"), required=False)
     remove_background = forms.BooleanField(label=_("Remove background"), required=False)
     accent_preset = forms.ChoiceField(
         label=_("Card colour"), choices=accent_choices() + [("custom", _("Custom"))],
@@ -262,7 +263,7 @@ class MultipleFileField(forms.FileField):
     """Several files from one input; ``clean`` gives a list (empty when none were chosen)."""
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault("widget", MultipleFileInput(attrs={"accept": "image/jpeg,image/png,image/webp"}))
+        kwargs.setdefault("widget", MultipleFileInput(attrs={"accept": PICTURE_ACCEPT}))
         super().__init__(*args, **kwargs)
 
     def clean(self, data, initial=None):
@@ -273,6 +274,7 @@ class MultipleFileField(forms.FileField):
 
 
 class ProductForm(forms.ModelForm):
+    image = PictureField(label=_("Picture"), help_text=_("JPG, PNG, HEIC, WebP and more. This one is the cover."))
     more = MultipleFileField(
         label=_("More pictures (optional)"), required=False,
         help_text=_("A product can have up to 5 pictures. Shoppers see the others with arrows when they open the product."),
@@ -282,11 +284,10 @@ class ProductForm(forms.ModelForm):
         model = BusinessProduct
         fields = ["image", "title", "price", "category", "description"]
         labels = {
-            "image": _("Picture"), "title": _("Name"), "price": _("Price (optional)"), "category": _("Category"),
+            "title": _("Name"), "price": _("Price (optional)"), "category": _("Category"),
             "description": _("Description (optional)"),
         }
         help_texts = {
-            "image": _("JPG, PNG or WebP. We shrink every picture to 30 KB or less so your page opens fast. This one is the cover."),
             "price": _("Write it the way you want it shown, for example GHS 120 or From GHS 50."),
             "category": _("Where shoppers find it in the marketplace."),
         }

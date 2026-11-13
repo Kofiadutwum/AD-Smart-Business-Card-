@@ -255,8 +255,8 @@ STORAGES = {
     },
 }
 
-# SEC-07: images up to 5 MB; logos and reference designs up to 10 MB.
-MAX_IMAGE_UPLOAD_BYTES = 5 * 1024 * 1024
+# SEC-07: pictures and logos and reference designs up to 10 MB (a phone photo is often over 5 MB).
+MAX_IMAGE_UPLOAD_BYTES = 10 * 1024 * 1024
 MAX_DESIGN_UPLOAD_BYTES = 10 * 1024 * 1024
 DATA_UPLOAD_MAX_MEMORY_SIZE = 12 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024

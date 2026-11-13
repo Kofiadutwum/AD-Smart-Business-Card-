@@ -38,7 +38,6 @@
         <h3 style="font-size: var(--text-base)">Products</h3>
         <span class="muted text-sm">{% if max_products is None %}{{ products|length }} added, no limit{% else %}{{ products|length }} of {{ max_products }} used{% endif %}</span>
       </div>
-      <p class="muted text-sm mt-2">Every picture is shrunk to 30 KB or less so the page opens fast.</p>
       {% if products %}
         <ul class="stack mt-4" style="list-style:none;margin-inline:0;padding:0;--stack: var(--space-3)">
           {% for item in products %}
