@@ -98,7 +98,7 @@ def claim_setup(request, slug):
                 if premade.batch.pay_to_update:
                     messages.success(
                         request,
-                        _("Your card is live. You only pay when you want to change its details, and then changes stay open for a year."),
+                        _("Your card is live. Changing its details and links is free for your first year, and your business page is always free."),
                     )
                     return redirect("dashboard:home")
                 if premade.batch.card_only:
@@ -137,7 +137,7 @@ def claim_attach(request, slug):
         else:
             _forget(request, card.slug)
             if premade.batch.pay_to_update:
-                messages.success(request, _("The card is now on your account and live. You only pay when you want to change its details."))
+                messages.success(request, _("The card is now on your account and live. Changing its details and links is free for your first year, and your business page is always free."))
                 return redirect("dashboard:cards")
             if premade.batch.card_only:
                 card.refresh_from_db()

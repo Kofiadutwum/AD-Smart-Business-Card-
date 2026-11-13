@@ -1,7 +1,8 @@
-"""Pay-when-you-update pre-made cards: live free, pay only to change what the public sees."""
+"""Pay-when-you-update pre-made cards: live free, changes free for the first year, then paid (the business page never)."""
 
 from datetime import timedelta
 
+from dateutil.relativedelta import relativedelta
 from django.core import mail
 from django.core.exceptions import ValidationError
 from django.core.files.storage import default_storage
@@ -15,6 +16,7 @@ from apps.billing.services import card_update_quote, create_payment
 from apps.cards import premade
 from apps.cards.models import BusinessPage, Card, CardUpdate, PremadeCard
 from apps.core.models import AuditLog
+from apps.dashboard import updates
 
 from .test_business import BusinessBase, picture
 from .test_premade import BUYER
@@ -56,15 +58,22 @@ class PayToUpdateBase(BusinessBase):
         )
         return batch, premade.get_pack(batch)
 
-    def set_up(self, plan=None):
+    def set_up(self, plan=None, free_year=False):
+        """Buy and set up a card. It is made 13 months ago, so its free first year is over, unless ``free_year``."""
         batch, rows = self.make_batch(plan)
         code = rows[0]["code"]
         self.client.post(f"/c/{code}/claim", {"pin": rows[0]["pin"]})
         with self.captureOnCommitCallbacks(execute=True):
             self.client.post(f"/c/{code}/claim/setup", BUYER)
         self.user = User.objects.get(email="ama@example.com")
+        if not free_year:
+            self.made(code, months=13)
         self.card = Card.objects.get(slug=code)
         return batch
+
+    def made(self, slug, months):
+        """Pretend the card was made ``months`` ago (created_at is set by the database on creation)."""
+        Card.objects.filter(slug=slug).update(created_at=timezone.now() - relativedelta(months=months))
 
     def pay(self, card=None, action="pay"):
         """Press 'Pay and unlock changes' (or the small Mobile Money button) and come back from the sandbox page."""
@@ -131,7 +140,7 @@ class SetUpTests(PayToUpdateBase):
         card = Card.objects.get(slug=code)
         self.assertEqual(card.owner_id, owner.pk)
         self.assertTrue(card.is_live)
-        self.assertTrue(card.edit_locked)
+        self.assertFalse(card.edit_locked)  # the free first year
         owner.subscription.refresh_from_db()
         self.assertEqual(owner.subscription.plan, self.basic)  # nothing was added to the plan
         own_card.refresh_from_db()
@@ -155,7 +164,9 @@ class SetUpTests(PayToUpdateBase):
 class LockedEditorTests(PayToUpdateBase):
     def test_the_editor_says_what_a_change_costs(self):
         self.set_up()
-        self.assertContains(self.client.get(f"/dashboard/cards/{self.card.pk}/edit/"), "Changing your card costs")
+        page = self.client.get(f"/dashboard/cards/{self.card.pk}/edit/")
+        self.assertContains(page, "Changing your details, links or web address costs")
+        self.assertContains(page, "Your business page is always free")
 
     def test_saving_holds_the_changes_and_sends_the_owner_to_pay(self):
         self.set_up()
@@ -251,7 +262,7 @@ class PayingTests(PayToUpdateBase):
         self.card.refresh_from_db()
         self.assertEqual(self.card.job_title, "Director")
         self.assertFalse(CardUpdate.objects.exists())
-        self.assertContains(self.client.get(f"/dashboard/cards/{self.card.pk}/edit/"), "Changes are open until")
+        self.assertContains(self.client.get(f"/dashboard/cards/{self.card.pk}/edit/"), "are open until")
         self.assertRedirects(  # nothing to pay while it is open
             self.client.get(f"/dashboard/cards/{self.card.pk}/unlock/"), f"/dashboard/cards/{self.card.pk}/edit/",
             fetch_redirect_response=False,
@@ -282,7 +293,7 @@ class PayingTests(PayToUpdateBase):
 
 
 class SmallScreenTests(PayToUpdateBase):
-    """Links, the card web address and the business page do not hold changes: they ask to pay first."""
+    """Links and the card web address do not hold changes: after the free year they ask to pay first. The business page never does."""
 
     def unlock_url(self):
         return f"/dashboard/cards/{self.card.pk}/unlock/"
@@ -310,12 +321,20 @@ class SmallScreenTests(PayToUpdateBase):
         self.card.refresh_from_db()
         self.assertEqual(self.card.slug, old)
 
-    def test_the_business_page_asks_to_pay_first(self):
+    def test_the_business_page_never_asks_to_pay(self):
         self.set_up()
-        self.assertRedirects(self.client.get("/dashboard/business/"), self.unlock_url(), fetch_redirect_response=False)
+        self.assertTrue(self.card.edit_locked)
+        self.assertEqual(self.client.get("/dashboard/business/").status_code, 200)
         response = self.client.post("/dashboard/business/services/add/", {"title": "Shoots", "description": ""})
-        self.assertRedirects(response, self.unlock_url(), fetch_redirect_response=False)
-        self.assertFalse(BusinessPage.objects.filter(owner=self.user, services__isnull=False).exists())
+        self.assertRedirects(response, "/dashboard/business/", fetch_redirect_response=False)
+        service = BusinessPage.objects.get(owner=self.user).services.get(title="Shoots")
+        response = self.client.post(f"/dashboard/business/services/{service.pk}/edit/", {"title": "Weddings", "description": ""})
+        self.assertRedirects(response, "/dashboard/business/", fetch_redirect_response=False)
+        self.assertEqual(BusinessPage.objects.get(owner=self.user).services.get().title, "Weddings")
+        response = self.client.post(f"/dashboard/business/services/{service.pk}/delete/")
+        self.assertRedirects(response, "/dashboard/business/", fetch_redirect_response=False)
+        self.assertFalse(BusinessPage.objects.get(owner=self.user).services.exists())
+        self.assertFalse(CardUpdate.objects.exists())
 
     def test_once_paid_these_screens_work(self):
         self.set_up()
@@ -527,6 +546,92 @@ class CleanupTests(PayToUpdateBase):
         call_command("run_daily_jobs", only="held_updates", verbosity=0)
         self.assertFalse(CardUpdate.objects.exists())
         self.assertFalse(default_storage.exists(path))
+
+    def test_changes_held_on_a_card_that_is_open_again_are_applied_not_thrown_away(self):
+        self.set_up()
+        self.client.post(f"/dashboard/cards/{self.card.pk}/edit/", self.data(job_title="Held"))
+        self.assertTrue(CardUpdate.objects.exists())
+        self.made(self.card.slug, months=1)  # the rule changed under it: the free year is running
+        CardUpdate.objects.update(created_at=timezone.now() - timedelta(hours=49))  # even past the 48 hours
+        call_command("run_daily_jobs", only="held_updates", verbosity=0)
+        self.card.refresh_from_db()
+        self.assertEqual(self.card.job_title, "Held")
+        self.assertFalse(CardUpdate.objects.exists())
+        self.assertTrue(AuditLog.objects.filter(action="card_update_applied").exists())
+
+
+class FreeYearTests(PayToUpdateBase):
+    """Details, links and web address are free for a year from the day the card is made; the business page always."""
+
+    def test_a_new_card_is_open_and_saves_straight_away(self):
+        self.set_up(free_year=True)
+        self.assertFalse(self.card.edit_locked)
+        self.assertTrue(self.card.is_live)
+        self.assertContains(self.client.get(f"/dashboard/cards/{self.card.pk}/edit/"), "are open until")
+        response = self.client.post(f"/dashboard/cards/{self.card.pk}/edit/", self.data(job_title="Director"))
+        self.assertEqual(response.status_code, 302)
+        self.assertNotIn("unlock", response["Location"])
+        self.card.refresh_from_db()
+        self.assertEqual(self.card.job_title, "Director")
+        self.assertFalse(CardUpdate.objects.exists())
+
+    def test_links_and_the_web_address_are_free_in_the_first_year(self):
+        self.set_up(free_year=True)
+        response = self.client.post("/dashboard/links/", {"platform": "instagram", "url": "https://instagram.com/ama"})
+        self.assertNotIn("unlock", response["Location"])
+        self.assertEqual(self.card.social_links.count(), 1)
+        self.client.post(f"/dashboard/cards/{self.card.pk}/slug/", {"slug": "ama-photos"})
+        self.card.refresh_from_db()
+        self.assertEqual(self.card.slug, "ama-photos")
+        self.assertRedirects(  # nothing to pay while it is open
+            self.client.get(f"/dashboard/cards/{self.card.pk}/unlock/"), f"/dashboard/cards/{self.card.pk}/edit/",
+            fetch_redirect_response=False,
+        )
+
+    def test_the_free_year_counts_from_the_day_the_card_was_made(self):
+        self.set_up(free_year=True)
+        for months, locked in ((0, False), (11, False), (13, True), (24, True)):
+            self.made(self.card.slug, months)
+            self.card.refresh_from_db()
+            self.assertEqual(self.card.edit_locked, locked, months)
+        self.assertEqual(self.card.updates_free_until, self.card.created_at + relativedelta(months=12))
+
+    def test_a_year_that_was_paid_for_still_counts_after_the_free_year(self):
+        self.set_up()  # made 13 months ago
+        Card.objects.filter(pk=self.card.pk).update(updates_paid_until=timezone.now() + timedelta(days=60))
+        self.card.refresh_from_db()
+        self.assertFalse(self.card.edit_locked)
+        self.assertEqual(self.card.updates_open_until, self.card.updates_paid_until)
+        Card.objects.filter(pk=self.card.pk).update(updates_paid_until=timezone.now() - timedelta(days=1))
+        self.card.refresh_from_db()
+        self.assertTrue(self.card.edit_locked)
+
+    def test_a_year_paid_during_the_free_year_starts_when_the_free_year_ends(self):
+        self.set_up(free_year=True)
+        payment = create_payment(
+            user=self.user, purpose=Payment.PURPOSE_CARD_UPDATE, quote=card_update_quote(self.card), months=12, card=self.card,
+        )
+        updates.unlock_and_apply(payment)
+        self.card.refresh_from_db()
+        self.assertEqual(self.card.updates_paid_until, self.card.updates_free_until + relativedelta(months=12))
+
+    def test_the_business_page_is_free_in_the_first_year(self):  # after it: SmallScreenTests
+        self.set_up(free_year=True)
+        response = self.client.post("/dashboard/business/services/add/", {"title": "Shoots", "description": ""})
+        self.assertRedirects(response, "/dashboard/business/", fetch_redirect_response=False)
+        self.assertTrue(BusinessPage.objects.get(owner=self.user).services.filter(title="Shoots").exists())
+
+    def test_the_claim_page_says_the_first_year_is_free(self):
+        _batch, rows = self.make_batch()
+        code = rows[0]["code"]
+        self.client.post(f"/c/{code}/claim", {"pin": rows[0]["pin"]})
+        page = self.client.get(f"/c/{code}/claim/setup")
+        self.assertContains(page, "free for your first year")
+        self.assertContains(page, "business page is always free")
+
+    def test_the_dashboard_says_until_when_changes_are_open(self):
+        self.set_up(free_year=True)
+        self.assertContains(self.client.get("/dashboard/"), "Changes are open until")
 
 
 @override_settings(STAFF_TWO_FACTOR_REQUIRED=False)

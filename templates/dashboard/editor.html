@@ -22,13 +22,13 @@
       {% money card.update_price_minor inline=True as update_price %}
       <div class="banner banner--info" role="status">
         {% icon "info" 22 %}
-        <p>{% blocktrans trimmed %}<strong>Changing your card costs {{ update_price }}.</strong> Edit and preview as much as you like. You pay when you press Save, and your changes go onto your card as soon as the payment clears. That opens changes for 12 months.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}<strong>Changing your details, links or web address costs {{ update_price }}.</strong> Your free first year is over. Edit and preview as much as you like. You pay when you press Save, and your changes go onto your card as soon as the payment clears. That opens changes for 12 months. Your business page is always free.{% endblocktrans %}</p>
       </div>
     {% endif %}
   {% else %}
     <div class="banner banner--success" role="status">
       {% icon "circle-check" 22 %}
-      <p>{% blocktrans trimmed with until=card.updates_paid_until|ldate:"j F Y" %}<strong>Changes are open until {{ until }}.</strong> Save as often as you like. After that, your card keeps working as it is, and the next change needs another payment.{% endblocktrans %}</p>
+      <p>{% blocktrans trimmed with until=card.updates_open_until|ldate:"j F Y" %}<strong>Changes to your details, links and web address are open until {{ until }}.</strong> Save as often as you like. After that, your card keeps working as it is, and the next change needs a payment. Your business page is always free.{% endblocktrans %}</p>
     </div>
   {% endif %}
 {% endif %}

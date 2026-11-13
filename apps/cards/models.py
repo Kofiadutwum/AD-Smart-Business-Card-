@@ -6,6 +6,7 @@ so the owner can change every detail without reprinting anything (3.2).
 
 import uuid
 
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -96,8 +97,8 @@ class Card(models.Model):
     activated_at = models.DateTimeField(null=True, blank=True)  # null = Draft (ACT-01)
 
     # "Pay when you update" pre-made cards: no subscription. The card is live from set-up with the
-    # features of ``update_plan``; changing what the public sees costs ``update_price_minor`` and
-    # unlocks changes until ``updates_paid_until``.
+    # features of ``update_plan``. Changes to details and links are free for the first year after the
+    # card is made; after that they cost ``update_price_minor`` and unlock until ``updates_paid_until``.
     update_plan = models.ForeignKey("billing.Plan", null=True, blank=True, on_delete=models.PROTECT, related_name="+")
     update_price_minor = models.PositiveIntegerField(default=0)
     updates_paid_until = models.DateTimeField(null=True, blank=True)
@@ -191,12 +192,23 @@ class Card(models.Model):
     def is_update_card(self):
         return self.update_plan_id is not None
 
+    FREE_UPDATE_MONTHS = 12  # changes to details and links are free for this long after the card is made
+
+    @property
+    def updates_free_until(self):
+        return (self.created_at or timezone.now()) + relativedelta(months=self.FREE_UPDATE_MONTHS)
+
+    @property
+    def updates_open_until(self):
+        """The later of the free first year and what the owner paid for."""
+        return max(filter(None, [self.updates_free_until, self.updates_paid_until]))
+
     @property
     def edit_locked(self):
-        """True while changes to what the public sees need a payment first."""
-        if not self.is_update_card:
-            return False
-        return self.updates_paid_until is None or self.updates_paid_until <= timezone.now()
+        """True once the free year and any paid year are over: details, links and web address then need a payment.
+
+        The business page is never locked."""
+        return self.is_update_card and self.updates_open_until <= timezone.now()
 
     @property
     def pays_automatically(self):

@@ -187,10 +187,10 @@ class Command(BaseCommand):
         return f"{expire_stale_pending()} stale payment(s) settled"
 
     def held_updates(self):
-        """Pay-when-you-update cards: throw away held changes nobody paid for within 48 hours."""
-        from apps.dashboard.updates import discard_stale
+        """Pay-when-you-update cards: put held changes on cards that are open, throw away those nobody paid for within 48 hours."""
+        from apps.dashboard.updates import apply_open, discard_stale
 
-        return f"{discard_stale()} unpaid held change(s) thrown away"
+        return f"{apply_open()} held change(s) applied, {discard_stale()} unpaid held change(s) thrown away"
 
     def email_retries(self):
         """Re-send emails that failed in the last 3 days (e.g. the provider's daily

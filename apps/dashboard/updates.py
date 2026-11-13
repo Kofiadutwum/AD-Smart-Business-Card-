@@ -1,10 +1,12 @@
 """Pay-when-you-update cards: hold the editor's Save while the owner pays, then apply it.
 
-A card from a "pay when you update" pre-made batch goes live free. Changing what the public sees
-needs the Update Price, which unlocks changes for 12 months. In the card editor the owner edits
-first and pays at Save: the valid form is kept (``CardUpdate``, pictures included, already in
-storage) and applied by ``unlock_and_apply`` when the payment clears. A held Save nobody pays for
-is thrown away after ``HOLD_HOURS``.
+A card from a "pay when you update" pre-made batch goes live free, and changes to its details, links
+and web address are free for a year after the card is made (``Card.updates_free_until``). After that
+they need the Update Price, which unlocks changes for 12 months. The business page is never locked.
+In the card editor the owner edits first and pays at Save: the valid form is kept (``CardUpdate``,
+pictures included, already in storage) and applied by ``unlock_and_apply`` when the payment clears.
+A held Save nobody pays for is thrown away after ``HOLD_HOURS``; one on a card that is open again is
+applied instead (``apply_open``).
 """
 
 import logging
@@ -103,21 +105,34 @@ def unlock_and_apply(payment):
     if not payment.card_id:
         return
     card = Card.objects.select_for_update().get(pk=payment.card_id)
-    now = timezone.now()
-    start = card.updates_paid_until if card.updates_paid_until and card.updates_paid_until > now else now
+    start = max(card.updates_open_until, timezone.now())  # a year paid early adds to the free year, never overlaps it
     card.updates_paid_until = start + relativedelta(months=payment.months or UNLOCK_MONTHS)
     card.save(update_fields=["updates_paid_until", "updated_at"])
     held = CardUpdate.objects.filter(card=card).first()
-    if held is None:
-        return
+    if held is not None:
+        _apply(card, held, payment.reference)
+
+
+def _apply(card, held, reference=""):
+    """Put a held Save on the card, record the result and discard the hold. Best effort: it never raises."""
     try:
         with transaction.atomic():
             applied = _replay(card, held)
     except Exception:
         logger.exception("Applying held changes to card %s failed", card.pk)
         applied = False
-    AuditLog.record(card.owner, "card_update_applied" if applied else "card_update_failed", card, reference=payment.reference)
+    AuditLog.record(card.owner, "card_update_applied" if applied else "card_update_failed", card, reference=reference)
     _delete(held)
+    return applied
+
+
+def apply_open():
+    """Put held Saves on cards whose changes are open (their free year is running, or it was just paid for)."""
+    count = 0
+    for held in list(CardUpdate.objects.select_related("card", "card__owner")):
+        if not held.card.edit_locked and _apply(held.card, held):
+            count += 1
+    return count
 
 
 def charge_kept_card(card):

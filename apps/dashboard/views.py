@@ -501,10 +501,7 @@ def business(request):
     page = _business_page(request)
     if page is None:
         return render(request, "dashboard/business.html", _base(request, "business", locked=True))
-    card = _card(request)
-    if blocked := _pay_first(card):
-        return blocked
-    plan = plan_for_card(card)
+    plan = plan_for_card(_card(request))
     form = BusinessPageForm(request.POST or None, instance=page)
     if request.method == "POST" and form.is_valid():
         form.save()
@@ -539,12 +536,9 @@ def business_item(request, kind, pk=None):
     page = _business_page(request)
     if page is None or kind not in BUSINESS_ITEMS:
         raise Http404
-    card = _card(request)
-    if blocked := _pay_first(card):
-        return blocked
     model, form_class, limit_for = BUSINESS_ITEMS[kind]
     item = get_object_or_404(model, pk=pk, page=page) if pk else None
-    limit = limit_for(plan_for_card(card))
+    limit = limit_for(plan_for_card(_card(request)))
     if item is None and limit is not None and getattr(page, kind).count() >= limit:  # no limit = unlimited
         messages.warning(request, _("You have used all %(limit)d places here. Remove one to add another.") % {"limit": limit})
         return redirect("dashboard:business")
@@ -580,8 +574,6 @@ def business_item_delete(request, kind, pk):
     page = _business_page(request)
     if page is None or kind not in BUSINESS_ITEMS:
         raise Http404
-    if blocked := _pay_first(_card(request)):
-        return blocked
     item = get_object_or_404(BUSINESS_ITEMS[kind][0], pk=pk, page=page)
     if kind == "products":
         for photo in item.photos.all():
@@ -599,8 +591,6 @@ def product_picture(request, pk, which, action):
     page = _business_page(request)
     if page is None:
         raise Http404
-    if blocked := _pay_first(_card(request)):
-        return blocked
     product = get_object_or_404(BusinessProduct, pk=pk, page=page)
     if which == "cover":
         photo = product.photos.first()

@@ -12,8 +12,9 @@ any plan at the normal checkout, which switches the card on and, when they pay
 by card, starts automatic renewal.
 
 A *pay when you update* batch (Basic or Professional only) sells the card with the plan's features
-but no plan to pay for: setting it up puts it live at once and for good. Only changing what the public
-sees costs money, the batch's Update Price, which opens changes for 12 months (see ``apps.dashboard.updates``).
+but no plan to pay for: setting it up puts it live at once and for good. Changes to its details, links and
+web address are free for a year after the card is made; after that they cost the batch's Update Price, which
+opens changes for 12 months (see ``apps.dashboard.updates``). The business page is always free.
 """
 
 import csv

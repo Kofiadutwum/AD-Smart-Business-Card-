@@ -14,7 +14,7 @@ msgid "Full name"
 msgstr "Nombre completo"
 
 #: apps/accounts/forms.py:18 apps/accounts/forms.py:60
-#: apps/accounts/forms.py:66 apps/cards/models.py:45
+#: apps/accounts/forms.py:66 apps/cards/models.py:46
 #: apps/dashboard/forms.py:54 templates/dashboard/settings.html:16
 msgid "Email address"
 msgstr "Correo electrónico"
@@ -477,227 +477,227 @@ msgstr "Cargo"
 msgid "Business or organisation"
 msgstr "Empresa u organización"
 
-#: apps/cards/models.py:35
+#: apps/cards/models.py:36
 msgid "Classic"
 msgstr "Clásica"
 
-#: apps/cards/models.py:36
+#: apps/cards/models.py:37
 msgid "Banner"
 msgstr "Banner"
 
-#: apps/cards/models.py:37
+#: apps/cards/models.py:38
 msgid "Minimal"
 msgstr "Minimalista"
 
-#: apps/cards/models.py:40
+#: apps/cards/models.py:41
 msgid "Pill"
 msgstr "Píldora"
 
-#: apps/cards/models.py:40
+#: apps/cards/models.py:41
 msgid "Rounded"
 msgstr "Redondeado"
 
-#: apps/cards/models.py:40
+#: apps/cards/models.py:41
 msgid "Square"
 msgstr "Cuadrado"
 
-#: apps/cards/models.py:41
+#: apps/cards/models.py:42
 msgid "List"
 msgstr "Lista"
 
-#: apps/cards/models.py:41
+#: apps/cards/models.py:42
 msgid "Grid"
 msgstr "Cuadrícula"
 
-#: apps/cards/models.py:41
+#: apps/cards/models.py:42
 msgid "Icon row"
 msgstr "Fila de iconos"
 
-#: apps/cards/models.py:46 templates/dashboard/editor.html:71
+#: apps/cards/models.py:47 templates/dashboard/editor.html:71
 msgid "Phone numbers"
 msgstr "Números de teléfono"
 
-#: apps/cards/models.py:47 apps/cards/models.py:305
+#: apps/cards/models.py:48 apps/cards/models.py:317
 #: templates/cards/_contact.html:9 templates/cards/_contact.html:39
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:48 apps/cards/models.py:311 apps/dashboard/forms.py:55
+#: apps/cards/models.py:49 apps/cards/models.py:323 apps/dashboard/forms.py:55
 #: apps/nfc/forms.py:30 templates/cards/_contact.html:15
 #: templates/cards/_contact.html:51
 msgid "Website"
 msgstr "Sitio web"
 
-#: apps/cards/models.py:49 apps/dashboard/forms.py:56
+#: apps/cards/models.py:50 apps/dashboard/forms.py:56
 msgid "Physical address"
 msgstr "Dirección física"
 
-#: apps/cards/models.py:50 templates/cards/_contact.html:63
+#: apps/cards/models.py:51 templates/cards/_contact.html:63
 msgid "Ghana Post GPS"
 msgstr "Ghana Post GPS"
 
-#: apps/cards/models.py:51
+#: apps/cards/models.py:52
 msgid "Map location"
 msgstr "Ubicación en el mapa"
 
-#: apps/cards/models.py:52 apps/dashboard/forms.py:52
+#: apps/cards/models.py:53 apps/dashboard/forms.py:52
 msgid "Short bio"
 msgstr "Biografía breve"
 
-#: apps/cards/models.py:295
+#: apps/cards/models.py:307
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: apps/cards/models.py:296
+#: apps/cards/models.py:308
 msgid "Instagram"
 msgstr "Instagram"
 
-#: apps/cards/models.py:297
+#: apps/cards/models.py:309
 msgid "Facebook"
 msgstr "Facebook"
 
-#: apps/cards/models.py:298
+#: apps/cards/models.py:310
 msgid "X"
 msgstr "X"
 
-#: apps/cards/models.py:299
+#: apps/cards/models.py:311
 msgid "TikTok"
 msgstr "TikTok"
 
-#: apps/cards/models.py:300
+#: apps/cards/models.py:312
 msgid "YouTube"
 msgstr "YouTube"
 
-#: apps/cards/models.py:301
+#: apps/cards/models.py:313
 msgid "Snapchat"
 msgstr "Snapchat"
 
-#: apps/cards/models.py:302
+#: apps/cards/models.py:314
 msgid "Threads"
 msgstr "Threads"
 
-#: apps/cards/models.py:303
+#: apps/cards/models.py:315
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: apps/cards/models.py:304
+#: apps/cards/models.py:316
 msgid "Telegram"
 msgstr "Telegram"
 
-#: apps/cards/models.py:306
+#: apps/cards/models.py:318
 msgid "GitHub"
 msgstr "GitHub"
 
-#: apps/cards/models.py:307
+#: apps/cards/models.py:319
 msgid "Behance"
 msgstr "Behance"
 
-#: apps/cards/models.py:308
+#: apps/cards/models.py:320
 msgid "ResearchGate"
 msgstr "ResearchGate"
 
-#: apps/cards/models.py:309
+#: apps/cards/models.py:321
 msgid "ORCID"
 msgstr "ORCID"
 
-#: apps/cards/models.py:310
+#: apps/cards/models.py:322
 msgid "Google Scholar"
 msgstr "Google Scholar"
 
-#: apps/cards/models.py:347
+#: apps/cards/models.py:359
 msgid "View"
 msgstr "Visita"
 
-#: apps/cards/models.py:348
+#: apps/cards/models.py:360
 msgid "Contact saved"
 msgstr "Contacto guardado"
 
-#: apps/cards/models.py:349
+#: apps/cards/models.py:361
 msgid "Phone click"
 msgstr "Clic en teléfono"
 
-#: apps/cards/models.py:350
+#: apps/cards/models.py:362
 msgid "WhatsApp click"
 msgstr "Clic en WhatsApp"
 
-#: apps/cards/models.py:351
+#: apps/cards/models.py:363
 msgid "Email click"
 msgstr "Clic en correo"
 
-#: apps/cards/models.py:352
+#: apps/cards/models.py:364
 msgid "Website click"
 msgstr "Clic en sitio web"
 
-#: apps/cards/models.py:353
+#: apps/cards/models.py:365
 msgid "Social click"
 msgstr "Clic en redes sociales"
 
-#: apps/cards/models.py:354
+#: apps/cards/models.py:366
 msgid "Location click"
 msgstr "Clic en ubicación"
 
-#: apps/cards/models.py:356 apps/dashboard/views.py:359
+#: apps/cards/models.py:368 apps/dashboard/views.py:359
 msgid "Direct link"
 msgstr "Enlace directo"
 
-#: apps/cards/models.py:356 templates/dashboard/share.html:32
+#: apps/cards/models.py:368 templates/dashboard/share.html:32
 msgid "QR code"
 msgstr "Código QR"
 
-#: apps/cards/models.py:356
+#: apps/cards/models.py:368
 msgid "NFC tap"
 msgstr "Toque NFC"
 
-#: apps/cards/models.py:394
+#: apps/cards/models.py:406
 msgid "Impersonation"
 msgstr "Suplantación de identidad"
 
-#: apps/cards/models.py:395
+#: apps/cards/models.py:407
 msgid "Fraud or scam"
 msgstr "Fraude o estafa"
 
-#: apps/cards/models.py:396
+#: apps/cards/models.py:408
 msgid "Offensive content"
 msgstr "Contenido ofensivo"
 
-#: apps/cards/models.py:397 apps/dashboard/forms.py:298
+#: apps/cards/models.py:409 apps/dashboard/forms.py:298
 #: apps/support/models.py:17 templates/cards/business.html:66
 #: templates/marketing/shops.html:33
 msgid "Other"
 msgstr "Otro"
 
-#: apps/cards/models.py:400 apps/support/models.py:23
+#: apps/cards/models.py:412 apps/support/models.py:23
 msgid "Open"
 msgstr "Abierto"
 
-#: apps/cards/models.py:400
+#: apps/cards/models.py:412
 msgid "Dismissed"
 msgstr "Descartado"
 
-#: apps/cards/models.py:400
+#: apps/cards/models.py:412
 msgid "Actioned"
 msgstr "Resuelto"
 
-#: apps/cards/premade.py:184
+#: apps/cards/premade.py:185
 msgid "This card has already been set up by its buyer."
 msgstr "Esta tarjeta ya fue configurada por su comprador."
 
-#: apps/cards/premade.py:235 apps/cards/premade.py:376
+#: apps/cards/premade.py:236 apps/cards/premade.py:377
 msgid "This card has already been set up."
 msgstr "Esta tarjeta ya está configurada."
 
-#: apps/cards/premade.py:237 apps/cards/premade.py:378
+#: apps/cards/premade.py:238 apps/cards/premade.py:379
 msgid ""
 "This card is no longer in use. Please contact the shop you bought it from."
 msgstr ""
 "Esta tarjeta ya no está en uso. Contacta con la tienda donde la compraste."
 
-#: apps/cards/premade.py:239
+#: apps/cards/premade.py:240
 msgid "Too many attempts from this connection. Please try again later."
 msgstr ""
 "Demasiados intentos desde esta conexión. Inténtalo de nuevo más tarde."
 
-#: apps/cards/premade.py:246
+#: apps/cards/premade.py:247
 #, python-format
 msgid "Too many wrong PINs. Please try again in %(minutes)d minute."
 msgid_plural "Too many wrong PINs. Please try again in %(minutes)d minutes."
@@ -706,14 +706,14 @@ msgstr[0] ""
 msgstr[1] ""
 "Demasiados PIN incorrectos. Inténtalo de nuevo en %(minutes)d minutos."
 
-#: apps/cards/premade.py:260
+#: apps/cards/premade.py:261
 #, python-format
 msgid "That PIN is not right. This card is locked for %(minutes)d minutes."
 msgstr ""
 "Ese PIN no es correcto. Esta tarjeta queda bloqueada durante %(minutes)d "
 "minutos."
 
-#: apps/cards/premade.py:264
+#: apps/cards/premade.py:265
 #, python-format
 msgid "That PIN is not right. %(left)d try left."
 msgid_plural "That PIN is not right. %(left)d tries left."
@@ -1058,19 +1058,19 @@ msgstr ""
 "Se eliminó la tarjeta de %(name)s. Su enlace indicará que la tarjeta ya no "
 "existe."
 
-#: apps/dashboard/views.py:644
+#: apps/dashboard/views.py:634
 msgid "Account details saved."
 msgstr "Datos de la cuenta guardados."
 
-#: apps/dashboard/views.py:655
+#: apps/dashboard/views.py:645
 msgid "Type your email address exactly to confirm."
 msgstr "Escribe tu correo exactamente igual para confirmar."
 
-#: apps/dashboard/views.py:663
+#: apps/dashboard/views.py:653
 msgid "We received your account deletion request"
 msgstr "Hemos recibido tu solicitud de eliminación de cuenta"
 
-#: apps/dashboard/views.py:667
+#: apps/dashboard/views.py:657
 msgid ""
 "Your deletion request is recorded. Your data will be removed within 30 days."
 msgstr ""
@@ -2593,7 +2593,7 @@ msgstr ""
 msgid "Your cards"
 msgstr "Tus tarjetas"
 
-#: apps/billing/models.py:229 apps/cards/models.py:220
+#: apps/billing/models.py:229 apps/cards/models.py:232
 #: apps/dashboard/views.py:397 templates/dashboard/cards.html:17
 msgid "Card"
 msgstr "Tarjeta"
@@ -5297,27 +5297,27 @@ msgstr "Detalles"
 msgid "Your email (optional, if you would like a reply)"
 msgstr "Tu correo (opcional, si quieres recibir respuesta)"
 
-#: apps/cards/models.py:26
+#: apps/cards/models.py:27
 msgid "Blue"
 msgstr "Azul"
 
-#: apps/cards/models.py:26
+#: apps/cards/models.py:27
 msgid "Navy"
 msgstr "Azul marino"
 
-#: apps/cards/models.py:26
+#: apps/cards/models.py:27
 msgid "Sky"
 msgstr "Celeste"
 
-#: apps/cards/models.py:26
+#: apps/cards/models.py:27
 msgid "Purple"
 msgstr "Morado"
 
-#: apps/cards/models.py:26
+#: apps/cards/models.py:27
 msgid "Amber"
 msgstr "Ámbar"
 
-#: apps/cards/models.py:26
+#: apps/cards/models.py:27
 msgid "Ink"
 msgstr "Tinta"
 
@@ -5626,7 +5626,7 @@ msgstr "SVG para imprimir"
 msgid "Chat with us"
 msgstr "Chatea con nosotros"
 
-#: apps/cards/models.py:283
+#: apps/cards/models.py:295
 msgid "For example MTN, Telecel or Office."
 msgstr "Por ejemplo MTN, Telecel u Oficina."
 
@@ -5702,7 +5702,7 @@ msgstr ""
 "Tu plan cambia a <strong style=\"display:inline\">%(plan)s</strong> el "
 "%(date)s."
 
-#: apps/billing/models.py:230 apps/cards/models.py:221
+#: apps/billing/models.py:230 apps/cards/models.py:233
 #, python-format
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s terminada en %(last4)s"
@@ -6012,45 +6012,45 @@ msgstr "Lo que dijo el cliente"
 msgid "Only add words your customer has agreed to share."
 msgstr "Añade solo palabras que tu cliente haya aceptado compartir."
 
-#: apps/dashboard/views.py:511
+#: apps/dashboard/views.py:508
 msgid "Business page saved."
 msgstr "Página del negocio guardada."
 
-#: apps/dashboard/views.py:549
+#: apps/dashboard/views.py:543
 #, python-format
 msgid "You have used all %(limit)d places here. Remove one to add another."
 msgstr ""
 "Has usado los %(limit)d espacios disponibles. Elimina uno para añadir otro."
 
-#: apps/dashboard/views.py:563 apps/dashboard/views.py:624
+#: apps/dashboard/views.py:557 apps/dashboard/views.py:614
 msgid "Saved."
 msgstr "Guardado."
 
-#: apps/dashboard/views.py:566
+#: apps/dashboard/views.py:560
 msgid "Add a product"
 msgstr "Añadir un producto"
 
-#: apps/dashboard/views.py:566
+#: apps/dashboard/views.py:560
 msgid "Edit product"
 msgstr "Editar producto"
 
-#: apps/dashboard/views.py:567
+#: apps/dashboard/views.py:561
 msgid "Add a service"
 msgstr "Añadir un servicio"
 
-#: apps/dashboard/views.py:567
+#: apps/dashboard/views.py:561
 msgid "Edit service"
 msgstr "Editar servicio"
 
-#: apps/dashboard/views.py:568
+#: apps/dashboard/views.py:562
 msgid "Add a customer review"
 msgstr "Añadir una opinión de cliente"
 
-#: apps/dashboard/views.py:568
+#: apps/dashboard/views.py:562
 msgid "Edit customer review"
 msgstr "Editar opinión de cliente"
 
-#: apps/dashboard/views.py:591
+#: apps/dashboard/views.py:583
 msgid "Removed."
 msgstr "Eliminado."
 
@@ -6682,22 +6682,6 @@ msgstr ""
 msgid "Card updates for 12 months"
 msgstr "Actualizaciones de la tarjeta durante 12 meses"
 
-#: apps/cards/claim.py:101
-msgid ""
-"Your card is live. You only pay when you want to change its details, and "
-"then changes stay open for a year."
-msgstr ""
-"Tu tarjeta está activa. Solo pagas cuando quieras cambiar sus datos, y luego"
-" los cambios quedan abiertos durante un año."
-
-#: apps/cards/claim.py:140
-msgid ""
-"The card is now on your account and live. You only pay when you want to "
-"change its details."
-msgstr ""
-"La tarjeta ya está en tu cuenta y activa. Solo pagas cuando quieras cambiar "
-"sus datos."
-
 #: apps/dashboard/views.py:217
 msgid "The changes that were waiting have been thrown away."
 msgstr "Se descartaron los cambios que estaban en espera."
@@ -6718,15 +6702,6 @@ msgstr ""
 "%(batch_plan_name)s. Su enlace y su código QR se quedan exactamente como se "
 "imprimieron."
 
-#: templates/cards/claim_attach.html:19
-#, python-format
-msgid ""
-"You only pay when you want to change its details later: %(update_price)s, "
-"which keeps changes open for a year."
-msgstr ""
-"Solo pagas cuando quieras cambiar sus datos más adelante: %(update_price)s, "
-"y así los cambios quedan abiertos durante un año."
-
 #: templates/cards/claim_setup.html:15
 #, python-format
 msgid ""
@@ -6738,15 +6713,6 @@ msgstr ""
 "%(batch_plan_name)s y sin ningún plan que pagar. Añade tus datos y crea tu "
 "cuenta. El enlace y el código QR de tu tarjeta se quedan exactamente como se"
 " imprimieron."
-
-#: templates/cards/claim_setup.html:16
-#, python-format
-msgid ""
-"You only pay when you want to change your details later: %(update_price)s, "
-"which keeps changes open for a year."
-msgstr ""
-"Solo pagas cuando quieras cambiar tus datos más adelante: %(update_price)s, "
-"y así los cambios quedan abiertos durante un año."
 
 #: templates/dashboard/editor.html:18
 msgid ""
@@ -6761,33 +6727,6 @@ msgstr ""
 msgid "Pay and apply"
 msgstr "Pagar y aplicar"
 
-#: templates/dashboard/editor.html:25
-#, python-format
-msgid ""
-"<strong>Changing your card costs %(update_price)s.</strong> Edit and preview"
-" as much as you like. You pay when you press Save, and your changes go onto "
-"your card as soon as the payment clears. That opens changes for 12 months."
-msgstr ""
-"<strong>Cambiar tu tarjeta cuesta %(update_price)s.</strong> Edita y "
-"previsualiza todo lo que quieras. Pagas al pulsar Guardar, y tus cambios "
-"llegan a tu tarjeta en cuanto se confirma el pago. Eso abre los cambios "
-"durante 12 meses."
-
-#: templates/dashboard/editor.html:31
-#, python-format
-msgid ""
-"<strong>Changes are open until %(until)s.</strong> Save as often as you "
-"like. After that, your card keeps working as it is, and the next change "
-"needs another payment."
-msgstr ""
-"<strong>Los cambios están abiertos hasta el %(until)s.</strong> Guarda "
-"tantas veces como quieras. Después, tu tarjeta sigue funcionando tal como "
-"está, y el siguiente cambio necesitará otro pago."
-
-#: templates/dashboard/home.html:7
-msgid "Your card is live. You pay only when you change it."
-msgstr "Tu tarjeta está activa. Solo pagas cuando la cambias."
-
 #: templates/dashboard/unlock_updates.html:2
 #, python-format
 msgid "Unlock changes · %(SITE_NAME)s"
@@ -6796,14 +6735,6 @@ msgstr "Desbloquear cambios · %(SITE_NAME)s"
 #: templates/dashboard/unlock_updates.html:10
 msgid "Unlock changes to your card"
 msgstr "Desbloquea los cambios de tu tarjeta"
-
-#: templates/dashboard/unlock_updates.html:11
-msgid ""
-"Your card stays live whatever you decide. Paying opens changes to its "
-"details, links, web address and business page for 12 months."
-msgstr ""
-"Tu tarjeta sigue activa decidas lo que decidas. El pago abre durante 12 "
-"meses los cambios en sus datos, enlaces, dirección web y página del negocio."
 
 #: templates/dashboard/unlock_updates.html:21
 msgid ""
@@ -7423,6 +7354,153 @@ msgstr "Productos siguientes"
 #, python-format
 msgid "See all %(name)s products"
 msgstr "Ver todos los productos de %(name)s"
+
+#: apps/cards/claim.py:101
+msgid ""
+"Your card is live. Changing its details and links is free for your first "
+"year, and your business page is always free."
+msgstr ""
+"Tu tarjeta está activa. Cambiar sus datos y enlaces es gratis durante el "
+"primer año, y la página de tu negocio es siempre gratis."
+
+#: apps/cards/claim.py:140
+msgid ""
+"The card is now on your account and live. Changing its details and links is "
+"free for your first year, and your business page is always free."
+msgstr ""
+"La tarjeta ya está en tu cuenta y activa. Cambiar sus datos y enlaces es "
+"gratis durante el primer año, y la página de tu negocio es siempre gratis."
+
+#: templates/cards/claim_attach.html:19
+#, python-format
+msgid ""
+"Changing its details, links and web address is free for its first year. "
+"After that it costs %(update_price)s, which keeps changes open for a year. "
+"Its business page is always free."
+msgstr ""
+"Cambiar sus datos, enlaces y dirección web es gratis durante su primer año. "
+"Después cuesta %(update_price)s, que mantiene los cambios abiertos durante "
+"un año. La página de su negocio es siempre gratis."
+
+#: templates/cards/claim_setup.html:16
+#, python-format
+msgid ""
+"Changing your details, links and web address is free for your first year. "
+"After that it costs %(update_price)s, which keeps changes open for a year. "
+"Your business page is always free."
+msgstr ""
+"Cambiar tus datos, enlaces y dirección web es gratis durante tu primer año. "
+"Después cuesta %(update_price)s, que mantiene los cambios abiertos durante "
+"un año. La página de tu negocio es siempre gratis."
+
+#: templates/dashboard/editor.html:25
+#, python-format
+msgid ""
+"<strong>Changing your details, links or web address costs "
+"%(update_price)s.</strong> Your free first year is over. Edit and preview as"
+" much as you like. You pay when you press Save, and your changes go onto "
+"your card as soon as the payment clears. That opens changes for 12 months. "
+"Your business page is always free."
+msgstr ""
+"<strong>Cambiar tus datos, enlaces o dirección web cuesta "
+"%(update_price)s.</strong> Tu primer año gratis ha terminado. Edita y "
+"previsualiza todo lo que quieras. Pagas al pulsar Guardar, y tus cambios "
+"pasan a tu tarjeta en cuanto se confirma el pago. Eso abre los cambios "
+"durante 12 meses. La página de tu negocio es siempre gratis."
+
+#: templates/dashboard/editor.html:31
+#, python-format
+msgid ""
+"<strong>Changes to your details, links and web address are open until "
+"%(until)s.</strong> Save as often as you like. After that, your card keeps "
+"working as it is, and the next change needs a payment. Your business page is"
+" always free."
+msgstr ""
+"<strong>Los cambios en tus datos, enlaces y dirección web están abiertos "
+"hasta el %(until)s.</strong> Guarda tantas veces como quieras. Después, tu "
+"tarjeta sigue funcionando tal como está, y el siguiente cambio requiere un "
+"pago. La página de tu negocio es siempre gratis."
+
+#: templates/dashboard/home.html:7
+msgid "Your card is live. Changing its details needs a payment."
+msgstr "Tu tarjeta está activa. Cambiar sus datos requiere un pago."
+
+#: templates/dashboard/home.html:7
+#, python-format
+msgid "Your card is live. Changes are open until %(until)s."
+msgstr ""
+"Tu tarjeta está activa. Los cambios están abiertos hasta el %(until)s."
+
+#: templates/dashboard/unlock_updates.html:11
+msgid ""
+"Your card stays live whatever you decide. Paying opens changes to its "
+"details, links and web address for 12 months. Your business page is always "
+"free."
+msgstr ""
+"Tu tarjeta sigue activa decidas lo que decidas. Pagar abre los cambios en "
+"sus datos, enlaces y dirección web durante 12 meses. La página de tu negocio"
+" es siempre gratis."
+
+#~ msgid ""
+#~ "Your card is live. You only pay when you want to change its details, and "
+#~ "then changes stay open for a year."
+#~ msgstr ""
+#~ "Tu tarjeta está activa. Solo pagas cuando quieras cambiar sus datos, y luego"
+#~ " los cambios quedan abiertos durante un año."
+
+#~ msgid ""
+#~ "The card is now on your account and live. You only pay when you want to "
+#~ "change its details."
+#~ msgstr ""
+#~ "La tarjeta ya está en tu cuenta y activa. Solo pagas cuando quieras cambiar "
+#~ "sus datos."
+
+#, python-format
+#~ msgid ""
+#~ "You only pay when you want to change its details later: %(update_price)s, "
+#~ "which keeps changes open for a year."
+#~ msgstr ""
+#~ "Solo pagas cuando quieras cambiar sus datos más adelante: %(update_price)s, "
+#~ "y así los cambios quedan abiertos durante un año."
+
+#, python-format
+#~ msgid ""
+#~ "You only pay when you want to change your details later: %(update_price)s, "
+#~ "which keeps changes open for a year."
+#~ msgstr ""
+#~ "Solo pagas cuando quieras cambiar tus datos más adelante: %(update_price)s, "
+#~ "y así los cambios quedan abiertos durante un año."
+
+#, python-format
+#~ msgid ""
+#~ "<strong>Changing your card costs %(update_price)s.</strong> Edit and preview"
+#~ " as much as you like. You pay when you press Save, and your changes go onto "
+#~ "your card as soon as the payment clears. That opens changes for 12 months."
+#~ msgstr ""
+#~ "<strong>Cambiar tu tarjeta cuesta %(update_price)s.</strong> Edita y "
+#~ "previsualiza todo lo que quieras. Pagas al pulsar Guardar, y tus cambios "
+#~ "llegan a tu tarjeta en cuanto se confirma el pago. Eso abre los cambios "
+#~ "durante 12 meses."
+
+#, python-format
+#~ msgid ""
+#~ "<strong>Changes are open until %(until)s.</strong> Save as often as you "
+#~ "like. After that, your card keeps working as it is, and the next change "
+#~ "needs another payment."
+#~ msgstr ""
+#~ "<strong>Los cambios están abiertos hasta el %(until)s.</strong> Guarda "
+#~ "tantas veces como quieras. Después, tu tarjeta sigue funcionando tal como "
+#~ "está, y el siguiente cambio necesitará otro pago."
+
+#~ msgid "Your card is live. You pay only when you change it."
+#~ msgstr "Tu tarjeta está activa. Solo pagas cuando la cambias."
+
+#~ msgid ""
+#~ "Your card stays live whatever you decide. Paying opens changes to its "
+#~ "details, links, web address and business page for 12 months."
+#~ msgstr ""
+#~ "Tu tarjeta sigue activa decidas lo que decidas. El pago abre durante 12 "
+#~ "meses los cambios en sus datos, enlaces, dirección web y página del negocio."
 
 #, python-format
 #~ msgid "See all %(count)s products"
