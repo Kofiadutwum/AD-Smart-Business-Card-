@@ -10,6 +10,7 @@ cloudinary==1.46.2
 requests==2.34.2
 pillow==12.3.0
 pillow-heif==1.8.1
+geoip2fast==1.2.2
 segno==1.6.6
 pyotp==2.10.0
 reportlab==5.0.1

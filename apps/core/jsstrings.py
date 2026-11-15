@@ -18,6 +18,7 @@ STRINGS = {
     "each_with": _("%(price)s each (%(cedis)s)"),
     "each": _("%(price)s each"),
     "per_person_year": _("%(price)s per person a year"),
+    "per_person_once": _("%(price)s per person, paid once"),
     "your_name": _("Your name"),
     "locate_finding": _("Finding you…"),
     "locate_added": _("Location added. Save to keep it."),

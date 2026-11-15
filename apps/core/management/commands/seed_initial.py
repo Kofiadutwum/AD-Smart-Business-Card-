@@ -29,7 +29,7 @@ PLANS = [
     # The Business price covers 5 people; bigger teams add BUSINESS_BANDS.
     dict(code="business", name="Business", price_minor=70000, sort_order=3, max_cards=5, max_phones=3,
          max_social_links=None, all_templates=True, custom_colours=True, shared_brand_theme=True, allow_logo=True,
-         allow_business_page=True, max_products=None,
+         allow_business_page=True, max_products=None, update_price_minor=5000,
          allow_advanced_style=True, branding_footer="removable", full_analytics=True, priority_support=True,
          blurb="Your whole team under one brand. The bigger the team, the less each person costs."),
 ]

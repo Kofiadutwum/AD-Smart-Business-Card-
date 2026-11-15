@@ -29,7 +29,7 @@
         <a class="btn btn--on-dark" href="#pricing">{% trans "See plans and prices" %}</a>
       </div>
       <ul class="hero__proof">
-        {% with first_plan=plans.0 %}{% if first_plan %}<li>{% icon "badge-check" 18 %}{% trans "From" %} {% money first_plan.price_minor inline=True %} {% trans "a year" %}</li>{% endif %}{% endwith %}
+        {% with first_plan=plans.0 %}{% if first_plan %}<li>{% icon "badge-check" 18 %}{% trans "From" %} {% money first_plan.price_minor inline=True %} {% if in_ghana %}{% trans "paid once" %}{% else %}{% trans "a year" %}{% endif %}</li>{% endif %}{% endwith %}
         <li>{% icon "wallet" 18 %}{% trans "MoMo and cards via Paystack" %}</li>
         <li>{% icon "smartphone" 18 %}{% trans "Works on iPhone and Android" %}</li>
       </ul>
@@ -159,7 +159,7 @@
   <div class="container">
     <div class="section-head section-head--center">
       <p class="eyebrow">{% trans "Pricing" %}</p>
-      <h2 id="pricing-title">{% trans "One simple yearly price." %}</h2>
+      <h2 id="pricing-title">{% if in_ghana %}{% trans "Pay once. Keep your card." %}{% else %}{% trans "One simple yearly price." %}{% endif %}</h2>
     </div>
     {% include "marketing/_plans.html" %}
   </div>

@@ -14,6 +14,7 @@ from apps.billing import fx
 from apps.billing import services as billing
 from apps.billing.models import Payment, PromoCode
 from apps.billing.paystack import PaymentError
+from apps.core import geo
 from apps.core.models import SiteSettings
 from apps.core.utils import format_money
 
@@ -23,7 +24,7 @@ from .models import DeliveryZone, DesignProof, NFCOrder, NFCOrderItem
 from django.utils.translation import gettext as _, ngettext
 
 
-def _order_quote(quantity, zone, plan, promo):
+def _order_quote(quantity, zone, plan, promo, paid_once=False):
     cards_minor = services.cards_price(quantity)
     lines = [(
         lambda: ngettext("%(count)d customised NFC card", "%(count)d customised NFC cards", quantity) % {"count": quantity},
@@ -38,7 +39,10 @@ def _order_quote(quantity, zone, plan, promo):
     nfc_subtotal = sum(amount for _label, amount in lines)
     plan_minor = plan.price_minor if plan else 0
     if plan:
-        lines.append((lambda: _("%(plan)s plan, 12 months") % {"plan": plan.name}, plan_minor))
+        if paid_once:
+            lines.append((lambda: _("%(plan)s plan, paid once") % {"plan": plan.name}, plan_minor))
+        else:
+            lines.append((lambda: _("%(plan)s plan, 12 months") % {"plan": plan.name}, plan_minor))
     # A promo for NFC orders discounts the cards and delivery; one for both
     # also discounts a plan bought in the same checkout.
     discount = 0
@@ -90,8 +94,9 @@ def order(request):
             form.add_error("promo", promo_error)
         else:
             plan = data.get("plan") if needs_plan else None
+            paid_once = bool(plan) and geo.in_ghana(request)  # a plan bought with the cards is paid once from Ghana
             try:
-                quote = _order_quote(data["quantity"], data["delivery_zone"], plan, promo)
+                quote = _order_quote(data["quantity"], data["delivery_zone"], plan, promo, paid_once=paid_once)
             except ValueError as exc:
                 form.add_error(None, str(exc))
                 quote = None
@@ -134,7 +139,8 @@ def order(request):
                     services.log(nfc_order, "Order placed. Waiting for payment.", NFCOrder.PENDING_PAYMENT, user)
                     payment = billing.create_payment(
                         user=user, purpose=Payment.PURPOSE_NFC, quote=quote, plan=plan,
-                        months=plan.duration_months if plan else 0, nfc_order=nfc_order,
+                        months=plan.duration_months if plan and not paid_once else 0, nfc_order=nfc_order,
+                        paid_once=paid_once,
                     )
                 try:
                     return redirect(billing.checkout_url(payment, request))
@@ -245,9 +251,11 @@ def pay(request, number):
         "total_minor": nfc_order.total_minor,
         "promo": previous.promo_code if previous else None,
     }
+    paid_once = bool(previous and previous.paid_once)  # a retry keeps the terms the order was placed on
     payment = billing.create_payment(
         user=request.user, purpose=Payment.PURPOSE_NFC, quote=quote, plan=nfc_order.bundled_plan,
-        months=nfc_order.bundled_plan.duration_months if nfc_order.bundled_plan else 0, nfc_order=nfc_order,
+        months=nfc_order.bundled_plan.duration_months if nfc_order.bundled_plan and not paid_once else 0,
+        nfc_order=nfc_order, paid_once=paid_once,
     )
     try:
         return redirect(billing.checkout_url(payment, request))

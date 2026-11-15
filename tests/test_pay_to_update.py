@@ -166,7 +166,6 @@ class LockedEditorTests(PayToUpdateBase):
         self.set_up()
         page = self.client.get(f"/dashboard/cards/{self.card.pk}/edit/")
         self.assertContains(page, "Changing your details, links or web address costs")
-        self.assertContains(page, "Your business page is always free")
 
     def test_saving_holds_the_changes_and_sends_the_owner_to_pay(self):
         self.set_up()
@@ -401,7 +400,6 @@ class KeptCardTests(PayToUpdateBase):
         self.set_up()
         html = self.client.get(self.unlock_url()).content.decode()
         self.assertLess(html.index('value="pay"'), html.index('value="pay_momo"'))
-        self.assertIn("Mobile Money is never kept", html)
 
     def test_the_first_save_after_the_year_asks_to_confirm_and_charges_nothing(self):
         response = self.edit_after_the_year(job_title="Late")

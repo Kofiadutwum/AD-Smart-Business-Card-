@@ -4,7 +4,8 @@ Money is always an integer number of pesewas. GHS is the currency charged;
 USD is display-only (Section 5.1).
 """
 
-from datetime import timedelta
+from datetime import datetime, timedelta
+from datetime import timezone as dt_timezone
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
@@ -25,6 +26,11 @@ class Plan(models.Model):
     blurb = models.CharField(max_length=160, blank=True)
     price_minor = models.PositiveIntegerField(help_text="Annual price in pesewas.")
     duration_months = models.PositiveSmallIntegerField(default=12)
+    # Plans paid once (Ghana): the first 12 months of changes to a card's details are free, then each card
+    # pays this to open another 12 months. Per card, so a team pays it for each card it changes.
+    update_price_minor = models.PositiveIntegerField(
+        default=10000, help_text="Price in pesewas, per card, for 12 more months of changes to details on a plan paid once."
+    )
 
     max_cards = models.PositiveSmallIntegerField(default=1)
     max_phones = models.PositiveSmallIntegerField(default=2)
@@ -166,12 +172,20 @@ class SeatBand(models.Model):
         return f"{self.plan.name}: people {self.min_seats}-{top}"
 
 
+# A plan paid once never ends. ``expires_at`` cannot be empty, so it holds this far-off date and every
+# query on expiry keeps working: such a plan is never near its end and never lapses.
+PAID_ONCE_END = datetime(2099, 12, 31, tzinfo=dt_timezone.utc)
+
+
 class Subscription(models.Model):
     """One subscription per account. It carries the plan and the paid-up date.
 
     Renewing moves ``expires_at`` forward from the current expiry, never from
     today, so early renewal loses no paid time (PLN-03). The card URL, QR code
     and NFC destination never change, whatever happens here (EXP-07).
+
+    A plan ``paid_once`` (bought from Ghana) never expires or renews. Its cards then pay per change once
+    their free first year is over (see ``Card.edit_locked``).
     """
 
     STATE_ACTIVE = "active"
@@ -191,6 +205,7 @@ class Subscription(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT, related_name="subscriptions")
     started_at = models.DateTimeField(default=timezone.now)
     expires_at = models.DateTimeField()
+    paid_once = models.BooleanField(default=False, help_text="Paid once, so it never expires or renews.")
     # A downgrade waits for the next renewal (PLN-02).
     pending_plan = models.ForeignKey(
         Plan, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
@@ -215,11 +230,13 @@ class Subscription(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        if self.paid_once:
+            return f"{self.user} · {self.plan}, paid once"
         return f"{self.user} · {self.plan} until {self.expires_at:%d %b %Y}"
 
     @property
     def renews_automatically(self):
-        return bool(self.auto_renew and self.authorization_code and not self.cancelled_at)
+        return bool(self.auto_renew and self.authorization_code and not self.cancelled_at and not self.paid_once)
 
     @property
     def card_label(self):
@@ -239,6 +256,8 @@ class Subscription(models.Model):
         when = when or timezone.now()
         if self.cancelled_at:
             return self.STATE_INACTIVE
+        if self.paid_once:
+            return self.STATE_ACTIVE
         if when <= self.expires_at:
             if self.expires_at - when <= timedelta(days=30):
                 return self.STATE_EXPIRING
@@ -293,7 +312,11 @@ class Subscription(models.Model):
 
         ``anchor`` (automatic renewals) always counts from the expiry date, even when the charge went
         through a few hours or days late, so the yearly anniversary does not drift.
+
+        A plan paid once has nothing to extend.
         """
+        if self.paid_once:
+            return
         now = timezone.now()
         base = self.expires_at if self.expires_at and self.expires_at > now and not self.cancelled_at else now
         if anchor and self.expires_at and not self.cancelled_at:
@@ -302,6 +325,19 @@ class Subscription(models.Model):
             self.started_at = now
         self.expires_at = base + relativedelta(months=months)
         self.cancelled_at = None
+
+    def make_paid_once(self):
+        """Turn this into a plan paid once: no end date, no renewal, no saved card, nothing booked for later."""
+        self.paid_once = True
+        self.expires_at = PAID_ONCE_END
+        self.cancelled_at = None
+        self.pending_plan = None
+        self.pending_plan_from = None
+        self.pending_seats = None
+        self.auto_renew = False
+        self.authorization_code = ""
+        self.authorization_email = ""
+        self.renew_attempts = 0
 
     def apply_pending_plan(self):
         if self.pending_plan_id and self.pending_plan_from and timezone.now() >= self.pending_plan_from:
@@ -432,6 +468,8 @@ class Payment(models.Model):
     purpose = models.CharField(max_length=16, choices=PURPOSES)
     plan = models.ForeignKey(Plan, null=True, blank=True, on_delete=models.PROTECT, related_name="payments")
     months = models.PositiveSmallIntegerField(default=0)
+    # A plan bought once (from Ghana): it never ends, so the payment carries no months.
+    paid_once = models.BooleanField(default=False)
     seats = models.PositiveIntegerField(null=True, blank=True, help_text="Team size bought, on team plans.")
     nfc_order = models.ForeignKey(
         "nfc.NFCOrder", null=True, blank=True, on_delete=models.PROTECT, related_name="payments"
@@ -519,6 +557,10 @@ class Payment(models.Model):
             return _("Upgrade to %(plan)s") % {"plan": self.plan.name}
         if not self.plan:
             return _("Subscription")
+        if self.paid_once:
+            if self.seats:
+                return _("%(plan)s plan for %(people)d people, paid once") % {"plan": self.plan.name, "people": self.seats}
+            return _("%(plan)s plan, paid once") % {"plan": self.plan.name}
         if self.seats:
             return _("%(plan)s plan for %(people)d people, %(count)d months") % {"plan": self.plan.name, "people": self.seats, "count": self.months}
         return _("%(plan)s plan, %(count)d months") % {"plan": self.plan.name, "count": self.months}

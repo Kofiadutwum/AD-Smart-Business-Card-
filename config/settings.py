@@ -224,6 +224,9 @@ if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
     # unless the connection already uses our zone. Ghana has no daylight saving, so this equals UTC.
     DATABASES["default"]["TIME_ZONE"] = TIME_ZONE
 CURRENCY = "GHS"
+# Pretend every visitor is in this country (two letters, e.g. GH). For trying the Ghana prices on a computer
+# that is not in Ghana; leave empty on the live site, where the country comes from the visitor's address.
+GEO_FORCE_COUNTRY = env("GEO_FORCE_COUNTRY")
 
 # --------------------------------------------------------------------------
 # Static files and uploads

@@ -11,7 +11,10 @@ from django.utils.formats import date_format
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from django.db.models import Q
+
 from apps.accounts.decorators import customer_required
+from apps.core import geo
 from apps.core.emails import notify_admins
 from apps.core.currency import format_money_local
 
@@ -53,9 +56,19 @@ def checkout(request):
 
     promo_code = (request.POST.get("promo") or request.GET.get("promo") or "").strip()
     promo, promo_error = services.resolve_promo(promo_code, "subscription")
-    quote = services.subscription_quote(user, plan, promo, seats)
+    # Ghana visitors pay once for a plan that never ends. A live yearly plan stays yearly until it lapses.
+    owned = bool(subscription and subscription.paid_once)  # a plan already paid once: only moving up is on sale
+    paid_once = owned or (geo.in_ghana(request) and not (subscription and subscription.is_live))
+    upgrade_once = services.paid_once_upgrade_price(subscription, plan, seats) if owned else 0
+    if owned:
+        def once_label():
+            return _("Upgrade to %(plan)s") % {"plan": services.plan_label(plan, seats)}
+
+        quote = services.build_quote([(once_label, upgrade_once)] if upgrade_once else [], promo)
+    else:
+        quote = services.subscription_quote(user, plan, promo, seats, paid_once=paid_once)
     upgrade = None
-    if subscription and subscription.is_live and plan.price_for(seats) > subscription.yearly_price:
+    if not paid_once and subscription and subscription.is_live and plan.price_for(seats) > subscription.yearly_price:
         # A dearer plan, or more people on the same team plan: pay the difference for the months left.
         amount, months = services.upgrade_price(subscription, plan, seats)
         if months > 0:
@@ -76,8 +89,16 @@ def checkout(request):
         elif not user.cards.filter(deleted_at__isnull=True).exists():
             messages.error(request, _("Create your card before choosing a plan."))
             return redirect("dashboard:editor")
+        elif owned and not upgrade_once:
+            messages.info(request, _("You already have this plan or a better one. There is nothing to pay."))
         else:
-            if action == "upgrade" and upgrade:
+            if paid_once:
+                # Paid once: no months and no saved card, because nothing renews.
+                payment = services.create_payment(
+                    user=user, purpose=Payment.PURPOSE_UPGRADE if owned else Payment.PURPOSE_SUBSCRIPTION,
+                    quote=quote, plan=plan, seats=seats, paid_once=True,
+                )
+            elif action == "upgrade" and upgrade:
                 def upgrade_label():
                     months_left = ngettext(
                         "%(count)d remaining month", "%(count)d remaining months", upgrade["months"]
@@ -123,11 +144,16 @@ def checkout(request):
             "quote": quote,
             "pay_label": _("Pay %(amount)s") % {"amount": format_money_local(quote["total_minor"], fx.latest_rate())},
             "upgrade": upgrade,
+            "paid_once": paid_once,
+            "owned": owned,
+            "nothing_to_buy": owned and not upgrade_once,
             "promo_code": promo.code if promo else promo_code,
             "rate": fx.latest_rate(),
-            "autopay_cards": user.cards.filter(deleted_at__isnull=True, update_plan__isnull=False).exclude(update_authorization_code=""),
+            "autopay_cards": user.cards.filter(deleted_at__isnull=True).filter(
+                Q(update_plan__isnull=False) | Q(owner__subscription_record__paid_once=True)
+            ).exclude(update_authorization_code=""),
             "pending_downgrade": bool(
-                subscription and subscription.expires_at > timezone.now()
+                not paid_once and subscription and subscription.expires_at > timezone.now()
                 and plan.price_for(seats) < subscription.yearly_price
             ),
         },

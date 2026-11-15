@@ -8,7 +8,11 @@
     </div>
     <p class="plan__blurb">{% trans plan.blurb %}</p>
     <div class="plan__price">
-      {% if rate %}
+      {% if in_ghana %}
+        {# Visitors in Ghana pay once, in cedis. The plan never ends; later changes to details are paid per card. #}
+        <div class="plan__amount">{% if plan.is_team %}<span class="plan__per">{% trans "from" %}</span>{% endif %}<span class="plan__usd">{{ plan.price_minor|ghs }}</span></div>
+        <p class="plan__ghs">{% if plan.is_team %}{% blocktrans trimmed with plan_max_cards=plan.max_cards %}for up to {{ plan_max_cards }} people{% endblocktrans %}<br>{% endif %}{% trans "paid once" %}</p>
+      {% elif rate %}
         <div class="plan__amount">{% if plan.is_team %}<span class="plan__per">{% trans "from" %}</span>{% endif %}<span class="plan__usd">{% local_amount plan.price_minor %}</span><span class="plan__per">{% trans "/ year" %}</span></div>
         {% if currency != "GHS" %}<p class="plan__ghs">{% blocktrans trimmed with plan_price_minor_ghs=plan.price_minor|ghs %}{{ plan_price_minor_ghs }} per year{% endblocktrans %}{% if plan.is_team %} {% blocktrans trimmed with plan_max_cards=plan.max_cards %}for up to {{ plan_max_cards }} people{% endblocktrans %}{% endif %}</p>
         <p class="plan__note">{% blocktrans trimmed with plan_price_minor_ghs=plan.price_minor|ghs %}Approximate. You will be charged {{ plan_price_minor_ghs }}. Your bank may apply its own exchange rate.{% endblocktrans %}</p>{% elif plan.is_team %}<p class="plan__ghs">{% blocktrans trimmed with plan_max_cards=plan.max_cards %}for up to {{ plan_max_cards }} people{% endblocktrans %}</p>{% endif %}
@@ -16,7 +20,7 @@
         <div class="plan__amount"><span class="plan__usd">{{ plan.price_minor|ghs }}</span></div>
         <p class="plan__ghs">{% trans "per year" %}{% if plan.is_team %} {% blocktrans trimmed with plan_max_cards=plan.max_cards %}for up to {{ plan_max_cards }} people{% endblocktrans %}{% endif %}</p>
       {% endif %}
-      {% if plan.is_team %}{% include "billing/_team_calc.html" with plan=plan seats=plan.max_cards team_max=team_max %}{% endif %}
+      {% if plan.is_team %}{% include "billing/_team_calc.html" with plan=plan seats=plan.max_cards team_max=team_max once=in_ghana %}{% endif %}
     </div>
     <ul class="plan__features">
       {% with page_text=plan.business_page_text %}
@@ -39,6 +43,6 @@
   </article>
   {% endfor %}
 </div>
-{% if rate %}
+{% if rate and not in_ghana %}
 <p class="fx-note">{% blocktrans trimmed with rate_ghs_per_usd_floatformat=rate.ghs_per_usd|floatformat:2 rate_fetched_at_date=rate.fetched_at|ldate:"j M, H:i" %}Prices in other currencies use today’s rate of 1 USD = GHS {{ rate_ghs_per_usd_floatformat }} (updated {{ rate_fetched_at_date }}). You are always charged in Ghana cedis.{% endblocktrans %}</p>
 {% endif %}

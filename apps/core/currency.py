@@ -12,6 +12,7 @@ from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 
 from django.utils.translation import gettext_lazy as _
 
+from . import geo
 from .utils import rate_value, to_usd
 
 COOKIE_NAME = "adsmart_currency"
@@ -49,7 +50,8 @@ def current():
 
 
 def choice_for(request):
-    """The currency this visitor picked: staff pages are always dollars; else cookie, account, dollars."""
+    """The currency this visitor picked: staff pages are always dollars; else cookie, account, then cedis
+    for a visitor in Ghana and dollars for everyone else."""
     if request.path.startswith("/staff"):
         return DEFAULT
     code = valid(request.COOKIES.get(COOKIE_NAME))
@@ -57,6 +59,8 @@ def choice_for(request):
         user = getattr(request, "user", None)
         if user is not None and user.is_authenticated:
             code = valid(getattr(user, "currency", ""))
+    if code is None and geo.in_ghana(request):
+        return "GHS"
     return code or DEFAULT
 
 

@@ -168,17 +168,23 @@ class SiteSettingsForm(forms.ModelForm):
 
 class PlanForm(forms.ModelForm):
     price = CedisField(label="Annual price (GHS)")
+    update_price = CedisField(
+        label="Price of changes (GHS, per card)",
+        help_text="For plans paid once in Ghana: after a card's free first year, each card pays this for 12 more months of changes to its details.",
+    )
 
     class Meta:
         model = Plan
-        exclude = ["price_minor", "code"]
+        exclude = ["price_minor", "update_price_minor", "code"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["price"].initial = self.instance.price_minor / 100 if self.instance.pk else None
+        self.fields["update_price"].initial = self.instance.update_price_minor / 100 if self.instance.pk else None
 
     def save(self, commit=True):
         self.instance.price_minor = ghs_to_minor(self.cleaned_data["price"])
+        self.instance.update_price_minor = ghs_to_minor(self.cleaned_data["update_price"])
         return super().save(commit)
 
 

@@ -333,7 +333,10 @@
       var price = teamPrice(n, team);
       setMoney(total, price, rate);
       var per = Math.round(price / n);
-      each.textContent = t("per_person_year", "%(price)s per person a year", { price: rate ? usd(per, rate) + " (" + ghs(per) + ")" : ghs(per) });
+      var each_price = { price: rate ? usd(per, rate) + " (" + ghs(per) + ")" : ghs(per) };
+      each.textContent = box.hasAttribute("data-once")
+        ? t("per_person_once", "%(price)s per person, paid once", each_price)
+        : t("per_person_year", "%(price)s per person a year", each_price);
       if (link) {
         var url = new URL(link.href, window.location.href);
         url.searchParams.set("seats", String(n));

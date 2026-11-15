@@ -5,7 +5,7 @@ from datetime import date
 from django.conf import settings
 from django.utils.functional import SimpleLazyObject, lazy
 
-from . import currency
+from . import currency, geo
 from .jsstrings import strings_json
 from .models import SiteSettings
 
@@ -50,6 +50,8 @@ def site(request):
         "site": SiteSettings.load(),
         "current_year": date.today().year,
         "payment_sandbox": settings.PAYMENT_SANDBOX,
+        # Ghana visitors see one-time plan prices; worked out only on a page that asks.
+        "in_ghana": SimpleLazyObject(lambda: geo.in_ghana(request)),
         # The currency the visitor picked, the choices for the picker, and the price-calculator settings.
         "currency": chosen,
         "currency_choices": [(code, info["symbol"].strip() or code, info["name"]) for code, info in currency.CURRENCIES.items()],

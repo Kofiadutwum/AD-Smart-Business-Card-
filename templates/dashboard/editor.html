@@ -10,7 +10,7 @@
   <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "external-link" 16 %}{% trans "Open public card" %}</a>
 </div>
 
-{% if card.is_update_card %}
+{% if card.pays_per_change %}
   {% if card.edit_locked %}
     {% if held_update %}
       <div class="banner banner--warning" role="status">
@@ -19,10 +19,10 @@
         <a class="btn btn--sm" href="{% url 'dashboard:unlock_updates' card.pk %}">{% trans "Pay and apply" %}</a>
       </div>
     {% else %}
-      {% money card.update_price_minor inline=True as update_price %}
+      {% money card.edit_price_minor inline=True as update_price %}
       <div class="banner banner--info" role="status">
         {% icon "info" 22 %}
-        <p>{% blocktrans trimmed %}<strong>Changing your details, links or web address costs {{ update_price }}.</strong> Your free first year is over. Edit and preview as much as you like. You pay when you press Save, and your changes go onto your card as soon as the payment clears. That opens changes for 12 months. Your business page is always free.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}<strong>Changing your details, links or web address costs {{ update_price }}.</strong>{% endblocktrans %}</p>
       </div>
     {% endif %}
   {% else %}

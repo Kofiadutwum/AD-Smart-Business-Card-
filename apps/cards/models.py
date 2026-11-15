@@ -192,11 +192,35 @@ class Card(models.Model):
     def is_update_card(self):
         return self.update_plan_id is not None
 
+    @property
+    def _paid_once_subscription(self):
+        """The owner's subscription when it was paid once (Ghana), else None. Pay-when-you-update cards have none."""
+        if self.update_plan_id is not None or self.owner_id is None:
+            return None
+        subscription = self.owner.subscription
+        return subscription if subscription and subscription.paid_once else None
+
+    @property
+    def pays_per_change(self):
+        """True for a pay-when-you-update card and for any card on a plan paid once: changes to details are
+        free for the first year, then paid for card by card."""
+        return self.update_plan_id is not None or self._paid_once_subscription is not None
+
+    @property
+    def edit_price_minor(self):
+        """What 12 months of changes cost for this card: set on the card, or by the plan it was paid once on."""
+        subscription = self._paid_once_subscription
+        return subscription.plan.update_price_minor if subscription else self.update_price_minor
+
     FREE_UPDATE_MONTHS = 12  # changes to details and links are free for this long after the card is made
 
     @property
     def updates_free_until(self):
-        return (self.created_at or timezone.now()) + relativedelta(months=self.FREE_UPDATE_MONTHS)
+        start = self.created_at or timezone.now()
+        subscription = self._paid_once_subscription
+        if subscription:
+            start = max(start, subscription.started_at)  # a card made before the plan was bought starts at the purchase
+        return start + relativedelta(months=self.FREE_UPDATE_MONTHS)
 
     @property
     def updates_open_until(self):
@@ -208,11 +232,11 @@ class Card(models.Model):
         """True once the free year and any paid year are over: details, links and web address then need a payment.
 
         The business page is never locked."""
-        return self.is_update_card and self.updates_open_until <= timezone.now()
+        return self.pays_per_change and self.updates_open_until <= timezone.now()
 
     @property
     def pays_automatically(self):
-        return bool(self.is_update_card and self.update_authorization_code)
+        return bool(self.pays_per_change and self.update_authorization_code)
 
     @property
     def update_card_expired(self):

@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>{% blocktrans trimmed with name=user.first_name|default:_("there") %}Hello, {{ name }}{% endblocktrans %}</h1>
-    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_state_label=subscription.state_label %}{{ subscription_plan_name }} plan · {{ subscription_state_label }}{% endblocktrans %}{% if subscription.is_live %} {% blocktrans trimmed with subscription_expires_at_date=subscription.expires_at|ldate:"j M Y" %}until {{ subscription_expires_at_date }}{% endblocktrans %}{% endif %}{% elif card.is_update_card %}{% if card.edit_locked %}{% trans "Your card is live. Changing its details needs a payment." %}{% else %}{% blocktrans trimmed with until=card.updates_open_until|ldate:"j M Y" %}Your card is live. Changes are open until {{ until }}.{% endblocktrans %}{% endif %}{% else %}{% trans "Your card is a draft until you choose a plan." %}{% endif %}</p>
+    <p>{% if subscription %}{% blocktrans trimmed with subscription_plan_name=subscription.plan.name subscription_state_label=subscription.state_label %}{{ subscription_plan_name }} plan · {{ subscription_state_label }}{% endblocktrans %}{% if subscription.is_live and not subscription.paid_once %} {% blocktrans trimmed with subscription_expires_at_date=subscription.expires_at|ldate:"j M Y" %}until {{ subscription_expires_at_date }}{% endblocktrans %}{% elif subscription.paid_once %}. {% if card.edit_locked %}{% trans "Your card is live. Changing its details needs a payment." %}{% else %}{% blocktrans trimmed with until=card.updates_open_until|ldate:"j M Y" %}Your card is live. Changes are open until {{ until }}.{% endblocktrans %}{% endif %}{% endif %}{% elif card.is_update_card %}{% if card.edit_locked %}{% trans "Your card is live. Changing its details needs a payment." %}{% else %}{% blocktrans trimmed with until=card.updates_open_until|ldate:"j M Y" %}Your card is live. Changes are open until {{ until }}.{% endblocktrans %}{% endif %}{% else %}{% trans "Your card is a draft until you choose a plan." %}{% endif %}</p>
   </div>
   <div class="cluster">
     <a class="btn" href="{% url 'cards:public' card.slug %}" target="_blank" rel="noopener">{% icon "eye" 16 %}{% trans "View card" %}</a>
@@ -63,12 +63,16 @@
       <dl class="dl">
         <dt>{% trans "Plan" %}</dt><dd>{{ subscription.plan.name }}{% if subscription.plan.is_team %} {% blocktrans trimmed with subscription_team_size=subscription.team_size %}· {{ subscription_team_size }} people{% endblocktrans %}{% endif %}</dd>
         <dt>{% trans "Status" %}</dt><dd>{{ subscription.state_label }}</dd>
+        {% if subscription.paid_once %}
+        <dt>{% trans "Paid" %}</dt><dd>{% trans "paid once" as t_once %}{{ t_once|capfirst }}</dd>
+        {% else %}
         <dt>{% trans "Paid until" %}</dt><dd>{{ subscription.expires_at|ldate:"j F Y" }}</dd>
         <dt>{% trans "Automatic renewal" %}</dt><dd>{% if subscription.renews_automatically %}{% trans "On" %} · {{ subscription.card_label }}{% else %}{% trans "Off" %}{% endif %}</dd>
+        {% endif %}
       </dl>
-      <div class="mt-4"><a class="btn btn--sm" href="{% url 'billing:checkout' %}">{% icon "refresh-cw" 16 %}{% trans "Renew or upgrade" %}</a></div>
+      <div class="mt-4"><a class="btn btn--sm" href="{% url 'billing:checkout' %}">{% icon "refresh-cw" 16 %}{% if subscription.paid_once %}{% trans "Upgrade" %}{% else %}{% trans "Renew or upgrade" %}{% endif %}</a></div>
     {% else %}
-      <p class="muted text-sm">{% trans "Choose a yearly plan to switch your card on. Pay with Mobile Money or a card." %}</p>
+      <p class="muted text-sm">{% if in_ghana %}{% trans "Choose a plan to switch your card on. You pay once, with Mobile Money or a card." %}{% else %}{% trans "Choose a yearly plan to switch your card on. Pay with Mobile Money or a card." %}{% endif %}</p>
       <div class="mt-4">{% url 'billing:checkout' as checkout_url %}{% hover_button _("See plans") href=checkout_url variant="primary" css="ihb--sm" %}</div>
     {% endif %}
   </section>

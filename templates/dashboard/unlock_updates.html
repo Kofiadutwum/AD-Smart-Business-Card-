@@ -8,7 +8,6 @@
       <p>{% trans "Changes to your card are closed. Confirm to charge the card you paid with last time, and changes open again for 12 months." %}</p>
     {% else %}
       <h1>{% trans "Unlock changes to your card" %}</h1>
-      <p>{% trans "Your card stays live whatever you decide. Paying opens changes to its details, links and web address for 12 months. Your business page is always free." %}</p>
     {% endif %}
   </div>
 </div>
@@ -28,7 +27,6 @@
       {% if fee %}<div class="summary__row"><span>{% trans "Payment processing fee" %}</span><span>{% money fee %}</span></div>{% endif %}
       <div class="summary__row summary__total"><span>{% trans "You pay" %}</span><span>{% money total %}</span></div>
     </div>
-    <p class="text-sm muted mt-4">{% trans "After the 12 months your card keeps working exactly as you last saved it. Changing it again then needs another payment, which opens changes for another year." %}</p>
     {% if confirm_kept_card %}
       <form method="post" class="form mt-6">
         {% csrf_token %}
@@ -50,7 +48,6 @@
           <p class="center text-sm"><button class="link-btn" type="submit" name="action" value="pay_momo">{% trans "Don’t have a card? Pay with Mobile Money" %}</button></p>
           <p class="center text-sm"><a href="{% url 'dashboard:editor_card' card.pk %}">{% trans "Not now" %}</a></p>
         </div>
-        <p class="text-xs muted mt-2">{% trans "Paying by card keeps it for your next year of changes: when the 12 months end, the first time you save a change we ask you to confirm, then charge it. You can turn this off any time on your billing page. Mobile Money is never kept." %}</p>
       </form>
     {% endif %}
     {% if held_update %}
@@ -61,15 +58,6 @@
       </form>
     {% endif %}
     <p class="text-xs muted mt-4 cluster" style="--cluster: var(--space-2)">{% icon "shield-check" 16 %}{% trans "Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and Mastercard." %}{% if payment_sandbox %} <strong>{% trans "Test mode — no real money moves." %}</strong>{% endif %}</p>
-  </section>
-  <section class="panel">
-    <h2 style="font-size: var(--text-lg)">{% trans "What stays free" %}</h2>
-    <ul class="mt-4" style="padding-left: var(--space-5); display: grid; gap: var(--space-2)">
-      <li>{% trans "Your card stays live and keeps showing what you last saved." %}</li>
-      <li>{% trans "Sharing, your QR code and your analytics." %}</li>
-      <li>{% trans "Your contacts and your account settings." %}</li>
-      <li>{% trans "Switching your card off, or deleting it." %}</li>
-    </ul>
   </section>
 </div>
 {% endblock %}

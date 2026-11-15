@@ -144,7 +144,12 @@ def build_quote(lines, promo=None):
 
 def card_update_quote(card):
     """The Update Price for a year of changes to one pay-when-you-update card."""
-    return build_quote([(lambda: gettext("Card updates for 12 months"), card.update_price_minor)])
+    return build_quote([(lambda: gettext("Card updates for 12 months"), card.edit_price_minor)])
+
+
+def paid_once_upgrade_price(subscription, new_plan, seats=None):
+    """A plan paid once has no months left to pro-rate: moving up costs just the difference, paid once."""
+    return max(0, new_plan.price_for(seats) - subscription.yearly_price)
 
 
 def upgrade_price(subscription, new_plan, seats=None):
@@ -164,12 +169,15 @@ def plan_label(plan, seats=None):
     return gettext("%(plan)s plan") % {"plan": plan.name}
 
 
-def subscription_quote(user, plan, promo=None, seats=None):
-    """New subscription, renewal, or a renewal onto a different plan or team size."""
+def subscription_quote(user, plan, promo=None, seats=None, paid_once=False):
+    """New subscription, renewal, or a renewal onto a different plan or team size. ``paid_once`` is the
+    Ghana price: the same plan price, charged once, for a plan that never ends."""
     subscription = user.subscription
     renewing = bool(subscription and subscription.expires_at > timezone.now())
 
     def label():
+        if paid_once:
+            return gettext("%(plan)s, paid once") % {"plan": plan_label(plan, seats)}
         text = gettext("%(plan)s, 12 more months") if renewing else gettext("%(plan)s, 12 months")
         return text % {"plan": plan_label(plan, seats)}
 
@@ -193,7 +201,7 @@ def processing_fee(total_minor):
 
 def create_payment(
     *, user, purpose, quote, plan=None, months=0, nfc_order=None, seats=None,
-    set_up_auto_renew=False, is_auto_renewal=False, card=None,
+    set_up_auto_renew=False, is_auto_renewal=False, card=None, paid_once=False,
 ):
     rate = fx.latest_rate()
     fee = processing_fee(quote["total_minor"])
@@ -203,6 +211,7 @@ def create_payment(
         purpose=purpose,
         plan=plan,
         months=months,
+        paid_once=paid_once,
         seats=clamp_seats(plan, seats),
         nfc_order=nfc_order,
         card=card,
@@ -359,7 +368,7 @@ def fulfil(payment, data, source="callback", actor=None):
             remember_card(locked, data)
         elif locked.purpose == Payment.PURPOSE_NFC:
             if locked.plan_id:
-                activate(locked.user, locked.plan, locked.months or locked.plan.duration_months)
+                activate(locked.user, locked.plan, locked.months or locked.plan.duration_months, paid_once=locked.paid_once)
             from apps.nfc.services import mark_paid
 
             mark_paid(locked.nfc_order, locked)
@@ -391,19 +400,37 @@ def apply_subscription_payment(payment):
         subscription.save()
         activate_cards(user, subscription)
         return subscription
-    return activate(user, plan, payment.months or plan.duration_months, seats=payment.seats, anchor=payment.is_auto_renewal)
+    return activate(
+        user, plan, payment.months or plan.duration_months, seats=payment.seats, anchor=payment.is_auto_renewal,
+        paid_once=payment.paid_once,
+    )
 
 
-def activate(user, plan, months, seats=None, anchor=False):
+def activate(user, plan, months, seats=None, anchor=False, paid_once=False):
     """Start or extend the account's subscription and bring its cards live.
 
     Renewing onto something cheaper while time remains (a cheaper plan, or a
     smaller team) is a downgrade: it waits for the current period to end
     (PLN-02). Renewing onto something dearer takes effect at once.
+
+    ``paid_once`` (bought from Ghana) makes the plan permanent instead: there is no period to extend, and a
+    stray second payment can never move the account onto a cheaper plan.
     """
     now = timezone.now()
     seats = clamp_seats(plan, seats)
     subscription = Subscription.objects.select_for_update().filter(user=user).first()
+    if paid_once:
+        if subscription is None:
+            subscription = Subscription(user=user, plan=plan, seats=seats, started_at=now, expires_at=now)
+        elif not subscription.paid_once:
+            subscription.started_at = now  # a lapsed yearly plan bought again: its free year of changes starts now
+        if not subscription.paid_once or plan.price_for(seats) >= subscription.yearly_price:
+            subscription.plan = plan
+            subscription.seats = seats
+        subscription.make_paid_once()
+        subscription.save()
+        activate_cards(user, subscription)
+        return subscription
     if subscription is None:
         subscription = Subscription(user=user, plan=plan, seats=seats, started_at=now, expires_at=now)
         subscription.extend(months, anchor=anchor)

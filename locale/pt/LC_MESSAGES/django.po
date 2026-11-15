@@ -188,16 +188,16 @@ msgstr ""
 "Adicione o seu número de telemóvel para o podermos contactar sobre "
 "encomendas e entregas."
 
-#: apps/billing/models.py:65
+#: apps/billing/models.py:71
 msgid "Unlimited"
 msgstr "Ilimitado"
 
-#: apps/billing/models.py:65
+#: apps/billing/models.py:71
 #, python-format
 msgid "Up to %(count)d"
 msgstr "Até %(count)d"
 
-#: apps/billing/models.py:120
+#: apps/billing/models.py:126
 #, python-format
 msgid ""
 "Cards for your whole team: %(count)d people included, then priced per person"
@@ -205,165 +205,165 @@ msgstr ""
 "Cartões para toda a equipa: %(count)d pessoas incluídas, depois preço por "
 "pessoa"
 
-#: apps/billing/models.py:122
+#: apps/billing/models.py:128
 msgid "1 digital card"
 msgstr "1 cartão digital"
 
-#: apps/billing/models.py:124
+#: apps/billing/models.py:130
 #, python-format
 msgid "Up to %(count)d digital cards"
 msgstr "Até %(count)d cartões digitais"
 
-#: apps/billing/models.py:126
+#: apps/billing/models.py:132
 msgid "Unlimited social media links"
 msgstr "Links ilimitados para redes sociais"
 
-#: apps/billing/models.py:128
+#: apps/billing/models.py:134
 #, python-format
 msgid "Up to %(count)d social media links"
 msgstr "Até %(count)d links para redes sociais"
 
-#: apps/billing/models.py:130
+#: apps/billing/models.py:136
 msgid "Any colour + shared brand theme"
 msgstr "Qualquer cor + tema de marca partilhado"
 
-#: apps/billing/models.py:132
+#: apps/billing/models.py:138
 msgid "Any card colour"
 msgstr "Qualquer cor de cartão"
 
-#: apps/billing/models.py:134
+#: apps/billing/models.py:140
 msgid "Preset colours"
 msgstr "Cores predefinidas"
 
-#: apps/billing/models.py:137
+#: apps/billing/models.py:143
 msgid "Permanent link, QR code and .vcf contact"
 msgstr "Link permanente, código QR e contacto .vcf"
 
-#: apps/billing/models.py:138
+#: apps/billing/models.py:144
 #, python-format
 msgid "Up to %(count)d phone numbers per card"
 msgstr "Até %(count)d números de telefone por cartão"
 
-#: apps/billing/models.py:140
+#: apps/billing/models.py:146
 msgid "All templates"
 msgstr "Todos os modelos"
 
-#: apps/billing/models.py:140
+#: apps/billing/models.py:146
 msgid "1 standard template"
 msgstr "1 modelo padrão"
 
-#: apps/billing/models.py:142
+#: apps/billing/models.py:148
 msgid "Business logo on card"
 msgstr "Logótipo da empresa no cartão"
 
-#: apps/billing/models.py:144
+#: apps/billing/models.py:150
 msgid "Background image, button style, icon layout"
 msgstr "Imagem de fundo, estilo dos botões, disposição dos ícones"
 
-#: apps/billing/models.py:145 apps/dashboard/forms.py:62
+#: apps/billing/models.py:151 apps/dashboard/forms.py:62
 msgid "Remove “Powered by AD Smart”"
 msgstr "Remover «Com tecnologia AD Smart»"
 
-#: apps/billing/models.py:146 templates/dashboard/home.html:24
+#: apps/billing/models.py:152 templates/dashboard/home.html:24
 msgid "Full analytics"
 msgstr "Estatísticas completas"
 
-#: apps/billing/models.py:146
+#: apps/billing/models.py:152
 msgid "Total views"
 msgstr "Total de visualizações"
 
-#: apps/billing/models.py:147
+#: apps/billing/models.py:153
 msgid "Priority support (4 working hours)"
 msgstr "Suporte prioritário (4 horas úteis)"
 
-#: apps/billing/models.py:182
+#: apps/billing/models.py:196
 msgid "Active"
 msgstr "Ativo"
 
-#: apps/billing/models.py:183
+#: apps/billing/models.py:197
 msgid "Expiring soon"
 msgstr "A expirar em breve"
 
-#: apps/billing/models.py:184
+#: apps/billing/models.py:198
 msgid "Grace period"
 msgstr "Período de tolerância"
 
-#: apps/billing/models.py:185
+#: apps/billing/models.py:199
 msgid "Inactive"
 msgstr "Inativo"
 
-#: apps/billing/models.py:406 apps/billing/models.py:521
+#: apps/billing/models.py:442 apps/billing/models.py:559
 msgid "Subscription"
 msgstr "Subscrição"
 
-#: apps/billing/models.py:407 apps/billing/models.py:516
+#: apps/billing/models.py:443 apps/billing/models.py:554
 msgid "Plan upgrade"
 msgstr "Mudança de plano"
 
-#: apps/billing/models.py:408 apps/billing/models.py:502
+#: apps/billing/models.py:444 apps/billing/models.py:540
 msgid "NFC order"
 msgstr "Encomenda NFC"
 
-#: apps/billing/models.py:409 apps/billing/models.py:510
+#: apps/billing/models.py:445 apps/billing/models.py:548
 msgid "Pre-made card (sold in a shop)"
 msgstr "Cartão pré-fabricado (vendido em loja)"
 
-#: apps/billing/models.py:420 templates/billing/receipts.html:17
+#: apps/billing/models.py:456 templates/billing/receipts.html:17
 msgid "Pending"
 msgstr "Pendente"
 
-#: apps/billing/models.py:421
+#: apps/billing/models.py:457
 msgid "Successful"
 msgstr "Concluído"
 
-#: apps/billing/models.py:422
+#: apps/billing/models.py:458
 msgid "Failed"
 msgstr "Falhou"
 
-#: apps/billing/models.py:423
+#: apps/billing/models.py:459
 msgid "Abandoned"
 msgstr "Abandonado"
 
-#: apps/billing/models.py:424 apps/nfc/models.py:109
+#: apps/billing/models.py:460 apps/nfc/models.py:109
 msgid "Refunded"
 msgstr "Reembolsado"
 
-#: apps/billing/models.py:425
+#: apps/billing/models.py:461
 msgid "Partially refunded"
 msgstr "Reembolsado parcialmente"
 
-#: apps/billing/models.py:502
+#: apps/billing/models.py:540
 #, python-format
 msgid "NFC order %(number)s"
 msgstr "Encomenda NFC %(number)s"
 
-#: apps/billing/models.py:504 apps/billing/services.py:164
+#: apps/billing/models.py:542 apps/billing/services.py:169
 #, python-format
 msgid "%(plan)s plan"
 msgstr "Plano %(plan)s"
 
-#: apps/billing/models.py:513
+#: apps/billing/models.py:551
 #, python-format
 msgid "Pre-made card with %(plan)s plan, %(count)d months (sold in a shop)"
 msgstr ""
 "Cartão pré-fabricado com plano %(plan)s, %(count)d meses (vendido em loja)"
 
-#: apps/billing/models.py:518
+#: apps/billing/models.py:556
 #, python-format
 msgid "Upgrade to %(plan)s for %(count)d people"
 msgstr "Mudança para %(plan)s para %(count)d pessoas"
 
-#: apps/billing/models.py:519
+#: apps/billing/models.py:557 apps/billing/views.py:65
 #, python-format
 msgid "Upgrade to %(plan)s"
 msgstr "Mudança para %(plan)s"
 
-#: apps/billing/models.py:523
+#: apps/billing/models.py:565
 #, python-format
 msgid "%(plan)s plan for %(people)d people, %(count)d months"
 msgstr "Plano %(plan)s para %(people)d pessoas, %(count)d meses"
 
-#: apps/billing/models.py:524
+#: apps/billing/models.py:566
 #, python-format
 msgid "%(plan)s plan, %(count)d months"
 msgstr "Plano %(plan)s, %(count)d meses"
@@ -378,61 +378,61 @@ msgstr ""
 msgid "Malformed webhook payload."
 msgstr "Malformed webhook payload."
 
-#: apps/billing/services.py:492
+#: apps/billing/services.py:519
 #, python-format
 msgid "Your receipt %(number)s"
 msgstr "O seu recibo %(number)s"
 
-#: apps/billing/views.py:38
+#: apps/billing/views.py:41
 msgid "Plans are not set up yet. Please contact support."
 msgstr "Os planos ainda não estão configurados. Contacte o suporte."
 
-#: apps/billing/views.py:75 apps/dashboard/views.py:191
+#: apps/billing/views.py:88 apps/dashboard/views.py:191
 msgid ""
 "Please tick the box to accept the Terms and Refund Policy before paying."
 msgstr ""
 "Assinale a caixa para aceitar os Termos e a Política de Reembolso antes de "
 "pagar."
 
-#: apps/billing/views.py:77
+#: apps/billing/views.py:90
 msgid "Create your card before choosing a plan."
 msgstr "Crie o seu cartão antes de escolher um plano."
 
-#: apps/billing/views.py:82
+#: apps/billing/views.py:103
 #, python-format
 msgid "%(count)d remaining month"
 msgid_plural "%(count)d remaining months"
 msgstr[0] "%(count)d mês restante"
 msgstr[1] "%(count)d meses restantes"
 
-#: apps/billing/views.py:86
+#: apps/billing/views.py:107
 #, python-format
 msgid "%(added)d more person on %(plan)s for %(months_left)s"
 msgid_plural "%(added)d more people on %(plan)s for %(months_left)s"
 msgstr[0] "%(added)d pessoa a mais em %(plan)s por %(months_left)s"
 msgstr[1] "%(added)d pessoas a mais em %(plan)s por %(months_left)s"
 
-#: apps/billing/views.py:90
+#: apps/billing/views.py:111
 #, python-format
 msgid "Upgrade to %(plan)s for %(months_left)s"
 msgstr "Mudança para %(plan)s por %(months_left)s"
 
-#: apps/billing/views.py:107 apps/dashboard/views.py:201 apps/nfc/views.py:256
+#: apps/billing/views.py:128 apps/dashboard/views.py:201 apps/nfc/views.py:264
 #, python-format
 msgid "%(reason)s You have not been charged."
 msgstr "%(reason)s Não foi cobrado nenhum valor."
 
-#: apps/billing/views.py:111
+#: apps/billing/views.py:132
 #, python-format
 msgid "Promo code %(code)s applied: %(label)s."
 msgstr "Código promocional %(code)s aplicado: %(label)s."
 
-#: apps/billing/views.py:124
+#: apps/billing/views.py:145
 #, python-format
 msgid "Pay %(amount)s"
 msgstr "Pagar %(amount)s"
 
-#: apps/billing/views.py:142
+#: apps/billing/views.py:168
 msgid ""
 "We could not find that payment. If money left your account, contact support "
 "with the reference."
@@ -519,12 +519,12 @@ msgstr "Linha de ícones"
 msgid "Phone numbers"
 msgstr "Números de telefone"
 
-#: apps/cards/models.py:48 apps/cards/models.py:317
+#: apps/cards/models.py:48 apps/cards/models.py:341
 #: templates/cards/_contact.html:9 templates/cards/_contact.html:39
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/cards/models.py:49 apps/cards/models.py:323 apps/dashboard/forms.py:56
+#: apps/cards/models.py:49 apps/cards/models.py:347 apps/dashboard/forms.py:56
 #: apps/nfc/forms.py:30 templates/cards/_contact.html:15
 #: templates/cards/_contact.html:51
 msgid "Website"
@@ -546,137 +546,137 @@ msgstr "Localização no mapa"
 msgid "Short bio"
 msgstr "Biografia curta"
 
-#: apps/cards/models.py:307
+#: apps/cards/models.py:331
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: apps/cards/models.py:308
+#: apps/cards/models.py:332
 msgid "Instagram"
 msgstr "Instagram"
 
-#: apps/cards/models.py:309
+#: apps/cards/models.py:333
 msgid "Facebook"
 msgstr "Facebook"
 
-#: apps/cards/models.py:310
+#: apps/cards/models.py:334
 msgid "X"
 msgstr "X"
 
-#: apps/cards/models.py:311
+#: apps/cards/models.py:335
 msgid "TikTok"
 msgstr "TikTok"
 
-#: apps/cards/models.py:312
+#: apps/cards/models.py:336
 msgid "YouTube"
 msgstr "YouTube"
 
-#: apps/cards/models.py:313
+#: apps/cards/models.py:337
 msgid "Snapchat"
 msgstr "Snapchat"
 
-#: apps/cards/models.py:314
+#: apps/cards/models.py:338
 msgid "Threads"
 msgstr "Threads"
 
-#: apps/cards/models.py:315
+#: apps/cards/models.py:339
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: apps/cards/models.py:316
+#: apps/cards/models.py:340
 msgid "Telegram"
 msgstr "Telegram"
 
-#: apps/cards/models.py:318
+#: apps/cards/models.py:342
 msgid "GitHub"
 msgstr "GitHub"
 
-#: apps/cards/models.py:319
+#: apps/cards/models.py:343
 msgid "Behance"
 msgstr "Behance"
 
-#: apps/cards/models.py:320
+#: apps/cards/models.py:344
 msgid "ResearchGate"
 msgstr "ResearchGate"
 
-#: apps/cards/models.py:321
+#: apps/cards/models.py:345
 msgid "ORCID"
 msgstr "ORCID"
 
-#: apps/cards/models.py:322
+#: apps/cards/models.py:346
 msgid "Google Scholar"
 msgstr "Google Scholar"
 
-#: apps/cards/models.py:359
+#: apps/cards/models.py:383
 msgid "View"
 msgstr "Visualização"
 
-#: apps/cards/models.py:360
+#: apps/cards/models.py:384
 msgid "Contact saved"
 msgstr "Contacto guardado"
 
-#: apps/cards/models.py:361
+#: apps/cards/models.py:385
 msgid "Phone click"
 msgstr "Clique no telefone"
 
-#: apps/cards/models.py:362
+#: apps/cards/models.py:386
 msgid "WhatsApp click"
 msgstr "Clique no WhatsApp"
 
-#: apps/cards/models.py:363
+#: apps/cards/models.py:387
 msgid "Email click"
 msgstr "Clique no e-mail"
 
-#: apps/cards/models.py:364
+#: apps/cards/models.py:388
 msgid "Website click"
 msgstr "Clique no website"
 
-#: apps/cards/models.py:365
+#: apps/cards/models.py:389
 msgid "Social click"
 msgstr "Clique nas redes sociais"
 
-#: apps/cards/models.py:366
+#: apps/cards/models.py:390
 msgid "Location click"
 msgstr "Clique na localização"
 
-#: apps/cards/models.py:368 apps/dashboard/views.py:359
+#: apps/cards/models.py:392 apps/dashboard/views.py:359
 msgid "Direct link"
 msgstr "Link direto"
 
-#: apps/cards/models.py:368 templates/dashboard/share.html:32
+#: apps/cards/models.py:392 templates/dashboard/share.html:32
 msgid "QR code"
 msgstr "Código QR"
 
-#: apps/cards/models.py:368
+#: apps/cards/models.py:392
 msgid "NFC tap"
 msgstr "Toque NFC"
 
-#: apps/cards/models.py:406
+#: apps/cards/models.py:430
 msgid "Impersonation"
 msgstr "Usurpação de identidade"
 
-#: apps/cards/models.py:407
+#: apps/cards/models.py:431
 msgid "Fraud or scam"
 msgstr "Fraude ou burla"
 
-#: apps/cards/models.py:408
+#: apps/cards/models.py:432
 msgid "Offensive content"
 msgstr "Conteúdo ofensivo"
 
-#: apps/cards/models.py:409 apps/dashboard/forms.py:299
+#: apps/cards/models.py:433 apps/dashboard/forms.py:299
 #: apps/support/models.py:17 templates/cards/business.html:66
 #: templates/marketing/shops.html:33
 msgid "Other"
 msgstr "Outro"
 
-#: apps/cards/models.py:412 apps/support/models.py:23
+#: apps/cards/models.py:436 apps/support/models.py:23
 msgid "Open"
 msgstr "Aberto"
 
-#: apps/cards/models.py:412
+#: apps/cards/models.py:436
 msgid "Dismissed"
 msgstr "Rejeitado"
 
-#: apps/cards/models.py:412
+#: apps/cards/models.py:436
 msgid "Actioned"
 msgstr "Tratado"
 
@@ -789,56 +789,56 @@ msgstr "%(price)s cada"
 msgid "%(price)s per person a year"
 msgstr "%(price)s por pessoa por ano"
 
-#: apps/accounts/forms.py:176 apps/cards/forms.py:21 apps/core/jsstrings.py:21
+#: apps/accounts/forms.py:176 apps/cards/forms.py:21 apps/core/jsstrings.py:22
 #: apps/support/forms.py:18
 msgid "Your name"
 msgstr "O seu nome"
 
-#: apps/core/jsstrings.py:22
+#: apps/core/jsstrings.py:23
 msgid "Finding you…"
 msgstr "A localizar…"
 
-#: apps/core/jsstrings.py:23
+#: apps/core/jsstrings.py:24
 msgid "Location added. Save to keep it."
 msgstr "Localização adicionada. Guarde para a manter."
 
-#: apps/core/jsstrings.py:24
+#: apps/core/jsstrings.py:25
 msgid "We could not get your location. Check your browser’s permission."
 msgstr ""
 "Não foi possível obter a sua localização. Verifique a permissão do "
 "navegador."
 
-#: apps/core/jsstrings.py:25
+#: apps/core/jsstrings.py:26
 msgid "Map pin removed. Save to keep it."
 msgstr "Marcador do mapa removido. Guarde para confirmar."
 
-#: apps/core/jsstrings.py:26
+#: apps/core/jsstrings.py:27
 msgid "Featured"
 msgstr "Em destaque"
 
-#: apps/core/jsstrings.py:27
+#: apps/core/jsstrings.py:28
 #, python-format
 msgid "%(count)d NFC card"
 msgstr "%(count)d cartão NFC"
 
-#: apps/core/jsstrings.py:28
+#: apps/core/jsstrings.py:29
 #, python-format
 msgid "%(count)d NFC cards"
 msgstr "%(count)d cartões NFC"
 
-#: apps/core/jsstrings.py:29 apps/nfc/forms.py:17
+#: apps/core/jsstrings.py:30 apps/nfc/forms.py:17
 #: templates/marketing/nfc.html:39 templates/nfc/detail.html:83
 msgid "Free"
 msgstr "Grátis"
 
-#: apps/core/jsstrings.py:30 apps/nfc/views.py:34
+#: apps/core/jsstrings.py:31 apps/nfc/views.py:35
 #: templates/marketing/nfc.html:27 templates/nfc/detail.html:83
 #: templates/nfc/detail.html:98 templates/nfc/order.html:114
 #: templates/partials/site_footer.html:17
 msgid "Delivery"
 msgstr "Entrega"
 
-#: apps/core/jsstrings.py:31 apps/nfc/views.py:34 templates/nfc/detail.html:83
+#: apps/core/jsstrings.py:32 apps/nfc/views.py:35 templates/nfc/detail.html:83
 msgid "Shipping and delivery"
 msgstr "Envio e entrega"
 
@@ -1378,7 +1378,7 @@ msgstr ""
 "Os cartões NFC abrem o seu cartão digital, que precisa de um plano ativo. "
 "Compre os dois em conjunto aqui."
 
-#: apps/nfc/forms.py:68 templates/billing/checkout.html:65
+#: apps/nfc/forms.py:68 templates/billing/checkout.html:69
 msgid "Promo code"
 msgstr "Código promocional"
 
@@ -1530,60 +1530,60 @@ msgstr "Reveja a prova de design %(version)s da encomenda %(number)s"
 msgid "Reminder: your design proof for %(number)s is waiting"
 msgstr "Lembrete: a prova de design de %(number)s está à espera"
 
-#: apps/nfc/views.py:29
+#: apps/nfc/views.py:30
 #, python-format
 msgid "%(count)d customised NFC card"
 msgid_plural "%(count)d customised NFC cards"
 msgstr[0] "%(count)d cartão NFC personalizado"
 msgstr[1] "%(count)d cartões NFC personalizados"
 
-#: apps/nfc/views.py:41
+#: apps/nfc/views.py:45
 #, python-format
 msgid "%(plan)s plan, 12 months"
 msgstr "Plano %(plan)s, 12 meses"
 
-#: apps/nfc/views.py:63
+#: apps/nfc/views.py:67
 msgid "Create your digital card first. Your NFC cards will open it."
 msgstr "Crie primeiro o seu cartão digital. Os seus cartões NFC vão abri-lo."
 
-#: apps/nfc/views.py:143
+#: apps/nfc/views.py:149
 #, python-format
 msgid "%(reason)s Your order is saved; you can pay from the order page."
 msgstr ""
 "%(reason)s A sua encomenda ficou guardada; pode pagar a partir da página da "
 "encomenda."
 
-#: apps/nfc/views.py:171
+#: apps/nfc/views.py:177
 msgid ""
 "We could not find that payment. If money left your account, contact support."
 msgstr ""
 "Não encontrámos esse pagamento. Se foi debitado dinheiro da sua conta, "
 "contacte o suporte."
 
-#: apps/nfc/views.py:175
+#: apps/nfc/views.py:181
 msgid "Payment received. Your NFC order is confirmed."
 msgstr "Pagamento recebido. A sua encomenda NFC está confirmada."
 
-#: apps/nfc/views.py:177
+#: apps/nfc/views.py:183
 msgid "Your payment is still being confirmed. This page updates when it is."
 msgstr ""
 "O seu pagamento ainda está a ser confirmado. Esta página atualiza-se quando "
 "terminar."
 
-#: apps/nfc/views.py:179
+#: apps/nfc/views.py:185
 msgid "That payment did not go through. You have not been charged."
 msgstr "Esse pagamento não foi concluído. Não foi cobrado nenhum valor."
 
-#: apps/nfc/views.py:267
+#: apps/nfc/views.py:275
 msgid "Design approved. We will start printing and encoding your cards."
 msgstr ""
 "Design aprovado. Vamos começar a imprimir e a codificar os seus cartões."
 
-#: apps/nfc/views.py:280
+#: apps/nfc/views.py:288
 msgid "Tell us what to change."
 msgstr "Diga-nos o que alterar."
 
-#: apps/nfc/views.py:286
+#: apps/nfc/views.py:294
 #, python-format
 msgid ""
 "Thanks. Our designers will send a new proof. You have %(left)d free round of"
@@ -1598,7 +1598,7 @@ msgstr[1] ""
 "Obrigado. Os nossos designers vão enviar uma nova prova. Restam-lhe %(left)d"
 " rondas de alterações gratuitas."
 
-#: apps/nfc/views.py:291
+#: apps/nfc/views.py:299
 msgid ""
 "Thanks. This is beyond the free revision rounds, so our team may contact you"
 " about a small fee."
@@ -1606,7 +1606,7 @@ msgstr ""
 "Obrigado. Isto excede as rondas de alterações gratuitas, por isso a nossa "
 "equipa poderá contactá-lo sobre uma pequena taxa."
 
-#: apps/nfc/views.py:307
+#: apps/nfc/views.py:315
 #, python-format
 msgid ""
 "Order cancelled. A refund of %(amount)s will be processed to your original "
@@ -1615,7 +1615,7 @@ msgstr ""
 "Encomenda cancelada. Será reembolsado o valor de %(amount)s no método de "
 "pagamento original."
 
-#: apps/nfc/views.py:309
+#: apps/nfc/views.py:317
 msgid "Order cancelled."
 msgstr "Encomenda cancelada."
 
@@ -1901,20 +1901,21 @@ msgstr "Plano"
 msgid "Most popular"
 msgstr "Mais popular"
 
-#: templates/billing/checkout.html:49 templates/marketing/_plans.html:12
+#: templates/billing/checkout.html:50 templates/billing/checkout.html:52
+#: templates/marketing/_plans.html:13 templates/marketing/_plans.html:16
 msgid "from"
 msgstr "a partir de"
 
-#: templates/billing/checkout.html:49
+#: templates/billing/checkout.html:50 templates/billing/checkout.html:52
 #, python-format
 msgid "for %(p_max_cards)s people"
 msgstr "para %(p_max_cards)s pessoas"
 
-#: templates/billing/checkout.html:57
+#: templates/billing/checkout.html:61
 msgid "Team size"
 msgstr "Dimensão da equipa"
 
-#: templates/billing/checkout.html:58
+#: templates/billing/checkout.html:62
 #, python-format
 msgid ""
 "The %(plan_name)s price includes %(plan_max_cards)s people. Everyone after "
@@ -1925,7 +1926,7 @@ msgstr ""
 "preço é por pessoa e, quanto maior a equipa, menos custa cada uma. Cada "
 "pessoa tem o seu próprio cartão."
 
-#: templates/billing/checkout.html:60
+#: templates/billing/checkout.html:64
 #, python-format
 msgid ""
 "You pay for %(subscription_team_size)s people now. To add people before your"
@@ -1936,15 +1937,15 @@ msgstr ""
 "pessoas antes da renovação, escolha a nova dimensão da equipa e pague a "
 "diferença pelos meses restantes."
 
-#: templates/billing/checkout.html:67
+#: templates/billing/checkout.html:71
 msgid "Code (optional)"
 msgstr "Código (opcional)"
 
-#: templates/billing/checkout.html:68
+#: templates/billing/checkout.html:72
 msgid "Apply"
 msgstr "Aplicar"
 
-#: templates/billing/checkout.html:73
+#: templates/billing/checkout.html:77
 #, python-format
 msgid ""
 "<strong>%(plan_name)s costs less than your current plan.</strong> It starts "
@@ -1955,21 +1956,21 @@ msgstr ""
 "quando o ano atual terminar, em %(subscription_expires_at_date)s. Até lá "
 "mantém tudo o que está em %(subscription_plan_name)s."
 
-#: templates/billing/checkout.html:78 templates/nfc/detail.html:80
+#: templates/billing/checkout.html:82 templates/nfc/detail.html:80
 msgid "Summary"
 msgstr "Resumo"
 
-#: templates/billing/checkout.html:81
+#: templates/billing/checkout.html:85
 #, python-format
 msgid "Discount (%(quote_promo_code)s)"
 msgstr "Desconto (%(quote_promo_code)s)"
 
-#: templates/billing/checkout.html:83
-#: templates/dashboard/unlock_updates.html:29
+#: templates/billing/checkout.html:87
+#: templates/dashboard/unlock_updates.html:28
 msgid "You pay"
 msgstr "Paga"
 
-#: templates/billing/checkout.html:84
+#: templates/billing/checkout.html:88
 #, python-format
 msgid ""
 "The amount shown in %(currency)s is approximate. You will be charged "
@@ -1979,8 +1980,8 @@ msgstr ""
 "%(quote_total_minor_ghs)s. O seu banco pode aplicar a sua própria taxa de "
 "câmbio."
 
-#: templates/billing/checkout.html:86
-#: templates/dashboard/unlock_updates.html:47
+#: templates/billing/checkout.html:90
+#: templates/dashboard/unlock_updates.html:45
 #, python-format
 msgid ""
 "I accept the <a href=\"%(url_1)s\" target=\"_blank\">Terms of Service</a> "
@@ -1991,8 +1992,8 @@ msgstr ""
 "<a href=\"%(url_2)s\" target=\"_blank\">Política de Reembolso</a>. As "
 "subscrições não são reembolsáveis depois de ativas."
 
-#: templates/billing/checkout.html:95
-#: templates/dashboard/unlock_updates.html:63
+#: templates/billing/checkout.html:103
+#: templates/dashboard/unlock_updates.html:60
 msgid ""
 "Secure checkout by Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa and "
 "Mastercard."
@@ -2000,8 +2001,8 @@ msgstr ""
 "Pagamento seguro com a Paystack: MoMo, Telecel Cash, AirtelTigo Money, Visa "
 "e Mastercard."
 
-#: templates/billing/checkout.html:95
-#: templates/dashboard/unlock_updates.html:63
+#: templates/billing/checkout.html:103
+#: templates/dashboard/unlock_updates.html:60
 msgid "Test mode — no real money moves."
 msgstr "Modo de teste — não é movimentado dinheiro real."
 
@@ -2050,7 +2051,7 @@ msgstr "Valor"
 msgid "Receipt"
 msgstr "Recibo"
 
-#: templates/billing/receipts.html:17
+#: templates/billing/receipts.html:17 templates/dashboard/home.html:67
 msgid "Paid"
 msgstr "Pago"
 
@@ -2553,7 +2554,7 @@ msgstr ""
 "Business mostram leituras de QR, toques NFC, contactos guardados e cada "
 "clique nos botões, por dia, semana, mês ou ano."
 
-#: templates/dashboard/analytics.html:26
+#: templates/dashboard/analytics.html:26 templates/dashboard/home.html:73
 msgid "Upgrade"
 msgstr "Mudar de plano"
 
@@ -2595,7 +2596,7 @@ msgstr ""
 msgid "Your cards"
 msgstr "Os seus cartões"
 
-#: apps/billing/models.py:229 apps/cards/models.py:232
+#: apps/billing/models.py:246 apps/cards/models.py:256
 #: apps/dashboard/views.py:397 templates/dashboard/cards.html:17
 msgid "Card"
 msgstr "Cartão"
@@ -2609,12 +2610,12 @@ msgid "Actions"
 msgstr "Ações"
 
 #: templates/dashboard/business.html:32 templates/dashboard/cards.html:23
-#: templates/dashboard/home.html:67
+#: templates/dashboard/home.html:70
 msgid "On"
 msgstr "Ativo"
 
 #: templates/dashboard/business.html:32 templates/dashboard/cards.html:23
-#: templates/dashboard/home.html:67
+#: templates/dashboard/home.html:70
 msgid "Off"
 msgstr "Inativo"
 
@@ -2857,15 +2858,15 @@ msgstr "Encomendar cartões NFC"
 msgid "· %(subscription_team_size)s people"
 msgstr "· %(subscription_team_size)s pessoas"
 
-#: templates/dashboard/home.html:66
+#: templates/dashboard/home.html:69
 msgid "Paid until"
 msgstr "Pago até"
 
-#: templates/dashboard/home.html:69
+#: templates/dashboard/home.html:73
 msgid "Renew or upgrade"
 msgstr "Renovar ou mudar de plano"
 
-#: templates/dashboard/home.html:71
+#: templates/dashboard/home.html:75
 msgid ""
 "Choose a yearly plan to switch your card on. Pay with Mobile Money or a "
 "card."
@@ -2873,7 +2874,7 @@ msgstr ""
 "Escolha um plano anual para ativar o seu cartão. Pague com Mobile Money ou "
 "cartão."
 
-#: templates/dashboard/home.html:72
+#: templates/dashboard/home.html:76
 msgid "See plans"
 msgstr "Ver planos"
 
@@ -3534,17 +3535,17 @@ msgstr "Valor: %(value)s"
 msgid "Date: %(value)s"
 msgstr "Data: %(value)s"
 
-#: templates/emails/payment_receipt.txt:14
+#: templates/emails/payment_receipt.txt:15
 #, python-format
 msgid "Your %(plan)s plan is active until %(date)s."
 msgstr "O seu plano %(plan)s está ativo até %(date)s."
 
-#: templates/emails/payment_receipt.txt:15
+#: templates/emails/payment_receipt.txt:16
 #, python-format
 msgid "Track your NFC order: %(link)s"
 msgstr "Acompanhe a sua encomenda NFC: %(link)s"
 
-#: templates/emails/payment_receipt.txt:21
+#: templates/emails/payment_receipt.txt:22
 msgid ""
 "The PDF receipt is attached. You can also download it any time from your "
 "dashboard."
@@ -3837,22 +3838,22 @@ msgstr ""
 "<strong>Entregue no Gana ou enviado para o estrangeiro.</strong> Fora do "
 "Gana paga a taxa de envio e entrega da sua região."
 
-#: templates/marketing/_plans.html:12
+#: templates/marketing/_plans.html:16
 msgid "/ year"
 msgstr "/ ano"
 
-#: templates/marketing/_plans.html:13
+#: templates/marketing/_plans.html:17
 #, python-format
 msgid "%(plan_price_minor_ghs)s per year"
 msgstr "%(plan_price_minor_ghs)s por ano"
 
-#: templates/marketing/_plans.html:13 templates/marketing/_plans.html:14
-#: templates/marketing/_plans.html:17
+#: templates/marketing/_plans.html:14 templates/marketing/_plans.html:17
+#: templates/marketing/_plans.html:18 templates/marketing/_plans.html:21
 #, python-format
 msgid "for up to %(plan_max_cards)s people"
 msgstr "para até %(plan_max_cards)s pessoas"
 
-#: templates/marketing/_plans.html:14
+#: templates/marketing/_plans.html:18
 #, python-format
 msgid ""
 "Approximate. You will be charged %(plan_price_minor_ghs)s. Your bank may "
@@ -3861,25 +3862,25 @@ msgstr ""
 "Valor aproximado. Será cobrado %(plan_price_minor_ghs)s. O seu banco pode "
 "aplicar a sua própria taxa de câmbio."
 
-#: templates/marketing/_plans.html:17
+#: templates/marketing/_plans.html:21
 msgid "per year"
 msgstr "por ano"
 
-#: templates/marketing/_plans.html:24
+#: templates/marketing/_plans.html:28
 msgid "Not included:"
 msgstr "Não incluído:"
 
-#: templates/marketing/_plans.html:31 templates/marketing/_plans.html:31
+#: templates/marketing/_plans.html:35 templates/marketing/_plans.html:35
 #, python-format
 msgid "Choose %(name)s"
 msgstr "Escolher %(name)s"
 
-#: templates/marketing/_plans.html:36 templates/marketing/_plans.html:36
+#: templates/marketing/_plans.html:40 templates/marketing/_plans.html:40
 #, python-format
 msgid "Start with %(name)s"
 msgstr "Começar com %(name)s"
 
-#: templates/marketing/_plans.html:43
+#: templates/marketing/_plans.html:47
 #, python-format
 msgid ""
 "Prices in other currencies use today’s rate of 1 USD = GHS "
@@ -5022,14 +5023,14 @@ msgstr ""
 "href=\"%(url_1)s\" target=\"_blank\">Termos de Serviço</a> e a nossa <a "
 "href=\"%(url_2)s\" target=\"_blank\">Política de Privacidade</a>."
 
-#: templates/billing/checkout.html:91
+#: templates/billing/checkout.html:99
 #, python-format
 msgid "%(counter)s month"
 msgid_plural "%(counter)s months"
 msgstr[0] "%(counter)s mês"
 msgstr[1] "%(counter)s meses"
 
-#: templates/billing/checkout.html:91
+#: templates/billing/checkout.html:99
 #, python-format
 msgid ""
 "Or add %(counter)s person now for %(upgrade_amount)s, for the "
@@ -5044,7 +5045,7 @@ msgstr[1] ""
 "Ou adicione %(counter)s pessoas agora por %(upgrade_amount)s, pelos "
 "%(months_left)s restantes"
 
-#: templates/billing/checkout.html:91
+#: templates/billing/checkout.html:99
 #, python-format
 msgid "Or upgrade now for %(upgrade_amount)s, for the %(months_left)s left"
 msgstr ""
@@ -5277,17 +5278,17 @@ msgstr "Nome da empresa para os recibos"
 msgid "Company address for receipts"
 msgstr "Morada da empresa para os recibos"
 
-#: apps/billing/services.py:163
+#: apps/billing/services.py:168
 #, python-format
 msgid "%(plan)s plan for %(people)d people"
 msgstr "Plano %(plan)s para %(people)d pessoas"
 
-#: apps/billing/services.py:173
+#: apps/billing/services.py:181
 #, python-format
 msgid "%(plan)s, 12 more months"
 msgstr "%(plan)s, mais 12 meses"
 
-#: apps/billing/services.py:173 apps/billing/services.py:626
+#: apps/billing/services.py:181 apps/billing/services.py:653
 #, python-format
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s, 12 meses"
@@ -5332,31 +5333,31 @@ msgstr "Âmbar"
 msgid "Ink"
 msgstr "Tinta"
 
-#: apps/core/currency.py:23
+#: apps/core/currency.py:24
 msgid "US dollar"
 msgstr "Dólar norte-americano"
 
-#: apps/core/currency.py:24
+#: apps/core/currency.py:25
 msgid "British pound"
 msgstr "Libra esterlina"
 
-#: apps/core/currency.py:25
+#: apps/core/currency.py:26
 msgid "Euro"
 msgstr "Euro"
 
-#: apps/core/currency.py:26
+#: apps/core/currency.py:27
 msgid "Chinese yuan"
 msgstr "Yuan chinês"
 
-#: apps/core/currency.py:27
+#: apps/core/currency.py:28
 msgid "Nigerian naira"
 msgstr "Naira nigeriano"
 
-#: apps/core/currency.py:28
+#: apps/core/currency.py:29
 msgid "West African CFA franc"
 msgstr "Franco CFA da África Ocidental"
 
-#: apps/core/currency.py:29
+#: apps/core/currency.py:30
 msgid "Ghana cedi"
 msgstr "Cedi do Gana"
 
@@ -5639,11 +5640,11 @@ msgstr "SVG para impressão"
 msgid "Chat with us"
 msgstr "Fale connosco"
 
-#: apps/cards/models.py:295
+#: apps/cards/models.py:319
 msgid "For example MTN, Telecel or Office."
 msgstr "Por exemplo MTN, Telecel ou Escritório."
 
-#: apps/billing/services.py:701 apps/billing/views.py:221
+#: apps/billing/services.py:728 apps/billing/views.py:247
 #: apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "j \\d\\e F \\d\\e Y"
@@ -5686,7 +5687,7 @@ msgstr ""
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "Partilhe os seus dados de contacto por link, código QR ou toque NFC."
 
-#: templates/billing/checkout.html:49
+#: templates/billing/checkout.html:52
 #, python-format
 msgid "%(price)s/yr"
 msgstr "%(price)s/ano"
@@ -5714,34 +5715,34 @@ msgstr ""
 "O seu plano muda para <strong style=\"display:inline\">%(plan)s</strong> em "
 "%(date)s."
 
-#: apps/billing/models.py:230 apps/cards/models.py:233
+#: apps/billing/models.py:247 apps/cards/models.py:257
 #, python-format
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s terminado em %(last4)s"
 
-#: apps/billing/services.py:490
+#: apps/billing/services.py:517
 #, python-format
 msgid "Your plan has renewed. Receipt %(number)s"
 msgstr "O seu plano foi renovado. Recibo %(number)s"
 
-#: apps/billing/services.py:692
+#: apps/billing/services.py:719
 msgid "We could not renew your plan"
 msgstr "Não foi possível renovar o seu plano"
 
-#: apps/billing/services.py:726
+#: apps/billing/services.py:753
 #, python-format
 msgid "Your plan renews on %(date)s"
 msgstr "O seu plano é renovado em %(date)s"
 
-#: apps/billing/services.py:764 templates/billing/checkout.html:21
+#: apps/billing/services.py:791 templates/billing/checkout.html:21
 msgid "Automatic renewal is off"
 msgstr "A renovação automática está desativada"
 
-#: apps/billing/views.py:215
+#: apps/billing/views.py:241
 msgid "Automatic renewal is not on for your plan."
 msgstr "A renovação automática não está ativada para o seu plano."
 
-#: apps/billing/views.py:220
+#: apps/billing/views.py:246
 #, python-format
 msgid "Automatic renewal is off. Your plan stays active until %(date)s."
 msgstr ""
@@ -5797,12 +5798,12 @@ msgstr ""
 "Pague com cartão abaixo para a ativar. O ano é acrescentado ao final do "
 "plano atual, por isso não perde tempo."
 
-#: templates/billing/checkout.html:89 templates/billing/checkout.html:92
-#: templates/dashboard/unlock_updates.html:50
+#: templates/billing/checkout.html:96 templates/billing/checkout.html:100
+#: templates/dashboard/unlock_updates.html:48
 msgid "Don’t have a card? Pay with Mobile Money"
 msgstr "Não tem cartão? Pague com Mobile Money"
 
-#: templates/dashboard/home.html:67
+#: templates/dashboard/home.html:70
 msgid "Automatic renewal"
 msgstr "Renovação automática"
 
@@ -5879,7 +5880,7 @@ msgstr ""
 "Para desativar a renovação automática, ou para pagar com outro cartão, aceda"
 " a: %(link)s"
 
-#: templates/emails/payment_receipt.txt:17
+#: templates/emails/payment_receipt.txt:18
 #, python-format
 msgid ""
 "This was your automatic yearly renewal. To turn off automatic renewal, go "
@@ -5888,7 +5889,7 @@ msgstr ""
 "Esta foi a sua renovação anual automática. Para desativar a renovação "
 "automática, aceda a: %(link)s"
 
-#: templates/emails/payment_receipt.txt:19
+#: templates/emails/payment_receipt.txt:20
 #, python-format
 msgid ""
 "Your plan will renew automatically on %(date)s: we will charge your card "
@@ -5926,12 +5927,12 @@ msgstr ""
 "plano mantém-se até ao fim do ano já pago. Renovar mais cedo acrescenta um "
 "ano à data de fim atual."
 
-#: apps/billing/models.py:114
+#: apps/billing/models.py:120
 #, python-format
 msgid "Business page with up to %(count)d products"
 msgstr "Página da empresa com até %(count)d produtos"
 
-#: apps/billing/models.py:115
+#: apps/billing/models.py:121
 msgid "Business page for your products"
 msgstr "Página da empresa para os seus produtos"
 
@@ -6333,7 +6334,7 @@ msgstr "Criados, impressos e testados ao toque no nosso estúdio."
 msgid "Design and print studio in Cape Coast"
 msgstr "Estúdio de design e impressão em Cape Coast"
 
-#: templates/marketing/_plans.html:24
+#: templates/marketing/_plans.html:28
 msgid "See a sample"
 msgstr "Ver um exemplo"
 
@@ -6680,11 +6681,11 @@ msgstr "Alterar e-mail"
 msgid "The email address on your AD Smart account was changed to %(new)s."
 msgstr "O e-mail da sua conta AD Smart foi alterado para %(new)s."
 
-#: apps/billing/models.py:410 apps/billing/models.py:507
+#: apps/billing/models.py:446 apps/billing/models.py:545
 msgid "Card updates for a year"
 msgstr "Atualizações do cartão durante um ano"
 
-#: apps/billing/models.py:512
+#: apps/billing/models.py:550
 #, python-format
 msgid "Pre-made card, %(plan)s features, pay when you update (sold in a shop)"
 msgstr ""
@@ -6749,7 +6750,7 @@ msgstr "Desbloquear alterações · %(SITE_NAME)s"
 msgid "Unlock changes to your card"
 msgstr "Desbloqueie as alterações ao seu cartão"
 
-#: templates/dashboard/unlock_updates.html:21
+#: templates/dashboard/unlock_updates.html:20
 msgid ""
 "<strong>Your changes are saved and waiting.</strong> They go onto your card "
 "as soon as the payment clears. If you do not pay within 48 hours they are "
@@ -6759,75 +6760,45 @@ msgstr ""
 "seu cartão assim que o pagamento for confirmado. Se não pagar em 48 horas, "
 "são eliminadas."
 
-#: templates/dashboard/unlock_updates.html:24
+#: templates/dashboard/unlock_updates.html:23
 msgid "What you pay"
 msgstr "O que paga"
 
-#: templates/dashboard/unlock_updates.html:28
+#: templates/dashboard/unlock_updates.html:27
 msgid "Payment processing fee"
 msgstr "Taxa de processamento do pagamento"
 
-#: templates/dashboard/unlock_updates.html:31
-msgid ""
-"After the 12 months your card keeps working exactly as you last saved it. "
-"Changing it again then needs another payment, which opens changes for "
-"another year."
-msgstr ""
-"Passados os 12 meses, o seu cartão continua a funcionar exatamente como o "
-"guardou pela última vez. Para o alterar de novo é preciso novo pagamento, "
-"que abre as alterações por mais um ano."
-
-#: templates/dashboard/unlock_updates.html:49
+#: templates/dashboard/unlock_updates.html:47
 msgid "Pay and unlock changes"
 msgstr "Pagar e desbloquear alterações"
 
-#: templates/dashboard/unlock_updates.html:40
-#: templates/dashboard/unlock_updates.html:51
+#: templates/dashboard/unlock_updates.html:38
+#: templates/dashboard/unlock_updates.html:49
 msgid "Not now"
 msgstr "Agora não"
 
-#: templates/dashboard/unlock_updates.html:57
+#: templates/dashboard/unlock_updates.html:54
 msgid "Throw away the changes you were holding?"
 msgstr "Eliminar as alterações que tinha em espera?"
 
-#: templates/dashboard/unlock_updates.html:60
+#: templates/dashboard/unlock_updates.html:57
 msgid "Throw away my changes"
 msgstr "Eliminar as minhas alterações"
-
-#: templates/dashboard/unlock_updates.html:66
-msgid "What stays free"
-msgstr "O que continua gratuito"
-
-#: templates/dashboard/unlock_updates.html:68
-msgid "Your card stays live and keeps showing what you last saved."
-msgstr "O seu cartão continua ativo e a mostrar o que guardou por último."
-
-#: templates/dashboard/unlock_updates.html:69
-msgid "Sharing, your QR code and your analytics."
-msgstr "A partilha, o seu código QR e as suas estatísticas."
-
-#: templates/dashboard/unlock_updates.html:70
-msgid "Your contacts and your account settings."
-msgstr "Os seus contactos e as definições da sua conta."
-
-#: templates/dashboard/unlock_updates.html:71
-msgid "Switching your card off, or deleting it."
-msgstr "Desativar o seu cartão ou eliminá-lo."
 
 #: templates/emails/payment_receipt.txt:11
 #, python-format
 msgid "Changes to your card are open until %(date)s."
 msgstr "As alterações ao seu cartão estão abertas até %(date)s."
 
-#: apps/billing/services.py:575
+#: apps/billing/services.py:602
 msgid "Your card will no longer be charged for changes"
 msgstr "O seu cartão já não será cobrado pelas alterações"
 
-#: apps/billing/views.py:232
+#: apps/billing/views.py:258
 msgid "Automatic payment for changes is not on for this card."
 msgstr "O pagamento automático das alterações não está ativado neste cartão."
 
-#: apps/billing/views.py:235
+#: apps/billing/views.py:261
 msgid ""
 "Automatic payment for changes is off. You can still pay by hand whenever you"
 " change this card."
@@ -6895,20 +6866,20 @@ msgstr ""
 "com que pagou da última vez, e as alterações voltam a abrir durante 12 "
 "meses."
 
-#: templates/dashboard/unlock_updates.html:36
+#: templates/dashboard/unlock_updates.html:34
 #, python-format
 msgid "Your card (%(card)s) will be charged %(total_text)s."
 msgstr "O seu cartão (%(card)s) será cobrado em %(total_text)s."
 
-#: templates/dashboard/unlock_updates.html:38
+#: templates/dashboard/unlock_updates.html:36
 msgid "Confirm and charge my card"
 msgstr "Confirmar e cobrar o meu cartão"
 
-#: templates/dashboard/unlock_updates.html:39
+#: templates/dashboard/unlock_updates.html:37
 msgid "Pay another way"
 msgstr "Pagar de outra forma"
 
-#: templates/dashboard/unlock_updates.html:42
+#: templates/dashboard/unlock_updates.html:40
 #, python-format
 msgid ""
 "By confirming you accept the <a href=\"%(url_1)s\" target=\"_blank\">Terms "
@@ -6920,18 +6891,6 @@ msgstr ""
 "Serviço</a> e a <a href=\"%(url_2)s\" target=\"_blank\">Política de "
 "Reembolso</a>. Para que este cartão deixe de ser cobrado, desative na página"
 " Plano e renovação."
-
-#: templates/dashboard/unlock_updates.html:53
-msgid ""
-"Paying by card keeps it for your next year of changes: when the 12 months "
-"end, the first time you save a change we ask you to confirm, then charge it."
-" You can turn this off any time on your billing page. Mobile Money is never "
-"kept."
-msgstr ""
-"Pagar com cartão guarda-o para o seu próximo ano de alterações: quando os 12"
-" meses terminarem, da primeira vez que guardar uma alteração pedimos-lhe que"
-" confirme e depois cobramos o cartão. Pode desativar a qualquer momento na "
-"página Plano e renovação. O Mobile Money nunca é guardado."
 
 #: templates/emails/payment_receipt.txt:13
 #, python-format
@@ -7297,7 +7256,7 @@ msgstr ""
 "Os produtos que os compradores mais abriram este mês. Toque num para o ver "
 "na sua loja e depois envie mensagem ao vendedor no WhatsApp."
 
-#: apps/billing/models.py:113
+#: apps/billing/models.py:119
 msgid "Business page with unlimited products"
 msgstr "Página da empresa com produtos ilimitados"
 
@@ -7394,22 +7353,6 @@ msgstr ""
 "Depois custa %(update_price)s, o que mantém as alterações abertas durante um"
 " ano. A página da sua empresa é sempre gratuita."
 
-#: templates/dashboard/editor.html:25
-#, python-format
-msgid ""
-"<strong>Changing your details, links or web address costs "
-"%(update_price)s.</strong> Your free first year is over. Edit and preview as"
-" much as you like. You pay when you press Save, and your changes go onto "
-"your card as soon as the payment clears. That opens changes for 12 months. "
-"Your business page is always free."
-msgstr ""
-"<strong>Alterar os seus dados, links ou endereço web custa "
-"%(update_price)s.</strong> O seu primeiro ano gratuito terminou. Edite e "
-"pré-visualize o quanto quiser. Paga ao carregar em Guardar, e as suas "
-"alterações passam para o seu cartão assim que o pagamento for confirmado. "
-"Isso abre as alterações durante 12 meses. A página da sua empresa é sempre "
-"gratuita."
-
 #: templates/dashboard/editor.html:31
 #, python-format
 msgid ""
@@ -7423,24 +7366,14 @@ msgstr ""
 "continua a funcionar como está, e a alteração seguinte exige um pagamento. A"
 " página da sua empresa é sempre gratuita."
 
-#: templates/dashboard/home.html:7
+#: templates/dashboard/home.html:7 templates/dashboard/home.html:7
 msgid "Your card is live. Changing its details needs a payment."
 msgstr "O seu cartão está ativo. Alterar os dados exige um pagamento."
 
-#: templates/dashboard/home.html:7
+#: templates/dashboard/home.html:7 templates/dashboard/home.html:7
 #, python-format
 msgid "Your card is live. Changes are open until %(until)s."
 msgstr "O seu cartão está ativo. As alterações estão abertas até %(until)s."
-
-#: templates/dashboard/unlock_updates.html:11
-msgid ""
-"Your card stays live whatever you decide. Paying opens changes to its "
-"details, links and web address for 12 months. Your business page is always "
-"free."
-msgstr ""
-"O seu cartão continua ativo, qualquer que seja a sua decisão. Pagar abre as "
-"alterações aos dados, links e endereço web durante 12 meses. A página da sua"
-" empresa é sempre gratuita."
 
 #: apps/core/utils.py:184 apps/core/utils.py:186
 msgid "Upload a picture such as a JPG, PNG, HEIC or WebP file."
@@ -7460,6 +7393,185 @@ msgstr "JPG, PNG, HEIC, WebP e mais. Esta é a capa."
 #: templates/dashboard/business.html:50
 msgid "Each product can have up to 5 pictures."
 msgstr "Cada produto pode ter até 5 fotos."
+
+#: apps/billing/models.py:562
+#, python-format
+msgid "%(plan)s plan for %(people)d people, paid once"
+msgstr "Plano %(plan)s para %(people)d pessoas, pago uma só vez"
+
+#: apps/billing/models.py:563 apps/nfc/views.py:43
+#, python-format
+msgid "%(plan)s plan, paid once"
+msgstr "Plano %(plan)s, pago uma só vez"
+
+#: apps/billing/services.py:180
+#, python-format
+msgid "%(plan)s, paid once"
+msgstr "%(plan)s, pago uma só vez"
+
+#: apps/billing/views.py:93 templates/billing/checkout.html:93
+msgid "You already have this plan or a better one. There is nothing to pay."
+msgstr "Já tem este plano ou um melhor. Não há nada a pagar."
+
+#: apps/core/jsstrings.py:21
+#, python-format
+msgid "%(price)s per person, paid once"
+msgstr "%(price)s por pessoa, pago uma só vez"
+
+#: templates/billing/checkout.html:6
+msgid "Upgrade your plan"
+msgstr "Mude o seu plano"
+
+#: templates/billing/checkout.html:50 templates/dashboard/home.html:67
+#: templates/marketing/_plans.html:14 templates/marketing/home.html:32
+msgid "paid once"
+msgstr "pago uma só vez"
+
+#: templates/dashboard/home.html:75
+msgid ""
+"Choose a plan to switch your card on. You pay once, with Mobile Money or a "
+"card."
+msgstr ""
+"Escolha um plano para ativar o seu cartão. Paga uma só vez, com Mobile Money"
+" ou com cartão."
+
+#: templates/emails/payment_receipt.txt:14
+#, python-format
+msgid ""
+"Your %(plan)s plan is paid once and never ends. Changes to your card's "
+"details are free for 12 months, then paid for card by card."
+msgstr ""
+"O seu plano %(plan)s é pago uma só vez e nunca termina. Alterar os dados do "
+"seu cartão é gratuito durante 12 meses; depois paga-se cartão a cartão."
+
+#: templates/marketing/home.html:162 templates/marketing/pricing.html:8
+msgid "Pay once. Keep your card."
+msgstr "Pague uma só vez. Fique com o seu cartão."
+
+#: templates/marketing/pricing.html:3
+#, python-format
+msgid ""
+"Digital business card plans from %(plans_0_price_minor_ghs)s, paid once. NFC"
+" cards from GHS 135 each."
+msgstr ""
+"Planos de cartão de visita digital a partir de %(plans_0_price_minor_ghs)s, "
+"pagos uma só vez. Cartões NFC a partir de GHS 135 cada."
+
+#: templates/dashboard/editor.html:25
+#, python-format
+msgid ""
+"<strong>Changing your details, links or web address costs "
+"%(update_price)s.</strong>"
+msgstr ""
+"<strong>Alterar os seus dados, links ou endereço web custa "
+"%(update_price)s.</strong>"
+
+#~ msgid ""
+#~ "After the 12 months your card keeps working exactly as you last saved it. "
+#~ "Changing it again then needs another payment, which opens changes for "
+#~ "another year."
+#~ msgstr ""
+#~ "Passados os 12 meses, o seu cartão continua a funcionar exatamente como o "
+#~ "guardou pela última vez. Para o alterar de novo é preciso novo pagamento, "
+#~ "que abre as alterações por mais um ano."
+
+#~ msgid "What stays free"
+#~ msgstr "O que continua gratuito"
+
+#~ msgid "Your card stays live and keeps showing what you last saved."
+#~ msgstr "O seu cartão continua ativo e a mostrar o que guardou por último."
+
+#~ msgid "Sharing, your QR code and your analytics."
+#~ msgstr "A partilha, o seu código QR e as suas estatísticas."
+
+#~ msgid "Your contacts and your account settings."
+#~ msgstr "Os seus contactos e as definições da sua conta."
+
+#~ msgid "Switching your card off, or deleting it."
+#~ msgstr "Desativar o seu cartão ou eliminá-lo."
+
+#~ msgid ""
+#~ "Paying by card keeps it for your next year of changes: when the 12 months "
+#~ "end, the first time you save a change we ask you to confirm, then charge it."
+#~ " You can turn this off any time on your billing page. Mobile Money is never "
+#~ "kept."
+#~ msgstr ""
+#~ "Pagar com cartão guarda-o para o seu próximo ano de alterações: quando os 12"
+#~ " meses terminarem, da primeira vez que guardar uma alteração pedimos-lhe que"
+#~ " confirme e depois cobramos o cartão. Pode desativar a qualquer momento na "
+#~ "página Plano e renovação. O Mobile Money nunca é guardado."
+
+#, python-format
+#~ msgid ""
+#~ "<strong>Changing your details, links or web address costs "
+#~ "%(update_price)s.</strong> Your free first year is over. Edit and preview as"
+#~ " much as you like. You pay when you press Save, and your changes go onto "
+#~ "your card as soon as the payment clears. That opens changes for 12 months. "
+#~ "Your business page is always free."
+#~ msgstr ""
+#~ "<strong>Alterar os seus dados, links ou endereço web custa "
+#~ "%(update_price)s.</strong> O seu primeiro ano gratuito terminou. Edite e "
+#~ "pré-visualize o quanto quiser. Paga ao carregar em Guardar, e as suas "
+#~ "alterações passam para o seu cartão assim que o pagamento for confirmado. "
+#~ "Isso abre as alterações durante 12 meses. A página da sua empresa é sempre "
+#~ "gratuita."
+
+#~ msgid ""
+#~ "Your card stays live whatever you decide. Paying opens changes to its "
+#~ "details, links and web address for 12 months. Your business page is always "
+#~ "free."
+#~ msgstr ""
+#~ "O seu cartão continua ativo, qualquer que seja a sua decisão. Pagar abre as "
+#~ "alterações aos dados, links e endereço web durante 12 meses. A página da sua"
+#~ " empresa é sempre gratuita."
+
+#, python-format
+#~ msgid ""
+#~ "Your %(subscription_plan_name)s plan is paid once and never ends. To move up"
+#~ " to a bigger plan, you pay only the difference."
+#~ msgstr ""
+#~ "O seu plano %(subscription_plan_name)s é pago uma só vez e nunca termina. "
+#~ "Para passar a um plano maior, paga apenas a diferença."
+
+#~ msgid ""
+#~ "You pay once. Nothing renews. Your card goes live as soon as Paystack "
+#~ "confirms your payment."
+#~ msgstr ""
+#~ "Paga uma só vez. Nada se renova. O seu cartão fica ativo assim que a "
+#~ "Paystack confirmar o pagamento."
+
+#, python-format
+#~ msgid ""
+#~ "You have %(subscription_team_size)s people now. To add people, choose the "
+#~ "new team size and pay the difference."
+#~ msgstr ""
+#~ "Tem agora %(subscription_team_size)s pessoas. Para acrescentar pessoas, "
+#~ "escolha o novo tamanho da equipa e pague a diferença."
+
+#~ msgid "Paid once. It never ends."
+#~ msgstr "Pago uma só vez. Nunca termina."
+
+#~ msgid "Pay once. No yearly renewal."
+#~ msgstr "Pague uma só vez. Sem renovação anual."
+
+#, python-format
+#~ msgid ""
+#~ "Changes to each card’s details are free for 12 months. After that, each card"
+#~ " you change costs %(price)s for 12 more months."
+#~ msgstr ""
+#~ "Alterar os dados de cada cartão é gratuito durante 12 meses. Depois, cada "
+#~ "cartão que alterar custa %(price)s por mais 12 meses."
+
+#~ msgid "Your business page is always free to edit."
+#~ msgstr "A página da sua empresa é sempre gratuita de editar."
+
+#, python-format
+#~ msgid ""
+#~ "Changes to your details are free for 12 months. After that, %(price)s opens "
+#~ "12 more months of changes."
+#~ msgstr ""
+#~ "Alterar os seus dados é gratuito durante 12 meses. Depois, %(price)s abre "
+#~ "mais 12 meses de alterações."
 
 #~ msgid "Upload a JPG, PNG or WebP image."
 #~ msgstr "Carregue uma imagem JPG, PNG ou WebP."
