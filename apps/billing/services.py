@@ -392,8 +392,11 @@ def apply_subscription_payment(payment):
     subscription = getattr(user, "subscription", None)
     if payment.purpose == Payment.PURPOSE_UPGRADE and subscription:
         # A dearer plan, or more people on a team plan, from now to the current expiry.
-        subscription.plan = plan
-        subscription.seats = clamp_seats(plan, payment.seats)
+        seats = clamp_seats(plan, payment.seats)
+        # A plan paid once never moves down: a late payment for a smaller upgrade cannot undo a bigger one.
+        if not subscription.paid_once or plan.price_for(seats) >= subscription.yearly_price:
+            subscription.plan = plan
+            subscription.seats = seats
         subscription.pending_plan = None
         subscription.pending_plan_from = None
         subscription.pending_seats = None

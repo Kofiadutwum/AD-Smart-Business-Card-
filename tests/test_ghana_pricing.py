@@ -1,5 +1,7 @@
 """Ghana: plans paid once (found from the visitor's internet address), a free first year of changes, then a payment per card."""
 
+from unittest import mock
+
 from dateutil.relativedelta import relativedelta
 from django.core import mail
 from django.test import RequestFactory, SimpleTestCase, override_settings
@@ -73,16 +75,23 @@ class OneTimeCheckoutTests(BaseTest):
         self.card = self.make_card(self.user)
         self.client.force_login(self.user)
 
-    def buy(self, plan="professional", ip=GHANA_IP, **extra):
+    def start(self, plan="professional", ip=GHANA_IP, **extra):
+        """Press Pay: the payment is created and waiting for the gateway."""
         response = self.client.post(
             "/billing/", {"plan": plan, "action": "pay", "accept_policy": "1", **extra}, REMOTE_ADDR=ip,
         )
         self.assertEqual(response.status_code, 302)
-        payment = Payment.objects.latest("pk")
+        return Payment.objects.latest("pk")
+
+    def settle(self, payment):
+        """The gateway confirms the payment."""
         with self.captureOnCommitCallbacks(execute=True):
             self.client.get(f"/billing/callback?reference={payment.reference}")
         payment.refresh_from_db()
         return payment
+
+    def buy(self, plan="professional", ip=GHANA_IP, **extra):
+        return self.settle(self.start(plan, ip, **extra))
 
     def test_a_ghana_buyer_pays_once_for_a_plan_that_never_ends(self):
         payment = self.buy()
@@ -138,6 +147,47 @@ class OneTimeCheckoutTests(BaseTest):
         self.assertEqual(payment.purpose, Payment.PURPOSE_UPGRADE)
         self.assertEqual(payment.subtotal_minor, self.pro.price_minor - self.basic.price_minor)
         self.assertEqual((subscription.plan, subscription.paid_once), (self.pro, True))
+
+    def test_a_team_pays_only_the_difference_to_add_people(self):
+        self.buy("business", seats="5")
+        payment = self.buy("business", seats="8")
+        subscription = Subscription.objects.get(user=self.user)
+        difference = self.business.price_for(8) - self.business.price_for(5)
+        self.assertGreater(difference, 0)
+        self.assertEqual((payment.purpose, payment.subtotal_minor), (Payment.PURPOSE_UPGRADE, difference))
+        self.assertEqual((subscription.plan, subscription.seats, subscription.paid_once), (self.business, 8, True))
+        self.assertEqual(subscription.card_limit, 8)
+
+    def test_moving_from_professional_to_a_team_pays_the_difference(self):
+        self.buy("professional")
+        payment = self.buy("business", seats="5")
+        subscription = Subscription.objects.get(user=self.user)
+        self.assertEqual(payment.subtotal_minor, self.business.price_for(5) - self.pro.price_for(None))
+        self.assertEqual((subscription.plan, subscription.seats, subscription.paid_once), (self.business, 5, True))
+
+    def test_choosing_fewer_people_than_already_paid_for_costs_nothing(self):
+        self.buy("business", seats="8")
+        before = Payment.objects.count()
+        page = self.client.post(
+            "/billing/", {"plan": "business", "seats": "6", "action": "pay", "accept_policy": "1"},
+            REMOTE_ADDR=GHANA_IP, follow=True,
+        )
+        self.assertEqual(Payment.objects.count(), before)
+        self.assertContains(page, "There is nothing to pay.")
+        self.assertEqual(Subscription.objects.get(user=self.user).seats, 8)
+
+    def test_a_late_payment_for_a_smaller_upgrade_cannot_undo_a_bigger_one(self):
+        self.buy("basic")
+        # Any page the customer opens would settle open payments oldest first, so switch that off to get the bad order.
+        with mock.patch("apps.billing.services.settle_pending"):
+            small = self.start("professional")  # both are waiting for the gateway
+            big = self.start("business", seats="5")
+        self.assertEqual(Payment.objects.filter(status=Payment.PENDING).count(), 2)
+        with self.captureOnCommitCallbacks(execute=True):  # the bigger one clears first, the smaller one arrives late
+            billing.fulfil(big, {"channel": "card"})
+            billing.fulfil(small, {"channel": "card"})
+        subscription = Subscription.objects.get(user=self.user)
+        self.assertEqual((subscription.plan, subscription.seats), (self.business, 5))
 
     def test_there_is_nothing_to_buy_on_the_same_or_a_cheaper_plan(self):
         self.buy("professional")
