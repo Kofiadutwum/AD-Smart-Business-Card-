@@ -361,7 +361,7 @@ msgstr "无法连接支付网关，请稍后再试。"
 msgid "Malformed webhook payload."
 msgstr "Malformed webhook payload."
 
-#: apps/billing/services.py:519
+#: apps/billing/services.py:522
 #, python-format
 msgid "Your receipt %(number)s"
 msgstr "您的收据 %(number)s"
@@ -1031,31 +1031,31 @@ msgstr "制作并预览您的名片"
 msgid "Choose a yearly plan"
 msgstr "选择年度套餐"
 
-#: apps/marketing/content.py:31
+#: apps/marketing/content.py:34
 msgid "Share it everywhere"
 msgstr "随处分享"
 
-#: apps/marketing/content.py:37
+#: apps/marketing/content.py:40
 msgid "A link that never changes"
 msgstr "永不改变的链接"
 
-#: apps/marketing/content.py:38
+#: apps/marketing/content.py:41
 msgid "A QR code for print"
 msgstr "可打印的二维码"
 
-#: apps/marketing/content.py:39
+#: apps/marketing/content.py:42
 msgid "An NFC card that taps"
 msgstr "轻触即开的 NFC 卡片"
 
-#: apps/marketing/content.py:40
+#: apps/marketing/content.py:43
 msgid "Save contact in one tap"
 msgstr "一键保存联系人"
 
-#: apps/marketing/content.py:49
+#: apps/marketing/content.py:52
 msgid "How does an NFC card work?"
 msgstr "NFC 卡片是如何工作的？"
 
-#: apps/marketing/content.py:50
+#: apps/marketing/content.py:53
 msgid ""
 "Each card has a small chip programmed with the permanent link to your "
 "digital card. When someone holds their phone near it, the phone opens your "
@@ -1063,11 +1063,11 @@ msgid ""
 msgstr ""
 "每张卡片内置一枚小芯片，写入了您电子名片的永久链接。对方把手机靠近卡片，手机就会在浏览器中打开您的名片。无需安装任何应用，芯片也不需要电池。"
 
-#: apps/marketing/content.py:55
+#: apps/marketing/content.py:58
 msgid "Does it work on both iPhone and Android?"
 msgstr "iPhone 和安卓手机都能用吗？"
 
-#: apps/marketing/content.py:56
+#: apps/marketing/content.py:59
 msgid ""
 "Yes. iPhone XS and newer read NFC tags automatically with the screen on. "
 "Most Android phones read them when NFC is switched on in settings. If a "
@@ -1076,22 +1076,22 @@ msgstr ""
 "可以。iPhone XS 及更新机型在亮屏时会自动读取 NFC 标签；大多数安卓手机只需在设置中开启 "
 "NFC。如果手机无法感应，卡片上的二维码会打开同一页面。"
 
-#: apps/marketing/content.py:61
+#: apps/marketing/content.py:64
 msgid "What happens when I change my details?"
 msgstr "修改资料后会怎样？"
 
-#: apps/marketing/content.py:62
+#: apps/marketing/content.py:65
 msgid ""
 "Your link, QR code and NFC card never change. They always open your latest "
 "details, so there is nothing to reprint when you change job, number or "
 "photo."
 msgstr "您的链接、二维码和 NFC 卡片永远不会改变，打开的始终是您最新的资料。换工作、换号码或换照片时，无需重新印刷。"
 
-#: apps/marketing/content.py:66
+#: apps/marketing/content.py:69
 msgid "How does renewal work?"
 msgstr "如何续订？"
 
-#: apps/marketing/content.py:67
+#: apps/marketing/content.py:70
 #, python-format
 msgid ""
 "Plans are yearly. We email you 30 days, 7 days and 1 day before your plan "
@@ -1102,33 +1102,33 @@ msgstr ""
 "套餐按年计算。在套餐到期前 30 天、7 天和 1 "
 "天，我们会给您发送邮件。提前续订的话，新一年会接在当前期限之后，不会浪费任何时间。如果错过日期，您的名片仍会继续使用 %(grace)d 天宽限期。"
 
-#: apps/marketing/content.py:79
+#: apps/marketing/content.py:82
 msgid "What if my plan runs out?"
 msgstr "套餐到期后会怎样？"
 
-#: apps/marketing/content.py:80
+#: apps/marketing/content.py:83
 msgid ""
 "After the grace period your card shows a short 'card inactive' page instead "
 "of your details. Renew at any time and the same link, QR code and NFC cards "
 "work again straight away."
 msgstr "宽限期结束后，您的名片会显示简短的“名片已停用”页面，而不是您的资料。随时续订，同一个链接、二维码和 NFC 卡片即可立即恢复使用。"
 
-#: apps/marketing/content.py:84
+#: apps/marketing/content.py:87
 msgid "I bought a ready-made card in a shop. How do I start?"
 msgstr "我在门店买了一张预制名片，如何开始使用？"
 
-#: apps/marketing/content.py:85
+#: apps/marketing/content.py:88
 msgid ""
 "Tap the card on your phone, or scan its QR code. Enter the PIN printed on "
 "the back, add your details and create your account. Your first year is "
 "already paid for, and the link on the card stays the same for good."
 msgstr "用手机轻触名片或扫描二维码，输入背面印刷的 PIN 码，填写您的资料并创建账户。首年费用已包含在内，名片上的链接将永久不变。"
 
-#: apps/marketing/content.py:90
+#: apps/marketing/content.py:93
 msgid "How long does an NFC order take?"
 msgstr "NFC 订单需要多久？"
 
-#: apps/marketing/content.py:91
+#: apps/marketing/content.py:94
 #, python-format
 msgid ""
 "You receive a first design proof within 3 working days of payment, and "
@@ -1137,11 +1137,11 @@ msgid ""
 msgstr ""
 "付款后 3 个工作日内您会收到第一版设计稿，其中 %(rounds)d 轮修改免费。确认设计后，印刷和写入芯片最长需 5 个工作日，之后配送或自取。"
 
-#: apps/marketing/content.py:96
+#: apps/marketing/content.py:99
 msgid "Do you deliver outside Ghana?"
 msgstr "是否支持配送到加纳以外的地区？"
 
-#: apps/marketing/content.py:97
+#: apps/marketing/content.py:100
 msgid ""
 "Yes. We deliver anywhere in Ghana by courier, you can pick up from our "
 "office for free, and we ship abroad. For orders outside Ghana you pay the "
@@ -1151,11 +1151,11 @@ msgid ""
 msgstr ""
 "可以。我们通过快递配送至加纳各地，您也可以免费到我们办公室自取，并支持国际邮寄。加纳以外的订单，需在结账时支付所在地区的国际运输与配送费；您所在国家的进口关税或税费由收件人承担。付款前您会看到费用和预计送达时间。"
 
-#: apps/marketing/content.py:103
+#: apps/marketing/content.py:106
 msgid "Can I cancel an NFC order?"
 msgstr "可以取消 NFC 订单吗？"
 
-#: apps/marketing/content.py:104
+#: apps/marketing/content.py:107
 msgid ""
 "Before design work starts you get a full refund. After design starts and "
 "before printing, 50% of the card price is refundable. Once printing starts "
@@ -1165,11 +1165,11 @@ msgstr ""
 "设计工作开始前取消，可全额退款；设计开始后、印刷前取消，可退还卡片费用的 50%；印刷开始后，订单无法取消。芯片有故障的卡片，如在 30 "
 "天内反馈，将免费更换。"
 
-#: apps/marketing/content.py:109
+#: apps/marketing/content.py:112
 msgid "Why are prices shown in other currencies?"
 msgstr "为什么价格会以其他货币显示？"
 
-#: apps/marketing/content.py:110
+#: apps/marketing/content.py:113
 msgid ""
 "Prices are shown in US dollars unless you choose another currency at the top"
 " of the page. The figure is a guide for international customers, worked out "
@@ -1178,11 +1178,11 @@ msgid ""
 msgstr ""
 "价格默认以美元显示，您也可以在页面顶部选择其他货币。该金额仅供海外客户参考，按当日汇率折算。实际始终以加纳塞地（GHS）收款，您的银行可能使用其自己的汇率。"
 
-#: apps/marketing/content.py:115
+#: apps/marketing/content.py:118
 msgid "Which payment methods can I use?"
 msgstr "可以使用哪些付款方式？"
 
-#: apps/marketing/content.py:116
+#: apps/marketing/content.py:119
 msgid ""
 "MTN MoMo, Telecel Cash and AirtelTigo Money, plus Visa and Mastercard cards."
 " Payments go through Paystack's secure checkout; we never see your card or "
@@ -1758,7 +1758,7 @@ msgstr "选择套餐 · %(SITE_NAME)s"
 msgid "Renew or change your plan"
 msgstr "续订或更换套餐"
 
-#: templates/billing/checkout.html:6
+#: apps/marketing/content.py:29 templates/billing/checkout.html:6
 msgid "Choose your plan"
 msgstr "选择您的套餐"
 
@@ -4851,7 +4851,7 @@ msgstr "%(plan)s 套餐（%(people)d 人）"
 msgid "%(plan)s, 12 more months"
 msgstr "%(plan)s，再加 12 个月"
 
-#: apps/billing/services.py:181 apps/billing/services.py:653
+#: apps/billing/services.py:181 apps/billing/services.py:656
 #, python-format
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s，12 个月"
@@ -5197,7 +5197,7 @@ msgstr "在线咨询"
 msgid "For example MTN, Telecel or Office."
 msgstr "例如 MTN、Telecel 或办公室。"
 
-#: apps/billing/services.py:728 apps/billing/views.py:247
+#: apps/billing/services.py:731 apps/billing/views.py:247
 #: apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "Y年n月j日"
@@ -5268,21 +5268,21 @@ msgstr "您的套餐将于 %(date)s 变更为 <strong style=\"display:inline\">%
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s 尾号 %(last4)s"
 
-#: apps/billing/services.py:517
+#: apps/billing/services.py:520
 #, python-format
 msgid "Your plan has renewed. Receipt %(number)s"
 msgstr "您的套餐已续订。收据 %(number)s"
 
-#: apps/billing/services.py:719
+#: apps/billing/services.py:722
 msgid "We could not renew your plan"
 msgstr "我们无法为您续订套餐"
 
-#: apps/billing/services.py:753
+#: apps/billing/services.py:756
 #, python-format
 msgid "Your plan renews on %(date)s"
 msgstr "您的套餐将于 %(date)s 续订"
 
-#: apps/billing/services.py:791 templates/billing/checkout.html:21
+#: apps/billing/services.py:794 templates/billing/checkout.html:21
 msgid "Automatic renewal is off"
 msgstr "自动续订已关闭"
 
@@ -5295,11 +5295,11 @@ msgstr "您的套餐未开启自动续订。"
 msgid "Automatic renewal is off. Your plan stays active until %(date)s."
 msgstr "自动续订已关闭。您的套餐在 %(date)s 前仍然有效。"
 
-#: apps/marketing/content.py:72
+#: apps/marketing/content.py:75
 msgid "Does my plan renew automatically?"
 msgstr "我的套餐会自动续订吗？"
 
-#: apps/marketing/content.py:73
+#: apps/marketing/content.py:76
 msgid ""
 "If you pay by card, yes. Your card is charged the same yearly price on the "
 "day your plan ends, we email you about a week before and send a receipt "
@@ -5746,11 +5746,11 @@ msgstr ""
 "这张名片附带 %(batch_months)s 个月的 %(batch_plan_name)s "
 "套餐，费用已付清。请填写您的资料并创建账户，名片上的链接和二维码保持不变。"
 
-#: apps/marketing/content.py:120
+#: apps/marketing/content.py:123
 msgid "What is a business page?"
 msgstr "什么是商家主页？"
 
-#: apps/marketing/content.py:121
+#: apps/marketing/content.py:124
 msgid ""
 "A page of your own for your business, linked from your card. It shows your "
 "products with pictures and prices, your services, your opening hours and "
@@ -5759,25 +5759,25 @@ msgid ""
 msgstr ""
 "一个属于您企业的专属页面，与您的名片相连。它展示您的产品（含图片和价格）、服务、营业时间和客户评价，访客还可以向您发送咨询。您可以在控制面板中开启或关闭它。"
 
-#: apps/marketing/content.py:129
+#: apps/marketing/content.py:132
 #, python-format
 msgid "%(name)s (up to %(count)d products)"
 msgstr "%(name)s（最多 %(count)d 件产品）"
 
-#: apps/marketing/content.py:134
+#: apps/marketing/content.py:137
 msgid "Which plans include a business page?"
 msgstr "哪些套餐包含商家主页？"
 
-#: apps/marketing/content.py:135
+#: apps/marketing/content.py:138
 #, python-format
 msgid "A business page comes with %(plans)s."
 msgstr "%(plans)s 包含商家主页。"
 
-#: apps/marketing/content.py:136
+#: apps/marketing/content.py:139
 msgid "Do my customers need an app or an account to see my business page?"
 msgstr "我的客户需要安装应用或注册账户才能查看我的商家主页吗？"
 
-#: apps/marketing/content.py:137
+#: apps/marketing/content.py:140
 msgid ""
 "No. It is an ordinary web page. It opens from the button on your card, or "
 "from its own link, on any phone."
@@ -6207,7 +6207,7 @@ msgstr "丢弃我的修改"
 msgid "Changes to your card are open until %(date)s."
 msgstr "名片修改权限开放至 %(date)s。"
 
-#: apps/billing/services.py:602
+#: apps/billing/services.py:605
 msgid "Your card will no longer be charged for changes"
 msgstr "不会再就修改向您的银行卡扣款"
 
@@ -6576,23 +6576,23 @@ msgstr "填写您的信息，实时查看预览。"
 msgid "Pay by Mobile Money or card."
 msgstr "使用 Mobile Money 或银行卡付款。"
 
-#: apps/marketing/content.py:32
+#: apps/marketing/content.py:35
 msgid "Link, QR code or NFC card. Update it any time."
 msgstr "链接、二维码或 NFC 卡片，随时更新。"
 
-#: apps/marketing/content.py:37
+#: apps/marketing/content.py:40
 msgid "Paste it anywhere. It always shows your latest details."
 msgstr "粘贴到任何地方，始终显示您的最新信息。"
 
-#: apps/marketing/content.py:38
+#: apps/marketing/content.py:41
 msgid "Download it as PNG or SVG for print."
 msgstr "可下载 PNG 或 SVG 格式，用于印刷。"
 
-#: apps/marketing/content.py:39
+#: apps/marketing/content.py:42
 msgid "Tap it on a phone. No app needed."
 msgstr "手机轻触即可，无需安装应用。"
 
-#: apps/marketing/content.py:40
+#: apps/marketing/content.py:43
 msgid "Saved straight to their phone's contacts."
 msgstr "直接保存到对方手机通讯录。"
 
@@ -6632,7 +6632,7 @@ msgstr "本月买家打开最多的商品。点击任意一件即可在其店铺
 msgid "Business page with unlimited products"
 msgstr "商家主页，产品数量不限"
 
-#: apps/marketing/content.py:127
+#: apps/marketing/content.py:130
 #, python-format
 msgid "%(name)s (unlimited products)"
 msgstr "%(name)s（产品数量不限）"
@@ -6811,6 +6811,10 @@ msgid ""
 "<strong>Changing your details, links or web address costs "
 "%(update_price)s.</strong>"
 msgstr "<strong>修改您的资料、链接或网址需支付 %(update_price)s。</strong>"
+
+#: apps/marketing/content.py:30
+msgid "Pay once by Mobile Money or card."
+msgstr "使用 Mobile Money 或银行卡一次付清。"
 
 #~ msgid ""
 #~ "After the 12 months your card keeps working exactly as you last saved it. "

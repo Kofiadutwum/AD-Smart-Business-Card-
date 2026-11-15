@@ -377,7 +377,7 @@ msgstr ""
 msgid "Malformed webhook payload."
 msgstr "Malformed webhook payload."
 
-#: apps/billing/services.py:519
+#: apps/billing/services.py:522
 #, python-format
 msgid "Your receipt %(number)s"
 msgstr "Tu recibo %(number)s"
@@ -1080,31 +1080,31 @@ msgstr "Crea y previsualiza tu tarjeta"
 msgid "Choose a yearly plan"
 msgstr "Elige un plan anual"
 
-#: apps/marketing/content.py:31
+#: apps/marketing/content.py:34
 msgid "Share it everywhere"
 msgstr "Compártela en todas partes"
 
-#: apps/marketing/content.py:37
+#: apps/marketing/content.py:40
 msgid "A link that never changes"
 msgstr "Un enlace que nunca cambia"
 
-#: apps/marketing/content.py:38
+#: apps/marketing/content.py:41
 msgid "A QR code for print"
 msgstr "Un código QR para imprimir"
 
-#: apps/marketing/content.py:39
+#: apps/marketing/content.py:42
 msgid "An NFC card that taps"
 msgstr "Una tarjeta NFC que se toca"
 
-#: apps/marketing/content.py:40
+#: apps/marketing/content.py:43
 msgid "Save contact in one tap"
 msgstr "Guarda el contacto con un toque"
 
-#: apps/marketing/content.py:49
+#: apps/marketing/content.py:52
 msgid "How does an NFC card work?"
 msgstr "¿Cómo funciona una tarjeta NFC?"
 
-#: apps/marketing/content.py:50
+#: apps/marketing/content.py:53
 msgid ""
 "Each card has a small chip programmed with the permanent link to your "
 "digital card. When someone holds their phone near it, the phone opens your "
@@ -1114,11 +1114,11 @@ msgstr ""
 " tarjeta digital. Cuando alguien acerca su teléfono, este abre tu tarjeta en"
 " el navegador. No se instala nada y el chip no necesita batería."
 
-#: apps/marketing/content.py:55
+#: apps/marketing/content.py:58
 msgid "Does it work on both iPhone and Android?"
 msgstr "¿Funciona tanto en iPhone como en Android?"
 
-#: apps/marketing/content.py:56
+#: apps/marketing/content.py:59
 msgid ""
 "Yes. iPhone XS and newer read NFC tags automatically with the screen on. "
 "Most Android phones read them when NFC is switched on in settings. If a "
@@ -1129,11 +1129,11 @@ msgstr ""
 "NFC está activado en los ajustes. Si un teléfono no puede leerla, el código "
 "QR de la tarjeta abre la misma página."
 
-#: apps/marketing/content.py:61
+#: apps/marketing/content.py:64
 msgid "What happens when I change my details?"
 msgstr "¿Qué pasa cuando cambio mis datos?"
 
-#: apps/marketing/content.py:62
+#: apps/marketing/content.py:65
 msgid ""
 "Your link, QR code and NFC card never change. They always open your latest "
 "details, so there is nothing to reprint when you change job, number or "
@@ -1143,11 +1143,11 @@ msgstr ""
 "datos más recientes, así que no hay nada que reimprimir si cambias de "
 "trabajo, de número o de foto."
 
-#: apps/marketing/content.py:66
+#: apps/marketing/content.py:69
 msgid "How does renewal work?"
 msgstr "¿Cómo funciona la renovación?"
 
-#: apps/marketing/content.py:67
+#: apps/marketing/content.py:70
 #, python-format
 msgid ""
 "Plans are yearly. We email you 30 days, 7 days and 1 day before your plan "
@@ -1160,11 +1160,11 @@ msgstr ""
 "actual, así que no pierdes nada. Si se pasa la fecha, tu tarjeta sigue "
 "funcionando durante un periodo de gracia de %(grace)d días."
 
-#: apps/marketing/content.py:79
+#: apps/marketing/content.py:82
 msgid "What if my plan runs out?"
 msgstr "¿Qué pasa si mi plan caduca?"
 
-#: apps/marketing/content.py:80
+#: apps/marketing/content.py:83
 msgid ""
 "After the grace period your card shows a short 'card inactive' page instead "
 "of your details. Renew at any time and the same link, QR code and NFC cards "
@@ -1174,11 +1174,11 @@ msgstr ""
 "«tarjeta inactiva» en lugar de tus datos. Renueva cuando quieras y el mismo "
 "enlace, código QR y tarjetas NFC vuelven a funcionar al instante."
 
-#: apps/marketing/content.py:84
+#: apps/marketing/content.py:87
 msgid "I bought a ready-made card in a shop. How do I start?"
 msgstr "Compré una tarjeta prediseñada en una tienda. ¿Cómo empiezo?"
 
-#: apps/marketing/content.py:85
+#: apps/marketing/content.py:88
 msgid ""
 "Tap the card on your phone, or scan its QR code. Enter the PIN printed on "
 "the back, add your details and create your account. Your first year is "
@@ -1188,11 +1188,11 @@ msgstr ""
 "impreso en el reverso, añade tus datos y crea tu cuenta. Tu primer año ya "
 "está pagado y el enlace de la tarjeta se queda igual para siempre."
 
-#: apps/marketing/content.py:90
+#: apps/marketing/content.py:93
 msgid "How long does an NFC order take?"
 msgstr "¿Cuánto tarda un pedido NFC?"
 
-#: apps/marketing/content.py:91
+#: apps/marketing/content.py:94
 #, python-format
 msgid ""
 "You receive a first design proof within 3 working days of payment, and "
@@ -1204,11 +1204,11 @@ msgstr ""
 "codificación tardan hasta 5 días laborables tras tu aprobación, y después "
 "viene la entrega o la recogida."
 
-#: apps/marketing/content.py:96
+#: apps/marketing/content.py:99
 msgid "Do you deliver outside Ghana?"
 msgstr "¿Entregan fuera de Ghana?"
 
-#: apps/marketing/content.py:97
+#: apps/marketing/content.py:100
 msgid ""
 "Yes. We deliver anywhere in Ghana by courier, you can pick up from our "
 "office for free, and we ship abroad. For orders outside Ghana you pay the "
@@ -1222,11 +1222,11 @@ msgstr ""
 "tu región; los aranceles o impuestos de importación de tu país los paga el "
 "destinatario. Ves la tarifa y el plazo estimado antes de pagar."
 
-#: apps/marketing/content.py:103
+#: apps/marketing/content.py:106
 msgid "Can I cancel an NFC order?"
 msgstr "¿Puedo cancelar un pedido NFC?"
 
-#: apps/marketing/content.py:104
+#: apps/marketing/content.py:107
 msgid ""
 "Before design work starts you get a full refund. After design starts and "
 "before printing, 50% of the card price is refundable. Once printing starts "
@@ -1239,11 +1239,11 @@ msgstr ""
 "cancelar. Una tarjeta con el chip defectuoso, notificada en un plazo de 30 "
 "días, se sustituye gratis."
 
-#: apps/marketing/content.py:109
+#: apps/marketing/content.py:112
 msgid "Why are prices shown in other currencies?"
 msgstr "¿Por qué se muestran los precios en otras monedas?"
 
-#: apps/marketing/content.py:110
+#: apps/marketing/content.py:113
 msgid ""
 "Prices are shown in US dollars unless you choose another currency at the top"
 " of the page. The figure is a guide for international customers, worked out "
@@ -1255,11 +1255,11 @@ msgstr ""
 "clientes internacionales y se calcula con el tipo de cambio de hoy. Siempre "
 "se te cobra en cedis ghanianos, y tu banco puede aplicar su propio tipo."
 
-#: apps/marketing/content.py:115
+#: apps/marketing/content.py:118
 msgid "Which payment methods can I use?"
 msgstr "¿Qué métodos de pago puedo usar?"
 
-#: apps/marketing/content.py:116
+#: apps/marketing/content.py:119
 msgid ""
 "MTN MoMo, Telecel Cash and AirtelTigo Money, plus Visa and Mastercard cards."
 " Payments go through Paystack's secure checkout; we never see your card or "
@@ -1865,7 +1865,7 @@ msgstr "Elige tu plan · %(SITE_NAME)s"
 msgid "Renew or change your plan"
 msgstr "Renueva o cambia tu plan"
 
-#: templates/billing/checkout.html:6
+#: apps/marketing/content.py:29 templates/billing/checkout.html:6
 msgid "Choose your plan"
 msgstr "Elige tu plan"
 
@@ -5268,7 +5268,7 @@ msgstr "Plan %(plan)s para %(people)d personas"
 msgid "%(plan)s, 12 more months"
 msgstr "%(plan)s, 12 meses más"
 
-#: apps/billing/services.py:181 apps/billing/services.py:653
+#: apps/billing/services.py:181 apps/billing/services.py:656
 #, python-format
 msgid "%(plan)s, 12 months"
 msgstr "%(plan)s, 12 meses"
@@ -5622,7 +5622,7 @@ msgstr "Chatea con nosotros"
 msgid "For example MTN, Telecel or Office."
 msgstr "Por ejemplo MTN, Telecel u Oficina."
 
-#: apps/billing/services.py:728 apps/billing/views.py:247
+#: apps/billing/services.py:731 apps/billing/views.py:247
 #: apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "j \\d\\e F \\d\\e Y"
@@ -5699,21 +5699,21 @@ msgstr ""
 msgid "%(brand)s ending %(last4)s"
 msgstr "%(brand)s terminada en %(last4)s"
 
-#: apps/billing/services.py:517
+#: apps/billing/services.py:520
 #, python-format
 msgid "Your plan has renewed. Receipt %(number)s"
 msgstr "Tu plan se ha renovado. Recibo %(number)s"
 
-#: apps/billing/services.py:719
+#: apps/billing/services.py:722
 msgid "We could not renew your plan"
 msgstr "No hemos podido renovar tu plan"
 
-#: apps/billing/services.py:753
+#: apps/billing/services.py:756
 #, python-format
 msgid "Your plan renews on %(date)s"
 msgstr "Tu plan se renueva el %(date)s"
 
-#: apps/billing/services.py:791 templates/billing/checkout.html:21
+#: apps/billing/services.py:794 templates/billing/checkout.html:21
 msgid "Automatic renewal is off"
 msgstr "La renovación automática está desactivada"
 
@@ -5728,11 +5728,11 @@ msgstr ""
 "La renovación automática está desactivada. Tu plan sigue activo hasta el "
 "%(date)s."
 
-#: apps/marketing/content.py:72
+#: apps/marketing/content.py:75
 msgid "Does my plan renew automatically?"
 msgstr "¿Mi plan se renueva automáticamente?"
 
-#: apps/marketing/content.py:73
+#: apps/marketing/content.py:76
 msgid ""
 "If you pay by card, yes. Your card is charged the same yearly price on the "
 "day your plan ends, we email you about a week before and send a receipt "
@@ -6233,11 +6233,11 @@ msgstr ""
 " pagados. Añade tus datos y crea tu cuenta. El enlace y el código QR de tu "
 "tarjeta se quedan exactamente como están impresos."
 
-#: apps/marketing/content.py:120
+#: apps/marketing/content.py:123
 msgid "What is a business page?"
 msgstr "¿Qué es una página del negocio?"
 
-#: apps/marketing/content.py:121
+#: apps/marketing/content.py:124
 msgid ""
 "A page of your own for your business, linked from your card. It shows your "
 "products with pictures and prices, your services, your opening hours and "
@@ -6249,27 +6249,27 @@ msgstr ""
 "clientes, y los visitantes pueden enviarte una consulta. La activas o "
 "desactivas desde tu panel."
 
-#: apps/marketing/content.py:129
+#: apps/marketing/content.py:132
 #, python-format
 msgid "%(name)s (up to %(count)d products)"
 msgstr "%(name)s (hasta %(count)d productos)"
 
-#: apps/marketing/content.py:134
+#: apps/marketing/content.py:137
 msgid "Which plans include a business page?"
 msgstr "¿Qué planes incluyen una página del negocio?"
 
-#: apps/marketing/content.py:135
+#: apps/marketing/content.py:138
 #, python-format
 msgid "A business page comes with %(plans)s."
 msgstr "Una página del negocio viene con %(plans)s."
 
-#: apps/marketing/content.py:136
+#: apps/marketing/content.py:139
 msgid "Do my customers need an app or an account to see my business page?"
 msgstr ""
 "¿Mis clientes necesitan una aplicación o una cuenta para ver mi página del "
 "negocio?"
 
-#: apps/marketing/content.py:137
+#: apps/marketing/content.py:140
 msgid ""
 "No. It is an ordinary web page. It opens from the button on your card, or "
 "from its own link, on any phone."
@@ -6768,7 +6768,7 @@ msgstr "Descartar mis cambios"
 msgid "Changes to your card are open until %(date)s."
 msgstr "Los cambios de tu tarjeta están abiertos hasta el %(date)s."
 
-#: apps/billing/services.py:602
+#: apps/billing/services.py:605
 msgid "Your card will no longer be charged for changes"
 msgstr "Ya no se cobrará a tu tarjeta por los cambios"
 
@@ -7173,23 +7173,23 @@ msgstr "Añade tus datos y mira cómo se actualiza la vista previa."
 msgid "Pay by Mobile Money or card."
 msgstr "Paga con Mobile Money o tarjeta."
 
-#: apps/marketing/content.py:32
+#: apps/marketing/content.py:35
 msgid "Link, QR code or NFC card. Update it any time."
 msgstr "Enlace, código QR o tarjeta NFC. Actualízala cuando quieras."
 
-#: apps/marketing/content.py:37
+#: apps/marketing/content.py:40
 msgid "Paste it anywhere. It always shows your latest details."
 msgstr "Pégalo donde quieras. Siempre muestra tus últimos datos."
 
-#: apps/marketing/content.py:38
+#: apps/marketing/content.py:41
 msgid "Download it as PNG or SVG for print."
 msgstr "Descárgalo en PNG o SVG para imprimir."
 
-#: apps/marketing/content.py:39
+#: apps/marketing/content.py:42
 msgid "Tap it on a phone. No app needed."
 msgstr "Acércala a un teléfono. No hace falta ninguna app."
 
-#: apps/marketing/content.py:40
+#: apps/marketing/content.py:43
 msgid "Saved straight to their phone's contacts."
 msgstr "Se guarda directamente en los contactos del teléfono."
 
@@ -7235,7 +7235,7 @@ msgstr ""
 msgid "Business page with unlimited products"
 msgstr "Página del negocio con productos ilimitados"
 
-#: apps/marketing/content.py:127
+#: apps/marketing/content.py:130
 #, python-format
 msgid "%(name)s (unlimited products)"
 msgstr "%(name)s (productos ilimitados)"
@@ -7440,6 +7440,10 @@ msgid ""
 msgstr ""
 "<strong>Cambiar tus datos, enlaces o dirección web cuesta "
 "%(update_price)s.</strong>"
+
+#: apps/marketing/content.py:30
+msgid "Pay once by Mobile Money or card."
+msgstr "Paga una sola vez con Mobile Money o tarjeta."
 
 #~ msgid ""
 #~ "After the 12 months your card keeps working exactly as you last saved it. "

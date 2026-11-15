@@ -554,7 +554,7 @@
 }
 .step {
   position: relative;
-  padding: var(--space-6);
+  padding: var(--space-5);
   border-radius: var(--radius-lg);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -563,7 +563,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
 }
 .step__num span {
   font-size: var(--text-sm);
@@ -655,34 +655,57 @@
   }
 }
 
+/* The sharing options and the sample phone sit together in one panel, so there is no loose
+   white space between them: the options are tiles beside the phone on a wide screen and
+   above it on a phone. */
 .share-showcase {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-8);
+  gap: var(--space-5);
   align-items: center;
-  margin-top: var(--space-8);
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+}
+.share-showcase h2 {
+  font-size: var(--text-2xl);
+}
+/* A shorter, slimmer phone here than in the editor and staff previews. */
+.share-showcase .phone {
+  width: min(100%, 20rem);
+}
+.share-showcase .phone__screen {
+  height: 31rem;
 }
 @media (min-width: 64rem) {
   .share-showcase {
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
     gap: var(--space-8);
+    padding: var(--space-8);
   }
 }
 .share-list {
   display: grid;
-  gap: var(--space-6);
-  margin: var(--space-8) 0 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
   padding: 0;
   list-style: none;
 }
 @media (min-width: 40rem) {
   .share-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
   }
 }
 .share-list li {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--bg-alt);
+  align-content: start;
 }
 .share-list .icon-tile {
   display: grid;
@@ -692,7 +715,7 @@
   border-radius: var(--radius-sm);
   background: var(--accent-soft);
   color: var(--accent);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
 }
 .share-list h3 {
   font-size: var(--text-base);
@@ -701,21 +724,19 @@
   color: var(--muted);
   font-size: var(--text-sm);
 }
-/* Phones: icon beside the text rather than above it. */
+/* Phones: the four options stay a compact 2 by 2 grid and the sample phone is shorter. */
 @media (max-width: 39.99rem) {
   .share-list li {
-    grid-template-columns: auto minmax(0, 1fr);
-    column-gap: var(--space-4);
-    row-gap: var(--space-1);
-    align-items: start;
+    padding: var(--space-3);
   }
-  .share-list .icon-tile {
-    grid-row: 1 / span 2;
-    margin-bottom: 0;
+  .share-list h3 {
+    font-size: var(--text-sm);
   }
-  .share-list h3,
   .share-list p {
-    grid-column: 2;
+    font-size: var(--text-xs);
+  }
+  .share-showcase .phone__screen {
+    height: 27rem;
   }
 }
 
@@ -775,7 +796,7 @@
   position: relative;
   /* Room for the swing, without the tilted corners causing a sideways
      scroll on phones. */
-  padding: var(--space-6) var(--space-6) 0;
+  padding: var(--space-4) var(--space-4) 0;
   overflow-x: clip;
 }
 
@@ -811,7 +832,7 @@
   justify-content: center;
   align-items: center;
   gap: var(--space-2);
-  margin-top: var(--space-6);
+  margin-top: var(--space-3);
   font-size: var(--text-sm);
   color: var(--muted);
   text-align: center;

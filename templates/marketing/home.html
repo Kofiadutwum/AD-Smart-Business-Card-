@@ -86,8 +86,8 @@
       {% for s in how_it_works %}
       <li class="step">
         <div class="step__num"><span class="step__icon">{% icon s.icon 22 %}</span><span>0{{ forloop.counter }}</span></div>
-        <h3>{{ s.title }}</h3>
-        <p>{{ s.text }}</p>
+        <h3>{% if in_ghana and s.title_once %}{{ s.title_once }}{% else %}{{ s.title }}{% endif %}</h3>
+        <p>{% if in_ghana and s.text_once %}{{ s.text_once }}{% else %}{{ s.text }}{% endif %}</p>
       </li>
       {% endfor %}
     </ol>

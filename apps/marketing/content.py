@@ -25,6 +25,9 @@ HOW_IT_WORKS = [
         "icon": "credit-card",
         "title": gettext_lazy("Choose a yearly plan"),
         "text": gettext_lazy("Pay by Mobile Money or card."),
+        # Visitors in Ghana pay once, so no "yearly".
+        "title_once": gettext_lazy("Choose your plan"),
+        "text_once": gettext_lazy("Pay once by Mobile Money or card."),
     },
     {
         "icon": "share-2",
