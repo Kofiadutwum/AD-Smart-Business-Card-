@@ -4993,7 +4993,7 @@ msgstr ""
 msgid "Share by link, QR code or NFC tap. Update your details any time."
 msgstr ""
 
-#: templates/marketing/home.html:28 templates/marketing/home.html:193 templates/partials/site_header.html:51
+#: templates/marketing/home.html:28 templates/marketing/home.html:192 templates/partials/site_header.html:51
 msgid "Create my card"
 msgstr ""
 
@@ -5061,88 +5061,80 @@ msgstr ""
 msgid "delivery across Ghana, shipping abroad, or free pickup"
 msgstr ""
 
-#: templates/marketing/home.html:81 templates/partials/site_header.html:33
-msgid "How it works"
-msgstr ""
-
 #: templates/marketing/home.html:82
-msgid "From sign-up to shared in four steps."
-msgstr ""
-
-#: templates/marketing/home.html:83
-msgid "Build and preview for free. Pay only when you are happy."
-msgstr ""
-
-#: templates/marketing/home.html:98
-msgid "Share it any way you like."
-msgstr ""
-
-#: templates/marketing/home.html:110
-msgid "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work."
-msgstr ""
-
-#: templates/marketing/home.html:115
-msgid "Try it. The buttons work."
-msgstr ""
-
-#: templates/marketing/home.html:126
 msgid "Shop window"
 msgstr ""
 
-#: templates/marketing/home.html:127
+#: templates/marketing/home.html:83
 msgid "Popular right now from businesses on AD Smart."
 msgstr ""
 
-#: templates/marketing/home.html:128
-msgid "The products shoppers opened most this month. Tap one to see it in its shop, then message the seller on WhatsApp."
-msgstr ""
-
-#: templates/marketing/home.html:130
+#: templates/marketing/home.html:85
 msgid "Popular products"
 msgstr ""
 
-#: templates/marketing/home.html:138
+#: templates/marketing/home.html:93
 msgid "View businesses"
 msgstr ""
 
-#: templates/marketing/home.html:149
+#: templates/marketing/home.html:104 templates/partials/site_header.html:33
+msgid "How it works"
+msgstr ""
+
+#: templates/marketing/home.html:105
+msgid "From sign-up to shared in four steps."
+msgstr ""
+
+#: templates/marketing/home.html:106
+msgid "Build and preview for free. Pay only when you are happy."
+msgstr ""
+
+#: templates/marketing/home.html:121
+msgid "Share it any way you like."
+msgstr ""
+
+#: templates/marketing/home.html:133
+msgid "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work."
+msgstr ""
+
+#: templates/marketing/home.html:148
 msgid "Our work"
 msgstr ""
 
-#: templates/marketing/home.html:150
+#: templates/marketing/home.html:149
 msgid "Recent designs from the AD Graphics studio."
 msgstr ""
 
-#: templates/marketing/home.html:161 templates/marketing/pricing.html:7 templates/partials/site_footer.html:15 templates/partials/site_header.html:34
+#: templates/marketing/home.html:160 templates/marketing/pricing.html:7 templates/partials/site_footer.html:15 templates/partials/site_header.html:34
 msgid "Pricing"
 msgstr ""
 
-#: templates/marketing/home.html:162 templates/marketing/pricing.html:8
+#: templates/marketing/home.html:161 templates/marketing/pricing.html:8
 msgid "Pay once. Keep your card."
 msgstr ""
 
-#: templates/marketing/home.html:162 templates/marketing/pricing.html:8
+#: templates/marketing/home.html:161 templates/marketing/pricing.html:8
 msgid "One simple yearly price."
 msgstr ""
 
-#: templates/marketing/home.html:179
+#: templates/marketing/home.html:178
 msgid "Questions"
 msgstr ""
 
-#: templates/marketing/home.html:180
+#: templates/marketing/home.html:179
 msgid "Good to know."
 msgstr ""
 
-#: templates/marketing/home.html:183
+#: templates/marketing/home.html:182
 #, python-format
 msgid "<a href=\"%(url_3)s\">Read all questions</a> or <a href=\"%(url_4)s\">ask us directly</a>."
 msgstr ""
 
-#: templates/marketing/home.html:191
+#: templates/marketing/home.html:190
 msgid "Your next introduction deserves better than paper."
 msgstr ""
 
-#: templates/marketing/home.html:194
+#: templates/marketing/home.html:193
 msgid "Talk to us on WhatsApp"
 msgstr ""
 
