@@ -24,8 +24,8 @@ from .models import DeliveryZone, DesignProof, NFCOrder, NFCOrderItem
 from django.utils.translation import gettext as _, ngettext
 
 
-def _order_quote(quantity, zone, plan, promo, paid_once=False):
-    cards_minor = services.cards_price(quantity)
+def _order_quote(quantity, zone, plan, promo, paid_once=False, tier_list=None):
+    cards_minor = services.cards_price(quantity, tier_list)
     lines = [(
         lambda: ngettext("%(count)d customised NFC card", "%(count)d customised NFC cards", quantity) % {"count": quantity},
         cards_minor,
@@ -71,6 +71,7 @@ def order(request):
     plan_limit = subscription.card_limit if subscription else 1
     order_cards = cards if plan_limit > 1 else cards[:1]
     plans = billing.active_plans()
+    tier_list = services.tiers(ghana=geo.in_ghana(request))  # the server decides the card price, as it does for plans
     first = cards[0]
     initial = {
         "full_name": first.full_name,
@@ -96,7 +97,8 @@ def order(request):
             plan = data.get("plan") if needs_plan else None
             paid_once = bool(plan) and geo.in_ghana(request)  # a plan bought with the cards is paid once from Ghana
             try:
-                quote = _order_quote(data["quantity"], data["delivery_zone"], plan, promo, paid_once=paid_once)
+                quote = _order_quote(data["quantity"], data["delivery_zone"], plan, promo, paid_once=paid_once,
+                                     tier_list=tier_list)
             except ValueError as exc:
                 form.add_error(None, str(exc))
                 quote = None
@@ -157,7 +159,7 @@ def order(request):
             "form": form,
             "needs_plan": needs_plan,
             "plan_limit": plan_limit,
-            "tiers_json": services.tiers_json(),
+            "tiers_json": services.tiers_json(tier_list),
             "zones": DeliveryZone.objects.filter(is_active=True),
             "zones_json": {
                 z.pk: {"fee": z.fee_minor, "pickup": z.is_pickup, "intl": z.is_international, "eta": z.eta}

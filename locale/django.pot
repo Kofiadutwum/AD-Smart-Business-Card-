@@ -422,7 +422,7 @@ msgstr ""
 msgid "Abandoned"
 msgstr ""
 
-#: apps/billing/models.py:460 apps/nfc/models.py:109
+#: apps/billing/models.py:460 apps/nfc/models.py:113
 msgid "Refunded"
 msgstr ""
 
@@ -576,7 +576,7 @@ msgstr ""
 msgid "Upgrade to %(plan)s for %(months_left)s"
 msgstr ""
 
-#: apps/billing/views.py:128 apps/dashboard/views.py:201 apps/nfc/views.py:264
+#: apps/billing/views.py:128 apps/dashboard/views.py:201 apps/nfc/views.py:266
 #, python-format
 msgid "%(reason)s You have not been charged."
 msgstr ""
@@ -1971,7 +1971,7 @@ msgstr ""
 msgid "Design and print studio in Cape Coast"
 msgstr ""
 
-#: apps/marketing/views.py:167 templates/base.html:38
+#: apps/marketing/views.py:168 templates/base.html:38
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr ""
 
@@ -2104,146 +2104,146 @@ msgstr ""
 msgid "Why are you cancelling? (optional)"
 msgstr ""
 
-#: apps/nfc/models.py:43
+#: apps/nfc/models.py:47
 #, python-format
 msgid "More than %(count)d card"
 msgid_plural "More than %(count)d cards"
 msgstr ""
 
-#: apps/nfc/models.py:46
+#: apps/nfc/models.py:50
 #, python-format
 msgid "%(count)d card"
 msgid_plural "%(count)d cards"
 msgstr ""
 
-#: apps/nfc/models.py:47
+#: apps/nfc/models.py:51
 #, python-format
 msgid "%(min)d–%(max)d cards"
 msgstr ""
 
-#: apps/nfc/models.py:72 templates/nfc/order.html:74
+#: apps/nfc/models.py:76 templates/nfc/order.html:74
 msgid "Outside Ghana"
 msgstr ""
 
-#: apps/nfc/models.py:72 templates/nfc/order.html:68
+#: apps/nfc/models.py:76 templates/nfc/order.html:68
 msgid "In Ghana"
 msgstr ""
 
-#: apps/nfc/models.py:94
+#: apps/nfc/models.py:98
 msgid "Pending payment"
 msgstr ""
 
-#: apps/nfc/models.py:95
+#: apps/nfc/models.py:99
 msgid "Payment confirmed"
 msgstr ""
 
-#: apps/nfc/models.py:96
+#: apps/nfc/models.py:100
 msgid "Design pending"
 msgstr ""
 
-#: apps/nfc/models.py:97
+#: apps/nfc/models.py:101
 msgid "Design in progress"
 msgstr ""
 
-#: apps/nfc/models.py:98
+#: apps/nfc/models.py:102
 msgid "Awaiting your approval"
 msgstr ""
 
-#: apps/nfc/models.py:99
+#: apps/nfc/models.py:103
 msgid "Revision requested"
 msgstr ""
 
-#: apps/nfc/models.py:100
+#: apps/nfc/models.py:104
 msgid "On hold"
 msgstr ""
 
-#: apps/nfc/models.py:101
+#: apps/nfc/models.py:105
 msgid "Design approved"
 msgstr ""
 
-#: apps/nfc/models.py:102
+#: apps/nfc/models.py:106
 msgid "Printing"
 msgstr ""
 
-#: apps/nfc/models.py:103
+#: apps/nfc/models.py:107
 msgid "Encoding and quality check"
 msgstr ""
 
-#: apps/nfc/models.py:104
+#: apps/nfc/models.py:108
 msgid "Ready for delivery"
 msgstr ""
 
-#: apps/nfc/models.py:105
+#: apps/nfc/models.py:109
 msgid "Ready for pickup"
 msgstr ""
 
-#: apps/nfc/models.py:106
+#: apps/nfc/models.py:110
 msgid "Dispatched"
 msgstr ""
 
-#: apps/nfc/models.py:107 templates/dashboard/nfc_orders.html:23
+#: apps/nfc/models.py:111 templates/dashboard/nfc_orders.html:23
 msgid "Delivered"
 msgstr ""
 
-#: apps/nfc/models.py:108
+#: apps/nfc/models.py:112
 msgid "Cancelled"
 msgstr ""
 
-#: apps/nfc/services.py:131
+#: apps/nfc/services.py:136
 #, python-format
 msgid "Order %(number)s confirmed"
 msgstr ""
 
-#: apps/nfc/services.py:156
+#: apps/nfc/services.py:161
 msgid "Our designers have started on your cards"
 msgstr ""
 
-#: apps/nfc/services.py:157
+#: apps/nfc/services.py:162
 msgid "Your NFC order is on hold"
 msgstr ""
 
-#: apps/nfc/services.py:158
+#: apps/nfc/services.py:163
 msgid "Your NFC cards are being printed"
 msgstr ""
 
-#: apps/nfc/services.py:159
+#: apps/nfc/services.py:164
 msgid "Your NFC cards are being encoded and tested"
 msgstr ""
 
-#: apps/nfc/services.py:160
+#: apps/nfc/services.py:165
 msgid "Your NFC cards are ready for delivery"
 msgstr ""
 
-#: apps/nfc/services.py:161
+#: apps/nfc/services.py:166
 msgid "Your NFC cards are ready for pickup"
 msgstr ""
 
-#: apps/nfc/services.py:162
+#: apps/nfc/services.py:167
 msgid "Your NFC cards are on their way"
 msgstr ""
 
-#: apps/nfc/services.py:163
+#: apps/nfc/services.py:168
 msgid "Your NFC cards have been delivered"
 msgstr ""
 
-#: apps/nfc/services.py:164
+#: apps/nfc/services.py:169
 msgid "Your NFC order has been cancelled"
 msgstr ""
 
-#: apps/nfc/services.py:165
+#: apps/nfc/services.py:170
 msgid "Your NFC order has been refunded"
 msgstr ""
 
-#: apps/nfc/services.py:166
+#: apps/nfc/services.py:171
 msgid "Your NFC order is in the design queue"
 msgstr ""
 
-#: apps/nfc/services.py:226
+#: apps/nfc/services.py:231
 #, python-format
 msgid "Please review design proof %(version)s for %(number)s"
 msgstr ""
 
-#: apps/nfc/services.py:320
+#: apps/nfc/services.py:325
 #, python-format
 msgid "Reminder: your design proof for %(number)s is waiting"
 msgstr ""
@@ -2263,51 +2263,51 @@ msgstr ""
 msgid "Create your digital card first. Your NFC cards will open it."
 msgstr ""
 
-#: apps/nfc/views.py:149
+#: apps/nfc/views.py:151
 #, python-format
 msgid "%(reason)s Your order is saved; you can pay from the order page."
 msgstr ""
 
-#: apps/nfc/views.py:177
+#: apps/nfc/views.py:179
 msgid "We could not find that payment. If money left your account, contact support."
 msgstr ""
 
-#: apps/nfc/views.py:181
+#: apps/nfc/views.py:183
 msgid "Payment received. Your NFC order is confirmed."
 msgstr ""
 
-#: apps/nfc/views.py:183
+#: apps/nfc/views.py:185
 msgid "Your payment is still being confirmed. This page updates when it is."
 msgstr ""
 
-#: apps/nfc/views.py:185
+#: apps/nfc/views.py:187
 msgid "That payment did not go through. You have not been charged."
 msgstr ""
 
-#: apps/nfc/views.py:275
+#: apps/nfc/views.py:277
 msgid "Design approved. We will start printing and encoding your cards."
 msgstr ""
 
-#: apps/nfc/views.py:288
+#: apps/nfc/views.py:290
 msgid "Tell us what to change."
 msgstr ""
 
-#: apps/nfc/views.py:294
+#: apps/nfc/views.py:296
 #, python-format
 msgid "Thanks. Our designers will send a new proof. You have %(left)d free round of changes left."
 msgid_plural "Thanks. Our designers will send a new proof. You have %(left)d free rounds of changes left."
 msgstr ""
 
-#: apps/nfc/views.py:299
+#: apps/nfc/views.py:301
 msgid "Thanks. This is beyond the free revision rounds, so our team may contact you about a small fee."
 msgstr ""
 
-#: apps/nfc/views.py:315
+#: apps/nfc/views.py:317
 #, python-format
 msgid "Order cancelled. A refund of %(amount)s will be processed to your original payment method."
 msgstr ""
 
-#: apps/nfc/views.py:317
+#: apps/nfc/views.py:319
 msgid "Order cancelled."
 msgstr ""
 
@@ -4911,6 +4911,10 @@ msgstr ""
 #: templates/marketing/_plans.html:14 templates/marketing/_plans.html:17 templates/marketing/_plans.html:18 templates/marketing/_plans.html:21
 #, python-format
 msgid "for up to %(plan_max_cards)s people"
+msgstr ""
+
+#: templates/marketing/_plans.html:14
+msgid "Printed card"
 msgstr ""
 
 #: templates/marketing/_plans.html:16

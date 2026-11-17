@@ -29,9 +29,13 @@ class PriceTier(models.Model):
         max_length=12, choices=[(FLAT, "Every card at this price"), (INCREMENTAL, "Extra cards above the previous tier")],
         default=FLAT,
     )
+    ghana = models.BooleanField(
+        default=False,
+        help_text="Tick for the price table shown to visitors in Ghana. Without any ticked row they pay the common table.",
+    )
 
     class Meta:
-        ordering = ["min_quantity"]
+        ordering = ["ghana", "min_quantity"]
 
     def __str__(self):
         top = self.max_quantity or "+"

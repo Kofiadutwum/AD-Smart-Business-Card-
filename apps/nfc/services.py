@@ -18,8 +18,13 @@ from .models import DesignProof, NFCOrder, OrderEvent, PriceTier
 # --------------------------------------------------------------------------
 
 
-def tiers():
-    return list(PriceTier.objects.order_by("min_quantity"))
+def tiers(ghana=False):
+    """The price table a visitor pays: Ghana's own table when one is set, else the common one."""
+    if ghana:
+        own = list(PriceTier.objects.filter(ghana=True).order_by("min_quantity"))
+        if own:
+            return own
+    return list(PriceTier.objects.filter(ghana=False).order_by("min_quantity"))
 
 
 def cards_price(quantity, tier_list=None):

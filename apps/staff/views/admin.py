@@ -82,8 +82,11 @@ def pricing(request):
                     current.pop(deleted.pk, None)
                 for tier in instances:
                     current[tier.pk or f"new-{id(tier)}"] = tier
-                proposed = sorted(current.values(), key=lambda t: t.min_quantity)
-                problems = nfc_services.pricing_problems(proposed)
+                problems = []
+                for ghana in (False, True):
+                    table = sorted((t for t in current.values() if t.ghana == ghana), key=lambda t: t.min_quantity)
+                    if table:
+                        problems += nfc_services.pricing_problems(table)
                 if problems:
                     shown = ", ".join(f"{q} cards ({why})" for q, why in problems[:5])
                     messages.error(request, f"Not saved: the new prices leave gaps or make larger orders cheaper at {shown}.")
@@ -97,11 +100,15 @@ def pricing(request):
             return redirect("staff:pricing")
         messages.error(request, "Some rows need fixing.")
     examples = []
-    for quantity in (1, 4, 5, 9, 10, 20, 21, 50):
-        try:
-            examples.append((quantity, nfc_services.cards_price(quantity)))
-        except ValueError:
-            examples.append((quantity, None))
+    common, ghana_table = nfc_services.tiers(), nfc_services.tiers(ghana=True)
+    for quantity in (1, 4, 5, 9, 10, 11, 20, 21, 50):
+        row = [quantity]
+        for table in (common, ghana_table):
+            try:
+                row.append(nfc_services.cards_price(quantity, table))
+            except ValueError:
+                row.append(None)
+        examples.append(tuple(row))
     return render(request, "staff/pricing.html", {"tiers": tiers, "zones": zones, "examples": examples})
 
 

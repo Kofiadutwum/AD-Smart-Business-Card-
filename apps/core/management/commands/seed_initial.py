@@ -111,7 +111,7 @@ class Command(BaseCommand):
                 for band in BUSINESS_BANDS:
                     SeatBand.objects.create(plan=plan, **band)
                 self.stdout.write("Created Business team price bands")
-        if not PriceTier.objects.exists():
+        if not PriceTier.objects.filter(ghana=False).exists():  # Ghana's own table comes from migration nfc 0003
             for data in TIERS:
                 PriceTier.objects.create(**data)
             self.stdout.write("Created NFC price tiers")

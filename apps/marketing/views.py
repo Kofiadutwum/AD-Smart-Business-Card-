@@ -20,6 +20,7 @@ from apps.billing.services import TEAM_MAX_SEATS, active_plans
 from apps.cards import marketplace
 from apps.cards.services import business_page_for, company_card
 from apps.cards.views import business_context
+from apps.core import geo
 from apps.core.models import SiteSettings
 from apps.nfc import services as nfc
 from apps.nfc.models import DeliveryZone
@@ -31,8 +32,8 @@ from .models import GalleryImage
 EXAMPLE_QUANTITIES = [1, 4, 5, 10, 20, 21, 30, 50]
 
 
-def _pricing_context():
-    tier_list = nfc.tiers()
+def _pricing_context(request):
+    tier_list = nfc.tiers(ghana=geo.in_ghana(request))
     examples = []
     for quantity in EXAMPLE_QUANTITIES:
         try:
@@ -59,7 +60,7 @@ def _company():
 def home(request):
     site = SiteSettings.load()
     company = _company()
-    context = _pricing_context()
+    context = _pricing_context(request)
     gallery = list(GalleryImage.objects.filter(is_published=True))
     context.update(
         {
@@ -120,11 +121,11 @@ def demo_business_page(request):
 
 
 def pricing(request):
-    return render(request, "marketing/pricing.html", _pricing_context())
+    return render(request, "marketing/pricing.html", _pricing_context(request))
 
 
 def nfc_cards(request):
-    context = _pricing_context()
+    context = _pricing_context(request)
     context["faq"] = [item for item in faq(SiteSettings.load()) if "NFC" in item["q"] or "deliver" in item["q"].lower() or "cancel" in item["q"].lower()]
     return render(request, "marketing/nfc.html", context)
 

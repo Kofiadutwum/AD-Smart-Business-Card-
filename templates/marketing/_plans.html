@@ -11,7 +11,7 @@
       {% if in_ghana %}
         {# Visitors in Ghana pay once, in cedis. The plan never ends; later changes to details are paid per card. #}
         <div class="plan__amount">{% if plan.is_team %}<span class="plan__per">{% trans "from" %}</span>{% endif %}<span class="plan__usd">{{ plan.price_minor|ghs }}</span></div>
-        <p class="plan__ghs">{% if plan.is_team %}{% blocktrans trimmed with plan_max_cards=plan.max_cards %}for up to {{ plan_max_cards }} people{% endblocktrans %}<br>{% endif %}{% trans "paid once" %}</p>
+        <p class="plan__ghs">{% if plan.is_team %}{% blocktrans trimmed with plan_max_cards=plan.max_cards %}for up to {{ plan_max_cards }} people{% endblocktrans %}<br>{% endif %}{% trans "paid once" %}{% if nfc_examples %}<br>{% trans "Printed card" %}: {{ nfc_examples.0.1|ghs }}{% endif %}</p>
       {% elif rate %}
         <div class="plan__amount">{% if plan.is_team %}<span class="plan__per">{% trans "from" %}</span>{% endif %}<span class="plan__usd">{% local_amount plan.price_minor %}</span><span class="plan__per">{% trans "/ year" %}</span></div>
         {% if currency != "GHS" %}<p class="plan__ghs">{% blocktrans trimmed with plan_price_minor_ghs=plan.price_minor|ghs %}{{ plan_price_minor_ghs }} per year{% endblocktrans %}{% if plan.is_team %} {% blocktrans trimmed with plan_max_cards=plan.max_cards %}for up to {{ plan_max_cards }} people{% endblocktrans %}{% endif %}</p>

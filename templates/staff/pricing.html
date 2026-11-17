@@ -18,6 +18,7 @@
           </div>
           <div class="form-row form-row--2 mt-4">
             {% include "components/field.html" with field=f.mode %}
+            {% include "components/field.html" with field=f.ghana %}
             {% if f.instance.pk %}{% include "components/field.html" with field=f.DELETE %}{% endif %}
           </div>
           {% for e in f.non_field_errors %}<p class="field-error">{{ e }}</p>{% endfor %}
@@ -27,7 +28,7 @@
     </form>
     {% if examples %}
       <h3 class="mt-8" style="font-size: var(--text-base)">What customers pay now</h3>
-      <div class="table-wrap mt-2" style="border:0"><table class="table"><tbody>{% for q, price in examples %}<tr><td>{{ q }} card{{ q|pluralize }}</td><td class="num">{% if price is None %}<span style="color: var(--danger)">No price</span>{% else %}{% money price %}{% endif %}</td></tr>{% endfor %}</tbody></table></div>
+      <div class="table-wrap mt-2" style="border:0"><table class="table"><thead><tr><th scope="col">Cards</th><th scope="col" class="num">Everyone else</th><th scope="col" class="num">Visitors in Ghana</th></tr></thead><tbody>{% for q, price, ghana_price in examples %}<tr><td>{{ q }} card{{ q|pluralize }}</td><td class="num">{% if price is None %}<span style="color: var(--danger)">No price</span>{% else %}{% money price %}{% endif %}</td><td class="num">{% if ghana_price is None %}<span style="color: var(--danger)">No price</span>{% else %}{% money ghana_price %}{% endif %}</td></tr>{% endfor %}</tbody></table></div>
     {% endif %}
   </section>
   <section class="panel">

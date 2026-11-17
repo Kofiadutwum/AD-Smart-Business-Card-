@@ -232,7 +232,8 @@ class TierForm(forms.ModelForm):
 
     class Meta:
         model = PriceTier
-        fields = ["min_quantity", "max_quantity", "mode"]
+        fields = ["min_quantity", "max_quantity", "mode", "ghana"]
+        labels = {"ghana": "Price table for visitors in Ghana"}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
