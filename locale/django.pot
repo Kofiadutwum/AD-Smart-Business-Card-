@@ -4848,10 +4848,6 @@ msgstr ""
 msgid "This page is translated to help you. If the translation and the English version differ, the English version applies."
 msgstr ""
 
-#: templates/marketing/_legal.html:9
-msgid "<strong>Draft for review.</strong> This text follows the business rules in the AD Smart requirements. Have it reviewed by a lawyer before launch, and confirm your Data Protection Commission obligations (SRS PRV-03)."
-msgstr ""
-
 #: templates/marketing/_nfc_section.html:5
 msgid "A printed card that opens your digital one."
 msgstr ""
