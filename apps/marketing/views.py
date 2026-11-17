@@ -47,6 +47,7 @@ def _pricing_context(request):
         "tiers": tier_list,
         "tiers_json": nfc.tiers_json(tier_list),
         "nfc_examples": examples,
+        "nfc_lowest_minor": min((t.unit_price_minor for t in tier_list), default=0),
         "zones": DeliveryZone.objects.filter(is_active=True),
     }
 
@@ -79,7 +80,7 @@ def home(request):
             ],
             "how_it_works": HOW_IT_WORKS,
             "sharing": SHARING,
-            "faq": faq(site)[:4],
+            "faq": faq(site, ghana=geo.in_ghana(request))[:4],
             "demo": company_demo(company) if company else demo_card(site),
             "market_slides": marketplace.slider(),
             "over_hero": True,
@@ -126,12 +127,12 @@ def pricing(request):
 
 def nfc_cards(request):
     context = _pricing_context(request)
-    context["faq"] = [item for item in faq(SiteSettings.load()) if "NFC" in item["q"] or "deliver" in item["q"].lower() or "cancel" in item["q"].lower()]
+    context["faq"] = [item for item in faq(SiteSettings.load(), ghana=geo.in_ghana(request)) if "NFC" in item["q"] or "deliver" in item["q"].lower() or "cancel" in item["q"].lower()]
     return render(request, "marketing/nfc.html", context)
 
 
 def faq_page(request):
-    return render(request, "marketing/faq.html", {"faq": faq(SiteSettings.load())})
+    return render(request, "marketing/faq.html", {"faq": faq(SiteSettings.load(), ghana=geo.in_ghana(request))})
 
 
 def legal(request, page):

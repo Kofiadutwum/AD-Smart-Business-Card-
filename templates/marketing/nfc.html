@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{% blocktrans trimmed %}NFC business cards · {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
-{% block description %}{% trans "Customised NFC cards designed, printed, encoded and tested in Ghana. From GHS 135 per card, with delivery across Ghana and shipping worldwide." %}{% endblock %}
+{% block description %}{% blocktrans trimmed with nfc_lowest_ghs=nfc_lowest_minor|ghs %}Customised NFC cards designed, printed, encoded and tested in Ghana. From {{ nfc_lowest_ghs }} per card, with delivery across Ghana and shipping worldwide.{% endblocktrans %}{% endblock %}
 {% block content %}
 <section class="section">
   <div class="container">{% include "marketing/_nfc_section.html" with heading_id="nfc-page" %}</div>

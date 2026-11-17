@@ -9,11 +9,19 @@
 <p>{% trans "You must give accurate details, confirm your email address, and keep your password private. You are responsible for what happens on your account." %}</p>
 <h2>{% trans "3. Plans and payment" %}</h2>
 <ul>
-  <li>{% trans "Plans are paid yearly in Ghana cedis through Paystack. US dollar prices are approximate and for guidance only." %}</li>
+  <li>{% trans "Plans are paid in Ghana cedis through Paystack. US dollar prices are approximate and for guidance only." %}</li>
   <li>{% trans "Your card becomes public only after Paystack confirms your payment." %}</li>
+  <li>{% trans "A plan is paid once or paid yearly. A plan paid once never ends and is never renewed." %}</li>
+  <li>{% trans "Price changes apply to new purchases and renewals only, never to time you have already paid for." %}</li>
+</ul>
+<h3>{% trans "Plans paid once" %}</h3>
+<ul>
+  <li>{% trans "Changes to a card’s details, links and web address are free for 12 months from the later of the card’s creation and the plan purchase. After that, each card needs a payment, at the price shown when you make the change, which opens 12 more months of changes to that card. Until it is paid the card stays live as you last saved it. A business page is always free." %}</li>
+</ul>
+<h3>{% trans "Yearly plans" %}</h3>
+<ul>
   <li>{% trans "A plan paid by Mobile Money is renewed by you. A plan paid by card renews automatically each year: on the day it ends we charge the same card the plan price shown at checkout, we email you about 7 days before and send a receipt after, and you can turn automatic renewal off at any time in your dashboard. Turning it off keeps your plan until the end of the year already paid for. Renewing early adds a year to your current end date." %}</li>
   <li>{% blocktrans trimmed with site_grace_period_days=site.grace_period_days %}If you do not renew, your card keeps working for a {{ site_grace_period_days }}-day grace period, then shows a “card inactive” page. Renew at any time to restore the same link, QR code and NFC cards.{% endblocktrans %}</li>
-  <li>{% trans "Price changes apply to new purchases and renewals only, never to time you have already paid for." %}</li>
 </ul>
 <h2>{% trans "4. Your card link" %}</h2>
 <p>{% trans "Your card link is permanent. You can change it only until an NFC card has been ordered for it. Links are never given to another person, even after an account is deleted." %}</p>

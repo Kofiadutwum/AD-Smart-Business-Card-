@@ -9,6 +9,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
 from apps.billing.services import active_plans
+from apps.core.utils import format_ghs
 
 HOW_IT_WORKS = [
     {
@@ -33,6 +34,8 @@ HOW_IT_WORKS = [
         "icon": "share-2",
         "title": gettext_lazy("Share it everywhere"),
         "text": gettext_lazy("Link, QR code or NFC card. Update it any time."),
+        # In Ghana later changes are paid after the first year, so no "any time".
+        "text_once": gettext_lazy("Link, QR code or NFC card."),
     },
 ]
 
@@ -44,9 +47,58 @@ SHARING = [
 ]
 
 
-def faq(site, plans=None, tiers=None):
+def _ghana_changes_answer(plans):
+    """What changing details costs on a plan paid once: free for a year, then a payment per card."""
+    single = next((p for p in plans if not p.is_team), None)
+    team = next((p for p in plans if p.is_team), None)
+    answer = _("Your link, QR code and NFC card never change. They always open your latest details, so there "
+               "is nothing to reprint when you change job, number or photo.")
+    if single:
+        # shortcut: assumes every single-card plan has the same change price; word it per plan if they ever differ.
+        answer += " " + _("Changes to your details, links and web address are free for 12 months. After that, a payment "
+                          "of %(price)s opens 12 more months of changes to that card, and the card stays live as you "
+                          "last saved it until you pay. Your business page is always free.") % {
+            "price": format_ghs(single.update_price_minor)}
+    if team:
+        answer += " " + _("On a Business team the price is %(price)s for each card.") % {
+            "price": format_ghs(team.update_price_minor)}
+    return answer
+
+
+def faq(site, plans=None, tiers=None, ghana=False):
     grace = site.grace_period_days
     rounds = site.free_revision_rounds
+    plans = list(plans) if plans is not None else list(active_plans())
+    if ghana:
+        # Plans paid once never end, and changes are paid for after the first year.
+        changes = {"q": _("What happens when I change my details?"), "a": _ghana_changes_answer(plans)}
+        renewal = [{"q": _("Do I have to renew?"), "a": _("No. You pay once and your plan never ends.")}]
+    else:
+        changes = {
+            "q": _("What happens when I change my details?"),
+            "a": _("Your link, QR code and NFC card never change. They always open your latest details, so there "
+                   "is nothing to reprint when you change job, number or photo."),
+        }
+        renewal = [
+            {
+                "q": _("How does renewal work?"),
+                "a": _("Plans are yearly. We email you 30 days, 7 days and 1 day before your plan ends. Renew early and "
+                       "the new year is added to the end of your current one, so you lose nothing. "
+                       "If you miss the date your card keeps working for a %(grace)d-day grace period.") % {"grace": grace},
+            },
+            {
+                "q": _("Does my plan renew automatically?"),
+                "a": _("If you pay by card, yes. Your card is charged the same yearly price on the day your plan ends, we email you "
+                       "about a week before and send a receipt after, and you can turn it off at any time in your dashboard. "
+                       "Your plan then stays active until the end of the year you paid for. Mobile Money payments never renew by "
+                       "themselves; we send you reminders instead."),
+            },
+            {
+                "q": _("What if my plan runs out?"),
+                "a": _("After the grace period your card shows a short 'card inactive' page instead of your details. "
+                       "Renew at any time and the same link, QR code and NFC cards work again straight away."),
+            },
+        ]
     items = [
         {
             "q": _("How does an NFC card work?"),
@@ -60,29 +112,8 @@ def faq(site, plans=None, tiers=None):
                    "read them when NFC is switched on in settings. If a phone cannot tap, the QR code on the card "
                    "opens the same page."),
         },
-        {
-            "q": _("What happens when I change my details?"),
-            "a": _("Your link, QR code and NFC card never change. They always open your latest details, so there "
-                   "is nothing to reprint when you change job, number or photo."),
-        },
-        {
-            "q": _("How does renewal work?"),
-            "a": _("Plans are yearly. We email you 30 days, 7 days and 1 day before your plan ends. Renew early and "
-                   "the new year is added to the end of your current one, so you lose nothing. "
-                   "If you miss the date your card keeps working for a %(grace)d-day grace period.") % {"grace": grace},
-        },
-        {
-            "q": _("Does my plan renew automatically?"),
-            "a": _("If you pay by card, yes. Your card is charged the same yearly price on the day your plan ends, we email you "
-                   "about a week before and send a receipt after, and you can turn it off at any time in your dashboard. "
-                   "Your plan then stays active until the end of the year you paid for. Mobile Money payments never renew by "
-                   "themselves; we send you reminders instead."),
-        },
-        {
-            "q": _("What if my plan runs out?"),
-            "a": _("After the grace period your card shows a short 'card inactive' page instead of your details. "
-                   "Renew at any time and the same link, QR code and NFC cards work again straight away."),
-        },
+        changes,
+        *renewal,
         {
             "q": _("I bought a ready-made card in a shop. How do I start?"),
             "a": _("Tap the card on your phone, or scan its QR code. Enter the PIN printed on the back, add your "
@@ -130,7 +161,7 @@ def faq(site, plans=None, tiers=None):
         _("%(name)s (unlimited products)") % {"name": plan.name}
         if plan.max_products is None
         else _("%(name)s (up to %(count)d products)") % {"name": plan.name, "count": plan.max_products}
-        for plan in (plans if plans is not None else active_plans())
+        for plan in plans
         if plan.allow_business_page
     )
     if with_page:

@@ -1079,43 +1079,43 @@ msgstr ""
 "Je verzoek tot verwijdering is vastgelegd. Je gegevens worden binnen 30 "
 "dagen verwijderd."
 
-#: apps/marketing/content.py:16 templates/accounts/register.html:10
+#: apps/marketing/content.py:17 templates/accounts/register.html:10
 msgid "Create your account"
 msgstr "Maak je account aan"
 
-#: apps/marketing/content.py:21
+#: apps/marketing/content.py:22
 msgid "Build and preview your card"
 msgstr "Maak je kaart en bekijk een voorbeeld"
 
-#: apps/marketing/content.py:26
+#: apps/marketing/content.py:27
 msgid "Choose a yearly plan"
 msgstr "Kies een jaarabonnement"
 
-#: apps/marketing/content.py:34
+#: apps/marketing/content.py:35
 msgid "Share it everywhere"
 msgstr "Deel hem overal"
 
-#: apps/marketing/content.py:40
+#: apps/marketing/content.py:43
 msgid "A link that never changes"
 msgstr "Een link die nooit verandert"
 
-#: apps/marketing/content.py:41
+#: apps/marketing/content.py:44
 msgid "A QR code for print"
 msgstr "Een QR-code om te printen"
 
-#: apps/marketing/content.py:42
+#: apps/marketing/content.py:45
 msgid "An NFC card that taps"
 msgstr "Een NFC-kaart om aan te tikken"
 
-#: apps/marketing/content.py:43
+#: apps/marketing/content.py:46
 msgid "Save contact in one tap"
 msgstr "Contact opslaan met één tik"
 
-#: apps/marketing/content.py:52
+#: apps/marketing/content.py:104
 msgid "How does an NFC card work?"
 msgstr "Hoe werkt een NFC-kaart?"
 
-#: apps/marketing/content.py:53
+#: apps/marketing/content.py:105
 msgid ""
 "Each card has a small chip programmed with the permanent link to your "
 "digital card. When someone holds their phone near it, the phone opens your "
@@ -1126,11 +1126,11 @@ msgstr ""
 "de browser. Er wordt niets geïnstalleerd en de chip heeft geen batterij "
 "nodig."
 
-#: apps/marketing/content.py:58
+#: apps/marketing/content.py:110
 msgid "Does it work on both iPhone and Android?"
 msgstr "Werkt het op zowel iPhone als Android?"
 
-#: apps/marketing/content.py:59
+#: apps/marketing/content.py:111
 msgid ""
 "Yes. iPhone XS and newer read NFC tags automatically with the screen on. "
 "Most Android phones read them when NFC is switched on in settings. If a "
@@ -1141,11 +1141,11 @@ msgstr ""
 "staat. Kan een telefoon de kaart niet aantikken, dan opent de QR-code op de "
 "kaart dezelfde pagina."
 
-#: apps/marketing/content.py:64
+#: apps/marketing/content.py:74 apps/marketing/content.py:78
 msgid "What happens when I change my details?"
 msgstr "Wat gebeurt er als ik mijn gegevens wijzig?"
 
-#: apps/marketing/content.py:65
+#: apps/marketing/content.py:54 apps/marketing/content.py:79
 msgid ""
 "Your link, QR code and NFC card never change. They always open your latest "
 "details, so there is nothing to reprint when you change job, number or "
@@ -1155,11 +1155,11 @@ msgstr ""
 "recente gegevens, dus je hoeft niets opnieuw te laten drukken als je van "
 "baan, nummer of foto verandert."
 
-#: apps/marketing/content.py:69
+#: apps/marketing/content.py:84
 msgid "How does renewal work?"
 msgstr "Hoe werkt verlengen?"
 
-#: apps/marketing/content.py:70
+#: apps/marketing/content.py:85
 #, python-format
 msgid ""
 "Plans are yearly. We email you 30 days, 7 days and 1 day before your plan "
@@ -1172,11 +1172,11 @@ msgstr ""
 "je huidige jaar, zodat je niets verliest. Mis je de datum, dan blijft je "
 "kaart nog een respijtperiode van %(grace)d dagen werken."
 
-#: apps/marketing/content.py:82
+#: apps/marketing/content.py:97
 msgid "What if my plan runs out?"
 msgstr "Wat als mijn abonnement afloopt?"
 
-#: apps/marketing/content.py:83
+#: apps/marketing/content.py:98
 msgid ""
 "After the grace period your card shows a short 'card inactive' page instead "
 "of your details. Renew at any time and the same link, QR code and NFC cards "
@@ -1186,11 +1186,11 @@ msgstr ""
 "plaats van je gegevens. Verleng wanneer je wilt en dezelfde link, QR-code en"
 " NFC-kaarten werken meteen weer."
 
-#: apps/marketing/content.py:87
+#: apps/marketing/content.py:118
 msgid "I bought a ready-made card in a shop. How do I start?"
 msgstr "Ik heb een kant-en-klare kaart in een winkel gekocht. Hoe begin ik?"
 
-#: apps/marketing/content.py:88
+#: apps/marketing/content.py:119
 msgid ""
 "Tap the card on your phone, or scan its QR code. Enter the PIN printed on "
 "the back, add your details and create your account. Your first year is "
@@ -1200,11 +1200,11 @@ msgstr ""
 "achterkant in, vul je gegevens in en maak je account aan. Je eerste jaar is "
 "al betaald en de link op de kaart blijft voor altijd hetzelfde."
 
-#: apps/marketing/content.py:93
+#: apps/marketing/content.py:124
 msgid "How long does an NFC order take?"
 msgstr "Hoe lang duurt een NFC-bestelling?"
 
-#: apps/marketing/content.py:94
+#: apps/marketing/content.py:125
 #, python-format
 msgid ""
 "You receive a first design proof within 3 working days of payment, and "
@@ -1215,11 +1215,11 @@ msgstr ""
 "%(rounds)d aanpassingsrondes zijn gratis. Drukken en coderen duurt tot 5 "
 "werkdagen na je goedkeuring, daarna volgt bezorging of afhalen."
 
-#: apps/marketing/content.py:99
+#: apps/marketing/content.py:130
 msgid "Do you deliver outside Ghana?"
 msgstr "Bezorgen jullie ook buiten Ghana?"
 
-#: apps/marketing/content.py:100
+#: apps/marketing/content.py:131
 msgid ""
 "Yes. We deliver anywhere in Ghana by courier, you can pick up from our "
 "office for free, and we ship abroad. For orders outside Ghana you pay the "
@@ -1233,11 +1233,11 @@ msgstr ""
 "jouw regio; eventuele invoerrechten of belastingen in jouw land betaalt de "
 "ontvanger. Je ziet de kosten en de verwachte levertijd voordat je betaalt."
 
-#: apps/marketing/content.py:106
+#: apps/marketing/content.py:137
 msgid "Can I cancel an NFC order?"
 msgstr "Kan ik een NFC-bestelling annuleren?"
 
-#: apps/marketing/content.py:107
+#: apps/marketing/content.py:138
 msgid ""
 "Before design work starts you get a full refund. After design starts and "
 "before printing, 50% of the card price is refundable. Once printing starts "
@@ -1250,11 +1250,11 @@ msgstr ""
 "geannuleerd. Een kaart met een defecte chip die binnen 30 dagen wordt "
 "gemeld, wordt gratis vervangen."
 
-#: apps/marketing/content.py:112
+#: apps/marketing/content.py:143
 msgid "Why are prices shown in other currencies?"
 msgstr "Waarom worden prijzen in andere valuta getoond?"
 
-#: apps/marketing/content.py:113
+#: apps/marketing/content.py:144
 msgid ""
 "Prices are shown in US dollars unless you choose another currency at the top"
 " of the page. The figure is a guide for international customers, worked out "
@@ -1266,11 +1266,11 @@ msgstr ""
 "klanten, berekend met de koers van vandaag. Je betaalt altijd in Ghanese "
 "cedi en je bank kan een eigen koers hanteren."
 
-#: apps/marketing/content.py:118
+#: apps/marketing/content.py:149
 msgid "Which payment methods can I use?"
 msgstr "Welke betaalmethoden kan ik gebruiken?"
 
-#: apps/marketing/content.py:119
+#: apps/marketing/content.py:150
 msgid ""
 "MTN MoMo, Telecel Cash and AirtelTigo Money, plus Visa and Mastercard cards."
 " Payments go through Paystack's secure checkout; we never see your card or "
@@ -1881,7 +1881,7 @@ msgstr "Kies je abonnement · %(SITE_NAME)s"
 msgid "Renew or change your plan"
 msgstr "Verleng of wijzig je abonnement"
 
-#: apps/marketing/content.py:29 templates/billing/checkout.html:6
+#: apps/marketing/content.py:30 templates/billing/checkout.html:6
 msgid "Choose your plan"
 msgstr "Kies je abonnement"
 
@@ -3644,10 +3644,6 @@ msgstr ""
 "Maak je kaart en bekijk een voorbeeld. Hij blijft privé totdat je een "
 "abonnement kiest."
 
-#: templates/emails/welcome.txt:5
-msgid "Choose a yearly plan and pay with Mobile Money or a card."
-msgstr "Kies een jaarabonnement en betaal met Mobile Money of een kaart."
-
 #: templates/emails/welcome.txt:6
 msgid "Share your permanent link, QR code or NFC card."
 msgstr "Deel je permanente link, QR-code of NFC-kaart."
@@ -4223,11 +4219,11 @@ msgstr "Wanneer je kunt annuleren en wat je terugkrijgt."
 msgid "Subscription plans"
 msgstr "Abonnementen"
 
-#: templates/marketing/legal_refunds.html:8
+#: templates/marketing/legal_refunds.html:9
 msgid "NFC card orders"
 msgstr "NFC-kaartbestellingen"
 
-#: templates/marketing/legal_refunds.html:10
+#: templates/marketing/legal_refunds.html:11
 msgid ""
 "<strong>Before design work starts:</strong> full refund of the cards and "
 "delivery."
@@ -4235,7 +4231,7 @@ msgstr ""
 "<strong>Voordat het ontwerpwerk begint:</strong> volledige terugbetaling van"
 " de kaarten en bezorging."
 
-#: templates/marketing/legal_refunds.html:11
+#: templates/marketing/legal_refunds.html:12
 msgid ""
 "<strong>After design starts, before printing:</strong> 50%% of the card "
 "price is refunded."
@@ -4243,7 +4239,7 @@ msgstr ""
 "<strong>Na het starten van het ontwerp, vóór het drukken:</strong> 50%% van "
 "de kaartprijs wordt terugbetaald."
 
-#: templates/marketing/legal_refunds.html:12
+#: templates/marketing/legal_refunds.html:13
 msgid ""
 "<strong>After printing starts:</strong> the order cannot be cancelled or "
 "refunded."
@@ -4251,7 +4247,7 @@ msgstr ""
 "<strong>Nadat het drukken is begonnen:</strong> de bestelling kan niet meer "
 "worden geannuleerd of terugbetaald."
 
-#: templates/marketing/legal_refunds.html:13
+#: templates/marketing/legal_refunds.html:14
 msgid ""
 "<strong>Faulty chip:</strong> a card whose NFC chip does not work, reported "
 "within 30 days of delivery, is replaced free."
@@ -4259,7 +4255,7 @@ msgstr ""
 "<strong>Defecte chip:</strong> een kaart waarvan de NFC-chip niet werkt, "
 "gemeld binnen 30 dagen na bezorging, wordt gratis vervangen."
 
-#: templates/marketing/legal_refunds.html:14
+#: templates/marketing/legal_refunds.html:15
 msgid ""
 "<strong>Lost or damaged cards:</strong> reorder at the standard price. The "
 "new card opens the same permanent link."
@@ -4267,7 +4263,7 @@ msgstr ""
 "<strong>Verloren of beschadigde kaarten:</strong> bestel opnieuw tegen de "
 "standaardprijs. De nieuwe kaart opent dezelfde permanente link."
 
-#: templates/marketing/legal_refunds.html:16
+#: templates/marketing/legal_refunds.html:17
 msgid ""
 "Refunds go back to the original payment method through Paystack. Your bank "
 "or network may take a few working days to show them."
@@ -4276,11 +4272,11 @@ msgstr ""
 "betaalmethode. Je bank of netwerk kan een paar werkdagen nodig hebben om ze "
 "te tonen."
 
-#: templates/marketing/legal_refunds.html:17
+#: templates/marketing/legal_refunds.html:18
 msgid "How to ask"
 msgstr "Hoe je het aanvraagt"
 
-#: templates/marketing/legal_refunds.html:18
+#: templates/marketing/legal_refunds.html:19
 #, python-format
 msgid ""
 "Cancel from your order page, or <a href=\"%(url_1)s?topic=payment\">contact "
@@ -4335,20 +4331,12 @@ msgstr ""
 msgid "3. Plans and payment"
 msgstr "3. Abonnementen en betaling"
 
-#: templates/marketing/legal_terms.html:12
-msgid ""
-"Plans are paid yearly in Ghana cedis through Paystack. US dollar prices are "
-"approximate and for guidance only."
-msgstr ""
-"Abonnementen worden jaarlijks betaald in Ghanese cedi via Paystack. Prijzen "
-"in Amerikaanse dollars zijn bij benadering en alleen ter indicatie."
-
 #: templates/marketing/legal_terms.html:13
 msgid "Your card becomes public only after Paystack confirms your payment."
 msgstr ""
 "Je kaart wordt pas openbaar nadat Paystack je betaling heeft bevestigd."
 
-#: templates/marketing/legal_terms.html:15
+#: templates/marketing/legal_terms.html:24
 #, python-format
 msgid ""
 "If you do not renew, your card keeps working for a "
@@ -4360,7 +4348,7 @@ msgstr ""
 "inactief’. Verleng op elk moment om dezelfde link, QR-code en NFC-kaarten "
 "terug te krijgen."
 
-#: templates/marketing/legal_terms.html:16
+#: templates/marketing/legal_terms.html:15
 msgid ""
 "Price changes apply to new purchases and renewals only, never to time you "
 "have already paid for."
@@ -4368,11 +4356,11 @@ msgstr ""
 "Prijswijzigingen gelden alleen voor nieuwe aankopen en verlengingen, nooit "
 "voor tijd die je al hebt betaald."
 
-#: templates/marketing/legal_terms.html:18
+#: templates/marketing/legal_terms.html:26
 msgid "4. Your card link"
 msgstr "4. Je kaartlink"
 
-#: templates/marketing/legal_terms.html:19
+#: templates/marketing/legal_terms.html:27
 msgid ""
 "Your card link is permanent. You can change it only until an NFC card has "
 "been ordered for it. Links are never given to another person, even after an "
@@ -4382,11 +4370,11 @@ msgstr ""
 " geen NFC-kaart voor is besteld. Links worden nooit aan een andere persoon "
 "gegeven, ook niet nadat een account is verwijderd."
 
-#: templates/marketing/legal_terms.html:20
+#: templates/marketing/legal_terms.html:28
 msgid "5. Acceptable use"
 msgstr "5. Aanvaardbaar gebruik"
 
-#: templates/marketing/legal_terms.html:21
+#: templates/marketing/legal_terms.html:29
 msgid ""
 "You must not impersonate another person or business, use your card for "
 "fraud, or publish offensive or unlawful content. We may suspend a card that "
@@ -4397,11 +4385,11 @@ msgstr ""
 " publiceren. We kunnen een kaart die deze regels overtreedt schorsen en "
 "laten je per e-mail weten waarom."
 
-#: templates/marketing/legal_terms.html:22
+#: templates/marketing/legal_terms.html:30
 msgid "6. NFC orders"
 msgstr "6. NFC-bestellingen"
 
-#: templates/marketing/legal_terms.html:23
+#: templates/marketing/legal_terms.html:31
 #, python-format
 msgid ""
 "NFC orders follow the timelines, revision rounds and cancellation rules on "
@@ -4411,11 +4399,11 @@ msgstr ""
 "annuleringsregels op de bestelpagina en in ons <a "
 "href=\"%(url_1)s\">Terugbetalingsbeleid</a>."
 
-#: templates/marketing/legal_terms.html:24
+#: templates/marketing/legal_terms.html:32
 msgid "7. Availability"
 msgstr "7. Beschikbaarheid"
 
-#: templates/marketing/legal_terms.html:25
+#: templates/marketing/legal_terms.html:33
 msgid ""
 "We aim to keep public cards available at least 99.5%% of the time each "
 "month, excluding announced maintenance."
@@ -4423,11 +4411,11 @@ msgstr ""
 "We streven ernaar openbare kaarten elke maand minstens 99,5%% van de tijd "
 "beschikbaar te houden, exclusief aangekondigd onderhoud."
 
-#: templates/marketing/legal_terms.html:26
+#: templates/marketing/legal_terms.html:34
 msgid "8. Contact"
 msgstr "8. Contact"
 
-#: templates/marketing/legal_terms.html:27
+#: templates/marketing/legal_terms.html:35
 #, python-format
 msgid "AD Graphics · %(site_support_email)s · %(site_support_phone_phone)s"
 msgstr "AD Graphics · %(site_support_email)s · %(site_support_phone_phone)s"
@@ -4436,14 +4424,6 @@ msgstr "AD Graphics · %(site_support_email)s · %(site_support_phone_phone)s"
 #, python-format
 msgid "NFC business cards · %(SITE_NAME)s"
 msgstr "NFC-visitekaartjes · %(SITE_NAME)s"
-
-#: templates/marketing/nfc.html:3
-msgid ""
-"Customised NFC cards designed, printed, encoded and tested in Ghana. From "
-"GHS 135 per card, with delivery across Ghana and shipping worldwide."
-msgstr ""
-"NFC-kaarten op maat, ontworpen, gedrukt, gecodeerd en getest in Ghana. Vanaf"
-" GHS 135 per kaart, met bezorging in heel Ghana en wereldwijde verzending."
 
 #: templates/marketing/nfc.html:12
 msgid "How an order works"
@@ -4535,15 +4515,6 @@ msgstr "Vragen over NFC-kaarten"
 #, python-format
 msgid "Pricing · %(SITE_NAME)s"
 msgstr "Prijzen · %(SITE_NAME)s"
-
-#: templates/marketing/pricing.html:3
-#, python-format
-msgid ""
-"Yearly digital business card plans from %(plans_0_price_minor_ghs)s. NFC "
-"cards from GHS 135 each."
-msgstr ""
-"Jaarabonnementen voor digitale visitekaartjes vanaf "
-"%(plans_0_price_minor_ghs)s. NFC-kaarten vanaf GHS 135 per stuk."
 
 #: templates/marketing/pricing.html:9
 msgid ""
@@ -5681,7 +5652,7 @@ msgstr ""
 "Ontvangers slaan je met één tik op in hun telefoon en je kunt je gegevens op"
 " elk moment bijwerken."
 
-#: apps/marketing/views.py:168 templates/base.html:38
+#: apps/marketing/views.py:169 templates/base.html:38
 msgid "Share your contact details by link, QR code or NFC tap."
 msgstr "Deel je contactgegevens via een link, QR-code of NFC-tik."
 
@@ -5746,11 +5717,11 @@ msgid "Automatic renewal is off. Your plan stays active until %(date)s."
 msgstr ""
 "Automatisch verlengen staat uit. Je abonnement blijft actief tot %(date)s."
 
-#: apps/marketing/content.py:75
+#: apps/marketing/content.py:90
 msgid "Does my plan renew automatically?"
 msgstr "Wordt mijn abonnement automatisch verlengd?"
 
-#: apps/marketing/content.py:76
+#: apps/marketing/content.py:91
 msgid ""
 "If you pay by card, yes. Your card is charged the same yearly price on the "
 "day your plan ends, we email you about a week before and send a receipt "
@@ -5909,7 +5880,7 @@ msgstr ""
 "verlengingen, worden niet terugbetaald zodra je kaart actief is, behalve bij"
 " dubbele afschrijvingen of een bewezen storing van de dienst."
 
-#: templates/marketing/legal_terms.html:14
+#: templates/marketing/legal_terms.html:23
 msgid ""
 "A plan paid by Mobile Money is renewed by you. A plan paid by card renews "
 "automatically each year: on the day it ends we charge the same card the plan"
@@ -6256,11 +6227,11 @@ msgstr ""
 "%(batch_plan_name)s-abonnement, al betaald. Vul je gegevens in en maak je "
 "account aan. De link en QR-code van je kaart blijven precies zoals gedrukt."
 
-#: apps/marketing/content.py:123
+#: apps/marketing/content.py:154
 msgid "What is a business page?"
 msgstr "Wat is een bedrijfspagina?"
 
-#: apps/marketing/content.py:124
+#: apps/marketing/content.py:155
 msgid ""
 "A page of your own for your business, linked from your card. It shows your "
 "products with pictures and prices, your services, your opening hours and "
@@ -6272,26 +6243,26 @@ msgstr ""
 "klanten zeggen, en bezoekers kunnen je een vraag sturen. Je zet haar aan of "
 "uit via je dashboard."
 
-#: apps/marketing/content.py:132
+#: apps/marketing/content.py:163
 #, python-format
 msgid "%(name)s (up to %(count)d products)"
 msgstr "%(name)s (maximaal %(count)d producten)"
 
-#: apps/marketing/content.py:137
+#: apps/marketing/content.py:168
 msgid "Which plans include a business page?"
 msgstr "Welke abonnementen bevatten een bedrijfspagina?"
 
-#: apps/marketing/content.py:138
+#: apps/marketing/content.py:169
 #, python-format
 msgid "A business page comes with %(plans)s."
 msgstr "Een bedrijfspagina zit bij %(plans)s."
 
-#: apps/marketing/content.py:139
+#: apps/marketing/content.py:170
 msgid "Do my customers need an app or an account to see my business page?"
 msgstr ""
 "Hebben mijn klanten een app of account nodig om mijn bedrijfspagina te zien?"
 
-#: apps/marketing/content.py:140
+#: apps/marketing/content.py:171
 msgid ""
 "No. It is an ordinary web page. It opens from the button on your card, or "
 "from its own link, on any phone."
@@ -7188,35 +7159,35 @@ msgstr "Omslag"
 msgid "Make cover"
 msgstr "Als omslag instellen"
 
-#: apps/marketing/content.py:17
+#: apps/marketing/content.py:18
 msgid "Sign up with your email."
 msgstr "Meld je aan met je e-mailadres."
 
-#: apps/marketing/content.py:22
+#: apps/marketing/content.py:23
 msgid "Add your details and watch the preview update."
 msgstr "Voeg je gegevens toe en zie het voorbeeld meebewegen."
 
-#: apps/marketing/content.py:27
+#: apps/marketing/content.py:28
 msgid "Pay by Mobile Money or card."
 msgstr "Betaal met Mobile Money of kaart."
 
-#: apps/marketing/content.py:35
+#: apps/marketing/content.py:36
 msgid "Link, QR code or NFC card. Update it any time."
 msgstr "Link, QR-code of NFC-kaart. Pas hem altijd aan."
 
-#: apps/marketing/content.py:40
+#: apps/marketing/content.py:43
 msgid "Paste it anywhere. It always shows your latest details."
 msgstr "Plak hem overal. Hij toont altijd je nieuwste gegevens."
 
-#: apps/marketing/content.py:41
+#: apps/marketing/content.py:44
 msgid "Download it as PNG or SVG for print."
 msgstr "Download hem als PNG of SVG voor drukwerk."
 
-#: apps/marketing/content.py:42
+#: apps/marketing/content.py:45
 msgid "Tap it on a phone. No app needed."
 msgstr "Houd hem tegen een telefoon. Geen app nodig."
 
-#: apps/marketing/content.py:43
+#: apps/marketing/content.py:46
 msgid "Saved straight to their phone's contacts."
 msgstr "Direct opgeslagen in de contacten van de telefoon."
 
@@ -7248,7 +7219,7 @@ msgstr "Nu populair bij bedrijven op AD Smart."
 msgid "Business page with unlimited products"
 msgstr "Bedrijfspagina met een onbeperkt aantal producten"
 
-#: apps/marketing/content.py:130
+#: apps/marketing/content.py:161
 #, python-format
 msgid "%(name)s (unlimited products)"
 msgstr "%(name)s (onbeperkt aantal producten)"
@@ -7435,15 +7406,6 @@ msgstr ""
 msgid "Pay once. Keep your card."
 msgstr "Eén keer betalen. Je kaart houden."
 
-#: templates/marketing/pricing.html:3
-#, python-format
-msgid ""
-"Digital business card plans from %(plans_0_price_minor_ghs)s, paid once. NFC"
-" cards from GHS 135 each."
-msgstr ""
-"Digitale visitekaartjesabonnementen vanaf %(plans_0_price_minor_ghs)s, "
-"eenmalig betaald. NFC-kaarten vanaf GHS 135 per stuk."
-
 #: templates/dashboard/editor.html:25
 #, python-format
 msgid ""
@@ -7453,13 +7415,162 @@ msgstr ""
 "<strong>Je gegevens, links of webadres wijzigen kost "
 "%(update_price)s.</strong>"
 
-#: apps/marketing/content.py:30
+#: apps/marketing/content.py:31
 msgid "Pay once by Mobile Money or card."
 msgstr "Betaal één keer met Mobile Money of kaart."
 
 #: templates/marketing/_plans.html:14
 msgid "Printed card"
 msgstr "Geprinte kaart"
+
+#: apps/marketing/content.py:38
+msgid "Link, QR code or NFC card."
+msgstr "Link, QR-code of NFC-kaart."
+
+#: apps/marketing/content.py:58
+#, python-format
+msgid ""
+"Changes to your details, links and web address are free for 12 months. After"
+" that, a payment of %(price)s opens 12 more months of changes to that card, "
+"and the card stays live as you last saved it until you pay. Your business "
+"page is always free."
+msgstr ""
+"Wijzigingen in je gegevens, links en webadres zijn 12 maanden gratis. Daarna"
+" opent een betaling van %(price)s nog 12 maanden aan wijzigingen voor die "
+"kaart, en blijft de kaart live zoals je hem het laatst hebt opgeslagen tot "
+"je betaalt. Je bedrijfspagina is altijd gratis."
+
+#: apps/marketing/content.py:63
+#, python-format
+msgid "On a Business team the price is %(price)s for each card."
+msgstr "Voor een Business-team is de prijs %(price)s per kaart."
+
+#: apps/marketing/content.py:75
+msgid "Do I have to renew?"
+msgstr "Moet ik verlengen?"
+
+#: apps/marketing/content.py:75
+msgid "No. You pay once and your plan never ends."
+msgstr "Nee. Je betaalt één keer en je abonnement loopt nooit af."
+
+#: templates/emails/welcome.txt:5
+msgid "Choose a plan and pay with Mobile Money or a card."
+msgstr "Kies een abonnement en betaal met Mobile Money of met een kaart."
+
+#: templates/marketing/home.html:26
+msgid "Share by link, QR code or NFC tap."
+msgstr "Deel via link, QR-code of NFC-tik."
+
+#: templates/marketing/legal_terms.html:12
+msgid ""
+"Plans are paid in Ghana cedis through Paystack. US dollar prices are "
+"approximate and for guidance only."
+msgstr ""
+"Abonnementen worden betaald in Ghanese cedi via Paystack. Prijzen in "
+"Amerikaanse dollars zijn bij benadering en alleen ter indicatie."
+
+#: templates/marketing/legal_terms.html:14
+msgid ""
+"A plan is paid once or paid yearly. A plan paid once never ends and is never"
+" renewed."
+msgstr ""
+"Een abonnement wordt eenmalig of jaarlijks betaald. Een eenmalig betaald "
+"abonnement loopt nooit af en wordt nooit verlengd."
+
+#: templates/marketing/legal_terms.html:17
+msgid "Plans paid once"
+msgstr "Eenmalig betaalde abonnementen"
+
+#: templates/marketing/legal_terms.html:19
+msgid ""
+"Changes to a card’s details, links and web address are free for 12 months "
+"from the later of the card’s creation and the plan purchase. After that, "
+"each card needs a payment, at the price shown when you make the change, "
+"which opens 12 more months of changes to that card. Until it is paid the "
+"card stays live as you last saved it. A business page is always free."
+msgstr ""
+"Wijzigingen in de gegevens, links en het webadres van een kaart zijn 12 "
+"maanden gratis, gerekend vanaf de laatste van de aanmaak van de kaart en de "
+"aankoop van het abonnement. Daarna heeft elke kaart een betaling nodig, "
+"tegen de prijs die je ziet wanneer je de wijziging doorvoert, waarmee "
+"wijzigingen voor die kaart nog 12 maanden openstaan. Zolang er niet is "
+"betaald, blijft de kaart live zoals je hem het laatst hebt opgeslagen. Een "
+"bedrijfspagina is altijd gratis."
+
+#: templates/marketing/legal_terms.html:21
+msgid "Yearly plans"
+msgstr "Jaarlijkse abonnementen"
+
+#: templates/marketing/nfc.html:3
+#, python-format
+msgid ""
+"Customised NFC cards designed, printed, encoded and tested in Ghana. From "
+"%(nfc_lowest_ghs)s per card, with delivery across Ghana and shipping "
+"worldwide."
+msgstr ""
+"Op maat gemaakte NFC-kaarten, ontworpen, gedrukt, gecodeerd en getest in "
+"Ghana. Vanaf %(nfc_lowest_ghs)s per kaart, met levering in heel Ghana en "
+"verzending wereldwijd."
+
+#: templates/marketing/pricing.html:3
+#, python-format
+msgid ""
+"Digital business card plans from %(plans_0_price_minor_ghs)s, paid once. NFC"
+" cards from %(nfc_lowest_ghs)s each."
+msgstr ""
+"Digitale visitekaartjes vanaf %(plans_0_price_minor_ghs)s, eenmalig betaald."
+" NFC-kaarten vanaf %(nfc_lowest_ghs)s per stuk."
+
+#: templates/marketing/pricing.html:3
+#, python-format
+msgid ""
+"Yearly digital business card plans from %(plans_0_price_minor_ghs)s. NFC "
+"cards from %(nfc_lowest_ghs)s each."
+msgstr ""
+"Jaarlijkse digitale visitekaartjes vanaf %(plans_0_price_minor_ghs)s. NFC-"
+"kaarten vanaf %(nfc_lowest_ghs)s per stuk."
+
+#: templates/marketing/legal_refunds.html:8
+msgid ""
+"A payment to open more months of changes to a card is not refundable once it"
+" is made, except for duplicate charges or a proven failure of the service."
+msgstr ""
+"Een betaling om extra maanden aan wijzigingen voor een kaart te openen wordt"
+" niet terugbetaald zodra die is gedaan, behalve bij dubbele afschrijvingen "
+"of een bewezen storing van de dienst."
+
+#~ msgid "Choose a yearly plan and pay with Mobile Money or a card."
+#~ msgstr "Kies een jaarabonnement en betaal met Mobile Money of een kaart."
+
+#~ msgid ""
+#~ "Plans are paid yearly in Ghana cedis through Paystack. US dollar prices are "
+#~ "approximate and for guidance only."
+#~ msgstr ""
+#~ "Abonnementen worden jaarlijks betaald in Ghanese cedi via Paystack. Prijzen "
+#~ "in Amerikaanse dollars zijn bij benadering en alleen ter indicatie."
+
+#~ msgid ""
+#~ "Customised NFC cards designed, printed, encoded and tested in Ghana. From "
+#~ "GHS 135 per card, with delivery across Ghana and shipping worldwide."
+#~ msgstr ""
+#~ "NFC-kaarten op maat, ontworpen, gedrukt, gecodeerd en getest in Ghana. Vanaf"
+#~ " GHS 135 per kaart, met bezorging in heel Ghana en wereldwijde verzending."
+
+#, python-format
+#~ msgid ""
+#~ "Yearly digital business card plans from %(plans_0_price_minor_ghs)s. NFC "
+#~ "cards from GHS 135 each."
+#~ msgstr ""
+#~ "Jaarabonnementen voor digitale visitekaartjes vanaf "
+#~ "%(plans_0_price_minor_ghs)s. NFC-kaarten vanaf GHS 135 per stuk."
+
+#, python-format
+#~ msgid ""
+#~ "Digital business card plans from %(plans_0_price_minor_ghs)s, paid once. NFC"
+#~ " cards from GHS 135 each."
+#~ msgstr ""
+#~ "Digitale visitekaartjesabonnementen vanaf %(plans_0_price_minor_ghs)s, "
+#~ "eenmalig betaald. NFC-kaarten vanaf GHS 135 per stuk."
 
 #~ msgid "Try it. The buttons work."
 #~ msgstr "Probeer het. De knoppen werken."

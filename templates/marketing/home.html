@@ -23,7 +23,7 @@
     <div class="hero__copy">
       <p class="hero__eyebrow"><span class="pulse" aria-hidden="true"></span>{% trans "Digital + NFC business cards, made in Ghana" %}</p>
       <h1 id="hero-title">{% blocktrans trimmed %}Your business card, <span class="glow">one tap away.</span>{% endblocktrans %}</h1>
-      <p class="hero__lead">{% trans "Share by link, QR code or NFC tap. Update your details any time." %}</p>
+      <p class="hero__lead">{% if in_ghana %}{% trans "Share by link, QR code or NFC tap." %}{% else %}{% trans "Share by link, QR code or NFC tap. Update your details any time." %}{% endif %}</p>
       <div class="cluster hero__ctas">
         {% url 'accounts:register' as register_url %}{% hover_button _("Create my card") href=register_url variant="light" %}
         <a class="btn btn--on-dark" href="#pricing">{% trans "See plans and prices" %}</a>
