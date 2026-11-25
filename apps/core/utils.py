@@ -10,9 +10,18 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
-from PIL import Image, ImageOps, UnidentifiedImageError
-from pillow_heif import register_heif_opener
 from django.utils.translation import gettext as _
+
+# A broken image library (the host's virus scanner once deleted a Pillow file) must only stop
+# picture uploads, never the whole site, so these imports are allowed to fail.
+try:
+    from PIL import Image, ImageOps, UnidentifiedImageError
+except ImportError:
+    Image = ImageOps = UnidentifiedImageError = None
+try:
+    from pillow_heif import register_heif_opener
+except ImportError:
+    register_heif_opener = None
 
 # --------------------------------------------------------------------------
 # Money. Amounts are integers of pesewas everywhere; floats lose pennies.
@@ -141,8 +150,10 @@ def keep_name(instance, filename):
 # Uploads (SEC-07, NFR-02)
 # --------------------------------------------------------------------------
 
-register_heif_opener()  # iPhone HEIC and AVIF pictures then open like any other
-Image.MAX_IMAGE_PIXELS = 40_000_000  # Pillow warns past this and refuses at twice this, so a small file cannot fill the memory
+if register_heif_opener:
+    register_heif_opener()  # iPhone HEIC and AVIF pictures then open like any other
+if Image:
+    Image.MAX_IMAGE_PIXELS = 40_000_000  # Pillow warns past this and refuses at twice this, so a small file cannot fill the memory
 
 # Print files are kept exactly as sent, so only types a printer reads (see validate_design_file).
 RASTER_TYPES = {"JPEG": "jpg", "PNG": "png", "WEBP": "webp"}

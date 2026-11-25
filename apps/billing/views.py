@@ -20,7 +20,6 @@ from apps.core.currency import format_money_local
 
 from . import fx, paystack, services
 from .models import Payment, Plan
-from .receipts import render_receipt_pdf
 from django.utils.translation import gettext as _, ngettext
 
 logger = logging.getLogger(__name__)
@@ -225,6 +224,9 @@ def receipt_pdf(request, reference):
     payment = get_object_or_404(Payment, reference=reference, status__in=[Payment.SUCCESS, Payment.REFUNDED, Payment.PARTIALLY_REFUNDED])
     if payment.user_id != request.user.pk and not request.user.is_staff:
         raise Http404
+    # Loaded here, not at startup: reportlab needs Pillow, and a broken Pillow must not stop the site.
+    from .receipts import render_receipt_pdf
+
     return HttpResponse(
         render_receipt_pdf(payment),
         content_type="application/pdf",

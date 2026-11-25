@@ -13,7 +13,6 @@ from django.contrib.staticfiles import finders
 from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from PIL import Image
 
 from apps.cards.colors import palette
 from apps.cards.services import CRLF, _escape, _fold
@@ -111,6 +110,10 @@ def demo_business(site, gallery):
 
 def _logo_photo_line():
     """The AD logo on white, as the contact photo."""
+    try:
+        from PIL import Image
+    except ImportError:  # the contact still saves, just without the logo photo
+        return None
     path = finders.find("brand/logo-192.png")
     if not path:
         return None
