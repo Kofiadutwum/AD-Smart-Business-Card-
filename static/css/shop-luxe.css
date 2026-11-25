@@ -1,0 +1,62 @@
+/* Hallmark · redesign: full · page: each shop (/b/<name>) · theme: the owner's own (accent, banner, template, button corners) on a luxury layout · job: buy
+ * colours stay the owner's --pc-* choices from card.css; every rule hangs off .pcard.shop so the digital cards (/c/) never change · copy: verbatim
+ * axes: owner colours/grotesk-bold · posture: restrained · v2.0.0 */
+
+/* ---------- the banner and the shop's name ---------- */
+.pcard.shop .pcard__band { height: clamp(9rem, 6rem + 12vw, 17rem); }
+.pcard.shop .pcard__avatar { box-shadow: 0 0 0 5px var(--surface), 0 18px 40px -18px rgb(0 0 0 / 0.55); }
+.pcard.shop .pcard__name { font-size: clamp(1.875rem, 1.1rem + 2.8vw, 3.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; }
+.pcard.shop .pcard__role { margin-top: 0.5rem; font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem); font-weight: 300; color: var(--ink-soft); }
+@media (min-width: 60rem) {
+  .pcard.shop .shop-top { padding: 0 2.5rem 2rem; border-bottom: 1px solid var(--border); }
+  .pcard.shop .shop-top .pcard__avatar { width: 8.5rem; height: 8.5rem; margin-top: -4.5rem; }
+  .pcard--minimal.shop .shop-top .pcard__avatar { margin-top: 2rem; }
+}
+
+/* ---------- search and category chips ---------- */
+.pcard.shop .shop-products { padding-top: 2.25rem; }
+.pcard.shop .shop-search input { min-height: 3.25rem; font-size: 1.0625rem; }
+.pcard.shop .shop-chip { padding-inline: 1rem; font-weight: 500; }
+
+/* ---------- products: bigger pictures, more air, the owner's button corners ---------- */
+.pcard.shop .biz-grid { gap: 1.25rem 0.875rem; }
+@media (min-width: 60rem) {
+  .pcard.shop .shop-products { padding: 2.75rem 2.5rem 0; }
+  .pcard.shop .biz-grid { grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr)); gap: 2.25rem 1.5rem; }
+}
+.pcard.shop .biz-item { border: 0; border-radius: 0; background: transparent; overflow: visible; }
+.pcard.shop .biz-item__link { border-radius: 0.875rem; }
+.pcard.shop .biz-item img { aspect-ratio: 4 / 5; border-radius: 0.875rem; transition: transform var(--dur-slow) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out); }
+.pcard.shop .biz-item__link:hover img { transform: translateY(-3px); box-shadow: 0 22px 40px -22px rgb(0 0 0 / 0.55); }
+.pcard.shop .biz-item__body { padding: 0.875rem 0.125rem 0.5rem; }
+.pcard.shop .biz-item h3 { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+.pcard.shop .biz-item__link:hover h3,
+.pcard.shop .biz-item__link:focus-visible h3 { text-decoration: none; color: var(--pc-link); }
+.pcard.shop .biz-price { margin-top: 0.25rem; font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; }
+.pcard.shop .biz-item .biz-text { color: var(--muted); }
+.pcard.shop .biz-item__actions { padding: 0.25rem 0.125rem 0; }
+.pcard.shop .biz-buy,
+.pcard.shop .biz-add { min-height: 2.75rem; border-radius: var(--pc-radius); }
+.pcard.shop .biz-item--picked { outline-offset: 6px; border-radius: 0.875rem; }
+
+/* ---------- about, contact, hours, services, reviews ---------- */
+.pcard.shop .biz-section h2 { font-size: clamp(1.25rem, 1rem + 0.8vw, 1.625rem); font-weight: 700; letter-spacing: -0.025em; }
+@media (min-width: 60rem) {
+  .pcard.shop .shop-info { margin-top: 3rem; padding: 0 2.5rem; border-top: 1px solid var(--border); column-gap: 3rem; }
+  .pcard.shop .shop-info .biz-section { padding-top: 2.5rem; }
+}
+.pcard.shop .biz-reviews li { padding: 1.25rem 1.375rem; border: 1px solid var(--border); background: transparent; }
+.pcard.shop .biz-reviews blockquote { font-size: 1.0625rem; font-weight: 300; }
+
+/* ---------- the big product view ---------- */
+.shop-dialog { border-radius: 1.25rem; }
+.shop-dialog h2 { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; }
+.shop-dialog__price { font-size: 1.375rem; font-weight: 700; }
+
+/* ---------- the order bar ---------- */
+.shop-cart__in { border-radius: 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pcard.shop .biz-item img { transition: none; }
+  .pcard.shop .biz-item__link:hover img { transform: none; }
+}

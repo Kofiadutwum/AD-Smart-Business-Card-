@@ -12,7 +12,8 @@
   {% if logo %}<meta property="og:image" content="{{ logo.url }}">{% elif products %}<meta property="og:image" content="{{ products.0.image.url }}">{% else %}<meta property="og:image" content="{{ SITE_URL }}{% static 'brand/og-image.jpg' %}">{% endif %}
   <link rel="canonical" href="{{ page_url }}">
 {% endblock %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/shop-luxe.css' %}{{ ASSET_Q }}">{% endblock %}
 {% block body_class %}card-page{% endblock %}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}

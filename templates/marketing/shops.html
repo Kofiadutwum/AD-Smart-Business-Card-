@@ -2,7 +2,10 @@
 {% load static %}
 {% block title %}{% blocktrans trimmed %}Shops on {{ SITE_NAME }}{% endblocktrans %}{% endblock %}
 {% block description %}{% trans "Browse what businesses on AD Smart sell, and message the seller on WhatsApp to buy and agree the price." %}{% endblock %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/marketplace.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/marketplace.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/home-luxe.css' %}{{ ASSET_Q }}">
+  <link rel="stylesheet" href="{% static 'css/shops-luxe.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block body_class %}page-shops{% endblock %}
 {% block scripts %}<script src="{% static 'js/shop.js' %}{{ ASSET_Q }}" defer></script><script src="{% static 'js/marketplace.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}
 
 {% block content %}

@@ -12,6 +12,7 @@
 /* Dark unless the visitor picks Light with the theme button. The two sections with the
    hand photos keep these dark colours in both themes. */
 html:not([data-theme="light"]) body.page-home,
+html:not([data-theme="light"]) body.page-shops,
 .page-home #how-it-works,
 .page-home #nfc {
   --bg: #131417;
@@ -39,7 +40,8 @@ html:not([data-theme="light"]) body.page-home,
   --focus: #8ab8ff;
   color-scheme: dark;
 }
-body.page-home {
+body.page-home,
+body.page-shops {
   --hero-bg: #131417; /* the hero stays dark in both themes: its text is light */
   --cut-shadow: drop-shadow(0 24px 28px rgb(10 12 20 / 0.42)) drop-shadow(0 6px 10px rgb(10 12 20 / 0.3));
   --grey-section: #1d1e23; /* the dark grey under the hand photos */
@@ -68,7 +70,8 @@ html:has(body.page-home), body.page-home { overflow-x: clip; }
 /* eyebrow words, kept: the body face, sentence case, untracked, beside the head */
 .page-home .eyebrow,
 .page-home .hero__eyebrow { display: block; margin: 0; padding: 0; border: 0; background: none; font-size: var(--text-sm); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); box-shadow: none; }
-.page-home .hero__eyebrow .pulse { display: none; } /* decorative status dot (gate 63) */
+.page-home .hero__eyebrow .pulse,
+.page-home .eyebrow::before { display: none; } /* decorative dots (gate 63) */
 
 /* ---------- controls ---------- */
 .page-home .ihb,
