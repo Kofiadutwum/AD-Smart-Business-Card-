@@ -5,7 +5,8 @@
   <link rel="stylesheet" href="{% static 'css/card.css' %}{{ ASSET_Q }}">
   <link rel="stylesheet" href="{% static 'css/carousel.css' %}{{ ASSET_Q }}">
   <link rel="stylesheet" href="{% static 'css/marketplace.css' %}{{ ASSET_Q }}">
-  <link rel="preload" as="image" href="{% static 'brand/hero-1920.webp' %}" media="(min-width: 60rem)" imagesrcset="{% static 'brand/hero-1280.webp' %} 1280w, {% static 'brand/hero-1920.webp' %} 1920w" imagesizes="100vw">
+  <link rel="stylesheet" href="{% static 'css/home-luxe.css' %}{{ ASSET_Q }}">
+  <link rel="preload" as="image" href="{% static 'brand/hero-phone-908.webp' %}" imagesrcset="{% static 'brand/hero-phone-640.webp' %} 640w, {% static 'brand/hero-phone-908.webp' %} 908w" imagesizes="(min-width: 60rem) 50vw, 100vw">
 {% endblock %}
 {% block body_class %}page-home{% endblock %}
 
@@ -13,10 +14,8 @@
 
 {# ============================== HERO ============================== #}
 <section class="hero" aria-labelledby="hero-title">
-  <picture class="hero__media">
-    <source media="(max-width: 59.99rem)" srcset="{% static 'brand/hero-mobile.webp' %}" type="image/webp">
-    <source srcset="{% static 'brand/hero-1280.webp' %} 1280w, {% static 'brand/hero-1920.webp' %} 1920w" sizes="100vw" type="image/webp">
-    {% trans "A hand holding an AD Graphics business card showing the AD logo, Kofi Adutwum’s name, WhatsApp, Instagram, phone and email" as t_1 %}<img src="{% static 'brand/hero-1920.jpg' %}" width="1920" height="1080" fetchpriority="high"
+  <picture class="hero__media" data-loop="hero">
+    {% trans "A phone showing Kofi Adutwum’s AD Smart contact card, with his printed NFC card and QR code card on a cord beside it" as t_1 %}<img src="{% static 'brand/hero-phone-908.webp' %}" srcset="{% static 'brand/hero-phone-640.webp' %} 640w, {% static 'brand/hero-phone-908.webp' %} 908w" sizes="(min-width: 60rem) 50vw, 100vw" width="908" height="861" fetchpriority="high"
       alt="{{ t_1 }}">
   </picture>
   <div class="container hero__inner">
@@ -128,6 +127,9 @@
           </li>
           {% endfor %}
         </ul>
+        <figure class="share-hand" data-loop>
+          {% trans "A hand holding a printed card with a QR code" as t_hand %}<img src="{% static 'brand/hand-qr-card-900.webp' %}" srcset="{% static 'brand/hand-qr-card-560.webp' %} 560w, {% static 'brand/hand-qr-card-900.webp' %} 900w" sizes="(min-width: 60rem) 30vw, 90vw" width="900" height="610" loading="lazy" decoding="async" alt="{{ t_hand }}">
+        </figure>
       </div>
       <div class="share-visual">
         {% trans "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work." as t_2 %}<div class="phone phone--swing" role="group" aria-label="{{ t_2 }}">
@@ -167,7 +169,7 @@
 {# ================================ NFC =============================== #}
 <section class="section" id="nfc" aria-labelledby="nfc-title">
   <div class="container">
-    {% include "marketing/_nfc_section.html" with heading_id="nfc-title" compact=True %}
+    {% include "marketing/_nfc_section.html" with heading_id="nfc-title" compact=True hand_photo=True %}
   </div>
 </section>
 
@@ -203,4 +205,5 @@
 
 {% block scripts %}
   <script src="{% static 'js/carousel-squeeze.js' %}{{ ASSET_Q }}" defer></script>
+  <script src="{% static 'js/loop.js' %}{{ ASSET_Q }}" defer></script>
 {% endblock %}

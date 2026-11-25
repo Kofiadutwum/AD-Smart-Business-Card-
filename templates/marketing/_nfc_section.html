@@ -1,6 +1,6 @@
 {% load static %}
 <div class="nfc">
-  <div>
+  <div class="nfc__main">
     <p class="eyebrow">{% trans "NFC cards" %}</p>
     <h2 id="{{ heading_id|default:'nfc-heading' }}" class="mt-4">{% trans "A printed card that opens your digital one." %}</h2>
     {% if not compact %}<p class="lead mt-4">{% trans "We design it with you, print it, write your permanent link to the chip, lock it and test every card on Android and iPhone. Order as many as you need — the more you order, the less each costs." %}</p>{% endif %}
@@ -48,7 +48,12 @@
     </div>
   </div>
 
-  <div>
+  <div class="nfc__side">
+    {% if hand_photo %}
+    <figure class="nfc-hand nfc-hand--front" data-loop>
+      {% trans "A hand holding Kofi Adutwum’s printed AD Graphics business card" as t_front %}<img src="{% static 'brand/hand-ad-card-900.webp' %}" srcset="{% static 'brand/hand-ad-card-560.webp' %} 560w, {% static 'brand/hand-ad-card-900.webp' %} 900w" sizes="(min-width: 64rem) 40vw, 90vw" width="900" height="680" loading="lazy" decoding="async" alt="{{ t_front }}">
+    </figure>
+    {% else %}
     <div class="nfc-card-stage" aria-hidden="true">
       <div class="nfc-card nfc-card--back"></div>
       <div class="nfc-card">
@@ -62,6 +67,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     <ul class="nfc-points">
       <li>{% icon "circle-check" 18 %}<span>{% blocktrans trimmed with site_free_revision_rounds=site.free_revision_rounds %}<strong>First design proof in 3 working days,</strong> with {{ site_free_revision_rounds }} free rounds of changes.{% endblocktrans %}</span></li>
       <li>{% icon "circle-check" 18 %}<span>{% blocktrans trimmed %}<strong>Printed and encoded within 5 working days</strong> of your approval.{% endblocktrans %}</span></li>

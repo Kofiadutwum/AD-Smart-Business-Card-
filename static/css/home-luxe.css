@@ -1,0 +1,245 @@
+/* Hallmark · redesign: full · shape: kept sequence, new composition · genre: atmospheric · theme: brand (AD Smart colours, Geist) on Darkroom's restraint · job: sign up
+ * hero: Stage, kept · nav: kept · footer: kept · imagery: the real card photo, the live sample card, shop and gallery uploads · signature: the real AD Graphics card under a light, poster-size head · copy: verbatim
+ * axes: dark/grotesk-light/chromatic-blue · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V3 · weakest: V, the owner asked to keep every section in its order; variety comes from the compositions (figures as an edition, steps as a strip, hairline sheets) not the sequence */
+/* waive 8: section order kept on the owner's word ("dont take out anything", "just redesign"); every composition changed */
+/* waive 9: eyebrow words kept verbatim on the owner's word; set beside each heading as a running label in the body face, never above it in capitals */
+/* waive 18: the owner chose no pause button; a click, tap or Enter pauses each picture for 3 seconds, and reduced motion holds every picture still */
+
+/* Homepage only. Every rule hangs off body.page-home so no other page changes.
+   The tokens are the site's own dark scheme (static/css/tokens.css), so the
+   header, footer, cards and tables follow without their own overrides. */
+/* Dark unless the visitor picks Light with the theme button. The two sections with the
+   hand photos keep these dark colours in both themes. */
+html:not([data-theme="light"]) body.page-home,
+.page-home #how-it-works,
+.page-home #nfc {
+  --bg: #131417;
+  --bg-alt: #18191d;
+  --surface: #1c1d22;
+  --surface-raised: #23252b;
+  --ink: #f2f3f6;
+  --ink-soft: #d5d8e0;
+  --muted: #a4a9b6;
+  --border: #2d2f37;
+  --border-strong: #3e414b;
+  --primary: #2a6cd6;
+  --primary-hover: #235fbe;
+  --primary-soft: #16233b;
+  --on-primary: #fafbfd;
+  --link: #8ab8ff;
+  --accent: #c98cf0;
+  --accent-soft: #2a1733;
+  --highlight-ink: #f6c453;
+  --highlight-soft: #2c2310;
+  --success: #4cc794;
+  --success-soft: #11291f;
+  --info: #6cc0f2;
+  --info-soft: #102533;
+  --focus: #8ab8ff;
+  color-scheme: dark;
+}
+body.page-home {
+  --hero-bg: #131417; /* the hero stays dark in both themes: its text is light */
+  --cut-shadow: drop-shadow(0 24px 28px rgb(10 12 20 / 0.42)) drop-shadow(0 6px 10px rgb(10 12 20 / 0.3));
+  --grey-section: #1d1e23; /* the dark grey under the hand photos */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 9 -4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --shadow-sm: none;
+  --shadow: none;
+  --shadow-lg: none;
+  --section-y: clamp(4rem, 2rem + 5vw, 7.5rem);
+  background: var(--bg);
+  color: var(--ink);
+}
+html:has(body.page-home), body.page-home { overflow-x: clip; }
+
+/* ---------- type: light, large, tight ---------- */
+.page-home main h2 { font-weight: 700; letter-spacing: -0.03em; line-height: 1.06; }
+.page-home main h3 { font-weight: 500; letter-spacing: -0.015em; }
+.page-home main h2 { font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem); overflow-wrap: break-word; min-width: 0; }
+.page-home .lead { font-weight: 300; color: var(--ink-soft); }
+/* the old gradient word becomes plain ink; the span stays for the translations */
+.page-home .glow { background: none; color: inherit; -webkit-text-fill-color: currentColor; }
+
+/* eyebrow words, kept: the body face, sentence case, untracked, beside the head */
+.page-home .eyebrow,
+.page-home .hero__eyebrow { display: block; margin: 0; padding: 0; border: 0; background: none; font-size: var(--text-sm); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); box-shadow: none; }
+.page-home .hero__eyebrow .pulse { display: none; } /* decorative status dot (gate 63) */
+
+/* ---------- controls ---------- */
+.page-home .ihb,
+.page-home .btn { border-radius: var(--radius-sm); }
+.page-home .ihb--light { --ihb-bg: var(--primary); --ihb-fg: var(--on-primary); --ihb-border: var(--primary); --ihb-fill: var(--ink); --ihb-on-fill: var(--bg); }
+.page-home .ihb--primary { --ihb-bg: var(--primary); --ihb-fg: var(--on-primary); --ihb-border: var(--primary); }
+.page-home .ihb--ink { --ihb-bg: var(--ink); --ihb-fg: var(--bg); --ihb-border: var(--ink); }
+/* main only: the header keeps its own hero-aware buttons */
+.page-home main .btn--on-dark,
+.page-home main .btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--border-strong); }
+.page-home main .btn--on-dark:hover,
+.page-home main .btn--ghost:hover { background: var(--surface); border-color: var(--ink-soft); }
+.page-home a:focus-visible,
+.page-home button:focus-visible,
+.page-home summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* ---------- sections: hairlines, not bands of cards ---------- */
+.page-home .section { padding-block: var(--section-y); }
+.page-home .section + .section { border-top: 1px solid var(--border); }
+.page-home .section--alt { background: var(--bg-alt); }
+@media (min-width: 60rem) {
+  .page-home .section-head,
+  .page-home .section-head--center { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: var(--space-8); align-items: baseline; max-width: none; text-align: left; margin-inline: 0; }
+  .page-home .section-head > * { grid-column: 2; }
+  .page-home .section-head > .eyebrow { grid-column: 1; grid-row: 1; }
+  .page-home .section-head > h2 { max-width: 20ch; margin-top: 0; }
+  .page-home .section-head > *,
+  .page-home .section-head--center > h2,
+  .page-home .section-head--center > p { text-align: left; margin-inline: 0; }
+}
+
+/* ---------- hero ---------- */
+/* the hero sits on the dark photo in both themes, so its text stays light */
+.page-home .hero { --bg: var(--hero-bg); --ink: #f2f3f6; --ink-soft: #d5d8e0; --muted: #a4a9b6; --border: #2d2f37; --border-strong: #3e414b; --surface: #1c1d22; color: var(--ink); }
+.page-home .hero h1 { font-size: clamp(3rem, 1.6rem + 4.6vw, 6.25rem); font-weight: 800; letter-spacing: -0.045em; line-height: 0.98; }
+.page-home .hero__lead { font-weight: 300; color: var(--ink-soft); }
+.page-home .hero__eyebrow { margin-bottom: var(--space-6); }
+.page-home .hero__proof { border-top: 1px solid var(--border); padding-top: var(--space-5); margin-top: var(--space-8); gap: var(--space-2) var(--space-8); }
+.page-home .hero__proof li { color: var(--muted); font-size: var(--text-sm); }
+.page-home .hero__proof .icon { color: var(--muted); }
+
+/* ---------- about: figures as an edition ---------- */
+.page-home .about__stats { gap: 0; border-top: 1px solid var(--border); }
+.page-home .about-stat,
+.page-home .about-stat--brand { background: transparent; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; box-shadow: none; padding: var(--space-6) var(--space-6) var(--space-6) 0; color: var(--ink); }
+.page-home .about-stat:nth-child(odd) { border-right: 1px solid var(--border); }
+.page-home .about-stat:nth-child(even) { padding-left: var(--space-6); }
+.page-home .about-stat__value { font-size: clamp(1.75rem, 1rem + 2.2vw, 3.25rem); font-weight: 200; letter-spacing: -0.04em; color: var(--ink); overflow-wrap: normal; word-break: normal; hyphens: none; }
+.page-home .about-stat__label,
+.page-home .about-stat--brand .about-stat__label { color: var(--muted); }
+.page-home .about-stat .icon,
+.page-home .about-stat--brand .icon { color: var(--muted); background: none; }
+.page-home .about__sign .brand__mark { border-radius: var(--radius-sm); }
+
+/* ---------- shop window ---------- */
+.page-home .slide a { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: none; color: var(--ink); }
+.page-home .slide a:hover { border-color: var(--border-strong); }
+.page-home .slide img { border-radius: var(--radius-sm); }
+.page-home .slide__meta { color: var(--muted); }
+
+/* ---------- how it works: a strip of steps ---------- */
+.page-home .steps { gap: 0; border-top: 1px solid var(--border); }
+.page-home .step { background: transparent; border: 0; border-radius: 0; box-shadow: none; padding: var(--space-6) var(--space-6) var(--space-6) 0; }
+.page-home .step + .step { border-left: 1px solid var(--border); padding-left: var(--space-6); }
+.page-home .step__num { color: var(--muted); }
+.page-home .step__num > span:last-child { font-size: clamp(2.5rem, 1.8rem + 2vw, 3.5rem); font-weight: 200; letter-spacing: -0.04em; color: var(--ink); }
+.page-home .step__icon,
+.page-home .share-list .icon-tile { background: transparent; border: 1px solid var(--border-strong); color: var(--ink-soft); box-shadow: none; }
+.page-home .step p,
+.page-home .share-list p { color: var(--muted); }
+.page-home .share-showcase { border-top: 1px solid var(--border); }
+.page-home .share-list li { border-bottom: 1px solid var(--border); }
+/* the live sample card keeps its own design; the drawn phone shell goes quiet (gate 47a) */
+.page-home .share-visual::before { display: none; }
+.page-home .phone { background: var(--surface); border: 1px solid var(--border); box-shadow: none; }
+.page-home .phone::before { display: none; }
+.page-home .phone--swing,
+.page-home .phone--swing:hover,
+.page-home .phone--swing:focus-within { transform: none; }
+
+/* ---------- gallery ---------- */
+.page-home .sq__arrow { background: transparent; border: 1px solid var(--border-strong); color: var(--ink); }
+.page-home .sq__arrow:hover { background: var(--surface); }
+
+/* ---------- prices ---------- */
+.page-home .plan { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: none; }
+.page-home .plan--featured { border-color: var(--primary); }
+.page-home .plan__head h3 { font-size: var(--text-2xl); }
+.page-home .plan__usd { font-weight: 300; letter-spacing: -0.035em; }
+.page-home .plan__blurb,
+.page-home .plan__ghs { color: var(--muted); }
+.page-home .plan__features li { border-top: 1px solid var(--border); }
+.page-home .badge { border-radius: var(--radius-sm); }
+
+/* ---------- NFC ---------- */
+.page-home .table th { color: var(--muted); font-weight: 400; background: transparent; }
+.page-home .table td,
+.page-home .table th { border-color: var(--border); }
+.page-home .table tbody tr:hover { background: var(--surface); }
+.page-home .calc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: none; }
+.page-home .stepper,
+.page-home .stepper button,
+.page-home .stepper input { border-color: var(--border-strong); background: var(--bg); color: var(--ink); }
+.page-home .nfc-card { box-shadow: none; }
+.page-home .nfc-points li { border-top: 1px solid var(--border); }
+
+/* ---------- FAQ: hairline rows ---------- */
+.page-home .accordion details { background: transparent; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; box-shadow: none; }
+.page-home .accordion details:first-child { border-top: 1px solid var(--border); }
+.page-home .accordion summary { font-weight: 400; font-size: var(--text-lg); }
+.page-home .accordion .answer { color: var(--ink-soft); }
+
+/* ---------- closing band: the old gradient becomes a quiet well ---------- */
+.page-home .cta-band { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); color: var(--ink); text-align: left; display: grid; gap: var(--space-8); padding: clamp(2.5rem, 1.5rem + 4vw, 5rem); }
+.page-home .cta-band::before,
+.page-home .cta-band::after { display: none; }
+.page-home .cta-band h2 { max-width: 18ch; margin-inline: 0; }
+.page-home .cta-band .cluster { justify-content: flex-start; }
+
+/* ---------- cut-out pictures: the phone, the two hands ---------- */
+/* the hero is its own fixed dark colour, so the transparent phone floats on it */
+.page-home .hero { background: var(--hero-bg); }
+.page-home .hero::after { display: none; }
+.page-home .hero__media img { object-fit: contain; -webkit-mask-image: none; mask-image: none; pointer-events: auto; }
+@media (min-width: 60rem) {
+  /* the phone fills most of the screen height; its box ends short of the headline column */
+  .page-home .hero__media { right: calc(50% + var(--space-16)); display: flex; align-items: center; justify-content: flex-end; pointer-events: none; }
+  .page-home .hero__media img { position: relative; top: auto; left: auto; transform: none; width: auto; height: min(78svh, 54rem); max-width: 100%; margin: 0; }
+}
+@media (max-width: 59.99rem) {
+  .page-home .hero__media { aspect-ratio: auto; max-height: none; padding-inline: var(--gutter); }
+  .page-home .hero__media img { width: min(100%, 30rem); height: auto; margin-inline: auto; }
+}
+
+/* the two hand photos: the AD card beside the NFC prices, the QR card in the share section */
+.page-home .nfc-hand,
+.page-home .share-hand { margin: var(--space-6) 0; }
+.page-home .nfc-hand img,
+.page-home .share-hand img { display: block; width: 100%; height: auto; filter: var(--cut-shadow); }
+.page-home .share-hand { max-width: 30rem; margin-top: var(--space-8); }
+/* the photos crop each arm in a straight line; fade the arm out toward that edge */
+.page-home .nfc-hand--front img { -webkit-mask-image: linear-gradient(to top right, transparent 4%, #000 32%); mask-image: linear-gradient(to top right, transparent 4%, #000 32%); }
+.page-home .share-hand img { -webkit-mask-image: linear-gradient(to top left, transparent 4%, #000 30%); mask-image: linear-gradient(to top left, transparent 4%, #000 30%); }
+
+/* self-rotation: a slow 3D sway, still off-screen and under reduced motion; a click, tap or Enter pauses it for 3 seconds */
+.page-home [data-loop] img { transform-origin: 50% 50%; animation: card-sway 10s var(--ease-in-out) infinite alternate; animation-play-state: paused; cursor: pointer; }
+.page-home [data-loop].is-running img { animation-play-state: running; }
+.page-home [data-loop] img:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+@keyframes card-sway {
+  from { transform: perspective(1100px) rotateY(-14deg) rotateX(4deg) rotateZ(-1.5deg); }
+  to { transform: perspective(1100px) rotateY(14deg) rotateX(-4deg) rotateZ(1.5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-home [data-loop] img { animation: none; cursor: auto; }
+}
+
+/* ---------- the hand sections: dark grey with a fine grain, in both themes ---------- */
+.page-home #how-it-works,
+.page-home #nfc { position: relative; isolation: isolate; background: var(--grey-section); color: var(--ink); }
+.page-home #how-it-works::before,
+.page-home #nfc::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--grain) 0 0 / 200px 200px; opacity: 0.07; }
+/* Light mode: a softer shadow under the cards */
+html[data-theme="light"] body.page-home { --cut-shadow: drop-shadow(0 12px 16px rgb(10 12 20 / 0.2)) drop-shadow(0 3px 6px rgb(10 12 20 / 0.14)); }
+
+/* ---------- small screens ---------- */
+@media (max-width: 59.99rem) {
+  .page-home .about-stat:nth-child(odd) { border-right: 0; }
+  .page-home .about-stat:nth-child(even) { padding-left: 0; }
+  .page-home .step + .step { border-left: 0; padding-left: 0; }
+  .page-home .step { border-bottom: 1px solid var(--border); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-home .phone--swing { transition: none; }
+}
