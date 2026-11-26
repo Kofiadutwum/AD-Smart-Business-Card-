@@ -128,7 +128,9 @@ class PasskeyTests(BaseTest):
         session = self.client.session
         session["staff_2fa"] = staff.pk  # as if the emailed code was typed
         session.save()
-        self.assertContains(self.client.get("/staff/"), "Face ID and fingerprint sign-in")
+        overview = self.client.get("/staff/")
+        self.assertContains(overview, "Face ID and fingerprint sign-in")
+        self.assertContains(overview, "data-passkey-offer")
         phone = Phone()
         self.assertEqual(self.add_passkey(phone).status_code, 200)
         self.client.logout()

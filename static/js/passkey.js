@@ -3,7 +3,9 @@
    settings pages turn it on for the device. */
 (function () {
   "use strict";
-  if (!window.PublicKeyCredential || !navigator.credentials) return;
+  // Run once even when a page includes the prompt and the settings panel (each brings this script).
+  if (!window.PublicKeyCredential || !navigator.credentials || window.adPasskeyReady) return;
+  window.adPasskeyReady = true;
   var KEY = "passkey-id"; // the public id of this device's passkey: tells sign-in pages to show the prompt on open
 
   function remember(id) {

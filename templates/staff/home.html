@@ -1,6 +1,7 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="page-head"><div><h1>Overview</h1><p>{% now "l j F Y" %} · signed in as {{ user.role_label }}</p></div></div>
+{% include "components/passkey_offer.html" %}
 <div class="stats">
   <a class="panel stat" href="{% url 'staff:subscribers' %}" style="text-decoration:none;color:inherit"><span class="stat__label">Subscribers</span><span class="stat__value">{{ subscribers }}</span></a>
   <a class="panel stat" href="{% url 'staff:subscribers' %}?state=active" style="text-decoration:none;color:inherit"><span class="stat__label">Active</span><span class="stat__value">{{ active }}</span></a>
