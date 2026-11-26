@@ -7,6 +7,7 @@ import re
 from datetime import timedelta
 from unittest import mock
 
+from django.conf import settings
 from django.core import mail
 from django.core.management import call_command
 from django.test import override_settings
@@ -435,6 +436,47 @@ class StaffAccessTests(BaseTest):
         body = [m for m in mail.outbox if m.to == ["new@example.com"]][-1].body
         self.assertIn("Sign in at", body)
         self.assertNotIn("authenticator", body)
+
+    def test_main_admin_makes_an_existing_customer_staff_and_can_remove_them_again(self):
+        customer = self.make_user()
+        card = self.make_card(customer)
+        self.login_staff("super")
+        response = self.client.post("/staff/admins/", {"full_name": "", "email": "Kwame@Example.com", "role": "support"})
+        self.assertRedirects(response, "/staff/admins/", fetch_redirect_response=False)
+        customer.refresh_from_db()
+        card.refresh_from_db()
+        self.assertTrue(customer.is_staff)
+        self.assertEqual(customer.staff_role, "support")
+        self.assertTrue(customer.check_password("Str0ng-pass-123"))  # keeps their own password
+        self.assertEqual(card.website, settings.SITE_URL)  # their card became their staff card
+        body = [m for m in mail.outbox if m.to == ["kwame@example.com"]][-1].body
+        self.assertIn("password you already have", body)
+        self.assertNotIn("forgot-password", body)
+        self.assertTrue(AuditLog.objects.filter(action="admin_promoted", target_id=str(customer.pk)).exists())
+
+        self.client.post(f"/staff/admins/{customer.pk}/", {"action": "remove"})
+        customer.refresh_from_db()
+        self.assertFalse(customer.is_staff)
+        self.assertEqual(customer.staff_role, "")
+        self.assertTrue(AuditLog.objects.filter(action="admin_removed", target_id=str(customer.pk)).exists())
+        self.client.force_login(customer)
+        self.assertEqual(self.client.get("/dashboard/").status_code, 200)
+
+    def test_staff_cannot_be_added_twice_and_a_new_person_needs_a_name(self):
+        self.login_staff("super")
+        User.objects.create_user(email="ops@example.com", password="Staff-pass-2026", is_staff=True, staff_role="ops")
+        page = self.client.post("/staff/admins/", {"full_name": "", "email": "ops@example.com", "role": "support"})
+        self.assertContains(page, "That person is already an administrator.")
+        page = self.client.post("/staff/admins/", {"full_name": "", "email": "new@example.com", "role": "support"})
+        self.assertContains(page, "Enter their name.")
+        self.assertFalse(User.objects.filter(email="new@example.com").exists())
+
+    def test_a_superuser_cannot_be_removed_from_staff(self):
+        self.login_staff("super")
+        boss = User.objects.create_superuser(email="boss@example.com", password="Staff-pass-2026")
+        self.client.post(f"/staff/admins/{boss.pk}/", {"action": "remove"})
+        boss.refresh_from_db()
+        self.assertTrue(boss.is_staff)
 
     def test_idle_staff_are_still_signed_out_without_a_code_step(self):
         """SEC-05 holds with the check off."""

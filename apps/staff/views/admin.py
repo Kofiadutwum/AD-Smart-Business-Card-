@@ -122,20 +122,35 @@ def admins(request):
     form = AdminCreateForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         data = form.cleaned_data
-        member = User.objects.create_user(
-            email=data["email"], password=secrets.token_urlsafe(24), full_name=data["full_name"],
-            is_staff=True, staff_role=data["role"],
-        )
-        member.email_verified_at = member.date_joined
-        member.save(update_fields=["email_verified_at"])
+        member = form.existing
+        if member:  # an existing customer account becomes staff and keeps its password
+            member.is_staff, member.staff_role = True, data["role"]
+            member.email_verified_at = member.email_verified_at or member.date_joined
+            member.save(update_fields=["is_staff", "staff_role", "email_verified_at"])
+        else:
+            member = User.objects.create_user(
+                email=data["email"], password=secrets.token_urlsafe(24), full_name=data["full_name"],
+                is_staff=True, staff_role=data["role"],
+            )
+            member.email_verified_at = member.date_joined
+            member.save(update_fields=["email_verified_at"])
         send_email(
             to=member.email, subject="You have been added to the AD Smart staff area", template="staff_invite",
-            context={"user": member, "role": member.role_label, "two_factor_required": settings.STAFF_TWO_FACTOR_REQUIRED},
+            context={
+                "user": member, "role": member.role_label, "existing": bool(form.existing),
+                "two_factor_required": settings.STAFF_TWO_FACTOR_REQUIRED,
+            },
             user=member, kind="staff_invite",
         )
-        AuditLog.record(request.user, "admin_created", member, role=data["role"])
+        AuditLog.record(request.user, "admin_promoted" if form.existing else "admin_created", member, role=data["role"])
         after = ", then sign in with a code we email them" if settings.STAFF_TWO_FACTOR_REQUIRED else ""
-        messages.success(request, f"{member.email} was invited. They set a password with the code we emailed{after}.")
+        if form.existing:
+            messages.success(
+                request, f"{member.email} is now staff. They sign in at the staff login with their own password{after}. "
+                "Their customer dashboard is closed while they are staff.",
+            )
+        else:
+            messages.success(request, f"{member.email} was invited. They set a password with the code we emailed{after}.")
         return redirect("staff:admins")
     staff = User.objects.filter(is_staff=True).order_by("staff_role", "email")
     return render(request, "staff/admins.html", {
@@ -164,6 +179,14 @@ def admin_update(request, pk):
         member.save(update_fields=["is_active"])
         AuditLog.record(request.user, "admin_deactivated" if not member.is_active else "admin_reactivated", member)
         messages.success(request, f"{member.email} {'deactivated' if not member.is_active else 'reactivated'}.")
+    elif action == "remove":
+        if member.is_superuser:
+            messages.error(request, "A superuser cannot be removed from staff here.")
+        else:
+            member.is_staff, member.staff_role = False, ""
+            member.save(update_fields=["is_staff", "staff_role"])
+            AuditLog.record(request.user, "admin_removed", member)
+            messages.success(request, f"{member.email} is no longer staff. They can use the customer dashboard again.")
     return redirect("staff:admins")
 
 

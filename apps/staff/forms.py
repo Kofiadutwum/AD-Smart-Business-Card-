@@ -270,15 +270,28 @@ class ZoneForm(forms.ModelForm):
 
 
 class AdminCreateForm(forms.Form):
-    full_name = forms.CharField(max_length=120)
-    email = forms.EmailField()
+    full_name = forms.CharField(max_length=120, required=False, help_text="Not needed when the email already has an account.")
+    email = forms.EmailField(help_text="If this email already has a customer account, that account becomes staff.")
     role = forms.ChoiceField(choices=User.STAFF_ROLES)
+    existing = None  # the customer account this email belongs to, if any
 
     def clean_email(self):
         email = self.cleaned_data["email"].lower()
-        if User.objects.filter(email__iexact=email).exists():
-            raise ValidationError("That email already has an account.")
+        self.existing = User.objects.filter(email__iexact=email).first()
+        if self.existing and self.existing.is_staff:
+            raise ValidationError("That person is already an administrator.")
+        if self.existing and (
+            not self.existing.is_active or self.existing.is_suspended
+            or self.existing.anonymised_at or self.existing.deletion_requested_at
+        ):
+            raise ValidationError("That account is deactivated, suspended or being deleted. Sort that out first.")
         return email
+
+    def clean(self):
+        data = super().clean()
+        if data.get("email") and not self.existing and not data.get("full_name"):
+            self.add_error("full_name", "Enter their name.")
+        return data
 
 
 class RoleForm(forms.Form):
