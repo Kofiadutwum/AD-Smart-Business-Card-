@@ -482,7 +482,7 @@ class StaffAccessTests(BaseTest):
         """SEC-05 holds with the check off."""
         self.login_staff("super")
         session = self.client.session
-        session["staff_seen"] = session["staff_seen"] - 31 * 60
+        session["staff_seen"] = session["staff_seen"] - (24 * 60 + 1) * 60
         session.save()
         self.assertTrue(self.client.get("/staff/subscribers/")["Location"].startswith("/staff/login"))
 
@@ -603,10 +603,14 @@ class StaffAccessTests(BaseTest):
         self.assertEqual(self.client.get("/staff/audit/").status_code, 403)
 
     def test_idle_timeout(self):
-        """SEC-05."""
+        """SEC-05: still signed in after 23 hours idle, signed out after 24."""
         self.login_staff("super")
         session = self.client.session
-        session["staff_seen"] = session["staff_seen"] - 31 * 60
+        session["staff_seen"] = session["staff_seen"] - 23 * 60 * 60
+        session.save()
+        self.assertEqual(self.client.get("/staff/subscribers/").status_code, 200)
+        session = self.client.session
+        session["staff_seen"] = session["staff_seen"] - (24 * 60 + 1) * 60
         session.save()
         response = self.client.get("/staff/subscribers/")
         self.assertTrue(response["Location"].startswith("/staff/login"))

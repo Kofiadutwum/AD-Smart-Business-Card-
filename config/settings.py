@@ -190,7 +190,7 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 14
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
-STAFF_IDLE_TIMEOUT_SECONDS = 30 * 60  # SEC-05
+STAFF_IDLE_TIMEOUT_SECONDS = 24 * 60 * 60  # SEC-05; the owner chose 24 hours over the SRS's 30 minutes
 # SEC-03. On unless switched off: after their password, staff type a 6-digit code emailed to them. It defaults
 # to ON so a lost environment line cannot quietly turn it off. To get back in if email is down, set
 # STAFF_TWO_FACTOR_REQUIRED=0 in the server environment and restart.

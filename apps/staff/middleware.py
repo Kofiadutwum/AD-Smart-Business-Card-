@@ -2,7 +2,7 @@
 
 * Only staff reach /staff/ and /staff/db/ (everyone else gets a 404).
 * Staff must pass two-factor authentication in this session, when STAFF_TWO_FACTOR_REQUIRED is on.
-* Staff sessions end after 30 minutes without activity.
+* Staff sessions end after 24 hours without activity.
 """
 
 import time
@@ -32,7 +32,7 @@ class StaffAccessMiddleware:
             last = request.session.get("staff_seen")
             if last and now - last > settings.STAFF_IDLE_TIMEOUT_SECONDS:
                 logout(request)
-                messages.info(request, "You were signed out after 30 minutes without activity.")
+                messages.info(request, "You were signed out after 24 hours without activity.")
                 return redirect(f"/staff/login?next={path}")
             if settings.STAFF_TWO_FACTOR_REQUIRED and request.session.get("staff_2fa") != user.pk:
                 return redirect(f"/staff/2fa?next={path}")
