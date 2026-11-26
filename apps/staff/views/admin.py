@@ -127,6 +127,7 @@ def admins(request):
             member.is_staff, member.staff_role = True, data["role"]
             member.email_verified_at = member.email_verified_at or member.date_joined
             member.save(update_fields=["is_staff", "staff_role", "email_verified_at"])
+            member.passkeys.all().delete()  # a customer-era passkey must not skip the staff code; they add one as staff
         else:
             member = User.objects.create_user(
                 email=data["email"], password=secrets.token_urlsafe(24), full_name=data["full_name"],

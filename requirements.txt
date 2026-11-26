@@ -19,3 +19,4 @@ defusedxml==0.7.1
 dnspython==2.8.0
 python-dateutil==2.9.0.post0
 django-countries==9.1.0
+webauthn==3.0.1

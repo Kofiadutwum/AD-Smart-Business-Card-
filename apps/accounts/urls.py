@@ -1,7 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.views.generic import RedirectView
 
-from . import views
+from . import passkeys, views
 
 app_name = "accounts"
 
@@ -22,4 +22,9 @@ urlpatterns = [
     path("one-time-password", views.one_time_password, name="one_time_password"),
     path("google", views.google_start, name="google"),
     path("google/callback", views.google_callback, name="google_callback"),
+    path("passkey/sign-in/start", passkeys.sign_in_start, name="passkey_sign_in_start"),
+    path("passkey/sign-in", passkeys.sign_in, name="passkey_sign_in"),
+    path("passkey/add/start", passkeys.add_start, name="passkey_add_start"),
+    path("passkey/add", passkeys.add, name="passkey_add"),
+    path("passkey/<int:pk>/remove", passkeys.remove, name="passkey_remove"),
 ]

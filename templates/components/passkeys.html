@@ -1,0 +1,23 @@
+{% load static %}{# Turn Face ID / fingerprint sign-in on for this device, and list or remove devices. Used on the customer and staff settings pages. #}
+<section class="panel" data-passkey-manage
+         data-start="{% url 'accounts:passkey_add_start' %}" data-finish="{% url 'accounts:passkey_add' %}"
+         data-failed="{% trans 'That did not work. Try again.' %}"
+         data-exists="{% trans 'Face ID and fingerprint sign-in is already on for this device.' %}">
+  {% csrf_token %}
+  <h2 style="font-size: var(--text-lg)">{% trans "Face ID and fingerprint sign-in" %}</h2>
+  <p class="muted text-sm mt-2">{% trans "Turn it on for this phone or computer. Next time you open the app, it signs you in with your face, fingerprint or device PIN instead of your password." %}{% if user.is_staff %} {% trans "It also replaces the emailed code." %}{% endif %}</p>
+  {% with passkeys=user.passkeys.all %}{% if passkeys %}
+  <ul class="stack mt-4" style="list-style:none;margin:0;padding:0;--stack: var(--space-2)">
+    {% for p in passkeys %}
+    <li class="cluster" style="justify-content:space-between">
+      <span>{{ p.name }} <span class="muted text-sm">· {% trans "added" %} {{ p.created_at|date:"j M Y" }}</span></span>
+      {% trans "Turn off Face ID and fingerprint sign-in for this device?" as t_1 %}<form method="post" action="{% url 'accounts:passkey_remove' p.pk %}" data-confirm="{{ t_1 }}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}"><button class="btn btn--sm" type="submit">{% icon "x" 16 %}{% trans "Remove" %}</button></form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}{% endwith %}
+  <button type="button" class="btn mt-4" data-passkey-add hidden>{% icon "key-round" 16 %}{% trans "Turn on for this device" %}</button>
+  <p class="muted text-sm mt-4" data-passkey-unsupported>{% trans "This browser or device cannot use Face ID or fingerprint sign-in." %}</p>
+  <p class="text-sm mt-2" data-passkey-status role="status" aria-live="polite"></p>
+</section>
+<script src="{% static 'js/passkey.js' %}{{ ASSET_Q }}" defer></script>

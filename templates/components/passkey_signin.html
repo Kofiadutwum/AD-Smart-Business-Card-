@@ -1,0 +1,8 @@
+{% load static %}{# Face ID / fingerprint sign-in. static/js/passkey.js shows it when the browser can, and pops the prompt up on open on a device that has a passkey. #}
+<div class="stack mt-4" style="--stack: var(--space-2)" data-passkey-signin hidden
+     data-start="{% url 'accounts:passkey_sign_in_start' %}" data-finish="{% url 'accounts:passkey_sign_in' %}"
+     data-next="{{ request.GET.next }}" data-failed="{% trans 'That did not work. Try again, or use your password.' %}">
+  <button type="button" class="btn" style="width:100%; justify-content:center" data-passkey-go>{% icon "key-round" 18 %}{% trans "Sign in with Face ID or fingerprint" %}</button>
+  <p class="text-sm muted" data-passkey-status role="status" aria-live="polite"></p>
+</div>
+<script src="{% static 'js/passkey.js' %}{{ ASSET_Q }}" defer></script>

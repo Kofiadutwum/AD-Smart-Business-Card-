@@ -13,6 +13,7 @@
       {% include "components/form_fields.html" %}
       {% if two_factor_required %}{% hover_button "Continue" variant="ink" css="ihb--block" icon_name="lock" %}{% else %}{% hover_button "Sign in" variant="ink" css="ihb--block" icon_name="lock" %}{% endif %}
     </form>
+    {% include "components/passkey_signin.html" %}
   </div>
 </div>
 {% endblock %}

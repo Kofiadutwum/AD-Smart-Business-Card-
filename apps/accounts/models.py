@@ -200,3 +200,21 @@ class OneTimeCode(models.Model):
             return False
         self.attempts += 1
         return check_password(code, self.code_hash)
+
+
+class Passkey(models.Model):
+    """Face ID, fingerprint or device-PIN sign-in on one phone or computer (WebAuthn). Only the public key is kept."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="passkeys")
+    credential_id = models.CharField(max_length=255, unique=True)  # base64url, as the browser sends it
+    public_key = models.BinaryField()
+    sign_count = models.PositiveBigIntegerField(default=0)
+    name = models.CharField(max_length=60)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_used_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["created_at"]
+
+    def __str__(self):
+        return f"{self.name} ({self.user.email})"

@@ -22,6 +22,7 @@
       <p class="muted text-sm mt-2">{% if user.google_sub %}{% trans "You can sign in with Google." %} {% endif %}{% trans "Change the password you use to sign in with your email." %}</p>
       <a class="btn mt-4" href="{% url 'accounts:change_password' %}">{% icon "key-round" 16 %}{% trans "Change password" %}</a>
     </section>
+    {% include "components/passkeys.html" %}
   </div>
   <div class="stack" style="--stack: var(--space-6)">
     <section class="panel">
