@@ -1,0 +1,14 @@
+{% load static %}{# Dashboard prompt to turn on Face ID / fingerprint sign-in. static/js/passkey.js shows it only on a device that can, has no passkey yet, and was not told "Not now". #}
+<div class="banner banner--info" data-passkey-manage data-passkey-offer hidden
+     data-start="{% url 'accounts:passkey_add_start' %}" data-finish="{% url 'accounts:passkey_add' %}"
+     data-failed="{% trans 'That did not work. Try again.' %}"
+     data-exists="{% trans 'Face ID and fingerprint sign-in is already on for this device.' %}">
+  {% csrf_token %}
+  {% icon "key-round" 22 %}
+  <p><strong>{% trans "Sign in with Face ID or fingerprint" %}</strong>{% trans "Next time you open the app on this device, your face, fingerprint or device PIN signs you in. No password to type." %}<span style="display:block" data-passkey-status role="status" aria-live="polite"></span></p>
+  <div class="cluster" style="--cluster: var(--space-2)">
+    <button type="button" class="btn btn--primary btn--sm" data-passkey-add>{% trans "Turn on" %}</button>
+    <button type="button" class="btn btn--ghost btn--sm" data-passkey-dismiss>{% trans "Not now" %}</button>
+  </div>
+</div>
+<script src="{% static 'js/passkey.js' %}{{ ASSET_Q }}" defer></script>

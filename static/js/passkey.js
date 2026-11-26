@@ -9,8 +9,10 @@
   function remember(id) {
     try { if (id) localStorage.setItem(KEY, id); else localStorage.removeItem(KEY); } catch (e) {}
   }
-  function remembered() {
-    try { return localStorage.getItem(KEY); } catch (e) { return null; }
+  var DISMISSED = "passkey-offer-off"; // "Not now" on the dashboard prompt, for this device
+
+  function remembered(key) {
+    try { return localStorage.getItem(key || KEY); } catch (e) { return null; }
   }
 
   function toB64(buffer) {
@@ -103,11 +105,18 @@
   document.querySelectorAll("[data-passkey-manage]").forEach(function (box) {
     var button = box.querySelector("[data-passkey-add]");
     var note = box.querySelector("[data-passkey-unsupported]");
+    var offer = box.hasAttribute("data-passkey-offer"); // the dashboard prompt: devices without a passkey, until "Not now"
     PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(function (ok) {
-      if (!ok) return;
+      if (!ok || (offer && (remembered() || remembered(DISMISSED)))) return;
+      box.hidden = false;
       button.hidden = false;
       if (note) note.hidden = true;
     }).catch(function () {});
+    var dismiss = box.querySelector("[data-passkey-dismiss]");
+    if (dismiss) dismiss.addEventListener("click", function () {
+      try { localStorage.setItem(DISMISSED, "1"); } catch (e) {}
+      box.hidden = true;
+    });
 
     button.addEventListener("click", function () {
       button.disabled = true;

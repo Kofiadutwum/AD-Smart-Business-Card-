@@ -85,6 +85,12 @@ class PasskeyTests(BaseTest):
         for url in ("/auth/login", "/staff/login"):
             self.assertContains(self.client.get(url), "data-passkey-signin")
 
+    def test_the_dashboard_offers_to_turn_it_on(self):
+        user = self.make_user()
+        self.make_card(user)
+        self.client.force_login(user)
+        self.assertContains(self.client.get("/dashboard/"), "data-passkey-offer")
+
     def test_a_customer_turns_it_on_then_signs_in_with_it(self):
         user, phone = self.customer_with_passkey()
         self.assertEqual(user.passkeys.get().name, "Phone or computer")
