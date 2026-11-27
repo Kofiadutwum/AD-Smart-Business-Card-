@@ -653,7 +653,7 @@ class StaffViewTests(PayToUpdateBase):
         self.set_up(free_year=True)
         self.staff_in()
         row = self.client.get("/staff/subscribers/?q=ama@example.com")
-        self.assertContains(row, "Live · pay when updating")
+        self.assertContains(row, "Live, pay when updating")
         self.assertContains(row, "changes open until")
         self.assertNotContains(row, '<span class="badge">Draft</span>')
         self.assertContains(self.client.get("/staff/subscribers/?state=update"), "ama@example.com")

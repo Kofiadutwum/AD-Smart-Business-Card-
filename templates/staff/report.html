@@ -1,9 +1,13 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="page-head">
-  <div><h1>Finance report</h1><p>Received revenue by month, split by source. Compare with Paystack settlement reports.</p></div>
+  <div><h1>Finance report</h1><p>Money received each month by source; check it against Paystack settlements.</p></div>
   <a class="btn" href="{% url 'staff:payments_export' 'xlsx' %}">{% icon "download" 16 %}Export all payments</a>
 </div>
+<nav class="tabs" aria-label="Account">
+  <a href="{% url 'staff:finance_report' %}" {% if not region %}aria-current="page"{% endif %}>Ghana and outside</a>
+  {% for value, label in regions %}<a href="{% url 'staff:finance_report' %}?region={{ value }}" {% if region == value %}aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
+</nav>
 <div class="stats">
   <div class="panel stat"><span class="stat__label">Subscriptions</span><span class="stat__value">{% money totals.subscription usd=totals.subscription_usd rate=None %}</span></div>
   <div class="panel stat"><span class="stat__label">NFC cards</span><span class="stat__value">{% money totals.nfc usd=totals.nfc_usd rate=None %}</span></div>
@@ -15,7 +19,7 @@
   <div class="panel stat"><span class="stat__label">Discounts given</span><span class="stat__value">{% money totals.discount usd=totals.discount_usd rate=None %}</span></div>
   <div class="panel stat"><span class="stat__label">Tax collected</span><span class="stat__value">{% money totals.tax usd=totals.tax_usd rate=None %}</span></div>
   <div class="panel stat"><span class="stat__label">Paystack fees</span><span class="stat__value">{% money totals.fees usd=totals.fees_usd rate=None %}</span></div>
-  <div class="panel stat"><span class="stat__label">Payments</span><span class="stat__value">{{ counts.success|default:0 }}</span><span class="stat__hint">{{ counts.failed|default:0 }} failed · {{ counts.pending|default:0 }} pending · {{ counts.abandoned|default:0 }} abandoned</span></div>
+  <div class="panel stat"><span class="stat__label">Payments</span><span class="stat__value">{{ counts.success|default:0 }}</span><span class="stat__hint">{{ counts.failed|default:0 }} failed, {{ counts.pending|default:0 }} pending, {{ counts.abandoned|default:0 }} abandoned</span></div>
 </div>
 <section class="panel mt-6">
   <div class="panel__head"><h2>By month</h2></div>
@@ -25,7 +29,7 @@
       <tbody>
         {% for month, b in rows %}
           <tr>
-            <td>{{ month }}</td><td class="num">{% money b.subscription usd=b.subscription_usd rate=None %}</td><td class="num">{% money b.nfc usd=b.nfc_usd rate=None %}</td><td class="num">{% money b.delivery usd=b.delivery_usd rate=None %}</td><td class="num">{% money b.premade usd=b.premade_usd rate=None %}</td><td class="num">{% money b.discount usd=b.discount_usd rate=None %}</td><td class="num">{% money b.tax usd=b.tax_usd rate=None %}</td><td class="num">{% money b.fees usd=b.fees_usd rate=None %}</td>
+            <td>{{ month }}</td><td class="num" data-count>{% money b.subscription usd=b.subscription_usd rate=None %}</td><td class="num" data-count>{% money b.nfc usd=b.nfc_usd rate=None %}</td><td class="num" data-count>{% money b.delivery usd=b.delivery_usd rate=None %}</td><td class="num" data-count>{% money b.premade usd=b.premade_usd rate=None %}</td><td class="num" data-count>{% money b.discount usd=b.discount_usd rate=None %}</td><td class="num" data-count>{% money b.tax usd=b.tax_usd rate=None %}</td><td class="num" data-count>{% money b.fees usd=b.fees_usd rate=None %}</td>
             <td><div class="progress" title="Share of the best month"><span style="width: {% if peak %}{% widthratio b.subscription|add:b.nfc|add:b.delivery|add:b.premade peak 100 %}{% else %}0{% endif %}%"></span></div></td>
           </tr>
         {% empty %}<tr><td colspan="9" class="muted">No revenue yet.</td></tr>{% endfor %}

@@ -1,12 +1,12 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="crumbs"><a href="{% url 'staff:premade' %}">Pre-made cards</a><span>/</span><span>{{ batch.code }}</span></div>
-<div class="page-head"><div><h1>{{ batch.code }} · {{ batch.name }}</h1><p>{{ batch.quantity }} cards · {% if batch.pay_to_update %}pay when updating, {{ batch.plan.name }} features, Update Price {% money batch.update_price_minor inline=True %}{% elif batch.card_only %}card only, plan paid online{% else %}{{ batch.plan.name }}, {{ batch.months }} months{% endif %} · sold for {% money batch.price_minor %}{% if batch.note %} · {{ batch.note }}{% endif %}</p></div></div>
+<div class="page-head"><div><h1>{{ batch.code }}, {{ batch.name }}</h1><p>{{ batch.quantity }} cards, {% if batch.pay_to_update %}pay when updating, {{ batch.plan.name }} features, Update Price {% money batch.update_price_minor inline=True %}{% elif batch.card_only %}card only, plan paid online{% else %}{{ batch.plan.name }}, {{ batch.months }} months{% endif %}, sold for {% money batch.price_minor %}{% if batch.note %}, {{ batch.note }}{% endif %}</p></div></div>
 
 <div class="panel">
   <h2 style="font-size: var(--text-lg)">Print pack</h2>
   {% if pack_ready %}
-    <p class="muted text-sm">Ready for 24 hours after it was made. It holds each card’s QR link, NFC chip link and PIN. Send the QR codes to the printer, write the NFC links onto the chips and print the PIN on the back of each card.</p>
+    <p class="muted text-sm">Ready for 24 hours: each card’s QR link, NFC link and PIN, for the printer.</p>
     <div class="mt-4" style="display:flex;gap:var(--space-3);flex-wrap:wrap">
       <a class="btn btn--primary" href="{% url 'staff:premade_pack_zip' batch.pk %}">{% icon "download" 16 %}QR codes (ZIP, SVG and PNG)</a>
       <a class="btn" href="{% url 'staff:premade_pack_csv' batch.pk %}">{% icon "download" 16 %}List with links and PINs (CSV)</a>

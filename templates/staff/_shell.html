@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Staff · {{ SITE_NAME }}{% endblock %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/app.css' %}{{ ASSET_Q }}">{% block staff_css %}{% endblock %}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/app.css' %}{{ ASSET_Q }}"><link rel="stylesheet" href="{% static 'css/staff.css' %}{{ ASSET_Q }}">{% block staff_css %}{% endblock %}{% endblock %}
+{% block body_class %}staff{% endblock %}
 {% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
@@ -17,7 +18,7 @@
   <aside class="app-side" id="app-side" aria-label="Staff">
     <a class="brand" href="{% url 'staff:home' %}">
       <span class="brand__mark"><img src="{% static 'brand/logo-96.webp' %}" alt="" width="126" height="96"></span>
-      <span class="brand__text"><strong>AD Smart</strong><span class="staff-mark">STAFF</span></span>
+      <span class="brand__text"><strong>AD Smart</strong><span class="staff-mark">Staff</span></span>
     </a>
     <nav class="app-nav" aria-label="Staff">
       <div class="app-nav__group">
@@ -81,4 +82,4 @@
   <div class="app-main"><div class="app-main__inner">{% block main %}{% endblock %}</div></div>
 </div>
 {% endblock %}
-{% block scripts %}<script src="{% static 'js/app.js' %}{{ ASSET_Q }}" defer></script>{% block page_scripts %}{% endblock %}{% endblock %}
+{% block scripts %}<script src="{% static 'js/app.js' %}{{ ASSET_Q }}" defer></script><script src="{% static 'js/staff.js' %}{{ ASSET_Q }}" defer></script>{% block page_scripts %}{% endblock %}{% endblock %}

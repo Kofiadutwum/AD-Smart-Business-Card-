@@ -4,7 +4,7 @@
   <div>
     <div class="crumbs"><a href="{% url 'staff:support' %}">Support</a><span>/</span><span>{{ ticket.reference }}</span></div>
     <h1>{{ ticket.subject }}</h1>
-    <p>{{ ticket.get_category_display }} · {{ ticket.name }} · <a href="mailto:{{ ticket.email }}">{{ ticket.email }}</a>{% if ticket.phone %} · {{ ticket.phone }}{% endif %}{% if ticket.user %} · <a href="{% url 'staff:subscriber' ticket.user_id %}">account</a>{% endif %}{% if ticket.priority %} · <span class="badge badge--accent">Priority</span>{% endif %}</p>
+    <p>{{ ticket.get_category_display }}, {{ ticket.name }}, <a href="mailto:{{ ticket.email }}">{{ ticket.email }}</a>{% if ticket.phone %}, {{ ticket.phone }}{% endif %}{% if ticket.user %}, <a href="{% url 'staff:subscriber' ticket.user_id %}">account</a>{% endif %}{% if ticket.priority %}, <span class="badge badge--accent">Priority</span>{% endif %}</p>
   </div>
 </div>
 <div class="thread">

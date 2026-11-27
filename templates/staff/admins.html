@@ -1,6 +1,6 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
-<div class="page-head"><div><h1>Administrators</h1><p>Each role opens only the functions in the SRS permission table. {% if two_factor_required %}Everyone signs in with their password and a code we email them.{% else %}Everyone signs in with their email and password.{% endif %}</p></div></div>
+<div class="page-head"><div><h1>Administrators</h1><p>Each role sees only its own functions.</p></div></div>
 <div class="split">
   <div class="table-wrap">
     <table class="table">
@@ -30,8 +30,8 @@
   </div>
   <section class="panel">
     <h2 style="font-size: var(--text-lg)">Add an administrator</h2>
-    <p class="muted text-sm mt-2">They receive an email explaining how to set their password{% if two_factor_required %}. At sign-in they type a code we email them{% endif %}.</p>
-    <p class="muted text-sm mt-2">If the email already has a customer account, that account becomes staff. It keeps its password, its first card becomes the person's staff card, and the customer dashboard is closed until you remove them from staff.</p>
+    <p class="muted text-sm mt-2">They get an email to set their password.</p>
+    <p class="muted text-sm mt-2">An existing customer account becomes staff and keeps its password.</p>
     <form method="post" class="form mt-4" novalidate>
       {% csrf_token %}
       {% include "components/form_fields.html" %}

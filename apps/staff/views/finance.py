@@ -24,6 +24,7 @@ from apps.nfc.services import change_status
 
 from ..forms import PromoCodeForm, RefundForm
 from ..permissions import staff_required
+from ..regions import REGIONS, payments_q
 
 
 def _filtered(request):
@@ -39,6 +40,8 @@ def _filtered(request):
         qs = qs.filter(purpose=purpose)
     if q:
         qs = qs.filter(Q(reference__icontains=q) | Q(receipt_number__icontains=q) | Q(user__email__icontains=q))
+    if request.GET.get("region") in dict(REGIONS):
+        qs = qs.filter(payments_q(request.GET["region"]))
     for value, lookup in ((start, "created_at__date__gte"), (end, "created_at__date__lte")):
         if value:
             try:
@@ -62,7 +65,7 @@ def payments(request):
     page = Paginator(qs, 40).get_page(request.GET.get("page"))
     return render(
         request, "staff/payments.html",
-        {"page": page, "totals": totals, "statuses": Payment.STATUSES, "purposes": Payment.PURPOSES, "params": request.GET},
+        {"page": page, "totals": totals, "statuses": Payment.STATUSES, "purposes": Payment.PURPOSES, "regions": REGIONS, "params": request.GET},
     )
 
 
@@ -178,7 +181,11 @@ def refund(request, pk):
 @staff_required("finance")
 def report(request):
     paid = Payment.objects.filter(status__in=[Payment.SUCCESS, Payment.PARTIALLY_REFUNDED, Payment.REFUNDED], paid_at__isnull=False)
-    keys = ("subscription", "nfc", "delivery", "premade", "tax", "discount", "fees")
+    # Ghana and outside Ghana are separate accounts: the prices differ (apps/staff/regions.py).
+    region = request.GET.get("region", "")
+    in_region = payments_q(region) if region in dict(REGIONS) else Q()
+    paid = paid.filter(in_region)
+    keys =("subscription", "nfc", "delivery", "premade", "tax", "discount", "fees")
     months = OrderedDict()
 
     def add(bucket, key, minor, rate):
@@ -212,21 +219,22 @@ def report(request):
     for k in keys:
         dollars = [b[k + "_usd"] for _, b in rows]
         totals[k + "_usd"] = None if any(d is None for d in dollars) else sum(dollars, Decimal(0))
-    counts = dict(Payment.objects.values_list("status").annotate(n=Count("id")))
+    counts = dict(Payment.objects.filter(in_region).values_list("status").annotate(n=Count("id")).order_by())
+    in_region_via = payments_q(region, "payment__") if region in dict(REGIONS) else Q()
     promos = PromoCode.objects.annotate(
-        discount=Sum("payment__discount_minor", filter=Q(payment__status=Payment.SUCCESS))
+        discount=Sum("payment__discount_minor", filter=Q(payment__status=Payment.SUCCESS) & in_region_via)
     ).order_by("-used_count")[:10]
-    refunds = list(Refund.objects.filter(status=Refund.DONE).select_related("payment"))
+    refunds = list(Refund.objects.filter(in_region_via, status=Refund.DONE).select_related("payment"))
     refunded = sum(r.amount_minor for r in refunds)
     refunded_usd = usd_total((r.amount_minor, r.usd_rate) for r in refunds)
     promos = list(promos)
     for promo in promos:
-        used = Payment.objects.filter(promo_code=promo, status=Payment.SUCCESS).only("discount_minor", "fx_rate", "paid_at", "created_at")
+        used = Payment.objects.filter(in_region, promo_code=promo, status=Payment.SUCCESS).only("discount_minor", "fx_rate", "paid_at", "created_at")
         promo.discount_usd = usd_total((p.discount_minor, p.usd_rate) for p in used)
     return render(
         request, "staff/report.html",
         {"rows": rows, "peak": peak, "totals": totals, "counts": counts, "promos": promos,
-         "refunded": refunded, "refunded_usd": refunded_usd},
+         "refunded": refunded, "refunded_usd": refunded_usd, "region": region, "regions": REGIONS},
     )
 
 

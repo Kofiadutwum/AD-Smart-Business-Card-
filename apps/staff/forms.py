@@ -61,7 +61,7 @@ class ManualActivationForm(ReasonForm):
     months = forms.IntegerField(min_value=1, max_value=36, initial=12)
     seats = forms.IntegerField(
         label="Team size", required=False, min_value=1, max_value=1000,
-        help_text="Business plan only: how many people. Leave empty for the people included in the price.",
+        help_text="Business plan only; empty for the people included.",
     )
     amount = CedisField(label="Amount received (GHS)", initial=0, help_text="0 for complimentary cards.")
 
@@ -140,12 +140,17 @@ class NoteForm(forms.Form):
 
 
 class GalleryForm(forms.ModelForm):
-    upload = PictureField(label="Picture", required=False, help_text="JPG, PNG, HEIC, WebP and more, up to 10 MB. Landscape pictures fill the slides best.")
+    upload = PictureField(label="Picture", required=False, help_text="Any picture up to 10 MB; landscape fits best.")
 
     class Meta:
         model = GalleryImage
         fields = ["title", "description", "alt_text", "caption", "action_label", "action_url", "focus", "display_order", "is_published"]
         widgets = {"description": forms.Textarea(attrs={"rows": 2})}
+        help_texts = {  # shorter than the model's own; set here so no migration is needed
+            "title": "The dark first line, e.g. the client.",
+            "action_url": "Optional; empty opens the full picture.",
+            "focus": "The part kept in view on narrow slides.",
+        }
 
     def clean(self):
         cleaned = super().clean()
@@ -164,18 +169,20 @@ class SiteSettingsForm(forms.ModelForm):
     class Meta:
         model = SiteSettings
         exclude = ["updated_at"]
+        help_texts = {"reminder_days": "Days before expiry; 0 means on the day."}
 
 
 class PlanForm(forms.ModelForm):
     price = CedisField(label="Annual price (GHS)")
     update_price = CedisField(
         label="Price of changes (GHS, per card)",
-        help_text="For plans paid once in Ghana: after a card's free first year, each card pays this for 12 more months of changes to its details.",
+        help_text="Ghana one-time plans: each card's price for a year of changes after its free year.",
     )
 
     class Meta:
         model = Plan
         exclude = ["price_minor", "update_price_minor", "code"]
+        help_texts = {"max_products": "Empty for unlimited."}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -234,6 +241,7 @@ class TierForm(forms.ModelForm):
         model = PriceTier
         fields = ["min_quantity", "max_quantity", "mode", "ghana"]
         labels = {"ghana": "Price table for visitors in Ghana"}
+        help_texts = {"ghana": "Shown to visitors in Ghana; with none ticked they get the common table."}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -258,6 +266,7 @@ class ZoneForm(forms.ModelForm):
             "is_active": "Offer this option",
             "sort_order": "Order in the list",
         }
+        help_texts = {"is_international": "Shipping outside Ghana; import duties are the customer's."}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -270,8 +279,8 @@ class ZoneForm(forms.ModelForm):
 
 
 class AdminCreateForm(forms.Form):
-    full_name = forms.CharField(max_length=120, required=False, help_text="Not needed when the email already has an account.")
-    email = forms.EmailField(help_text="If this email already has a customer account, that account becomes staff.")
+    full_name = forms.CharField(max_length=120, required=False, help_text="Not needed for an existing account.")
+    email = forms.EmailField(help_text="An existing customer account becomes staff.")
     role = forms.ChoiceField(choices=User.STAFF_ROLES)
     existing = None  # the customer account this email belongs to, if any
 
@@ -332,18 +341,18 @@ class PremadeBatchForm(forms.Form):
             ("payupdate", "Pay when updating: live at once, the buyer pays only to change their details (Basic or Professional)"),
         ],
         initial="year",
-        help_text="The 3-year Basic card has only the Basic features, and the card-only set has no plan inside it; the plan below is ignored for both. For pay-when-updating, the plan below sets the features.",
+        help_text="The plan below is ignored for 3-year Basic and card-only sets.",
     )
     plan = forms.ModelChoiceField(
         label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None, required=False
     )
     price = CedisField(
         label="Price in the shop (GHS)", required=False,
-        help_text="What the buyer pays the shop. Leave empty for the usual price: 450 with a plan inside, 200 for the card only or pay-when-updating. It is counted as revenue from outside the website when the card is set up.",
+        help_text="What the buyer pays the shop. Empty: 450 with a plan, 200 otherwise.",
     )
     update_price = CedisField(
         label="Update Price (GHS)", required=False,
-        help_text="Pay-when-updating cards only: what the buyer pays online to change their card. It opens changes for 12 months. Leave empty for 100.",
+        help_text="Pay-when-updating only: the online price for 12 months of changes. Empty: 100.",
     )
     note = forms.CharField(label="Note (optional)", max_length=200, required=False)
 

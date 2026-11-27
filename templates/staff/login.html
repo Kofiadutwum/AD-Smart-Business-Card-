@@ -1,11 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Staff sign-in · {{ SITE_NAME }}{% endblock %}
 {% block robots %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/staff.css' %}{{ ASSET_Q }}">{% endblock %}
+{% block body_class %}staff{% endblock %}
 {% block header %}{% endblock %}{% block footer %}{% endblock %}{% block floating %}{% endblock %}
 {% block content %}
 <div class="state-page" style="color: var(--ink); background: var(--night)">
   <div class="auth-card" style="text-align:left">
-    <span class="staff-mark">STAFF</span>
+    <span class="staff-mark">Staff</span>
     <h1 class="mt-4">Sign in</h1>
     <p class="lead">For the AD Smart team only.{% if two_factor_required %} We will email you a code to confirm it is you.{% endif %}</p>
     <form method="post" class="form" novalidate>

@@ -1,7 +1,7 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="page-head">
-  <div><h1>Payments</h1><p>{{ totals.count }} payment{{ totals.count|pluralize }} · {% money totals.amount|default:0 inline=True usd=totals.amount_usd rate=None %} received · {% money totals.fees|default:0 inline=True usd=totals.fees_usd rate=None %} Paystack fees</p></div>
+  <div><h1>Payments</h1><p data-count>{{ totals.count }} payment{{ totals.count|pluralize }}, {% money totals.amount|default:0 inline=True usd=totals.amount_usd rate=None %} received, {% money totals.fees|default:0 inline=True usd=totals.fees_usd rate=None %} Paystack fees</p></div>
   {% if staff_perms.finance %}
   <div class="cluster">
     <a class="btn" href="{% url 'staff:payments_export' 'csv' %}?{{ request.GET.urlencode }}">{% icon "download" 16 %}CSV</a>
@@ -13,6 +13,7 @@
   <div class="field" style="flex:1;min-width:12rem"><label for="q">Reference, receipt or email</label><input id="q" name="q" value="{{ params.q }}"></div>
   <div class="field"><label for="status">Status</label><select id="status" name="status"><option value="">All</option>{% for k, v in statuses %}<option value="{{ k }}" {% if params.status == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
   <div class="field"><label for="purpose">For</label><select id="purpose" name="purpose"><option value="">All</option>{% for k, v in purposes %}<option value="{{ k }}" {% if params.purpose == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
+  <div class="field"><label for="region">Where</label><select id="region" name="region"><option value="">Ghana and outside</option>{% for k, v in regions %}<option value="{{ k }}" {% if params.region == k %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></div>
   <div class="field"><label for="from">From</label><input id="from" type="date" name="from" value="{{ params.from }}"></div>
   <div class="field"><label for="to">To</label><input id="to" type="date" name="to" value="{{ params.to }}"></div>
   <button class="btn" type="submit">{% icon "search" 16 %}Filter</button>

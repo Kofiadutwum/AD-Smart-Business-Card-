@@ -1,31 +1,73 @@
 {% extends "staff/_shell.html" %}
+{% load static %}
 {% block main %}
-<div class="page-head"><div><h1>Overview</h1><p>{% now "l j F Y" %} · signed in as {{ user.role_label }}</p></div></div>
+<div class="page-head"><div><h1>Overview</h1><p>{% now "l j F Y" %}, signed in as {{ user.role_label }}</p></div></div>
 {% include "components/passkey_offer.html" %}
+{% if flagged %}
+  <div class="alert alert--danger" style="margin-bottom: var(--space-6)">{% icon "triangle-alert" 18 %}<span><strong>Payments need checking.</strong> {% for p in flagged %}<a href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a> ({{ p.flag }}){% if not forloop.last %}, {% endif %}{% endfor %}</span></div>
+{% endif %}
 <div class="stats">
-  <a class="panel stat" href="{% url 'staff:subscribers' %}" style="text-decoration:none;color:inherit"><span class="stat__label">Subscribers</span><span class="stat__value">{{ subscribers }}</span></a>
-  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=active" style="text-decoration:none;color:inherit"><span class="stat__label">Active</span><span class="stat__value">{{ active }}</span></a>
-  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=grace" style="text-decoration:none;color:inherit"><span class="stat__label">In grace period</span><span class="stat__value">{{ in_grace }}</span></a>
-  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=inactive" style="text-decoration:none;color:inherit"><span class="stat__label">Inactive or draft</span><span class="stat__value">{{ inactive }}</span></a>
+  <a class="panel stat" href="{% url 'staff:subscribers' %}"><span class="stat__label">Subscribers</span><span class="stat__value">{{ subscribers }}</span></a>
+  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=active"><span class="stat__label">Active</span><span class="stat__value">{{ active }}</span></a>
+  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=grace"><span class="stat__label">In grace period</span><span class="stat__value">{{ in_grace }}</span></a>
+  <a class="panel stat" href="{% url 'staff:subscribers' %}?state=inactive"><span class="stat__label">Inactive or draft</span><span class="stat__value">{{ inactive }}</span></a>
 </div>
 {% if show_money %}
 <div class="stats mt-4">
-  <div class="panel stat"><span class="stat__label">Revenue this month</span><span class="stat__value">{% money month_revenue usd=month_revenue_usd rate=None %}</span></div>
-  <div class="panel stat"><span class="stat__label">Subscription revenue</span><span class="stat__value">{% money subscription_revenue usd=subscription_revenue_usd rate=None %}</span></div>
-  <div class="panel stat"><span class="stat__label">NFC revenue</span><span class="stat__value">{% money nfc_revenue usd=nfc_revenue_usd rate=None %}</span></div>
-  <div class="panel stat"><span class="stat__label">Shop sales (pre-made cards)</span><span class="stat__value">{% money premade_revenue usd=premade_revenue_usd rate=None %}</span></div>
-  <a class="panel stat" href="{% url 'staff:payments' %}?status=pending" style="text-decoration:none;color:inherit"><span class="stat__label">Pending payments</span><span class="stat__value">{{ pending_payments }}</span><span class="stat__hint">{{ successful_payments }} successful all time</span></a>
+  <div class="panel stat"><span class="stat__label">Revenue this month</span><span class="stat__value">{% money month_revenue usd=month_revenue_usd rate=None %}</span><span class="stat__hint">Ghana {{ split.month_ghana|ghs }}<br>Outside Ghana {{ split.month_abroad|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Subscription revenue</span><span class="stat__value">{% money subscription_revenue usd=subscription_revenue_usd rate=None %}</span><span class="stat__hint">Ghana {{ split.subscription_ghana|ghs }}<br>Outside Ghana {{ split.subscription_abroad|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">NFC revenue</span><span class="stat__value">{% money nfc_revenue usd=nfc_revenue_usd rate=None %}</span><span class="stat__hint">Ghana {{ split.nfc_ghana|ghs }}<br>Outside Ghana {{ split.nfc_abroad|ghs }}</span></div>
+  <div class="panel stat"><span class="stat__label">Shop sales (pre-made cards)</span><span class="stat__value">{% money premade_revenue usd=premade_revenue_usd rate=None %}</span><span class="stat__hint">All sold in Ghana</span></div>
+  <a class="panel stat" href="{% url 'staff:payments' %}?status=pending"><span class="stat__label">Pending payments</span><span class="stat__value">{{ pending_payments }}</span><span class="stat__hint">{{ successful_payments }} successful all time</span></a>
 </div>
 {% endif %}
 <div class="stats mt-4">
-  <a class="panel stat" href="{% url 'staff:nfc_orders' %}?queue=new" style="text-decoration:none;color:inherit"><span class="stat__label">New NFC orders</span><span class="stat__value">{{ pending_orders }}</span></a>
-  <a class="panel stat" href="{% url 'staff:nfc_orders' %}?queue=waiting" style="text-decoration:none;color:inherit"><span class="stat__label">Awaiting customer / on hold</span><span class="stat__value">{{ waiting_orders }}</span></a>
+  <a class="panel stat" href="{% url 'staff:nfc_orders' %}?queue=new"><span class="stat__label">New NFC orders</span><span class="stat__value">{{ pending_orders }}</span></a>
+  <a class="panel stat" href="{% url 'staff:nfc_orders' %}?queue=waiting"><span class="stat__label">Awaiting customer or on hold</span><span class="stat__value">{{ waiting_orders }}</span></a>
   <div class="panel stat"><span class="stat__label">Open support requests</span><span class="stat__value">{{ open_support }}</span></div>
   <div class="panel stat"><span class="stat__label">Open card reports</span><span class="stat__value">{{ open_reports }}</span></div>
 </div>
-{% if flagged %}
-  <div class="alert alert--danger mt-6">{% icon "triangle-alert" 18 %}<span><strong>Payments need checking.</strong> {% for p in flagged %}<a href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a> ({{ p.flag }}){% if not forloop.last %}, {% endif %}{% endfor %}</span></div>
-{% endif %}
+
+<div class="charts-bar">
+  <h2>Graphs</h2>
+  <div class="segmented" role="group" aria-label="Where" data-region-switch hidden>
+    <button type="button" data-region="all" aria-pressed="true">Ghana and outside</button>
+    <button type="button" data-region="ghana" aria-pressed="false">Ghana</button>
+    <button type="button" data-region="abroad" aria-pressed="false">Outside Ghana</button>
+  </div>
+</div>
+<div class="charts">
+  {% if charts_failed %}
+  <section class="panel chart chart--wide"><p class="chart__note chart__note--error">The graphs could not load. Reload the page to try again.</p></section>
+  {% else %}{% for chart in charts %}
+  <section class="panel chart{% if chart.wide %} chart--wide{% endif %}" data-chart="{{ chart.id }}" aria-labelledby="chart-{{ chart.id }}">
+    <div class="chart__head">
+      <div>
+        <h2 id="chart-{{ chart.id }}">{{ chart.title }}</h2>
+        <p class="chart__total"><strong data-chart-total></strong>{{ chart.total }} <span data-chart-when></span></p>
+      </div>
+      <div class="segmented" role="group" aria-label="Period" data-span-switch hidden>
+        <button type="button" data-span="7d" aria-pressed="false">7 days</button>
+        <button type="button" data-span="30d" aria-pressed="false">30 days</button>
+        <button type="button" data-span="12m" aria-pressed="false">12 months</button>
+      </div>
+    </div>
+    {% if chart.series|length > 1 and not chart.categories %}<ul class="chart__legend">{% for s in chart.series %}<li><span class="chart__key series-{{ forloop.counter }}"></span>{{ s.label }}</li>{% endfor %}</ul>{% endif %}
+    <div class="chart__plot" data-chart-plot><p class="chart__note">The graph needs JavaScript; the figures are in the table below.</p></div>
+    <details class="chart__table" data-chart-details>
+      <summary>Show the figures as a table</summary>
+      <div data-chart-table>
+        <div class="table-wrap"><table class="table">
+          <thead><tr><th scope="col">{% if chart.categories %}Status{% elif chart.span == "12m" %}Month{% else %}Day{% endif %}</th>{% for s in chart.series %}<th scope="col" class="num">{{ s.label }}</th>{% endfor %}</tr></thead>
+          <tbody>{% for label, values in chart.rows %}<tr><td>{{ label }}</td>{% for v in values %}<td class="num">{{ v }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+        </table></div>
+      </div>
+    </details>
+  </section>
+  {% endfor %}{% endif %}
+</div>
+{{ charts|json_script:"staff-charts" }}
+
 <div class="split split--even mt-6">
   <section class="panel">
     <div class="panel__head"><h2>Recent registrations</h2></div>
@@ -36,9 +78,10 @@
   <section class="panel">
     <div class="panel__head"><h2>Expiring in the next 30 days</h2></div>
     <ul class="stack" style="list-style:none;margin:0;padding:0;--stack: var(--space-3)">
-      {% for s in expiring %}<li class="cluster" style="justify-content:space-between"><a href="{% url 'staff:subscriber' s.user.pk %}">{{ s.user.display_name }}</a><span class="muted text-sm">{{ s.plan.name }} · {{ s.expires_at|date:"j M Y" }}</span></li>{% empty %}<li class="muted">Nothing expiring soon.</li>{% endfor %}
+      {% for s in expiring %}<li class="cluster" style="justify-content:space-between"><a href="{% url 'staff:subscriber' s.user.pk %}">{{ s.user.display_name }}</a><span class="muted text-sm">{{ s.plan.name }}, {{ s.expires_at|date:"j M Y" }}</span></li>{% empty %}<li class="muted">Nothing expiring soon.</li>{% endfor %}
     </ul>
   </section>
 </div>
 <div class="mt-6">{% include "components/passkeys.html" %}</div>
 {% endblock %}
+{% block page_scripts %}<script src="{% static 'js/staff-charts.js' %}{{ ASSET_Q }}" defer></script>{% endblock %}

@@ -1,0 +1,833 @@
+/* Hallmark · shape: app screen · genre: modern-minimal · theme: brand · redesign: full
+ * paper: oklch(0.19 0.006 270) · accent: oklch(0.56 0.17 259) · display: Geist · body: Geist
+ * nav: sidebar kept, sentence-case groups · signature: the Overview graphs drawing in as the page opens · states: filled, empty, error per graph
+ * axes: dark/grotesk/chromatic-blue · posture: playful motion on a restrained surface · contrast: pass · v2.0.0 */
+/* Hallmark · waive 12 · overshoot springs on buttons, switches, fields, page changes and notices · the owner picked playful motion for the staff Overview graphs, switches and sidebar; reduced motion stills every spring */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V3 · weakest: V, an admin keeps the shared components the customer dashboard also uses; the change is held to surfaces, type, the figure rows and the Overview graphs */
+/* answered: the graphs' data arrives with the page, so there is no loading state; the first span also renders as a table without scripting */
+
+/* Staff area only: this file is loaded by templates/staff/_shell.html and the two staff sign-in pages, never
+   elsewhere, so its :root tokens touch no other page. Rules hang off body.staff because app.css and
+   components.css are shared with the customer dashboard. */
+
+/* --- tokens ----------------------------------------------------------------------------------- */
+
+:root {
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --shadow-sm: none;
+  --shadow: none;
+  --shadow-lg: none;
+  /* motion: playful, by the owner's choice; reduced motion holds everything still (end of file) */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --spring-soft: cubic-bezier(0.22, 1.25, 0.36, 1);
+  /* graph series, in fixed order (validated: dataviz palette, light surface) */
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --chart-3: #1baf7a;
+  --chart-grid: #eceef2;
+  --chart-axis: #c9cdd7;
+}
+/* Dark unless the person picks Light with the theme button, like the homepage. */
+:root:not([data-theme="light"]) {
+  --bg: #131417;
+  --bg-alt: #18191d;
+  --surface: #1c1d22;
+  --surface-raised: #23252b;
+  --ink: #f2f3f6;
+  --ink-soft: #d5d8e0;
+  --muted: #a4a9b6;
+  --border: #2d2f37;
+  --border-strong: #3e414b;
+  --primary: #2a6cd6;
+  --primary-hover: #235fbe;
+  --primary-soft: #16233b;
+  --on-primary: #fafbfd;
+  --link: #8ab8ff;
+  --accent: #c98cf0;
+  --accent-soft: #2a1733;
+  --highlight-ink: #f6c453;
+  --highlight-soft: #2c2310;
+  --success: #4cc794;
+  --success-soft: #11291f;
+  --warning: #f1c35a;
+  --warning-soft: #2c230f;
+  --danger: #ff8b80;
+  --danger-soft: #2f1512;
+  --info: #6cc0f2;
+  --info-soft: #102533;
+  --focus: #8ab8ff;
+  --scrim: rgb(0 0 0 / 0.66);
+  /* graph series on the dark surface (validated) */
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
+  --chart-3: #199e70;
+  --chart-grid: #26282f;
+  --chart-axis: #3e414b;
+  color-scheme: dark;
+}
+
+html:has(body.staff),
+body.staff {
+  overflow-x: clip;
+}
+body.staff {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* --- sidebar ------------------------------------------------------------------------------------ */
+
+.staff .app-side {
+  background: var(--bg-alt);
+}
+.staff .app-nav__group p {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  font-size: var(--text-xs);
+}
+.staff .app-nav a {
+  border-radius: var(--radius);
+}
+.staff .app-nav a:hover {
+  background: var(--surface);
+}
+.staff .app-nav a[aria-current="page"] {
+  background: var(--surface-raised);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 2px 0 0 var(--link);
+}
+.staff .app-nav a[aria-current="page"] .icon {
+  color: var(--link);
+}
+.staff .app-nav .count {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.staff .staff-mark {
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-soft);
+  font-weight: 550;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* --- page head and figure rows -------------------------------------------------------------------- */
+
+.staff .page-head {
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border);
+}
+.staff .page-head h1,
+.chart__head h2,
+.charts-bar h2 {
+  text-wrap: balance;
+}
+.staff .page-head h1 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+.staff .page-head p {
+  font-size: var(--text-sm);
+}
+.staff .panel {
+  border-radius: var(--radius-lg);
+}
+.staff .stats {
+  gap: var(--space-3);
+}
+.staff .stat__value {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.staff a.stat {
+  color: inherit;
+  text-decoration: none;
+  transition: transform 380ms var(--spring), border-color var(--dur-fast), background-color var(--dur-fast);
+}
+.staff a.stat:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+  transform: translateY(-3px);
+}
+.staff .stats .panel {
+  animation: rise-in 560ms var(--spring-soft) backwards;
+}
+.staff .stats .panel:nth-child(2) { animation-delay: 50ms; }
+.staff .stats .panel:nth-child(3) { animation-delay: 100ms; }
+.staff .stats .panel:nth-child(4) { animation-delay: 150ms; }
+.staff .stats .panel:nth-child(5) { animation-delay: 200ms; }
+.staff a.stat:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.staff .stat__hint {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- tables, badges, buttons, fields, banners -------------------------------------------------------- */
+
+.staff .table th {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--text-xs);
+  font-weight: 550;
+  background: transparent;
+  border-bottom-color: var(--border-strong);
+}
+.staff .table tbody tr {
+  transition: background-color var(--dur-fast);
+}
+.staff .table tbody tr:hover {
+  background: var(--surface-raised);
+}
+.staff .table tbody tr:hover > :first-child {
+  box-shadow: inset 2px 0 0 var(--link);
+}
+/* rows arrive one after another, the first dozen staggered */
+.staff .app-main .table tbody tr {
+  animation: row-in 520ms var(--spring-soft) backwards;
+}
+.staff .app-main .table tbody tr:nth-child(2) { animation-delay: 30ms; }
+.staff .app-main .table tbody tr:nth-child(3) { animation-delay: 60ms; }
+.staff .app-main .table tbody tr:nth-child(4) { animation-delay: 90ms; }
+.staff .app-main .table tbody tr:nth-child(5) { animation-delay: 120ms; }
+.staff .app-main .table tbody tr:nth-child(6) { animation-delay: 150ms; }
+.staff .app-main .table tbody tr:nth-child(7) { animation-delay: 180ms; }
+.staff .app-main .table tbody tr:nth-child(8) { animation-delay: 210ms; }
+.staff .app-main .table tbody tr:nth-child(9) { animation-delay: 240ms; }
+.staff .app-main .table tbody tr:nth-child(10) { animation-delay: 270ms; }
+.staff .app-main .table tbody tr:nth-child(11) { animation-delay: 300ms; }
+.staff .app-main .table tbody tr:nth-child(n + 12) { animation-delay: 330ms; }
+.staff .badge {
+  border-radius: var(--radius-sm);
+}
+.staff .badge::before {
+  display: none;
+}
+.staff .btn {
+  border-radius: var(--radius);
+  transition: transform 320ms var(--spring), background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+.staff .btn:hover {
+  transform: translateY(-1px);
+}
+.staff .btn:active {
+  transform: scale(0.95);
+  transition-duration: 80ms;
+}
+.staff .btn:disabled {
+  transform: none;
+}
+.staff .btn.is-sending {
+  cursor: progress;
+  animation: sending 900ms ease-in-out infinite;
+}
+.staff .btn:focus-visible,
+.staff .tabs a:focus-visible,
+.staff .app-nav a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.staff .field input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="color"]):not([type="range"]),
+.staff .field select,
+.staff .field textarea {
+  border-radius: var(--radius);
+  transition: border-color var(--dur-fast), box-shadow 360ms var(--spring);
+}
+.staff .field input:focus,
+.staff .field select:focus,
+.staff .field textarea:focus {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+.staff .field--error {
+  animation: shake 480ms var(--ease-out) backwards;
+}
+/* progress bars (the finance report's months) grow again each time they come onto the screen: static/js/staff.js */
+.staff .progress span {
+  transform-origin: 0 50%;
+  transition: transform 900ms var(--spring);
+}
+.staff .progress.is-start span {
+  transform: scaleX(0);
+  transition: none;
+}
+.staff .banner,
+.staff .alert {
+  border-radius: var(--radius-lg);
+}
+.staff .tabs a {
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+.staff .tabs a:hover {
+  color: var(--ink);
+}
+
+/* --- Overview graphs -------------------------------------------------------------------------------- */
+
+.charts-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+.charts-bar h2 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+.charts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+@media (min-width: 64rem) {
+  .charts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .chart--wide {
+    grid-column: 1 / -1;
+  }
+}
+.chart {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.chart__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.chart__head h2 {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+.chart__total {
+  margin-top: var(--space-1);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.chart__total strong {
+  display: block;
+  color: var(--ink);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.segmented {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+.segmented button {
+  min-height: 2rem;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 550;
+  transition: background-color var(--dur-fast), color var(--dur-fast);
+}
+.segmented button:hover {
+  color: var(--ink);
+}
+.segmented button[aria-pressed="true"] {
+  background: var(--primary-soft);
+  color: var(--link);
+}
+.segmented button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+/* static/js/staff.js slides one highlight behind the buttons; the pressed button's own fill is the fallback */
+.segmented__thumb {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--primary-soft);
+  clip-path: inset(50%);
+  pointer-events: none;
+}
+.segmented__thumb.is-gliding {
+  transition: clip-path 460ms var(--spring);
+}
+.segmented.has-thumb button[aria-pressed="true"] {
+  background: transparent;
+}
+.segmented button {
+  transition: color var(--dur-fast), transform 300ms var(--spring);
+}
+.segmented button:active,
+.staff a.stat:active {
+  transform: scale(0.94);
+  transition-duration: 80ms;
+}
+.segmented button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+.chart__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.chart__key {
+  display: inline-block;
+  width: 0.875rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--series);
+}
+.series-1 { --series: var(--chart-1); }
+.series-2 { --series: var(--chart-2); }
+.series-3 { --series: var(--chart-3); }
+
+.chart__plot {
+  position: relative;
+  min-height: 11rem;
+}
+.chart__note {
+  margin: 0;
+  padding: var(--space-12) var(--space-4);
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.chart__note--error {
+  color: var(--ink-soft);
+}
+.chart__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  touch-action: pan-y;
+}
+.chart__svg:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+.chart__grid {
+  stroke: var(--chart-grid);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.chart__base {
+  stroke: var(--chart-axis);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.chart__tick {
+  fill: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.chart__end {
+  fill: var(--ink-soft);
+  font-size: 12px;
+}
+.chart__line {
+  fill: none;
+  stroke: var(--series);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1100ms var(--ease-out);
+}
+.chart__bar {
+  fill: var(--series);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 700ms var(--spring), opacity var(--dur-fast);
+}
+.chart__svg.is-start .chart__line {
+  stroke-dashoffset: 1;
+  transition: none;
+}
+.chart__svg.is-start .chart__bar {
+  transform: scaleY(0);
+  transition: none;
+}
+.chart__svg.is-pointing .chart__bar:not(.is-active) {
+  opacity: 0.45;
+}
+.chart__cross {
+  stroke: var(--chart-axis);
+  stroke-width: 1;
+  opacity: 0;
+}
+.chart__dot {
+  fill: var(--series);
+  stroke: var(--surface);
+  stroke-width: 2;
+  opacity: 0;
+}
+.chart__svg.is-pointing .chart__cross,
+.chart__svg.is-pointing .chart__dot {
+  opacity: 1;
+}
+.chart__hit {
+  fill: transparent;
+  cursor: crosshair;
+}
+.chart__svg.is-linked .chart__hit {
+  cursor: pointer;
+}
+/* the stretch being dragged across, to zoom into */
+.chart__brush {
+  fill: color-mix(in srgb, var(--link) 16%, transparent);
+  stroke: var(--link);
+  stroke-width: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+.chart__svg.is-brushing .chart__brush {
+  opacity: 1;
+}
+.chart__ticks.is-new {
+  animation: fade-in 420ms var(--ease-out);
+}
+.chart__reset {
+  animation: pop-in 420ms var(--spring) backwards;
+}
+.chart__reset:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.chart__tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: var(--z-raised);
+  min-width: 10rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  color: var(--ink);
+  font-size: var(--text-xs);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.94;
+  transition: opacity var(--dur-fast), scale 320ms var(--spring);
+}
+.chart__tip.is-on {
+  opacity: 1;
+  scale: 1;
+}
+.chart__tip .chart__hint {
+  margin: var(--space-2) 0 0;
+  color: var(--link);
+}
+.chart__tip p {
+  margin: 0 0 var(--space-1);
+  color: var(--muted);
+}
+.chart__tip div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.chart__tip span:last-child {
+  margin-left: auto;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Where things stand: horizontal bars, label left, value right. */
+.hbars {
+  display: grid;
+  gap: var(--space-2);
+}
+.hbars__group {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.hbars__group:first-child {
+  margin-top: 0;
+}
+.hbar {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 10rem) minmax(0, 1fr) 3rem;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 calc(var(--space-2) * -1);
+  padding: 0.125rem var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+/* a status row opens its list */
+a.hbar {
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--dur-fast), transform 300ms var(--spring);
+}
+a.hbar:hover {
+  background: var(--surface-raised);
+}
+a.hbar:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+a.hbar:active {
+  transform: scale(0.98);
+  transition-duration: 80ms;
+}
+.hbar__track {
+  display: block;
+  height: 0.625rem;
+  border-left: 1px solid var(--chart-axis);
+}
+.hbar__fill {
+  display: block;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background: var(--series);
+  transform: scaleX(var(--v, 0));
+  transform-origin: 0 50%;
+  transition: transform 760ms var(--spring);
+}
+.hbars.is-start .hbar__fill {
+  transform: scaleX(0);
+  transition: none;
+}
+.hbar__value {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__table summary {
+  width: fit-content;
+  color: var(--link);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.chart__table summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.chart__table[open] summary {
+  margin-bottom: var(--space-3);
+}
+.chart__table .table-wrap {
+  max-height: 20rem;
+  overflow: auto;
+}
+
+/* --- moving between staff pages ------------------------------------------------------------------------ */
+/* Browsers with cross-page view transitions: the sidebar holds still, the page slides up into place, and the
+   current page's marker in the sidebar and in a row of tabs glides to its new spot. Others just load the page. */
+
+@view-transition {
+  navigation: auto;
+}
+.staff .app-main {
+  view-transition-name: staff-main;
+}
+.staff .app-nav a[aria-current="page"] {
+  view-transition-name: staff-nav-current;
+}
+.staff .tabs a[aria-current="page"] {
+  view-transition-name: staff-tab-current;
+}
+/* a name may appear once: when two links match (a page and the one nested under it), the first one glides */
+.staff .app-nav li:has(a[aria-current="page"]) ~ li a[aria-current="page"],
+.staff .tabs a[aria-current="page"] ~ a[aria-current="page"] {
+  view-transition-name: none;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-old(staff-main) {
+  animation: page-out 180ms var(--ease-in-out) both;
+}
+::view-transition-new(staff-main) {
+  animation: page-in 560ms var(--spring-soft) both;
+}
+::view-transition-group(staff-nav-current),
+::view-transition-group(staff-tab-current) {
+  animation-duration: 520ms;
+  animation-timing-function: var(--spring);
+}
+/* the marker's box glides; its words cross-fade rather than stretch */
+::view-transition-old(staff-nav-current),
+::view-transition-new(staff-nav-current),
+::view-transition-old(staff-tab-current),
+::view-transition-new(staff-tab-current) {
+  height: 100%;
+  object-fit: none;
+  overflow: clip;
+}
+
+/* --- sidebar and the phone menu ------------------------------------------------------------------------ */
+
+.staff .app-nav a .icon {
+  transition: transform 320ms var(--spring);
+}
+.staff .app-nav a:hover .icon {
+  transform: translateX(2px) scale(1.1);
+}
+.staff .app-nav a:active {
+  transform: scale(0.97);
+}
+@media (max-width: 63.99rem) {
+  /* the links follow the drawer in, one after another */
+  .staff .app-side.is-open .app-nav li {
+    animation: nav-in 480ms var(--spring) backwards;
+    animation-delay: calc((var(--g, 0) * 4 + var(--i, 0)) * 28ms);
+  }
+  .staff .app-nav__group:nth-child(2) { --g: 1; }
+  .staff .app-nav__group:nth-child(3) { --g: 2; }
+  .staff .app-nav__group:nth-child(4) { --g: 3; }
+  .staff .app-nav li:nth-child(2) { --i: 1; }
+  .staff .app-nav li:nth-child(3) { --i: 2; }
+  .staff .app-nav li:nth-child(4) { --i: 3; }
+  .staff .app-nav li:nth-child(5) { --i: 4; }
+  .staff .app-nav li:nth-child(n + 6) { --i: 5; }
+}
+
+/* --- notices: in from the corner, a bar shows the time left, out to the side -------------------------- */
+
+.staff .toasts {
+  top: var(--space-4);
+}
+.staff .toast {
+  position: relative;
+  overflow: hidden;
+  animation: toast-slide 620ms var(--spring-soft) backwards;
+}
+.staff .toast--success .icon:first-child {
+  animation: pop-in 620ms var(--spring) 220ms backwards;
+}
+.staff .toast.is-timing::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--link);
+  transform-origin: 0 50%;
+  animation: toast-time 5s linear forwards;
+}
+.staff .toast:hover::after,
+.staff .toast:focus-within::after {
+  animation-play-state: paused;
+}
+.staff .toast.is-leaving {
+  opacity: 0;
+  transform: translateX(calc(100% + var(--space-6)));
+  transition: opacity 260ms ease, transform 260ms var(--ease-in-out);
+}
+
+/* --- keyframes ------------------------------------------------------------------------------------------ */
+
+@keyframes page-out {
+  to { opacity: 0; transform: scale(0.985); }
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.99); }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+}
+@keyframes row-in {
+  from { opacity: 0; transform: translateX(-10px); }
+}
+@keyframes nav-in {
+  from { opacity: 0; transform: translateX(-16px); }
+}
+@keyframes toast-slide {
+  from { opacity: 0; transform: translateX(calc(100% + var(--space-6))); }
+}
+@keyframes toast-time {
+  to { transform: scaleX(0); }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.4) rotate(-20deg); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes sending {
+  50% { opacity: 0.6; }
+}
+@keyframes shake {
+  15% { transform: translateX(-6px); }
+  35% { transform: translateX(5px); }
+  55% { transform: translateX(-3px); }
+  75% { transform: translateX(2px); }
+}
+
+/* --- reduced motion and print: everything appears in place, nothing moves ----------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+@media print, (prefers-reduced-motion: reduce) {
+  .staff *,
+  .staff *::before,
+  .staff *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .staff .toast::after {
+    display: none;
+  }
+  .chart__svg.is-start .chart__line {
+    stroke-dashoffset: 0;
+  }
+  .chart__svg.is-start .chart__bar {
+    transform: none;
+  }
+  .hbars.is-start .hbar__fill {
+    transform: scaleX(var(--v, 0));
+  }
+}

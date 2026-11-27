@@ -1,10 +1,10 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
-<div class="page-head"><div><h1>NFC prices and delivery</h1><p>The system refuses any price table where a larger order would cost less than a smaller one (NFP-02).</p></div></div>
+<div class="page-head"><div><h1>NFC prices and delivery</h1><p>A larger order can never cost less than a smaller one.</p></div></div>
 <div class="split">
   <section class="panel">
     <h2 style="font-size: var(--text-lg)">NFC price tiers</h2>
-    <p class="muted text-sm mt-2">“Every card at this price” charges the whole order at the tier price. “Extra cards above the previous tier” adds the price for each card beyond the tier below (for example the “more than 20” row).</p>
+    <p class="muted text-sm mt-2">“Every card” prices the whole order at the tier; “Extra cards” adds a price per card above the tier below.</p>
     <form method="post" class="form mt-4" novalidate>
       {% csrf_token %}
       {{ tiers.management_form }}
@@ -33,7 +33,7 @@
   </section>
   <section class="panel">
     <h2 style="font-size: var(--text-lg)">Delivery and shipping zones</h2>
-    <p class="muted text-sm mt-2">Tick “outside Ghana” for international zones. Their fee is what the customer pays for shipping and delivery; import duties are the recipient’s.</p>
+    <p class="muted text-sm mt-2">Tick “outside Ghana” for international zones; import duties are the recipient’s.</p>
     <form method="post" class="form mt-4" novalidate>
       {% csrf_token %}
       {{ zones.management_form }}

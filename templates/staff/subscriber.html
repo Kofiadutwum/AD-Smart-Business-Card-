@@ -4,7 +4,7 @@
   <div>
     <div class="crumbs"><a href="{% url 'staff:subscribers' %}">Subscribers</a><span>/</span><span>{{ customer.display_name }}</span></div>
     <h1>{{ customer.display_name }}</h1>
-    <p>{{ customer.email }} · {% if customer.phone %}{{ customer.phone|phone }}{% else %}no phone{% endif %} · joined {{ customer.date_joined|date:"j M Y" }}{% if customer.legacy_id %} · imported from the Flask site (#{{ customer.legacy_id }}){% endif %}</p>
+    <p>{{ customer.email }}, {% if customer.phone %}{{ customer.phone|phone }}{% else %}no phone{% endif %}, joined {{ customer.date_joined|date:"j M Y" }}{% if customer.legacy_id %}, imported from the Flask site (#{{ customer.legacy_id }}){% endif %}</p>
   </div>
   <div class="cluster">
     <a class="btn" href="mailto:{{ customer.email }}">{% icon "mail" 16 %}Email</a>
@@ -50,7 +50,7 @@
           <thead><tr><th>Date</th><th>Reference</th><th>What</th><th>Status</th><th class="num">Amount</th></tr></thead>
           <tbody>
             {% for p in payments %}
-              <tr><td class="nowrap">{{ p.created_at|date:"j M Y" }}</td><td><a class="mono text-sm" href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a></td><td>{{ p.description }}</td><td>{{ p.get_status_display }}</td><td class="num">{% money p.amount_minor rate=p.usd_rate %}</td></tr>
+              <tr><td class="nowrap">{{ p.created_at|date:"j M Y" }}</td><td><a class="mono text-sm" href="{% url 'staff:payment' p.pk %}">{{ p.reference }}</a></td><td>{{ p.description }}</td><td>{{ p.get_status_display }}</td><td class="num" data-count>{% money p.amount_minor rate=p.usd_rate %}</td></tr>
             {% empty %}<tr><td colspan="5" class="muted">No payments.</td></tr>{% endfor %}
           </tbody>
         </table>
@@ -61,14 +61,14 @@
     <section class="panel">
       <div class="panel__head"><h2>NFC orders</h2></div>
       <ul class="stack" style="list-style:none;margin:0;padding:0;--stack: var(--space-2)">
-        {% for o in orders %}<li class="cluster" style="justify-content:space-between"><a href="{% url 'staff:nfc_detail' o.pk %}">{{ o.order_number }}</a><span class="muted text-sm">{{ o.quantity }} cards · {{ o.get_status_display }}</span></li>{% empty %}<li class="muted">No orders.</li>{% endfor %}
+        {% for o in orders %}<li class="cluster" style="justify-content:space-between"><a href="{% url 'staff:nfc_detail' o.pk %}">{{ o.order_number }}</a><span class="muted text-sm" data-count>{{ o.quantity }} cards, {{ o.get_status_display }}</span></li>{% empty %}<li class="muted">No orders.</li>{% endfor %}
       </ul>
     </section>
 
     <section class="panel">
       <div class="panel__head"><h2>Emails sent</h2></div>
       <ul class="stack text-sm" style="list-style:none;margin:0;padding:0;--stack: var(--space-2)">
-        {% for e in emails %}<li class="cluster" style="justify-content:space-between"><span>{{ e.subject }}</span><span class="muted">{{ e.created_at|date:"j M, H:i" }}{% if e.status == "failed" %} · <span style="color: var(--danger)">failed</span>{% endif %}</span></li>{% empty %}<li class="muted">No emails.</li>{% endfor %}
+        {% for e in emails %}<li class="cluster" style="justify-content:space-between"><span>{{ e.subject }}</span><span class="muted">{{ e.created_at|date:"j M, H:i" }}{% if e.status == "failed" %}, <span style="color: var(--danger)">failed</span>{% endif %}</span></li>{% empty %}<li class="muted">No emails.</li>{% endfor %}
       </ul>
     </section>
   </div>
@@ -79,7 +79,7 @@
       {% if subscription %}
         <dl class="dl mt-4">
           <dt>Plan</dt><dd>{{ subscription.plan.name }}</dd>
-          {% if subscription.plan.is_team %}<dt>Team size</dt><dd>{{ subscription.team_size }} people · {% money subscription.yearly_price inline=True %} {% if subscription.paid_once %}paid once{% else %}a year{% endif %}</dd>{% endif %}
+          {% if subscription.plan.is_team %}<dt>Team size</dt><dd>{{ subscription.team_size }} people, {% money subscription.yearly_price inline=True %} {% if subscription.paid_once %}paid once{% else %}a year{% endif %}</dd>{% endif %}
           <dt>Status</dt><dd>{{ subscription.state_label }}</dd>
           {% if subscription.paid_once %}
           <dt>Paid</dt><dd>Paid once (never ends). Changes to details are paid per card after each card's free first year.</dd>

@@ -6,7 +6,7 @@
 <div class="page-head">
   <div>
     <h1>Company card</h1>
-    <p>This is what visitors see in the two phones on the landing page. Save a change and the landing page shows it straight away.</p>
+    <p>What visitors see in the landing page phones; changes show at once.</p>
   </div>
   <div class="cluster">
     <a class="btn" href="{% url 'marketing:home' %}" target="_blank" rel="noopener">{% icon "eye" 16 %}View landing page</a>
@@ -16,12 +16,12 @@
 
 <div class="editor mt-6">
   <div>
-    <h2 style="font-size: var(--text-lg)">Phone 1 · the card</h2>
-    <p class="muted text-sm mt-2">The sample card people can try: name, photo, contact buttons and social links.</p>
+    <h2 style="font-size: var(--text-lg)">Phone 1: the card</h2>
+    <p class="muted text-sm mt-2">The sample card people can try.</p>
     <div class="mt-4">{% include "staff/_card_forms.html" %}</div>
 
-    <h2 class="mt-6" style="font-size: var(--text-lg)">Phone 2 · the business page</h2>
-    <p class="muted text-sm mt-2">Your tagline, about text, products and services. It is also live at <span class="mono">{{ page_public_url }}</span>.</p>
+    <h2 class="mt-6" style="font-size: var(--text-lg)">Phone 2: the business page</h2>
+    <p class="muted text-sm mt-2">Tagline, about, products and services; live at <span class="mono">{{ page_public_url }}</span>.</p>
 
     <section class="panel mt-4">
       <h3 style="font-size: var(--text-base)">Page details</h3>
@@ -96,7 +96,7 @@
     <div class="phone">
       <div class="phone__screen"><iframe src="{% url 'marketing:demo_business' %}" title="Business page preview" loading="lazy"></iframe></div>
     </div>
-    <p class="muted text-sm mt-4">Both phones show what is saved. Save a change and the page reloads with it.</p>
+    <p class="muted text-sm mt-4">Both phones show what is saved.</p>
   </aside>
 </div>
 {% endblock %}

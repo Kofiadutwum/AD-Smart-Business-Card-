@@ -1,7 +1,7 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="page-head"><div><div class="crumbs"><a href="{% url 'staff:marketplace' %}">Marketplace</a></div><h1>{{ name }}</h1>
-  <p>Owner: <a href="{% url 'staff:subscriber' page.owner_id %}">{{ page.owner.display_name }}</a> · {{ status }}</p></div>
+  <p>Owner: <a href="{% url 'staff:subscriber' page.owner_id %}">{{ page.owner.display_name }}</a>, {{ status }}</p></div>
   {% if card %}<a class="btn" href="{{ page.get_absolute_url }}" target="_blank" rel="noopener">{% icon "eye" 16 %}View shop page</a>{% endif %}
 </div>
 
@@ -14,7 +14,7 @@
       <div class="field"><label for="shop-reason">Reason (kept in the audit log)</label><textarea id="shop-reason" name="reason" rows="3" required></textarea></div>
       <button class="btn {% if not page.marketplace_hidden %}btn--danger{% endif %}" type="submit">{% if page.marketplace_hidden %}List this shop again{% else %}Hide this shop from the marketplace{% endif %}</button>
     </form>
-    <p class="muted text-xs mt-4">Hiding a shop removes it and its products from the shops page and the home page slider. Its own page and card keep working. To switch off the whole card, suspend it from the subscriber page.</p>
+    <p class="muted text-xs mt-4">Hides the shop from the shops page and home slider; its own page and card keep working.</p>
   </section>
 </div>
 

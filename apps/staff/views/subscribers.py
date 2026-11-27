@@ -1,6 +1,6 @@
 """Subscribers: search, detail, manual activation, suspension (ADM-01, ADM-03, ADM-06, MOD-04)."""
 
-from datetime import timedelta
+from datetime import date, timedelta
 
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -20,17 +20,13 @@ from apps.core.utils import ghs_to_minor, safe_next
 
 from ..forms import CustomerEmailChangeForm, CustomerPasswordResetForm, ManualActivationForm, ReasonForm
 from ..permissions import can, staff_required
+from ..regions import ONE_TIME_PRICES_FROM, REGIONS, customers_q, update_owners
 
 
 def _customers():
     return User.objects.filter(is_staff=False).select_related("subscription_record__plan").prefetch_related(
         Prefetch("cards", queryset=Card.objects.select_related("update_plan"))
     )
-
-
-def update_owners():
-    """Customers with a pay-when-you-update card. They are live with no plan, so they are never drafts."""
-    return Card.objects.filter(update_plan__isnull=False, deleted_at__isnull=True, owner__isnull=False).values("owner")
 
 
 @staff_required("view_subscribers")
@@ -64,8 +60,17 @@ def subscribers(request):
         qs = qs.filter(pk__in=update_owners())
     elif state == "suspended":
         qs = qs.filter(is_suspended=True)
+    region = request.GET.get("region", "")
+    if region in dict(REGIONS):
+        qs = qs.filter(customers_q(region))
+    joined = {"from": request.GET.get("from", ""), "to": request.GET.get("to", "")}
+    for key, lookup in (("from", "date_joined__date__gte"), ("to", "date_joined__date__lte")):
+        try:
+            qs = qs.filter(**{lookup: date.fromisoformat(joined[key])})
+        except ValueError:
+            joined[key] = ""  # empty or not a date: no filter
     page = Paginator(qs, 30).get_page(request.GET.get("page"))
-    return render(request, "staff/subscribers.html", {"page": page, "q": q, "state": state})
+    return render(request, "staff/subscribers.html", {"page": page, "q": q, "state": state, "region": region, "regions": REGIONS, "joined": joined, "ghana_before": ONE_TIME_PRICES_FROM})
 
 
 @staff_required("view_subscribers")
