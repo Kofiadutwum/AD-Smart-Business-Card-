@@ -38,9 +38,11 @@ def site(request):
     extra = {}
     if user is not None and user.is_authenticated:
         if user.is_staff:
+            from apps.staff.inbox import unread
             from apps.staff.permissions import Perms
 
-            extra = {"staff_perms": Perms(user)}
+            # Called by the template only where the staff menu shows it, so other pages run no query.
+            extra = {"staff_perms": Perms(user), "staff_unread": lambda: unread(user).count()}
         else:
             extra = _shell(user)
     return extra | {

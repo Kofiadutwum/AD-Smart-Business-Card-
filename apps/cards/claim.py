@@ -9,6 +9,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from apps.accounts.views import BACKEND
+from apps.billing.models import Subscription
 from apps.core.emails import send_email, subject_text
 from apps.core.utils import client_ip, rate_limited
 
@@ -49,6 +50,18 @@ def _forget(request, slug):
     request.session["premade_ok"] = ok
 
 
+def _plan_choice(request, batch):
+    """Basic and Professional to pick from (none for the 3-year Basic set), and the one sent with the form."""
+    plans = premade_service.choice_plans() if batch.buyer_picks_plan else []
+    code = request.POST.get("plan")
+    return plans, next((p for p in plans if p.code == code), None)
+
+
+def _plan_context(plans, picked, error=""):
+    shown = picked or (plans[0] if plans else None)  # Professional is ticked until the buyer picks
+    return {"plans": plans, "picked_code": shown.code if shown else "", "plan_error": error}
+
+
 def claim(request, slug):
     """Step 1: the PIN on the back proves the buyer holds the card."""
     premade, response = _premade_for(request, slug)
@@ -77,12 +90,14 @@ def claim_setup(request, slug):
     if request.user.is_authenticated:
         return redirect("cards:claim_attach", slug=premade.card.slug)
     form = ClaimForm(request.POST or None)
+    plans, picked = _plan_choice(request, premade.batch)
+    plan_error = _("Choose Basic or Professional.") if request.method == "POST" and plans and not picked else ""
     if request.method == "POST":
         if rate_limited(f"claim:{client_ip(request)}", 10, 3600):
             messages.error(request, _("Too many attempts from this connection. Try again in an hour."))
-        elif form.is_valid():
+        elif form.is_valid() and not plan_error:
             try:
-                user, card, _payment = premade_service.claim_with_new_account(premade.pk, form.cleaned_data)
+                user, card, _payment = premade_service.claim_with_new_account(premade.pk, {**form.cleaned_data, "plan": picked})
             except ClaimError as exc:
                 messages.error(request, str(exc))
                 return redirect("cards:public", slug=premade.card.slug)
@@ -104,9 +119,12 @@ def claim_setup(request, slug):
                 if premade.batch.card_only:
                     messages.success(
                         request,
-                        _("Your account is ready. Choose a plan and pay to switch your card on. Its link and QR code stay exactly as printed."),
+                        _("Your account is ready. Pay for your plan to switch your card on. Its link and QR code stay exactly as printed."),
                     )
-                    return redirect("billing:checkout")
+                    return redirect(_checkout_for(picked))
+                if premade.batch.in_ghana:
+                    messages.success(request, _("Your card is live and your plan is paid once: it is yours to keep."))
+                    return redirect("dashboard:home")
                 messages.success(
                     request,
                     _("Your card is live and your first year is active."),
@@ -114,9 +132,14 @@ def claim_setup(request, slug):
                 return redirect("dashboard:home")
     return render(
         request, "cards/claim_setup.html",
-        {"form": form, "card": premade.card, "batch": premade.batch,
+        {"form": form, "card": premade.card, "batch": premade.batch, **_plan_context(plans, picked, plan_error),
          "login_url": f"{reverse('accounts:login')}?next={reverse('cards:claim_attach', args=[premade.card.slug])}"},
     )
+
+
+def _checkout_for(plan):
+    """Checkout with the buyer's pick already chosen."""
+    return f"{reverse('billing:checkout')}?plan={plan.code}" if plan else reverse("billing:checkout")
 
 
 def claim_attach(request, slug):
@@ -128,10 +151,12 @@ def claim_attach(request, slug):
         return redirect("cards:claim", slug=premade.card.slug)
     if not request.user.is_authenticated:
         return redirect(f"{reverse('accounts:login')}?next={reverse('cards:claim_attach', args=[premade.card.slug])}")
-    problem = premade_service.attach_problem(request.user, premade)
-    if request.method == "POST" and not problem:
+    plans, picked = _plan_choice(request, premade.batch)
+    plan_error = _("Choose Basic or Professional.") if request.method == "POST" and plans and not picked else ""
+    problem = premade_service.attach_problem(request.user, premade, picked)
+    if request.method == "POST" and not problem and not plan_error:
         try:
-            card, payment = premade_service.claim_for_existing_account(premade.pk, request.user)
+            card, payment = premade_service.claim_for_existing_account(premade.pk, request.user, picked)
         except ClaimError as exc:
             messages.error(request, str(exc))
         else:
@@ -144,8 +169,11 @@ def claim_attach(request, slug):
                 if card.activated_at:
                     messages.success(request, _("The card is now on your account and live on your current plan."))
                     return redirect("dashboard:cards")
-                messages.success(request, _("The card is now on your account. Choose a plan and pay to switch it on."))
-                return redirect("billing:checkout")
+                messages.success(request, _("The card is now on your account. Pay for your plan to switch it on."))
+                return redirect(_checkout_for(picked))
+            if premade.batch.in_ghana and Subscription.objects.filter(user=request.user, paid_once=True).exists():
+                messages.success(request, _("The card is now on your account and your plan is paid once: it is yours to keep."))
+                return redirect("dashboard:cards")
             if payment.months == 12:
                 messages.success(request, _("The card is now on your account and a year has been added to your plan."))
             else:
@@ -157,5 +185,6 @@ def claim_attach(request, slug):
             return redirect("dashboard:cards")
     return render(
         request, "cards/claim_attach.html",
-        {"card": premade.card, "batch": premade.batch, "problem": problem, "subscription": request.user.subscription},
+        {"card": premade.card, "batch": premade.batch, "problem": problem, "subscription": request.user.subscription,
+         **_plan_context(plans, picked, plan_error)},
     )

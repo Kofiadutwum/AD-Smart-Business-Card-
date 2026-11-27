@@ -18,15 +18,17 @@ from .helpers import BaseTest
 BUYER = {
     "full_name": "Ama Boateng", "job_title": "Photographer", "business_name": "Ama Studio",
     "email": "ama@example.com", "phone": "024 555 1212", "password": "Camera-lens-2026", "accept_terms": "on",
+    "plan": "professional",  # the buyer's pick of Basic or Professional
 }
 
 
 class PremadeBase(BaseTest):
-    def make_batch(self, quantity=3, plan=None, price=35000, months=12, card_only=False):
+    def make_batch(self, quantity=3, plan=None, price=35000, months=12, card_only=False, in_ghana=False):
+        """Outside Ghana unless asked: a plan that comes with a Ghana card is paid once instead of yearly."""
         staff = User.objects.create_user(email="ops@example.com", password="x", is_staff=True, staff_role="ops")
         batch = premade.create_batch(
             staff, name="Gold Classic", quantity=quantity, plan=plan or self.pro, price_minor=price, months=months,
-            card_only=card_only,
+            card_only=card_only, in_ghana=in_ghana,
         )
         rows = premade.get_pack(batch)
         return batch, rows
@@ -246,7 +248,7 @@ class ExistingAccountTests(PremadeBase):
         self.client.force_login(user)
         self.verify_pin(row)
         with self.captureOnCommitCallbacks(execute=True):
-            return self.client.post(f"/c/{row['code']}/claim/attach")
+            return self.client.post(f"/c/{row['code']}/claim/attach", {"plan": "professional"})
 
     def test_basic_subscriber_moves_to_professional_with_a_year_added(self):
         batch, rows = self.make_batch(quantity=1)
@@ -324,7 +326,7 @@ class StaffPageTests(PremadeBase):
     def test_ops_can_make_a_batch_and_download_the_pack(self):
         self.login_staff("ops")
         response = self.client.post("/staff/premade-cards/", {
-            "name": "Gold Classic", "quantity": 4, "term": "year", "plan": self.pro.pk, "price": "350", "note": "First print",
+            "name": "Gold Classic", "quantity": 4, "sold_in": "ghana", "term": "year", "price": "350", "note": "First print",
         })
         self.assertEqual(response.status_code, 302)
         from apps.cards.models import PremadeBatch
@@ -347,7 +349,7 @@ class StaffPageTests(PremadeBase):
 
         self.login_staff("ops")
         response = self.client.post("/staff/premade-cards/", {
-            "name": "Counter Basic", "quantity": 2, "term": "basic3", "plan": self.pro.pk, "price": "450",
+            "name": "Counter Basic", "quantity": 2, "sold_in": "ghana", "term": "basic3", "plan": self.pro.pk, "price": "450",
         })
         self.assertEqual(response.status_code, 302)
         batch = PremadeBatch.objects.get()
@@ -357,20 +359,22 @@ class StaffPageTests(PremadeBase):
         from apps.cards.models import PremadeBatch
 
         self.login_staff("ops")
-        response = self.client.post("/staff/premade-cards/", {"name": "Counter Card", "quantity": 2, "term": "cardonly"})
+        response = self.client.post("/staff/premade-cards/", {"name": "Counter Card", "quantity": 2, "sold_in": "abroad", "term": "cardonly"})
         self.assertEqual(response.status_code, 302)
         batch = PremadeBatch.objects.get()
-        self.assertEqual((batch.card_only, batch.plan, batch.months, batch.price_minor), (True, None, 0, 20000))
-        self.assertContains(self.client.get(f"/staff/premade-cards/{batch.pk}/"), "card only, plan paid online")
+        self.assertEqual((batch.card_only, batch.plan, batch.months, batch.price_minor, batch.in_ghana), (True, None, 0, 20000, False))
+        self.assertContains(self.client.get(f"/staff/premade-cards/{batch.pk}/"), "Card only, buyer picks a plan and pays online")
 
-    def test_a_year_card_with_no_price_gets_the_usual_450(self):
+    def test_a_year_card_with_no_price_gets_the_usual_450_and_no_plan_the_buyer_picks(self):
         from apps.cards.models import PremadeBatch
 
         self.login_staff("ops")
-        self.client.post("/staff/premade-cards/", {"name": "Gold", "quantity": 1, "term": "year", "plan": self.pro.pk})
-        self.assertEqual(PremadeBatch.objects.get().price_minor, 45000)
+        self.client.post("/staff/premade-cards/", {"name": "Gold", "quantity": 1, "sold_in": "ghana", "term": "year"})
+        batch = PremadeBatch.objects.get()
+        self.assertEqual((batch.price_minor, batch.plan, batch.months, batch.in_ghana), (45000, None, 12, True))
+        self.assertTrue(batch.buyer_picks_plan)
 
-    def test_a_year_card_still_needs_a_plan(self):
+    def test_staff_say_where_the_batch_is_sold(self):
         from apps.cards.models import PremadeBatch
 
         self.login_staff("ops")
@@ -378,7 +382,7 @@ class StaffPageTests(PremadeBase):
             "name": "Gold Classic", "quantity": 2, "term": "year", "price": "450",
         })
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Choose a plan.")
+        self.assertContains(response, "This field is required.")
         self.assertFalse(PremadeBatch.objects.exists())
 
     def test_roles_without_access_are_turned_away(self):
@@ -448,13 +452,13 @@ class CardOnlyTests(PremadeBase):
         self.assertContains(self.client.get(f"/c/{rows[0]['code']}/claim"), "Step 1 of 3")
         self.verify_pin(rows[0])
         page = self.client.get(f"/c/{rows[0]['code']}/claim/setup")
-        self.assertContains(page, "Next you choose a plan and pay to switch your card on")
+        self.assertContains(page, "Next you pay for the plan to switch your card on")
         self.assertNotContains(page, "already paid")
 
     def test_a_new_buyer_gets_the_card_and_is_sent_to_pay_with_it_still_off(self):
         batch, rows = self.make_card_only()
         response = self.set_up_as_new_buyer(rows[0])
-        self.assertRedirects(response, "/billing/", fetch_redirect_response=False)
+        self.assertRedirects(response, "/billing/?plan=professional", fetch_redirect_response=False)
         user = User.objects.get(email="ama@example.com")
         card = self.card_for(rows[0]).card
         card.refresh_from_db()
@@ -486,7 +490,7 @@ class CardOnlyTests(PremadeBase):
         self.client.force_login(user)
         self.verify_pin(rows[0])
         with self.captureOnCommitCallbacks(execute=True):
-            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach", follow=True)
+            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach", {"plan": "professional"}, follow=True)
         self.assertIn(
             "The card is now on your account and live on your current plan.", [str(m) for m in response.context["messages"]]
         )
@@ -498,6 +502,107 @@ class CardOnlyTests(PremadeBase):
         self.client.force_login(user)
         self.verify_pin(rows[0])
         with self.captureOnCommitCallbacks(execute=True):
-            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach")
-        self.assertRedirects(response, "/billing/", fetch_redirect_response=False)
+            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach", {"plan": "basic"})
+        self.assertRedirects(response, "/billing/?plan=basic", fetch_redirect_response=False)
         self.assertIsNone(self.card_for(rows[0]).card.activated_at)
+
+
+class BuyerPicksThePlanTests(PremadeBase):
+    """The buyer picks Basic or Professional at setup, at the same price; a Ghana card's plan is paid once."""
+
+    def make_open_batch(self, in_ghana=False, **kind):
+        staff, _made = User.objects.get_or_create(email="ops@example.com", defaults={"is_staff": True, "staff_role": "ops"})
+        batch = premade.create_batch(staff, name="Pick", quantity=2, price_minor=45000, in_ghana=in_ghana, **kind)
+        return batch, premade.get_pack(batch)
+
+    def set_up(self, row, plan):
+        self.verify_pin(row)
+        with self.captureOnCommitCallbacks(execute=True):
+            return self.client.post(f"/c/{row['code']}/claim/setup", {**BUYER, "plan": plan})
+
+    def test_the_setup_page_offers_both_plans_with_professional_ticked(self):
+        batch, rows = self.make_open_batch()
+        self.verify_pin(rows[0])
+        page = self.client.get(f"/c/{rows[0]['code']}/claim/setup")
+        self.assertContains(page, 'value="basic"')
+        self.assertContains(page, 'value="professional" checked')
+
+    def test_a_buyer_outside_ghana_gets_a_year_of_the_plan_they_picked(self):
+        batch, rows = self.make_open_batch()
+        self.assertEqual((batch.plan, batch.months, batch.in_ghana), (None, 12, False))
+        self.set_up(rows[0], "basic")
+        subscription = Subscription.objects.get(user__email="ama@example.com")
+        self.assertEqual((subscription.plan, subscription.paid_once), (self.basic, False))
+        self.assertGreater((subscription.expires_at - timezone.now()).days, 360)
+        self.assertEqual(Payment.objects.get(purpose=Payment.PURPOSE_PREMADE).amount_minor, 45000)
+
+    def test_no_pick_is_refused_and_no_account_is_made(self):
+        batch, rows = self.make_open_batch()
+        response = self.set_up(rows[0], "business")
+        self.assertContains(response, "Choose Basic or Professional.")
+        self.assertFalse(User.objects.filter(email="ama@example.com").exists())
+
+    def test_a_ghana_card_gives_the_picked_plan_paid_once(self):
+        batch, rows = self.make_open_batch(in_ghana=True)
+        response = self.set_up(rows[0], "basic")
+        self.assertRedirects(response, "/dashboard/", fetch_redirect_response=False)
+        subscription = Subscription.objects.get(user__email="ama@example.com")
+        self.assertEqual((subscription.plan, subscription.paid_once), (self.basic, True))
+        self.assertIn("paid once", Payment.objects.get(purpose=Payment.PURPOSE_PREMADE).line_items[0]["label"])
+
+    def test_a_ghana_card_keeps_a_better_plan_already_paid_once(self):
+        batch, rows = self.make_open_batch(in_ghana=True)
+        user = self.make_user()
+        subscription = self.subscribe(user, self.business)
+        subscription.make_paid_once()
+        subscription.save()
+        self.client.force_login(user)
+        self.verify_pin(rows[0])
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach", {"plan": "professional"}, follow=True)
+        self.assertIn("your plan is paid once", " ".join(str(m) for m in response.context["messages"]))
+        subscription.refresh_from_db()
+        self.assertEqual((subscription.plan, subscription.paid_once), (self.business, True))
+
+    def test_a_ghana_card_adds_a_year_to_a_better_yearly_plan_instead_of_giving_it_for_good(self):
+        batch, rows = self.make_open_batch(in_ghana=True)
+        user = self.make_user()
+        before = self.subscribe(user, self.business, days=100).expires_at
+        self.client.force_login(user)
+        self.verify_pin(rows[0])
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(f"/c/{rows[0]['code']}/claim/attach", {"plan": "professional"}, follow=True)
+        self.assertIn("a year has been added", " ".join(str(m) for m in response.context["messages"]))
+        subscription = Subscription.objects.get(user=user)
+        self.assertEqual((subscription.plan, subscription.paid_once), (self.business, False))
+        self.assertGreater((subscription.expires_at - before).days, 360)
+
+    def test_a_pay_when_updating_card_has_the_features_of_the_picked_plan(self):
+        batch, rows = self.make_open_batch(pay_to_update=True, update_price_minor=10000)
+        self.set_up(rows[0], "basic")
+        self.assertEqual(self.card_for(rows[0]).card.update_plan, self.basic)
+
+    def test_the_three_year_basic_set_has_no_choice(self):
+        batch, rows = self.make_open_batch(plan=self.basic, months=36)
+        self.assertFalse(batch.buyer_picks_plan)
+        self.verify_pin(rows[0])
+        self.assertNotContains(self.client.get(f"/c/{rows[0]['code']}/claim/setup"), 'name="plan"')
+
+    def test_staff_can_change_the_pick_afterwards(self):
+        batch, rows = self.make_open_batch(pay_to_update=True, update_price_minor=10000)
+        self.set_up(rows[0], "basic")
+        customer = User.objects.get(email="ama@example.com")
+        boss = User.objects.create_user(email="boss@example.com", password="x", is_staff=True, staff_role="super")
+        self.client.force_login(boss)
+        self.client.post(f"/staff/subscribers/{customer.pk}/plan/", {"plan": "professional"})
+        self.assertEqual(self.card_for(rows[0]).card.update_plan, self.pro)
+
+    def test_the_staff_list_splits_ghana_and_outside_ghana(self):
+        self.make_open_batch(in_ghana=True)
+        self.make_open_batch(in_ghana=False, card_only=True)
+        boss = User.objects.create_user(email="boss@example.com", password="x", is_staff=True, staff_role="super")
+        self.client.force_login(boss)
+        tabs = self.client.get("/staff/premade-cards/").context["tabs"]
+        self.assertEqual([count for _value, _label, count in tabs], [2, 1, 1])
+        page = self.client.get("/staff/premade-cards/?region=abroad")
+        self.assertEqual([b.card_only for b in page.context["batches"]], [True])

@@ -466,6 +466,11 @@ class PremadeBatch(models.Model):
     A ``card_only`` batch (GHS 200 by default) sells the printed card alone:
     there is no ``plan``. The buyer sets the card up, then pays for a plan
     on the website like anyone else, which switches the card on.
+
+    Except for the 3-year Basic set, the buyer picks Basic or Professional when setting the card up
+    (owner, 27 Nov 2026); ``plan`` is only filled on batches made before that. ``in_ghana`` says where the
+    batch is sold: Ghana and outside Ghana are kept apart in the staff figures, and a Ghana card that
+    includes a plan gets it paid once, like every Ghana plan.
     """
 
     name = models.CharField(max_length=120, help_text="The design, for example Gold Classic.")
@@ -479,6 +484,7 @@ class PremadeBatch(models.Model):
     # buyer pays ``update_price_minor`` for a year of changes whenever they want to change something.
     pay_to_update = models.BooleanField(default=False)
     update_price_minor = models.PositiveIntegerField(default=10000, help_text="The Update Price, in pesewas.")
+    in_ghana = models.BooleanField(default=True, help_text="Sold in Ghana (else outside Ghana).")
     note = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
@@ -490,6 +496,11 @@ class PremadeBatch(models.Model):
 
     def __str__(self):
         return f"{self.code} · {self.name}"
+
+    @property
+    def buyer_picks_plan(self):
+        """Every kind but the 3-year Basic set (36 months) lets the buyer pick Basic or Professional."""
+        return self.card_only or self.pay_to_update or self.months == 12
 
 
 class PremadeCard(models.Model):

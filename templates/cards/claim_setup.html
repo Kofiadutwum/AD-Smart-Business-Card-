@@ -9,11 +9,17 @@
     <p class="eyebrow">{% if batch.card_only %}{% trans "Step 2 of 3" %}{% else %}{% trans "Step 2 of 2" %}{% endif %}</p>
     <h1 class="mt-2">{% trans "Your details" %}</h1>
     {% if batch.card_only %}
-      <p class="lead">{% blocktrans trimmed %}Add your details and create your account. Next you choose a plan and pay to switch your card on. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+      <p class="lead">{% blocktrans trimmed %}Add your details, pick your plan and create your account. Next you pay for the plan to switch your card on. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
     {% elif batch.pay_to_update %}
       {% money batch.update_price_minor inline=True as update_price %}
-      <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card goes live as soon as you finish, with the {{ batch_plan_name }} features and no plan to pay for. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+      <p class="lead">{% blocktrans trimmed %}This card goes live as soon as you finish, with the features of the plan you pick and no plan to pay for. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
       <p class="text-sm muted">{% blocktrans trimmed %}Changing your details, links and web address is free for your first year. After that it costs {{ update_price }}, which keeps changes open for a year. Your business page is always free.{% endblocktrans %}</p>
+    {% elif batch.in_ghana and plans %}
+      <p class="lead">{% blocktrans trimmed %}This card comes with the plan you pick, already paid and yours to keep. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+    {% elif batch.in_ghana %}
+      <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card comes with the {{ batch_plan_name }} plan, already paid and yours to keep. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
+    {% elif plans %}
+      <p class="lead">{% blocktrans trimmed %}This card comes with one year of the plan you pick, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
     {% elif batch.months == 12 %}
       <p class="lead">{% blocktrans trimmed with batch_plan_name=batch.plan.name %}This card comes with one year of the {{ batch_plan_name }} plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed.{% endblocktrans %}</p>
     {% else %}
@@ -21,6 +27,7 @@
     {% endif %}
     <form method="post" class="form" novalidate>
       {% csrf_token %}
+      {% if plans %}{% include "cards/_plan_pick.html" %}{% endif %}
       {% include "components/form_fields.html" %}
       <p class="text-xs muted">{% url 'marketing:terms' as url_1 %}{% url 'marketing:privacy' as url_2 %}{% blocktrans trimmed %}By creating an account you agree to our <a href="{{ url_1 }}" target="_blank">Terms of Service</a> and <a href="{{ url_2 }}" target="_blank">Privacy Policy</a>.{% endblocktrans %}</p>
       {% if batch.card_only %}{% hover_button _("Create my account") variant="ink" css="ihb--block" %}{% else %}{% hover_button _("Activate my card") variant="ink" css="ihb--block" %}{% endif %}

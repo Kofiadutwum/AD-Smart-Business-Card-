@@ -15,6 +15,10 @@ A *pay when you update* batch (Basic or Professional only) sells the card with t
 but no plan to pay for: setting it up puts it live at once and for good. Changes to its details, links and
 web address are free for a year after the card is made; after that they cost the batch's Update Price, which
 opens changes for 12 months (see ``apps.dashboard.updates``). The business page is always free.
+
+The buyer picks Basic or Professional while setting the card up (all kinds but the 3-year Basic set); the
+shop price and the Update Price are the same either way, and only staff can change the plan afterwards.
+A batch sold in Ghana gives its plan paid once, kept for good, like every Ghana plan (owner, 27 Nov 2026).
 """
 
 import csv
@@ -119,25 +123,42 @@ def _pack_row(premade, pin):
     }
 
 
+def choice_plans():
+    """The plans a buyer picks from when setting a card up: Professional first, then Basic."""
+    from apps.billing.models import Plan
+
+    return list(Plan.objects.filter(code__in=PAY_TO_UPDATE_PLANS, is_active=True).order_by("-price_minor"))
+
+
+def setup_plan(batch, chosen=None):
+    """The plan a card is set up on: the buyer's pick when the batch lets them pick, else the batch's own plan."""
+    if not batch.buyer_picks_plan:
+        return batch.plan
+    plans = choice_plans()
+    picked = next((p for p in plans if chosen is not None and p.pk == chosen.pk), None)
+    return picked or batch.plan or (plans[0] if plans else None)
+
+
 @transaction.atomic
 def create_batch(
     staff, *, name, quantity, plan=None, price_minor=45000, months=12, note="", card_only=False,
-    pay_to_update=False, update_price_minor=10000,
+    pay_to_update=False, update_price_minor=10000, in_ghana=True,
 ):
+    """``plan`` is only needed for the 3-year Basic set; for every other kind the buyer picks at setup."""
     if not 1 <= quantity <= MAX_BATCH:
         raise ValidationError(f"Make between 1 and {MAX_BATCH} cards at a time.")
     if pay_to_update:
-        if plan is None or plan.code not in PAY_TO_UPDATE_PLANS:
+        if plan is not None and plan.code not in PAY_TO_UPDATE_PLANS:
             raise ValidationError("A pay-when-you-update card is for the Basic or Professional plan only.")
         months, card_only = 0, False
     elif card_only:
         plan, months = None, 0
-    elif plan is None:
+    elif plan is None and months != 12:
         raise ValidationError("Choose the plan that comes with the card.")
     code = f"B{Counter.next('premade-batch'):03d}"
     batch = PremadeBatch.objects.create(
         name=name.strip(), code=code, quantity=quantity, price_minor=price_minor, plan=plan, months=months,
-        card_only=card_only, pay_to_update=pay_to_update, update_price_minor=update_price_minor,
+        card_only=card_only, pay_to_update=pay_to_update, update_price_minor=update_price_minor, in_ghana=in_ghana,
         note=note.strip(), created_by=staff if getattr(staff, "pk", None) else None,
     )
     slugs = _new_slugs(quantity)
@@ -156,7 +177,8 @@ def create_batch(
         rows.append(_pack_row(premade, pin))
     cache.set(pack_key(batch), rows, PACK_TTL_SECONDS)
     AuditLog.record(
-        staff, "premade_batch_created", batch, quantity=quantity, plan=plan.code if plan else "card only", price_minor=price_minor
+        staff, "premade_batch_created", batch, quantity=quantity, price_minor=price_minor,
+        plan=plan.code if plan else ("card only" if card_only else "buyer picks"), sold_in="Ghana" if in_ghana else "outside Ghana",
     )
     return batch
 
@@ -277,11 +299,11 @@ def _running(subscription, now):
     return bool(subscription and not subscription.cancelled_at and subscription.expires_at > now)
 
 
-def attach_problem(user, premade):
-    """Why this account cannot take the card, or None when it can."""
+def attach_problem(user, premade, plan=None):
+    """Why this account cannot take the card on ``plan`` (the buyer's pick), or None when it can."""
     if user.is_suspended or not user.is_active:
         return "This account cannot add a card at the moment. Please contact support."
-    plan = premade.batch.plan
+    plan = setup_plan(premade.batch, plan)
     subscription = user.subscription
     if premade.batch.pay_to_update:
         return None  # live on its own terms: no plan to start and no place to take
@@ -306,8 +328,8 @@ def _receipt_number():
     return f"ADR-{day:%Y}-{Counter.next(f'receipt-{day:%Y}'):05d}"
 
 
-def _finish(premade, user):
-    """Record the sale as revenue, start the year and hand the card over. Runs inside the caller's transaction.
+def _finish(premade, user, plan=None):
+    """Record the sale as revenue, start the plan and hand the card over. Runs inside the caller's transaction.
 
     A card-only sale starts no plan: the card goes live at once only if the buyer's own plan is running
     and has room; otherwise it stays a draft until they pay for a plan.
@@ -316,11 +338,14 @@ def _finish(premade, user):
     from apps.billing.models import Payment
     from apps.billing.services import activate, activate_cards, send_receipt
 
-    batch, plan, now = premade.batch, premade.batch.plan, timezone.now()
+    batch, now = premade.batch, timezone.now()
+    plan = None if batch.card_only else setup_plan(batch, plan)
     if batch.pay_to_update:
         what = f"{batch.name} pre-made card ({plan.name} features, pay when you update)"
     elif batch.card_only:
         what = f"{batch.name} pre-made card (card only)"
+    elif batch.in_ghana:
+        what = f"{batch.name} pre-made card with {plan.name}, paid once"
     else:
         what = f"{batch.name} pre-made card with {plan.name}, {batch.months} months"
     rate = fx.latest_rate()
@@ -355,11 +380,18 @@ def _finish(premade, user):
     elif batch.card_only:
         if _running(subscription, now):
             activate_cards(user, subscription)
-    elif _running(subscription, now) and subscription.yearly_price >= plan.price_minor:
-        # Already on an equal or better plan: add the year and keep the plan.
+    elif (
+        _running(subscription, now) and subscription.yearly_price >= plan.price_minor
+        and not (batch.in_ghana and subscription.paid_once)
+    ):
+        # Already on an equal or better plan: add the year and keep the plan. A Ghana card does this too
+        # for a better yearly plan, since making that plan paid once would hand it over for good.
         subscription.extend(batch.months)
         subscription.save()
         activate_cards(user, subscription)
+    elif batch.in_ghana:
+        # Paid once, like every Ghana plan; a better plan already paid once is kept (activate does that).
+        activate(user, plan, batch.months, paid_once=True)
     else:
         activate(user, plan, batch.months)
     premade.claimed_at = now
@@ -382,6 +414,7 @@ def _lock_claimable(premade_pk):
 
 @transaction.atomic
 def claim_with_new_account(premade_pk, data):
+    """``data`` is the setup form's cleaned data, plus "plan": the buyer's pick of Basic or Professional."""
     from apps.accounts.models import User
 
     premade = _lock_claimable(premade_pk)
@@ -397,14 +430,14 @@ def claim_with_new_account(premade_pk, data):
     card.business_name = data.get("business_name", "")
     card.save(update_fields=["owner", "full_name", "email", "job_title", "business_name", "updated_at"])
     CardPhone.objects.create(card=card, number=data["phone"], label="", position=0)
-    payment = _finish(premade, user)
+    payment = _finish(premade, user, data.get("plan"))
     return user, card, payment
 
 
 @transaction.atomic
-def claim_for_existing_account(premade_pk, user):
+def claim_for_existing_account(premade_pk, user, plan=None):
     premade = _lock_claimable(premade_pk)
-    problem = attach_problem(user, premade)
+    problem = attach_problem(user, premade, plan)
     if problem:
         raise ClaimError(problem)
     card = premade.card
@@ -414,5 +447,5 @@ def claim_for_existing_account(premade_pk, user):
     card.save(update_fields=["owner", "full_name", "email", "updated_at"])
     if user.phone and not card.phones.exists():
         CardPhone.objects.create(card=card, number=user.phone, label="", position=0)
-    payment = _finish(premade, user)
+    payment = _finish(premade, user, plan)
     return card, payment

@@ -1,6 +1,9 @@
 {% extends "staff/_shell.html" %}
 {% block main %}
 <div class="page-head"><div><h1>Pre-made cards</h1><p>Cards sold in shops; the buyer sets one up with the PIN on its back.</p></div></div>
+<nav class="tabs" aria-label="Where sold">
+  {% for value, label, count in tabs %}<a href="{% url 'staff:premade' %}{% if value %}?region={{ value }}{% endif %}" {% if region == value %}aria-current="page"{% endif %}>{{ label }} <span class="count">{{ count }}</span></a>{% endfor %}
+</nav>
 <div class="split">
   <div class="table-wrap">
     <table class="table">
@@ -10,7 +13,7 @@
         {% for b in batches %}
           <tr>
             <td><a href="{% url 'staff:premade_batch' b.pk %}"><strong>{{ b.code }}</strong>, {{ b.name }}</a>{% if b.note %}<br><span class="muted text-xs">{{ b.note }}</span>{% endif %}</td>
-            <td>{% if b.pay_to_update %}Pay when updating, {{ b.plan.name }} features{% elif b.card_only %}Card only, plan paid online{% else %}{{ b.plan.name }}, {{ b.months }} months{% endif %}<br><span class="muted text-xs">{% money b.price_minor %}{% if b.pay_to_update %}, Update Price {% money b.update_price_minor inline=True %}{% endif %}</span></td>
+            <td>{% include "staff/_premade_kind.html" with batch=b %}<br><span class="muted text-xs">{% if b.in_ghana %}Ghana{% else %}Outside Ghana{% endif %}, {% money b.price_minor %}{% if b.pay_to_update %}, Update Price {% money b.update_price_minor inline=True %}{% endif %}</span></td>
             <td class="num">{{ b.quantity }}</td>
             <td class="num">{{ b.counts.claimed }}</td>
             <td class="num">{{ b.counts.waiting }}</td>

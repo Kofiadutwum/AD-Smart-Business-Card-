@@ -1,0 +1,23 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'staff:messages' %}">Messages</a><span>/</span><span>{{ thread.subject }}</span></div>
+    <h1>{{ thread.subject }}</h1>
+    <p>To {{ role_names|join:", " }}{% if thread.card %}, about the card <a href="{% url 'staff:card_preview' thread.card.pk %}">{{ thread.card.full_name }}</a>{% endif %}{% if thread.customer %}{% if thread.card %} of{% else %}, about{% endif %} <a href="{% url 'staff:subscriber' thread.customer.pk %}">{{ thread.customer.display_name }}</a>{% endif %}</p>
+  </div>
+</div>
+<div class="thread">
+  {% for m in thread_messages %}
+    <article class="msg{% if m.author == request.user %} msg--staff{% endif %}">
+      <header><strong>{{ m.author.display_name|default:m.author.email|default:"A former admin" }}</strong><time>{{ m.created_at|date:"j M Y, H:i" }}</time></header>
+      <p>{{ m.body|linebreaksbr }}</p>
+    </article>
+  {% endfor %}
+</div>
+<form method="post" class="panel form mt-6" novalidate>
+  {% csrf_token %}
+  {% include "components/form_fields.html" %}
+  <button class="btn btn--primary" type="submit">{% icon "send" 16 %}Reply</button>
+</form>
+{% endblock %}

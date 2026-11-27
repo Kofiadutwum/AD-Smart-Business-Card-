@@ -8,6 +8,8 @@
     <h1 class="mt-2">{% trans "Set up your card" %}</h1>
     {% if batch.card_only or batch.pay_to_update %}
       <p class="lead">{% trans "Your card is ready. Enter the PIN printed on the back of the card to begin." %}</p>
+    {% elif batch.in_ghana %}
+      <p class="lead">{% trans "Your card is ready and its plan is already paid for, once and for good. Enter the PIN printed on the back of the card to begin." %}</p>
     {% else %}
       <p class="lead">{% trans "Your card is ready and its first year is already paid for. Enter the PIN printed on the back of the card to begin." %}</p>
     {% endif %}

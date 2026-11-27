@@ -9,13 +9,15 @@ from functools import wraps
 from django.http import Http404
 from django.shortcuts import redirect, render
 
-SUPER, FINANCE, SUPPORT, DESIGN, OPS = "super", "finance", "support", "design", "ops"
-ALL = {SUPER, FINANCE, SUPPORT, DESIGN, OPS}
+SUPER, FINANCE, SUPPORT, DESIGN, OPS, SALES = "super", "finance", "support", "design", "ops", "sales"
+ALL = {SUPER, FINANCE, SUPPORT, DESIGN, OPS, SALES}
 
+# Sales Admin (owner, 27 Nov 2026): helps card holders (support requests, customers and their cards, editing a
+# card for its owner) and messages the other admins; no payments, money figures, NFC orders or pre-made batches.
 PERMISSIONS = {
     "manage_admins": {SUPER},
     "settings": {SUPER},
-    "view_subscribers": ALL,  # Design and Ops see a limited view (no payments)
+    "view_subscribers": ALL,  # Design, Ops and Sales see a limited view (no payments)
     "view_payments": {SUPER, FINANCE, SUPPORT},
     "manual_activation": {SUPER, FINANCE, SUPPORT},
     "suspend": {SUPER, SUPPORT},
@@ -24,11 +26,13 @@ PERMISSIONS = {
     "finance": {SUPER, FINANCE},
     "refunds": {SUPER, FINANCE},
     "promo_codes": {SUPER, FINANCE},
-    "nfc_view": ALL,
+    "nfc_view": ALL - {SALES},
     "nfc_design": {SUPER, DESIGN},
     "nfc_production": {SUPER, DESIGN, OPS},
     "premade_cards": {SUPER, DESIGN, OPS},
-    "support": {SUPER, SUPPORT},
+    "support": {SUPER, SUPPORT, SALES},
+    "edit_customer_cards": {SUPER, SALES},
+    "staff_messages": ALL,  # every admin reads and answers the messages sent to their role
     "reports": {SUPER, SUPPORT},
     "email_subscribers": {SUPER, SUPPORT},
     "gallery": {SUPER, SUPPORT, DESIGN},

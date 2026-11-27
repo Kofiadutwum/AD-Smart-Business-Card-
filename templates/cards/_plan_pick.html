@@ -1,0 +1,13 @@
+{# The buyer's pick of Basic or Professional while setting up a pre-made card (cards/claim.py). #}
+<fieldset class="fieldset">
+  <legend>{% trans "Plan" %}<span class="required" aria-hidden="true">*</span></legend>
+  <div class="form">
+    {% for p in plans %}
+      <label class="check check--option">
+        <input type="radio" name="plan" value="{{ p.code }}" {% if p.code == picked_code %}checked{% endif %} required>
+        <span style="flex:1"><strong style="font-size: var(--text-base)">{{ p.name }}</strong><br><span class="muted">{% trans p.blurb %}</span></span>
+      </label>
+    {% endfor %}
+  </div>
+  {% if plan_error %}<p class="field-error" role="alert">{% icon "circle-x" 16 %}{{ plan_error }}</p>{% endif %}
+</fieldset>

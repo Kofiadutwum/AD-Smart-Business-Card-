@@ -332,19 +332,20 @@ class PremadeBatchForm(forms.Form):
 
     name = forms.CharField(label="Design name", max_length=120, help_text="For example Gold Classic. Only staff see it.")
     quantity = forms.IntegerField(label="How many cards", min_value=1, max_value=500, initial=100, help_text="Up to 500 at a time.")
+    sold_in = forms.ChoiceField(
+        label="Sold in", choices=[("ghana", "Ghana"), ("abroad", "Outside Ghana")], widget=forms.RadioSelect,
+        help_text="Kept apart in the figures. A Ghana card that includes a plan gives it paid once.",
+    )
     term = forms.ChoiceField(
         label="What the card includes",
         choices=[
-            ("year", "A year of the plan chosen below"),
+            ("year", "A plan: a year of it, or paid once in Ghana"),
             ("basic3", "Basic for 3 years, then it renews as normal"),
             ("cardonly", "The card only: the buyer pays for a plan online to switch it on"),
-            ("payupdate", "Pay when updating: live at once, the buyer pays only to change their details (Basic or Professional)"),
+            ("payupdate", "Pay when updating: live at once, the buyer pays only to change their details"),
         ],
         initial="year",
-        help_text="The plan below is ignored for 3-year Basic and card-only sets.",
-    )
-    plan = forms.ModelChoiceField(
-        label="Plan included for the first year", queryset=Plan.objects.none(), empty_label=None, required=False
+        help_text="The buyer picks Basic or Professional when setting the card up (except the 3-year Basic set).",
     )
     price = CedisField(
         label="Price in the shop (GHS)", required=False,
@@ -356,38 +357,38 @@ class PremadeBatchForm(forms.Form):
     )
     note = forms.CharField(label="Note (optional)", max_length=200, required=False)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        plans = Plan.objects.filter(is_active=True)
-        self.fields["plan"].queryset = plans
-        professional = plans.filter(code="professional").first()
-        if professional:
-            self.fields["plan"].initial = professional.pk
+    field_order = ["name", "quantity", "sold_in", "term", "price", "update_price", "note"]
 
     def clean(self):
         cleaned = super().clean()
         term = cleaned.get("term")
+        cleaned["in_ghana"] = cleaned.get("sold_in") == "ghana"
         if cleaned.get("price") is None:
             cleaned["price"] = 200 if term in ("cardonly", "payupdate") else 450
         if cleaned.get("update_price") is None:
             cleaned["update_price"] = 100
-        if term == "payupdate":
-            from apps.cards.premade import PAY_TO_UPDATE_PLANS
-
-            plan = cleaned.get("plan")
-            if not plan or plan.code not in PAY_TO_UPDATE_PLANS:
-                self.add_error("plan", "Choose the Basic or Professional plan for a pay-when-updating card.")
-            cleaned["months"] = 0
-        elif term == "cardonly":
-            cleaned["plan"], cleaned["months"] = None, 0
-        elif term == "basic3":
-            cleaned["plan"] = self.fields["plan"].queryset.filter(code="basic").first()
+        # The buyer picks Basic or Professional at setup, so only the 3-year Basic set carries a plan.
+        cleaned["plan"], cleaned["months"] = None, 0
+        if term == "basic3":
+            cleaned["plan"] = Plan.objects.filter(code="basic", is_active=True).first()
             cleaned["months"] = BASIC_TERM_MONTHS
             if not cleaned["plan"]:
                 self.add_error("term", "The Basic plan is switched off. Switch it on under Plans first.")
         elif term == "year":
-            if not cleaned.get("plan"):
-                self.add_error("plan", "Choose a plan.")
-            else:
-                cleaned["months"] = cleaned["plan"].duration_months
+            cleaned["months"] = 12
         return cleaned
+
+
+class StaffMessageForm(forms.Form):
+    """A new message in the staff inbox, sent to the roles picked for it."""
+
+    to = forms.MultipleChoiceField(
+        label="Send to", choices=User.STAFF_ROLES, widget=forms.CheckboxSelectMultiple,
+        help_text="Everyone with these roles can read it and answer.",
+    )
+    subject = forms.CharField(max_length=160)
+    body = forms.CharField(label="Message", max_length=5000, widget=forms.Textarea(attrs={"rows": 6}))
+
+
+class StaffReplyForm(forms.Form):
+    body = forms.CharField(label="Your reply", max_length=5000, widget=forms.Textarea(attrs={"rows": 4}))

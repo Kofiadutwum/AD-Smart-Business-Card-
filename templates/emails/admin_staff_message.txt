@@ -1,0 +1,8 @@
+{% autoescape off %}{{ author }} wrote in the staff inbox.
+Subject: {{ thread.subject }}{% if thread.customer %}
+Customer: {{ thread.customer.display_name }} <{{ thread.customer.email }}>{% endif %}{% if thread.card %}
+Card: {{ thread.card.full_name }} (/c/{{ thread.card.slug }}){% endif %}
+
+{{ message.body }}
+
+Read and reply: {{ url }}{% endautoescape %}

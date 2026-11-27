@@ -46,12 +46,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     ROLE_SUPPORT = "support"
     ROLE_DESIGN = "design"
     ROLE_OPS = "ops"
+    ROLE_SALES = "sales"
     STAFF_ROLES = [
         (ROLE_SUPER, "Main / Super Admin"),
         (ROLE_FINANCE, "Financial Manager"),
         (ROLE_SUPPORT, "Customer Support"),
         (ROLE_DESIGN, "Design Manager"),
         (ROLE_OPS, "Operations Manager"),
+        (ROLE_SALES, "Sales Admin"),
     ]
 
     # Django's default of 128 is too short for the Flask site's scrypt hashes ("werkzeug$" + 162 characters).

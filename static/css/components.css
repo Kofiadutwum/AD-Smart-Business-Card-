@@ -374,6 +374,18 @@
   accent-color: var(--primary);
   flex: none;
 }
+/* A boxed choice (the plan picked while setting up a pre-made card); the box follows the ticked one. */
+.check--option {
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  align-items: center;
+  cursor: pointer;
+}
+.check--option:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
 .fieldset {
   border: 1px solid var(--border);
   border-radius: var(--radius);

@@ -1,0 +1,30 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div><h1>Edit card</h1><p>{{ card.full_name }}, for <a href="{% url 'staff:subscriber' card.owner_id %}">{{ card.owner.display_name }}</a>. Saving changes the live card and is recorded in the audit log.</p></div>
+  <div class="cluster"><a class="btn btn--sm" href="{% url 'staff:card_preview' card.pk %}">View card</a></div>
+</div>
+{% if card.edit_locked %}
+  <div class="banner banner--warning">{% icon "lock" 22 %}<p><strong>Locked.</strong> This card's year of changes has ended, so its owner pays the Update Price first. Then it can be changed here.</p></div>
+{% else %}
+  <form method="post" enctype="multipart/form-data" class="form panel" novalidate>
+    {% csrf_token %}
+    {% include "components/form_fields.html" %}
+    <fieldset class="fieldset">
+      <legend>Phone numbers</legend>
+      {{ phones.management_form }}
+      {% for error in phones.non_form_errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      {% for pform in phones %}
+        <div class="cluster">
+          {{ pform.id }}
+          {% include "components/field.html" with field=pform.number %}
+          {% include "components/field.html" with field=pform.label %}
+          {% if pform.instance.pk %}{% include "components/field.html" with field=pform.DELETE %}{% endif %}
+        </div>
+        {% for error in pform.non_field_errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      {% endfor %}
+    </fieldset>
+    <button class="btn btn--primary" type="submit">{% icon "check" 16 %}Save card</button>
+  </form>
+{% endif %}
+{% endblock %}

@@ -29,6 +29,8 @@
                 <td>{% with st=c.public_state %}<span class="badge {% if st == 'live' %}badge--success{% elif st == 'suspended' %}badge--danger{% endif %}">{{ st|title }}</span>{% endwith %}</td>
                 <td class="nowrap">
                   <a class="btn btn--sm" href="{% url 'staff:card_preview' c.pk %}">View</a>
+                  {% if staff_perms.edit_customer_cards %}<a class="btn btn--sm" href="{% url 'staff:card_edit' c.pk %}">{% icon "pencil" 14 %}Edit</a>{% endif %}
+                  {% if staff_perms.staff_messages %}<a class="btn btn--sm btn--ghost" href="{% url 'staff:message_new' %}?card={{ c.pk }}">{% icon "message-circle" 14 %}Message admins</a>{% endif %}
                   {% if staff_perms.suspend %}
                   <details class="inline-form"><summary class="btn btn--sm btn--ghost">{% if c.is_suspended %}Reinstate{% else %}Suspend{% endif %}</summary>
                     <form method="post" action="{% url 'staff:suspend_card' c.pk %}" class="form mt-2">{% csrf_token %}<div class="field"><label for="card-reason-{{ c.pk }}">Reason (recorded in the audit log)</label><textarea id="card-reason-{{ c.pk }}" name="reason" rows="3" required></textarea></div><button class="btn btn--sm{% if not c.is_suspended %} btn--danger{% endif %}" type="submit">{% if c.is_suspended %}Reinstate card{% else %}Suspend card{% endif %}</button></form>
@@ -102,6 +104,14 @@
         </dl>
         {% endwith %}
       {% else %}<p class="muted mt-2">No plan yet (draft).</p>{% endif %}
+      {% if staff_perms.manual_activation and plan_choices %}{% if subscription.plan.code == "basic" or subscription.plan.code == "professional" or customer.update_card %}
+        <form method="post" action="{% url 'staff:change_plan' customer.pk %}" class="cluster mt-4">
+          {% csrf_token %}
+          <label for="change-plan" class="text-sm">Basic or Professional</label>
+          <select id="change-plan" name="plan">{% for p in plan_choices %}<option value="{{ p.code }}" {% if p == subscription.plan or p == customer.update_card.update_plan %}selected{% endif %}>{{ p.name }}</option>{% endfor %}</select>
+          <button class="btn btn--sm" type="submit">Change plan</button>
+        </form>
+      {% endif %}{% endif %}
     </section>
 
     {% if staff_perms.manual_activation %}

@@ -1,0 +1,16 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div>
+    <div class="crumbs"><a href="{% url 'staff:messages' %}">Messages</a><span>/</span><span>New</span></div>
+    <h1>New message</h1>
+    <p>{% if card %}About the card {{ card.full_name }} (/c/{{ card.slug }}) of <a href="{% url 'staff:subscriber' customer.pk %}">{{ customer.display_name }}</a>.{% elif customer %}About <a href="{% url 'staff:subscriber' customer.pk %}">{{ customer.display_name }}</a>.{% else %}Everyone you send it to is emailed and can answer here.{% endif %}</p>
+  </div>
+</div>
+<form method="post" class="panel form" novalidate>
+  {% csrf_token %}
+  {% if card %}<input type="hidden" name="card" value="{{ card.pk }}">{% elif customer %}<input type="hidden" name="customer" value="{{ customer.pk }}">{% endif %}
+  {% include "components/form_fields.html" %}
+  <button class="btn btn--primary" type="submit">{% icon "send" 16 %}Send</button>
+</form>
+{% endblock %}

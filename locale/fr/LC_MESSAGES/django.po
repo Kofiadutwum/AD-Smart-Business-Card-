@@ -94,7 +94,7 @@ msgstr "Votre code de réinitialisation du mot de passe : %(code)s"
 msgid "Too many sign-ups from this connection. Try again in an hour."
 msgstr "Trop d’inscriptions depuis cette connexion. Réessayez dans une heure."
 
-#: apps/accounts/views.py:70 apps/accounts/views.py:355 apps/cards/claim.py:95
+#: apps/accounts/views.py:70 apps/accounts/views.py:355 apps/cards/claim.py:110
 msgid "Welcome to AD Smart Business Cards"
 msgstr "Bienvenue sur AD Smart Business Cards"
 
@@ -106,7 +106,7 @@ msgstr "Trop de tentatives. Patientez 15 minutes ou réinitialisez votre mot de 
 msgid "That email and password do not match."
 msgstr "Cet e-mail et ce mot de passe ne correspondent pas."
 
-#: apps/accounts/views.py:105 apps/accounts/views.py:292 apps/accounts/views.py:359
+#: apps/accounts/passkeys.py:133 apps/accounts/views.py:105 apps/accounts/views.py:292 apps/accounts/views.py:359
 msgid "This account is suspended. Contact support."
 msgstr "Ce compte est suspendu. Contactez l’assistance."
 
@@ -242,7 +242,7 @@ msgstr "Image d’arrière-plan, style des boutons, disposition des icônes"
 msgid "Remove “Powered by AD Smart”"
 msgstr "Supprimer « Propulsé par AD Smart »"
 
-#: apps/billing/models.py:152 templates/dashboard/home.html:24
+#: apps/billing/models.py:152 templates/dashboard/home.html:26
 msgid "Full analytics"
 msgstr "Statistiques complètes"
 
@@ -330,7 +330,7 @@ msgstr "Carte prête à l’emploi avec la formule %(plan)s, %(count)d mois (ven
 msgid "Upgrade to %(plan)s for %(count)d people"
 msgstr "Passage à la formule %(plan)s pour %(count)d personnes"
 
-#: apps/billing/models.py:557 apps/billing/views.py:65
+#: apps/billing/models.py:557 apps/billing/views.py:64
 #, python-format
 msgid "Upgrade to %(plan)s"
 msgstr "Passage à la formule %(plan)s"
@@ -358,65 +358,65 @@ msgstr "Malformed webhook payload."
 msgid "Your receipt %(number)s"
 msgstr "Votre reçu %(number)s"
 
-#: apps/billing/views.py:41
+#: apps/billing/views.py:40
 msgid "Plans are not set up yet. Please contact support."
 msgstr "Les formules ne sont pas encore configurées. Veuillez contacter l’assistance."
 
-#: apps/billing/views.py:88 apps/dashboard/views.py:191
+#: apps/billing/views.py:87 apps/dashboard/views.py:191
 msgid "Please tick the box to accept the Terms and Refund Policy before paying."
 msgstr "Veuillez cocher la case pour accepter les conditions et la politique de remboursement avant de payer."
 
-#: apps/billing/views.py:90
+#: apps/billing/views.py:89
 msgid "Create your card before choosing a plan."
 msgstr "Créez votre carte avant de choisir une formule."
 
-#: apps/billing/views.py:103
+#: apps/billing/views.py:102
 #, python-format
 msgid "%(count)d remaining month"
 msgid_plural "%(count)d remaining months"
 msgstr[0] "%(count)d mois restant"
 msgstr[1] "%(count)d mois restants"
 
-#: apps/billing/views.py:107
+#: apps/billing/views.py:106
 #, python-format
 msgid "%(added)d more person on %(plan)s for %(months_left)s"
 msgid_plural "%(added)d more people on %(plan)s for %(months_left)s"
 msgstr[0] "%(added)d personne de plus sur %(plan)s pour %(months_left)s"
 msgstr[1] "%(added)d personnes de plus sur %(plan)s pour %(months_left)s"
 
-#: apps/billing/views.py:111
+#: apps/billing/views.py:110
 #, python-format
 msgid "Upgrade to %(plan)s for %(months_left)s"
 msgstr "Passage à %(plan)s pour %(months_left)s"
 
-#: apps/billing/views.py:128 apps/dashboard/views.py:201 apps/nfc/views.py:266
+#: apps/billing/views.py:127 apps/dashboard/views.py:201 apps/nfc/views.py:266
 #, python-format
 msgid "%(reason)s You have not been charged."
 msgstr "%(reason)s Vous n’avez pas été débité."
 
-#: apps/billing/views.py:132
+#: apps/billing/views.py:131
 #, python-format
 msgid "Promo code %(code)s applied: %(label)s."
 msgstr "Code promo %(code)s appliqué : %(label)s."
 
-#: apps/billing/views.py:145
+#: apps/billing/views.py:144
 #, python-format
 msgid "Pay %(amount)s"
 msgstr "Payer %(amount)s"
 
-#: apps/billing/views.py:168
+#: apps/billing/views.py:167
 msgid "We could not find that payment. If money left your account, contact support with the reference."
 msgstr "Nous n’avons pas retrouvé ce paiement. Si de l’argent a quitté votre compte, contactez l’assistance en indiquant la référence."
 
-#: apps/cards/claim.py:82
+#: apps/cards/claim.py:97
 msgid "Too many attempts from this connection. Try again in an hour."
 msgstr "Trop de tentatives depuis cette connexion. Réessayez dans une heure."
 
-#: apps/cards/claim.py:90
+#: apps/cards/claim.py:105
 msgid "That email or number was just used for another account. Please check and try again."
 msgstr "Cet e-mail ou ce numéro vient d’être utilisé pour un autre compte. Vérifiez et réessayez."
 
-#: apps/cards/claim.py:150
+#: apps/cards/claim.py:178
 msgid "The card is now on your account and a year has been added to your plan."
 msgstr "La carte est maintenant sur votre compte et une année a été ajoutée à votre formule."
 
@@ -620,7 +620,7 @@ msgstr "Fraude ou arnaque"
 msgid "Offensive content"
 msgstr "Contenu choquant"
 
-#: apps/cards/models.py:433 apps/dashboard/forms.py:299 apps/support/models.py:17 templates/cards/business.html:66 templates/marketing/shops.html:33
+#: apps/cards/models.py:433 apps/dashboard/forms.py:299 apps/support/models.py:17 templates/cards/business.html:67 templates/marketing/shops.html:36
 msgid "Other"
 msgstr "Autre"
 
@@ -636,35 +636,35 @@ msgstr "Classé sans suite"
 msgid "Actioned"
 msgstr "Traité"
 
-#: apps/cards/premade.py:185
+#: apps/cards/premade.py:207
 msgid "This card has already been set up by its buyer."
 msgstr "Cette carte a déjà été configurée par son acheteur."
 
-#: apps/cards/premade.py:236 apps/cards/premade.py:377
+#: apps/cards/premade.py:258 apps/cards/premade.py:409
 msgid "This card has already been set up."
 msgstr "Cette carte a déjà été configurée."
 
-#: apps/cards/premade.py:238 apps/cards/premade.py:379
+#: apps/cards/premade.py:260 apps/cards/premade.py:411
 msgid "This card is no longer in use. Please contact the shop you bought it from."
 msgstr "Cette carte n’est plus utilisable. Veuillez contacter la boutique où vous l’avez achetée."
 
-#: apps/cards/premade.py:240
+#: apps/cards/premade.py:262
 msgid "Too many attempts from this connection. Please try again later."
 msgstr "Trop de tentatives depuis cette connexion. Veuillez réessayer plus tard."
 
-#: apps/cards/premade.py:247
+#: apps/cards/premade.py:269
 #, python-format
 msgid "Too many wrong PINs. Please try again in %(minutes)d minute."
 msgid_plural "Too many wrong PINs. Please try again in %(minutes)d minutes."
 msgstr[0] "Trop de codes PIN erronés. Réessayez dans %(minutes)d minute."
 msgstr[1] "Trop de codes PIN erronés. Réessayez dans %(minutes)d minutes."
 
-#: apps/cards/premade.py:261
+#: apps/cards/premade.py:283
 #, python-format
 msgid "That PIN is not right. This card is locked for %(minutes)d minutes."
 msgstr "Ce code PIN n’est pas le bon. Cette carte est verrouillée pendant %(minutes)d minutes."
 
-#: apps/cards/premade.py:265
+#: apps/cards/premade.py:287
 #, python-format
 msgid "That PIN is not right. %(left)d try left."
 msgid_plural "That PIN is not right. %(left)d tries left."
@@ -806,36 +806,36 @@ msgstr "Votre carte est désormais inactive"
 msgid "Your card details will be deleted soon"
 msgstr "Les informations de votre carte seront bientôt supprimées"
 
-#: apps/core/utils.py:104
+#: apps/core/utils.py:113
 msgid "Enter a phone number."
 msgstr "Saisissez un numéro de téléphone."
 
-#: apps/core/utils.py:114
+#: apps/core/utils.py:123
 msgid "A Ghanaian number has 10 digits, for example 024 412 3456."
 msgstr "Un numéro ghanéen comporte 10 chiffres, par exemple 024 412 3456."
 
-#: apps/core/utils.py:119
+#: apps/core/utils.py:128
 msgid "Enter a Ghanaian number such as 024 412 3456, or an international number starting with +."
 msgstr "Saisissez un numéro ghanéen comme 024 412 3456, ou un numéro international commençant par +."
 
-#: apps/core/utils.py:178
+#: apps/core/utils.py:189
 #, python-format
 msgid "That image is larger than %(mb)d MB."
 msgstr "Cette image dépasse %(mb)d Mo."
 
-#: apps/core/utils.py:216
+#: apps/core/utils.py:227
 msgid "That SVG file could not be read."
 msgstr "Ce fichier SVG n’a pas pu être lu."
 
-#: apps/core/utils.py:222
+#: apps/core/utils.py:233
 msgid "That file is not an SVG image."
 msgstr "Ce fichier n’est pas une image SVG."
 
-#: apps/core/utils.py:250
+#: apps/core/utils.py:261
 msgid "Design files can be up to 10 MB."
 msgstr "Les fichiers de design peuvent peser jusqu’à 10 Mo."
 
-#: apps/core/utils.py:262 apps/core/utils.py:264
+#: apps/core/utils.py:273 apps/core/utils.py:275
 msgid "Upload a JPG, PNG, WebP, SVG or PDF file."
 msgstr "Importez un fichier JPG, PNG, WebP, SVG ou PDF."
 
@@ -891,7 +891,7 @@ msgstr "Utilisez le format GA-123-4567."
 msgid "Choose a colour."
 msgstr "Choisissez une couleur."
 
-#: apps/dashboard/forms.py:215 templates/dashboard/editor.html:208 templates/dashboard/home.html:32 templates/dashboard/share.html:17
+#: apps/dashboard/forms.py:215 templates/dashboard/editor.html:208 templates/dashboard/home.html:34 templates/dashboard/share.html:17
 msgid "Your card link"
 msgstr "Le lien de votre carte"
 
@@ -1428,20 +1428,20 @@ msgstr "Commande annulée."
 msgid "An update on your order %(number)s"
 msgstr "Une mise à jour de votre commande %(number)s"
 
-#: apps/staff/views/subscribers.py:133
+#: apps/staff/views/subscribers.py:190
 msgid "Your AD Smart account has been suspended"
 msgstr "Votre compte AD Smart a été suspendu"
 
-#: apps/staff/views/subscribers.py:133
+#: apps/staff/views/subscribers.py:190
 msgid "Your AD Smart account is active again"
 msgstr "Votre compte AD Smart est de nouveau actif"
 
-#: apps/staff/views/subscribers.py:207
+#: apps/staff/views/subscribers.py:264
 #, python-format
 msgid "Your card /c/%(slug)s has been suspended"
 msgstr "Votre carte /c/%(slug)s a été suspendue"
 
-#: apps/staff/views/subscribers.py:208
+#: apps/staff/views/subscribers.py:265
 #, python-format
 msgid "Your card /c/%(slug)s has been reinstated"
 msgstr "Votre carte /c/%(slug)s a été rétablie"
@@ -1543,7 +1543,7 @@ msgstr "Connectez-vous pour modifier votre carte, voir qui l’a consultée et s
 msgid "Log in"
 msgstr "Se connecter"
 
-#: templates/accounts/login.html:18
+#: templates/accounts/login.html:19
 #, python-format
 msgid "New here? <a href=\"%(url_1)s\">Create a card</a>"
 msgstr "Nouveau ici ? <a href=\"%(url_1)s\">Créez une carte</a>"
@@ -1667,7 +1667,7 @@ msgstr "Votre formule %(subscription_plan_name)s court jusqu’au %(subscription
 msgid "Your card goes live as soon as Paystack confirms your payment."
 msgstr "Votre carte est mise en ligne dès que Paystack confirme votre paiement."
 
-#: templates/billing/checkout.html:43 templates/dashboard/home.html:61 templates/dashboard/home.html:64
+#: templates/billing/checkout.html:43 templates/cards/_plan_pick.html:3 templates/dashboard/home.html:63 templates/dashboard/home.html:66
 msgid "Plan"
 msgstr "Formule"
 
@@ -1768,7 +1768,7 @@ msgstr "Date"
 msgid "What for"
 msgstr "Objet"
 
-#: templates/billing/receipts.html:11 templates/dashboard/cards.html:17 templates/dashboard/home.html:65 templates/dashboard/nfc_orders.html:15 templates/support/mine.html:12
+#: templates/billing/receipts.html:11 templates/dashboard/cards.html:17 templates/dashboard/home.html:67 templates/dashboard/nfc_orders.html:15 templates/support/mine.html:12
 msgid "Status"
 msgstr "Statut"
 
@@ -1780,7 +1780,7 @@ msgstr "Montant"
 msgid "Receipt"
 msgstr "Reçu"
 
-#: templates/billing/receipts.html:17 templates/dashboard/home.html:67
+#: templates/billing/receipts.html:17 templates/dashboard/home.html:69
 msgid "Paid"
 msgstr "Payé"
 
@@ -1890,7 +1890,7 @@ msgstr "Coordonnées"
 msgid "About %(first)s"
 msgstr "À propos de %(first)s"
 
-#: templates/cards/_card.html:41 templates/cards/business.html:162
+#: templates/cards/_card.html:41 templates/cards/business.html:163
 msgid "Social media"
 msgstr "Réseaux sociaux"
 
@@ -1899,7 +1899,7 @@ msgstr "Réseaux sociaux"
 msgid "Share your details with %(first)s"
 msgstr "Partagez vos coordonnées avec %(first)s"
 
-#: templates/cards/_card.html:58 templates/cards/business.html:179
+#: templates/cards/_card.html:58 templates/cards/business.html:180
 msgid "Leave empty"
 msgstr "Laisser vide"
 
@@ -1915,11 +1915,11 @@ msgstr "Afficher le code QR"
 msgid "Let someone scan this to open the card."
 msgstr "Faites scanner ceci pour ouvrir la carte."
 
-#: templates/cards/_card.html:76 templates/cards/business.html:194
+#: templates/cards/_card.html:76 templates/cards/business.html:195
 msgid "Powered by AD Smart"
 msgstr "Propulsé par AD Smart"
 
-#: templates/cards/_card.html:79 templates/cards/business.html:197 templates/cards/report.html:7
+#: templates/cards/_card.html:79 templates/cards/business.html:198 templates/cards/report.html:7
 msgid "Report this card"
 msgstr "Signaler cette carte"
 
@@ -1940,17 +1940,17 @@ msgstr "Ajoutez cette carte à votre compte"
 msgid "Go to my cards"
 msgstr "Aller à mes cartes"
 
-#: templates/cards/claim_attach.html:21
+#: templates/cards/claim_attach.html:27
 #, python-format
 msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and one year of %(batch_plan_name)s will be added to your plan. Its link and QR code stay exactly as printed."
 msgstr "Vous êtes connecté en tant que <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte et un an de %(batch_plan_name)s sera ajouté à votre formule. Son lien et son code QR restent exactement tels qu’imprimés."
 
-#: templates/cards/claim_attach.html:25
+#: templates/cards/claim_attach.html:31
 #, python-format
 msgid "Your plan is currently %(subscription_plan_name)s, active until %(subscription_expires_at_date)s."
 msgstr "Votre formule actuelle est %(subscription_plan_name)s, active jusqu’au %(subscription_expires_at_date)s."
 
-#: templates/cards/claim_attach.html:28
+#: templates/cards/claim_attach.html:35
 msgid "Add the card and the year"
 msgstr "Ajouter la carte et l’année"
 
@@ -1967,15 +1967,15 @@ msgstr "Étape 1 sur 2"
 msgid "Set up your card"
 msgstr "Configurez votre carte"
 
-#: templates/cards/claim_pin.html:12
+#: templates/cards/claim_pin.html:14
 msgid "Your card is ready and its first year is already paid for. Enter the PIN printed on the back of the card to begin."
 msgstr "Votre carte est prête et sa première année est déjà payée. Saisissez le code PIN imprimé au dos de la carte pour commencer."
 
-#: templates/cards/claim_pin.html:17
+#: templates/cards/claim_pin.html:19
 msgid "Continue"
 msgstr "Continuer"
 
-#: templates/cards/claim_pin.html:19
+#: templates/cards/claim_pin.html:21
 msgid "Cannot find the PIN? It is printed on the back of the card. Ask the shop that sold it to you."
 msgstr "Vous ne trouvez pas le code PIN ? Il est imprimé au dos de la carte. Demandez-le à la boutique qui vous l’a vendue."
 
@@ -1983,21 +1983,21 @@ msgstr "Vous ne trouvez pas le code PIN ? Il est imprimé au dos de la carte. De
 msgid "Your details"
 msgstr "Vos informations"
 
-#: templates/cards/claim_setup.html:18
+#: templates/cards/claim_setup.html:24
 #, python-format
 msgid "This card comes with one year of the %(batch_plan_name)s plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
 msgstr "Cette carte inclut un an de formule %(batch_plan_name)s, déjà payé. Ajoutez vos informations et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
 
-#: templates/accounts/register.html:19 templates/cards/claim_setup.html:25
+#: templates/accounts/register.html:19 templates/cards/claim_setup.html:32
 #, python-format
 msgid "By creating an account you agree to our <a href=\"%(url_1)s\" target=\"_blank\">Terms of Service</a> and <a href=\"%(url_2)s\" target=\"_blank\">Privacy Policy</a>."
 msgstr "En créant un compte, vous acceptez nos <a href=\"%(url_1)s\" target=\"_blank\">conditions d’utilisation</a> et notre <a href=\"%(url_2)s\" target=\"_blank\">politique de confidentialité</a>."
 
-#: templates/cards/claim_setup.html:26
+#: templates/cards/claim_setup.html:33
 msgid "Activate my card"
 msgstr "Activer ma carte"
 
-#: templates/cards/claim_setup.html:28
+#: templates/cards/claim_setup.html:35
 #, python-format
 msgid "Already have an account? <a href=\"%(login_url)s\">Log in to add this card to it</a>"
 msgstr "Vous avez déjà un compte ? <a href=\"%(login_url)s\">Connectez-vous pour y ajouter cette carte</a>"
@@ -2076,7 +2076,7 @@ msgstr "Obtenez votre propre carte intelligente"
 msgid "Open menu"
 msgstr "Ouvrir le menu"
 
-#: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65 templates/dashboard/settings.html:31 templates/partials/site_header.html:12
+#: templates/dashboard/_shell.html:17 templates/dashboard/_shell.html:65 templates/dashboard/settings.html:32 templates/partials/site_header.html:12
 msgid "Change theme"
 msgstr "Changer de thème"
 
@@ -2120,7 +2120,7 @@ msgstr "Cartes de l’équipe"
 msgid "Orders &amp; billing"
 msgstr "Commandes et facturation"
 
-#: templates/dashboard/_shell.html:45 templates/dashboard/home.html:48 templates/dashboard/nfc_orders.html:6 templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6 templates/nfc/order.html:6 templates/nfc/order.html:113 templates/partials/site_footer.html:16 templates/partials/site_header.html:35
+#: templates/dashboard/_shell.html:45 templates/dashboard/home.html:50 templates/dashboard/nfc_orders.html:6 templates/marketing/_nfc_section.html:4 templates/nfc/detail.html:6 templates/nfc/order.html:6 templates/nfc/order.html:113 templates/partials/site_footer.html:16 templates/partials/site_header.html:35
 msgid "NFC cards"
 msgstr "Cartes NFC"
 
@@ -2128,7 +2128,7 @@ msgstr "Cartes NFC"
 msgid "Plan &amp; renewal"
 msgstr "Formule et renouvellement"
 
-#: templates/dashboard/_shell.html:47 templates/dashboard/home.html:61
+#: templates/dashboard/_shell.html:47 templates/dashboard/home.html:63
 msgid "Receipts"
 msgstr "Reçus"
 
@@ -2190,7 +2190,7 @@ msgstr "Période"
 msgid "<strong>See where your visitors come from.</strong> Professional and Business show QR scans, NFC taps, saved contacts and every button click, by day, week, month or year."
 msgstr "<strong>Découvrez d’où viennent vos visiteurs.</strong> Professional et Business affichent les scans de code QR, les appuis NFC, les contacts enregistrés et chaque clic sur un bouton, par jour, semaine, mois ou année."
 
-#: templates/dashboard/analytics.html:26 templates/dashboard/home.html:73
+#: templates/dashboard/analytics.html:26 templates/dashboard/home.html:75
 msgid "Upgrade"
 msgstr "Passer à la formule supérieure"
 
@@ -2240,11 +2240,11 @@ msgstr "Lien"
 msgid "Actions"
 msgstr "Actions"
 
-#: templates/dashboard/business.html:32 templates/dashboard/cards.html:23 templates/dashboard/home.html:70
+#: templates/dashboard/business.html:32 templates/dashboard/cards.html:23 templates/dashboard/home.html:72
 msgid "On"
 msgstr "Activée"
 
-#: templates/dashboard/business.html:32 templates/dashboard/cards.html:23 templates/dashboard/home.html:70
+#: templates/dashboard/business.html:32 templates/dashboard/cards.html:23 templates/dashboard/home.html:72
 msgid "Off"
 msgstr "Désactivée"
 
@@ -2416,57 +2416,57 @@ msgstr "Votre carte reste un brouillon tant que vous n’avez pas choisi de form
 msgid "View card"
 msgstr "Voir la carte"
 
-#: templates/dashboard/home.html:19
+#: templates/dashboard/home.html:21
 msgid "See who"
 msgstr "Voir qui"
 
-#: templates/dashboard/home.html:24
+#: templates/dashboard/home.html:26
 msgid "Views, last 30 days"
 msgstr "Vues, 30 derniers jours"
 
-#: templates/dashboard/home.html:25
+#: templates/dashboard/home.html:27
 #, python-format
 msgid "%(views_30)s views in the last 30 days"
 msgstr "%(views_30)s vues au cours des 30 derniers jours"
 
-#: templates/dashboard/home.html:38
+#: templates/dashboard/home.html:40
 msgid "Copy link"
 msgstr "Copier le lien"
 
-#: templates/dashboard/home.html:39
+#: templates/dashboard/home.html:41
 msgid "QR &amp; sharing"
 msgstr "Code QR et partage"
 
-#: templates/dashboard/home.html:48
+#: templates/dashboard/home.html:50
 msgid "All orders"
 msgstr "Toutes les commandes"
 
-#: templates/dashboard/home.html:56
+#: templates/dashboard/home.html:58
 msgid "Printed cards that open your digital card with a tap. We design, print, encode and deliver them."
 msgstr "Des cartes imprimées qui ouvrent votre carte numérique d’un geste. Nous les concevons, les imprimons, les encodons et les livrons."
 
-#: templates/dashboard/home.html:57 templates/dashboard/nfc_orders.html:36 templates/marketing/_nfc_section.html:46 templates/nfc/order.html:7
+#: templates/dashboard/home.html:59 templates/dashboard/nfc_orders.html:36 templates/marketing/_nfc_section.html:46 templates/nfc/order.html:7
 msgid "Order NFC cards"
 msgstr "Commander des cartes NFC"
 
-#: templates/dashboard/home.html:64
+#: templates/dashboard/home.html:66
 #, python-format
 msgid "· %(subscription_team_size)s people"
 msgstr "· %(subscription_team_size)s personnes"
 
-#: templates/dashboard/home.html:69
+#: templates/dashboard/home.html:71
 msgid "Paid until"
 msgstr "Payé jusqu’au"
 
-#: templates/dashboard/home.html:73
+#: templates/dashboard/home.html:75
 msgid "Renew or upgrade"
 msgstr "Renouveler ou changer de formule"
 
-#: templates/dashboard/home.html:75
+#: templates/dashboard/home.html:77
 msgid "Choose a yearly plan to switch your card on. Pay with Mobile Money or a card."
 msgstr "Choisissez une formule annuelle pour mettre votre carte en ligne. Payez par Mobile Money ou par carte."
 
-#: templates/dashboard/home.html:76
+#: templates/dashboard/home.html:78
 msgid "See plans"
 msgstr "Voir les formules"
 
@@ -2648,31 +2648,31 @@ msgstr "Changez le mot de passe que vous utilisez pour vous connecter avec votre
 msgid "Change password"
 msgstr "Changer de mot de passe"
 
-#: templates/dashboard/settings.html:28
+#: templates/dashboard/settings.html:29
 msgid "Appearance"
 msgstr "Apparence"
 
-#: templates/dashboard/settings.html:29
+#: templates/dashboard/settings.html:30
 msgid "Light, dark or match your device. Your choice is remembered on this device."
 msgstr "Clair, sombre ou selon votre appareil. Votre choix est mémorisé sur cet appareil."
 
-#: templates/dashboard/settings.html:35
+#: templates/dashboard/settings.html:36
 msgid "Delete account"
 msgstr "Supprimer le compte"
 
-#: templates/dashboard/settings.html:36
+#: templates/dashboard/settings.html:37
 msgid "Your cards go offline straight away and your personal data is removed within 30 days. Payment records are kept for accounting. Your card links are retired and never given to anyone else."
 msgstr "Vos cartes passent hors ligne immédiatement et vos données personnelles sont supprimées sous 30 jours. Les justificatifs de paiement sont conservés à des fins comptables. Les liens de vos cartes sont retirés et ne sont jamais attribués à quelqu’un d’autre."
 
-#: templates/dashboard/settings.html:37
+#: templates/dashboard/settings.html:38
 msgid "Delete your account? This cannot be undone."
 msgstr "Supprimer votre compte ? Cette action est irréversible."
 
-#: templates/dashboard/settings.html:40
+#: templates/dashboard/settings.html:41
 msgid "Type your email to confirm"
 msgstr "Saisissez votre e-mail pour confirmer"
 
-#: templates/dashboard/settings.html:43
+#: templates/dashboard/settings.html:44
 msgid "Delete my account"
 msgstr "Supprimer mon compte"
 
@@ -3112,7 +3112,7 @@ msgstr "Politiques"
 msgid "Last updated 25 September 2026."
 msgstr "Dernière mise à jour le 25 septembre 2026."
 
-#: templates/cards/business.html:94 templates/marketing/_lightbox.html:5
+#: templates/cards/business.html:95 templates/marketing/_lightbox.html:5
 msgid "Close"
 msgstr "Fermer"
 
@@ -3165,32 +3165,32 @@ msgstr "La livraison au Ghana ou l’expédition à l’étranger est ajoutée �
 msgid "Delivery and timelines"
 msgstr "Livraison et délais"
 
-#: templates/marketing/_nfc_section.html:60
+#: templates/marketing/_nfc_section.html:65
 msgid "Your name here"
 msgstr "Votre nom ici"
 
-#: templates/marketing/_nfc_section.html:61
+#: templates/marketing/_nfc_section.html:66
 msgid "Your title · Your business"
 msgstr "Votre fonction · Votre entreprise"
 
-#: templates/marketing/_nfc_section.html:66
+#: templates/marketing/_nfc_section.html:72
 #, python-format
 msgid "<strong>First design proof in 3 working days,</strong> with %(site_free_revision_rounds)s free rounds of changes."
 msgstr "<strong>Première maquette sous 3 jours ouvrés,</strong> avec %(site_free_revision_rounds)s tours de modifications gratuits."
 
-#: templates/marketing/_nfc_section.html:67
+#: templates/marketing/_nfc_section.html:73
 msgid "<strong>Printed and encoded within 5 working days</strong> of your approval."
 msgstr "<strong>Impression et encodage sous 5 jours ouvrés</strong> après votre validation."
 
-#: templates/marketing/_nfc_section.html:68
+#: templates/marketing/_nfc_section.html:74
 msgid "<strong>Locked chips</strong> so nobody can overwrite your link."
 msgstr "<strong>Puces verrouillées</strong> pour que personne ne puisse écraser votre lien."
 
-#: templates/marketing/_nfc_section.html:70
+#: templates/marketing/_nfc_section.html:76
 msgid "<strong>Faulty chip?</strong> Report it within 30 days of delivery for a free replacement."
 msgstr "<strong>Puce défectueuse ?</strong> Signalez-le sous 30 jours après la livraison pour un remplacement gratuit."
 
-#: templates/marketing/_nfc_section.html:71
+#: templates/marketing/_nfc_section.html:77
 msgid "<strong>Delivered in Ghana or shipped abroad.</strong> Outside Ghana you pay the shipping and delivery fee for your region."
 msgstr "<strong>Livré au Ghana ou expédié à l’étranger.</strong> Hors du Ghana, vous payez les frais d’expédition et de livraison de votre région."
 
@@ -3259,120 +3259,116 @@ msgstr "Fonctionnement du NFC, iPhone et Android, renouvellements, livraison et 
 msgid "%(SITE_NAME)s — your business card, one tap away"
 msgstr "%(SITE_NAME)s — votre carte de visite, à portée de main"
 
-#: templates/marketing/home.html:19
-msgid "A hand holding an AD Graphics business card showing the AD logo, Kofi Adutwum’s name, WhatsApp, Instagram, phone and email"
-msgstr "Une main tenant une carte de visite AD Graphics avec le logo AD, le nom de Kofi Adutwum, WhatsApp, Instagram, le téléphone et l’e-mail"
-
-#: templates/marketing/home.html:25
+#: templates/marketing/home.html:24
 msgid "Your business card, <span class=\"glow\">one tap away.</span>"
 msgstr "Votre carte de visite, <span class=\"glow\">à portée de main.</span>"
 
-#: templates/marketing/home.html:28 templates/marketing/home.html:192 templates/partials/site_header.html:51
+#: templates/marketing/home.html:27 templates/marketing/home.html:194 templates/partials/site_header.html:51
 msgid "Create my card"
 msgstr "Créer ma carte"
 
-#: templates/marketing/home.html:29 templates/marketing/shops.html:83
+#: templates/marketing/home.html:28 templates/marketing/shops.html:86
 msgid "See plans and prices"
 msgstr "Voir les formules et les prix"
 
-#: templates/marketing/home.html:32
+#: templates/marketing/home.html:31
 msgid "From"
 msgstr "À partir de"
 
-#: templates/marketing/home.html:32
+#: templates/marketing/home.html:31
 msgid "a year"
 msgstr "par an"
 
-#: templates/marketing/home.html:33
+#: templates/marketing/home.html:32
 msgid "MoMo and cards via Paystack"
 msgstr "MoMo et cartes via Paystack"
 
-#: templates/marketing/home.html:34
+#: templates/marketing/home.html:33
 msgid "Works on iPhone and Android"
 msgstr "Fonctionne sur iPhone et Android"
 
-#: templates/marketing/home.html:44
+#: templates/marketing/home.html:43
 msgid "About AD"
 msgstr "À propos d’AD"
 
-#: templates/marketing/home.html:45
+#: templates/marketing/home.html:44
 msgid "Made by a design studio that lives in print."
 msgstr "Conçu par un studio de design qui vit pour l’imprimé."
 
-#: templates/marketing/home.html:56
+#: templates/marketing/home.html:55
 msgid "designs delivered by the AD Graphics studio"
 msgstr "créations livrées par le studio AD Graphics"
 
-#: templates/marketing/home.html:60
+#: templates/marketing/home.html:59
 msgid "In-house"
 msgstr "En interne"
 
-#: templates/marketing/home.html:61
+#: templates/marketing/home.html:60
 msgid "design, printing and NFC encoding"
 msgstr "design, impression et encodage NFC"
 
-#: templates/marketing/home.html:65
+#: templates/marketing/home.html:64
 msgid "3 days"
 msgstr "3 jours"
 
-#: templates/marketing/home.html:66
+#: templates/marketing/home.html:65
 msgid "to your first NFC design proof"
 msgstr "pour votre première maquette NFC"
 
-#: templates/marketing/home.html:70
+#: templates/marketing/home.html:69
 msgid "Worldwide"
 msgstr "Dans le monde entier"
 
-#: templates/marketing/home.html:71
+#: templates/marketing/home.html:70
 msgid "delivery across Ghana, shipping abroad, or free pickup"
 msgstr "livraison partout au Ghana, expédition à l’étranger ou retrait gratuit"
 
-#: templates/marketing/home.html:104 templates/partials/site_header.html:33
+#: templates/marketing/home.html:103 templates/partials/site_header.html:33
 msgid "How it works"
 msgstr "Comment ça marche"
 
-#: templates/marketing/home.html:105
+#: templates/marketing/home.html:104
 msgid "From sign-up to shared in four steps."
 msgstr "De l’inscription au partage en quatre étapes."
 
-#: templates/marketing/home.html:133
+#: templates/marketing/home.html:135
 msgid "Sample digital card for Kofi Adutwum, CEO of AD Graphics. The buttons work."
 msgstr "Exemple de carte numérique de Kofi Adutwum, PDG d’AD Graphics. Les boutons fonctionnent."
 
-#: templates/marketing/home.html:148
+#: templates/marketing/home.html:150
 msgid "Our work"
 msgstr "Nos réalisations"
 
-#: templates/marketing/home.html:149
+#: templates/marketing/home.html:151
 msgid "Recent designs from the AD Graphics studio."
 msgstr "Créations récentes du studio AD Graphics."
 
-#: templates/marketing/home.html:160 templates/marketing/pricing.html:7 templates/partials/site_footer.html:15 templates/partials/site_header.html:34
+#: templates/marketing/home.html:162 templates/marketing/pricing.html:7 templates/partials/site_footer.html:15 templates/partials/site_header.html:34
 msgid "Pricing"
 msgstr "Tarifs"
 
-#: templates/marketing/home.html:161 templates/marketing/pricing.html:8
+#: templates/marketing/home.html:163 templates/marketing/pricing.html:8
 msgid "One simple yearly price."
 msgstr "Un seul tarif annuel, simple."
 
-#: templates/marketing/home.html:178
+#: templates/marketing/home.html:180
 msgid "Questions"
 msgstr "Questions"
 
-#: templates/marketing/home.html:179
+#: templates/marketing/home.html:181
 msgid "Good to know."
 msgstr "Bon à savoir."
 
-#: templates/marketing/home.html:182
+#: templates/marketing/home.html:184
 #, python-format
 msgid "<a href=\"%(url_3)s\">Read all questions</a> or <a href=\"%(url_4)s\">ask us directly</a>."
 msgstr "<a href=\"%(url_3)s\">Lisez toutes les questions</a> ou <a href=\"%(url_4)s\">posez-nous la vôtre directement</a>."
 
-#: templates/marketing/home.html:190
+#: templates/marketing/home.html:192
 msgid "Your next introduction deserves better than paper."
 msgstr "Votre prochaine présentation mérite mieux que du papier."
 
-#: templates/marketing/home.html:193
+#: templates/marketing/home.html:195
 msgid "Talk to us on WhatsApp"
 msgstr "Écrivez-nous sur WhatsApp"
 
@@ -3462,7 +3458,7 @@ msgstr "Vos choix"
 msgid "You can edit or hide any detail on your card, download your contacts, and ask us to delete your account from Settings. We remove personal data within 30 days, except records we must keep for accounting."
 msgstr "Vous pouvez modifier ou masquer n’importe quelle information de votre carte, télécharger vos contacts et nous demander de supprimer votre compte depuis les paramètres. Nous supprimons les données personnelles sous 30 jours, sauf les documents que nous devons conserver à des fins comptables."
 
-#: templates/cards/business.html:120 templates/marketing/legal_privacy.html:29 templates/partials/site_footer.html:23 templates/partials/site_header.html:37 templates/support/contact.html:6
+#: templates/cards/business.html:121 templates/marketing/legal_privacy.html:29 templates/partials/site_footer.html:23 templates/partials/site_header.html:37 templates/support/contact.html:6
 msgid "Contact"
 msgstr "Contact"
 
@@ -3919,7 +3915,7 @@ msgstr "<strong>Expédition hors du Ghana.</strong> Les frais couvrent l’expé
 msgid "5. Your digital card plan"
 msgstr "5. Votre formule de carte numérique"
 
-#: templates/cards/business.html:206 templates/nfc/order.html:111
+#: templates/cards/business.html:207 templates/nfc/order.html:111
 msgid "Your order"
 msgstr "Votre commande"
 
@@ -4169,7 +4165,7 @@ msgstr "%(total_views)s depuis le début"
 msgid "Unique visitors"
 msgstr "Visiteurs uniques"
 
-#: templates/dashboard/analytics.html:32 templates/dashboard/home.html:17
+#: templates/dashboard/analytics.html:32 templates/dashboard/home.html:19
 msgid "Contacts saved"
 msgstr "Contacts enregistrés"
 
@@ -4208,23 +4204,23 @@ msgstr "Les fonctions marquées %(crown_icon)s sont incluses dans Professional e
 msgid "Hello, %(name)s"
 msgstr "Bonjour, %(name)s"
 
-#: templates/dashboard/home.html:16
+#: templates/dashboard/home.html:18
 msgid "Card views · 30 days"
 msgstr "Vues de la carte · 30 jours"
 
-#: templates/dashboard/home.html:18
+#: templates/dashboard/home.html:20
 msgid "Button clicks"
 msgstr "Clics sur les boutons"
 
-#: templates/dashboard/home.html:19
+#: templates/dashboard/home.html:21
 msgid "New contacts for you"
 msgstr "Nouveaux contacts pour vous"
 
-#: templates/dashboard/home.html:28
+#: templates/dashboard/home.html:30
 msgid "30 days ago"
 msgstr "Il y a 30 jours"
 
-#: templates/dashboard/home.html:28
+#: templates/dashboard/home.html:30
 msgid "Today"
 msgstr "Aujourd’hui"
 
@@ -4232,11 +4228,11 @@ msgstr "Aujourd’hui"
 msgid "This page is translated to help you. If the translation and the English version differ, the English version applies."
 msgstr "Cette page est traduite pour vous aider. En cas de différence entre la traduction et la version anglaise, la version anglaise prévaut."
 
-#: templates/marketing/home.html:24
+#: templates/marketing/home.html:23
 msgid "Digital + NFC business cards, made in Ghana"
 msgstr "Cartes de visite numériques et NFC, conçues au Ghana"
 
-#: templates/marketing/home.html:49
+#: templates/marketing/home.html:48
 msgid "CEO, AD Graphics"
 msgstr "PDG, AD Graphics"
 
@@ -4530,19 +4526,19 @@ msgstr "Scans du code QR"
 msgid "NFC taps"
 msgstr "Appuis NFC"
 
-#: apps/marketing/demo.py:26
+#: apps/marketing/demo.py:25
 msgid "CEO"
 msgstr "PDG"
 
-#: apps/marketing/demo.py:28
+#: apps/marketing/demo.py:27
 msgid "Brand identity, print and digital design for businesses, churches, schools and events across Ghana."
 msgstr "Identité de marque, design imprimé et numérique pour entreprises, églises, écoles et événements dans tout le Ghana."
 
-#: apps/marketing/demo.py:32
+#: apps/marketing/demo.py:31
 msgid "AD Graphics logo"
 msgstr "Logo d’AD Graphics"
 
-#: apps/marketing/demo.py:49
+#: apps/marketing/demo.py:48
 msgid "Office"
 msgstr "Bureau"
 
@@ -4637,7 +4633,7 @@ msgstr "Discutez avec nous"
 msgid "For example MTN, Telecel or Office."
 msgstr "Par exemple MTN, Telecel ou Bureau."
 
-#: apps/billing/services.py:731 apps/billing/views.py:247 apps/core/dynamic_strings.py:46
+#: apps/billing/services.py:731 apps/billing/views.py:249 apps/core/dynamic_strings.py:46
 msgid "j F Y"
 msgstr "j F Y"
 
@@ -4716,11 +4712,11 @@ msgstr "Votre formule est renouvelée le %(date)s"
 msgid "Automatic renewal is off"
 msgstr "Le renouvellement automatique est désactivé"
 
-#: apps/billing/views.py:241
+#: apps/billing/views.py:243
 msgid "Automatic renewal is not on for your plan."
 msgstr "Le renouvellement automatique n’est pas activé pour votre formule."
 
-#: apps/billing/views.py:246
+#: apps/billing/views.py:248
 #, python-format
 msgid "Automatic renewal is off. Your plan stays active until %(date)s."
 msgstr "Le renouvellement automatique est désactivé. Votre formule reste active jusqu’au %(date)s."
@@ -4759,7 +4755,7 @@ msgstr "Payez par carte ci-dessous pour l’activer. L’année s’ajoute à la
 msgid "Don’t have a card? Pay with Mobile Money"
 msgstr "Vous n’avez pas de carte ? Payez par Mobile Money"
 
-#: templates/dashboard/home.html:70
+#: templates/dashboard/home.html:72
 msgid "Automatic renewal"
 msgstr "Renouvellement automatique"
 
@@ -4865,7 +4861,7 @@ msgstr "Slogan"
 msgid "About your business"
 msgstr "À propos de votre entreprise"
 
-#: apps/dashboard/forms.py:247 templates/cards/business.html:126
+#: apps/dashboard/forms.py:247 templates/cards/business.html:127
 msgid "Opening hours"
 msgstr "Horaires d’ouverture"
 
@@ -4962,44 +4958,44 @@ msgstr "Supprimé."
 msgid "Explore Business"
 msgstr "Découvrir l’entreprise"
 
-#: templates/cards/business.html:26
+#: templates/cards/business.html:27
 msgid "Only you can see this page. Switch it on in your dashboard to show it to everyone."
 msgstr "Vous seul pouvez voir cette page. Activez-la dans votre tableau de bord pour la montrer à tout le monde."
 
-#: templates/cards/business.html:43 templates/cards/business.html:176
+#: templates/cards/business.html:44 templates/cards/business.html:177
 msgid "Send an enquiry"
 msgstr "Envoyer une demande"
 
-#: templates/cards/business.html:45 templates/cards/business.html:188
+#: templates/cards/business.html:46 templates/cards/business.html:189
 msgid "Contact card"
 msgstr "Carte de contact"
 
-#: templates/cards/business.html:47
+#: templates/cards/business.html:48
 msgid "Share this page"
 msgstr "Partager cette page"
 
-#: templates/cards/business.html:114
+#: templates/cards/business.html:115
 msgid "About us"
 msgstr "À propos de nous"
 
-#: templates/cards/business.html:57 templates/dashboard/business.html:47
+#: templates/cards/business.html:58 templates/dashboard/business.html:47
 msgid "Products"
 msgstr "Produits"
 
-#: templates/cards/business.html:133 templates/dashboard/business.html:47
+#: templates/cards/business.html:134 templates/dashboard/business.html:47
 msgid "Services"
 msgstr "Services"
 
-#: templates/cards/business.html:147
+#: templates/cards/business.html:148
 msgid "What customers say"
 msgstr "Ce que disent nos clients"
 
-#: templates/cards/business.html:151
+#: templates/cards/business.html:152
 #, python-format
 msgid "%(rating)s out of 5 stars"
 msgstr "%(rating)s étoiles sur 5"
 
-#: templates/cards/business.html:182
+#: templates/cards/business.html:183
 msgid "Send enquiry"
 msgstr "Envoyer la demande"
 
@@ -5058,7 +5054,7 @@ msgstr "Votre formule affiche les %(limit)s premiers produits sur votre page."
 msgid "Remove this?"
 msgstr "Supprimer cet élément ?"
 
-#: templates/dashboard/business.html:69 templates/dashboard/business_item.html:16 templates/dashboard/business_item.html:22
+#: templates/components/passkeys.html:14 templates/dashboard/business.html:69 templates/dashboard/business_item.html:16 templates/dashboard/business_item.html:22
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -5067,7 +5063,7 @@ msgstr "Supprimer"
 msgid "You have used all %(limit)s places here. Remove one to add another."
 msgstr "Vous avez utilisé les %(limit)s places disponibles ici. Supprimez-en une pour en ajouter une autre."
 
-#: templates/cards/business.html:203 templates/dashboard/business.html:79
+#: templates/cards/business.html:204 templates/dashboard/business.html:79
 msgid "Add"
 msgstr "Ajouter"
 
@@ -5088,21 +5084,21 @@ msgstr "Lorsque quelqu’un touche « Partagez vos coordonnées » sur votre car
 msgid "%(name)s sent an enquiry through your business page:"
 msgstr "%(name)s a envoyé une demande via votre page entreprise :"
 
-#: apps/cards/claim.py:154
+#: apps/cards/claim.py:182
 #, python-format
 msgid "The card is now on your account and %(months)d months have been added to your plan."
 msgstr "La carte est maintenant sur votre compte et %(months)d mois ont été ajoutés à votre formule."
 
-#: templates/cards/claim_attach.html:23
+#: templates/cards/claim_attach.html:29
 #, python-format
 msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and %(batch_months)s months of %(batch_plan_name)s will be added to your plan. Its link and QR code stay exactly as printed."
 msgstr "Vous êtes connecté en tant que <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte et %(batch_months)s mois de %(batch_plan_name)s seront ajoutés à votre formule. Son lien et son code QR restent exactement tels qu’imprimés."
 
-#: templates/cards/claim_attach.html:28
+#: templates/cards/claim_attach.html:35
 msgid "Add the card to my account"
 msgstr "Ajouter la carte à mon compte"
 
-#: templates/cards/claim_setup.html:20
+#: templates/cards/claim_setup.html:26
 #, python-format
 msgid "This card comes with %(batch_months)s months of the %(batch_plan_name)s plan, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
 msgstr "Cette carte inclut %(batch_months)s mois de formule %(batch_plan_name)s, déjà payés. Ajoutez vos informations et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
@@ -5137,39 +5133,39 @@ msgstr "Mes clients ont-ils besoin d’une application ou d’un compte pour voi
 msgid "No. It is an ordinary web page. It opens from the button on your card, or from its own link, on any phone."
 msgstr "Non. C’est une page web ordinaire. Elle s’ouvre depuis le bouton de votre carte, ou depuis son propre lien, sur n’importe quel téléphone."
 
-#: apps/marketing/demo.py:89
+#: apps/marketing/demo.py:88
 msgid "Logos and brand identity"
 msgstr "Logos et identité de marque"
 
-#: apps/marketing/demo.py:89
+#: apps/marketing/demo.py:88
 msgid "A mark and a look your customers remember."
 msgstr "Un logo et une image que vos clients retiennent."
 
-#: apps/marketing/demo.py:90
+#: apps/marketing/demo.py:89
 msgid "Flyers, posters and social media designs"
 msgstr "Flyers, affiches et visuels pour les réseaux sociaux"
 
-#: apps/marketing/demo.py:90
+#: apps/marketing/demo.py:89
 msgid "Ready for print and for your feed."
 msgstr "Prêts pour l’impression et pour votre fil d’actualité."
 
-#: apps/marketing/demo.py:91
+#: apps/marketing/demo.py:90
 msgid "Printing and packaging"
 msgstr "Impression et emballages"
 
-#: apps/marketing/demo.py:91
+#: apps/marketing/demo.py:90
 msgid "T-shirts, packaging and printed materials."
 msgstr "T-shirts, emballages et supports imprimés."
 
-#: apps/marketing/demo.py:92
+#: apps/marketing/demo.py:91
 msgid "Digital and NFC business cards"
 msgstr "Cartes de visite numériques et NFC"
 
-#: apps/marketing/demo.py:92
+#: apps/marketing/demo.py:91
 msgid "Made, printed and tap-tested in our studio."
 msgstr "Conçues, imprimées et testées au contact dans notre studio."
 
-#: apps/marketing/demo.py:97
+#: apps/marketing/demo.py:96
 msgid "Design and print studio in Cape Coast"
 msgstr "Studio de design et d’impression à Cape Coast"
 
@@ -5201,32 +5197,15 @@ msgstr "Lire notre politique de confidentialité"
 msgid "<strong>Details visitors send:</strong> when someone shares their details or sends an enquiry from a card or business page, or writes to our support team, the name, phone, email and message they type. They agree to this by ticking the box on the form. On a card or business page the details go to the card's owner, who sees them in their contacts."
 msgstr "<strong>Informations envoyées par les visiteurs :</strong> lorsqu’une personne partage ses coordonnées ou envoie une demande depuis une carte ou une page entreprise, ou écrit à notre équipe d’assistance : le nom, le téléphone, l’e-mail et le message qu’elle saisit. Elle y consent en cochant la case du formulaire. Sur une carte ou une page entreprise, ces informations vont au propriétaire de la carte, qui les voit dans ses contacts."
 
-#: apps/cards/claim.py:107
-msgid "Your account is ready. Choose a plan and pay to switch your card on. Its link and QR code stay exactly as printed."
-msgstr "Votre compte est prêt. Choisissez une formule et payez pour activer votre carte. Son lien et son code QR restent exactement tels qu’imprimés."
-
-#: apps/cards/claim.py:145
+#: apps/cards/claim.py:170
 msgid "The card is now on your account and live on your current plan."
 msgstr "La carte est maintenant sur votre compte et active avec votre formule actuelle."
-
-#: apps/cards/claim.py:147
-msgid "The card is now on your account. Choose a plan and pay to switch it on."
-msgstr "La carte est maintenant sur votre compte. Choisissez une formule et payez pour l’activer."
-
-#: templates/cards/claim_attach.html:15
-#, python-format
-msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account. If your plan has room it goes live at once; otherwise you choose a plan next. Its link and QR code stay exactly as printed."
-msgstr "Vous êtes connecté en tant que <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte. Si votre formule a de la place, elle est active tout de suite ; sinon, vous choisissez ensuite une formule. Son lien et son code QR restent exactement tels qu’imprimés."
 
 #: templates/cards/claim_pin.html:10
 msgid "Your card is ready. Enter the PIN printed on the back of the card to begin."
 msgstr "Votre carte est prête. Saisissez le code PIN imprimé au dos de la carte pour commencer."
 
-#: templates/cards/claim_setup.html:12
-msgid "Add your details and create your account. Next you choose a plan and pay to switch your card on. Your card’s link and QR code stay exactly as printed."
-msgstr "Ajoutez vos coordonnées et créez votre compte. Vous choisirez ensuite une formule et paierez pour activer votre carte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
-
-#: templates/cards/claim_setup.html:26
+#: templates/cards/claim_setup.html:33
 msgid "Create my account"
 msgstr "Créer mon compte"
 
@@ -5360,7 +5339,7 @@ msgstr "Trop de tentatives. Réessayez dans une heure."
 msgid "Your email is now %(email)s. Use it the next time you log in."
 msgstr "Votre adresse e-mail est maintenant %(email)s. Utilisez-la lors de votre prochaine connexion."
 
-#: apps/cards/claim.py:112
+#: apps/cards/claim.py:130
 msgid "Your card is live and your first year is active."
 msgstr "Votre carte est en ligne et votre première année est active."
 
@@ -5430,16 +5409,6 @@ msgstr "Les modifications en attente ont été supprimées."
 msgid "Back to my card"
 msgstr "Retour à ma carte"
 
-#: templates/cards/claim_attach.html:18
-#, python-format
-msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and go live at once with the %(batch_plan_name)s features. Its link and QR code stay exactly as printed."
-msgstr "Vous êtes connecté avec <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte et mise en ligne immédiatement avec les fonctions %(batch_plan_name)s. Son lien et son code QR restent exactement tels qu’imprimés."
-
-#: templates/cards/claim_setup.html:15
-#, python-format
-msgid "This card goes live as soon as you finish, with the %(batch_plan_name)s features and no plan to pay for. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
-msgstr "Cette carte est mise en ligne dès que vous avez terminé, avec les fonctions %(batch_plan_name)s et sans formule à payer. Ajoutez vos informations et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
-
 #: templates/dashboard/editor.html:18
 msgid "<strong>You have changes waiting for payment.</strong> They are not on your card yet. Pay to put them on your card, or save new changes to replace them."
 msgstr "<strong>Des modifications attendent leur paiement.</strong> Elles ne sont pas encore sur votre carte. Payez pour les mettre sur votre carte, ou enregistrez de nouvelles modifications pour les remplacer."
@@ -5473,7 +5442,7 @@ msgstr "Frais de traitement du paiement"
 msgid "Pay and unlock changes"
 msgstr "Payer et débloquer les modifications"
 
-#: templates/dashboard/unlock_updates.html:38 templates/dashboard/unlock_updates.html:49
+#: templates/components/passkey_offer.html:11 templates/dashboard/unlock_updates.html:38 templates/dashboard/unlock_updates.html:49
 msgid "Not now"
 msgstr "Pas maintenant"
 
@@ -5494,11 +5463,11 @@ msgstr "Les modifications de votre carte sont ouvertes jusqu’au %(date)s."
 msgid "Your card will no longer be charged for changes"
 msgstr "Votre carte ne sera plus débitée pour les modifications"
 
-#: apps/billing/views.py:258
+#: apps/billing/views.py:260
 msgid "Automatic payment for changes is not on for this card."
 msgstr "Le paiement automatique des modifications n’est pas activé pour cette carte."
 
-#: apps/billing/views.py:261
+#: apps/billing/views.py:263
 msgid "Automatic payment for changes is off. You can still pay by hand whenever you change this card."
 msgstr "Le paiement automatique des modifications est désactivé. Vous pouvez toujours payer vous-même chaque fois que vous modifiez cette carte."
 
@@ -5632,15 +5601,15 @@ msgstr "%(views)s ouvertures, %(buys)s clics WhatsApp en 30 jours"
 msgid "Hidden by our team"
 msgstr "Masqué par notre équipe"
 
-#: templates/marketing/home.html:82
+#: templates/marketing/home.html:81
 msgid "Shop window"
 msgstr "Vitrine"
 
-#: templates/marketing/home.html:85
+#: templates/marketing/home.html:84
 msgid "Popular products"
 msgstr "Produits populaires"
 
-#: templates/marketing/home.html:93
+#: templates/marketing/home.html:92
 msgid "View businesses"
 msgstr "Voir les entreprises"
 
@@ -5653,80 +5622,80 @@ msgstr "Boutiques sur %(SITE_NAME)s"
 msgid "Browse what businesses on AD Smart sell, and message the seller on WhatsApp to buy and agree the price."
 msgstr "Parcourez ce que vendent les entreprises d’AD Smart et écrivez au vendeur sur WhatsApp pour acheter et convenir du prix."
 
-#: templates/marketing/shops.html:12
+#: templates/marketing/shops.html:15
 msgid "Marketplace"
 msgstr "Place de marché"
 
-#: templates/marketing/shops.html:13
+#: templates/marketing/shops.html:16
 msgid "Shop from businesses on AD Smart"
 msgstr "Achetez auprès des entreprises d’AD Smart"
 
-#: templates/marketing/shops.html:14
+#: templates/marketing/shops.html:17
 msgid "Browse what our customers sell. Message the seller on WhatsApp to buy and agree the price."
 msgstr "Parcourez ce que vendent nos clients. Écrivez au vendeur sur WhatsApp pour acheter et convenir du prix."
 
-#: templates/marketing/shops.html:15
+#: templates/marketing/shops.html:18
 msgid "Search shops and products"
 msgstr "Rechercher des boutiques et des produits"
 
-#: templates/marketing/shops.html:18 templates/marketing/shops.html:19
+#: templates/marketing/shops.html:21 templates/marketing/shops.html:22
 msgid "Search a business or a product"
 msgstr "Rechercher une entreprise ou un produit"
 
-#: templates/marketing/shops.html:20
+#: templates/marketing/shops.html:23
 msgid "Search"
 msgstr "Rechercher"
 
-#: templates/marketing/shops.html:22
+#: templates/marketing/shops.html:25
 msgid "AD Smart does not take payment or deliver. You deal with the seller directly, so check the product and agree the price before you pay."
 msgstr "AD Smart n’encaisse aucun paiement et ne livre pas. Vous traitez directement avec le vendeur : vérifiez le produit et convenez du prix avant de payer."
 
-#: templates/cards/business.html:64 templates/marketing/shops.html:26 templates/marketing/shops.html:28
+#: templates/cards/business.html:65 templates/marketing/shops.html:29 templates/marketing/shops.html:31
 msgid "Categories"
 msgstr "Catégories"
 
-#: templates/marketing/shops.html:31
+#: templates/marketing/shops.html:34
 msgid "All products"
 msgstr "Tous les produits"
 
-#: templates/marketing/shops.html:48
+#: templates/marketing/shops.html:51
 msgid "Visit shop"
 msgstr "Voir la boutique"
 
-#: templates/marketing/shops.html:71
+#: templates/marketing/shops.html:74
 msgid "Report this shop"
 msgstr "Signaler cette boutique"
 
-#: templates/marketing/shops.html:78
+#: templates/marketing/shops.html:81
 msgid "No shops match your search."
 msgstr "Aucune boutique ne correspond à votre recherche."
 
-#: templates/marketing/shops.html:79
+#: templates/marketing/shops.html:82
 msgid "Show all shops"
 msgstr "Voir toutes les boutiques"
 
-#: templates/marketing/shops.html:81
+#: templates/marketing/shops.html:84
 msgid "No shops are listed yet."
 msgstr "Aucune boutique n’est encore listée."
 
-#: templates/marketing/shops.html:82
+#: templates/marketing/shops.html:85
 msgid "Businesses on a Professional or Business plan appear here once their page is on."
 msgstr "Les entreprises ayant une formule Professional ou Business apparaissent ici dès que leur page est activée."
 
-#: templates/marketing/shops.html:89
+#: templates/marketing/shops.html:92
 msgid "Pages"
 msgstr "Pages"
 
-#: templates/marketing/shops.html:91
+#: templates/marketing/shops.html:94
 msgid "Previous"
 msgstr "Précédent"
 
-#: templates/marketing/shops.html:92
+#: templates/marketing/shops.html:95
 #, python-format
 msgid "Page %(number)s of %(total)s"
 msgstr "Page %(number)s sur %(total)s"
 
-#: templates/marketing/shops.html:93
+#: templates/marketing/shops.html:96
 msgid "Next"
 msgstr "Suivant"
 
@@ -5734,7 +5703,7 @@ msgstr "Suivant"
 msgid "Shops"
 msgstr "Boutiques"
 
-#: templates/cards/business.html:84 templates/marketing/shops.html:62
+#: templates/cards/business.html:85 templates/marketing/shops.html:65
 msgid "Buy"
 msgstr "Acheter"
 
@@ -5743,31 +5712,31 @@ msgstr "Acheter"
 msgid "Hi %(shop)s, I would like to order:"
 msgstr "Bonjour %(shop)s, je voudrais commander :"
 
-#: templates/cards/business.html:58
+#: templates/cards/business.html:59
 msgid "Search this shop"
 msgstr "Rechercher dans cette boutique"
 
-#: templates/cards/business.html:65
+#: templates/cards/business.html:66
 msgid "All"
 msgstr "Tout"
 
-#: templates/cards/business.html:91
+#: templates/cards/business.html:92
 msgid "No products match your search."
 msgstr "Aucun produit ne correspond à votre recherche."
 
-#: templates/cards/business.html:203
+#: templates/cards/business.html:204
 msgid "One less"
 msgstr "Un de moins"
 
-#: templates/cards/business.html:203
+#: templates/cards/business.html:204
 msgid "One more"
 msgstr "Un de plus"
 
-#: templates/cards/business.html:207
+#: templates/cards/business.html:208
 msgid "Clear"
 msgstr "Vider"
 
-#: templates/cards/business.html:208
+#: templates/cards/business.html:209
 msgid "Send order"
 msgstr "Envoyer la commande"
 
@@ -5784,11 +5753,11 @@ msgstr "Un produit peut avoir jusqu’à 5 photos. Les acheteurs voient les autr
 msgid "A product can have %(max)d pictures. You can add %(room)d more here."
 msgstr "Un produit peut avoir %(max)d photos. Vous pouvez en ajouter %(room)d de plus ici."
 
-#: templates/cards/business.html:98
+#: templates/cards/business.html:99
 msgid "Previous picture"
 msgstr "Photo précédente"
 
-#: templates/cards/business.html:99
+#: templates/cards/business.html:100
 msgid "Next picture"
 msgstr "Photo suivante"
 
@@ -5832,23 +5801,23 @@ msgstr "Approchez-la d’un téléphone. Aucune application requise."
 msgid "Saved straight to their phone's contacts."
 msgstr "Enregistré directement dans les contacts du téléphone."
 
-#: templates/marketing/home.html:26
+#: templates/marketing/home.html:25
 msgid "Share by link, QR code or NFC tap. Update your details any time."
 msgstr "Partagez par lien, QR code ou contact NFC. Mettez vos informations à jour à tout moment."
 
-#: templates/marketing/home.html:46
+#: templates/marketing/home.html:45
 msgid "A service of AD Graphics, a Ghanaian design studio with over 2,500 designs delivered."
 msgstr "Un service d’AD Graphics, un studio de design ghanéen avec plus de 2 500 créations livrées."
 
-#: templates/marketing/home.html:106
+#: templates/marketing/home.html:105
 msgid "Build and preview for free. Pay only when you are happy."
 msgstr "Créez et prévisualisez gratuitement. Ne payez que lorsque vous êtes satisfait."
 
-#: templates/marketing/home.html:121
+#: templates/marketing/home.html:120
 msgid "Share it any way you like."
 msgstr "Partagez-la comme vous voulez."
 
-#: templates/marketing/home.html:83
+#: templates/marketing/home.html:82
 msgid "Popular right now from businesses on AD Smart."
 msgstr "Populaires en ce moment parmi les entreprises d’AD Smart."
 
@@ -5890,24 +5859,24 @@ msgstr "Vous êtes hors connexion"
 msgid "Check your connection, then try again."
 msgstr "Vérifiez votre connexion, puis réessayez."
 
-#: templates/marketing/shops.html:39
+#: templates/marketing/shops.html:42
 msgid "Previous products"
 msgstr "Produits précédents"
 
-#: templates/marketing/shops.html:39
+#: templates/marketing/shops.html:42
 msgid "Next products"
 msgstr "Produits suivants"
 
-#: templates/marketing/shops.html:70
+#: templates/marketing/shops.html:73
 #, python-format
 msgid "See all %(name)s products"
 msgstr "Voir tous les produits de %(name)s"
 
-#: apps/cards/claim.py:101
+#: apps/cards/claim.py:116
 msgid "Your card is live. Changing its details and links is free for your first year, and your business page is always free."
 msgstr "Votre carte est en ligne. Modifier ses informations et ses liens est gratuit la première année, et votre page entreprise est toujours gratuite."
 
-#: apps/cards/claim.py:140
+#: apps/cards/claim.py:165
 msgid "The card is now on your account and live. Changing its details and links is free for your first year, and your business page is always free."
 msgstr "La carte est maintenant sur votre compte et en ligne. Modifier ses informations et ses liens est gratuit la première année, et votre page entreprise est toujours gratuite."
 
@@ -5935,7 +5904,7 @@ msgstr "Votre carte est en ligne. Modifier ses informations nécessite un paieme
 msgid "Your card is live. Changes are open until %(until)s."
 msgstr "Votre carte est en ligne. Les modifications sont ouvertes jusqu’au %(until)s."
 
-#: apps/core/utils.py:184 apps/core/utils.py:186
+#: apps/core/utils.py:195 apps/core/utils.py:197
 msgid "Upload a picture such as a JPG, PNG, HEIC or WebP file."
 msgstr "Importez une photo, par exemple un fichier JPG, PNG, HEIC ou WebP."
 
@@ -5966,7 +5935,7 @@ msgstr "Formule %(plan)s, payée une seule fois"
 msgid "%(plan)s, paid once"
 msgstr "%(plan)s, payée une seule fois"
 
-#: apps/billing/views.py:93 templates/billing/checkout.html:93
+#: apps/billing/views.py:92 templates/billing/checkout.html:93
 msgid "You already have this plan or a better one. There is nothing to pay."
 msgstr "Vous avez déjà cette formule ou une formule supérieure. Il n’y a rien à payer."
 
@@ -5979,11 +5948,11 @@ msgstr "%(price)s par personne, payé une seule fois"
 msgid "Upgrade your plan"
 msgstr "Changer de formule"
 
-#: templates/billing/checkout.html:50 templates/dashboard/home.html:67 templates/marketing/_plans.html:14 templates/marketing/home.html:32
+#: templates/billing/checkout.html:50 templates/dashboard/home.html:69 templates/marketing/_plans.html:14 templates/marketing/home.html:31
 msgid "paid once"
 msgstr "payé une seule fois"
 
-#: templates/dashboard/home.html:75
+#: templates/dashboard/home.html:77
 msgid "Choose a plan to switch your card on. You pay once, with Mobile Money or a card."
 msgstr "Choisissez une formule pour activer votre carte. Vous payez une seule fois, par Mobile Money ou par carte."
 
@@ -5992,7 +5961,7 @@ msgstr "Choisissez une formule pour activer votre carte. Vous payez une seule fo
 msgid "Your %(plan)s plan is paid once and never ends. Changes to your card's details are free for 12 months, then paid for card by card."
 msgstr "Votre formule %(plan)s est payée une seule fois et ne se termine jamais. Les modifications des informations de votre carte sont gratuites pendant 12 mois, puis payantes carte par carte."
 
-#: templates/marketing/home.html:161 templates/marketing/pricing.html:8
+#: templates/marketing/home.html:163 templates/marketing/pricing.html:8
 msgid "Pay once. Keep your card."
 msgstr "Payez une fois. Gardez votre carte."
 
@@ -6035,7 +6004,7 @@ msgstr "Non. Vous payez une seule fois et votre formule ne prend jamais fin."
 msgid "Choose a plan and pay with Mobile Money or a card."
 msgstr "Choisissez une formule et payez par Mobile Money ou par carte."
 
-#: templates/marketing/home.html:26
+#: templates/marketing/home.html:25
 msgid "Share by link, QR code or NFC tap."
 msgstr "Partagez par lien, QR code ou contact NFC."
 
@@ -6077,6 +6046,197 @@ msgstr "Formules annuelles de carte de visite numérique à partir de %(plans_0_
 #: templates/marketing/legal_refunds.html:8
 msgid "A payment to open more months of changes to a card is not refundable once it is made, except for duplicate charges or a proven failure of the service."
 msgstr "Un paiement pour ouvrir des mois de modifications supplémentaires d’une carte n’est pas remboursable une fois effectué, sauf en cas de double paiement ou de défaillance avérée du service."
+
+#: apps/accounts/passkeys.py:52
+msgid "Face ID and fingerprint sign-in is not available right now. Use your password."
+msgstr "La connexion par Face ID et empreinte digitale n’est pas disponible pour le moment. Utilisez votre mot de passe."
+
+#: apps/accounts/passkeys.py:112
+msgid "Too many attempts. Wait 15 minutes, or use your password."
+msgstr "Trop de tentatives. Attendez 15 minutes ou utilisez votre mot de passe."
+
+#: apps/accounts/passkeys.py:115 apps/accounts/passkeys.py:190
+msgid "That took too long. Try again."
+msgstr "Cela a pris trop de temps. Réessayez."
+
+#: apps/accounts/passkeys.py:120
+msgid "Face ID and fingerprint sign-in was turned off for this device. Use your password."
+msgstr "La connexion par Face ID et empreinte digitale a été désactivée sur cet appareil. Utilisez votre mot de passe."
+
+#: apps/accounts/passkeys.py:130 apps/accounts/passkeys.py:135 templates/components/passkey_signin.html:4
+msgid "That did not work. Try again, or use your password."
+msgstr "Cela n’a pas fonctionné. Réessayez ou utilisez votre mot de passe."
+
+#: apps/accounts/passkeys.py:159 apps/accounts/passkeys.py:184
+msgid "Sign in again first."
+msgstr "Reconnectez-vous d’abord."
+
+#: apps/accounts/passkeys.py:201 templates/components/passkey_offer.html:4 templates/components/passkeys.html:4
+msgid "That did not work. Try again."
+msgstr "Cela n’a pas fonctionné. Réessayez."
+
+#: apps/accounts/passkeys.py:204
+msgid "This device cannot be added. Try again."
+msgstr "Cet appareil ne peut pas être ajouté. Réessayez."
+
+#: apps/accounts/passkeys.py:211
+msgid "Face ID and fingerprint sign-in is on for this device."
+msgstr "La connexion par Face ID et empreinte digitale est activée sur cet appareil."
+
+#: apps/accounts/passkeys.py:221
+#, python-format
+msgid "%(device)s no longer signs you in with Face ID or fingerprint."
+msgstr "%(device)s ne vous connecte plus avec Face ID ou l’empreinte digitale."
+
+#: apps/cards/claim.py:94 apps/cards/claim.py:155
+msgid "Choose Basic or Professional."
+msgstr "Choisissez Basic ou Professional."
+
+#: apps/cards/claim.py:122
+msgid "Your account is ready. Pay for your plan to switch your card on. Its link and QR code stay exactly as printed."
+msgstr "Votre compte est prêt. Payez votre formule pour activer votre carte. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#: apps/cards/claim.py:126
+msgid "Your card is live and your plan is paid once: it is yours to keep."
+msgstr "Votre carte est en ligne et votre formule est payée une seule fois : elle est à vous pour de bon."
+
+#: apps/cards/claim.py:172
+msgid "The card is now on your account. Pay for your plan to switch it on."
+msgstr "La carte est maintenant sur votre compte. Payez votre formule pour l’activer."
+
+#: apps/cards/claim.py:175
+msgid "The card is now on your account and your plan is paid once: it is yours to keep."
+msgstr "La carte est maintenant sur votre compte et votre formule est payée une seule fois : elle est à vous pour de bon."
+
+#: templates/cards/claim_attach.html:15
+#, python-format
+msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account. If your plan has room it goes live at once; otherwise you pay for the plan you pick next. Its link and QR code stay exactly as printed."
+msgstr "Vous êtes connecté en tant que <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte. Si votre formule a de la place, elle est active tout de suite ; sinon, vous payez ensuite la formule que vous choisissez. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_attach.html:18
+#, python-format
+msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and go live at once with the features of the plan you pick. Its link and QR code stay exactly as printed."
+msgstr "Vous êtes connecté avec <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte et mise en ligne immédiatement avec les fonctions de la formule que vous choisissez. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_attach.html:21
+#, python-format
+msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account with the plan you pick, already paid and yours to keep. If your current plan is better, you keep it. Its link and QR code stay exactly as printed."
+msgstr "Vous êtes connecté avec <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte avec la formule que vous choisissez, déjà payée et à vous pour de bon. Si votre formule actuelle est meilleure, vous la gardez. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_attach.html:23
+#, python-format
+msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account with the %(batch_plan_name)s plan, already paid and yours to keep. If your current plan is better, you keep it. Its link and QR code stay exactly as printed."
+msgstr "Vous êtes connecté avec <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte avec la formule %(batch_plan_name)s, déjà payée et à vous pour de bon. Si votre formule actuelle est meilleure, vous la gardez. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_attach.html:25
+#, python-format
+msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and one year of the plan you pick will be added to your plan. Its link and QR code stay exactly as printed."
+msgstr "Vous êtes connecté avec <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte et une année de la formule que vous choisissez sera ajoutée à votre formule. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_setup.html:12
+msgid "Add your details, pick your plan and create your account. Next you pay for the plan to switch your card on. Your card’s link and QR code stay exactly as printed."
+msgstr "Ajoutez vos coordonnées, choisissez votre formule et créez votre compte. Vous paierez ensuite la formule pour activer votre carte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_setup.html:15
+msgid "This card goes live as soon as you finish, with the features of the plan you pick and no plan to pay for. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
+msgstr "Cette carte est mise en ligne dès que vous avez terminé, avec les fonctions de la formule que vous choisissez et sans formule à payer. Ajoutez vos informations et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_setup.html:18
+msgid "This card comes with the plan you pick, already paid and yours to keep. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
+msgstr "Cette carte est fournie avec la formule que vous choisissez, déjà payée et à vous pour de bon. Ajoutez vos coordonnées et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_setup.html:20
+#, python-format
+msgid "This card comes with the %(batch_plan_name)s plan, already paid and yours to keep. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
+msgstr "Cette carte est fournie avec la formule %(batch_plan_name)s, déjà payée et à vous pour de bon. Ajoutez vos coordonnées et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
+
+#: templates/cards/claim_setup.html:22
+msgid "This card comes with one year of the plan you pick, already paid. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
+msgstr "Cette carte est fournie avec une année de la formule que vous choisissez, déjà payée. Ajoutez vos coordonnées et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
+
+#: templates/components/passkey_offer.html:5 templates/components/passkeys.html:5
+msgid "Face ID and fingerprint sign-in is already on for this device."
+msgstr "La connexion par Face ID et empreinte digitale est déjà activée sur cet appareil."
+
+#: templates/components/passkey_offer.html:8 templates/components/passkey_signin.html:5
+msgid "Sign in with Face ID or fingerprint"
+msgstr "Se connecter avec Face ID ou l’empreinte digitale"
+
+#: templates/components/passkey_offer.html:8
+msgid "Next time you open the app on this device, your face, fingerprint or device PIN signs you in. No password to type."
+msgstr "La prochaine fois que vous ouvrirez l’application sur cet appareil, votre visage, votre empreinte ou le code de l’appareil vous connectera. Aucun mot de passe à saisir."
+
+#: templates/components/passkey_offer.html:8 templates/components/passkeys.html:8
+msgid "It also replaces the emailed code."
+msgstr "Elle remplace aussi le code envoyé par e-mail."
+
+#: templates/components/passkey_offer.html:10
+msgid "Turn on"
+msgstr "Activer"
+
+#: templates/components/passkeys.html:7
+msgid "Face ID and fingerprint sign-in"
+msgstr "Connexion par Face ID et empreinte digitale"
+
+#: templates/components/passkeys.html:8
+msgid "Turn it on for this phone or computer. Next time you open the app, it signs you in with your face, fingerprint or device PIN instead of your password."
+msgstr "Activez-la sur ce téléphone ou cet ordinateur. La prochaine fois que vous ouvrirez l’application, vous serez connecté avec votre visage, votre empreinte ou le code de l’appareil au lieu de votre mot de passe."
+
+#: templates/components/passkeys.html:13
+msgid "added"
+msgstr "ajouté"
+
+#: templates/components/passkeys.html:14
+msgid "Turn off Face ID and fingerprint sign-in for this device?"
+msgstr "Désactiver la connexion par Face ID et empreinte digitale sur cet appareil ?"
+
+#: templates/components/passkeys.html:19
+msgid "Turn on for this device"
+msgstr "Activer sur cet appareil"
+
+#: templates/components/passkeys.html:20
+msgid "This browser or device cannot use Face ID or fingerprint sign-in."
+msgstr "Ce navigateur ou cet appareil ne peut pas utiliser la connexion par Face ID ou empreinte digitale."
+
+#: templates/marketing/_nfc_section.html:54
+msgid "A hand holding Kofi Adutwum’s printed AD Graphics business card"
+msgstr "Une main tenant la carte de visite imprimée AD Graphics de Kofi Adutwum"
+
+#: templates/marketing/home.html:18
+msgid "A phone showing Kofi Adutwum’s AD Smart contact card, with his printed NFC card and QR code card on a cord beside it"
+msgstr "Un téléphone affichant la carte de contact AD Smart de Kofi Adutwum, avec à côté sa carte NFC imprimée et sa carte à code QR au bout d’un cordon"
+
+#: templates/marketing/home.html:131
+msgid "A hand holding a printed card with a QR code"
+msgstr "Une main tenant une carte imprimée avec un code QR"
+
+#: templates/cards/claim_pin.html:12
+msgid "Your card is ready and its plan is already paid for, once and for good. Enter the PIN printed on the back of the card to begin."
+msgstr "Votre carte est prête et sa formule est déjà payée, une fois pour toutes. Saisissez le code PIN imprimé au dos de la carte pour commencer."
+
+#~ msgid "A hand holding an AD Graphics business card showing the AD logo, Kofi Adutwum’s name, WhatsApp, Instagram, phone and email"
+#~ msgstr "Une main tenant une carte de visite AD Graphics avec le logo AD, le nom de Kofi Adutwum, WhatsApp, Instagram, le téléphone et l’e-mail"
+
+#~ msgid "Your account is ready. Choose a plan and pay to switch your card on. Its link and QR code stay exactly as printed."
+#~ msgstr "Votre compte est prêt. Choisissez une formule et payez pour activer votre carte. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#~ msgid "The card is now on your account. Choose a plan and pay to switch it on."
+#~ msgstr "La carte est maintenant sur votre compte. Choisissez une formule et payez pour l’activer."
+
+#, python-format
+#~ msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account. If your plan has room it goes live at once; otherwise you choose a plan next. Its link and QR code stay exactly as printed."
+#~ msgstr "Vous êtes connecté en tant que <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte. Si votre formule a de la place, elle est active tout de suite ; sinon, vous choisissez ensuite une formule. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#~ msgid "Add your details and create your account. Next you choose a plan and pay to switch your card on. Your card’s link and QR code stay exactly as printed."
+#~ msgstr "Ajoutez vos coordonnées et créez votre compte. Vous choisirez ensuite une formule et paierez pour activer votre carte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
+
+#, python-format
+#~ msgid "You are signed in as <strong>%(user_email)s</strong>. The card will be added to this account and go live at once with the %(batch_plan_name)s features. Its link and QR code stay exactly as printed."
+#~ msgstr "Vous êtes connecté avec <strong>%(user_email)s</strong>. La carte sera ajoutée à ce compte et mise en ligne immédiatement avec les fonctions %(batch_plan_name)s. Son lien et son code QR restent exactement tels qu’imprimés."
+
+#, python-format
+#~ msgid "This card goes live as soon as you finish, with the %(batch_plan_name)s features and no plan to pay for. Add your details and create your account. Your card’s link and QR code stay exactly as printed."
+#~ msgstr "Cette carte est mise en ligne dès que vous avez terminé, avec les fonctions %(batch_plan_name)s et sans formule à payer. Ajoutez vos informations et créez votre compte. Le lien et le code QR de votre carte restent exactement tels qu’imprimés."
 
 #~ msgid "<strong>Draft for review.</strong> This text follows the business rules in the AD Smart requirements. Have it reviewed by a lawyer before launch, and confirm your Data Protection Commission obligations (SRS PRV-03)."
 #~ msgstr "<strong>Brouillon à relire.</strong> Ce texte suit les règles de gestion du cahier des charges d’AD Smart. Faites-le relire par un juriste avant le lancement et vérifiez vos obligations auprès de la Commission de protection des données (SRS PRV-03)."

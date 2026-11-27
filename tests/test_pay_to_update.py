@@ -64,7 +64,7 @@ class PayToUpdateBase(BusinessBase):
         code = rows[0]["code"]
         self.client.post(f"/c/{code}/claim", {"pin": rows[0]["pin"]})
         with self.captureOnCommitCallbacks(execute=True):
-            self.client.post(f"/c/{code}/claim/setup", BUYER)
+            self.client.post(f"/c/{code}/claim/setup", {**BUYER, "plan": (plan or self.pro).code})
         self.user = User.objects.get(email="ama@example.com")
         if not free_year:
             self.made(code, months=13)
@@ -95,17 +95,16 @@ class BatchRulesTests(PayToUpdateBase):
         with self.assertRaises(ValidationError):
             self.make_batch(self.business, quantity=1)
 
-    def test_staff_form_asks_for_a_plan_and_the_update_price(self):
+    def test_staff_form_asks_for_the_update_price_and_leaves_the_plan_to_the_buyer(self):
         from apps.staff.forms import PremadeBatchForm
 
-        base = {"name": "Pay Later", "quantity": 5, "term": "payupdate", "plan": self.pro.pk}
+        base = {"name": "Pay Later", "quantity": 5, "sold_in": "ghana", "term": "payupdate"}
         form = PremadeBatchForm(base)
         self.assertTrue(form.is_valid(), form.errors)
-        self.assertEqual((form.cleaned_data["price"], form.cleaned_data["update_price"]), (200, 100))
+        self.assertEqual((form.cleaned_data["price"], form.cleaned_data["update_price"], form.cleaned_data["plan"]), (200, 100, None))
         form = PremadeBatchForm({**base, "price": "250", "update_price": "80"})
         self.assertTrue(form.is_valid(), form.errors)
         self.assertEqual((form.cleaned_data["price"], form.cleaned_data["update_price"]), (250, 80))
-        self.assertFalse(PremadeBatchForm({**base, "plan": self.business.pk}).is_valid())
 
 
 class SetUpTests(PayToUpdateBase):
@@ -136,7 +135,7 @@ class SetUpTests(PayToUpdateBase):
         self.client.force_login(owner)
         code = rows[0]["code"]
         self.client.post(f"/c/{code}/claim", {"pin": rows[0]["pin"]})
-        self.client.post(f"/c/{code}/claim/attach")
+        self.client.post(f"/c/{code}/claim/attach", {"plan": "professional"})
         card = Card.objects.get(slug=code)
         self.assertEqual(card.owner_id, owner.pk)
         self.assertTrue(card.is_live)
@@ -642,7 +641,7 @@ class StaffViewTests(PayToUpdateBase):
         self.assertContains(page, "Pay when updating")
         self.assertContains(page, "Update Price")
         detail = self.client.get(f"/staff/premade-cards/{batch.pk}/")
-        self.assertContains(detail, "pay when updating")
+        self.assertContains(detail, "Pay when updating")
         self.assertContains(detail, "Update Price")
 
     def staff_in(self):

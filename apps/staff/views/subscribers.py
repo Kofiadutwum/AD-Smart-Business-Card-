@@ -4,15 +4,17 @@ from datetime import date, timedelta
 
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.db.models import Prefetch, Q
+from django.db.models import BooleanField, Case, Prefetch, Q, Value, When
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from apps.accounts import services as account_services
 from apps.accounts.models import User
-from apps.billing.services import manual_activation
+from apps.billing.services import activate_cards, manual_activation
+from apps.cards import premade
 from apps.cards.models import Card
+from apps.dashboard import updates
 from apps.cards.views import card_context
 from apps.core.emails import send_email, subject_text
 from apps.core.models import AuditLog, SiteSettings
@@ -20,7 +22,7 @@ from apps.core.utils import ghs_to_minor, safe_next
 
 from ..forms import CustomerEmailChangeForm, CustomerPasswordResetForm, ManualActivationForm, ReasonForm
 from ..permissions import can, staff_required
-from ..regions import ONE_TIME_PRICES_FROM, REGIONS, customers_q, update_owners
+from ..regions import REGIONS, customers_q, update_owners
 
 
 def _customers():
@@ -69,8 +71,12 @@ def subscribers(request):
             qs = qs.filter(**{lookup: date.fromisoformat(joined[key])})
         except ValueError:
             joined[key] = ""  # empty or not a date: no filter
+    qs = qs.annotate(**{  # the row label follows the same rules as the filter
+        f"region_{name}": Case(When(customers_q(name), then=Value(True)), default=Value(False), output_field=BooleanField())
+        for name, _label in REGIONS
+    })
     page = Paginator(qs, 30).get_page(request.GET.get("page"))
-    return render(request, "staff/subscribers.html", {"page": page, "q": q, "state": state, "region": region, "regions": REGIONS, "joined": joined, "ghana_before": ONE_TIME_PRICES_FROM})
+    return render(request, "staff/subscribers.html", {"page": page, "q": q, "state": state, "region": region, "regions": REGIONS, "joined": joined})
 
 
 @staff_required("view_subscribers")
@@ -87,6 +93,7 @@ def subscriber(request, pk):
         "reset_form": CustomerPasswordResetForm(auto_id="reset_%s"),
         "email_form": CustomerEmailChangeForm(auto_id="email_%s"),
         "emails": customer.emaillog_set.all()[:15],
+        "plan_choices": premade.choice_plans(),
     }
     if can(request.user, "view_payments"):
         context["payments"] = customer.payments.select_related("plan")[:30]
@@ -100,6 +107,51 @@ def card_preview(request, pk):
     context = card_context(card, request)
     context.update({"demo": True, "staff_preview": True, "state": card.public_state()})
     return render(request, "staff/card_preview.html", context)
+
+
+@staff_required("manual_activation")
+@require_POST
+def change_plan(request, pk):
+    """Move a customer between Basic and Professional. Buyers fix their pick when setting up a pre-made card;
+    staff can still change it. Dates and payments stay as they are."""
+    customer = get_object_or_404(_customers(), pk=pk)
+    plan = next((p for p in premade.choice_plans() if p.code == request.POST.get("plan")), None)
+    if plan is None:
+        messages.error(request, "Choose Basic or Professional.")
+        return redirect("staff:subscriber", pk=pk)
+    subscription = customer.subscription
+    if subscription is not None and subscription.plan.code in premade.PAY_TO_UPDATE_PLANS:
+        before = subscription.plan.code
+        subscription.plan = plan
+        subscription.save()
+        activate_cards(customer, subscription)
+        AuditLog.record(request.user, "customer_plan_changed", customer, before=before, after=plan.code)
+    for card in customer.cards.filter(update_plan__isnull=False, deleted_at__isnull=True).select_related("update_plan"):
+        before = card.update_plan.code
+        card.update_plan = plan
+        card.save(update_fields=["update_plan", "updated_at"])
+        AuditLog.record(request.user, "card_plan_changed", card, before=before, after=plan.code)
+    messages.success(request, f"Now on {plan.name}.")
+    return redirect("staff:subscriber", pk=pk)
+
+
+@staff_required("edit_customer_cards")
+def card_edit(request, pk):
+    """Change a customer's card for them, with the customer's own editor form. A card whose year of changes
+    has ended stays locked for staff too, so the Update Price is never skipped (my default, 27 Nov 2026)."""
+    card = get_object_or_404(
+        Card.objects.select_related("owner"), pk=pk, owner__isnull=False, owner__is_staff=False, deleted_at__isnull=True
+    )
+    form, phones = updates.editor_forms(card, request.POST or None, request.FILES or None)
+    if request.method == "POST" and not card.edit_locked:
+        if form.is_valid() and phones.is_valid():
+            changed = form.changed_data
+            updates.save_editor(card, form, phones)
+            AuditLog.record(request.user, "staff_card_edited", card, fields=changed)
+            messages.success(request, "Card saved. The change is live.")
+            return redirect("staff:subscriber", pk=card.owner_id)
+        messages.error(request, "Some details need fixing. Look for the messages in red.")
+    return render(request, "staff/card_edit.html", {"card": card, "form": form, "phones": phones})
 
 
 @staff_required("manual_activation")

@@ -35,18 +35,27 @@ def batches(request):
                 request.user, name=data["name"], quantity=data["quantity"], plan=data["plan"],
                 price_minor=ghs_to_minor(data["price"]), months=data["months"], note=data["note"],
                 card_only=data["term"] == "cardonly", pay_to_update=data["term"] == "payupdate",
-                update_price_minor=ghs_to_minor(data["update_price"]),
+                update_price_minor=ghs_to_minor(data["update_price"]), in_ghana=data["in_ghana"],
             )
         except ValidationError as exc:
             form.add_error(None, exc)
         else:
             messages.success(request, f"{batch.quantity} cards made. Download the print pack now: the PINs are shown only for 24 hours.")
             return redirect("staff:premade_batch", pk=batch.pk)
+    region = request.GET.get("region", "")
+    batches = PremadeBatch.objects.select_related("plan", "created_by")
+    tabs = [
+        ("", "All", batches.count()),
+        ("ghana", "Ghana", batches.filter(in_ghana=True).count()),
+        ("abroad", "Outside Ghana", batches.filter(in_ghana=False).count()),
+    ]
+    if region in ("ghana", "abroad"):
+        batches = batches.filter(in_ghana=region == "ghana")
     rows = []
-    for batch in PremadeBatch.objects.select_related("plan", "created_by")[:60]:
+    for batch in batches[:60]:
         batch.counts = _counts(batch)
         rows.append(batch)
-    return render(request, "staff/premade.html", {"form": form, "batches": rows})
+    return render(request, "staff/premade.html", {"form": form, "batches": rows, "region": region, "tabs": tabs})
 
 
 @staff_required("premade_cards")

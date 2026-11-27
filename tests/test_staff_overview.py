@@ -148,3 +148,51 @@ class GraphsAndRegionsTests(BaseTest):
         self.assertContains(abroad, "john@example.com")
         self.assertNotContains(abroad, "ama@example.com")
         self.assertContains(self.client.get(url), "Outside Ghana</span>")
+
+
+class PremadeRegionTests(BaseTest):
+    """A pre-made card follows where its batch is sold: its sale, its owner, the card and its update payments."""
+
+    def setUp(self):
+        from apps.cards import premade
+
+        self.boss = User.objects.create_user(email="boss@example.com", password="x", is_staff=True, staff_role="super")
+        self.premade = premade
+        self.abroad = self.sell("pieter@example.com", "+31612345678", in_ghana=False)
+        self.ghana = self.sell("efua@example.com", "+233244123456", in_ghana=True)
+
+    def sell(self, email, phone, in_ghana):
+        """A pay-when-you-update card sold in a shop, set up by its buyer, and one paid change on it."""
+        batch = self.premade.create_batch(
+            self.boss, name="Shop", quantity=1, price_minor=20000, pay_to_update=True, update_price_minor=10000, in_ghana=in_ghana,
+        )
+        item = batch.cards.get()
+        user, card, _sale = self.premade.claim_with_new_account(item.pk, {
+            "full_name": "Buyer", "email": email, "phone": phone, "password": "Str0ng-pass-123", "plan": self.basic,
+        })
+        Payment.objects.create(
+            user=user, card=card, reference=f"ADS-U-{card.pk}", receipt_number=f"ADR-U-{card.pk}",
+            purpose=Payment.PURPOSE_CARD_UPDATE, subtotal_minor=10000, amount_minor=10000, status=Payment.SUCCESS,
+            paid_at=timezone.now() - timedelta(minutes=1),
+        )
+        return user
+
+    def test_sales_and_changes_count_where_the_card_was_sold(self):
+        self.client.force_login(self.boss)
+        charts = {c["id"]: c for c in self.client.get(reverse("staff:home")).context["charts"]}
+        revenue = charts["revenue"]["data"]
+        self.assertEqual([sum(revenue[r]["12m"]["values"]["revenue"]) for r in ("all", "ghana", "abroad")], [60000, 30000, 30000])
+        for region, here, there in (("ghana", self.ghana, self.abroad), ("abroad", self.abroad, self.ghana)):
+            payments = self.client.get(reverse("staff:payments") + f"?region={region}")
+            self.assertEqual(payments.context["totals"]["count"], 2, region)
+            customers = self.client.get(reverse("staff:subscribers") + f"?region={region}")
+            self.assertContains(customers, here.email)
+            self.assertNotContains(customers, there.email)
+            report = self.client.get(reverse("staff:finance_report") + f"?region={region}")
+            self.assertEqual(sum(month["premade"] for _key, month in report.context["rows"]), 20000, region)
+
+    def test_the_customer_list_labels_each_buyer(self):
+        self.client.force_login(self.boss)
+        rows = {u.email: (u.region_ghana, u.region_abroad) for u in self.client.get(reverse("staff:subscribers")).context["page"]}
+        self.assertEqual(rows[self.ghana.email], (True, False))
+        self.assertEqual(rows[self.abroad.email], (False, True))

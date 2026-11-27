@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import admin, auth, content, finance, marketplace, mycard, nfc, overview, premade, subscribers
+from .views import admin, auth, content, finance, inbox, marketplace, mycard, nfc, overview, premade, subscribers
 
 app_name = "staff"
 
@@ -23,7 +23,9 @@ urlpatterns = [
     path("subscribers/<int:pk>/suspend/", subscribers.suspend, name="suspend"),
     path("subscribers/<int:pk>/reset-password/", subscribers.reset_customer_password, name="reset_customer_password"),
     path("subscribers/<int:pk>/change-email/", subscribers.change_customer_email, name="change_customer_email"),
+    path("subscribers/<int:pk>/plan/", subscribers.change_plan, name="change_plan"),
     path("cards/<int:pk>/", subscribers.card_preview, name="card_preview"),
+    path("cards/<int:pk>/edit/", subscribers.card_edit, name="card_edit"),
     path("cards/<int:pk>/suspend/", subscribers.suspend_card, name="suspend_card"),
     # finance
     path("payments/", finance.payments, name="payments"),
@@ -48,6 +50,10 @@ urlpatterns = [
     path("premade-cards/<int:pk>/pack.zip", premade.pack_zip, name="premade_pack_zip"),
     path("premade-cards/<int:pk>/reissue/", premade.reissue, name="premade_reissue"),
     path("premade-cards/cards/<int:pk>/void/", premade.void, name="premade_void"),
+    # messages between admins
+    path("messages/", inbox.inbox, name="messages"),
+    path("messages/new/", inbox.new, name="message_new"),
+    path("messages/<int:pk>/", inbox.thread, name="message"),
     # support, reports, gallery, email
     path("support/", content.support_list, name="support"),
     path("support/<int:pk>/", content.support_detail, name="support_detail"),

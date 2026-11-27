@@ -1,0 +1,24 @@
+{% extends "staff/_shell.html" %}
+{% block main %}
+<div class="page-head">
+  <div><h1>Messages</h1><p>Between admins. You see what was sent to your role, what you wrote and what you answered.</p></div>
+  <div class="cluster"><a class="btn btn--primary" href="{% url 'staff:message_new' %}">{% icon "send" 16 %}New message</a></div>
+</div>
+<div class="table-wrap">
+  <table class="table">
+    <caption class="visually-hidden">Messages between admins</caption>
+    <thead><tr><th>Subject</th><th>About</th><th>Sent to</th><th>Last message</th></tr></thead>
+    <tbody>
+      {% for t in page %}
+        <tr>
+          <td><a href="{% url 'staff:message' t.pk %}">{% if t.pk in unread %}<strong>{{ t.subject }}</strong> <span class="badge badge--accent">New</span>{% else %}{{ t.subject }}{% endif %}</a><br><span class="muted text-xs">{{ t.created_by.display_name|default:"" }}</span></td>
+          <td>{% if t.card %}{{ t.card.full_name }}{% elif t.customer %}{{ t.customer.display_name }}{% else %}<span class="muted">—</span>{% endif %}</td>
+          <td class="text-sm">{% for role in t.role_list %}{% if not forloop.first %}, {% endif %}{% for key, name in role_names.items %}{% if key == role %}{{ name }}{% endif %}{% endfor %}{% endfor %}</td>
+          <td class="nowrap">{{ t.last_message_at|date:"j M Y, H:i" }}</td>
+        </tr>
+      {% empty %}<tr><td colspan="4" class="muted">No messages yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% include "staff/_pagination.html" %}
+{% endblock %}
