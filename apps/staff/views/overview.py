@@ -3,7 +3,6 @@
 import logging
 from collections import defaultdict
 from datetime import date, datetime, time, timedelta
-from datetime import timezone as dt_timezone
 
 from django.db import transaction
 from django.db.models import Count, F, Q, Sum
@@ -47,10 +46,11 @@ STAGE_LISTS = (
 
 def _per_day(queryset, field, since, group=None, total=None):
     """{group value: {day: n}}, counted (or summed) by the database: one row per day and group."""
-    # shortcut: Accra is UTC+0 all year, so a UTC day is an Accra day and MySQL needs no time zone tables; bucket in Python if TIME_ZONE ever moves.
+    # Days in the site's time zone, which is also the database connection's, so MariaDB converts nothing: the live
+    # server has no time zone tables and CONVERT_TZ gives NULL there (a NULL day broke the graphs, 27 Nov 2026).
     rows = (
         queryset.filter(**{f"{field}__gte": since})
-        .annotate(day=TruncDate(field, tzinfo=dt_timezone.utc))
+        .annotate(day=TruncDate(field))
         .values("day", *([group] if group else []))
         .annotate(n=total or Count("pk"))
         .order_by()

@@ -107,19 +107,28 @@ class GraphsAndRegionsTests(BaseTest):
         self.assertContains(response, "The graphs could not load.")
         self.assertContains(response, "Recent registrations")
 
-    def test_everything_before_the_one_time_prices_counts_as_ghana(self):
-        kojo = self.make_user("kojo@example.com", full_name="Kojo Mensah")
-        self.subscribe(kojo, self.pro)  # a yearly plan, bought before one-time prices existed
+    def test_before_the_one_time_prices_only_a_yearly_plan_is_outside_ghana(self):
         before = ONE_TIME_PRICES_FROM - timedelta(days=30)
-        User.objects.filter(pk=kojo.pk).update(date_joined=before)
-        old = self.pay(kojo, 20000)
-        Payment.objects.filter(pk=old.pk).update(created_at=before, paid_at=before)
-        response, charts = self.overview()
+        kojo = self.make_user("kojo@example.com", full_name="Kojo Mensah")  # his plan was moved to paid once
+        plan = self.subscribe(kojo, self.pro)
+        plan.make_paid_once()
+        plan.save()
+        celes = self.make_user("celes@example.com", full_name="Celes D")  # still on a yearly plan
+        self.subscribe(celes, self.pro)
+        for user, amount in ((kojo, 20000), (celes, 3000)):
+            User.objects.filter(pk=user.pk).update(date_joined=before)
+            old = self.pay(user, amount)  # paid before anything was marked paid once
+            Payment.objects.filter(pk=old.pk).update(created_at=before, paid_at=before)
+        _response, charts = self.overview()
         revenue = charts["revenue"]["data"]
-        self.assertEqual([sum(revenue[r]["12m"]["values"]["revenue"]) for r in ("all", "ghana", "abroad")], [85000, 70000, 15000])
+        self.assertEqual([sum(revenue[r]["12m"]["values"]["revenue"]) for r in ("all", "ghana", "abroad")], [88000, 70000, 18000])
         for name in ("staff:subscribers", "staff:payments"):
-            self.assertContains(self.client.get(reverse(name) + "?region=ghana"), "kojo@example.com")
-            self.assertNotContains(self.client.get(reverse(name) + "?region=abroad"), "kojo@example.com")
+            ghana = self.client.get(reverse(name) + "?region=ghana")
+            abroad = self.client.get(reverse(name) + "?region=abroad")
+            self.assertContains(ghana, "kojo@example.com")
+            self.assertNotContains(abroad, "kojo@example.com")
+            self.assertContains(abroad, "celes@example.com")
+            self.assertNotContains(ghana, "celes@example.com")
 
     def test_the_finance_report_is_kept_per_region(self):
         self.client.force_login(self.boss)

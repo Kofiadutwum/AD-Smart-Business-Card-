@@ -35,7 +35,7 @@
         <tr>
           <td><a href="{% url 'staff:subscriber' u.pk %}">{{ u.display_name }}</a><br><span class="muted text-xs">{{ u.email }}</span>{% if u.is_suspended %} <span class="badge badge--danger">Suspended</span>{% endif %}</td>
           <td class="nowrap">{{ u.phone|phone }}</td>
-          <td>{% if s %}{{ s.plan.name }}{% elif uc %}{{ uc.update_plan.name }}{% else %}—{% endif %}{% if s.paid_once or uc or u.date_joined < ghana_before %}<br><span class="muted text-xs">Ghana</span>{% elif s %}<br><span class="muted text-xs">Outside Ghana</span>{% endif %}</td>
+          <td>{% if s %}{{ s.plan.name }}{% elif uc %}{{ uc.update_plan.name }}{% else %}—{% endif %}{% if s.paid_once or uc or not s and u.date_joined < ghana_before %}<br><span class="muted text-xs">Ghana</span>{% elif s %}<br><span class="muted text-xs">Outside Ghana</span>{% endif %}</td>
           <td>{% if not s and uc %}<span class="badge badge--success">Live, pay when updating</span>{% elif not s %}<span class="badge">Draft</span>{% elif s.state == "active" %}<span class="badge badge--success">Active</span>{% elif s.state == "expiring_soon" %}<span class="badge badge--warning">Expiring</span>{% elif s.state == "grace" %}<span class="badge badge--danger">Grace</span>{% else %}<span class="badge">Inactive</span>{% endif %}</td>
           <td class="nowrap">{% if s and s.paid_once %}<span class="muted text-xs">paid once</span>{% elif s %}{{ s.expires_at|date:"j M Y" }}{% elif uc %}<span class="muted text-xs">changes open until</span><br>{{ uc.updates_open_until|date:"j M Y" }}{% else %}—{% endif %}</td>
           <td class="nowrap">{{ u.date_joined|date:"j M Y" }}</td>
